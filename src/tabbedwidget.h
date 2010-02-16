@@ -29,11 +29,21 @@
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
 
+class SourceView;
+class WebViewer;
+
 class TabbedWidget : public QTabWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+
+  private:
+    SourceView* m_sourceView;
+    WebViewer* m_webViewer;
+
+  public Q_SLOTS:
+    void addwWebViewerTab ( WebViewer* view = 0 );
 
   public:
     TabbedWidget ( QWidget * parent = 0 );

@@ -19,37 +19,26 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "tabbedwidget.h"
-#include "sourceview.h"
 #include "webviewer.h"
+#include "viewer.h"
 
-/* QtCore */
-#include <QtCore>
-
-/* QtGui */
-#include <QtGui>
-
-TabbedWidget::TabbedWidget ( QWidget * parent )
+WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
 {
-  setObjectName ( QLatin1String ( "tabbedwidget" ) );
-  setWindowTitle ( trUtf8 ( "Inspector" ) );
-  setTabPosition ( QTabWidget::South );
+  if ( objectName().isEmpty() )
+    setObjectName ( "webviewer" );
 
-  // Show XHTML Source
-  m_sourceView = new SourceView ( this );
-  insertTab ( 0, m_sourceView, trUtf8( "Source" ) );
+  setContentsMargins ( 0, 0, 0, 0 );
 
-  // WebViewer
-  m_webViewer = new WebViewer ( this );
-  insertTab ( 1, m_webViewer, trUtf8( "Browser" ) );
+  m_viewer = new Viewer ( this );
+  addTab ( m_viewer, trUtf8 ( "blank" ) );
 
 }
 
-void TabbedWidget::addwWebViewerTab ( WebViewer* view )
+void WebViewer::addNewViewerTab ( Viewer * )
 {
 }
 
-TabbedWidget::~TabbedWidget()
+WebViewer::~WebViewer()
 {
 }

@@ -19,37 +19,43 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "tabbedwidget.h"
-#include "sourceview.h"
-#include "webviewer.h"
+#ifndef VIEWER_H
+#define VIEWER_H
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QObject>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QWidget>
+#include <QtGui/QTabWidget>
 
-TabbedWidget::TabbedWidget ( QWidget * parent )
-    : QTabWidget ( parent )
+/* QtWebKit */
+#include <QtWebKit/QWebView>
+#include <QtWebKit/QWebHistory>
+#include <QtWebKit/QWebPage>
+
+class Page;
+
+class Viewer : public QWebView
 {
-  setObjectName ( QLatin1String ( "tabbedwidget" ) );
-  setWindowTitle ( trUtf8 ( "Inspector" ) );
-  setTabPosition ( QTabWidget::South );
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  // Show XHTML Source
-  m_sourceView = new SourceView ( this );
-  insertTab ( 0, m_sourceView, trUtf8( "Source" ) );
+  private:
+    Page* m_page;
 
-  // WebViewer
-  m_webViewer = new WebViewer ( this );
-  insertTab ( 1, m_webViewer, trUtf8( "Browser" ) );
+  private Q_SLOTS:
+    void cursorwait ();
+    void cursorFinished ();
 
-}
+  protected:
+    Viewer* createWindow ( QWebPage::WebWindowType );
 
-void TabbedWidget::addwWebViewerTab ( WebViewer* view )
-{
-}
+  public:
+    Viewer ( QWidget * parent = 0 );
+    ~Viewer();
+};
 
-TabbedWidget::~TabbedWidget()
-{
-}
+#endif
