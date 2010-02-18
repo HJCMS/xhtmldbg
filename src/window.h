@@ -57,6 +57,8 @@ class Window : public QMainWindow
     QStatusBar* m_statusBar;
     // Default ToolBar
     QToolBar* m_actionsToolBar;
+    // Settings ToolBar
+    QToolBar* m_settingsToolBar;
     // Address ToolBar
     AddressToolBar* m_addressToolBar;
     // SEO ToolBar
@@ -81,6 +83,8 @@ class Window : public QMainWindow
     QMenu* m_bookmarkMenu;
     // Configuration Menu
     QMenu* m_configurationMenu;
+    QAction* actionTidyConfig;
+    QAction* actionConfigDialog;
     // Central Window Desigen
     QSplitter* m_verticalSplitter;
     // Tab Widget
@@ -93,6 +97,9 @@ class Window : public QMainWindow
 
   protected:
     void closeEvent ( QCloseEvent * );
+
+  public Q_SLOTS:
+    void openTidyConfigApplication();
 
   public:
     Window();

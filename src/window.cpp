@@ -26,7 +26,9 @@
 #include "messanger.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QProcess>
 
 /* QtGui */
 #include <QtGui/QKeySequence>
@@ -146,6 +148,11 @@ void Window::createMenus()
 
   // Configuration Menu
   m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "Configuration" ) );
+  // Action Open qtidyrc
+  actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
+
+  // Action open Configuration Dialog
+  actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
 
   // Help and About Menu
   QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
@@ -167,10 +174,15 @@ void Window::createToolBars()
   m_actionsToolBar->addAction ( actionSaveHtml );
   m_actionsToolBar->addSeparator();
   m_actionsToolBar->addAction ( actionNewEmptyPage );
-//   m_actionsToolBar->addAction ( actionTidyConfig );
   m_actionsToolBar->addSeparator();
   m_actionsToolBar->addAction ( actionParse );
   m_actionsToolBar->addAction ( actionClean );
+
+  // Settings ToolBar
+  m_settingsToolBar = addToolBar ( trUtf8 ( "Settings" ) );
+  m_settingsToolBar->setObjectName ( QLatin1String ( "settingstoolbar" ) );
+  m_settingsToolBar->addAction ( actionTidyConfig );
+  m_settingsToolBar->addAction ( actionConfigDialog );
 
   // Address Input ToolBar
   m_addressToolBar = new AddressToolBar ( m_centralWidget );
@@ -179,6 +191,9 @@ void Window::createToolBars()
   // SEO Input ToolBar
   m_seoToolBar =  new SeoToolBar ( m_centralWidget );
   addToolBar ( m_seoToolBar );
+
+  // Bookmark Toolbar
+  // TODO
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -188,6 +203,11 @@ void Window::closeEvent ( QCloseEvent *event )
   m_settings->setValue ( "VerticalSplitterState", m_verticalSplitter->saveState() );
   m_settings->setValue ( "CurrentTabIndex", m_tabbedWidget->currentIndex() );
   QMainWindow::closeEvent ( event );
+}
+
+void Window::openTidyConfigApplication()
+{
+  QProcess::startDetached ( QString::fromUtf8 ( "qtidyrc" ) );
 }
 
 Window::~Window()

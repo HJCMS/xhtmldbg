@@ -19,35 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef TABBEDWIDGET_H
-#define TABBEDWIDGET_H
+#ifndef LISTLINES_H
+#define LISTLINES_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QList>
 
 /* QtGui */
+#include <QtGui/QFont>
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
+#include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 
-class SourceWidget;
-class WebViewer;
-
-class TabbedWidget : public QTabWidget
+class ListLines : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    SourceWidget* m_sourceWidget;
-    WebViewer* m_webViewer;
+    QListWidget* m_listWidget;
+
+  Q_SIGNALS:
+    void valueChanged ( int );
 
   public Q_SLOTS:
-    void addwWebViewerTab ( WebViewer* view = 0 );
+    void setItems ( const QList<QListWidgetItem*> & );
+    void setValue ( int );
 
   public:
-    TabbedWidget ( QWidget * parent = 0 );
-    ~TabbedWidget();
+    ListLines ( const QFont &font, QWidget * parent = 0 );
+    ~ListLines ();
 };
 
 #endif

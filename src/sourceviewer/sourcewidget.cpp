@@ -1,0 +1,87 @@
+/**
+* This file is part of the QTidy project
+*
+* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Library General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Library General Public License for more details.
+*
+* You should have received a copy of the GNU Library General Public License
+* along with this library; see the file COPYING.LIB.  If not, write to
+* the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301, USA.
+**/
+
+#include "sourcewidget.h"
+#include "sourceview.h"
+#include "listlines.h"
+
+#include <cstdio>
+
+/* QtCore */
+// #include <QtCore>
+#include <QtCore/QList>
+#include <QtCore/QString>
+
+/* QtGui */
+#include <QtGui/QApplication>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QListWidgetItem>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QPalette>
+#include <QtGui/QFrame>
+#include <QtGui/QFont>
+#include <QtGui/QScrollBar>
+
+SourceWidget::SourceWidget ( QWidget * parent )
+    : QWidget ( parent )
+{
+  setObjectName ( QLatin1String ( "sourcewidget" ) );
+  setContentsMargins ( 0, 0, 0, 0 );
+  setBackgroundRole ( QPalette::NoRole );
+
+  QFont font( qApp->font() );
+  font.setPointSize ( 12 );
+  font.setStyleHint ( QFont::Courier, QFont::PreferDefault );
+  font.setFamily ( "Courier" );
+
+  QHBoxLayout* mainLayout = new QHBoxLayout ( this );
+  mainLayout->setContentsMargins ( 0, 0, 0, 0 );
+  mainLayout->setSpacing ( 1 );
+
+  m_listLines = new ListLines ( font, this );
+  mainLayout->addWidget ( m_listLines );
+  mainLayout->setStretchFactor ( m_listLines, 0 );
+
+  m_sourceView = new SourceView ( font, this );
+  m_sourceView->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
+  mainLayout->addWidget ( m_sourceView );
+  mainLayout->setStretchFactor ( m_sourceView, 1 );
+
+  setLayout ( mainLayout );
+
+  connect ( m_sourceView, SIGNAL ( linesChanged ( const QList<QListWidgetItem*> & ) ),
+            m_listLines, SLOT ( setItems ( const QList<QListWidgetItem*> & ) ) );
+
+  connect ( m_sourceView->verticalScrollBar(), SIGNAL ( valueChanged ( int ) ),
+            m_listLines, SLOT ( setValue ( int ) ) );
+
+  connect ( m_listLines, SIGNAL ( valueChanged ( int ) ),
+            m_sourceView->verticalScrollBar(), SLOT ( setValue ( int ) ) );
+
+}
+
+void SourceWidget::setSource ( const QString &source )
+{
+  m_sourceView->setSource ( source );
+}
+
+SourceWidget::~SourceWidget()
+{}

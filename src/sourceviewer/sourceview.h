@@ -10,8 +10,11 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QList>
 
 /* QtGui */
+#include <QtGui/QListWidget>
+#include <QtGui/QFont>
 #include <QtGui/QWidget>
 #include <QtGui/QTextEdit>
 #include <QtGui/QListWidgetItem>
@@ -25,22 +28,25 @@ class SourceView : public QTextEdit
     Q_CLASSINFO ( "URL", "http://qtidy.hjcms.de" )
 
   private:
-    Highlighter *m_highlighter;
-    QString tidyrcFile;
+    Highlighter* m_highlighter;
+    QListWidget* m_listWidget;
 
   private Q_SLOTS:
-    void documentLines();
+    void setLines();
     void updateSelection();
+
+  Q_SIGNALS:
+    void linesChanged ( const QList<QListWidgetItem*> & );
 
   public Q_SLOTS:
     void fetchRow ( QListWidgetItem * );
     void setSource ( const QString & );
-    void saveContent ( const QUrl & );
 
   public:
-    SourceView ( QWidget *parent = 0 );
+    SourceView ( const QFont &font, QWidget *parent = 0 );
     const QString source();
     ~SourceView();
+
 };
 
 #endif

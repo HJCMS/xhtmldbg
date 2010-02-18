@@ -20,7 +20,7 @@
 **/
 
 #include "tabbedwidget.h"
-#include "sourceview.h"
+#include "sourcewidget.h"
 #include "webviewer.h"
 
 /* QtCore */
@@ -37,12 +37,27 @@ TabbedWidget::TabbedWidget ( QWidget * parent )
   setTabPosition ( QTabWidget::South );
 
   // Show XHTML Source
-  m_sourceView = new SourceView ( this );
-  insertTab ( 0, m_sourceView, trUtf8( "Source" ) );
+  m_sourceWidget = new SourceWidget ( this );
+  insertTab ( 0, m_sourceWidget, trUtf8( "Source" ) );
 
   // WebViewer
   m_webViewer = new WebViewer ( this );
   insertTab ( 1, m_webViewer, trUtf8( "Browser" ) );
+
+  // TODO
+  QFile fp ( "/home/heinemann/hjcms/QTidy/tests/in_588061.html" );
+  if ( fp.open ( QFile::ReadOnly ) )
+  {
+    QTextStream rc ( &fp );
+    QByteArray buffer = rc.device()->readAll();
+    fp.close();
+    if ( ! buffer.isEmpty() )
+    {
+      QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
+      QString data = codec->toUnicode ( buffer );
+      m_sourceWidget->setSource( data );
+    }
+  }
 
 }
 

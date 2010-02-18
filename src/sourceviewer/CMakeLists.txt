@@ -1,12 +1,16 @@
 # CMakeLists.txt
 
 SET (sourceview_SOURCES
+  sourcewidget.cpp
   sourceview.cpp
+  listlines.cpp
   highlighter.cpp
 )
 
 SET (sourceview_HEADERS
+  sourcewidget.h
   sourceview.h
+  listlines.h
   highlighter.h
 )
 

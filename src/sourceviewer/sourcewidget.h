@@ -19,35 +19,35 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef TABBEDWIDGET_H
-#define TABBEDWIDGET_H
+#ifndef SOURCEWIDGET_H
+#define SOURCEWIDGET_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 
-class SourceWidget;
-class WebViewer;
+class SourceView;
+class ListLines;
 
-class TabbedWidget : public QTabWidget
+class SourceWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    SourceWidget* m_sourceWidget;
-    WebViewer* m_webViewer;
+    SourceView* m_sourceView;
+    ListLines* m_listLines;
 
   public Q_SLOTS:
-    void addwWebViewerTab ( WebViewer* view = 0 );
+    void setSource ( const QString &source );
 
   public:
-    TabbedWidget ( QWidget * parent = 0 );
-    ~TabbedWidget();
+    SourceWidget ( QWidget * parent = 0 );
+    ~SourceWidget();
 };
 
 #endif
