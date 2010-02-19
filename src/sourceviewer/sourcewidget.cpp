@@ -47,7 +47,7 @@ SourceWidget::SourceWidget ( QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setBackgroundRole ( QPalette::NoRole );
 
-  QFont font( qApp->font() );
+  QFont font ( qApp->font() );
   font.setPointSize ( 12 );
   font.setStyleHint ( QFont::Courier, QFont::PreferDefault );
   font.setFamily ( "Courier" );
@@ -67,9 +67,18 @@ SourceWidget::SourceWidget ( QWidget * parent )
 
   setLayout ( mainLayout );
 
-  connect ( m_sourceView, SIGNAL ( linesChanged ( const QList<QListWidgetItem*> & ) ),
+  // Add Line Numbers
+  connect ( m_sourceView, SIGNAL ( textChanged ( const QList<QListWidgetItem*> & ) ),
             m_listLines, SLOT ( setItems ( const QList<QListWidgetItem*> & ) ) );
 
+  // a cursor position hase changed
+  connect ( m_sourceView, SIGNAL ( lineChanged ( int ) ),
+            m_listLines, SLOT ( setCurrentRow ( int ) ) );
+
+  connect ( m_listLines, SIGNAL ( currentRowChanged ( int ) ),
+            m_sourceView, SLOT ( setCursorToRow ( int ) ) );
+
+  // Sync ScrollBars
   connect ( m_sourceView->verticalScrollBar(), SIGNAL ( valueChanged ( int ) ),
             m_listLines, SLOT ( setValue ( int ) ) );
 

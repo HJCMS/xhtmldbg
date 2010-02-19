@@ -51,7 +51,6 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
 
   m_listWidget->setSizePolicy ( QSizePolicy::Minimum, QSizePolicy::Expanding );
   m_listWidget->setFrameStyle ( QFrame::NoFrame );
-  m_listWidget->setSelectionMode ( QAbstractItemView::NoSelection );
   m_listWidget->setAutoScroll ( false );
   m_listWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
   m_listWidget->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
@@ -67,11 +66,18 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
 
   connect ( m_listWidget->verticalScrollBar (), SIGNAL ( valueChanged ( int ) ),
             this, SIGNAL ( valueChanged ( int ) ) );
+
+  connect ( m_listWidget, SIGNAL ( currentRowChanged ( int ) ),
+            this, SIGNAL ( currentRowChanged ( int ) ) );
 }
 
-void ListLines::setValue ( int i )
+void ListLines::setCurrentRow ( int r )
 {
-  m_listWidget->verticalScrollBar ()->setValue ( i );
+  /* NOTE Block Signals an didn't send currentRowChanged 
+  * if User hase selected by TextEdit */
+  blockSignals ( true );
+  m_listWidget->setCurrentRow ( r );
+  blockSignals ( false );
 }
 
 void ListLines::setItems ( const QList<QListWidgetItem*> &list )
@@ -88,6 +94,11 @@ void ListLines::setItems ( const QList<QListWidgetItem*> &list )
         setMaximumWidth ( i->font().weight() );
     }
   }
+}
+
+void ListLines::setValue ( int i )
+{
+  m_listWidget->verticalScrollBar ()->setValue ( i );
 }
 
 ListLines::~ListLines ()

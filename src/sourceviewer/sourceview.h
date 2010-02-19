@@ -17,6 +17,7 @@
 #include <QtGui/QFont>
 #include <QtGui/QWidget>
 #include <QtGui/QTextEdit>
+#include <QtGui/QTextCursor>
 #include <QtGui/QListWidgetItem>
 
 class Highlighter;
@@ -30,17 +31,20 @@ class SourceView : public QTextEdit
   private:
     Highlighter* m_highlighter;
     QListWidget* m_listWidget;
+    bool setBlockWithNumber ( int );
 
   private Q_SLOTS:
     void setLines();
-    void updateSelection();
+    void cursorPosChanged();
 
   Q_SIGNALS:
-    void linesChanged ( const QList<QListWidgetItem*> & );
+    void textChanged ( const QList<QListWidgetItem*> & );
+    void lineChanged ( int );
 
   public Q_SLOTS:
     void fetchRow ( QListWidgetItem * );
     void setSource ( const QString & );
+    void setCursorToRow ( int );
 
   public:
     SourceView ( const QFont &font, QWidget *parent = 0 );

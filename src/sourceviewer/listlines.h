@@ -43,8 +43,10 @@ class ListLines : public QWidget
 
   Q_SIGNALS:
     void valueChanged ( int );
+    void currentRowChanged ( int );
 
   public Q_SLOTS:
+    void setCurrentRow ( int );
     void setItems ( const QList<QListWidgetItem*> & );
     void setValue ( int );
 

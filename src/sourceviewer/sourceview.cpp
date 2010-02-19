@@ -18,6 +18,7 @@
 /* QtGui */
 #include <QtGui/QApplication>
 #include <QtGui/QBitmap>
+#include <QtGui/QBrush>
 #include <QtGui/QCursor>
 #include <QtGui/QColor>
 #include <QtGui/QPalette>
@@ -48,17 +49,39 @@ SourceView::SourceView ( const QFont &font, QWidget *parent )
   m_highlighter = new Highlighter ( document() );
 
   connect ( this, SIGNAL ( cursorPositionChanged() ),
-            this, SLOT ( updateSelection() ) );
+            this, SLOT ( cursorPosChanged () ) );
 
   connect ( this, SIGNAL ( textChanged() ),
             this, SLOT ( setLines() ) );
+}
+
+bool SourceView::setBlockWithNumber ( int n )
+{
+  QTextBlock block = document()->findBlockByLineNumber ( n );
+  if ( block.isValid() )
+  {
+    /* NOTE Block Signals an didn't send cursorPositionChanged */
+    blockSignals ( true );
+    QString txt = block.text();
+    scrollToAnchor ( txt );
+    setVisible ( true );
+
+    setFocus ( Qt::ActiveWindowFocusReason );
+
+    QTextCursor cur = textCursor();
+    cur.setPosition ( block.position() );
+    setTextCursor ( cur );
+    blockSignals ( false );
+    return true;
+  }
+  return false;
 }
 
 void SourceView::setLines()
 {
   int height = cursorRect().height();
   QList<QListWidgetItem*> list;
-  int r = document()->blockCount();
+  int r = document()->lineCount();
   if ( r >= 1 )
   {
     int f = QString::number ( r ).length();
@@ -69,13 +92,14 @@ void SourceView::setLines()
       item->setSizeHint ( QSize ( item->font().weight(), height ) );
       list << item;
     }
-    emit linesChanged ( list );
+    emit textChanged ( list );
   }
 }
 
-void SourceView::updateSelection()
+void SourceView::cursorPosChanged()
 {
   setCursorWidth ( 1 );
+  emit lineChanged ( textCursor().blockNumber() );
 }
 
 void SourceView::fetchRow ( QListWidgetItem *item )
@@ -86,28 +110,18 @@ void SourceView::fetchRow ( QListWidgetItem *item )
   if ( row < 1 )
     return;
 
-  QTextCursor cur = textCursor();
-  if ( cur.hasSelection() )
-  {
-    cur.clearSelection();
-    cur.setPosition ( 1 );
-    setTextCursor ( cur );
-  }
-
-  setFocus ( Qt::MouseFocusReason );
-
-  QTextBlock block = document()->findBlockByLineNumber ( ( row - 1 ) );
-  if ( block.isValid() )
-  {
-    QString txt = block.text();
-    scrollToAnchor ( txt );
-    find ( txt );
-  }
+  if( setBlockWithNumber ( ( row - 1 ) ) )
+    qDebug() << Q_FUNC_INFO << "TODO find() Function";
 }
 
 void SourceView::setSource ( const QString &html )
 {
   setPlainText ( html );
+}
+
+void SourceView::setCursorToRow ( int row )
+{
+  setBlockWithNumber ( row );
 }
 
 const QString SourceView::source()
