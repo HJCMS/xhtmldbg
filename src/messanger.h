@@ -26,14 +26,23 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QDockWidget>
 #include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
+#include <QtGui/QIcon>
 
-class Messanger : public QListWidget
+class Messanger : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+
+  private:
+    QListWidget* m_listWidget;
+    const QIcon iconNotice;
+    const QIcon iconWarning;
+    const QIcon iconCritical;
 
   public:
     Messanger ( QWidget * parent = 0 );

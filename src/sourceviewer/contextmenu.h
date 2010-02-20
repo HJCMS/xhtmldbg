@@ -19,33 +19,49 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "messanger.h"
+#ifndef CONTEXTMENU_H
+#define CONTEXTMENU_H
 
 /* QtCore */
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
+#include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QAction>
+#include <QtGui/QMenu>
+#include <QtGui/QWidget>
 
-Messanger::Messanger ( QWidget * parent )
-    : QDockWidget ( parent )
-    , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
-    , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
-    , iconCritical ( QString::fromUtf8 ( ":/icons/critical.png" ) )
+class ContextMenu : public QMenu
 {
-  setObjectName ( "messanger" );
-  setWindowTitle ( trUtf8 ( "Messages" ) );
-  setStatusTip ( trUtf8 ( "Display XHTML/JavaScript and CSS Debugging Messages" ) );
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  m_listWidget = new QListWidget ( this );
+  private:
+    // Debugger Actions
+    QAction* act_check;
+    QAction* act_format;
+    // Document Menu
+    QMenu* m_documentMenu;
+    QAction* act_save;
+    QAction* act_print;
+    // Viewer Menu
+    QMenu* m_viewMenu;
+    // Viewer Actions
+    QAction* act_wrap;
 
-  QString startupMessage = trUtf8 ( "XHTMLDBG started Normaly. Waiting for Actions..." );
-  m_listWidget->addItem ( new QListWidgetItem ( iconNotice, startupMessage ) );
+  Q_SIGNALS:
+    // Debugger Signals
+    void sscheck();
+    void sformat();
+    // Document Signals
+    void ssave();
+    void sprint();
+    // Viewer Signals
+    void swrap();
 
-  setWidget ( m_listWidget );
-}
+  public:
+    ContextMenu ( QWidget * parent = 0 );
+    ~ContextMenu();
+};
 
-Messanger::~Messanger()
-{
-}
+#endif

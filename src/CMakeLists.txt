@@ -43,15 +43,11 @@ QT4_WRAP_CPP (xhtmldbg_MOC ${xhtmldbg_HEADERS})
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
 
-## FIXME add_custom_command doesn't override OPTIONS to rcc command !!!
-# SET (qrc_rcresource qrc_xhtmldbgresource.cxx)
-# ADD_CUSTOM_COMMAND (OUTPUT ${qrc_rcresource}
-#   COMMAND ${QT_RCC_EXECUTABLE} ARGS -name xhtmldbgresource -o ${qrc_rcresource} ${XHTMLDBG_RESOURCE_FILE}
-#   DEPENDS debuggerapplication.cpp
-# )
+QT4_ADD_RESOURCES (xhtmldbg_RESRC xhtmldbg.qrc)
 
 ADD_EXECUTABLE (xhtmldbg
   ${qrc_rcresource}
+  ${xhtmldbg_RESRC}
   ${xhtmldbg_MOC}
   ${xhtmldbg_UI}
   ${xhtmldbg_HEADERS}

@@ -40,6 +40,7 @@ Window::Window() : QMainWindow()
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
   setObjectName ( "xhtmldbgwindow" );
+  setWindowIcon ( QIcon( QString::fromUtf8( ":/icons/qtidy.png" ) ) );
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
@@ -51,29 +52,22 @@ Window::Window() : QMainWindow()
   m_statusBar = statusBar();
   m_statusBar->setSizeGripEnabled ( true );
 
-  // Vertical Splitter
-  m_verticalSplitter = new QSplitter ( Qt::Vertical, m_centralWidget );
-  m_verticalSplitter->setObjectName ( "verticalsplitter" );
-  m_verticalSplitter->setHandleWidth ( 10 );
-
   // Tabbed Widget
-  m_tabbedWidget = new TabbedWidget ( m_verticalSplitter );
-  m_verticalSplitter->insertWidget ( 0, m_tabbedWidget );
+  m_tabbedWidget = new TabbedWidget ( m_centralWidget );
 
-  // XHTML / JavaScript Messanger Widget
-  m_messanger = new Messanger ( m_verticalSplitter );
-  m_verticalSplitter->insertWidget ( 1, m_messanger );
+  // XHTML & JavaScript Messanger DockWidget
+  m_messanger = new Messanger ( m_centralWidget );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
 
   // finalize WindowDesign
   createMenus();
   createToolBars();
-  setCentralWidget ( m_verticalSplitter );
+  setCentralWidget ( m_tabbedWidget );
 
   // Load Settings
   m_tabbedWidget->setCurrentIndex ( m_settings->value ( "CurrentTabIndex", 0 ).toUInt() );
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
-  m_verticalSplitter->restoreState ( m_settings->value ( "VerticalSplitterState" ).toByteArray() );
 
   update();
 }
@@ -214,7 +208,6 @@ void Window::closeEvent ( QCloseEvent *event )
 {
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
-  m_settings->setValue ( "VerticalSplitterState", m_verticalSplitter->saveState() );
   m_settings->setValue ( "CurrentTabIndex", m_tabbedWidget->currentIndex() );
   QMainWindow::closeEvent ( event );
 }

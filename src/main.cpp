@@ -41,6 +41,7 @@ Application::Application ( int &argc, char **argv )
     , m_server ( 0 )
 {
   setObjectName ( "Application" );
+  Q_INIT_RESOURCE ( xhtmldbg );
   // Setting Default Application Properties
   setGraphicsSystem ( QLatin1String ( "native" ) );
   QIcon::setThemeName ( "oxygen" );

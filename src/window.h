@@ -32,7 +32,6 @@
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
-#include <QtGui/QSplitter>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
@@ -84,8 +83,6 @@ class Window : public QMainWindow
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;
     QAction* actionConfigDialog;
-    // Central Window Desigen
-    QSplitter* m_verticalSplitter;
     // Tab Widget
     TabbedWidget* m_tabbedWidget;
     // Messanger
