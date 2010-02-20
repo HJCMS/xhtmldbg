@@ -67,7 +67,6 @@ class Window : public QMainWindow
     QMenu* m_applicationMenu;
     QAction* actionOpenUrl;
     QAction* actionOpenHtml;
-    QAction* actionSaveHtml;
     QAction* actionQuit;
     // Debugger Menu
     QMenu* m_debuggerMenu;

@@ -5,6 +5,7 @@ SET (sourceview_SOURCES
   sourceview.cpp
   listlines.cpp
   highlighter.cpp
+  contextmenu.cpp
 )
 
 SET (sourceview_HEADERS
@@ -12,6 +13,7 @@ SET (sourceview_HEADERS
   sourceview.h
   listlines.h
   highlighter.h
+  contextmenu.h
 )
 
 QT4_WRAP_CPP (sourceview_MOC ${sourceview_HEADERS})

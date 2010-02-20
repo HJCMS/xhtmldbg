@@ -22,18 +22,29 @@
 #include "main.h"
 
 #include <cstdlib>
+
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QFile>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QString>
 #include <QtCore/QTranslator>
+
+/* QtGui */
+#include <QtGui/QIcon>
 
 Application::Application ( int &argc, char **argv )
     : QApplication ( argc, argv, true )
     , m_server ( 0 )
 {
   setObjectName ( "Application" );
+  // Setting Default Application Properties
+  setGraphicsSystem ( QLatin1String ( "native" ) );
+  QIcon::setThemeName ( "oxygen" );
+  setAttribute ( Qt::AA_DontShowIconsInMenus, false );
 }
 
 void Application::newConnection()

@@ -27,6 +27,7 @@
 
 /* QtCore */
 #include <QtCore/QString>
+#include <QtCore/QDebug>
 #include <QtCore/QStringList>
 #include <QtCore/QProcess>
 
@@ -39,7 +40,6 @@ Window::Window()
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
   setObjectName ( "xhtmldbgwindow" );
-
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
@@ -100,11 +100,6 @@ void Window::createMenus()
   actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
 
-  // Action Save Source to ...
-  actionSaveHtml = m_applicationMenu->addAction ( trUtf8 ( "Save Html Source" ) );
-  actionSaveHtml->setStatusTip ( trUtf8 ( "Save Html Source to ..." ) );
-  actionSaveHtml->setShortcut ( Qt::CTRL + Qt::Key_S );
-
   // Action Application Exit
   actionQuit = m_applicationMenu->addAction ( trUtf8 ( "Quit" ) );
   actionQuit->setStatusTip ( trUtf8 ( "Close Debugger" ) );
@@ -118,10 +113,12 @@ void Window::createMenus()
   // Action Parse Document Source
   actionParse = m_debuggerMenu->addAction ( trUtf8 ( "Parse" ) );
   actionParse->setStatusTip ( trUtf8 ( "Parse current Document Source" ) );
+  actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
 
   // Action Prepare and Format Document Source
   actionClean = m_debuggerMenu->addAction ( trUtf8 ( "Format" ) );
   actionClean->setStatusTip ( trUtf8 ( "Prepare and Format Document Source" ) );
+  actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
 
   // Viewer Menu
   m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "Browser" ) );
@@ -171,7 +168,6 @@ void Window::createToolBars()
   m_actionsToolBar->setObjectName ( QLatin1String ( "actionstoolbar" ) );
   m_actionsToolBar->addAction ( actionOpenUrl );
   m_actionsToolBar->addAction ( actionOpenHtml );
-  m_actionsToolBar->addAction ( actionSaveHtml );
   m_actionsToolBar->addSeparator();
   m_actionsToolBar->addAction ( actionNewEmptyPage );
   m_actionsToolBar->addSeparator();
