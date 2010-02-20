@@ -32,10 +32,10 @@
 #include <QtCore/QProcess>
 
 /* QtGui */
+#include <QtGui/QIcon>
 #include <QtGui/QKeySequence>
 
-Window::Window()
-    : QMainWindow()
+Window::Window() : QMainWindow()
 {
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
@@ -46,12 +46,6 @@ Window::Window()
 
   // init central Design Widget
   m_centralWidget = centralWidget ();
-
-  //MenuBar
-  createMenus();
-
-  // Toolbars
-  createToolBars();
 
   // StatusBar
   m_statusBar = statusBar();
@@ -70,7 +64,9 @@ Window::Window()
   m_messanger = new Messanger ( m_verticalSplitter );
   m_verticalSplitter->insertWidget ( 1, m_messanger );
 
-  // finalize central Design
+  // finalize WindowDesign
+  createMenus();
+  createToolBars();
   setCentralWidget ( m_verticalSplitter );
 
   // Load Settings
@@ -86,6 +82,8 @@ void Window::createMenus()
 {
   m_menuBar = menuBar ();
 
+  QIcon icon;
+
   // Main Menu
   m_applicationMenu = m_menuBar->addMenu ( trUtf8 ( "Application" ) );
   m_applicationMenu ->setObjectName ( QLatin1String ( "applicationmenu" ) );
@@ -94,17 +92,20 @@ void Window::createMenus()
   actionOpenUrl = m_applicationMenu->addAction ( trUtf8 ( "Open Url" ) );
   actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::Key_U );
+  actionOpenUrl->setIcon ( icon.fromTheme ( QLatin1String ( "document-open-remote" ) ) );
 
   // Action Open File from Location
   actionOpenHtml = m_applicationMenu->addAction ( trUtf8 ( "Open Html File" ) );
   actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
+  actionOpenHtml->setIcon ( icon.fromTheme ( QLatin1String ( "document-open" ) ) );
 
   // Action Application Exit
   actionQuit = m_applicationMenu->addAction ( trUtf8 ( "Quit" ) );
   actionQuit->setStatusTip ( trUtf8 ( "Close Debugger" ) );
   actionQuit->setShortcut ( Qt::CTRL + Qt::Key_Q );
   actionQuit->setMenuRole ( QAction::QuitRole );
+  actionQuit->setIcon ( icon.fromTheme ( QLatin1String ( "application-exit" ) ) );
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
 
   // Debugger Menu
@@ -114,11 +115,15 @@ void Window::createMenus()
   actionParse = m_debuggerMenu->addAction ( trUtf8 ( "Parse" ) );
   actionParse->setStatusTip ( trUtf8 ( "Parse current Document Source" ) );
   actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
+  actionParse->setIcon ( icon.fromTheme ( QLatin1String ( "document-edit-verify" ) ) );
+  connect ( actionParse, SIGNAL ( triggered() ), m_tabbedWidget, SLOT ( check() ) );
 
   // Action Prepare and Format Document Source
   actionClean = m_debuggerMenu->addAction ( trUtf8 ( "Format" ) );
   actionClean->setStatusTip ( trUtf8 ( "Prepare and Format Document Source" ) );
   actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
+  actionClean->setIcon ( icon.fromTheme ( QLatin1String ( "format-list-ordered" ) ) );
+  connect ( actionClean, SIGNAL ( triggered() ), m_tabbedWidget, SLOT ( format() ) );
 
   // Viewer Menu
   m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "Browser" ) );
@@ -126,19 +131,23 @@ void Window::createMenus()
   // Action WebView Reload
   actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
+  actionPageReload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
 
   // Action WebView Back
   actionPageBack = m_viewMenu->addAction ( trUtf8 ( "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
+  actionPageBack->setIcon ( icon.fromTheme ( QLatin1String ( "go-previous-view-page" ) ) );
 
   // Action WebView Forward
   actionPageForward = m_viewMenu->addAction ( trUtf8 ( "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
+  actionPageForward->setIcon ( icon.fromTheme ( QLatin1String ( "go-next-view-page" ) ) );
 
   // New Empty WebView
   actionNewEmptyPage = m_viewMenu->addAction ( trUtf8 ( "New Page" ) );
   actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
+  actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
 
   // Bookmark Menu
   m_bookmarkMenu = m_menuBar->addMenu ( trUtf8 ( "Bookmark" ) );
@@ -147,16 +156,20 @@ void Window::createMenus()
   m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "Configuration" ) );
   // Action Open qtidyrc
   actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
+  actionTidyConfig->setIcon ( icon.fromTheme ( QLatin1String ( "configure-toolbars" ) ) );
 
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
+  actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
 
   // Help and About Menu
   QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
   QAction* actionAboutQt = m_aboutMenu->addAction ( trUtf8 ( "about Qt" ) );
+  actionAboutQt->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutQt->setMenuRole ( QAction::AboutQtRole );
 
   QAction* actionAboutHJCMS = m_aboutMenu->addAction ( trUtf8 ( "about hjcms" ) );
+  actionAboutHJCMS->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
 
 }
@@ -182,6 +195,11 @@ void Window::createToolBars()
 
   // Address Input ToolBar
   m_addressToolBar = new AddressToolBar ( m_centralWidget );
+  connect( m_tabbedWidget, SIGNAL ( loadUrl ( const QUrl & ) ),
+           m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
+  connect( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
+           m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+
   addToolBar ( m_addressToolBar );
 
   // SEO Input ToolBar

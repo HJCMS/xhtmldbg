@@ -44,6 +44,8 @@ class SourceWidget : public QWidget
 
   public Q_SLOTS:
     void setSource ( const QString &source );
+    void check();
+    void format();
 
   public:
     SourceWidget ( QWidget * parent = 0 );

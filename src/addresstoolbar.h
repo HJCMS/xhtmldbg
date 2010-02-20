@@ -45,11 +45,10 @@ class AddressToolBar : public QToolBar
     void checkInput();
 
   Q_SIGNALS:
-    void updated ();
-    void changed ( const QUrl & );
+    void urlChanged ( const QUrl & );
 
   public Q_SLOTS:
-    void setAddress ( const QString &, const QUrl & );
+    void setUrl ( const QUrl & );
 
   public:
     AddressToolBar ( QWidget * parent = 0 );

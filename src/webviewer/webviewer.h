@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QWidget>
@@ -44,9 +45,17 @@ class WebViewer : public QTabWidget
 
   private:
     Viewer* m_viewer;
+    Viewer* activePage();
+
+  private Q_SLOTS:
+    void updateTabTitle ( const QString & );
+
+  Q_SIGNALS:
+    void urlChanged ( const QUrl & );
 
   public Q_SLOTS:
     void addNewViewerTab ( Viewer * );
+    void setUrl ( const QUrl & );
 
   public:
     WebViewer ( QWidget * parent = 0 );

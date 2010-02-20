@@ -13,6 +13,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QAction>
 #include <QtGui/QClipboard>
+#include <QtGui/QIcon>
 
 Page::Page ( QObject * parent )
     : QWebPage ( parent )
@@ -23,19 +24,13 @@ Page::Page ( QObject * parent )
   action ( QWebPage::Back )->setShortcut ( QKeySequence::Back );
   action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
   action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
-//   action ( QWebPage::Copy )->setIcon ( ::getIcon ( "edit-copy" ) );
-//   action ( QWebPage::OpenLink )->setIcon ( ::getIcon ( "emblem-link" ) );
-//   action ( QWebPage::OpenLinkInNewWindow )->setIcon ( ::getIcon ( "window-new" ) );
-//   action ( QWebPage::DownloadLinkToDisk )->setIcon ( ::getIcon ( "folder-downloads" ) );
-//   action ( QWebPage::CopyLinkToClipboard )->setIcon ( ::getIcon ( "edit-copy" ) );
 
-  connect ( this, SIGNAL ( selectionChanged() ),
-            this, SLOT ( triggerSelections() ) );
+  connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
 }
 
 void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
 {
-  qDebug() << Q_FUNC_INFO << m << " Line:" << id;
+  qDebug() << Q_FUNC_INFO << "TODO:" << m << " Line:" << id;
 }
 
 void Page::triggerSelections()

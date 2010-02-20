@@ -31,6 +31,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QCompleter>
+#include <QtGui/QIcon>
 
 AddressToolBar::AddressToolBar ( QWidget * parent )
     : QToolBar ( parent )
@@ -40,6 +41,8 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
   setOrientation ( Qt::Horizontal );
   setAllowedAreas ( Qt::TopToolBarArea | Qt::BottomToolBarArea );
   setMinimumWidth ( 350 );
+
+  QIcon icon;
 
   QLabel *label = new QLabel ( trUtf8 ( "Address:" ), this );
   label->setContentsMargins ( 5, 0, 5, 0 );
@@ -56,22 +59,15 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
   addWidget ( m_lineEdit );
 
   QAction *cb = addAction ( trUtf8 ( "Clear" ) );
+  cb->setIcon( icon.fromTheme ( QLatin1String( "edit-clear-locationbar-rtl" ) ) );
 
   connect ( m_lineEdit, SIGNAL ( returnPressed () ), this, SLOT ( checkInput () ) );
   connect ( cb, SIGNAL ( triggered() ), m_lineEdit, SLOT ( clear() ) );
 }
 
-void AddressToolBar::setAddress ( const QString &html, const QUrl &url )
+void AddressToolBar::setUrl ( const QUrl &url )
 {
-  Q_UNUSED ( html )
   m_lineEdit->setText ( url.toString() );
-  if ( !url.isValid() || url.isRelative() )
-    return;
-
-  if ( !url.scheme().contains ( "http" ) )
-    return;
-
-  emit updated ();
 }
 
 void AddressToolBar::checkInput ()
@@ -83,7 +79,7 @@ void AddressToolBar::checkInput ()
   if ( !url.scheme().contains ( "http" ) )
     return;
 
-  emit changed ( url );
+  emit urlChanged ( url );
 }
 
 AddressToolBar::~AddressToolBar()

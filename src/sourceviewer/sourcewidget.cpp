@@ -92,5 +92,15 @@ void SourceWidget::setSource ( const QString &source )
   m_sourceView->setSource ( source );
 }
 
+void SourceWidget::check()
+{
+  m_sourceView->checkSource();
+}
+
+void SourceWidget::format()
+{
+  m_sourceView->formatSource();
+}
+
 SourceWidget::~SourceWidget()
 {}

@@ -55,7 +55,9 @@ void Viewer::cursorFinished ()
 
 Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 {
-  Q_UNUSED ( t )
+  if ( QWebPage::WebModalDialog == t )
+    return this;
+
   QObject* w = this->parent();
   while ( w )
   {

@@ -38,11 +38,11 @@ TabbedWidget::TabbedWidget ( QWidget * parent )
 
   // Show XHTML Source
   m_sourceWidget = new SourceWidget ( this );
-  insertTab ( 0, m_sourceWidget, trUtf8( "Source" ) );
+  insertTab ( 0, m_sourceWidget, trUtf8 ( "Source" ) );
 
   // WebViewer
   m_webViewer = new WebViewer ( this );
-  insertTab ( 1, m_webViewer, trUtf8( "Browser" ) );
+  insertTab ( 1, m_webViewer, trUtf8 ( "Browser" ) );
 
   // TODO
   QFile fp ( "/home/heinemann/hjcms/QTidy/tests/in_588061.html" );
@@ -55,14 +55,31 @@ TabbedWidget::TabbedWidget ( QWidget * parent )
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
       QString data = codec->toUnicode ( buffer );
-      m_sourceWidget->setSource( data );
+      m_sourceWidget->setSource ( data );
     }
   }
 
+  connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
+            this, SIGNAL ( loadUrl ( const QUrl & ) ) );
 }
 
 void TabbedWidget::addwWebViewerTab ( WebViewer* view )
 {
+}
+
+void TabbedWidget::check()
+{
+  m_sourceWidget->check();
+}
+
+void TabbedWidget::format()
+{
+  m_sourceWidget->format();
+}
+
+void TabbedWidget::setUrl ( const QUrl &url )
+{
+  m_webViewer->setUrl ( url );
 }
 
 TabbedWidget::~TabbedWidget()

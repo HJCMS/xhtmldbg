@@ -31,6 +31,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QPushButton>
+#include <QtGui/QIcon>
 
 SeoToolBar::SeoToolBar ( QWidget * parent )
     : QToolBar ( parent )
@@ -42,6 +43,8 @@ SeoToolBar::SeoToolBar ( QWidget * parent )
   setAllowedAreas ( ( Qt::TopToolBarArea | Qt::BottomToolBarArea ) );
   layout()->setSpacing ( 5 );
 
+  QIcon icon;
+
   QLabel* m_label = new QLabel ( trUtf8 ( "SEO:" ), this );
   m_label->setToolTip ( trUtf8 ( "Search Engine Optimisation (SEO)" ) );
   m_label->setContentsMargins ( 5, 0, 5, 0 );
@@ -52,8 +55,10 @@ SeoToolBar::SeoToolBar ( QWidget * parent )
   addWidget ( m_lineEdit );
 
   QAction *cb = addAction ( trUtf8 ( "Clear" ) );
+  cb->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
 
   actionFind = addAction ( trUtf8 ( "Keywords" ) );
+  actionFind->setIcon ( icon.fromTheme ( QLatin1String ( "edit-find" ) ) );
 
   connect ( m_lineEdit, SIGNAL ( returnPressed() ), this, SLOT ( setSignal() ) );
   connect ( cb, SIGNAL ( triggered() ), m_lineEdit, SLOT ( clear() ) );

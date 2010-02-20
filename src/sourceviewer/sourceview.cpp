@@ -36,6 +36,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QBitmap>
 #include <QtGui/QBrush>
+#include <QtGui/QClipboard>
 #include <QtGui/QCursor>
 #include <QtGui/QColor>
 #include <QtGui/QPalette>
@@ -78,6 +79,7 @@ SourceView::SourceView ( const QFont &font, QWidget *parent )
 
   m_highlighter = new Highlighter ( document() );
 
+  // FIXME Shortcuts from ContextMenu didn't work ???
   // Save ShortCut
   QShortcut* sc_save = new QShortcut( this );
   sc_save->setKey( QKeySequence( QKeySequence::Save ) );
@@ -181,6 +183,12 @@ void SourceView::checkSource()
 void SourceView::formatSource()
 {
   qDebug() << Q_FUNC_INFO << "TODO";
+}
+
+/** Verwende Unix Clipboard bei jeder Selektierungs Aktion */
+void SourceView::Clipboard()
+{
+  setEnabled ( ! QApplication::clipboard()->text().isEmpty() );
 }
 
 void SourceView::contextMenuEvent ( QContextMenuEvent *e )

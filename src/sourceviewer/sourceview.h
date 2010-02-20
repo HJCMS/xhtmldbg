@@ -58,10 +58,7 @@ class SourceView : public QTextEdit
     void setLines();
     void cursorPosChanged();
     void swapWordWrap();
-    void saveSource();
-    void printSource();
-    void checkSource();
-    void formatSource();
+    virtual void Clipboard();
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
@@ -74,6 +71,10 @@ class SourceView : public QTextEdit
     void fetchRow ( QListWidgetItem * );
     void setSource ( const QString & );
     void setCursorToRow ( int );
+    void saveSource();
+    void printSource();
+    void checkSource();
+    void formatSource();
 
   public:
     SourceView ( const QFont &font, QWidget *parent = 0 );

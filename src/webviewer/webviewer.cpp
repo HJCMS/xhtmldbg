@@ -33,10 +33,64 @@ WebViewer::WebViewer ( QWidget * parent )
   m_viewer = new Viewer ( this );
   addTab ( m_viewer, trUtf8 ( "blank" ) );
 
+  connect ( m_viewer, SIGNAL ( titleChanged ( const QString & ) ),
+            this, SLOT ( updateTabTitle ( const QString & ) ) );
+
+  connect ( m_viewer, SIGNAL ( urlChanged ( const QUrl & ) ),
+            this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 }
 
-void WebViewer::addNewViewerTab ( Viewer * )
+Viewer* WebViewer::activePage()
 {
+  QObject* w = currentWidget();
+  while ( w )
+  {
+    if ( Viewer* mw = qobject_cast<Viewer*> ( w ) )
+      return mw;
+
+    w = w->parent();
+  }
+  return m_viewer;
+}
+
+void WebViewer::updateTabTitle ( const QString &title )
+{
+  int max = 20;
+  int index = currentIndex();
+  QString pr ( title );
+  if ( pr.isEmpty() )
+  {
+    pr.append ( activePage()->url().host() );
+  }
+  else if ( title.size() >= max )
+  {
+    pr.resize ( max );
+    pr.append ( "..." );
+  }
+  setTabText ( index, pr );
+  setTabToolTip ( index, title );
+  setTabWhatsThis ( index, title );
+}
+
+void WebViewer::addNewViewerTab ( Viewer *view )
+{
+  if ( ! view )
+    return;
+
+  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
+            this, SLOT ( updateTabTitle ( const QString & ) ) );
+
+  QUrl uri ( view->url() );
+  QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
+  int index = addTab ( view, title );
+  setCurrentIndex ( index );
+}
+
+void WebViewer::setUrl ( const QUrl &url )
+{
+//   m_viewer->blockSignals ( true );
+  m_viewer->setUrl ( url );
+//   m_viewer->blockSignals ( false );
 }
 
 WebViewer::~WebViewer()
