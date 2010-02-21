@@ -39,6 +39,7 @@
 #include <QtGui/QClipboard>
 #include <QtGui/QCursor>
 #include <QtGui/QColor>
+#include <QtGui/QIcon>
 #include <QtGui/QPalette>
 #include <QtGui/QShortcut>
 #include <QtGui/QTextOption>
@@ -46,6 +47,7 @@
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextCursor>
 #include <QtGui/QTextCharFormat>
+#include <QtGui/QTextLayout>
 
 SourceView::SourceView ( const QFont &font, QWidget *parent )
     : QTextEdit ( parent )
@@ -81,21 +83,21 @@ SourceView::SourceView ( const QFont &font, QWidget *parent )
 
   // FIXME Shortcuts from ContextMenu didn't work ???
   // Save ShortCut
-  QShortcut* sc_save = new QShortcut( this );
-  sc_save->setKey( QKeySequence( QKeySequence::Save ) );
+  QShortcut* sc_save = new QShortcut ( this );
+  sc_save->setKey ( QKeySequence ( QKeySequence::Save ) );
   connect ( sc_save, SIGNAL ( activated() ), this, SLOT ( saveSource() ) );
   // Print ShortCut
-  QShortcut* sc_print = new QShortcut( this );
-  sc_print->setKey( QKeySequence( QKeySequence::Print ) );
+  QShortcut* sc_print = new QShortcut ( this );
+  sc_print->setKey ( QKeySequence ( QKeySequence::Print ) );
   connect ( sc_print, SIGNAL ( activated() ), this, SLOT ( printSource() ) );
   // WrapMode ShortCut
-  QShortcut* sc_wrap = new QShortcut( this );
-  sc_wrap->setKey( QKeySequence( Qt::Key_F10 ) );
+  QShortcut* sc_wrap = new QShortcut ( this );
+  sc_wrap->setKey ( QKeySequence ( Qt::Key_F10 ) );
   connect ( sc_wrap, SIGNAL ( activated() ), this, SLOT ( swapWordWrap() ) );
 
   // Editor Events
   connect ( this, SIGNAL ( cursorPositionChanged() ), this, SLOT ( cursorPosChanged () ) );
-  connect ( this, SIGNAL ( textChanged() ), this, SLOT ( setLines() ) );
+  connect ( this, SIGNAL ( textChanged() ), this, SLOT ( createListWidgetItems() ) );
 
   // Context Actions
   connect ( m_contextMenu, SIGNAL ( ssave() ), this, SLOT ( saveSource() ) );
@@ -127,19 +129,31 @@ bool SourceView::setBlockWithNumber ( int n )
   return false;
 }
 
-void SourceView::setLines()
+void SourceView::createListWidgetItems()
 {
-  int height = cursorRect().height();
+  int lineHeight = cursorRect().height();
   QList<QListWidgetItem*> list;
-  int r = document()->lineCount();
+  int r = document()->blockCount();
   if ( r >= 1 )
   {
     int f = QString::number ( r ).length();
     for ( int i = 1; i < r; i++ )
     {
+      QTextLayout* tl =  document()->findBlockByNumber ( ( i - 1 ) ).layout();
+      int blockHeight = tl->boundingRect().height();
+
+      QString title = QString ( "%1" ).arg ( i, f, 10, QChar ( '0' ) );
       QListWidgetItem* item = new QListWidgetItem;
-      item->setData ( Qt::DisplayRole, QString ( "%1" ).arg ( i, f, 10, QChar ( '0' ) ) );
-      item->setSizeHint ( QSize ( item->font().weight(), height ) );
+      item->setData ( Qt::DisplayRole, title );
+
+      if ( blockHeight > 0 )
+      {
+        item->setTextAlignment ( Qt::AlignTop );
+        item->setSizeHint ( QSize( item->font().weight(), blockHeight ) );
+      }
+      else
+        item->setSizeHint ( QSize ( item->font().weight(), lineHeight ) );
+
       list << item;
     }
     emit textChanged ( list );
@@ -163,6 +177,8 @@ void SourceView::swapWordWrap()
     setLineWrapMode ( QTextEdit::NoWrap );
     setWordWrapMode ( QTextOption::ManualWrap );
   }
+  // @note must be updated
+  createListWidgetItems();
 }
 
 void SourceView::saveSource()

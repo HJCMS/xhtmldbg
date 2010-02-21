@@ -55,7 +55,7 @@ class SourceView : public QTextEdit
     bool setBlockWithNumber ( int );
 
   private Q_SLOTS:
-    void setLines();
+    void createListWidgetItems();
     void cursorPosChanged();
     void swapWordWrap();
     virtual void Clipboard();
