@@ -37,9 +37,10 @@
 #include <QtGui/QWidget>
 
 class AddressToolBar;
-class SeoToolBar;
+class KeywordsToolBar;
 class TabbedWidget;
 class Messanger;
+class Bookmark;
 
 class Window : public QMainWindow
 {
@@ -61,7 +62,7 @@ class Window : public QMainWindow
     // Address ToolBar
     AddressToolBar* m_addressToolBar;
     // SEO ToolBar
-    SeoToolBar* m_seoToolBar;
+    KeywordsToolBar* m_keywordsToolBar;
     // Application Menu
     QMenu* m_applicationMenu;
     QAction* actionOpenUrl;
@@ -78,7 +79,7 @@ class Window : public QMainWindow
     QAction* actionPageForward;
     QAction* actionNewEmptyPage;
     // Bookmark Menu
-    QMenu* m_bookmarkMenu;
+    Bookmark* m_bookmarkMenu;
     // Configuration Menu
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;

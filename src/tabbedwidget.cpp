@@ -63,10 +63,6 @@ TabbedWidget::TabbedWidget ( QWidget * parent )
             this, SIGNAL ( loadUrl ( const QUrl & ) ) );
 }
 
-void TabbedWidget::addwWebViewerTab ( WebViewer* view )
-{
-}
-
 void TabbedWidget::check()
 {
   m_sourceWidget->check();

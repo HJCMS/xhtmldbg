@@ -19,68 +19,44 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef SOURCEVIEW_H
-#define SOURCEVIEW_H
+#ifndef BOOKMARKREADER_H
+#define BOOKMARKREADER_H
 
 /* QtCore */
-#include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QIODevice>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QSignalMapper>
 
 /* QtGui */
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QFont>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
+#include <QtGui/QAction>
 #include <QtGui/QMenu>
-#include <QtGui/QTextEdit>
-#include <QtGui/QTextCursor>
-#include <QtGui/QWidget>
+#include <QtGui/QIcon>
 
-class Highlighter;
-class ContextMenu;
+/* QtXml */
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
 
-class SourceView : public QTextEdit
+class BookmarkReader : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    Highlighter* m_highlighter;
-    QListWidget* m_listWidget;
-    QMenu* editMenu;
-    ContextMenu* m_contextMenu;
-    bool setBlockWithNumber ( int );
-
-  private Q_SLOTS:
-    void createListWidgetItems();
-    void cursorPosChanged();
-    void swapWordWrap();
-    virtual void Clipboard();
-
-  protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    QMenu* m_BoockmarkMenu;
+    const QIcon bookmarkIcon;
+    QSignalMapper* m_signalMapper;
+    QDomDocument dom;
+    void rebuildMenu ( const QDomElement &, QMenu* );
 
   Q_SIGNALS:
-    void textChanged ( const QList<QListWidgetItem*> & );
-    void lineChanged ( int );
-
-  public Q_SLOTS:
-    void fetchRow ( QListWidgetItem * );
-    void setSource ( const QString & );
-    void setCursorToRow ( int );
-    void saveSource();
-    void printSource();
-    void checkSource();
-    void formatSource();
+    void openBookmark ( const QString & );
 
   public:
-    SourceView ( const QFont &font, QWidget *parent = 0 );
-    const QString source();
-    ~SourceView();
-
+    BookmarkReader ( QObject * parent = 0, QMenu * menu = 0 );
+    bool read ( QIODevice* );
+    ~BookmarkReader();
 };
 
 #endif

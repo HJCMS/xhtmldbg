@@ -82,7 +82,6 @@ void ListLines::setCurrentRow ( int r )
   blockSignals ( false );
 }
 
-
 void ListLines::setItems ( const QList<QListWidgetItem*> &list )
 {
   int c = 0;

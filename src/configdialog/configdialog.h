@@ -19,41 +19,24 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef TABBEDWIDGET_H
-#define TABBEDWIDGET_H
+#ifndef CONFIGDIALOG_H
+#define CONFIGDIALOG_H
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
+#include <QtCore>
 
 /* QtGui */
-#include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
+#include <QtGui>
 
-class SourceWidget;
-class WebViewer;
-
-class TabbedWidget : public QTabWidget
+class ConfigDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    SourceWidget* m_sourceWidget;
-    WebViewer* m_webViewer;
-
-  Q_SIGNALS:
-    void loadUrl ( const QUrl & );
-
-  public Q_SLOTS:
-    void setUrl ( const QUrl & );
-    void check();
-    void format();
-
   public:
-    TabbedWidget ( QWidget * parent = 0 );
-    ~TabbedWidget();
+    ConfigDialog ( QWidget * parent = 0 );
+    ~ConfigDialog();
 };
 
 #endif

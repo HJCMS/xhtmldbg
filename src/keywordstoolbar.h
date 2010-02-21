@@ -19,68 +19,40 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef SOURCEVIEW_H
-#define SOURCEVIEW_H
+#ifndef KEYWORDSTOOLBAR_H
+#define KEYWORDSTOOLBAR_H
 
 /* QtCore */
-#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QFont>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
-#include <QtGui/QMenu>
-#include <QtGui/QTextEdit>
-#include <QtGui/QTextCursor>
+#include <QtGui/QAction>
+#include <QtGui/QLineEdit>
+#include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
-class Highlighter;
-class ContextMenu;
-
-class SourceView : public QTextEdit
+class KeywordsToolBar : public QToolBar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    Highlighter* m_highlighter;
-    QListWidget* m_listWidget;
-    QMenu* editMenu;
-    ContextMenu* m_contextMenu;
-    bool setBlockWithNumber ( int );
+    QLineEdit* m_lineEdit;
+    QAction* actionFind;
 
   private Q_SLOTS:
-    void createListWidgetItems();
-    void cursorPosChanged();
-    void swapWordWrap();
-    virtual void Clipboard();
-
-  protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    void setSignal();
 
   Q_SIGNALS:
-    void textChanged ( const QList<QListWidgetItem*> & );
-    void lineChanged ( int );
-
-  public Q_SLOTS:
-    void fetchRow ( QListWidgetItem * );
-    void setSource ( const QString & );
-    void setCursorToRow ( int );
-    void saveSource();
-    void printSource();
-    void checkSource();
-    void formatSource();
+    void changed ( const QString & );
+    void changed ( const QStringList & );
 
   public:
-    SourceView ( const QFont &font, QWidget *parent = 0 );
-    const QString source();
-    ~SourceView();
-
+    KeywordsToolBar ( QWidget * parent = 0 );
+    ~KeywordsToolBar();
 };
 
 #endif

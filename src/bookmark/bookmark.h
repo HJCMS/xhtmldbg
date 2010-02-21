@@ -19,68 +19,58 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef SOURCEVIEW_H
-#define SOURCEVIEW_H
+#ifndef BOOKMARK_H
+#define BOOKMARK_H
 
 /* QtCore */
-#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QFont>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
+#include <QtGui/QAction>
+#include <QtGui/QIcon>
 #include <QtGui/QMenu>
-#include <QtGui/QTextEdit>
-#include <QtGui/QTextCursor>
 #include <QtGui/QWidget>
 
-class Highlighter;
-class ContextMenu;
+class BookmarkItem;
+class BookmarkReader;
+class BookmarkEditor;
 
-class SourceView : public QTextEdit
+class Bookmark : public QMenu
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( int recent READ getRecent WRITE setRecent )
 
   private:
-    Highlighter* m_highlighter;
-    QListWidget* m_listWidget;
-    QMenu* editMenu;
-    ContextMenu* m_contextMenu;
-    bool setBlockWithNumber ( int );
+    const QIcon defaultIcon;
+    int recent;
+    // Bookmark Menues
+    BookmarkReader* m_bookmarkReader;
+    QMenu* mainMenu;
+    QMenu* lastlyMenu;
+    // Editor
+    BookmarkEditor *m_bookmarkEditor;
+    QAction* editorMenu;
 
   private Q_SLOTS:
-    void createListWidgetItems();
-    void cursorPosChanged();
-    void swapWordWrap();
-    virtual void Clipboard();
-
-  protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    void loadBookmarkMenu();
+    void openBookmarkEditor ();
+    void getBookmark ( const QString & );
 
   Q_SIGNALS:
-    void textChanged ( const QList<QListWidgetItem*> & );
-    void lineChanged ( int );
+    void openBookmark ( const QUrl & );
 
   public Q_SLOTS:
-    void fetchRow ( QListWidgetItem * );
-    void setSource ( const QString & );
-    void setCursorToRow ( int );
-    void saveSource();
-    void printSource();
-    void checkSource();
-    void formatSource();
+    void addBookmark ( const QUrl & );
 
   public:
-    SourceView ( const QFont &font, QWidget *parent = 0 );
-    const QString source();
-    ~SourceView();
-
+    Bookmark ( QWidget * parent = 0 );
+    int getRecent() const;
+    void setRecent ( int );
+    ~Bookmark();
 };
 
 #endif

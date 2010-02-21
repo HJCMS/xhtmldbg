@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xbel PUBLIC "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML"
+  "http://pyxml.sourceforge.net/topics/dtds/xbel-1.0.dtd">
+<xbel version="1.0">
+  <folder folded="no">
+    <title>HJCMS Projects</title>
+    <folder folded="yes">
+      <title>HJCMS Mainpage</title>
+      <bookmark href="http://www.hjcms.de">
+        <title>Primary Homepage from undefined</title>
+      </bookmark>
+      <bookmark href="http://mxlaser.hjcms.de">
+        <title>Kernel Driver for MX-100 Laser Mice</title>
+      </bookmark>
+      <bookmark href="http://qtidy.hjcms">
+        <title>QTidy Project Page</title>
+      </bookmark>
+    </folder>
+  </folder>
+  <folder folded="no">
+    <title>Qt4 </title>
+    <bookmark href="http://qt.nokia.com/">
+      <title>Qt home page</title>
+    </bookmark>
+  </folder>
+</xbel>

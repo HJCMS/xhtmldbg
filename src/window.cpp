@@ -21,9 +21,10 @@
 
 #include "window.h"
 #include "addresstoolbar.h"
-#include "seotoolbar.h"
+#include "keywordstoolbar.h"
 #include "tabbedwidget.h"
 #include "messanger.h"
+#include "bookmark.h"
 
 /* QtCore */
 #include <QtCore/QString>
@@ -40,7 +41,7 @@ Window::Window() : QMainWindow()
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
   setObjectName ( "xhtmldbgwindow" );
-  setWindowIcon ( QIcon( QString::fromUtf8( ":/icons/qtidy.png" ) ) );
+  setWindowIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) );
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
@@ -144,13 +145,18 @@ void Window::createMenus()
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
 
   // Bookmark Menu
-  m_bookmarkMenu = m_menuBar->addMenu ( trUtf8 ( "Bookmark" ) );
+  m_bookmarkMenu = new Bookmark ( m_menuBar );
+  connect ( m_bookmarkMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
+            m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+  m_menuBar->addMenu ( m_bookmarkMenu );
 
   // Configuration Menu
   m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "Configuration" ) );
   // Action Open qtidyrc
   actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
   actionTidyConfig->setIcon ( icon.fromTheme ( QLatin1String ( "configure-toolbars" ) ) );
+  connect ( actionTidyConfig, SIGNAL ( triggered() ),
+            this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
@@ -189,19 +195,16 @@ void Window::createToolBars()
 
   // Address Input ToolBar
   m_addressToolBar = new AddressToolBar ( m_centralWidget );
-  connect( m_tabbedWidget, SIGNAL ( loadUrl ( const QUrl & ) ),
-           m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
-  connect( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
-           m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+  connect ( m_tabbedWidget, SIGNAL ( loadUrl ( const QUrl & ) ),
+            m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
+  connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
+            m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
 
   addToolBar ( m_addressToolBar );
 
   // SEO Input ToolBar
-  m_seoToolBar =  new SeoToolBar ( m_centralWidget );
-  addToolBar ( m_seoToolBar );
-
-  // Bookmark Toolbar
-  // TODO
+  m_keywordsToolBar =  new KeywordsToolBar ( m_centralWidget );
+  addToolBar ( m_keywordsToolBar );
 }
 
 void Window::closeEvent ( QCloseEvent *event )

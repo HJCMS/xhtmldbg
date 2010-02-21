@@ -24,28 +24,30 @@
 #include "contextmenu.h"
 
 /* QtCore */
-#include <QtCore/QRegExp>
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtCore/QEvent>
-#include <QtCore/QVariant>
+#include <QtCore/QFileInfo>
 #include <QtCore/QList>
-#include <QtCore/QTextCodec>
 #include <QtCore/QLocale>
+#include <QtCore/QRectF>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QApplication>
-#include <QtGui/QBitmap>
-#include <QtGui/QBrush>
 #include <QtGui/QClipboard>
 #include <QtGui/QCursor>
 #include <QtGui/QColor>
+#include <QtGui/QFileDialog>
 #include <QtGui/QIcon>
+#include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
+#include <QtGui/QPrinter>
+#include <QtGui/QPrintDialog>
 #include <QtGui/QShortcut>
 #include <QtGui/QTextOption>
 #include <QtGui/QTextDocument>
 #include <QtGui/QTextBlock>
-#include <QtGui/QTextCursor>
 #include <QtGui/QTextCharFormat>
 #include <QtGui/QTextLayout>
 
@@ -107,6 +109,11 @@ SourceView::SourceView ( const QFont &font, QWidget *parent )
   connect ( m_contextMenu, SIGNAL ( swrap() ), this, SLOT ( swapWordWrap() ) );
 }
 
+/**
+* This SLOT is required for set Cursor Position in Document Content.
+* @note All Class Signals will blocked by blockSignals(true) to avoid
+* signal loops with cursorPositionChanged and @class ListLines.
+*/
 bool SourceView::setBlockWithNumber ( int n )
 {
   QTextBlock block = document()->findBlockByLineNumber ( n );
@@ -129,6 +136,10 @@ bool SourceView::setBlockWithNumber ( int n )
   return false;
 }
 
+/**
+* Generate Items for @class ListLines and fetch TextBlock height
+* for multible LineWrapMode and sends Signal textChanged( QList...
+*/
 void SourceView::createListWidgetItems()
 {
   int lineHeight = cursorRect().height();
@@ -149,7 +160,7 @@ void SourceView::createListWidgetItems()
       if ( blockHeight > 0 )
       {
         item->setTextAlignment ( Qt::AlignTop );
-        item->setSizeHint ( QSize( item->font().weight(), blockHeight ) );
+        item->setSizeHint ( QSize ( item->font().weight(), blockHeight ) );
       }
       else
         item->setSizeHint ( QSize ( item->font().weight(), lineHeight ) );
@@ -160,11 +171,18 @@ void SourceView::createListWidgetItems()
   }
 }
 
+/**
+* To send SIGNAL lineChanged if Cursor Position was Changed
+*/
 void SourceView::cursorPosChanged()
 {
   emit lineChanged ( textCursor().blockNumber() );
 }
 
+/**
+* Change LineWrapMode and WordWrapMode with ShortCutKey_F10
+* @ref createListWidgetItems
+*/
 void SourceView::swapWordWrap()
 {
   if ( lineWrapMode() == QTextEdit::NoWrap )
@@ -181,24 +199,123 @@ void SourceView::swapWordWrap()
   createListWidgetItems();
 }
 
+/**
+* QFileDialog::getSaveFileName to save current Document Content.
+*/
 void SourceView::saveSource()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  QString path;
+  QStringList filters;
+  filters << trUtf8 ( "Markup Document %1" ).arg ( "*.html *.xhtml *.xml" );
+  filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.log" );
+
+  path = QFileDialog::getSaveFileName ( this, trUtf8 ( "Save Content to..." ),
+                                        QDir::tempPath(), filters.join ( ";;" ) );
+
+  if ( path.isEmpty() )
+    return;
+
+  QFileInfo info ( path );
+  if ( info.suffix().isEmpty() )
+  {
+    QString completeFileName = info.baseName() + QLatin1String ( ".html" );
+    info.setFile ( info.absolutePath(), completeFileName );
+  }
+
+  QFile file ( info.absoluteFilePath() );
+  if ( file.open ( QIODevice::WriteOnly ) )
+  {
+    QTextStream stream ( &file );
+    stream << toPlainText();
+    file.close();
+  }
+  else
+  {
+    QString mess = trUtf8 ( "Can't write Source to \"%1\" Permission Denied." )
+                   .arg ( info.absoluteFilePath() );
+    QMessageBox::critical ( this, trUtf8 ( "To Save Source Operation dropout" ), mess );
+  }
 }
 
+/**
+* Open PrintDialog and format current Source
+* with LineWrapMode to the printable Document Content.
+* @ref createListWidgetItems
+*/
 void SourceView::printSource()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  QPrinter::PrinterMode mode;
+  // buffer old Page Settings
+  QTextEdit::LineWrapMode origLineWrapMode = lineWrapMode();
+  QTextOption::WrapMode origWrapMode = wordWrapMode();
+  int origWrapColumnOrWidth = lineWrapColumnOrWidth();
+
+#ifdef Q_WS_X11
+  mode = QPrinter::ScreenResolution;
+#else
+  mode = QPrinter::PrinterResolution;
+#endif
+
+  QPrinter* printer = new QPrinter ( mode );
+
+#ifdef Q_WS_X11
+  printer->setFontEmbeddingEnabled ( true );
+#endif
+
+  printer->setDocName ( QString ( "XHTMLDBG_Print%1" ).arg ( documentTitle() ) );
+  printer->setCreator ( QString ( "xhtmldbg from QTidy Project http://www.hjcms.de" ) );
+  printer->setColorMode ( QPrinter::GrayScale );
+  printer->setPaperSize ( QPrinter::A4 );
+  printer->setPageMargins ( 10, 20, 10, 20, QPrinter::DevicePixel );
+  printer->setOutputFormat ( QPrinter::PdfFormat );
+
+  if ( ! printer->isValid() )
+  {
+    delete printer;
+    return;
+  }
+
+  // now make document content printable
+  QRectF rectf = printer->pageRect ( QPrinter::DevicePixel );
+  setLineWrapMode ( QTextEdit::FixedPixelWidth );
+  setLineWrapColumnOrWidth ( rectf.width() );
+  setWordWrapMode ( QTextOption::WrapAtWordBoundaryOrAnywhere );
+  createListWidgetItems();
+
+  QPrintDialog dialog ( printer, this );
+  dialog.setEnabledOptions ( QAbstractPrintDialog::PrintToFile );
+
+  if ( dialog.exec() != QDialog::Accepted )
+  {
+    setLineWrapColumnOrWidth ( origWrapColumnOrWidth );
+    setLineWrapMode ( origLineWrapMode );
+    setWordWrapMode ( origWrapMode );
+    createListWidgetItems();
+    return;
+  }
+
+  print ( printer );
+
+  setLineWrapColumnOrWidth ( origWrapColumnOrWidth );
+  setLineWrapMode ( origLineWrapMode );
+  setWordWrapMode ( origWrapMode );
+  createListWidgetItems();
 }
 
+/**
+* @todo to implement QTidy::QTidyParser
+*/
 void SourceView::checkSource()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  qDebug() << Q_FUNC_INFO << "TODO to implement QTidy::QTidyParser";
 }
 
+/**
+* @todo to implement QTidy::QTidyParser
+*/
 void SourceView::formatSource()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  qDebug() << Q_FUNC_INFO << "TODO to implement QTidy::QTidyParser";
 }
 
 /** Verwende Unix Clipboard bei jeder Selektierungs Aktion */

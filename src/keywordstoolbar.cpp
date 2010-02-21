@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "seotoolbar.h"
+#include "keywordstoolbar.h"
 
 /* QtCore */
 #include <QtCore/QString>
@@ -33,10 +33,10 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QIcon>
 
-SeoToolBar::SeoToolBar ( QWidget * parent )
+KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
     : QToolBar ( parent )
 {
-  setObjectName ( QLatin1String ( "seotoolbar" ) );
+  setObjectName ( QLatin1String ( "keywordstoolbar" ) );
   setWindowTitle ( trUtf8 ( "Keywords" ) );
   setStatusTip ( trUtf8 ( "Show Keywords for Search Engine Optimisation (SEO)" ) );
   setOrientation ( Qt::Horizontal );
@@ -65,7 +65,7 @@ SeoToolBar::SeoToolBar ( QWidget * parent )
   connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( setSignal() ) );
 }
 
-void SeoToolBar::setSignal()
+void KeywordsToolBar::setSignal()
 {
   QString keyword = m_lineEdit->text();
   if ( keyword.isEmpty() )
@@ -77,6 +77,6 @@ void SeoToolBar::setSignal()
     emit changed ( keyword );
 }
 
-SeoToolBar::~SeoToolBar()
+KeywordsToolBar::~KeywordsToolBar()
 {
 }

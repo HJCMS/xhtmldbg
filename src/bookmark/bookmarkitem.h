@@ -19,41 +19,23 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef TABBEDWIDGET_H
-#define TABBEDWIDGET_H
+#ifndef BOOKMARKITEM_H
+#define BOOKMARKITEM_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QUrl>
 
-/* QtGui */
-#include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
-
-class SourceWidget;
-class WebViewer;
-
-class TabbedWidget : public QTabWidget
+class BookmarkItem : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    SourceWidget* m_sourceWidget;
-    WebViewer* m_webViewer;
-
-  Q_SIGNALS:
-    void loadUrl ( const QUrl & );
-
-  public Q_SLOTS:
-    void setUrl ( const QUrl & );
-    void check();
-    void format();
-
   public:
-    TabbedWidget ( QWidget * parent = 0 );
-    ~TabbedWidget();
+    BookmarkItem ( QObject * parent = 0 );
+    ~BookmarkItem();
 };
 
 #endif
