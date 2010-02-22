@@ -86,7 +86,7 @@ void BookmarkTreeReader::readBookmark ( QTreeWidgetItem* item )
   Qt::ItemFlags flags = ( Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
 
   QTreeWidgetItem* bookmark = createChildItem ( item );
-  bookmark->setFlags ( bookmark->flags() | Qt::ItemIsEditable );
+//   bookmark->setFlags ( bookmark->flags() | Qt::ItemIsEditable );
   bookmark->setIcon ( 0, icon );
   bookmark->setText ( 0, QObject::tr ( "Unknown title" ) );
   bookmark->setText ( 1, xmlStream.attributes().value ( "href" ).toString() );

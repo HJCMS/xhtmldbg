@@ -120,8 +120,10 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
 
   connect ( m_treeWidget, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
             this, SLOT ( itemChanged ( QTreeWidgetItem *, int ) ) );
+
   connect ( m_treeWidget, SIGNAL ( currentItemChanged ( QTreeWidgetItem *, QTreeWidgetItem * ) ),
             this, SLOT ( currentItemChanged ( QTreeWidgetItem *, QTreeWidgetItem * ) ) );
+
   connect ( m_removeButton, SIGNAL ( clicked() ), this, SLOT ( removeItemRow() ) );
   connect ( m_addButton, SIGNAL ( clicked() ), this, SLOT ( addNewItemRow() ) );
   connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
@@ -135,11 +137,9 @@ void BookmarkEditor::itemChanged ( QTreeWidgetItem *item, int column )
   setWindowModified ( item->data ( column, Qt::EditRole ).isValid() );
 }
 
-/**
-* This hack check if move and drop was changed
-*/
 void BookmarkEditor::currentItemChanged ( QTreeWidgetItem * cur, QTreeWidgetItem * prev )
 {
+  /* This hack check : if drag move and drop was changed */
   if ( ! cur->isSelected() )
     return;
 
@@ -168,12 +168,48 @@ void BookmarkEditor::initBookmarkTree()
 
 void BookmarkEditor::removeItemRow()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  QTreeWidgetItem* item = m_treeWidget->currentItem();
+  if ( ! item )
+    return;
+
+  if ( ! item->isSelected() )
+    return;
+
+  delete item;
 }
 
 void BookmarkEditor::addNewItemRow()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  QTreeWidgetItem* mainItem = m_treeWidget->currentItem();
+  if ( ! mainItem->isSelected() )
+    return;
+
+  QTreeWidgetItem* item;
+  QIcon icon = QIcon::fromTheme ( QLatin1String ( "bookmarks" ) );
+  QString title = m_editTitle->text();
+  if ( title.isEmpty() )
+    return;
+
+  QString link = m_editLink->text();
+
+  if ( link.isEmpty() )
+  {
+    item = new QTreeWidgetItem ( mainItem );
+    item->setData ( 0, Qt::UserRole, "folder" );
+    item->setIcon ( 0, icon );
+    item->setText ( 0, title );
+  }
+  else
+  {
+    // Disable Drop Indicator for Bookmark Items
+    Qt::ItemFlags flags = ( Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
+    item = new QTreeWidgetItem ( mainItem );
+    item->setData ( 0, Qt::UserRole, "bookmark" );
+    item->setFlags ( flags );
+    item->setIcon ( 0, icon );
+    item->setText ( 0, title );
+    item->setText ( 1, link );
+  }
 }
 
 void BookmarkEditor::restore()
@@ -190,7 +226,7 @@ void BookmarkEditor::restore()
 
 void BookmarkEditor::save()
 {
-  BookmarkWriter writer( this, m_treeWidget );
+  BookmarkWriter writer ( this, m_treeWidget );
   setWindowModified ( ( writer.save() ) ? false : true );
 }
 
