@@ -21,6 +21,7 @@
 
 #include "bookmarkeditor.h"
 #include "bookmarktreereader.h"
+#include "bookmarkwriter.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -35,42 +36,74 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QHeaderView>
+#include <QtGui/QIcon>
 #include <QtGui/QLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QMessageBox>
 
 BookmarkEditor::BookmarkEditor ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "bookmarkeditor" ) );
-  setWindowTitle ( trUtf8 ( "Bookmark Editor" ) );
-  setMinimumWidth ( 500 );
+  setWindowTitle ( trUtf8 ( "Bookmark Manager[*]" ) );
+  setMinimumWidth ( 550 );
+  setMinimumHeight ( 450 );
+  setSizeGripEnabled ( true );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( QLatin1String ( "verticallayout" ) );
 
-  QStringList labels ( trUtf8 ( "Name" ) );
-  labels << trUtf8 ( "Link" );
+  QIcon icon;
+
+  QStringList labels ( trUtf8 ( "Headline" ) );
+  labels << trUtf8 ( "Hyperlink" );
 
   m_treeWidget = new QTreeWidget ( this );
   m_treeWidget->setObjectName ( QLatin1String ( "treeviewer" ) );
   m_treeWidget->setHeaderLabels ( labels );
   m_treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
+  m_treeWidget->setDragDropMode ( QAbstractItemView::InternalMove );
+  m_treeWidget->setDropIndicatorShown ( true );
   vLayout->addWidget ( m_treeWidget );
 
-  QHBoxLayout* hLayout = new QHBoxLayout();
+  QGridLayout* hLayout = new QGridLayout();
   hLayout->setObjectName ( QLatin1String ( "horizontalbottomlayout" ) );
-  hLayout->insertStretch ( 0, 1 );
 
+  // Edit Title Label
+  hLayout->addWidget ( new QLabel ( trUtf8 ( "Name:" ) ), 0, 0, Qt::AlignRight );
+
+  // LineEdit Title
+  m_editTitle =  new QLineEdit ( this );
+  m_editTitle->setObjectName ( QLatin1String ( "edittitle" ) );
+  hLayout->addWidget ( m_editTitle, 0, 1 );
+
+  // Remove Selected Item
   m_removeButton = new QToolButton ( this );
   m_removeButton->setObjectName ( QLatin1String ( "removebutton" ) );
-  m_removeButton->setEnabled ( false );
   m_removeButton->setText ( QLatin1String ( "-" ) );
-  hLayout->insertWidget ( 1, m_removeButton );
+  m_removeButton->setToolTip ( trUtf8 ( "Remove Selected Item" ) );
+  m_removeButton->setStatusTip ( trUtf8 ( "Remove Selected Item" ) );
+  m_removeButton->setWhatsThis ( trUtf8 ( "Remove Selected Item" ) );
+  m_removeButton->setIcon ( icon.fromTheme ( "format-remove-node" ) );
+  hLayout->addWidget ( m_removeButton, 0, 2, Qt::AlignRight );
 
+  // Edit Link Label
+  hLayout->addWidget ( new QLabel ( trUtf8 ( "Link:" ) ), 1, 0, Qt::AlignRight );
+
+  // LineEdit HyperLink
+  m_editLink =  new QLineEdit ( QLatin1String ( "http://" ), this );
+  m_editLink->setObjectName ( QLatin1String ( "editlink" ) );
+  hLayout->addWidget ( m_editLink, 1, 1 );
+
+  // Add Item to Selected MainItem
   m_addButton = new QToolButton ( this );
   m_addButton->setObjectName ( QLatin1String ( "addbutton" ) );
   m_addButton->setText ( QLatin1String ( "+" ) );
-  hLayout->insertWidget ( 2, m_addButton );
+  m_addButton->setToolTip ( trUtf8 ( "Add Item to Selected Main Item" ) );
+  m_addButton->setStatusTip ( trUtf8 ( "Add Item to Selected Main Item" ) );
+  m_addButton->setWhatsThis ( trUtf8 ( "Add Item to Selected Main Item" ) );
+  m_addButton->setIcon ( icon.fromTheme ( "format-add-node" ) );
+  hLayout->addWidget ( m_addButton, 1, 2, Qt::AlignRight );
   vLayout->addLayout ( hLayout );
 
   QDialogButtonBox* buttonBox = new QDialogButtonBox ( this );
@@ -85,12 +118,33 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
 
   initBookmarkTree();
 
+  connect ( m_treeWidget, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
+            this, SLOT ( itemChanged ( QTreeWidgetItem *, int ) ) );
+  connect ( m_treeWidget, SIGNAL ( currentItemChanged ( QTreeWidgetItem *, QTreeWidgetItem * ) ),
+            this, SLOT ( currentItemChanged ( QTreeWidgetItem *, QTreeWidgetItem * ) ) );
   connect ( m_removeButton, SIGNAL ( clicked() ), this, SLOT ( removeItemRow() ) );
   connect ( m_addButton, SIGNAL ( clicked() ), this, SLOT ( addNewItemRow() ) );
   connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
-  connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
+  connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( quit() ) );
   connect ( m_buttonRestore, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( save() ) );
+}
+
+void BookmarkEditor::itemChanged ( QTreeWidgetItem *item, int column )
+{
+  setWindowModified ( item->data ( column, Qt::EditRole ).isValid() );
+}
+
+/**
+* This hack check if move and drop was changed
+*/
+void BookmarkEditor::currentItemChanged ( QTreeWidgetItem * cur, QTreeWidgetItem * prev )
+{
+  if ( ! cur->isSelected() )
+    return;
+
+  if ( prev )
+    setWindowModified ( true );
 }
 
 void BookmarkEditor::initBookmarkTree()
@@ -136,7 +190,20 @@ void BookmarkEditor::restore()
 
 void BookmarkEditor::save()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  BookmarkWriter writer( this, m_treeWidget );
+  setWindowModified ( ( writer.save() ) ? false : true );
+}
+
+void BookmarkEditor::quit()
+{
+  QMessageBox::StandardButton status = QMessageBox::Yes;
+  if ( isWindowModified() )
+    status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
+                                     trUtf8 ( "Bookmark Manager found unsaved Changes.\nDo you realy wan to exit?" ),
+                                     ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
+
+  if ( status == QMessageBox::Yes )
+    accept();
 }
 
 BookmarkEditor::~BookmarkEditor()

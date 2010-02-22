@@ -18,3 +18,38 @@
 * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301, USA.
 **/
+
+#ifndef BOOKMARKWRITER_H
+#define BOOKMARKWRITER_H
+
+/* QtCore */
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
+/* QtGui */
+#include <QtGui/QTreeWidget>
+
+/* QtXml */
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
+
+class BookmarkWriter : public QObject
+{
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+
+  private:
+    QTreeWidget* tree;
+    QDomDocument* dom;
+    QDomElement xbel;
+    void addDomItem ( QTreeWidgetItem *, QDomElement & );
+    bool prepareXML();
+
+  public:
+    BookmarkWriter ( QObject * parent = 0, QTreeWidget * widget = 0 );
+    bool save();
+    ~BookmarkWriter();
+};
+
+#endif

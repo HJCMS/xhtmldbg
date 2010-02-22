@@ -58,6 +58,8 @@ void BookmarkTreeReader::readFolder ( QTreeWidgetItem* item )
   Q_ASSERT ( xmlStream.isStartElement() && xmlStream.name() == "folder" );
 
   QTreeWidgetItem* folder = createChildItem ( item );
+  folder->setChildIndicatorPolicy ( QTreeWidgetItem::ShowIndicator );
+
   bool folded = ( xmlStream.attributes().value ( "folded" ) != "no" );
   m_treeWidget->setItemExpanded ( folder, !folded );
 
@@ -80,11 +82,15 @@ void BookmarkTreeReader::readBookmark ( QTreeWidgetItem* item )
 {
   Q_ASSERT ( xmlStream.isStartElement() && xmlStream.name() == "bookmark" );
 
+  // Disable Drop Indicator for Bookmark Items
+  Qt::ItemFlags flags = ( Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
+
   QTreeWidgetItem* bookmark = createChildItem ( item );
   bookmark->setFlags ( bookmark->flags() | Qt::ItemIsEditable );
   bookmark->setIcon ( 0, icon );
   bookmark->setText ( 0, QObject::tr ( "Unknown title" ) );
   bookmark->setText ( 1, xmlStream.attributes().value ( "href" ).toString() );
+  bookmark->setFlags ( flags );
 
   while ( xmlStream.readNextStartElement() )
   {

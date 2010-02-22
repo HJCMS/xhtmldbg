@@ -3,11 +3,11 @@
   "http://pyxml.sourceforge.net/topics/dtds/xbel-1.0.dtd">
 <xbel version="1.0">
   <folder folded="no">
-    <title>HJCMS Projects</title>
+    <title>Example</title>
     <folder folded="yes">
-      <title>HJCMS Mainpage</title>
+      <title>HJCMS WebPages</title>
       <bookmark href="http://www.hjcms.de">
-        <title>Primary Homepage from undefined</title>
+        <title>My Homepage :-)</title>
       </bookmark>
       <bookmark href="http://mxlaser.hjcms.de">
         <title>Kernel Driver for MX-100 Laser Mice</title>
@@ -18,9 +18,9 @@
     </folder>
   </folder>
   <folder folded="no">
-    <title>Qt4 </title>
+    <title>Qt4</title>
     <bookmark href="http://qt.nokia.com/">
-      <title>Qt home page</title>
+      <title>Qt Homepage</title>
     </bookmark>
   </folder>
 </xbel>

@@ -29,8 +29,11 @@
 
 /* QtGui */
 #include <QtGui/QDialog>
+#include <QtGui/QDropEvent>
+#include <QtGui/QLineEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
 #include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
@@ -42,6 +45,8 @@ class BookmarkEditor : public QDialog
 
   private:
     QTreeWidget* m_treeWidget;
+    QLineEdit*   m_editTitle;
+    QLineEdit*   m_editLink;
     QToolButton* m_removeButton;
     QToolButton* m_addButton;
     QPushButton* m_buttonCancel;
@@ -50,11 +55,16 @@ class BookmarkEditor : public QDialog
     QPushButton* m_buttonSave;
     void initBookmarkTree();
 
+  protected Q_SLOTS:
+    void currentItemChanged ( QTreeWidgetItem *, QTreeWidgetItem * );
+
   private Q_SLOTS:
+    void itemChanged ( QTreeWidgetItem *, int );
     void removeItemRow();
     void addNewItemRow();
     void restore();
     void save();
+    void quit();
 
   public:
     BookmarkEditor ( QWidget * parent = 0 );
