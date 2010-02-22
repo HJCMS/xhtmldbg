@@ -81,7 +81,8 @@ void Bookmark::loadBookmarkMenu()
 void Bookmark::openBookmarkEditor()
 {
   BookmarkEditor editor ( this );
-  editor.exec();
+  if ( editor.exec() )
+    loadBookmarkMenu();
 }
 
 void Bookmark::getBookmark ( const QString &str )
