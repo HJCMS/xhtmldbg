@@ -75,6 +75,8 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   // LineEdit Title
   m_editTitle =  new QLineEdit ( this );
   m_editTitle->setObjectName ( QLatin1String ( "edittitle" ) );
+  m_editTitle->setToolTip ( trUtf8 ( "Folder or Bookmark Title" ) );
+  m_editTitle->setStatusTip ( trUtf8 ( "Folder or Bookmark Title" ) );
   hLayout->addWidget ( m_editTitle, 0, 1 );
 
   // Remove Selected Item
@@ -93,6 +95,8 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   // LineEdit HyperLink
   m_editLink =  new QLineEdit ( QLatin1String ( "http://" ), this );
   m_editLink->setObjectName ( QLatin1String ( "editlink" ) );
+  m_editLink->setToolTip ( trUtf8 ( "If this Line is Empty a Folder want created." ) );
+  m_editLink->setStatusTip ( trUtf8 ( "If this Line is Empty a Folder want created." ) );
   hLayout->addWidget ( m_editLink, 1, 1 );
 
   // Add Item to Selected MainItem
@@ -183,6 +187,13 @@ void BookmarkEditor::addNewItemRow()
   QTreeWidgetItem* mainItem = m_treeWidget->currentItem();
   if ( ! mainItem->isSelected() )
     return;
+
+  if ( mainItem->columnCount() == 2 )
+  {
+    QMessageBox::warning ( this, trUtf8 ( "Warning" ),
+                           trUtf8 ( "I didn't add Bookmark in to other Bookmark :-)\nPlease select a Folder." ) );
+    return;
+  }
 
   QTreeWidgetItem* item;
   QIcon icon = QIcon::fromTheme ( QLatin1String ( "bookmarks" ) );
