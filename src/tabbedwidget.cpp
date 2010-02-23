@@ -59,6 +59,9 @@ TabbedWidget::TabbedWidget ( QWidget * parent )
     }
   }
 
+  connect ( m_webViewer, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+            this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
+
   connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( loadUrl ( const QUrl & ) ) );
 }
@@ -76,6 +79,26 @@ void TabbedWidget::format()
 void TabbedWidget::setUrl ( const QUrl &url )
 {
   m_webViewer->setUrl ( url );
+}
+
+void TabbedWidget::webRefresh ()
+{
+  m_webViewer->refresh();
+}
+
+void TabbedWidget::webBack ()
+{
+  m_webViewer->back();
+}
+
+void TabbedWidget::webForward ()
+{
+  m_webViewer->forward();
+}
+
+void TabbedWidget::webNewPage ()
+{
+  m_webViewer->addEmptyViewerTab();
 }
 
 TabbedWidget::~TabbedWidget()

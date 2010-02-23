@@ -52,10 +52,15 @@ class WebViewer : public QTabWidget
 
   Q_SIGNALS:
     void urlChanged ( const QUrl & );
+    void addBookmark ( const QUrl &, const QString & );
 
   public Q_SLOTS:
     void addNewViewerTab ( Viewer * );
+    void addEmptyViewerTab ();
     void setUrl ( const QUrl & );
+    void refresh ();
+    void back ();
+    void forward ();
 
   public:
     WebViewer ( QWidget * parent = 0 );

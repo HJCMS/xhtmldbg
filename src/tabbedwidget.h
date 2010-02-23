@@ -45,11 +45,16 @@ class TabbedWidget : public QTabWidget
 
   Q_SIGNALS:
     void loadUrl ( const QUrl & );
+    void addBookmark ( const QUrl &, const QString & );
 
   public Q_SLOTS:
     void setUrl ( const QUrl & );
     void check();
     void format();
+    void webRefresh ();
+    void webBack ();
+    void webForward ();
+    void webNewPage ();
 
   public:
     TabbedWidget ( QWidget * parent = 0 );

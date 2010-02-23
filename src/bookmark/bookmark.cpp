@@ -92,9 +92,12 @@ void Bookmark::getBookmark ( const QString &str )
     emit openBookmark ( url );
 }
 
-void Bookmark::addBookmark ( const QUrl & )
+void Bookmark::addBookmark ( const QUrl &url, const QString &title )
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  BookmarkEditor editor ( this );
+  editor.addBookmark ( url, title );
+  if ( editor.exec() )
+    loadBookmarkMenu();
 }
 
 int Bookmark::getRecent() const

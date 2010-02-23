@@ -68,6 +68,7 @@ class BookmarkEditor : public QDialog
 
   public:
     BookmarkEditor ( QWidget * parent = 0 );
+    void addBookmark ( const QUrl &, const QString & );
     ~BookmarkEditor();
 };
 

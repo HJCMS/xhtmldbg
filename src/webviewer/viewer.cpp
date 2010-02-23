@@ -23,6 +23,12 @@
 #include "webviewer.h"
 #include "page.h"
 
+/* QtCore */
+#include <QtCore/QDebug>
+
+/* QtGui */
+#include <QtGui/QMenu>
+
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
 {
@@ -30,11 +36,12 @@ Viewer::Viewer ( QWidget * parent )
     setObjectName ( "webviewer" );
 
   setContentsMargins ( 0, 0, 0, 0 );
+  setContextMenuPolicy ( Qt::DefaultContextMenu );
 
   m_page = new Page ( this );
   setPage ( m_page );
 
-  setUrl( QUrl( "http://webmast.jh" ) );
+  setUrl ( QUrl ( "http://webmast.jh" ) );
 
   connect ( this, SIGNAL ( loadStarted () ),
             this, SLOT ( cursorwait () ) );
@@ -51,6 +58,22 @@ void Viewer::cursorwait ()
 void Viewer::cursorFinished ()
 {
   setCursor ( Qt::ArrowCursor );
+}
+
+void Viewer::bookmark()
+{
+  emit addBookmark ( url(), title() );
+}
+
+void Viewer::contextMenuEvent ( QContextMenuEvent * e )
+{
+  QMenu* menu = m_page->createStandardContextMenu();
+  QAction* add = menu->addAction ( trUtf8 ( "Bookmark" ) );
+  add->setObjectName ( QLatin1String ( "addbookmarkaction" ) );
+  add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
+  connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
+  menu->exec ( e->globalPos() );
+  delete menu;
 }
 
 Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )

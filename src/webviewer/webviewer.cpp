@@ -36,6 +36,9 @@ WebViewer::WebViewer ( QWidget * parent )
   connect ( m_viewer, SIGNAL ( titleChanged ( const QString & ) ),
             this, SLOT ( updateTabTitle ( const QString & ) ) );
 
+  connect ( m_viewer, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+            this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
+
   connect ( m_viewer, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 }
@@ -86,11 +89,31 @@ void WebViewer::addNewViewerTab ( Viewer *view )
   setCurrentIndex ( index );
 }
 
+void WebViewer::addEmptyViewerTab ()
+{
+  Viewer* view = new Viewer ( this );
+  view->setUrl ( QUrl ( "about:blank" ) );
+  addNewViewerTab ( view );
+}
+
 void WebViewer::setUrl ( const QUrl &url )
 {
-//   m_viewer->blockSignals ( true );
-  m_viewer->setUrl ( url );
-//   m_viewer->blockSignals ( false );
+  activePage()->setUrl ( url );
+}
+
+void WebViewer::refresh ()
+{
+  activePage()->reload();
+}
+
+void WebViewer::back ()
+{
+  activePage()->back();
+}
+
+void WebViewer::forward ()
+{
+  activePage()->forward();
 }
 
 WebViewer::~WebViewer()

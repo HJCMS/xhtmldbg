@@ -253,5 +253,13 @@ void BookmarkEditor::quit()
     accept();
 }
 
+void BookmarkEditor::addBookmark ( const QUrl &url, const QString &title )
+{
+  if ( url.isValid() )
+    m_editLink->setText ( url.toString() );
+
+  m_editTitle->setText ( title );
+}
+
 BookmarkEditor::~BookmarkEditor()
 {}

@@ -29,6 +29,7 @@
 /* QtGui */
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
+#include <QtGui/QContextMenuEvent>
 
 /* QtWebKit */
 #include <QtWebKit/QWebView>
@@ -49,9 +50,14 @@ class Viewer : public QWebView
   private Q_SLOTS:
     void cursorwait ();
     void cursorFinished ();
+    void bookmark();
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );
+    void contextMenuEvent( QContextMenuEvent * );
+
+  Q_SIGNALS:
+    void addBookmark ( const QUrl &, const QString & );
 
   public:
     Viewer ( QWidget * parent = 0 );

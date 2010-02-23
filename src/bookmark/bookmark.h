@@ -64,7 +64,7 @@ class Bookmark : public QMenu
     void openBookmark ( const QUrl & );
 
   public Q_SLOTS:
-    void addBookmark ( const QUrl & );
+    void addBookmark ( const QUrl &, const QString & );
 
   public:
     Bookmark ( QWidget * parent = 0 );

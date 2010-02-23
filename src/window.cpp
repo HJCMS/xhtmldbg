@@ -88,12 +88,14 @@ void Window::createMenus()
   actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::Key_U );
   actionOpenUrl->setIcon ( icon.fromTheme ( QLatin1String ( "document-open-remote" ) ) );
+  // TODO Action Open URL Dialog
 
   // Action Open File from Location
   actionOpenHtml = m_applicationMenu->addAction ( trUtf8 ( "Open Html File" ) );
   actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
   actionOpenHtml->setIcon ( icon.fromTheme ( QLatin1String ( "document-open" ) ) );
+  // TODO Action Open File from Location
 
   // Action Application Exit
   actionQuit = m_applicationMenu->addAction ( trUtf8 ( "Quit" ) );
@@ -127,27 +129,39 @@ void Window::createMenus()
   actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
   actionPageReload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
+  connect ( actionPageReload, SIGNAL ( triggered () ),
+            m_tabbedWidget, SLOT ( webRefresh () ) );
 
   // Action WebView Back
   actionPageBack = m_viewMenu->addAction ( trUtf8 ( "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
   actionPageBack->setIcon ( icon.fromTheme ( QLatin1String ( "go-previous-view-page" ) ) );
+  connect ( actionPageBack, SIGNAL ( triggered () ),
+            m_tabbedWidget, SLOT ( webBack () ) );
 
   // Action WebView Forward
   actionPageForward = m_viewMenu->addAction ( trUtf8 ( "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
   actionPageForward->setIcon ( icon.fromTheme ( QLatin1String ( "go-next-view-page" ) ) );
+  connect ( actionPageForward, SIGNAL ( triggered () ),
+            m_tabbedWidget, SLOT ( webForward () ) );
 
   // New Empty WebView
   actionNewEmptyPage = m_viewMenu->addAction ( trUtf8 ( "New Page" ) );
   actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
+  connect ( actionNewEmptyPage, SIGNAL ( triggered () ),
+            m_tabbedWidget, SLOT ( webNewPage () ) );
 
   // Bookmark Menu
   m_bookmarkMenu = new Bookmark ( m_menuBar );
   connect ( m_bookmarkMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
             m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+
+  connect ( m_tabbedWidget, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+            m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
+
   m_menuBar->addMenu ( m_bookmarkMenu );
 
   // Configuration Menu
@@ -161,16 +175,19 @@ void Window::createMenus()
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
   actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
+  // TODO  Action open Configuration Dialog
 
   // Help and About Menu
   QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
   QAction* actionAboutQt = m_aboutMenu->addAction ( trUtf8 ( "about Qt" ) );
   actionAboutQt->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutQt->setMenuRole ( QAction::AboutQtRole );
+  // TODO  Action About QT4
 
   QAction* actionAboutHJCMS = m_aboutMenu->addAction ( trUtf8 ( "about hjcms" ) );
   actionAboutHJCMS->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
+  // TODO  Action About HJCMS
 
 }
 
