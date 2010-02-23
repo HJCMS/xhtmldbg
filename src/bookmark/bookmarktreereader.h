@@ -40,7 +40,8 @@ class BookmarkTreeReader
 {
   private:
     QTreeWidget* m_treeWidget;
-    const QIcon icon;
+    const QIcon bookmarkIcon;
+    const QIcon folderIcon;
     QXmlStreamReader xmlStream;
     void rebuildBookmarkList();
     void readTitle ( QTreeWidgetItem* );

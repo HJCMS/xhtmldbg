@@ -46,6 +46,7 @@ class BookmarkReader : public QObject
   private:
     QMenu* m_BoockmarkMenu;
     const QIcon bookmarkIcon;
+    const QIcon folderIcon;
     QSignalMapper* m_signalMapper;
     QDomDocument dom;
     void rebuildMenu ( const QDomElement &, QMenu* );

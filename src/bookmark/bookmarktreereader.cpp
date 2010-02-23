@@ -25,7 +25,8 @@
 
 BookmarkTreeReader::BookmarkTreeReader ( QTreeWidget * parent )
     : m_treeWidget ( parent )
-    , icon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
+    , bookmarkIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
+    , folderIcon ( QIcon::fromTheme ( QLatin1String ( "folder-bookmark" ) ) )
 {}
 
 void BookmarkTreeReader::rebuildBookmarkList()
@@ -58,7 +59,9 @@ void BookmarkTreeReader::readFolder ( QTreeWidgetItem* item )
   Q_ASSERT ( xmlStream.isStartElement() && xmlStream.name() == "folder" );
 
   QTreeWidgetItem* folder = createChildItem ( item );
+  folder->setFlags ( folder->flags() | Qt::ItemIsEditable );
   folder->setChildIndicatorPolicy ( QTreeWidgetItem::ShowIndicator );
+  folder->setIcon ( 0, folderIcon );
 
   bool folded = ( xmlStream.attributes().value ( "folded" ) != "no" );
   m_treeWidget->setItemExpanded ( folder, !folded );
@@ -86,8 +89,7 @@ void BookmarkTreeReader::readBookmark ( QTreeWidgetItem* item )
   Qt::ItemFlags flags = ( Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsDragEnabled | Qt::ItemIsEnabled );
 
   QTreeWidgetItem* bookmark = createChildItem ( item );
-//   bookmark->setFlags ( bookmark->flags() | Qt::ItemIsEditable );
-  bookmark->setIcon ( 0, icon );
+  bookmark->setIcon ( 0, bookmarkIcon );
   bookmark->setText ( 0, QObject::tr ( "Unknown title" ) );
   bookmark->setText ( 1, xmlStream.attributes().value ( "href" ).toString() );
   bookmark->setFlags ( flags );

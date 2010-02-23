@@ -52,6 +52,7 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( QLatin1String ( "verticallayout" ) );
+  vLayout->setContentsMargins ( 5, 5, 5, 15 );
 
   QIcon icon;
 
@@ -64,6 +65,7 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   m_treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
   m_treeWidget->setDragDropMode ( QAbstractItemView::InternalMove );
   m_treeWidget->setDropIndicatorShown ( true );
+  m_treeWidget->setFrameStyle ( QFrame::Box );
   vLayout->addWidget ( m_treeWidget );
 
   QGridLayout* hLayout = new QGridLayout();
@@ -115,7 +117,6 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   buttonBox->setOrientation ( Qt::Horizontal );
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
   m_buttonClose = buttonBox->addButton ( QDialogButtonBox::Close );
-  m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
   m_buttonSave = buttonBox->addButton ( QDialogButtonBox::Save );
 
   vLayout->addWidget ( buttonBox );
@@ -132,7 +133,6 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   connect ( m_addButton, SIGNAL ( clicked() ), this, SLOT ( addNewItemRow() ) );
   connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
   connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( quit() ) );
-  connect ( m_buttonRestore, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( save() ) );
 }
 
@@ -196,18 +196,19 @@ void BookmarkEditor::addNewItemRow()
   }
 
   QTreeWidgetItem* item;
-  QIcon icon = QIcon::fromTheme ( QLatin1String ( "bookmarks" ) );
   QString title = m_editTitle->text();
   if ( title.isEmpty() )
     return;
 
   QString link = m_editLink->text();
 
+
   if ( link.isEmpty() )
   {
     item = new QTreeWidgetItem ( mainItem );
+    item->setFlags ( item->flags() | Qt::ItemIsEditable );
     item->setData ( 0, Qt::UserRole, "folder" );
-    item->setIcon ( 0, icon );
+    item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
     item->setText ( 0, title );
   }
   else
@@ -217,22 +218,10 @@ void BookmarkEditor::addNewItemRow()
     item = new QTreeWidgetItem ( mainItem );
     item->setData ( 0, Qt::UserRole, "bookmark" );
     item->setFlags ( flags );
-    item->setIcon ( 0, icon );
+    item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) );
     item->setText ( 0, title );
     item->setText ( 1, link );
   }
-}
-
-void BookmarkEditor::restore()
-{
-  QFile fp ( QString::fromUtf8 ( ":/default.xml" ) );
-  if ( !fp.open ( QIODevice::ReadOnly | QIODevice::Text ) )
-    return;
-
-  m_treeWidget->clear();
-  BookmarkTreeReader treeReader ( m_treeWidget );
-  if ( treeReader.read ( &fp ) )
-    fp.close();
 }
 
 void BookmarkEditor::save()

@@ -30,6 +30,7 @@ BookmarkReader::BookmarkReader ( QObject * parent, QMenu * menu )
     : QObject ( parent )
     , m_BoockmarkMenu ( menu )
     , bookmarkIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
+    , folderIcon ( QIcon::fromTheme ( QLatin1String ( "folder-bookmark" ) ) )
 {
   m_signalMapper = new QSignalMapper ( this );
 }
@@ -63,7 +64,7 @@ void BookmarkReader::rebuildMenu ( const QDomElement &root, QMenu* menu )
       {
         QDomElement sub = e.elementsByTagName ( "title" ).item ( 0 ).toElement();
         if ( e.hasChildNodes() )
-          rebuildMenu ( e, menu->addMenu ( sub.firstChild().nodeValue() ) );
+          rebuildMenu ( e, menu->addMenu ( folderIcon, sub.firstChild().nodeValue() ) );
       }
     }
     n = n.nextSibling();

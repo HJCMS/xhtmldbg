@@ -62,7 +62,6 @@ class BookmarkEditor : public QDialog
     void itemChanged ( QTreeWidgetItem *, int );
     void removeItemRow();
     void addNewItemRow();
-    void restore();
     void save();
     void quit();
 
