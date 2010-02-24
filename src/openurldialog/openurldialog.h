@@ -19,46 +19,36 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef TABBEDWIDGET_H
-#define TABBEDWIDGET_H
+#ifndef OPENURLDIALOG_H
+#define OPENURLDIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QDialog>
+#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 
-class SourceWidget;
-class WebViewer;
-
-class TabbedWidget : public QTabWidget
+class OpenUrlDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    SourceWidget* m_sourceWidget;
-    WebViewer* m_webViewer;
+    QLineEdit* m_lineEdit;
+
+  private Q_SLOTS:
+    void checkInput();
 
   Q_SIGNALS:
-    void loadUrl ( const QUrl & );
-    void addBookmark ( const QUrl &, const QString & );
-
-  public Q_SLOTS:
-    void setUrl ( const QUrl & );
-    void check();
-    void format();
-    void webRefresh ();
-    void webBack ();
-    void webForward ();
-    void webNewPage ();
+    void openUrl ( const QUrl & );
 
   public:
-    TabbedWidget ( QWidget * parent = 0 );
-    ~TabbedWidget();
+    OpenUrlDialog ( QWidget * parent = 0 );
+    ~OpenUrlDialog();
 };
 
 #endif

@@ -22,18 +22,29 @@
 #include "window.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
-#include "tabbedwidget.h"
+#include "sourcewidget.h"
+#include "webviewer.h"
 #include "messanger.h"
 #include "bookmark.h"
+#include "openurldialog.h"
+#include "aboutdialog.h"
 
 /* QtCore */
-#include <QtCore/QString>
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
-#include <QtCore/QStringList>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QProcess>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
 
 /* QtGui */
+#include <QtGui/QApplication>
 #include <QtGui/QIcon>
+#include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
 
 Window::Window() : QMainWindow()
@@ -46,29 +57,40 @@ Window::Window() : QMainWindow()
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
 
-  // init central Design Widget
-  m_centralWidget = centralWidget ();
-
   // StatusBar
   m_statusBar = statusBar();
   m_statusBar->setSizeGripEnabled ( true );
 
-  // Tabbed Widget
-  m_tabbedWidget = new TabbedWidget ( m_centralWidget );
+  // Browser DockWidget
+  m_webWidget = new QDockWidget ( this );
+  m_webWidget->setObjectName ( QLatin1String ( "webwidget" ) );
+  m_webWidget->setWindowTitle ( trUtf8 ( "Browser" ) );
+  m_webWidget->setAllowedAreas ( ( Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea ) );
+  // WebViewer
+  m_webViewer = new WebViewer ( m_webWidget );
+  m_webWidget->setWidget ( m_webViewer );
+  addDockWidget ( Qt::TopDockWidgetArea, m_webWidget );
+
+  // Show XHTML Source
+  m_sourceWidget = new SourceWidget ( this );
+  addDockWidget ( Qt::TopDockWidgetArea, m_sourceWidget );
 
   // XHTML & JavaScript Messanger DockWidget
-  m_messanger = new Messanger ( m_centralWidget );
+  m_messanger = new Messanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
 
   // finalize WindowDesign
   createMenus();
   createToolBars();
-  setCentralWidget ( m_tabbedWidget );
 
   // Load Settings
-  m_tabbedWidget->setCurrentIndex ( m_settings->value ( "CurrentTabIndex", 0 ).toUInt() );
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
+
+  // FIXME Open File from Global Default's
+  QUrl fallback ( "file:///home/heinemann/hjcms/QTidy/tests/in_588061.html" );
+  QUrl recent = m_settings->value ( QLatin1String ( "RecentFile" ), fallback ).toUrl();
+  openFile ( recent );
 
   update();
 }
@@ -88,14 +110,14 @@ void Window::createMenus()
   actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::Key_U );
   actionOpenUrl->setIcon ( icon.fromTheme ( QLatin1String ( "document-open-remote" ) ) );
-  // TODO Action Open URL Dialog
+  connect ( actionOpenUrl, SIGNAL ( triggered() ), this, SLOT ( openUrlDialog() ) );
 
   // Action Open File from Location
   actionOpenHtml = m_applicationMenu->addAction ( trUtf8 ( "Open Html File" ) );
   actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
   actionOpenHtml->setIcon ( icon.fromTheme ( QLatin1String ( "document-open" ) ) );
-  // TODO Action Open File from Location
+  connect ( actionOpenHtml, SIGNAL ( triggered() ), this, SLOT ( openFileDialog() ) );
 
   // Action Application Exit
   actionQuit = m_applicationMenu->addAction ( trUtf8 ( "Quit" ) );
@@ -113,14 +135,14 @@ void Window::createMenus()
   actionParse->setStatusTip ( trUtf8 ( "Parse current Document Source" ) );
   actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
   actionParse->setIcon ( icon.fromTheme ( QLatin1String ( "document-edit-verify" ) ) );
-  connect ( actionParse, SIGNAL ( triggered() ), m_tabbedWidget, SLOT ( check() ) );
+  connect ( actionParse, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( check() ) );
 
   // Action Prepare and Format Document Source
   actionClean = m_debuggerMenu->addAction ( trUtf8 ( "Format" ) );
   actionClean->setStatusTip ( trUtf8 ( "Prepare and Format Document Source" ) );
   actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
   actionClean->setIcon ( icon.fromTheme ( QLatin1String ( "format-list-ordered" ) ) );
-  connect ( actionClean, SIGNAL ( triggered() ), m_tabbedWidget, SLOT ( format() ) );
+  connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Viewer Menu
   m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "Browser" ) );
@@ -129,37 +151,33 @@ void Window::createMenus()
   actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
   actionPageReload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
-  connect ( actionPageReload, SIGNAL ( triggered () ),
-            m_tabbedWidget, SLOT ( webRefresh () ) );
+  connect ( actionPageReload, SIGNAL ( triggered () ), m_webViewer, SLOT ( refresh () ) );
 
   // Action WebView Back
   actionPageBack = m_viewMenu->addAction ( trUtf8 ( "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
   actionPageBack->setIcon ( icon.fromTheme ( QLatin1String ( "go-previous-view-page" ) ) );
-  connect ( actionPageBack, SIGNAL ( triggered () ),
-            m_tabbedWidget, SLOT ( webBack () ) );
+  connect ( actionPageBack, SIGNAL ( triggered () ), m_webViewer, SLOT ( back () ) );
 
   // Action WebView Forward
   actionPageForward = m_viewMenu->addAction ( trUtf8 ( "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
   actionPageForward->setIcon ( icon.fromTheme ( QLatin1String ( "go-next-view-page" ) ) );
-  connect ( actionPageForward, SIGNAL ( triggered () ),
-            m_tabbedWidget, SLOT ( webForward () ) );
+  connect ( actionPageForward, SIGNAL ( triggered () ), m_webViewer, SLOT ( forward () ) );
 
   // New Empty WebView
   actionNewEmptyPage = m_viewMenu->addAction ( trUtf8 ( "New Page" ) );
   actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
-  connect ( actionNewEmptyPage, SIGNAL ( triggered () ),
-            m_tabbedWidget, SLOT ( webNewPage () ) );
+  connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addEmptyViewerTab () ) );
 
   // Bookmark Menu
   m_bookmarkMenu = new Bookmark ( m_menuBar );
   connect ( m_bookmarkMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
-            m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+            m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
-  connect ( m_tabbedWidget, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+  connect ( m_webViewer, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
             m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
 
   m_menuBar->addMenu ( m_bookmarkMenu );
@@ -182,13 +200,13 @@ void Window::createMenus()
   QAction* actionAboutQt = m_aboutMenu->addAction ( trUtf8 ( "about Qt" ) );
   actionAboutQt->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutQt->setMenuRole ( QAction::AboutQtRole );
-  // TODO  Action About QT4
+  connect ( actionAboutQt, SIGNAL ( triggered() ), qApp, SLOT ( aboutQt() ) );
 
+  AboutDialog* aboutDialog = new AboutDialog ( this );
   QAction* actionAboutHJCMS = m_aboutMenu->addAction ( trUtf8 ( "about hjcms" ) );
   actionAboutHJCMS->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
   actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
-  // TODO  Action About HJCMS
-
+  connect ( actionAboutHJCMS, SIGNAL ( triggered() ), aboutDialog, SLOT ( open() ) );
 }
 
 void Window::createToolBars()
@@ -211,16 +229,16 @@ void Window::createToolBars()
   m_settingsToolBar->addAction ( actionConfigDialog );
 
   // Address Input ToolBar
-  m_addressToolBar = new AddressToolBar ( m_centralWidget );
-  connect ( m_tabbedWidget, SIGNAL ( loadUrl ( const QUrl & ) ),
+  m_addressToolBar = new AddressToolBar ( this );
+  connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
             m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
   connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
-            m_tabbedWidget, SLOT ( setUrl ( const QUrl & ) ) );
+            m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
   addToolBar ( m_addressToolBar );
 
   // SEO Input ToolBar
-  m_keywordsToolBar =  new KeywordsToolBar ( m_centralWidget );
+  m_keywordsToolBar =  new KeywordsToolBar ( this );
   addToolBar ( m_keywordsToolBar );
 }
 
@@ -228,13 +246,76 @@ void Window::closeEvent ( QCloseEvent *event )
 {
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
-  m_settings->setValue ( "CurrentTabIndex", m_tabbedWidget->currentIndex() );
   QMainWindow::closeEvent ( event );
 }
 
 void Window::openTidyConfigApplication()
 {
   QProcess::startDetached ( QString::fromUtf8 ( "qtidyrc" ) );
+}
+
+void Window::openFileDialog()
+{
+  QString htmlFile;
+  QStringList filters;
+  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm" );
+  filters << trUtf8 ( "Markup Document %1" ).arg ( "*.xml *.xslt *.xbel" );
+
+  QUrl url;
+  url.setScheme ( QLatin1String ( "file" ) );
+
+  htmlFile = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open HTML File" ),
+             QString::null, filters.join ( ";;" ) );
+
+  if ( htmlFile.isEmpty() )
+    return;
+
+  QFileInfo info ( htmlFile );
+  if ( info.exists() )
+  {
+    url.setPath ( info.absoluteFilePath() );
+    openFile ( url );
+  }
+}
+
+void Window::openUrlDialog()
+{
+  OpenUrlDialog* dialog = new OpenUrlDialog ( this );
+  connect ( dialog, SIGNAL ( openUrl ( const QUrl & ) ),
+            this, SLOT ( openUrl ( const QUrl & ) ) );
+
+  dialog->exec();
+}
+
+void Window::openFile ( const QUrl &url )
+{
+  if ( ! url.isValid() || url.scheme() != "file" )
+    return;
+
+  QFile fp ( url.path() );
+  if ( fp.open ( QFile::ReadOnly ) )
+  {
+    QTextStream rc ( &fp );
+    QByteArray buffer = rc.device()->readAll();
+    fp.close();
+    if ( ! buffer.isEmpty() )
+    {
+      QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
+      QString data = codec->toUnicode ( buffer );
+      m_sourceWidget->setSource ( data );
+      m_webViewer->setUrl ( url.path() );
+      m_settings->setValue ( QLatin1String ( "RecentFile" ), url );
+    }
+  }
+}
+
+void Window::openUrl ( const QUrl &url )
+{
+  if ( ! url.isValid() || url.scheme() != "http" )
+    return;
+
+  m_webViewer->setUrl ( url );
+  m_settings->setValue ( QLatin1String ( "RecentUrl" ), url );
 }
 
 Window::~Window()

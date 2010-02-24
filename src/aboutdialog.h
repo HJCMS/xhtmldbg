@@ -19,38 +19,26 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef SOURCEWIDGET_H
-#define SOURCEWIDGET_H
+#ifndef ABOUTDIALOG_H
+#define ABOUTDIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
+#include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
-class SourceView;
-class ListLines;
-
-class SourceWidget : public QDockWidget
+class AboutDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    SourceView* m_sourceView;
-    ListLines* m_listLines;
-
-  public Q_SLOTS:
-    void setSource ( const QString &source );
-    void check();
-    void format();
-
   public:
-    SourceWidget ( QWidget * parent = 0 );
-    ~SourceWidget();
+    AboutDialog ( QWidget * parent = 0 );
+    const QString aboutText();
+    virtual ~AboutDialog();
 };
 
 #endif

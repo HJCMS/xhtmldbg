@@ -202,7 +202,6 @@ void BookmarkEditor::addNewItemRow()
 
   QString link = m_editLink->text();
 
-
   if ( link.isEmpty() )
   {
     item = new QTreeWidgetItem ( mainItem );

@@ -29,6 +29,7 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QDockWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
@@ -38,7 +39,8 @@
 
 class AddressToolBar;
 class KeywordsToolBar;
-class TabbedWidget;
+class SourceWidget;
+class WebViewer;
 class Messanger;
 class Bookmark;
 
@@ -50,7 +52,6 @@ class Window : public QMainWindow
 
   private:
     QSettings* m_settings;
-    QWidget* m_centralWidget;
     // Main Menu
     QMenuBar* m_menuBar;
     // Status Bar
@@ -84,19 +85,28 @@ class Window : public QMainWindow
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;
     QAction* actionConfigDialog;
-    // Tab Widget
-    TabbedWidget* m_tabbedWidget;
+    // Browser Widget
+    QDockWidget* m_webWidget;
+    WebViewer* m_webViewer;
+    // Source Viewer
+    SourceWidget* m_sourceWidget;
     // Messanger
     Messanger* m_messanger;
 
     void createMenus();
     void createToolBars();
 
+  protected Q_SLOTS:
+    void openTidyConfigApplication();
+    void openFileDialog();
+    void openUrlDialog();
+
   protected:
     void closeEvent ( QCloseEvent * );
 
   public Q_SLOTS:
-    void openTidyConfigApplication();
+    void openFile ( const QUrl & );
+    void openUrl ( const QUrl & );
 
   public:
     Window();

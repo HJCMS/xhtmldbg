@@ -41,31 +41,35 @@
 #include <QtGui/QScrollBar>
 
 SourceWidget::SourceWidget ( QWidget * parent )
-    : QWidget ( parent )
+    : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
   setBackgroundRole ( QPalette::NoRole );
+  setContentsMargins ( 0, 0, 0, 0 );
+  setWindowTitle ( trUtf8 ( "Source" ) );
+
+  QWidget* layer = new QWidget ( this );
 
   QFont font ( qApp->font() );
   font.setPointSize ( 12 );
   font.setStyleHint ( QFont::Courier, QFont::PreferDefault );
   font.setFamily ( "Courier" );
 
-  QHBoxLayout* mainLayout = new QHBoxLayout ( this );
+  QHBoxLayout* mainLayout = new QHBoxLayout ( layer );
   mainLayout->setContentsMargins ( 0, 0, 0, 0 );
   mainLayout->setSpacing ( 1 );
 
-  m_listLines = new ListLines ( font, this );
+  m_listLines = new ListLines ( font, layer );
   mainLayout->addWidget ( m_listLines );
   mainLayout->setStretchFactor ( m_listLines, 0 );
 
-  m_sourceView = new SourceView ( font, this );
+  m_sourceView = new SourceView ( font, layer );
   m_sourceView->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
   mainLayout->addWidget ( m_sourceView );
   mainLayout->setStretchFactor ( m_sourceView, 1 );
 
-  setLayout ( mainLayout );
+  setWidget ( layer );
 
   // Add Line Numbers
   connect ( m_sourceView, SIGNAL ( textChanged ( const QList<QListWidgetItem*> & ) ),

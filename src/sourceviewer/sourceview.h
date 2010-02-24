@@ -77,7 +77,7 @@ class SourceView : public QTextEdit
     void formatSource();
 
   public:
-    SourceView ( const QFont &font, QWidget *parent = 0 );
+    SourceView ( const QFont &font, QWidget * parent = 0 );
     const QString source();
     ~SourceView();
 

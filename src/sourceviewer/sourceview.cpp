@@ -51,7 +51,7 @@
 #include <QtGui/QTextCharFormat>
 #include <QtGui/QTextLayout>
 
-SourceView::SourceView ( const QFont &font, QWidget *parent )
+SourceView::SourceView ( const QFont &font, QWidget * parent )
     : QTextEdit ( parent )
     , m_highlighter ( 0 )
 {
