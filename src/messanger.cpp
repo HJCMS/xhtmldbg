@@ -37,6 +37,7 @@ Messanger::Messanger ( QWidget * parent )
   setObjectName ( "messanger" );
   setWindowTitle ( trUtf8 ( "Messages" ) );
   setStatusTip ( trUtf8 ( "Display XHTML/JavaScript and CSS Debugging Messages" ) );
+  setFeatures( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
   m_listWidget = new QListWidget ( this );
 

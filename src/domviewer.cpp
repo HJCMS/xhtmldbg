@@ -44,7 +44,7 @@ DomViewer::DomViewer ( QWidget * parent )
 QTreeWidgetItem* DomViewer::createChildItem ( const QString &name, QTreeWidgetItem* parent )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
-  item->setExpanded ( name.contains ( QRegExp ( "(html|head|body)" ) ) );
+  item->setExpanded ( name.contains ( QRegExp ( "(html|body)" ) ) );
   item->setData ( 0, Qt::UserRole, name );
   item->setText ( 0, name );
   return item;

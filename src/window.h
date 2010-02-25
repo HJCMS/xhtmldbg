@@ -92,6 +92,7 @@ class Window : public QMainWindow
     // Browser Widget
     WebViewer* m_webViewer;
     // Document DomViewer
+    QDockWidget* m_dockDomViewWidget;
     DomViewer* m_domViewer;
     // Source Viewer
     SourceWidget* m_sourceWidget;

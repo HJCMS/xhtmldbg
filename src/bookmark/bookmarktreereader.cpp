@@ -59,7 +59,7 @@ void BookmarkTreeReader::readFolder ( QTreeWidgetItem* item )
   Q_ASSERT ( xmlStream.isStartElement() && xmlStream.name() == "folder" );
 
   QTreeWidgetItem* folder = createChildItem ( item );
-  folder->setFlags ( folder->flags() | Qt::ItemIsEditable );
+  folder->setFlags ( ( folder->flags() | Qt::ItemIsEditable ) );
   folder->setChildIndicatorPolicy ( QTreeWidgetItem::ShowIndicator );
   folder->setIcon ( 0, folderIcon );
 
@@ -108,7 +108,7 @@ void BookmarkTreeReader::readSeparator ( QTreeWidgetItem* item )
   Q_ASSERT ( xmlStream.isStartElement() && xmlStream.name() == "separator" );
 
   QTreeWidgetItem* separator = createChildItem ( item );
-  separator->setFlags ( item->flags() & ~Qt::ItemIsSelectable );
+  separator->setFlags ( ( item->flags() & ~Qt::ItemIsSelectable ) );
   separator->setText ( 0, QString ( 30, 0xB7 ) );
   xmlStream.skipCurrentElement();
 }

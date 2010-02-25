@@ -81,10 +81,16 @@ Window::Window() : QMainWindow()
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
 
-  // Show Document DomTree
-  m_domViewer = new DomViewer ( this );
-  m_centralWidget->insertTab ( 2, m_domViewer, trUtf8 ( "DOM" ) );
-  m_centralWidget->setTabIcon ( 2, qTidyIcon );
+  // Show Document DomTree in DockWidget
+  m_dockDomViewWidget = new QDockWidget ( this );
+  m_dockDomViewWidget->setObjectName ( QLatin1String ( "domviewerdock" ) );
+  m_dockDomViewWidget->setWindowTitle ( trUtf8 ( "DOM Viewer" ) );
+  m_dockDomViewWidget->setWindowIcon ( qTidyIcon );
+  m_dockDomViewWidget->setAllowedAreas ( ( m_dockDomViewWidget->allowedAreas() & ~Qt::TopDockWidgetArea ) );
+  m_dockDomViewWidget->setFeatures ( ( m_dockDomViewWidget->features() & ~QDockWidget::DockWidgetFloatable ) );
+  m_domViewer = new DomViewer ( m_dockDomViewWidget );
+  m_dockDomViewWidget->setWidget ( m_domViewer );
+  addDockWidget ( Qt::RightDockWidgetArea, m_dockDomViewWidget );
 
   // XHTML & JavaScript Messanger DockWidget
   m_messanger = new Messanger ( this );
