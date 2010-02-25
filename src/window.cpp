@@ -22,8 +22,9 @@
 #include "window.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
-#include "sourcewidget.h"
 #include "webviewer.h"
+#include "sourcewidget.h"
+#include "domviewer.h"
 #include "messanger.h"
 #include "bookmark.h"
 #include "openurldialog.h"
@@ -52,7 +53,8 @@ Window::Window() : QMainWindow()
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
   setObjectName ( "xhtmldbgwindow" );
-  setWindowIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) );
+  QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
+  setWindowIcon ( qTidyIcon );
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
@@ -62,18 +64,26 @@ Window::Window() : QMainWindow()
   m_statusBar->setSizeGripEnabled ( true );
 
   // Browser DockWidget
-  m_webWidget = new QDockWidget ( this );
-  m_webWidget->setObjectName ( QLatin1String ( "webwidget" ) );
-  m_webWidget->setWindowTitle ( trUtf8 ( "Browser" ) );
-  m_webWidget->setAllowedAreas ( ( Qt::TopDockWidgetArea | Qt::BottomDockWidgetArea ) );
+  m_centralWidget = new QTabWidget ( this );
+  m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
+  m_centralWidget->setTabPosition ( QTabWidget::South );
+  m_centralWidget->setTabsClosable ( false );
+
   // WebViewer
-  m_webViewer = new WebViewer ( m_webWidget );
-  m_webWidget->setWidget ( m_webViewer );
-  addDockWidget ( Qt::TopDockWidgetArea, m_webWidget );
+  m_webViewer = new WebViewer ( m_centralWidget );
+  m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
+  m_centralWidget->setTabIcon ( 0, qTidyIcon );
+  m_centralWidget->setCurrentIndex ( 0 );
 
   // Show XHTML Source
   m_sourceWidget = new SourceWidget ( this );
-  addDockWidget ( Qt::TopDockWidgetArea, m_sourceWidget );
+  m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
+  m_centralWidget->setTabIcon ( 1, qTidyIcon );
+
+  // Show Document DomTree
+  m_domViewer = new DomViewer ( this );
+  m_centralWidget->insertTab ( 2, m_domViewer, trUtf8 ( "DOM" ) );
+  m_centralWidget->setTabIcon ( 2, qTidyIcon );
 
   // XHTML & JavaScript Messanger DockWidget
   m_messanger = new Messanger ( this );
@@ -83,6 +93,12 @@ Window::Window() : QMainWindow()
   createMenus();
   createToolBars();
 
+  setCentralWidget ( m_centralWidget );
+
+  connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
+            this, SLOT ( requestsFinished ( bool ) ) );
+
+  // Widget SIGNALS
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
@@ -247,6 +263,16 @@ void Window::closeEvent ( QCloseEvent *event )
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
   QMainWindow::closeEvent ( event );
+}
+
+void Window::requestsFinished ( bool ok )
+{
+  // TODO IF OK do something else
+  if ( ok )
+  {
+    qDebug() << Q_FUNC_INFO;
+    m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+  }
 }
 
 void Window::openTidyConfigApplication()

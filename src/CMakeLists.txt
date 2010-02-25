@@ -23,6 +23,7 @@ SET (xhtmldbg_SOURCES
   addresstoolbar.cpp
   keywordstoolbar.cpp
   messanger.cpp
+  domviewer.cpp
   aboutdialog.cpp
 )
 
@@ -32,6 +33,7 @@ SET (xhtmldbg_HEADERS
   addresstoolbar.h
   keywordstoolbar.h
   messanger.h
+  domviewer.h
   aboutdialog.h
 )
 

@@ -33,7 +33,7 @@
 class SourceView;
 class ListLines;
 
-class SourceWidget : public QDockWidget
+class SourceWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

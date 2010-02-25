@@ -34,6 +34,7 @@
 #include <QtWebKit/QWebView>
 #include <QtWebKit/QWebHistory>
 #include <QtWebKit/QWebPage>
+#include <QtWebKit/QWebElement>
 
 class Viewer;
 
@@ -45,7 +46,7 @@ class WebViewer : public QTabWidget
 
   private:
     Viewer* m_viewer;
-    Viewer* activePage();
+    Viewer* activeView();
 
   private Q_SLOTS:
     void updateTabTitle ( const QString & );
@@ -53,6 +54,7 @@ class WebViewer : public QTabWidget
   Q_SIGNALS:
     void urlChanged ( const QUrl & );
     void addBookmark ( const QUrl &, const QString & );
+    void loadFinished ( bool );
 
   public Q_SLOTS:
     void addNewViewerTab ( Viewer * );
@@ -64,6 +66,8 @@ class WebViewer : public QTabWidget
 
   public:
     WebViewer ( QWidget * parent = 0 );
+    const QString toHtml();
+    const QWebElement toWebElement();
     ~WebViewer();
 };
 

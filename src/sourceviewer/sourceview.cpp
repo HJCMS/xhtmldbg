@@ -59,9 +59,10 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setFrameStyle ( QFrame::NoFrame );
   setAcceptRichText ( false );
-  setTextInteractionFlags ( Qt::TextEditorInteraction );
+//   setTextInteractionFlags ( Qt::TextEditorInteraction );
   setWordWrapMode ( QTextOption::ManualWrap );
   setLineWrapMode ( QTextEdit::NoWrap );
+//   setUndoRedoEnabled ( true );
   setCurrentFont ( font );
   document()->setDefaultFont ( font );
 

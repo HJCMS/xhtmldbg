@@ -47,7 +47,7 @@ Viewer::Viewer ( QWidget * parent )
             this, SLOT ( cursorwait () ) );
 
   connect ( this, SIGNAL ( loadFinished ( bool ) ),
-            this, SLOT ( cursorFinished () ) );
+            this, SLOT ( cursorFinished ( bool ) ) );
 }
 
 void Viewer::cursorwait ()
@@ -55,7 +55,7 @@ void Viewer::cursorwait ()
   setCursor ( Qt::WaitCursor );
 }
 
-void Viewer::cursorFinished ()
+void Viewer::cursorFinished ( bool )
 {
   setCursor ( Qt::ArrowCursor );
 }

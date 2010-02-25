@@ -41,7 +41,7 @@
 #include <QtGui/QScrollBar>
 
 SourceWidget::SourceWidget ( QWidget * parent )
-    : QDockWidget ( parent )
+    : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -49,27 +49,25 @@ SourceWidget::SourceWidget ( QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setWindowTitle ( trUtf8 ( "Source" ) );
 
-  QWidget* layer = new QWidget ( this );
-
   QFont font ( qApp->font() );
   font.setPointSize ( 12 );
   font.setStyleHint ( QFont::Courier, QFont::PreferDefault );
   font.setFamily ( "Courier" );
 
-  QHBoxLayout* mainLayout = new QHBoxLayout ( layer );
+  QHBoxLayout* mainLayout = new QHBoxLayout ( this );
   mainLayout->setContentsMargins ( 0, 0, 0, 0 );
   mainLayout->setSpacing ( 1 );
 
-  m_listLines = new ListLines ( font, layer );
+  m_listLines = new ListLines ( font, this );
   mainLayout->addWidget ( m_listLines );
   mainLayout->setStretchFactor ( m_listLines, 0 );
 
-  m_sourceView = new SourceView ( font, layer );
+  m_sourceView = new SourceView ( font, this );
   m_sourceView->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
   mainLayout->addWidget ( m_sourceView );
   mainLayout->setStretchFactor ( m_sourceView, 1 );
 
-  setWidget ( layer );
+  setLayout ( mainLayout );
 
   // Add Line Numbers
   connect ( m_sourceView, SIGNAL ( textChanged ( const QList<QListWidgetItem*> & ) ),
@@ -88,7 +86,6 @@ SourceWidget::SourceWidget ( QWidget * parent )
 
   connect ( m_listLines, SIGNAL ( valueChanged ( int ) ),
             m_sourceView->verticalScrollBar(), SLOT ( setValue ( int ) ) );
-
 }
 
 void SourceWidget::setSource ( const QString &source )

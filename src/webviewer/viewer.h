@@ -49,7 +49,7 @@ class Viewer : public QWebView
 
   private Q_SLOTS:
     void cursorwait ();
-    void cursorFinished ();
+    void cursorFinished ( bool );
     void bookmark();
 
   protected:

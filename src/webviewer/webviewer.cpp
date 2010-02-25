@@ -22,6 +22,8 @@
 #include "webviewer.h"
 #include "viewer.h"
 
+#include <QtWebKit/QWebFrame>
+
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
 {
@@ -41,9 +43,12 @@ WebViewer::WebViewer ( QWidget * parent )
 
   connect ( m_viewer, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
+
+  connect ( m_viewer, SIGNAL ( loadFinished ( bool ) ),
+            this, SIGNAL ( loadFinished ( bool ) ) );
 }
 
-Viewer* WebViewer::activePage()
+Viewer* WebViewer::activeView()
 {
   QObject* w = currentWidget();
   while ( w )
@@ -63,7 +68,7 @@ void WebViewer::updateTabTitle ( const QString &title )
   QString pr ( title );
   if ( pr.isEmpty() )
   {
-    pr.append ( activePage()->url().host() );
+    pr.append ( activeView()->url().host() );
   }
   else if ( title.size() >= max )
   {
@@ -98,22 +103,32 @@ void WebViewer::addEmptyViewerTab ()
 
 void WebViewer::setUrl ( const QUrl &url )
 {
-  activePage()->setUrl ( url );
+  activeView()->setUrl ( url );
 }
 
 void WebViewer::refresh ()
 {
-  activePage()->reload();
+  activeView()->reload();
 }
 
 void WebViewer::back ()
 {
-  activePage()->back();
+  activeView()->back();
 }
 
 void WebViewer::forward ()
 {
-  activePage()->forward();
+  activeView()->forward();
+}
+
+const QString WebViewer::toHtml()
+{
+  return activeView()->page()->currentFrame()->toHtml ();
+}
+
+const QWebElement WebViewer::toWebElement()
+{
+  return activeView()->page()->currentFrame()->documentElement ();
 }
 
 WebViewer::~WebViewer()
