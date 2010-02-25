@@ -29,6 +29,7 @@
 #include "bookmark.h"
 #include "openurldialog.h"
 #include "aboutdialog.h"
+#include "configdialog.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -209,7 +210,7 @@ void Window::createMenus()
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
   actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
-  // TODO  Action open Configuration Dialog
+  connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
   // Help and About Menu
   QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
@@ -310,6 +311,12 @@ void Window::openUrlDialog()
   connect ( dialog, SIGNAL ( openUrl ( const QUrl & ) ),
             this, SLOT ( openUrl ( const QUrl & ) ) );
 
+  dialog->exec();
+}
+
+void Window::openConfigDialog()
+{
+  ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
   dialog->exec();
 }
 

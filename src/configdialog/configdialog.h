@@ -23,10 +23,13 @@
 #define CONFIGDIALOG_H
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QObject>
+#include <QtCore/QSettings>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QDialog>
+#include <QtGui/QPushButton>
+#include <QtGui/QWidget>
 
 class ConfigDialog : public QDialog
 {
@@ -34,8 +37,15 @@ class ConfigDialog : public QDialog
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
+  private:
+    QSettings* cfg;
+    QPushButton* m_buttonCancel;
+    QPushButton* m_buttonClose;
+    QPushButton* m_buttonRestore;
+    QPushButton* m_buttonSave;
+
   public:
-    ConfigDialog ( QWidget * parent = 0 );
+    ConfigDialog ( QWidget * parent = 0, QSettings * settings = 0 );
     ~ConfigDialog();
 };
 

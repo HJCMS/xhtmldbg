@@ -51,7 +51,6 @@ class BookmarkEditor : public QDialog
     QToolButton* m_addButton;
     QPushButton* m_buttonCancel;
     QPushButton* m_buttonClose;
-    QPushButton* m_buttonRestore;
     QPushButton* m_buttonSave;
     void initBookmarkTree();
 

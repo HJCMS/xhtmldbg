@@ -101,11 +101,12 @@ class Window : public QMainWindow
     void createMenus();
     void createToolBars();
 
-  protected Q_SLOTS:
+  private Q_SLOTS:
     void requestsFinished ( bool );
     void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();
+    void openConfigDialog();
 
   protected:
     void closeEvent ( QCloseEvent * );

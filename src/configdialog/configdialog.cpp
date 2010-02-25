@@ -27,10 +27,35 @@
 /* QtGui */
 #include <QtGui>
 
-ConfigDialog::ConfigDialog ( QWidget * parent )
+ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
+    , cfg ( settings )
 {
   setObjectName ( QLatin1String ( "configdialog" ) );
+  setWindowTitle ( trUtf8( "Configure xhtmldbg[*]" ) );
+  setMinimumWidth ( 550 );
+  setMinimumHeight ( 450 );
+  setSizeGripEnabled ( true );
+
+  QVBoxLayout* vLayout = new QVBoxLayout ( this );
+  vLayout->setObjectName ( QLatin1String ( "verticallayout" ) );
+  vLayout->setContentsMargins ( 5, 5, 5, 15 );
+
+  vLayout->addWidget ( new QFrame( this ) );
+
+  QDialogButtonBox* buttonBox = new QDialogButtonBox ( this );
+  buttonBox->setObjectName ( QLatin1String ( "buttonBox" ) );
+  buttonBox->setOrientation ( Qt::Horizontal );
+  m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
+  m_buttonClose = buttonBox->addButton ( QDialogButtonBox::Close );
+  m_buttonSave = buttonBox->addButton ( QDialogButtonBox::Save );
+  m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
+
+  vLayout->addWidget ( buttonBox );
+
+  connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
+  connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
+  connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
 }
 
 ConfigDialog::~ConfigDialog()

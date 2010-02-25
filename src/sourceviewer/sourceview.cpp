@@ -59,32 +59,22 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setFrameStyle ( QFrame::NoFrame );
   setAcceptRichText ( false );
-//   setTextInteractionFlags ( Qt::TextEditorInteraction );
+  setAutoFormatting ( QTextEdit::AutoNone );
   setWordWrapMode ( QTextOption::ManualWrap );
   setLineWrapMode ( QTextEdit::NoWrap );
-//   setUndoRedoEnabled ( true );
+  setUndoRedoEnabled ( true );
   setCurrentFont ( font );
   document()->setDefaultFont ( font );
+  setTextInteractionFlags ( Qt::TextEditorInteraction );
 
-  // Context Menu
-  editMenu = createStandardContextMenu();
-  /* FIXME It is recomment to set ObjectName for the MainMenu
-  and then delete QUnicodeControlCharacterMenu Object */
-  editMenu->setObjectName ( "primarycontextmenu" );
-  foreach ( QMenu *m, editMenu->findChildren<QMenu*>() )
-  {
-    if ( m->objectName().isEmpty() )
-      delete m;
-  }
   m_contextMenu = new ContextMenu ( this );
-  editMenu->addMenu ( m_contextMenu );
 
   QTextCharFormat format = currentCharFormat();
   format.setVerticalAlignment ( QTextCharFormat::AlignMiddle );
 
   m_highlighter = new Highlighter ( document() );
 
-  // FIXME Shortcuts from ContextMenu didn't work ???
+  // if Shortcuts from ContextMenu didn't work ???
   // Save ShortCut
   QShortcut* sc_save = new QShortcut ( this );
   sc_save->setKey ( QKeySequence ( QKeySequence::Save ) );
@@ -327,6 +317,17 @@ void SourceView::Clipboard()
 
 void SourceView::contextMenuEvent ( QContextMenuEvent *e )
 {
+  // WARNING For undo redo copy paste the Context Menu must initialed in contextMenuEvent !!!
+  editMenu = createStandardContextMenu();
+  /* FIXME It is recomment to set ObjectName for the MainMenu
+  and then delete QUnicodeControlCharacterMenu Object */
+  editMenu->setObjectName ( "primarycontextmenu" );
+  foreach ( QMenu *m, editMenu->findChildren<QMenu*>() )
+  {
+    if ( m->objectName().isEmpty() )
+      delete m;
+  }
+  editMenu->addMenu ( m_contextMenu );
   editMenu->exec ( e->globalPos() );
 }
 
