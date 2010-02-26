@@ -229,8 +229,8 @@ ENDIF (NOT TIDY_FOUND)
 ##############################################################
 ## SUBDIRECTORIES
 ##############################################################
-# TODO (NOT TIDY_FOUND) ADD_SUBDIRECTORY (internal) :-/
 ADD_SUBDIRECTORY (src)
+ADD_SUBDIRECTORY (data)
 
 ##############################################################
 ## LGPL/GPL3 Exceptions

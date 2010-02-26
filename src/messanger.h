@@ -28,7 +28,6 @@
 /* QtGui */
 #include <QtGui/QDockWidget>
 #include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
 #include <QtGui/QIcon>
 

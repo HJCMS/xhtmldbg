@@ -27,6 +27,7 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QListWidgetItem>
 
 Messanger::Messanger ( QWidget * parent )
     : QDockWidget ( parent )
