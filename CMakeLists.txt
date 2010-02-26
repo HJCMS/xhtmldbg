@@ -19,13 +19,11 @@ SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 ##############################################################
 SET (QT_MIN_VERSION 4.6.0)
 FIND_PACKAGE (Qt4 REQUIRED)
-SET (QT_USE_QTGUI 1)
-SET (QT_USE_QTXML 1)
-SET (QT_USE_QTNETWORK 1)
-SET (QT_USE_QTWEBKIT 1)
-SET (QT_USE_QTSQL 1)
-
+SET( QT_USE_QTWEBKIT 1 )
+SET( QT_USE_QTNETWORK 1 )
 INCLUDE (${QT_USE_FILE})
+
+FIND_PACKAGE (QTidy REQUIRED)
 
 ##############################################################
 ## Set xhtmldbg Specific Information
@@ -49,12 +47,9 @@ EXEC_PROGRAM (${QT_QMAKE_EXECUTABLE}
   OUTPUT_VARIABLE CMAKE_INSTALL_PREFIX
 )
 
-## Icon Theme
-SET (ICON_THEME_FOLDER "" CACHE STRING "icontheme directory foldername (oxygen/hicolor) default is oxygen")
-IF (NOT ICON_THEME_FOLDER)
-MESSAGE (STATUS "Notice setting ICON_THEME_FOLDER to oxygen!")
-SET (ICON_THEME_FOLDER "oxygen" CACHE STRING "oxygen" FORCE)
-ENDIF (NOT ICON_THEME_FOLDER)
+IF (NOT QT_USE_QTNETWORK)
+  MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtNetwork support.")
+ENDIF (NOT QT_USE_QTNETWORK)
 
 ##############################################################
 ## Set Header Definitions
@@ -113,7 +108,7 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   IF (GCC_IS_NEWER_THAN_4_2 AND __CHECK_GCC_VISIBILITY)
     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DHAVE_VISIBILITY")
     ## Bugfix gcc-4.3 need explicit definition
-    ADD_DEFINITIONS (${QT_DEFINITIONS} -DHAVE_VISIBILITY)
+    ADD_DEFINITIONS (-DHAVE_VISIBILITY)
   ENDIF (GCC_IS_NEWER_THAN_4_2 AND __CHECK_GCC_VISIBILITY)
 
   IF (__CHECK_GCC_STACK_PROTECTOR)
@@ -136,23 +131,6 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   ENDIF (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
-
-##############################################################
-## FATAL ERRORS
-##############################################################
-
-IF (NOT QT_USE_QTXML)
-  MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtXml support.")
-ENDIF (NOT QT_USE_QTXML)
-
-IF (NOT QT_USE_QTNETWORK)
-  MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtNetwork support.")
-ENDIF (NOT QT_USE_QTNETWORK)
-
-IF (NOT QT_USE_QTWEBKIT)
-  MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtWebKit support.")
-ENDIF (NOT QT_USE_QTWEBKIT)
-
 
 ##############################################################
 ## APPEND|REMOVE DEFINITIONS
@@ -181,7 +159,9 @@ SET (LIBRARY_OUTPUT_PATH
 ##############################################################
 
 SET (XHTMLDBG_INCLUDES
-  ${QT_INCLUDES}
+  ${QT_QTMAIN_INCLUDE_DIR}
+  ${QT_QTNETWORK_INCLUDE_DIR}
+  ${QT_QTWEBKIT_INCLUDE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/lib
@@ -194,37 +174,10 @@ SET (XHTMLDBG_INCLUDES
 
 SET (XHTMLDBG_LIBRARIES
   ${QT_QTMAIN_LIBRARY}
-  ${QT_QTGUI_LIBRARY}
-  ${QT_QTCORE_LIBRARY}
-  ${QT_QTXML_LIBRARY}
-  ${QT_QTWEBKIT_LIBRARY}
   ${QT_QTNETWORK_LIBRARY}
+  ${QT_QTWEBKIT_LIBRARY}
+  ${QTIDY_LIBRARIES}
 )
-
-##############################################################
-## Search Tidy
-##############################################################
-
-SET (TIDY_FOUND 0)
-SET (TIDY_INC_SEARCH_PATH
-  /usr/include
-  /usr/include/tidy
-  /usr/local/include/tidy
-)
-FIND_PATH (TIDY_INCLUDE_PATH  tidy.h ${TIDY_INC_SEARCH_PATH})
-FIND_LIBRARY (TIDY_LIBRARY tidy)
-
-IF (TIDY_INCLUDE_PATH OR TIDY_LIBRARY)
-  SET (TIDY_FOUND 1)
-ENDIF (TIDY_INCLUDE_PATH OR TIDY_LIBRARY)
-
-IF (NOT TIDY_FOUND)
-  MESSAGE (FATAL_ERROR "tidy development headers or library not found!")
-ELSE (NOT TIDY_FOUND)
-  MESSAGE (STATUS "nice tidy development files found!")
-  SET (XHTMLDBG_INCLUDES ${XHTMLDBG_INCLUDES} ${TIDY_INCLUDE_PATH})
-  SET (XHTMLDBG_LIBRARIES ${XHTMLDBG_LIBRARIES} ${TIDY_LIBRARY})
-ENDIF (NOT TIDY_FOUND)
 
 ##############################################################
 ## SUBDIRECTORIES
