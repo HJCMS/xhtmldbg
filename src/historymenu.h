@@ -25,10 +25,10 @@
 /* QtCore */
 #include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QSignalMapper>
 #include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QAction>
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
 #include <QtGui/QWidget>
@@ -43,6 +43,10 @@ class HistoryMenu : public QMenu
 
   private:
     const QIcon defaultIcon;
+    QSignalMapper* m_mapper;
+
+  private Q_SLOTS:
+    void clicked ( const QString & );
 
   Q_SIGNALS:
     void openBookmark ( const QUrl & );

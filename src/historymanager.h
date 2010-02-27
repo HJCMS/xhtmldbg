@@ -23,10 +23,8 @@
 #define HISTORYMANAGER_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
-
-/* QtGui */
-// #include <QtGui>
 
 /* QtWebKit */
 #include <QtWebKit/QWebHistoryInterface>
@@ -43,11 +41,11 @@ class HistoryManager : public QWebHistoryInterface
     int maxHistoryItems;
     QList<HistoryItem> m_history;
 
-  private Q_SLOTS:
-    void save();
-
   protected:
     void addHistoryItem ( const HistoryItem & );
+
+  Q_SIGNALS:
+    void updateHistoryMenu ( const QList<HistoryItem> & );
 
   public Q_SLOTS:
     void clear();
@@ -55,7 +53,7 @@ class HistoryManager : public QWebHistoryInterface
   public:
     HistoryManager ( QObject * parent = 0 );
     void addHistoryEntry ( const QString & );
-    bool historyContains ( const QString & );
+    bool historyContains ( const QString & ) const;
     ~HistoryManager();
 };
 

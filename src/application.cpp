@@ -20,6 +20,7 @@
 **/
 
 #include "application.h"
+#include "historymanager.h"
 
 #include <cstdlib>
 
@@ -31,6 +32,8 @@
 /* QtGui */
 #include <QtGui/QIcon>
 
+HistoryManager* Application::p_historyManager = 0;
+
 Application::Application ( int &argc, char **argv )
     : QApplication ( argc, argv, true )
     , m_server ( 0 )
@@ -41,6 +44,7 @@ Application::Application ( int &argc, char **argv )
   setGraphicsSystem ( QLatin1String ( "native" ) );
   QIcon::setThemeName ( "oxygen" );
 
+  Application::historyManager();
 }
 
 void Application::newConnection()
@@ -141,6 +145,16 @@ bool Application::sendMessage ( const QByteArray &mess, int rwait )
 bool Application::isRunning() const
 {
   return ( 0 != m_server );
+}
+
+HistoryManager* Application::historyManager()
+{
+  if ( !p_historyManager )
+  {
+    p_historyManager = new HistoryManager();
+    QWebHistoryInterface::setDefaultInterface ( p_historyManager );
+  }
+  return p_historyManager;
 }
 
 Application::~Application()

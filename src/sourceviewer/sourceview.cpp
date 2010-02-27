@@ -95,8 +95,8 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
   // Context Actions
   connect ( m_contextMenu, SIGNAL ( ssave() ), this, SLOT ( saveSource() ) );
   connect ( m_contextMenu, SIGNAL ( sprint() ), this, SLOT ( printSource() ) );
-  connect ( m_contextMenu, SIGNAL ( sscheck() ), this, SLOT ( checkSource() ) );
-  connect ( m_contextMenu, SIGNAL ( sformat() ), this, SLOT ( formatSource() ) );
+  connect ( m_contextMenu, SIGNAL ( sscheck() ), this, SIGNAL ( check() ) );
+  connect ( m_contextMenu, SIGNAL ( sformat() ), this, SIGNAL ( format() ) );
   connect ( m_contextMenu, SIGNAL ( swrap() ), this, SLOT ( swapWordWrap() ) );
 }
 
@@ -291,22 +291,6 @@ void SourceView::printSource()
   setLineWrapMode ( origLineWrapMode );
   setWordWrapMode ( origWrapMode );
   createListWidgetItems();
-}
-
-/**
-* @todo to implement QTidy::QTidyParser
-*/
-void SourceView::checkSource()
-{
-  qDebug() << Q_FUNC_INFO << "TODO to implement QTidy::QTidyParser";
-}
-
-/**
-* @todo to implement QTidy::QTidyParser
-*/
-void SourceView::formatSource()
-{
-  qDebug() << Q_FUNC_INFO << "TODO to implement QTidy::QTidyParser";
 }
 
 /** Verwende Unix Clipboard bei jeder Selektierungs Aktion */

@@ -33,15 +33,9 @@
 
 HistoryManager::HistoryManager ( QObject * parent )
     : QWebHistoryInterface ( parent )
-    , maxHistoryItems ( 20 )
+    , maxHistoryItems ( 10 )
 {
-  // QWebHistoryInterface will delete the history manager
   QWebHistoryInterface::setDefaultInterface ( this );
-}
-
-void HistoryManager::save()
-{
-  qDebug() << Q_FUNC_INFO << "TODO";
 }
 
 void HistoryManager::addHistoryItem ( const HistoryItem &item )
@@ -53,18 +47,25 @@ void HistoryManager::addHistoryItem ( const HistoryItem &item )
   m_history.prepend ( item );
   if ( m_history.count() > maxHistoryItems )
     m_history.removeLast();
+
+  emit updateHistoryMenu ( m_history );
 }
 
 void HistoryManager::addHistoryEntry ( const QString &url )
 {
-  qDebug() << Q_FUNC_INFO << "TODO" << url;
+  QUrl address ( url );
+  address.setPassword ( QString::null );
+  address.setHost ( address.host().toLower() );
+  HistoryItem item ( address.toString(), QDateTime::currentDateTime() );
+  addHistoryItem ( item );
 }
 
-bool HistoryManager::historyContains ( const QString &url )
+bool HistoryManager::historyContains ( const QString &url ) const
 {
+  QString check = url.toLower();
   foreach ( HistoryItem i, m_history )
   {
-    if ( i.url == url )
+    if ( i.url == check )
       return true;
   }
   return false;

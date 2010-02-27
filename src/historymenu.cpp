@@ -23,10 +23,10 @@
 #include "historyitem.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QAction>
 
 HistoryMenu::HistoryMenu ( QMenu * parent )
     : QMenu ( parent )
@@ -35,13 +35,39 @@ HistoryMenu::HistoryMenu ( QMenu * parent )
   setObjectName ( QLatin1String ( "historymenu" ) );
   setTitle ( trUtf8 ( "History" ) );
   setIcon ( defaultIcon );
+  m_mapper = new QSignalMapper();
+
+  connect ( m_mapper, SIGNAL ( mapped ( const QString & ) ),
+            this, SLOT ( clicked ( const QString & ) ) );
+
+}
+
+void HistoryMenu::clicked ( const QString &path )
+{
+  QUrl url ( path );
+  if ( url.isValid() )
+    emit openBookmark ( url );
 }
 
 void HistoryMenu::updateHistoryItems ( const QList<HistoryItem> &items )
 {
-  qDebug() << Q_FUNC_INFO << items.count();
+  if ( items.count() >= 1 )
+  {
+    clear();
+    foreach ( HistoryItem item, items )
+    {
+      QString path = item.url;
+      QAction* ac = addAction ( defaultIcon, path.left ( 25 ) );
+      ac->setObjectName ( path );
+      ac->setStatusTip ( path );
+      connect ( ac, SIGNAL ( triggered() ), m_mapper, SLOT ( map() ) );
+      m_mapper->setMapping ( ac, path );
+    }
+  }
 }
 
 HistoryMenu::~HistoryMenu()
-{}
+{
+  clear();
+}
 

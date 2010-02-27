@@ -52,6 +52,7 @@ void BookmarkReader::rebuildMenu ( const QDomElement &root, QMenu* menu )
           QString href = e.attributeNode ( QLatin1String ( "href" ) ).value();
           QAction* ac = menu->addAction ( bookmarkIcon, title );
           ac->setObjectName ( title );
+          ac->setStatusTip ( href );
           connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
           m_signalMapper->setMapping ( ac, href );
         }

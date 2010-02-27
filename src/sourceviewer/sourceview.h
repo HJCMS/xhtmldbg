@@ -66,6 +66,8 @@ class SourceView : public QTextEdit
   Q_SIGNALS:
     void textChanged ( const QList<QListWidgetItem*> & );
     void lineChanged ( int );
+    void check();
+    void format();
 
   public Q_SLOTS:
     void fetchRow ( QListWidgetItem * );
@@ -73,8 +75,6 @@ class SourceView : public QTextEdit
     void setCursorToRow ( int );
     void saveSource();
     void printSource();
-    void checkSource();
-    void formatSource();
 
   public:
     SourceView ( const QFont &font, QWidget * parent = 0 );

@@ -30,6 +30,9 @@
 #include <QtGui/QDockWidget>
 #include <QtGui/QWidget>
 
+/* QTidy */
+#include <QTidy/QTidyParser>
+
 class SourceView;
 class ListLines;
 
@@ -38,18 +41,27 @@ class SourceWidget : public QWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( QString tidyrc READ getTidyrc WRITE setTidyrc )
 
   private:
     SourceView* m_sourceView;
     ListLines* m_listLines;
+    QString tidyrc;
+
+  Q_SIGNALS:
+    void triggered ( const QTidy::QTidyDiagnosis & );
 
   public Q_SLOTS:
     void setSource ( const QString &source );
+    void fetchBlock ( int, int );
+    // void fetchColumn ( int );
     void check();
     void format();
 
   public:
     SourceWidget ( QWidget * parent = 0 );
+    const QString getTidyrc();
+    void setTidyrc ( const QString & );
     ~SourceWidget();
 };
 

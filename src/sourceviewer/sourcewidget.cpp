@@ -26,7 +26,7 @@
 #include <cstdio>
 
 /* QtCore */
-// #include <QtCore>
+#include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <QtCore/QString>
 
@@ -40,8 +40,12 @@
 #include <QtGui/QFont>
 #include <QtGui/QScrollBar>
 
+/* QTidy */
+#include <QTidy/QTidySettings>
+
 SourceWidget::SourceWidget ( QWidget * parent )
     : QWidget ( parent )
+    , tidyrc ( QLatin1String ( "~/.qtidyrc" ) )
 {
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -86,6 +90,9 @@ SourceWidget::SourceWidget ( QWidget * parent )
 
   connect ( m_listLines, SIGNAL ( valueChanged ( int ) ),
             m_sourceView->verticalScrollBar(), SLOT ( setValue ( int ) ) );
+
+  connect ( m_sourceView, SIGNAL ( check() ), this, SLOT ( check() ) );
+  connect ( m_sourceView, SIGNAL ( format() ), this, SLOT ( format() ) );
 }
 
 void SourceWidget::setSource ( const QString &source )
@@ -93,14 +100,54 @@ void SourceWidget::setSource ( const QString &source )
   m_sourceView->setSource ( source );
 }
 
-void SourceWidget::check()
+void SourceWidget::fetchBlock ( int row, int column )
 {
-  m_sourceView->checkSource();
+  Q_UNUSED( column )
+  m_listLines->setCurrentRow( row );
 }
 
+/**
+* @todo to implement QTidy::QTidyParser
+*/
+void SourceWidget::check()
+{
+  QTidy::QTidyParser parser ( this, getTidyrc() );
+  connect ( &parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
+            this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
+
+  parser.checkContent ( m_sourceView->source() );
+}
+
+/**
+* @todo to implement QTidy::QTidyParser
+*/
 void SourceWidget::format()
 {
-  m_sourceView->formatSource();
+  QString html = m_sourceView->source();
+  if ( html.isEmpty() )
+    return;
+
+  QTidy::QTidyParser* parser = new  QTidy::QTidyParser ( this, getTidyrc() );
+  connect ( parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
+            this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
+
+  QString valid = parser->cleanContent ( html );
+  if ( valid.isEmpty() )
+    return;
+
+  m_sourceView->setSource ( valid );
+  parser->checkContent ( m_sourceView->source() );
+}
+
+const QString SourceWidget::getTidyrc()
+{
+  QTidy::QTidySettings rc ( tidyrc );
+  return rc.TidyConfig();
+}
+
+void SourceWidget::setTidyrc ( const QString &rc )
+{
+  tidyrc = rc;
 }
 
 SourceWidget::~SourceWidget()

@@ -34,6 +34,8 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 
+class HistoryManager;
+
 class Application : public QApplication
 {
     Q_OBJECT
@@ -43,6 +45,7 @@ class Application : public QApplication
   private:
     QLocalServer* m_server;
     QString myName() const;
+    static HistoryManager* p_historyManager;
 
   private Q_SLOTS:
     void newConnection();
@@ -56,6 +59,7 @@ class Application : public QApplication
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
     bool isRunning() const;
     void busEventHandler ( const QString &type, const QString &str );
+    static HistoryManager* historyManager();
     ~Application();
 
 };

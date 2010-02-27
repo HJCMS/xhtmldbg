@@ -6,7 +6,7 @@
     <message>
         <location filename="../src/aboutdialog.cpp" line="38"/>
         <source>About xhtmldbg &amp; HJCMS</source>
-        <translation type="unfinished"></translation>
+        <translation>Über XHTMLdbg &amp; HJCMS</translation>
     </message>
     <message>
         <location filename="../src/aboutdialog.cpp" line="89"/>
@@ -19,17 +19,17 @@
     <message>
         <location filename="../src/addresstoolbar.cpp" line="40"/>
         <source>Address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse</translation>
     </message>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="47"/>
         <source>Address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse:</translation>
     </message>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="61"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Leeren</translation>
     </message>
 </context>
 <context>
@@ -37,7 +37,7 @@
     <message>
         <location filename="../src/bookmark/bookmark.cpp" line="47"/>
         <source>Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen</translation>
     </message>
 </context>
 <context>
@@ -45,75 +45,76 @@
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="48"/>
         <source>Bookmark Manager[*]</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen Manager[*]</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="59"/>
         <source>Headline</source>
-        <translation type="unfinished"></translation>
+        <translation>Überschrift</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="60"/>
         <source>Hyperlink</source>
-        <translation type="unfinished"></translation>
+        <translation>Verknüpfung</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="75"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="80"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="81"/>
         <source>Folder or Bookmark Title</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzeichnis oder Lesezeichen Titel</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="88"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="89"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="90"/>
         <source>Remove Selected Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Entferne gewählten Eintrag</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="95"/>
         <source>Link:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verknüpfung:</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="100"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="101"/>
         <source>If this Line is Empty a Folder want created.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn diese Zeile Leer ist wird ein Verzeichnis erstellt.</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="108"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="109"/>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="110"/>
         <source>Add Item to Selected Main Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Füge Eintrag in den Ausgwählten Bereich ein.</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="193"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnung</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="194"/>
         <source>I didn&apos;t add Bookmark in to other Bookmark :-)
 Please select a Folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ich füge keine Lesezeichen in andere Lesezeichen ein :)
+Bitte wähle einen Ordner aus.</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="236"/>
         <source>Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
         <location filename="../src/bookmark/bookmarkeditor.cpp" line="237"/>
         <source>Bookmark Manager found unsaved Changes.
 Do you realy wan to exit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Lesezeichen Manager hat nicht gespeicherte Änderungen entdeckt. Willst du wirklich beenden?</translation>
     </message>
 </context>
 <context>
@@ -121,7 +122,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/configdialog/configdialog.cpp" line="35"/>
         <source>Configure xhtmldbg[*]</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
 </context>
 <context>
@@ -129,67 +130,67 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="37"/>
         <source>Debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>Debugger</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="42"/>
         <source>Check Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelltext prüfen</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="44"/>
         <source>Check Document Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumenten Quelltext Überprüfen</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="49"/>
         <source>Format Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelltext Formatieren</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="51"/>
         <source>Format Document Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Den Dokumenten Quelltext formatieren</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="57"/>
         <source>Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="60"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="62"/>
         <source>Save Html Source to ...</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere das HTML unter ...</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="67"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucken</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="69"/>
         <source>Print current Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Drucke aktuelles Dokument</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="75"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Ansicht</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="78"/>
         <source>Wordwrap</source>
-        <translation type="unfinished"></translation>
+        <translation>Word Umbruch</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/contextmenu.cpp" line="80"/>
         <source>enable disable line wrap mode</source>
-        <translation type="unfinished"></translation>
+        <translation>(De)aktiviere den Zeilenumbruch</translation>
     </message>
 </context>
 <context>
@@ -197,17 +198,17 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/domviewer.cpp" line="37"/>
         <source>STag</source>
-        <translation type="unfinished"></translation>
+        <translation>STag</translation>
     </message>
     <message>
         <location filename="../src/domviewer.cpp" line="37"/>
         <source>AttName</source>
-        <translation type="unfinished"></translation>
+        <translation>AttName</translation>
     </message>
     <message>
         <location filename="../src/domviewer.cpp" line="37"/>
         <source>AttValue</source>
-        <translation type="unfinished"></translation>
+        <translation>AttValue</translation>
     </message>
 </context>
 <context>
@@ -215,7 +216,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/historymenu.cpp" line="36"/>
         <source>History</source>
-        <translation type="unfinished"></translation>
+        <translation>Historie</translation>
     </message>
 </context>
 <context>
@@ -224,27 +225,27 @@ Do you realy wan to exit?</source>
         <location filename="../src/keywordstoolbar.cpp" line="40"/>
         <location filename="../src/keywordstoolbar.cpp" line="60"/>
         <source>Keywords</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlüsselwörter</translation>
     </message>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="41"/>
         <source>Show Keywords for Search Engine Optimisation (SEO)</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige Schlüsselwörter für die Search Engine Optimierung (SEO)</translation>
     </message>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="48"/>
         <source>SEO:</source>
-        <translation type="unfinished"></translation>
+        <translation>SEO:</translation>
     </message>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="49"/>
         <source>Search Engine Optimisation (SEO)</source>
-        <translation type="unfinished"></translation>
+        <translation>Search Engine Optimisation (SEO)</translation>
     </message>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="57"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translation>Leeren</translation>
     </message>
 </context>
 <context>
@@ -252,17 +253,17 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/messanger.cpp" line="39"/>
         <source>Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachrichten</translation>
     </message>
     <message>
         <location filename="../src/messanger.cpp" line="40"/>
         <source>Display XHTML/JavaScript and CSS Debugging Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeige XHTML/JavaScript und CSS Debugger Nachrichten</translation>
     </message>
     <message>
         <location filename="../src/messanger.cpp" line="45"/>
         <source>XHTMLDBG started Normaly. Waiting for Actions...</source>
-        <translation type="unfinished"></translation>
+        <translation>XHTML nromal gestartet. Warte auf eingaben...</translation>
     </message>
 </context>
 <context>
@@ -270,7 +271,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/openurldialog/openurldialog.cpp" line="37"/>
         <source>Open Url</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne Url</translation>
     </message>
 </context>
 <context>
@@ -278,7 +279,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/bookmark/bookmarktreereader.cpp" line="93"/>
         <source>Unknown title</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannter Title</translation>
     </message>
 </context>
 <context>
@@ -286,27 +287,27 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/sourceviewer/sourceview.cpp" line="200"/>
         <source>Markup Document %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/sourceview.cpp" line="201"/>
         <source>Text Document %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Text Dokument %1</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/sourceview.cpp" line="203"/>
         <source>Save Content to...</source>
-        <translation type="unfinished"></translation>
+        <translation>Speichere Inhalt nach ...</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/sourceview.cpp" line="225"/>
         <source>Can&apos;t write Source to &quot;%1&quot; Permission Denied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kann Quelltext nicht nach &quot;%1&quot;speichern, Zugriff Verweigert.</translation>
     </message>
     <message>
         <location filename="../src/sourceviewer/sourceview.cpp" line="227"/>
         <source>To Save Source Operation dropout</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Speichern Vorgang wurde abgebrochen</translation>
     </message>
 </context>
 <context>
@@ -314,7 +315,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/sourceviewer/sourcewidget.cpp" line="50"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelltext</translation>
     </message>
 </context>
 <context>
@@ -322,7 +323,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/viewer.cpp" line="71"/>
         <source>Bookmark</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen</translation>
     </message>
 </context>
 <context>
@@ -330,12 +331,12 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/webviewer.cpp" line="38"/>
         <source>blank</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/webviewer.cpp" line="94"/>
         <source>Startpage</source>
-        <translation type="unfinished"></translation>
+        <translation>Startseite</translation>
     </message>
 </context>
 <context>
@@ -343,169 +344,169 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/window.cpp" line="56"/>
         <source>XHTML Debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>XHTLML Debugger</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="76"/>
         <location filename="../src/window.cpp" line="172"/>
         <source>Browser</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="82"/>
         <source>Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Quelltext</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="88"/>
         <source>DOM Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>DOM Anzeige</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="129"/>
         <source>Application</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwendung</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="133"/>
         <source>Open Url</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne Url</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="134"/>
         <source>Load Document from Url</source>
-        <translation type="unfinished"></translation>
+        <translation>Lade Dokument von Url</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="140"/>
         <source>Open Html File</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne HTML Datei</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="141"/>
         <source>Open Html from System</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="147"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Beenden</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="148"/>
         <source>Close Debugger</source>
-        <translation type="unfinished"></translation>
+        <translation>Schliesse den Debugger</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="155"/>
         <source>Debugger</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="158"/>
         <source>Parse</source>
-        <translation type="unfinished"></translation>
+        <translation>Analysieren</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="159"/>
         <source>Parse current Document Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="165"/>
         <source>Format</source>
-        <translation type="unfinished"></translation>
+        <translation>Formatiere</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="166"/>
         <source>Prepare and Format Document Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="175"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Auffrischen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="181"/>
         <source>Back</source>
-        <translation type="unfinished"></translation>
+        <translation>Zurück</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="187"/>
         <source>Forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorwärts</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="193"/>
         <source>New Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Seite</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="194"/>
         <source>Add a new empty Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="201"/>
         <source>Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Leszeichen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="222"/>
         <source>Organize Bookmarks</source>
-        <translation type="unfinished"></translation>
+        <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="226"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfigurieren</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="228"/>
         <source>Configure Tidyrc</source>
-        <translation type="unfinished"></translation>
+        <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="234"/>
         <location filename="../src/window.cpp" line="266"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="239"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="240"/>
         <source>about Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>über Qt</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="246"/>
         <source>about hjcms</source>
-        <translation type="unfinished"></translation>
+        <translation>über HJCMS</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="255"/>
         <source>Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktionen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="311"/>
         <source>HTML Document %1</source>
-        <translation type="unfinished"></translation>
+        <translation>HTML Dokument %1</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="312"/>
         <source>Markup Document %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="317"/>
         <source>Open HTML File</source>
-        <translation type="unfinished"></translation>
+        <translation>Öffne HTML Datei</translation>
     </message>
 </context>
 </TS>

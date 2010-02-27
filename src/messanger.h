@@ -28,8 +28,12 @@
 /* QtGui */
 #include <QtGui/QDockWidget>
 #include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
 #include <QtGui/QIcon>
+
+/* QTidy */
+#include <QTidy/QTidyParser>
 
 class Messanger : public QDockWidget
 {
@@ -42,6 +46,15 @@ class Messanger : public QDockWidget
     const QIcon iconNotice;
     const QIcon iconWarning;
     const QIcon iconCritical;
+
+  private Q_SLOTS:
+    void pretended ( QListWidgetItem * );
+
+  Q_SIGNALS:
+    void marking ( int, int );
+
+  public Q_SLOTS:
+    void messages ( const QTidy::QTidyDiagnosis & );
 
   public:
     Messanger ( QWidget * parent = 0 );

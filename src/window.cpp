@@ -20,6 +20,7 @@
 **/
 
 #include "window.h"
+#include "application.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
 #include "webviewer.h"
@@ -27,6 +28,8 @@
 #include "domviewer.h"
 #include "messanger.h"
 #include "bookmark.h"
+#include "historymanager.h"
+#include "historyitem.h"
 #include "historymenu.h"
 #include "openurldialog.h"
 #include "aboutdialog.h"
@@ -49,6 +52,9 @@
 #include <QtGui/QIcon>
 #include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
+
+/* QTidy */
+#include <QTidy/QTidy>
 
 Window::Window() : QMainWindow()
 {
@@ -103,8 +109,17 @@ Window::Window() : QMainWindow()
 
   setCentralWidget ( m_centralWidget );
 
+  // SIGNALS
+//   connect ( , SIGNAL ( ),
+//             , SLOT ( ) );
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
+
+  connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
+            m_messanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
+
+  connect ( m_messanger, SIGNAL ( marking ( int, int ) ),
+            m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
 
   // Widget SIGNALS
   // Load Settings
@@ -212,8 +227,11 @@ void Window::createMenus()
             m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
 
   // History Menu
+  HistoryManager* m_historyManager = Application::historyManager();
   m_historyMenu = new HistoryMenu ( m_bookmarkerMenu );
   m_bookmarkerMenu->addMenu ( m_historyMenu );
+  connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),
+            m_historyMenu, SLOT ( updateHistoryItems ( const QList<HistoryItem> & ) ) );
   connect ( m_historyMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
