@@ -27,9 +27,9 @@
 #include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 #include <QtGui/QContextMenuEvent>
+#include <QtGui/QTabWidget>
+#include <QtGui/QWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebView>

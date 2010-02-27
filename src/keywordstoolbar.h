@@ -44,10 +44,9 @@ class KeywordsToolBar : public QToolBar
     QAction* actionFind;
 
   private Q_SLOTS:
-    void setSignal();
+    void treating();
 
   Q_SIGNALS:
-    void changed ( const QString & );
     void changed ( const QStringList & );
 
   public:

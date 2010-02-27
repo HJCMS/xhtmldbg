@@ -24,6 +24,8 @@
 #include "historymanager.h"
 #include "historyitem.h"
 
+#include <QtCore/QDebug>
+
 #include <QtWebKit/QWebFrame>
 
 WebViewer::WebViewer ( QWidget * parent )
@@ -106,6 +108,14 @@ void WebViewer::addEmptyViewerTab ()
 void WebViewer::setUrl ( const QUrl &url )
 {
   activeView()->setUrl ( url );
+}
+
+void WebViewer::keywords ( const QStringList &words )
+{
+  foreach ( QString w, words )
+  {
+    activeView()->findText ( w, QWebPage::HighlightAllOccurrences );
+  }
 }
 
 void WebViewer::refresh ()

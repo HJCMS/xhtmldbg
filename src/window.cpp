@@ -34,6 +34,7 @@
 #include "openurldialog.h"
 #include "aboutdialog.h"
 #include "configdialog.h"
+#include "statusbar.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -68,8 +69,8 @@ Window::Window() : QMainWindow()
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
 
   // StatusBar
-  m_statusBar = statusBar();
-  m_statusBar->setSizeGripEnabled ( true );
+  m_statusBar = new StatusBar ( statusBar() );
+  setStatusBar ( m_statusBar );
 
   // Browser DockWidget
   m_centralWidget = new QTabWidget ( this );
@@ -110,8 +111,7 @@ Window::Window() : QMainWindow()
   setCentralWidget ( m_centralWidget );
 
   // SIGNALS
-//   connect ( , SIGNAL ( ),
-//             , SLOT ( ) );
+  // connect ( , SIGNAL ( ), , SLOT ( ) );
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
 
@@ -121,7 +121,6 @@ Window::Window() : QMainWindow()
   connect ( m_messanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
 
-  // Widget SIGNALS
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
@@ -219,7 +218,6 @@ void Window::createMenus()
   // Bookmark Menu
   m_bookmarkMenu = new Bookmark ( m_bookmarkerMenu );
   m_bookmarkerMenu->addMenu ( m_bookmarkMenu );
-
   connect ( m_bookmarkMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
@@ -253,16 +251,18 @@ void Window::createMenus()
   actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
+  // Show Enable/Disable Toolbars Menu
+  m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
+
   // Help and About Menu
-  QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
-  QAction* actionAboutQt = m_aboutMenu->addAction ( trUtf8 ( "about Qt" ) );
-  actionAboutQt->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
+  QIcon infoIcon = icon.fromTheme ( QLatin1String ( "documentinfo" ) );
+  QMenu *m_aboutMenu = m_menuBar->addMenu ( infoIcon, trUtf8 ( "About" ) );
+  QAction* actionAboutQt = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about Qt" ) );
   actionAboutQt->setMenuRole ( QAction::AboutQtRole );
   connect ( actionAboutQt, SIGNAL ( triggered() ), qApp, SLOT ( aboutQt() ) );
 
   AboutDialog* aboutDialog = new AboutDialog ( this );
-  QAction* actionAboutHJCMS = m_aboutMenu->addAction ( trUtf8 ( "about hjcms" ) );
-  actionAboutHJCMS->setIcon ( icon.fromTheme ( QLatin1String ( "documentinfo" ) ) );
+  QAction* actionAboutHJCMS = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about hjcms" ) );
   actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
   connect ( actionAboutHJCMS, SIGNAL ( triggered() ), aboutDialog, SLOT ( open() ) );
 }
@@ -297,7 +297,20 @@ void Window::createToolBars()
 
   // SEO Input ToolBar
   m_keywordsToolBar =  new KeywordsToolBar ( this );
+  connect ( m_keywordsToolBar, SIGNAL ( changed ( const QStringList & ) ),
+            m_webViewer, SLOT ( keywords ( const QStringList & ) ) );
+
   addToolBar ( m_keywordsToolBar );
+
+  // Add ToolBar View Actions to Display Menu
+  m_viewBarsMenu->addAction ( m_actionsToolBar->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_addressToolBar->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
+  m_viewBarsMenu->addSeparator ();
+  // Add QDockWidget View Actions to Display Menu
+  m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -305,6 +318,14 @@ void Window::closeEvent ( QCloseEvent *event )
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
   QMainWindow::closeEvent ( event );
+}
+
+void Window::paintEvent ( QPaintEvent * ev )
+{
+  Q_UNUSED ( ev )
+  /* @note Currently we can not Implementation a Secondary
+  * resizeEvent over QWebView Classes */
+  m_statusBar->displayBrowserWidth ( m_webViewer->size() );
 }
 
 void Window::requestsFinished ( bool ok )

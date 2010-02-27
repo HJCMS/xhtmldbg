@@ -60,21 +60,24 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   actionFind = addAction ( trUtf8 ( "Keywords" ) );
   actionFind->setIcon ( icon.fromTheme ( QLatin1String ( "edit-find" ) ) );
 
-  connect ( m_lineEdit, SIGNAL ( returnPressed() ), this, SLOT ( setSignal() ) );
+  connect ( m_lineEdit, SIGNAL ( returnPressed() ), this, SLOT ( treating() ) );
   connect ( cb, SIGNAL ( triggered() ), m_lineEdit, SLOT ( clear() ) );
-  connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( setSignal() ) );
+  connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( treating() ) );
 }
 
-void KeywordsToolBar::setSignal()
+void KeywordsToolBar::treating()
 {
-  QString keyword = m_lineEdit->text();
-  if ( keyword.isEmpty() )
+  QString words = m_lineEdit->text();
+  QStringList keywords;
+  if ( words.isEmpty() )
     return;
 
-  if ( keyword.contains ( QRegExp ( "[ \\s\\t]+" ) ) )
-    emit changed ( keyword.split ( QRegExp ( "[ \\s\\t]+" ) ) );
+  if ( words.contains ( QRegExp ( "[ \\s\\t]+" ) ) )
+    keywords = words.split ( QRegExp ( "[ \\s\\t]+" ) );
   else
-    emit changed ( keyword );
+    keywords << words;
+
+  emit changed ( keywords );
 }
 
 KeywordsToolBar::~KeywordsToolBar()

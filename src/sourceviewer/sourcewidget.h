@@ -25,6 +25,7 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -54,7 +55,6 @@ class SourceWidget : public QWidget
   public Q_SLOTS:
     void setSource ( const QString &source );
     void fetchBlock ( int, int );
-    // void fetchColumn ( int );
     void check();
     void format();
 

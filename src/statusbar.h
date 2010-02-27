@@ -19,59 +19,33 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef WEBVIEWER_H
-#define WEBVIEWER_H
+#ifndef STATUSBAR_H
+#define STATUSBAR_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QSize>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QLabel>
+#include <QtGui/QStatusBar>
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 
-/* QtWebKit */
-#include <QtWebKit/QWebView>
-#include <QtWebKit/QWebHistory>
-#include <QtWebKit/QWebPage>
-#include <QtWebKit/QWebElement>
-
-class Viewer;
-
-class WebViewer : public QTabWidget
+class StatusBar : public QStatusBar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    Viewer* m_viewer;
-    Viewer* activeView();
-
-  private Q_SLOTS:
-    void updateTabTitle ( const QString & );
-
-  Q_SIGNALS:
-    void urlChanged ( const QUrl & );
-    void addBookmark ( const QUrl &, const QString & );
-    void loadFinished ( bool );
+    QLabel* m_viewPortInfo;
 
   public Q_SLOTS:
-    void addNewViewerTab ( Viewer * );
-    void addEmptyViewerTab ();
-    void setUrl ( const QUrl & );
-    void keywords ( const QStringList & );
-    void refresh ();
-    void back ();
-    void forward ();
+    void displayBrowserWidth ( const QSize & );
 
   public:
-    WebViewer ( QWidget * parent = 0 );
-    const QString toHtml();
-    const QWebElement toWebElement();
-    ~WebViewer();
+    StatusBar ( QStatusBar * parent = 0 );
+    ~StatusBar();
 };
 
 #endif

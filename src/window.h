@@ -29,10 +29,12 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QCloseEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
+#include <QtGui/QPaintEvent>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
@@ -46,6 +48,7 @@ class DomViewer;
 class Messanger;
 class Bookmark;
 class HistoryMenu;
+class StatusBar;
 
 class Window : public QMainWindow
 {
@@ -58,7 +61,7 @@ class Window : public QMainWindow
     // Main Menu
     QMenuBar* m_menuBar;
     // Status Bar
-    QStatusBar* m_statusBar;
+    StatusBar* m_statusBar;
     // Default ToolBar
     QToolBar* m_actionsToolBar;
     // Settings ToolBar
@@ -90,6 +93,8 @@ class Window : public QMainWindow
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;
     QAction* actionConfigDialog;
+    // Enable/Disable ToolBars etc.
+    QMenu* m_viewBarsMenu;
     // Central Widget
     QTabWidget* m_centralWidget;
     // Browser Widget
@@ -114,6 +119,7 @@ class Window : public QMainWindow
 
   protected:
     void closeEvent ( QCloseEvent * );
+    void paintEvent ( QPaintEvent * );
 
   public Q_SLOTS:
     void openFile ( const QUrl & );

@@ -30,6 +30,7 @@ SET (xhtmldbg_SOURCES
   historymanager.cpp
   historyitem.cpp
   historymenu.cpp
+  statusbar.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -46,6 +47,7 @@ SET (xhtmldbg_HEADERS
   page.h
   historymanager.h
   historymenu.h
+  statusbar.h
 )
 
 SET (xhtmldbg_NOMOC
