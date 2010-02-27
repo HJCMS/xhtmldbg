@@ -19,45 +19,44 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef BOOKMARKREADER_H
-#define BOOKMARKREADER_H
+#ifndef HISTORYMANAGER_H
+#define HISTORYMANAGER_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
-#include <QtCore/QSignalMapper>
 
 /* QtGui */
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
-#include <QtGui/QIcon>
+// #include <QtGui>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
+/* QtWebKit */
+#include <QtWebKit/QWebHistoryInterface>
 
-class BookmarkReader : public QObject
+class HistoryItem;
+
+class HistoryManager : public QWebHistoryInterface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QMenu* m_BoockmarkMenu;
-    const QIcon bookmarkIcon;
-    const QIcon folderIcon;
-    QSignalMapper* m_signalMapper;
-    QDomDocument dom;
-    void rebuildMenu ( const QDomElement &, QMenu* );
+    int maxHistoryItems;
+    QList<HistoryItem> m_history;
 
-  Q_SIGNALS:
-    void openBookmark ( const QString & );
+  private Q_SLOTS:
+    void save();
+
+  protected:
+    void addHistoryItem ( const HistoryItem & );
+
+  public Q_SLOTS:
+    void clear();
 
   public:
-    BookmarkReader ( QMenu * menu = 0 );
-    bool read ( QIODevice* );
-    ~BookmarkReader();
+    HistoryManager ( QObject * parent = 0 );
+    void addHistoryEntry ( const QString & );
+    bool historyContains ( const QString & );
+    ~HistoryManager();
 };
 
 #endif

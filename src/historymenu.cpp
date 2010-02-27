@@ -19,45 +19,29 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef BOOKMARKREADER_H
-#define BOOKMARKREADER_H
+#include "historymenu.h"
+#include "historyitem.h"
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QIODevice>
-#include <QtCore/QString>
-#include <QtCore/QSignalMapper>
+#include <QtCore>
 
 /* QtGui */
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
-#include <QtGui/QIcon>
+#include <QtGui>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-
-class BookmarkReader : public QObject
+HistoryMenu::HistoryMenu ( QMenu * parent )
+    : QMenu ( parent )
+    , defaultIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+  setObjectName ( QLatin1String ( "historymenu" ) );
+  setTitle ( trUtf8 ( "History" ) );
+  setIcon ( defaultIcon );
+}
 
-  private:
-    QMenu* m_BoockmarkMenu;
-    const QIcon bookmarkIcon;
-    const QIcon folderIcon;
-    QSignalMapper* m_signalMapper;
-    QDomDocument dom;
-    void rebuildMenu ( const QDomElement &, QMenu* );
+void HistoryMenu::updateHistoryItems ( const QList<HistoryItem> &items )
+{
+  qDebug() << Q_FUNC_INFO << items.count();
+}
 
-  Q_SIGNALS:
-    void openBookmark ( const QString & );
+HistoryMenu::~HistoryMenu()
+{}
 
-  public:
-    BookmarkReader ( QMenu * menu = 0 );
-    bool read ( QIODevice* );
-    ~BookmarkReader();
-};
-
-#endif

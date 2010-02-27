@@ -27,6 +27,7 @@
 #include "domviewer.h"
 #include "messanger.h"
 #include "bookmark.h"
+#include "historymenu.h"
 #include "openurldialog.h"
 #include "aboutdialog.h"
 #include "configdialog.h"
@@ -195,15 +196,31 @@ void Window::createMenus()
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
   connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addEmptyViewerTab () ) );
 
+  // Bookmark/History Menues
+  QIcon bookmarksIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) );
+  QMenu* m_bookmarkerMenu = m_menuBar->addMenu ( trUtf8 ( "Bookmarks" ) );
+  m_menuBar->addMenu ( m_bookmarkerMenu );
+
   // Bookmark Menu
-  m_bookmarkMenu = new Bookmark ( m_menuBar );
+  m_bookmarkMenu = new Bookmark ( m_bookmarkerMenu );
+  m_bookmarkerMenu->addMenu ( m_bookmarkMenu );
+
   connect ( m_bookmarkMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
   connect ( m_webViewer, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
             m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
 
-  m_menuBar->addMenu ( m_bookmarkMenu );
+  // History Menu
+  m_historyMenu = new HistoryMenu ( m_bookmarkerMenu );
+  m_bookmarkerMenu->addMenu ( m_historyMenu );
+  connect ( m_historyMenu, SIGNAL ( openBookmark ( const QUrl & ) ),
+            m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
+
+  // Bookmark Manager Action
+  QIcon bookEditIcon ( icon.fromTheme ( QLatin1String ( "bookmarks-organize" ) ) );
+  QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, trUtf8 ( "Organize Bookmarks" ) );
+  connect ( editorAction, SIGNAL ( triggered() ), m_bookmarkMenu, SLOT ( openBookmarkEditor() ) );
 
   // Configuration Menu
   m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "Configuration" ) );
@@ -277,7 +294,7 @@ void Window::requestsFinished ( bool ok )
   // TODO IF OK do something else
   if ( ok )
   {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ok;
     m_domViewer->setDomTree ( m_webViewer->toWebElement() );
   }
 }

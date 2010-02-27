@@ -184,6 +184,7 @@ SET (XHTMLDBG_LIBRARIES
 ##############################################################
 ADD_SUBDIRECTORY (src)
 ADD_SUBDIRECTORY (data)
+ADD_SUBDIRECTORY (i18n)
 
 ##############################################################
 ## LGPL/GPL3 Exceptions

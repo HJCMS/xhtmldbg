@@ -1,7 +1,7 @@
 /**
 * This file is part of the QTidy project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,45 +19,45 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef BOOKMARKREADER_H
-#define BOOKMARKREADER_H
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
-#include <QtCore/QIODevice>
 #include <QtCore/QString>
-#include <QtCore/QSignalMapper>
 
 /* QtGui */
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
-#include <QtGui/QIcon>
+#include <QtGui/QApplication>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
+/* QtNetwork */
+#include <QtNetwork/QLocalServer>
+#include <QtNetwork/QLocalSocket>
 
-class BookmarkReader : public QObject
+class Application : public QApplication
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QMenu* m_BoockmarkMenu;
-    const QIcon bookmarkIcon;
-    const QIcon folderIcon;
-    QSignalMapper* m_signalMapper;
-    QDomDocument dom;
-    void rebuildMenu ( const QDomElement &, QMenu* );
+    QLocalServer* m_server;
+    QString myName() const;
+
+  private Q_SLOTS:
+    void newConnection();
 
   Q_SIGNALS:
-    void openBookmark ( const QString & );
+    void sMessageReceived ( QLocalSocket *socket );
 
   public:
-    BookmarkReader ( QMenu * menu = 0 );
-    bool read ( QIODevice* );
-    ~BookmarkReader();
+    Application ( int &argc, char **argv );
+    bool startUniqueServer();
+    bool sendMessage ( const QByteArray &mess, int rwait = 0 );
+    bool isRunning() const;
+    void busEventHandler ( const QString &type, const QString &str );
+    ~Application();
+
 };
 
 #endif

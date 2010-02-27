@@ -21,6 +21,8 @@
 
 #include "webviewer.h"
 #include "viewer.h"
+#include "historymanager.h"
+#include "historyitem.h"
 
 #include <QtWebKit/QWebFrame>
 

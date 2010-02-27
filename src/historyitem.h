@@ -19,45 +19,25 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef BOOKMARKREADER_H
-#define BOOKMARKREADER_H
+#ifndef HISTORYITEM_H
+#define HISTORYITEM_H
 
 /* QtCore */
+#include <QtCore/QDateTime>
 #include <QtCore/QObject>
-#include <QtCore/QIODevice>
 #include <QtCore/QString>
-#include <QtCore/QSignalMapper>
+#include <QtCore/QUrl>
 
-/* QtGui */
-#include <QtGui/QAction>
-#include <QtGui/QMenu>
-#include <QtGui/QIcon>
-
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-
-class BookmarkReader : public QObject
+class HistoryItem
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
-
-  private:
-    QMenu* m_BoockmarkMenu;
-    const QIcon bookmarkIcon;
-    const QIcon folderIcon;
-    QSignalMapper* m_signalMapper;
-    QDomDocument dom;
-    void rebuildMenu ( const QDomElement &, QMenu* );
-
-  Q_SIGNALS:
-    void openBookmark ( const QString & );
-
   public:
-    BookmarkReader ( QMenu * menu = 0 );
-    bool read ( QIODevice* );
-    ~BookmarkReader();
+    QString title;
+    QString url;
+    QDateTime dateTime;
+    HistoryItem();
+    HistoryItem ( const QString &u, const QDateTime &d = QDateTime(), const QString &t = QString() );
+    inline bool operator == ( const HistoryItem & ) const;
+    inline bool operator < ( const HistoryItem & ) const;
 };
 
 #endif

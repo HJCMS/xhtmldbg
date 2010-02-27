@@ -31,121 +31,9 @@
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
 #include <QtCore/QString>
+#include <QtCore/QTextStream>
 #include <QtCore/QTranslator>
-
-/* QtGui */
-#include <QtGui/QIcon>
-
-Application::Application ( int &argc, char **argv )
-    : QApplication ( argc, argv, true )
-    , m_server ( 0 )
-{
-  setObjectName ( "Application" );
-  Q_INIT_RESOURCE ( xhtmldbg );
-  // Setting Default Application Properties
-  setGraphicsSystem ( QLatin1String ( "native" ) );
-  QIcon::setThemeName ( "oxygen" );
-  setAttribute ( Qt::AA_DontShowIconsInMenus, false );
-}
-
-void Application::newConnection()
-{
-  QLocalSocket* soc = m_server->nextPendingConnection();
-  if ( ! soc )
-    return;
-
-  soc->waitForReadyRead();
-  emit sMessageReceived ( soc );
-  delete soc;
-}
-
-QString Application::myName() const
-{
-  QString name = applicationName();
-  Q_ASSERT ( ! name.isEmpty() );
-  name += QString ( QLatin1String ( "_%1_%2" ) ).arg ( getuid() ).arg ( getgid() );
-  return name;
-}
-
-bool Application::startUniqueServer()
-{
-  bool b = false;
-  if ( m_server )
-    return b;
-
-  m_server = new QLocalServer ( this );
-  connect ( m_server, SIGNAL ( newConnection() ),
-            this, SLOT ( newConnection() ) );
-
-  if ( ! m_server->listen ( myName() ) )
-  {
-    if ( QAbstractSocket::AddressInUseError == m_server->serverError() )
-    {
-      QString fullServerName = QDir::tempPath() + QLatin1String ( "/" ) + myName();
-      if ( QFile::exists ( fullServerName ) )
-        QFile::remove ( fullServerName );
-
-      if ( m_server->listen ( myName() ) )
-        b = true;
-    }
-    if ( ! b )
-      qWarning() << "XHTML_DBG_SERVER: Unable to listen:" << m_server->errorString();
-  }
-  else
-  {
-    b = true;
-  }
-
-  if ( b )
-  {
-    QFile file ( m_server->fullServerName() );
-    if ( ! file.setPermissions ( QFile::ReadUser | QFile::WriteUser ) )
-      qWarning() << "XHTML_DBG_SERVER: Permissions Denied:" << file.fileName() << file.errorString();
-
-  }
-
-  if ( ! b )
-  {
-    delete m_server;
-    m_server = 0;
-  }
-
-  return b;
-}
-
-bool Application::sendMessage ( const QByteArray &mess, int rwait )
-{
-  bool b = false;
-  QLocalSocket soc;
-  soc.connectToServer ( myName() );
-  if ( ! soc.waitForConnected ( 500 ) )
-    return b;
-
-  soc.write ( mess );
-  soc.flush();
-  soc.waitForBytesWritten();
-
-  b = true;
-  if ( soc.error() != QLocalSocket::UnknownSocketError )
-    b = false;
-
-  if ( b )
-  {
-    soc.waitForReadyRead ( rwait );
-    if ( soc.bytesAvailable() > 0 )
-      emit sMessageReceived ( &soc );
-  }
-
-  return b;
-}
-
-bool Application::isRunning() const
-{
-  return ( 0 != m_server );
-}
-
-Application::~Application()
-{}
+#include <QtCore/QUrl>
 
 Main::Main ( int &argc, char **argv ) : Application ( argc, argv )
 {
@@ -171,7 +59,11 @@ Main::Main ( int &argc, char **argv ) : Application ( argc, argv )
   if ( !startUniqueServer() )
     return;
 
+#if defined(Q_WS_MAC)
+  QApplication::setQuitOnLastWindowClosed ( false );
+#else
   QApplication::setQuitOnLastWindowClosed ( true );
+#endif
 }
 
 void Main::cleanWindows()
@@ -196,7 +88,35 @@ void Main::sMessageReceived ( QLocalSocket* socket )
   if ( message.isEmpty() )
     return;
 
-  if ( message.startsWith ( QLatin1String ( "xhtmldbg://getwinid" ) ) )
+  if ( message.startsWith ( QLatin1String ( "http://" ) ) )
+  {
+    QUrl url ( message.toUtf8() );
+    if ( url.isValid() )
+    {
+      mainWindow()->show();
+      mainWindow()->setFocus();
+      mainWindow()->activateWindow();
+      mainWindow()->openUrl ( url );
+      socket->write ( message.toUtf8() );
+      socket->waitForBytesWritten();
+      return;
+    }
+  }
+  else if ( message.startsWith ( QLatin1String ( "file://" ) ) )
+  {
+    QUrl url ( message.toUtf8() );
+    if ( url.isValid() )
+    {
+      mainWindow()->show();
+      mainWindow()->setFocus();
+      mainWindow()->activateWindow();
+      mainWindow()->openFile ( url );
+      socket->write ( message.toUtf8() );
+      socket->waitForBytesWritten();
+      return;
+    }
+  }
+  else if ( message.startsWith ( QLatin1String ( "xhtmldbg://getwinid" ) ) )
   {
     mainWindow()->show();
     mainWindow()->setFocus();

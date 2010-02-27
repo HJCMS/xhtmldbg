@@ -45,6 +45,7 @@ class SourceWidget;
 class DomViewer;
 class Messanger;
 class Bookmark;
+class HistoryMenu;
 
 class Window : public QMainWindow
 {
@@ -83,6 +84,8 @@ class Window : public QMainWindow
     QAction* actionNewEmptyPage;
     // Bookmark Menu
     Bookmark* m_bookmarkMenu;
+    // History Menu
+    HistoryMenu* m_historyMenu;
     // Configuration Menu
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;

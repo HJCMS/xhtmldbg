@@ -26,8 +26,8 @@
 /* QtXml */
 #include <QtXml/QDomNode>
 
-BookmarkReader::BookmarkReader ( QObject * parent, QMenu * menu )
-    : QObject ( parent )
+BookmarkReader::BookmarkReader ( QMenu * menu )
+    : QObject ( menu )
     , m_BoockmarkMenu ( menu )
     , bookmarkIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
     , folderIcon ( QIcon::fromTheme ( QLatin1String ( "folder-bookmark" ) ) )

@@ -57,17 +57,17 @@ class Bookmark : public QMenu
 
   private Q_SLOTS:
     void loadBookmarkMenu();
-    void openBookmarkEditor ();
     void getBookmark ( const QString & );
 
   Q_SIGNALS:
     void openBookmark ( const QUrl & );
 
   public Q_SLOTS:
+    void openBookmarkEditor ();
     void addBookmark ( const QUrl &, const QString & );
 
   public:
-    Bookmark ( QWidget * parent = 0 );
+    Bookmark ( QMenu * parent = 0 );
     int getRecent() const;
     void setRecent ( int );
     ~Bookmark();

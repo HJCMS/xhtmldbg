@@ -23,7 +23,6 @@
 #define MAIN_H
 
 /* QtCore */
-#include <QtCore/QByteArray>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
@@ -36,33 +35,8 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 
+#include "application.h"
 #include "window.h"
-
-class Application : public QApplication
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
-
-  private:
-    QLocalServer* m_server;
-    QString myName() const;
-
-  private Q_SLOTS:
-    void newConnection();
-
-  Q_SIGNALS:
-    void sMessageReceived ( QLocalSocket *socket );
-
-  public:
-    Application ( int &argc, char **argv );
-    bool startUniqueServer();
-    bool sendMessage ( const QByteArray &mess, int rwait = 0 );
-    bool isRunning() const;
-    void busEventHandler ( const QString &type, const QString &str );
-    ~Application();
-
-};
 
 class Main : public Application
 {

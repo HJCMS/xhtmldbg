@@ -3,7 +3,6 @@
 SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/webviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
@@ -12,29 +11,45 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
 )
 
 ADD_SUBDIRECTORY (sourceviewer)
-ADD_SUBDIRECTORY (webviewer)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (configdialog)
 
 SET (xhtmldbg_SOURCES
   main.cpp
+  application.cpp
   window.cpp
   addresstoolbar.cpp
   keywordstoolbar.cpp
   messanger.cpp
   domviewer.cpp
   aboutdialog.cpp
+  webviewer.cpp
+  viewer.cpp
+  page.cpp
+  historymanager.cpp
+  historyitem.cpp
+  historymenu.cpp
 )
 
 SET (xhtmldbg_HEADERS
   main.h
+  application.h
   window.h
   addresstoolbar.h
   keywordstoolbar.h
   messanger.h
   domviewer.h
   aboutdialog.h
+  webviewer.h
+  viewer.h
+  page.h
+  historymanager.h
+  historymenu.h
+)
+
+SET (xhtmldbg_NOMOC
+  historyitem.h
 )
 
 QT4_WRAP_CPP (xhtmldbg_MOC ${xhtmldbg_HEADERS})
@@ -47,6 +62,7 @@ ADD_EXECUTABLE (xhtmldbg
   ${qrc_rcresource}
   ${xhtmldbg_RESRC}
   ${xhtmldbg_MOC}
+  ${xhtmldbg_NOMOC}
   ${xhtmldbg_UI}
   ${xhtmldbg_HEADERS}
   ${xhtmldbg_SOURCES}
@@ -54,7 +70,7 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  SourceViewer WebViewer Bookmark OpenUrlDialog ConfigDialog
+  SourceViewer Bookmark OpenUrlDialog ConfigDialog
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)

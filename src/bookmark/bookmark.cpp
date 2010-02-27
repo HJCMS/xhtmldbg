@@ -37,26 +37,19 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QDialog>
 
-Bookmark::Bookmark ( QWidget * parent )
+Bookmark::Bookmark ( QMenu * parent )
     : QMenu ( parent )
     , defaultIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
     , recent ( 5 )
 {
   Q_INIT_RESOURCE ( bookmark );
   setObjectName ( QLatin1String ( "bookmarkmenu" ) );
-  setTitle ( trUtf8 ( "Bookmark" ) );
+  setTitle ( trUtf8 ( "Bookmarks" ) );
+  setIcon ( defaultIcon );
 
-  mainMenu = addMenu ( defaultIcon, trUtf8 ( "Bookmarks" ) );
-
-  lastlyMenu = addMenu ( defaultIcon, trUtf8 ( "Recently Viewed" ) );
-
-  editorMenu = addAction ( QIcon::fromTheme ( QLatin1String ( "bookmarks-organize" ) ),
-                           trUtf8 ( "Organize Bookmarks" ) );
-
-  m_bookmarkReader = new BookmarkReader ( this, mainMenu );
+  m_bookmarkReader = new BookmarkReader ( this );
   loadBookmarkMenu();
 
-  connect ( editorMenu, SIGNAL ( triggered() ), this, SLOT ( openBookmarkEditor() ) );
   connect ( m_bookmarkReader, SIGNAL ( openBookmark ( const QString & ) ),
             this, SLOT ( getBookmark ( const QString & ) ) );
 }
