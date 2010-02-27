@@ -26,6 +26,9 @@ class Page : public QWebPage
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
 
+  Q_SIGNALS:
+    void scriptConsoleMessage ( int, const QString & );
+
   private Q_SLOTS:
     void triggerSelections();
 

@@ -113,6 +113,17 @@ void Messanger::messages ( const QTidy::QTidyDiagnosis &d )
   m_listWidget->addItem ( item );
 }
 
+void Messanger::messages ( int l, const QString &m )
+{
+  QList<QVariant> pair;
+  pair << l << 0;
+
+  QIcon qIcon ( QString::fromUtf8 ( ":/icons/warning.png" ) );
+  QListWidgetItem* item = new QListWidgetItem ( qIcon, m, m_listWidget );
+  item->setData ( Qt::UserRole, pair );
+  m_listWidget->addItem ( item );
+}
+
 Messanger::~Messanger()
 {
 }

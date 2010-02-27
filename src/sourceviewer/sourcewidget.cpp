@@ -50,7 +50,6 @@ SourceWidget::SourceWidget ( QWidget * parent )
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
   setBackgroundRole ( QPalette::NoRole );
-  setContentsMargins ( 0, 0, 0, 0 );
   setWindowTitle ( trUtf8 ( "Source" ) );
 
   QFont font ( qApp->font() );

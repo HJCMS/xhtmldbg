@@ -33,16 +33,17 @@ StatusBar::StatusBar ( QStatusBar * parent )
     : QStatusBar ( parent )
 {
   setObjectName ( QLatin1String ( "statusbar" ) );
+  setContentsMargins ( 2, 5, 2, 2 );
 
   // Display Browser ViewPort Width
   m_viewPortInfo = new QLabel ( this );
   m_viewPortInfo->setObjectName ( QLatin1String ( "viewportinfolabel" ) );
   m_viewPortInfo->setFrameShape ( QFrame::NoFrame );
-  m_viewPortInfo->setToolTip ( trUtf8( "Display Browser Dimension Width x Height with Pixel." ) );
-  m_viewPortInfo->setStatusTip ( trUtf8( "Display Browser Dimension Width x Height with Pixel." ) );
-  m_viewPortInfo->setText ( QString() );
+  m_viewPortInfo->setContentsMargins ( 5, 2, 5, 2 );
+  QString info = trUtf8( "Display Browser Dimension Width x Height with Pixel." );
+  m_viewPortInfo->setToolTip ( info );
+  m_viewPortInfo->setStatusTip ( info );
   insertPermanentWidget ( 0, m_viewPortInfo );
-
 }
 
 void StatusBar::displayBrowserWidth ( const QSize &s )

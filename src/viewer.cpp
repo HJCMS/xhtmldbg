@@ -43,11 +43,16 @@ Viewer::Viewer ( QWidget * parent )
 
   setUrl ( QUrl ( "http://webmast.jh" ) );
 
+
+  connect ( m_page, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
+            this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
+
   connect ( this, SIGNAL ( loadStarted () ),
             this, SLOT ( cursorwait () ) );
 
   connect ( this, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( cursorFinished ( bool ) ) );
+
 }
 
 void Viewer::cursorwait ()
@@ -93,6 +98,13 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
     w = w->parent();
   }
   return this;
+}
+
+void Viewer::unsupportedContent ( QNetworkReply *reply )
+{
+  qDebug() << "Unsupported Content:" << reply->url();
+  if ( reply->error() == QNetworkReply::NoError )
+    return;
 }
 
 Viewer::~Viewer()

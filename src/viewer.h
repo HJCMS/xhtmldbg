@@ -31,6 +31,9 @@
 #include <QtGui/QTabWidget>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkReply>
+
 /* QtWebKit */
 #include <QtWebKit/QWebView>
 #include <QtWebKit/QWebHistory>
@@ -51,6 +54,7 @@ class Viewer : public QWebView
     void cursorwait ();
     void cursorFinished ( bool );
     void bookmark();
+    void unsupportedContent ( QNetworkReply * );
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );
@@ -58,6 +62,7 @@ class Viewer : public QWebView
 
   Q_SIGNALS:
     void addBookmark ( const QUrl &, const QString & );
+    void scriptConsoleMessage ( int, const QString & );
 
   public:
     Viewer ( QWidget * parent = 0 );

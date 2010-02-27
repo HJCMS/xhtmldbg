@@ -28,6 +28,12 @@
 
 #include <QtWebKit/QWebFrame>
 
+static inline const QString blank_html()
+{
+  QString html ( "<html><head><title>QTidy</title></head><body><div>New Document</div></body></html>" );
+  return html;
+}
+
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
 {
@@ -39,17 +45,32 @@ WebViewer::WebViewer ( QWidget * parent )
   m_viewer = new Viewer ( this );
   addTab ( m_viewer, trUtf8 ( "blank" ) );
 
-  connect ( m_viewer, SIGNAL ( titleChanged ( const QString & ) ),
+  setSignals ( m_viewer );
+
+  connect ( this, SIGNAL ( currentChanged ( int ) ),
+            this, SLOT ( pretended ( int ) ) );
+}
+
+void WebViewer::setSignals ( Viewer * view )
+{
+  if ( ! view )
+    return;
+
+  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
             this, SLOT ( updateTabTitle ( const QString & ) ) );
 
-  connect ( m_viewer, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+  connect ( view, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
             this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
 
-  connect ( m_viewer, SIGNAL ( urlChanged ( const QUrl & ) ),
+  connect ( view, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 
-  connect ( m_viewer, SIGNAL ( loadFinished ( bool ) ),
+  connect ( view, SIGNAL ( loadFinished ( bool ) ),
             this, SIGNAL ( loadFinished ( bool ) ) );
+
+  connect ( view, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
+            this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
+
 }
 
 Viewer* WebViewer::activeView()
@@ -84,13 +105,18 @@ void WebViewer::updateTabTitle ( const QString &title )
   setTabWhatsThis ( index, title );
 }
 
+void WebViewer::pretended ( int index )
+{
+  Q_UNUSED ( index )
+  emit urlChanged ( activeView()->url() );
+}
+
 void WebViewer::addNewViewerTab ( Viewer *view )
 {
   if ( ! view )
     return;
 
-  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
-            this, SLOT ( updateTabTitle ( const QString & ) ) );
+  setSignals ( view );
 
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
@@ -101,7 +127,7 @@ void WebViewer::addNewViewerTab ( Viewer *view )
 void WebViewer::addEmptyViewerTab ()
 {
   Viewer* view = new Viewer ( this );
-  view->setUrl ( QUrl ( "about:blank" ) );
+  view->setHtml ( blank_html() );
   addNewViewerTab ( view );
 }
 

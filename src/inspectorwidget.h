@@ -19,62 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef WEBVIEWER_H
-#define WEBVIEWER_H
+#ifndef INSPECTORWIDGET_H
+#define INSPECTORWIDGET_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSize>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QDockWidget>
+#include <QtGui/QScrollArea>
 #include <QtGui/QWidget>
-#include <QtGui/QTabWidget>
 
 /* QtWebKit */
-#include <QtWebKit/QWebView>
-#include <QtWebKit/QWebHistory>
+#include <QtWebKit/QWebInspector>
 #include <QtWebKit/QWebPage>
-#include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebSettings>
 
-class Viewer;
-
-class WebViewer : public QTabWidget
+class InspectorWidget : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    Viewer* m_viewer;
-    Viewer* activeView();
-    void setSignals ( Viewer * );
-
-  private Q_SLOTS:
-    void updateTabTitle ( const QString & );
-    void pretended ( int );
-
-  Q_SIGNALS:
-    void urlChanged ( const QUrl & );
-    void addBookmark ( const QUrl &, const QString & );
-    void loadFinished ( bool );
-    void scriptConsoleMessage ( int, const QString & );
+    QScrollArea* m_scrollArea;
+    QWebInspector* m_webInspector;
 
   public Q_SLOTS:
-    void addNewViewerTab ( Viewer * );
-    void addEmptyViewerTab ();
-    void setUrl ( const QUrl & );
-    void keywords ( const QStringList & );
-    void refresh ();
-    void back ();
-    void forward ();
+    void setPage ( QWebPage * );
 
   public:
-    WebViewer ( QWidget * parent = 0 );
-    const QString toHtml();
-    const QWebElement toWebElement();
-    ~WebViewer();
+    InspectorWidget ( QWidget * parent );
+    ~InspectorWidget();
 };
 
 #endif

@@ -49,6 +49,7 @@ class Messanger;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
+class InspectorWidget;
 
 class Window : public QMainWindow
 {
@@ -106,6 +107,8 @@ class Window : public QMainWindow
     SourceWidget* m_sourceWidget;
     // Messanger
     Messanger* m_messanger;
+    // WebInspector DockWidget
+    InspectorWidget* m_inspectorWidget;
 
     void createMenus();
     void createToolBars();

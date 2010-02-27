@@ -55,6 +55,7 @@ class Messanger : public QDockWidget
 
   public Q_SLOTS:
     void messages ( const QTidy::QTidyDiagnosis & );
+    void messages ( int, const QString & );
 
   public:
     Messanger ( QWidget * parent = 0 );

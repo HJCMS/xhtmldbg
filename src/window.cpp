@@ -35,6 +35,7 @@
 #include "aboutdialog.h"
 #include "configdialog.h"
 #include "statusbar.h"
+#include "inspectorwidget.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -53,6 +54,10 @@
 #include <QtGui/QIcon>
 #include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
+
+/* QtWebKit */
+#include <QtWebKit/QWebInspector>
+#include <QtWebKit/QWebPage>
 
 /* QTidy */
 #include <QTidy/QTidy>
@@ -100,6 +105,10 @@ Window::Window() : QMainWindow()
   m_dockDomViewWidget->setWidget ( m_domViewer );
   addDockWidget ( Qt::RightDockWidgetArea, m_dockDomViewWidget );
 
+  // FIXME QWebInspector DockWidget
+//   m_inspectorWidget = new InspectorWidget ( this );
+//   addDockWidget ( Qt::RightDockWidgetArea, m_inspectorWidget );
+
   // XHTML & JavaScript Messanger DockWidget
   m_messanger = new Messanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
@@ -114,6 +123,9 @@ Window::Window() : QMainWindow()
   // connect ( , SIGNAL ( ), , SLOT ( ) );
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
+
+  connect ( m_webViewer, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
+            m_messanger, SLOT ( messages ( int, const QString & ) ) );
 
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
             m_messanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
@@ -311,6 +323,7 @@ void Window::createToolBars()
   // Add QDockWidget View Actions to Display Menu
   m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
+  // FIXME m_viewBarsMenu->addAction ( m_inspectorWidget->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -323,14 +336,14 @@ void Window::closeEvent ( QCloseEvent *event )
 void Window::paintEvent ( QPaintEvent * ev )
 {
   Q_UNUSED ( ev )
-  /* @note Currently we can not Implementation a Secondary
+  /* WARNING Currently we can not Implementation a Secondary
   * resizeEvent over QWebView Classes */
   m_statusBar->displayBrowserWidth ( m_webViewer->size() );
 }
 
 void Window::requestsFinished ( bool ok )
 {
-  // TODO IF OK do something else
+  // TODO IF requestsFinished and ok do something else
   if ( ok )
   {
     qDebug() << Q_FUNC_INFO << ok;
