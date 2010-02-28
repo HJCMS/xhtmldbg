@@ -1,0 +1,90 @@
+
+*** WARNING - This Application is NOT testet on Mac OS X and incompatible with Windows ***
+
+General "xhtmldbg" Requirements:
+  -  Qt 4 >= 4.6.0 (required)  http://qt.nokia.com/products/
+  -  libQTidy >= 0.8.2 (required) http://qtidy.hjcms.de
+  -  QTidy >= 0.7.2 (required) http://qtidy.hjcms.de
+  -  qtidyrc >= 0.7.2 (required) http://qtidy.hjcms.de
+  -  Tidy >= Released on 25 March 2009  (required) http://tidy.sourceforge.net
+  -  Oxygen Icon Theme >= 4.4.0 (required) ftp://ftp.kde.org/pub/kde/stable/
+
+On Windows and Mac OS X, if you want to install the precompiled binary
+packages, simply launch the package and follow the instructions in the
+installation wizard.
+
+For Mac OS X Cocoa, the binary package requires Mac OS X 10.5 (Leopard) or later
+and GCC 4.0.1 to develop applications.
+
+1) create a subdirectory build in source home directory
+2) open a terminal and change this directory
+3) run cmake
+  Unix
+    cmake -Wno-dev -DCMAKE_BUILD_TYPE:STRING=Release \
+      -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+      -DSYSCONF_INSTALL_DIR:PATH=/etc ../
+
+  Windows
+    cmake -Wno-dev -GMinGW -Wno-dev \
+      -DCMAKE_BUILD_TYPE:STRING=Release -DLIBRARY_SUFFIX:STRING="-1.0" \
+      -DCMAKE_INSTALL_PREFIX:PATH=/c/qtidy ..
+
+4) make
+5) make DESTDIR=/tmp/test install
+
+INSTALL_TREE:/usr
+|-- bin
+|   `-- xhtmldbg
+`-- share
+    |-- applications
+    |   `-- xhtmldbg.desktop
+    |-- icons
+    |   `-- oxygen
+    |       |-- 128x128
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 16x16
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 192x192
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 22x22
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 24x24
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 32x32
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 36x36
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 48x48
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 64x64
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 72x72
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       |-- 96x96
+    |       |   `-- apps
+    |       |       `-- xhtmldbg.png
+    |       `-- scalable
+    |           `-- apps
+    |               `-- xhtmldbg.svgz
+    |-- pixmaps
+    |   `-- xhtmldbg.xpm
+    |-- qt
+    |   `-- translations
+    |       `-- xhtmldbg_de.qm
+    `-- xhtmldbg
+        |-- AUTHORS
+        |-- COPYING
+        |-- ChangeLog
+        |-- NEWS
+        |-- README
+        `-- xhtmldbg_untranslated.ts

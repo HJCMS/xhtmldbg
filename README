@@ -1,0 +1,34 @@
+This is XHTMLDBG
+
+-- INSTALLING SEE INSTALL
+
+If you have a source package (a .tar.gz, or .zip file), follow the
+instructions in the INSTALL file.
+
+-- REFERENCE DOCUMENTATION
+
+The QTidy reference documentation is available at http://qtidy.hjcms.de/html/index.html.
+
+-- SUPPORTED PLATFORMS
+
+For a complete list of supported platforms, see http://qtidy.hjcms.de/index.html
+
+-- HOW TO REPORT A BUG
+
+If you think you have found a bug in QTidy, we would like to hear about it so that we can fix it. 
+The QTidy bug tracking system is open to the public at http://bugs.hjcms.de/.
+
+Before reporting a bug, please use the bug-tracker's search functions
+and consult http://bugs.hjcms.de/faq.html to see if the issue is already known.
+
+Always include the following information in your bug report: the name
+and version number of your compiler; the name and version number of
+your operating system; the version of QTidy you are using, and what
+configure options it was compiled with.
+
+If the problem you are reporting is only visible at run-time, try to
+create a small test program that shows the problem when run. Often,
+such a program can be created with some minor changes to one of the many
+example programs in QTidy's examples directory, or to the autotests that
+are available in the public source repository on http://gitweb.hjcms.de/.
+

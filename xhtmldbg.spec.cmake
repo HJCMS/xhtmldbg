@@ -7,9 +7,9 @@
 # norootforbuild
 
 %if %{defined suse_version}
-%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 libQtWebKit-devel >= 4.5.1 update-desktop-files
+%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 libQtWebKit-devel >= 4.5.1 update-desktop-files oxygen-icon-theme >= 4.4.0
 %else
-%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 update-desktop-files
+%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 update-desktop-files oxygen-icon-theme >= 4.4.0
 %endif
 
 Name:           xhtmldbg
@@ -22,13 +22,12 @@ Source0:        %{packagename}.tar.bz2
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires:       libQTidy%{lt_version} = %{version}
-Requires:       %{name} >= 0.7.1
+Requires:       libQTidy%{lt_version} = %{version} QTidy >= 0.7.1 qtidyrc
 BuildRequires:  cmake %{builddepends}
 BuildArch:      %{_target_cpu}
 ExclusiveOs:    %{_os}
 
-## %debug_package
+##% debug_package
 
 %description
 Tidy HTML/XML Validator and Debugger.
@@ -80,7 +79,12 @@ popd
 %{_bindir}/%{name}
 %{_qt_transdir}/qtidy_*.qm
 %dir %{_datadir}/%{name}
-%{_datadir}/%{name}/*
+%doc %{_datadir}/%{name}/AUTHORS
+%doc %{_datadir}/%{name}/COPYING
+%doc %{_datadir}/%{name}/ChangeLog
+%doc %{_datadir}/%{name}/NEWS
+%doc %{_datadir}/%{name}/README
+%{_datadir}/%{name}/xhtmldbg_untranslated.ts
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/icons/oxygen/128x128
 %dir %{_datadir}/icons/oxygen/128x128/apps

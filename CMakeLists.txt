@@ -196,7 +196,6 @@ INSTALL (FILES
   AUTHORS
   ChangeLog
   COPYING
-  COPYING.lib
   DESTINATION share/xhtmldbg
 )
 
