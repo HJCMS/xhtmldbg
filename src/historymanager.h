@@ -25,6 +25,7 @@
 /* QtCore */
 #include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QUrl>
 
 /* QtWebKit */
 #include <QtWebKit/QWebHistoryInterface>
@@ -40,6 +41,7 @@ class HistoryManager : public QWebHistoryInterface
   private:
     int maxHistoryItems;
     QList<HistoryItem> m_history;
+    const QUrl toUrl ( const QString & );
 
   protected:
     void addHistoryItem ( const HistoryItem & );

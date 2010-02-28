@@ -220,7 +220,7 @@ void Window::createMenus()
   actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
-  connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addEmptyViewerTab () ) );
+  connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addViewerTab () ) );
 
   // Bookmark/History Menues
   QIcon bookmarksIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) );
@@ -346,7 +346,8 @@ void Window::requestsFinished ( bool ok )
   // TODO IF requestsFinished and ok do something else
   if ( ok )
   {
-    qDebug() << Q_FUNC_INFO << ok;
+    // qDebug() << Q_FUNC_INFO << ok;
+    m_sourceWidget->setSource ( m_webViewer->toHtml() );
     m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
   }

@@ -38,6 +38,14 @@ HistoryManager::HistoryManager ( QObject * parent )
   QWebHistoryInterface::setDefaultInterface ( this );
 }
 
+const QUrl HistoryManager::toUrl ( const QString &path )
+{
+  QUrl url ( path.toLower() );
+  url.setPassword ( QString::null );
+  url.setHost ( url.host() );
+  return url;
+}
+
 void HistoryManager::addHistoryItem ( const HistoryItem &item )
 {
   QWebSettings *cfg = QWebSettings::globalSettings();
@@ -53,19 +61,16 @@ void HistoryManager::addHistoryItem ( const HistoryItem &item )
 
 void HistoryManager::addHistoryEntry ( const QString &url )
 {
-  QUrl address ( url );
-  address.setPassword ( QString::null );
-  address.setHost ( address.host().toLower() );
-  HistoryItem item ( address.toString(), QDateTime::currentDateTime() );
+  QUrl addr = toUrl ( url );
+  HistoryItem item ( addr.toString(), QDateTime::currentDateTime(), addr.host() );
   addHistoryItem ( item );
 }
 
 bool HistoryManager::historyContains ( const QString &url ) const
 {
-  QString check = url.toLower();
   foreach ( HistoryItem i, m_history )
   {
-    if ( i.url == check )
+    if ( url.contains ( i.url, Qt::CaseInsensitive ) )
       return true;
   }
   return false;

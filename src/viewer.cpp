@@ -91,7 +91,7 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
     if ( WebViewer* mw = qobject_cast<WebViewer*> ( w ) )
     {
       Viewer *view = new Viewer ( mw );
-      mw->addNewViewerTab ( view );
+      mw->addViewerTab ( view );
       return view;
     }
     w = w->parent();

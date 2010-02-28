@@ -64,8 +64,9 @@ class WebViewer : public QTabWidget
     void scriptConsoleMessage ( int, const QString & );
 
   public Q_SLOTS:
-    void addNewViewerTab ( Viewer * );
-    void addEmptyViewerTab ();
+    void addViewerTab ( Viewer * );
+    void addViewerTab ();
+    void closeViewerTab ( int );
     void keywords ( const QStringList & );
     void refresh ();
     void back ();
@@ -77,6 +78,7 @@ class WebViewer : public QTabWidget
     const QUrl getUrl();
     const QString toHtml();
     const QWebElement toWebElement();
+    static const QString blank();
     ~WebViewer();
 };
 

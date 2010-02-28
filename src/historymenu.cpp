@@ -56,12 +56,13 @@ void HistoryMenu::updateHistoryItems ( const QList<HistoryItem> &items )
     clear();
     foreach ( HistoryItem item, items )
     {
-      QString path = item.url;
-      QAction* ac = addAction ( defaultIcon, path.left ( 25 ) );
-      ac->setObjectName ( path );
-      ac->setStatusTip ( path );
+      QString url = item.url;
+      QString title = ( item.title.isEmpty() ) ? url.left ( 25 ) : item.title;
+      QAction* ac = addAction ( defaultIcon, title );
+      ac->setObjectName ( url );
+      ac->setStatusTip ( url );
       connect ( ac, SIGNAL ( triggered() ), m_mapper, SLOT ( map() ) );
-      m_mapper->setMapping ( ac, path );
+      m_mapper->setMapping ( ac, url );
     }
   }
 }

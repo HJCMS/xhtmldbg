@@ -30,12 +30,6 @@
 
 #include <QtWebKit/QWebFrame>
 
-static inline const QString blank_html()
-{
-  QString html ( "<html><head><title>QTidy</title></head><body><div>New Document</div></body></html>" );
-  return html;
-}
-
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
     , url ( QUrl ( QLatin1String ( "http://localhost" ) ) )
@@ -44,14 +38,18 @@ WebViewer::WebViewer ( QWidget * parent )
     setObjectName ( "webviewer" );
 
   setContentsMargins ( 0, 0, 0, 0 );
+  setTabsClosable ( true );
 
   m_viewer = new Viewer ( this );
-  addTab ( m_viewer, trUtf8 ( "blank" ) );
+  addViewerTab ( m_viewer );
 
   setSignals ( m_viewer );
 
   connect ( this, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( pretended ( int ) ) );
+
+  connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
+            this, SLOT ( closeViewerTab ( int ) ) );
 }
 
 void WebViewer::setSignals ( Viewer * view )
@@ -110,10 +108,12 @@ void WebViewer::updateTabTitle ( const QString &title )
 void WebViewer::pretended ( int index )
 {
   Q_UNUSED ( index )
-  emit urlChanged ( activeView()->url() );
+  QUrl url = activeView()->url();
+  if ( url.isValid() )
+    emit urlChanged ( url );
 }
 
-void WebViewer::addNewViewerTab ( Viewer *view )
+void WebViewer::addViewerTab ( Viewer *view )
 {
   if ( ! view )
     return;
@@ -126,11 +126,19 @@ void WebViewer::addNewViewerTab ( Viewer *view )
   setCurrentIndex ( index );
 }
 
-void WebViewer::addEmptyViewerTab ()
+void WebViewer::addViewerTab ()
 {
   Viewer* view = new Viewer ( this );
-  view->setHtml ( blank_html() );
-  addNewViewerTab ( view );
+  view->setHtml ( blank() );
+  addViewerTab ( view );
+}
+
+void WebViewer::closeViewerTab ( int index )
+{
+  if ( count() < 2 )
+    return;
+
+  removeTab ( index );
 }
 
 void WebViewer::keywords ( const QStringList &words )
@@ -175,6 +183,11 @@ const QString WebViewer::toHtml()
 const QWebElement WebViewer::toWebElement()
 {
   return activeView()->page()->currentFrame()->documentElement ();
+}
+
+const QString WebViewer::blank()
+{
+  return QString::fromUtf8 ( "<html>\n<head>\n<title>QTidy Startpage</title>\n</head>\n<body>\n<div>New Empty Page</div>\n</body>\n</html>" );
 }
 
 WebViewer::~WebViewer()
