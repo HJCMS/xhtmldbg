@@ -258,18 +258,13 @@ Do you realy wan to exit?</source>
 <context>
     <name>Messanger</name>
     <message>
-        <location filename="../src/messanger.cpp" line="40"/>
-        <source>Messages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/messanger.cpp" line="41"/>
-        <source>Display XHTML/JavaScript and CSS Debugging Messages</source>
+        <source>Impartations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/messanger.cpp" line="47"/>
-        <source>XHTMLDBG started Normaly. Waiting for Actions...</source>
+        <source>Started Normaly waiting for Actions...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -285,7 +280,12 @@ Do you realy wan to exit?</source>
     <name>QObject</name>
     <message>
         <location filename="../src/bookmark/bookmarktreereader.cpp" line="93"/>
-        <source>Unknown title</source>
+        <source>Unknown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/bookmark/bookmarktreereader.cpp" line="136"/>
+        <source>Bookmark file is not Valid XBEL Scheme!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -349,11 +349,6 @@ Do you realy wan to exit?</source>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="49"/>
-        <source>blank</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/webviewer.cpp" line="124"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
@@ -368,7 +363,7 @@ Do you realy wan to exit?</source>
     </message>
     <message>
         <location filename="../src/window.cpp" line="89"/>
-        <location filename="../src/window.cpp" line="198"/>
+        <location filename="../src/window.cpp" line="201"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -383,153 +378,153 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="155"/>
+        <location filename="../src/window.cpp" line="158"/>
         <source>Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="159"/>
+        <location filename="../src/window.cpp" line="162"/>
         <source>Open Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="160"/>
+        <location filename="../src/window.cpp" line="163"/>
         <source>Load Document from Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="166"/>
+        <location filename="../src/window.cpp" line="169"/>
         <source>Open Html File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="167"/>
+        <location filename="../src/window.cpp" line="170"/>
         <source>Open Html from System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="173"/>
+        <location filename="../src/window.cpp" line="176"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="174"/>
+        <location filename="../src/window.cpp" line="177"/>
         <source>Close Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="181"/>
+        <location filename="../src/window.cpp" line="184"/>
         <source>Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="184"/>
+        <location filename="../src/window.cpp" line="187"/>
         <source>Parse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="185"/>
+        <location filename="../src/window.cpp" line="188"/>
         <source>Parse current Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="191"/>
+        <location filename="../src/window.cpp" line="194"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="192"/>
+        <location filename="../src/window.cpp" line="195"/>
         <source>Prepare and Format Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="201"/>
+        <location filename="../src/window.cpp" line="204"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="207"/>
+        <location filename="../src/window.cpp" line="210"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="213"/>
+        <location filename="../src/window.cpp" line="216"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="219"/>
+        <location filename="../src/window.cpp" line="222"/>
         <source>New Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="220"/>
+        <location filename="../src/window.cpp" line="223"/>
         <source>Add a new empty Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="227"/>
+        <location filename="../src/window.cpp" line="230"/>
         <source>Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="250"/>
+        <location filename="../src/window.cpp" line="253"/>
         <source>Organize Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="254"/>
+        <location filename="../src/window.cpp" line="257"/>
         <source>Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="256"/>
+        <location filename="../src/window.cpp" line="259"/>
         <source>Configure Tidyrc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="262"/>
-        <location filename="../src/window.cpp" line="296"/>
+        <location filename="../src/window.cpp" line="265"/>
+        <location filename="../src/window.cpp" line="299"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="267"/>
+        <location filename="../src/window.cpp" line="270"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="271"/>
+        <location filename="../src/window.cpp" line="274"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="272"/>
+        <location filename="../src/window.cpp" line="275"/>
         <source>about Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="277"/>
+        <location filename="../src/window.cpp" line="280"/>
         <source>about hjcms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="285"/>
+        <location filename="../src/window.cpp" line="288"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="364"/>
+        <location filename="../src/window.cpp" line="374"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="365"/>
+        <location filename="../src/window.cpp" line="375"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="370"/>
+        <location filename="../src/window.cpp" line="380"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

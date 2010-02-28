@@ -52,10 +52,12 @@ class Messanger : public QDockWidget
 
   Q_SIGNALS:
     void marking ( int, int );
+    void itemClicked();
 
   public Q_SLOTS:
     void messages ( const QTidy::QTidyDiagnosis & );
     void messages ( int, const QString & );
+    void clearItems();
 
   public:
     Messanger ( QWidget * parent = 0 );

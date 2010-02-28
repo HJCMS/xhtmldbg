@@ -104,8 +104,9 @@ void SourceWidget::setSource ( const QString &source )
 
 void SourceWidget::fetchBlock ( int row, int column )
 {
-  Q_UNUSED( column )
-  m_listLines->setCurrentRow( row );
+  Q_UNUSED ( column )
+  m_listLines->setCurrentRow ( row );
+  m_sourceView->setCursorToRow ( row, column );
 }
 
 /**
@@ -117,6 +118,7 @@ void SourceWidget::check()
   connect ( &parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
             this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
 
+  emit checkTriggered();
   parser.checkContent ( m_sourceView->source() );
 }
 
@@ -138,6 +140,8 @@ void SourceWidget::format()
     return;
 
   m_sourceView->setSource ( valid );
+  emit checkTriggered();
+
   parser->checkContent ( m_sourceView->source() );
 }
 

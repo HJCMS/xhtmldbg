@@ -52,7 +52,7 @@ class SourceView : public QTextEdit
     QListWidget* m_listWidget;
     QMenu* editMenu;
     ContextMenu* m_contextMenu;
-    bool setBlockWithNumber ( int );
+    bool setBlockWithNumber ( int row, int column = 0 );
 
   private Q_SLOTS:
     void createListWidgetItems();
@@ -72,7 +72,7 @@ class SourceView : public QTextEdit
   public Q_SLOTS:
     void fetchRow ( QListWidgetItem * );
     void setSource ( const QString & );
-    void setCursorToRow ( int );
+    void setCursorToRow ( int row, int column = 0 );
     void saveSource();
     void printSource();
 

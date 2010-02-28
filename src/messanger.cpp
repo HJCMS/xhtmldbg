@@ -22,6 +22,7 @@
 #include "messanger.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -37,20 +38,22 @@ Messanger::Messanger ( QWidget * parent )
     , iconCritical ( QString::fromUtf8 ( ":/icons/critical.png" ) )
 {
   setObjectName ( "messanger" );
-  setWindowTitle ( trUtf8 ( "Messages" ) );
-  setStatusTip ( trUtf8 ( "Display XHTML/JavaScript and CSS Debugging Messages" ) );
+  setWindowTitle ( trUtf8 ( "Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
   m_listWidget = new QListWidget ( this );
   m_listWidget->setSortingEnabled ( false );
 
-  QString startupMessage = trUtf8 ( "XHTMLDBG started Normaly. Waiting for Actions..." );
+  QString startupMessage = trUtf8 ( "Started Normaly waiting for Actions..." );
   m_listWidget->addItem ( new QListWidgetItem ( iconNotice, startupMessage ) );
 
   setWidget ( m_listWidget );
 
   connect ( m_listWidget, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
             this, SLOT ( pretended ( QListWidgetItem * ) ) );
+
+  connect ( m_listWidget, SIGNAL ( itemSelectionChanged() ),
+            this, SIGNAL ( itemClicked() ) );
 }
 
 void Messanger::pretended ( QListWidgetItem * item )
@@ -122,6 +125,11 @@ void Messanger::messages ( int l, const QString &m )
   QListWidgetItem* item = new QListWidgetItem ( qIcon, m, m_listWidget );
   item->setData ( Qt::UserRole, pair );
   m_listWidget->addItem ( item );
+}
+
+void Messanger::clearItems()
+{
+  m_listWidget->clear();
 }
 
 Messanger::~Messanger()

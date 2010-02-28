@@ -50,6 +50,7 @@ class SourceWidget : public QWidget
     QString tidyrc;
 
   Q_SIGNALS:
+    void checkTriggered ();
     void triggered ( const QTidy::QTidyDiagnosis & );
 
   public Q_SLOTS:

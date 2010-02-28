@@ -35,8 +35,6 @@
 #include "aboutdialog.h"
 #include "configdialog.h"
 #include "statusbar.h"
-#include "inspectorwidget.h"
-#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -106,10 +104,6 @@ Window::Window() : QMainWindow()
   m_dockDomViewWidget->setWidget ( m_domViewer );
   addDockWidget ( Qt::RightDockWidgetArea, m_dockDomViewWidget );
 
-  // FIXME QWebInspector DockWidget
-//   m_inspectorWidget = new InspectorWidget ( this );
-//   addDockWidget ( Qt::RightDockWidgetArea, m_inspectorWidget );
-
   // XHTML & JavaScript Messanger DockWidget
   m_messanger = new Messanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
@@ -128,11 +122,17 @@ Window::Window() : QMainWindow()
   connect ( m_webViewer, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
             m_messanger, SLOT ( messages ( int, const QString & ) ) );
 
+  connect ( m_sourceWidget, SIGNAL ( checkTriggered () ),
+            m_messanger, SLOT ( clearItems () ) );
+
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
             m_messanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
 
   connect ( m_messanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
+
+  connect ( m_messanger, SIGNAL ( itemClicked () ),
+            this, SLOT ( visibleSourceChanged () ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -323,7 +323,6 @@ void Window::createToolBars()
   // Add QDockWidget View Actions to Display Menu
   m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
-  // FIXME m_viewBarsMenu->addAction ( m_inspectorWidget->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -341,15 +340,34 @@ void Window::paintEvent ( QPaintEvent * ev )
   m_statusBar->displayBrowserWidth ( m_webViewer->size() );
 }
 
+/**
+* if page request is finished prepare all methodes
+* for nested Widgets
+* file:///home/heinemann/hjcms/libQTidy/tests/in_426885.html
+*/
 void Window::requestsFinished ( bool ok )
 {
-  // TODO IF requestsFinished and ok do something else
   if ( ok )
   {
-    // qDebug() << Q_FUNC_INFO << ok;
-    m_sourceWidget->setSource ( m_webViewer->toHtml() );
-    m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+    QString html = m_webViewer->toHtml();
+    if ( ! html.isEmpty() )
+    {
+      m_sourceWidget->setSource ( html );
+      // Is AutoCheck or AutoFormat Enabled?
+      if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
+      {
+        m_messanger->clearItems ();
+        m_sourceWidget->format();
+      }
+      else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
+      {
+        m_messanger->clearItems ();
+        m_sourceWidget->check();
+      }
+      m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+    }
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
+    // m_settings->setValue ( QLatin1String ( "AutoFormat" ), false );
   }
 }
 
@@ -425,6 +443,12 @@ void Window::openUrl ( const QUrl &url )
     return;
 
   m_webViewer->setUrl ( url );
+}
+
+void Window::visibleSourceChanged()
+{
+  if ( m_centralWidget->currentIndex() != 1 )
+    m_centralWidget->setCurrentIndex ( 1 );
 }
 
 Window::~Window()

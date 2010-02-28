@@ -105,9 +105,10 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
 * @note All Class Signals will blocked by blockSignals(true) to avoid
 * signal loops with cursorPositionChanged and @class ListLines.
 */
-bool SourceView::setBlockWithNumber ( int n )
+bool SourceView::setBlockWithNumber ( int row, int column )
 {
-  QTextBlock block = document()->findBlockByLineNumber ( n );
+  Q_UNUSED ( column )
+  QTextBlock block = document()->findBlockByLineNumber ( row );
   if ( block.isValid() )
   {
     /* NOTE Block Signals an didn't send cursorPositionChanged */
@@ -332,9 +333,9 @@ void SourceView::setSource ( const QString &html )
   setPlainText ( html );
 }
 
-void SourceView::setCursorToRow ( int row )
+void SourceView::setCursorToRow ( int row, int column )
 {
-  setBlockWithNumber ( row );
+  setBlockWithNumber ( row, column );
 }
 
 const QString SourceView::source()

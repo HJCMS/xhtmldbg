@@ -55,6 +55,7 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
   m_listWidget->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
   m_listWidget->setVerticalScrollMode ( QAbstractItemView::ScrollPerPixel );
   m_listWidget->setHorizontalScrollMode ( QAbstractItemView::ScrollPerPixel );
+  // TODO m_listWidget->setAutoScrollMargin (  );
   m_listWidget->setBackgroundRole ( QPalette::AlternateBase );
   m_listWidget->setAlternatingRowColors ( true ); // @note AlternateBase required
   m_listWidget->setFont ( font );
