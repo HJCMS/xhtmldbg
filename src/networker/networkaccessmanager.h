@@ -1,7 +1,7 @@
 /**
 * This file is part of the QTidy project
 *
-* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,52 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef NETWORKACCESSMANAGER_H
+#define NETWORKACCESSMANAGER_H
 
 /* QtCore */
-#include <QtCore/QByteArray>
 #include <QtCore/QObject>
+#include <QtCore/QIODevice>
 #include <QtCore/QString>
-
-/* QtGui */
-#include <QtGui/QApplication>
+#include <QtCore/QTextCodec>
 
 /* QtNetwork */
-#include <QtNetwork/QLocalServer>
-#include <QtNetwork/QLocalSocket>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
 
-class HistoryManager;
-class NetworkAccessManager;
+/* QTidy */
+#include <QTidy/QTidy>
 
-class Application : public QApplication
+class NetworkAccessManager : public QNetworkAccessManager
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QLocalServer* m_server;
-    QString myName() const;
-    static HistoryManager* p_historyManager;
-    static NetworkAccessManager* p_networkAccessManager;
+    QNetworkRequest m_request;
+    QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
 
-  private Q_SLOTS:
-    void newConnection();
-
-  Q_SIGNALS:
-    void sMessageReceived ( QLocalSocket *socket );
+  public Q_SLOTS:
+    void replyFinished ( QNetworkReply * );
 
   public:
-    Application ( int &argc, char **argv );
-    bool startUniqueServer();
-    bool sendMessage ( const QByteArray &mess, int rwait = 0 );
-    bool isRunning() const;
-    void busEventHandler ( const QString &type, const QString &str );
-    static HistoryManager* historyManager();
-    static NetworkAccessManager* networkAccessManager();
-    ~Application();
-
+    NetworkAccessManager ( QObject *parent = 0 );
+    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
+                                   const QNetworkRequest &, QIODevice * );
+    ~NetworkAccessManager();
 };
 
 #endif

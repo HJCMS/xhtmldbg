@@ -36,6 +36,7 @@
 #include "configdialog.h"
 #include "statusbar.h"
 #include "inspectorwidget.h"
+#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -137,10 +138,9 @@ Window::Window() : QMainWindow()
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
 
-  // FIXME Open File from Global Default's
-  QUrl fallback ( "file:///home/heinemann/hjcms/QTidy/tests/in_588061.html" );
-  QUrl recent = m_settings->value ( QLatin1String ( "RecentFile" ), fallback ).toUrl();
-  openFile ( recent );
+  QUrl fallback ( "http://www.hjcms.de" );
+  QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
+  openUrl ( recent );
 
   update();
 }
@@ -348,6 +348,7 @@ void Window::requestsFinished ( bool ok )
   {
     qDebug() << Q_FUNC_INFO << ok;
     m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+    m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
   }
 }
 
@@ -423,7 +424,6 @@ void Window::openUrl ( const QUrl &url )
     return;
 
   m_webViewer->setUrl ( url );
-  m_settings->setValue ( QLatin1String ( "RecentUrl" ), url );
 }
 
 Window::~Window()

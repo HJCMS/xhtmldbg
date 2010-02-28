@@ -92,6 +92,9 @@ SourceWidget::SourceWidget ( QWidget * parent )
 
   connect ( m_sourceView, SIGNAL ( check() ), this, SLOT ( check() ) );
   connect ( m_sourceView, SIGNAL ( format() ), this, SLOT ( format() ) );
+
+  if ( m_sourceView->source().isEmpty() )
+    setSource ( "<html>\n<head><title>Start</title></head>\n<body>\n</body>\n</html>\n" );
 }
 
 void SourceWidget::setSource ( const QString &source )

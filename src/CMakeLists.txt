@@ -6,6 +6,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/configdialog
   ${XHTMLDBG_INCLUDES}
 )
@@ -13,6 +14,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (openurldialog)
+ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (configdialog)
 
 SET (xhtmldbg_SOURCES
@@ -74,11 +76,11 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  SourceViewer Bookmark OpenUrlDialog ConfigDialog
+  SourceViewer Bookmark OpenUrlDialog Networker ConfigDialog
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)
 
-# INSTALL (FILES xhtmldbg.desktop DESTINATION share/applications)
+INSTALL (FILES xhtmldbg.desktop DESTINATION share/applications)
 
 ## EOF

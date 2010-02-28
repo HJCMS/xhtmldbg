@@ -22,6 +22,8 @@
 #include "viewer.h"
 #include "webviewer.h"
 #include "page.h"
+#include "application.h"
+#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -39,10 +41,8 @@ Viewer::Viewer ( QWidget * parent )
   setContextMenuPolicy ( Qt::DefaultContextMenu );
 
   m_page = new Page ( this );
+  m_page->setNetworkAccessManager ( Application::networkAccessManager() );
   setPage ( m_page );
-
-  setUrl ( QUrl ( "http://webmast.jh" ) );
-
 
   connect ( m_page, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
             this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
@@ -52,7 +52,6 @@ Viewer::Viewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( cursorFinished ( bool ) ) );
-
 }
 
 void Viewer::cursorwait ()

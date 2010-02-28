@@ -45,11 +45,13 @@ class WebViewer : public QTabWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( QUrl url READ getUrl WRITE setUrl )
 
   private:
     Viewer* m_viewer;
     Viewer* activeView();
     void setSignals ( Viewer * );
+    QUrl url;
 
   private Q_SLOTS:
     void updateTabTitle ( const QString & );
@@ -64,14 +66,15 @@ class WebViewer : public QTabWidget
   public Q_SLOTS:
     void addNewViewerTab ( Viewer * );
     void addEmptyViewerTab ();
-    void setUrl ( const QUrl & );
     void keywords ( const QStringList & );
     void refresh ();
     void back ();
     void forward ();
+    void setUrl ( const QUrl & );
 
   public:
     WebViewer ( QWidget * parent = 0 );
+    const QUrl getUrl();
     const QString toHtml();
     const QWebElement toWebElement();
     ~WebViewer();

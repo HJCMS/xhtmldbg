@@ -24,7 +24,9 @@
 #include "historymanager.h"
 #include "historyitem.h"
 
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 #include <QtWebKit/QWebFrame>
 
@@ -36,6 +38,7 @@ static inline const QString blank_html()
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
+    , url ( QUrl ( QLatin1String ( "http://localhost" ) ) )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "webviewer" );
@@ -70,7 +73,6 @@ void WebViewer::setSignals ( Viewer * view )
 
   connect ( view, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
             this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
-
 }
 
 Viewer* WebViewer::activeView()
@@ -131,11 +133,6 @@ void WebViewer::addEmptyViewerTab ()
   addNewViewerTab ( view );
 }
 
-void WebViewer::setUrl ( const QUrl &url )
-{
-  activeView()->setUrl ( url );
-}
-
 void WebViewer::keywords ( const QStringList &words )
 {
   foreach ( QString w, words )
@@ -157,6 +154,17 @@ void WebViewer::back ()
 void WebViewer::forward ()
 {
   activeView()->forward();
+}
+
+void WebViewer::setUrl ( const QUrl &u )
+{
+  activeView()->setUrl ( u );
+  url = u;
+}
+
+const QUrl WebViewer::getUrl()
+{
+  return url;
 }
 
 const QString WebViewer::toHtml()

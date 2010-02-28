@@ -21,6 +21,7 @@
 
 #include "application.h"
 #include "historymanager.h"
+#include "networkaccessmanager.h"
 
 #include <cstdlib>
 
@@ -33,6 +34,7 @@
 #include <QtGui/QIcon>
 
 HistoryManager* Application::p_historyManager = 0;
+NetworkAccessManager* Application::p_networkAccessManager = 0;
 
 Application::Application ( int &argc, char **argv )
     : QApplication ( argc, argv, true )
@@ -155,5 +157,18 @@ HistoryManager* Application::historyManager()
   return p_historyManager;
 }
 
+NetworkAccessManager* Application::networkAccessManager()
+{
+  if ( !p_networkAccessManager )
+  {
+    p_networkAccessManager = new NetworkAccessManager();
+    // p_networkAccessManager->setCookieJar(new CookieJar);
+  }
+  return p_networkAccessManager;
+}
+
 Application::~Application()
-{}
+{
+  delete p_historyManager;
+  delete p_networkAccessManager;
+}
