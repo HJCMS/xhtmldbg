@@ -26,6 +26,7 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -45,6 +46,7 @@ class Main : public Application
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    QSettings* m_settings;
     QList<QPointer<Window> > m_windows;
     void cleanWindows();
     const QString getArgumentUrl ( const QString & );

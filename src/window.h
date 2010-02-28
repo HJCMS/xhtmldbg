@@ -127,7 +127,7 @@ class Window : public QMainWindow
     void visibleSourceChanged();
 
   public:
-    Window();
+    Window ( QSettings * settings = 0 );
     ~Window();
 };
 

@@ -61,16 +61,15 @@
 /* QTidy */
 #include <QTidy/QTidy>
 
-Window::Window() : QMainWindow()
+Window::Window( QSettings * settings ) 
+    : QMainWindow()
+    , m_settings ( settings )
 {
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
   setObjectName ( "xhtmldbgwindow" );
   QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
   setWindowIcon ( qTidyIcon );
-  // Settings
-  m_settings = new QSettings ( QSettings::NativeFormat,
-                               QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
 
   // StatusBar
   m_statusBar = new StatusBar ( statusBar() );
@@ -140,6 +139,7 @@ Window::Window() : QMainWindow()
 
   QUrl fallback ( "http://www.hjcms.de" );
   QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
+  recent = m_settings->value ( QLatin1String ( "StartUpUrl" ), recent ).toUrl();
   openUrl ( recent );
 
   update();

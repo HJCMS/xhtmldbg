@@ -1,5 +1,9 @@
 # CMakeLists.txt
 
+SET (configdialog_UI
+  configdialogui.ui
+)
+
 SET (configdialog_SOURCES
   configdialog.cpp
 )
@@ -7,6 +11,8 @@ SET (configdialog_SOURCES
 SET (configdialog_HEADERS
   configdialog.h
 )
+
+QT4_WRAP_UI (configdialog_UIC ${configdialog_UI})
 
 QT4_WRAP_CPP (configdialog_MOC ${configdialog_HEADERS})
 
@@ -19,6 +25,7 @@ INCLUDE_DIRECTORIES (
 
 ADD_LIBRARY (ConfigDialog STATIC
   ${configdialog_MOC}
+  ${configdialog_UIC}
   ${configdialog_HEADERS}
   ${configdialog_SOURCES}
 )

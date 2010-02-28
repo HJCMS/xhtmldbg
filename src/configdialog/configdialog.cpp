@@ -27,35 +27,57 @@
 /* QtGui */
 #include <QtGui>
 
+/*
+UserAgentLanguage
+*/
+
 ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
     , cfg ( settings )
 {
   setObjectName ( QLatin1String ( "configdialog" ) );
-  setWindowTitle ( trUtf8( "Configure xhtmldbg[*]" ) );
+  setWindowTitle ( trUtf8 ( "Configure xhtmldbg[*]" ) );
   setMinimumWidth ( 550 );
   setMinimumHeight ( 450 );
   setSizeGripEnabled ( true );
 
-  QVBoxLayout* vLayout = new QVBoxLayout ( this );
-  vLayout->setObjectName ( QLatin1String ( "verticallayout" ) );
-  vLayout->setContentsMargins ( 5, 5, 5, 15 );
+  setupUi ( this );
 
-  vLayout->addWidget ( new QFrame( this ) );
-
-  QDialogButtonBox* buttonBox = new QDialogButtonBox ( this );
-  buttonBox->setObjectName ( QLatin1String ( "buttonBox" ) );
-  buttonBox->setOrientation ( Qt::Horizontal );
+  // Modify ButtonBox
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
   m_buttonClose = buttonBox->addButton ( QDialogButtonBox::Close );
   m_buttonSave = buttonBox->addButton ( QDialogButtonBox::Save );
   m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
 
-  vLayout->addWidget ( buttonBox );
-
+  // connect ( , SIGNAL(), this, SLOT ( setModified() ) );
+  connect ( StartUpUrl, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+  connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( save() ) );
+  // connect ( m_buttonRestore, SIGNAL ( clicked() ), this, SLOT ( () ) );
   connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
-  connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
-  connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
+  connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( quit() ) );
+}
+
+void ConfigDialog::setModified()
+{
+  setWindowModified ( true );
+}
+
+void ConfigDialog::save()
+{
+  qDebug() << Q_FUNC_INFO;
+  setWindowModified ( false );
+}
+
+void ConfigDialog::quit()
+{
+  QMessageBox::StandardButton status = QMessageBox::Yes;
+  if ( isWindowModified() )
+    status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
+                                     trUtf8 ( "Found unsaved Changes.\nDo you realy wan to exit?" ),
+                                     ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
+
+  if ( status == QMessageBox::Yes )
+    accept();
 }
 
 ConfigDialog::~ConfigDialog()

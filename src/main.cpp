@@ -30,6 +30,7 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QTranslator>
@@ -41,6 +42,10 @@ Main::Main ( int &argc, char **argv ) : Application ( argc, argv )
   setApplicationName ( "xhtmldbg" );
   setOrganizationDomain ( "hjcms.de" );
   setObjectName ( "DebuggerApplication" );
+
+  // Settings
+  m_settings = new QSettings ( QSettings::NativeFormat,
+                               QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
@@ -139,7 +144,7 @@ void Main::sMessageReceived ( QLocalSocket* socket )
 
 Window* Main::newMainWindow()
 {
-  Window *debugger = new Window();
+  Window *debugger = new Window ( m_settings );
   m_windows.prepend ( debugger );
 
   debugger->show();

@@ -6,28 +6,25 @@
 
 # norootforbuild
 
-%if %{defined suse_version}
-%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 libQtWebKit-devel >= 4.5.1 update-desktop-files oxygen-icon-theme >= 4.4.0
-%else
-%define builddepends  libtidy-devel libQTidy-devel >= 0.8.2 update-desktop-files oxygen-icon-theme >= 4.4.0
-%endif
-
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
 Version:        @XHTMLDBG_VERSION_STRING@
-Release:        %(date +"%j")
+Release:        %{_release}
 License:        GPLv3
 AutoReqProv:    on
-Source0:        %{packagename}.tar.bz2
+Source0:        xhtmldbg-%{version}.tar.bz2
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires:       libQTidy%{lt_version} = %{version} QTidy >= 0.7.1 qtidyrc
-BuildRequires:  cmake %{builddepends}
+Requires:       QTidy >= 0.7.1 qtidyrc oxygen-icon-theme >= 4.4.0
+BuildRequires:  cmake libtidy-devel QTidy-devel >= 0.8.2 update-desktop-files oxygen-icon-theme >= 4.4.0
 BuildArch:      %{_target_cpu}
 ExclusiveOs:    %{_os}
 
-##% debug_package
+%define _qt_prefix    %(qmake -query QT_INSTALL_PREFIX)
+%define _qt_transdir  %(qmake -query QT_INSTALL_TRANSLATIONS)
+
+%debug_package
 
 %description
 Tidy HTML/XML Validator and Debugger.
@@ -63,11 +60,6 @@ pushd build
   %makeinstall
 popd
 
-## Update Desktop Files
-%if %{defined suse_version}
-%suse_update_desktop_file -i %{name}  System Utility
-%endif 
-
 %post
 ##
 
@@ -77,7 +69,7 @@ popd
 %files
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
-%{_qt_transdir}/qtidy_*.qm
+%{_qt_transdir}/xhtmldbg_*.qm
 %dir %{_datadir}/%{name}
 %doc %{_datadir}/%{name}/AUTHORS
 %doc %{_datadir}/%{name}/COPYING
@@ -88,37 +80,30 @@ popd
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/icons/oxygen/128x128
 %dir %{_datadir}/icons/oxygen/128x128/apps
-%{_datadir}/icons/oxygen/128x128/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/16x16
 %dir %{_datadir}/icons/oxygen/16x16/apps
-%{_datadir}/icons/oxygen/16x16/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/192x192
 %dir %{_datadir}/icons/oxygen/192x192/apps
-%{_datadir}/icons/oxygen/192x192/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/22x22
 %dir %{_datadir}/icons/oxygen/22x22/apps
-%{_datadir}/icons/oxygen/22x22/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/24x24
 %dir %{_datadir}/icons/oxygen/24x24/apps
-%{_datadir}/icons/oxygen/24x24/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/32x32
 %dir %{_datadir}/icons/oxygen/32x32/apps
-%{_datadir}/icons/oxygen/32x32/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/36x36
 %dir %{_datadir}/icons/oxygen/36x36/apps
-%{_datadir}/icons/oxygen/36x36/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/48x48
 %dir %{_datadir}/icons/oxygen/48x48/apps
-%{_datadir}/icons/oxygen/48x48/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/64x64
 %dir %{_datadir}/icons/oxygen/64x64/apps
-%{_datadir}/icons/oxygen/64x64/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/72x72
 %dir %{_datadir}/icons/oxygen/72x72/apps
-%{_datadir}/icons/oxygen/72x72/apps/%{name}.png
 %dir %{_datadir}/icons/oxygen/96x96
 %dir %{_datadir}/icons/oxygen/96x96/apps
-%{_datadir}/icons/oxygen/96x96/apps/%{name}.png
+%dir %{_datadir}/icons/oxygen/scalable
+%dir %{_datadir}/icons/oxygen/scalable/apps/
+%{_datadir}/icons/oxygen/*/apps/%{name}.png
+%{_datadir}/icons/oxygen/*/apps/xhtmldbg.svgz
 %{_datadir}/pixmaps/%{name}.xpm
 
 %clean

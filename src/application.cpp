@@ -45,6 +45,7 @@ Application::Application ( int &argc, char **argv )
   // Setting Default Application Properties
   setGraphicsSystem ( QLatin1String ( "native" ) );
   QIcon::setThemeName ( "oxygen" );
+
 }
 
 void Application::newConnection()

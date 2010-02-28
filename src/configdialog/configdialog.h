@@ -31,7 +31,9 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
-class ConfigDialog : public QDialog
+#include "ui_configdialogui.h"
+
+class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -43,6 +45,11 @@ class ConfigDialog : public QDialog
     QPushButton* m_buttonClose;
     QPushButton* m_buttonRestore;
     QPushButton* m_buttonSave;
+
+  private Q_SLOTS:
+    void setModified();
+    void save();
+    void quit();
 
   public:
     ConfigDialog ( QWidget * parent = 0, QSettings * settings = 0 );
