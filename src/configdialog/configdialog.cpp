@@ -62,20 +62,30 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
 
   // connect ( , SIGNAL(), this, SLOT ( setModified() ) );
+  // Check and Radio Boxes
   connect ( AutoCheck, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoFormat, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoDisabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( bootsplash, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( tabStartShow0, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( tabStartShow1, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( toolButton, SIGNAL ( clicked() ), StartUpUrl, SLOT ( clear() ) );
-  connect ( CacheSaveControlAttribute, SIGNAL ( clicked ( bool ) ), this, SLOT ( setModified() ) );
+  connect ( SourceIsFromCacheAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( DoNotBufferUploadDataAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningAllowedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningWasUsedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( SourceIsFromCacheAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( bootsplash, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( DeveloperExtrasEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  // Group Boxes
+  connect ( CacheSaveControlAttribute, SIGNAL ( clicked ( bool ) ), this, SLOT ( setModified() ) );
+  // Spin Boxes
+  connect ( DefaultFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+  connect ( DefaultFixedFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
   connect ( MaxHistoryItems, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+  // Line Edits
   connect ( StartUpUrl, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+
   // Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
   connect ( m_buttonReset, SIGNAL ( clicked() ), this, SLOT ( loadSettings() ) );

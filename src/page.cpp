@@ -10,6 +10,7 @@
 #include <QtCore/QString>
 #include <QtCore/QDebug>
 #include <QtCore/QList>
+#include <QtCore/QSettings>
 #include <QtCore/QVariant>
 
 /* QtGui */
@@ -23,20 +24,44 @@ Page::Page ( QObject * parent )
 {
   setObjectName ( "page" );
 
+  // Settings
+  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
+                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+
   QWebSettings* ws = settings ();
   // Until QtWebkit defaults to 16
-  ws->setFontSize ( QWebSettings::DefaultFontSize, 16 );
-  ws->setFontSize ( QWebSettings::DefaultFixedFontSize, 16 );
+  ws->setFontSize ( QWebSettings::DefaultFontSize,
+                    cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
+
+  ws->setFontSize ( QWebSettings::DefaultFixedFontSize,
+                    cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
   // Page Settings
-  ws->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
-  ws->setAttribute ( QWebSettings::AutoLoadImages, true );
-  ws->setAttribute ( QWebSettings::JavascriptEnabled, true );
-  ws->setAttribute ( QWebSettings::PluginsEnabled, false );
-  ws->setAttribute ( QWebSettings::JavaEnabled, true );
-  ws->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
-  ws->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  ws->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
-  ws->setAttribute ( QWebSettings::LocalStorageEnabled, false );
+  ws->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
+                     cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::AutoLoadImages,
+                     cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
+
+  ws->setAttribute ( QWebSettings::JavascriptEnabled,
+                     cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
+
+  ws->setAttribute ( QWebSettings::PluginsEnabled,
+                     cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::JavaEnabled,
+                     cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
+                     cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
+                     cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
+                     cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
+
+  ws->setAttribute ( QWebSettings::LocalStorageEnabled,
+                     cfg->value ( QLatin1String ( "LocalStorageEnabled" ), false ).toBool() );
 
   action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
   action ( QWebPage::Back )->setShortcut ( QKeySequence::Back );

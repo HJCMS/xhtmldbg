@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>574</width>
-    <height>467</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -173,6 +173,9 @@
             <property name="text">
              <string>Load this URL as Default on start, if empty use recent Homepage.</string>
             </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item>
@@ -312,7 +315,7 @@
          <property name="checked">
           <bool>false</bool>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QLabel" name="label_4">
             <property name="text">
@@ -338,28 +341,24 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>How the cache should be accessed?</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="CacheLoadControlAttribute">
-              <property name="statusTip">
-               <string notr="true"/>
-              </property>
-              <property name="whatsThis">
-               <string notr="true"/>
-              </property>
-              <property name="maxCount">
-               <number>20</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>How the cache should be accessed?</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="CacheLoadControlAttribute">
+            <property name="statusTip">
+             <string notr="true"/>
+            </property>
+            <property name="whatsThis">
+             <string notr="true"/>
+            </property>
+            <property name="maxCount">
+             <number>20</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -410,6 +409,134 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
       </layout>
      </widget>
      <widget class="QWidget" name="tab4">
+      <attribute name="title">
+       <string>Browser</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>Font Settings</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Default Font Size:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="DefaultFontSize">
+            <property name="minimum">
+             <number>8</number>
+            </property>
+            <property name="maximum">
+             <number>50</number>
+            </property>
+            <property name="value">
+             <number>16</number>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Fixed Font Size:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="DefaultFixedFontSize">
+            <property name="minimum">
+             <number>8</number>
+            </property>
+            <property name="maximum">
+             <number>50</number>
+            </property>
+            <property name="value">
+             <number>16</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="DeveloperExtrasEnabled">
+         <property name="text">
+          <string>Developer Extras Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="AutoLoadImages">
+         <property name="text">
+          <string>AutoLoad Images</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="JavascriptEnabled">
+         <property name="text">
+          <string>Javascript Enabled</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="PluginsEnabled">
+         <property name="text">
+          <string>Plugins Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="JavaEnabled">
+         <property name="text">
+          <string>Java Enabled</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>179</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab5">
       <attribute name="title">
        <string>Proxy</string>
       </attribute>
