@@ -48,9 +48,10 @@ class SourceWidget : public QWidget
     SourceView* m_sourceView;
     ListLines* m_listLines;
     QString tidyrc;
+    QTidy::QTidyParser* parser;
 
   Q_SIGNALS:
-    void checkTriggered ();
+    void clearMessages ();
     void triggered ( const QTidy::QTidyDiagnosis & );
 
   public Q_SLOTS:

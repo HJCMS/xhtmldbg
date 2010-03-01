@@ -118,7 +118,7 @@ Window::Window ( QSettings * settings )
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
 
-  connect ( m_sourceWidget, SIGNAL ( checkTriggered () ),
+  connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
             m_messanger, SLOT ( clearItems () ) );
 
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
@@ -364,7 +364,6 @@ void Window::requestsFinished ( bool ok )
       m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     }
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
-    // m_settings->setValue ( QLatin1String ( "AutoFormat" ), false );
   }
 }
 

@@ -57,6 +57,8 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
 {
   setObjectName ( "sourceview" );
   setContentsMargins ( 0, 0, 0, 0 );
+  setMinimumWidth ( 100 );
+  setMinimumHeight ( 100 );
   setFrameStyle ( QFrame::NoFrame );
   setAcceptRichText ( false );
   setAutoFormatting ( QTextEdit::AutoNone );
@@ -98,6 +100,8 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
   connect ( m_contextMenu, SIGNAL ( sscheck() ), this, SIGNAL ( check() ) );
   connect ( m_contextMenu, SIGNAL ( sformat() ), this, SIGNAL ( format() ) );
   connect ( m_contextMenu, SIGNAL ( swrap() ), this, SLOT ( swapWordWrap() ) );
+
+  update();
 }
 
 /**
@@ -159,6 +163,7 @@ void SourceView::createListWidgetItems()
 
       list << item;
     }
+  // qDebug() << viewport()->size().height();
     emit textChanged ( list );
   }
 }

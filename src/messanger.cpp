@@ -29,7 +29,9 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QListWidgetItem>
+#include <QtGui/QMenu>
 
 Messanger::Messanger ( QWidget * parent )
     : QDockWidget ( parent )
@@ -42,10 +44,11 @@ Messanger::Messanger ( QWidget * parent )
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
   m_listWidget = new QListWidget ( this );
-  m_listWidget->setSortingEnabled ( false );
-
-  QString startupMessage = trUtf8 ( "Started Normaly waiting for Actions..." );
-  m_listWidget->addItem ( new QListWidgetItem ( iconNotice, startupMessage ) );
+  m_listWidget->setSortingEnabled ( true );
+  m_listWidget->sortItems ( Qt::AscendingOrder );
+  m_listWidget->setSelectionMode ( QAbstractItemView::SingleSelection );
+  m_listWidget->setEditTriggers ( QAbstractItemView::NoEditTriggers );
+  m_listWidget->setContextMenuPolicy ( Qt::ActionsContextMenu );
 
   setWidget ( m_listWidget );
 
@@ -62,11 +65,38 @@ void Messanger::pretended ( QListWidgetItem * item )
   if ( data.size() <= 0 )
     return;
 
-  int row = data.at ( 0 ).toInt();
+  int row = ( data.at ( 0 ).toInt() - 1 );
   int col = data.at ( 1 ).toInt();
-  int l = ( row - 1 );
-  if ( l >= 0 )
-    emit marking ( l, col );
+  emit marking ( ( ( row >= 0 ) ? row : 0 ), col );
+}
+
+void Messanger::sortAscending()
+{
+  m_listWidget->sortItems ( Qt::AscendingOrder );
+}
+
+void Messanger::sortDescending()
+{
+  m_listWidget->sortItems ( Qt::DescendingOrder );
+}
+
+void Messanger::contextMenuEvent ( QContextMenuEvent *e )
+{
+  QMenu* menu = new QMenu ( this );
+
+  QAction* ac_Ascending = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-ascending" ) ),
+                          trUtf8 ( "Ascending" ) );
+  connect ( ac_Ascending, SIGNAL ( triggered() ), this, SLOT ( sortAscending() ) );
+
+  QAction* ac_Descending = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-descending" ) ),
+                           trUtf8 ( "Descending" ) );
+  connect ( ac_Descending, SIGNAL ( triggered() ), this, SLOT ( sortDescending() ) );
+
+  QAction* ac_clear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
+                                        trUtf8 ( "Clear" ) );
+  connect ( ac_clear, SIGNAL ( triggered() ), m_listWidget, SLOT ( clear() ) );
+
+  menu->exec ( e->globalPos() );
 }
 
 void Messanger::messages ( const QTidy::QTidyDiagnosis &d )

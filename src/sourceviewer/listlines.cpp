@@ -43,7 +43,7 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
   setMaximumWidth ( 250 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
-  layout->setContentsMargins ( 0, 4, 0, 4 );
+  layout->setContentsMargins ( 0, 4, 0, 0 );
 
   m_listWidget = new QListWidget ( this );
   layout->addWidget ( m_listWidget );
@@ -55,9 +55,9 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
   m_listWidget->setHorizontalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
   m_listWidget->setVerticalScrollMode ( QAbstractItemView::ScrollPerPixel );
   m_listWidget->setHorizontalScrollMode ( QAbstractItemView::ScrollPerPixel );
-  // TODO m_listWidget->setAutoScrollMargin (  );
   m_listWidget->setBackgroundRole ( QPalette::AlternateBase );
   m_listWidget->setAlternatingRowColors ( true ); // @note AlternateBase required
+  m_listWidget->setMovement ( QListView::Static );
   m_listWidget->setFont ( font );
 
   QPalette pl = m_listWidget->palette();
@@ -96,6 +96,7 @@ void ListLines::setItems ( const QList<QListWidgetItem*> &list )
       if ( c >= list.size() )
         setMaximumWidth ( i->sizeHint().width() );
     }
+    m_listWidget->addItem ( QString::number( list.size() ) );
   }
 }
 

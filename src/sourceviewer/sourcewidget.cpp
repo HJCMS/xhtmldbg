@@ -70,6 +70,8 @@ SourceWidget::SourceWidget ( QWidget * parent )
   mainLayout->addWidget ( m_sourceView );
   mainLayout->setStretchFactor ( m_sourceView, 1 );
 
+  parser = new QTidy::QTidyParser ( this, getTidyrc() );
+
   setLayout ( mainLayout );
 
   // Add Line Numbers
@@ -93,6 +95,9 @@ SourceWidget::SourceWidget ( QWidget * parent )
   connect ( m_sourceView, SIGNAL ( check() ), this, SLOT ( check() ) );
   connect ( m_sourceView, SIGNAL ( format() ), this, SLOT ( format() ) );
 
+  connect ( parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
+            this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
+
   if ( m_sourceView->source().isEmpty() )
     setSource ( "<html>\n<head><title>Start</title></head>\n<body>\n</body>\n</html>\n" );
 }
@@ -109,40 +114,24 @@ void SourceWidget::fetchBlock ( int row, int column )
   m_sourceView->setCursorToRow ( row, column );
 }
 
-/**
-* @todo to implement QTidy::QTidyParser
-*/
 void SourceWidget::check()
 {
-  QTidy::QTidyParser parser ( this, getTidyrc() );
-  connect ( &parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
-            this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
-
-  emit checkTriggered();
-  parser.checkContent ( m_sourceView->source() );
+  emit clearMessages();
+  parser->checkContent ( m_sourceView->source() );
 }
 
-/**
-* @todo to implement QTidy::QTidyParser
-*/
 void SourceWidget::format()
 {
   QString html = m_sourceView->source();
   if ( html.isEmpty() )
     return;
 
-  QTidy::QTidyParser* parser = new  QTidy::QTidyParser ( this, getTidyrc() );
-  connect ( parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
-            this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
-
   QString valid = parser->cleanContent ( html );
   if ( valid.isEmpty() )
     return;
 
   m_sourceView->setSource ( valid );
-  emit checkTriggered();
-
-  parser->checkContent ( m_sourceView->source() );
+  check();
 }
 
 const QString SourceWidget::getTidyrc()

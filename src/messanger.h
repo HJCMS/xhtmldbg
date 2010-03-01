@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QContextMenuEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QListWidget>
 #include <QtGui/QListWidgetItem>
@@ -49,6 +50,11 @@ class Messanger : public QDockWidget
 
   private Q_SLOTS:
     void pretended ( QListWidgetItem * );
+    void sortAscending();
+    void sortDescending();
+
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void marking ( int, int );
