@@ -61,7 +61,7 @@
 /* QTidy */
 #include <QTidy/QTidy>
 
-Window::Window( QSettings * settings ) 
+Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
 {
@@ -118,9 +118,6 @@ Window::Window( QSettings * settings )
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
 
-  connect ( m_webViewer, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
-            m_messanger, SLOT ( messages ( int, const QString & ) ) );
-
   connect ( m_sourceWidget, SIGNAL ( checkTriggered () ),
             m_messanger, SLOT ( clearItems () ) );
 
@@ -139,8 +136,8 @@ Window::Window( QSettings * settings )
 
   QUrl fallback ( "http://www.hjcms.de" );
   QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
-  recent = m_settings->value ( QLatin1String ( "StartUpUrl" ), recent ).toUrl();
-  openUrl ( recent );
+  QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ), fallback ).toUrl();
+  openUrl ( ( startup.isEmpty() ? recent : startup ) );
 
   update();
 }
@@ -449,6 +446,20 @@ void Window::visibleSourceChanged()
 {
   if ( m_centralWidget->currentIndex() != 1 )
     m_centralWidget->setCurrentIndex ( 1 );
+}
+
+/**
+* QList<QVariant> err;
+* err << row << column << message;
+*/
+void Window::debuggerMessage ( const QList<QVariant> &err )
+{
+  int row = err.first().toUInt();
+  QString message = err.last().toString();
+  if ( message.isEmpty() )
+    return;
+
+  m_messanger->messages ( row, message );
 }
 
 Window::~Window()

@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef XHTMLDBG_H
+#define XHTMLDBG_H
 
 /* QtCore */
 #include <QtCore/QList>
@@ -39,7 +39,7 @@
 #include "application.h"
 #include "window.h"
 
-class Main : public Application
+class xhtmldbg : public Application
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -48,6 +48,7 @@ class Main : public Application
   private:
     QSettings* m_settings;
     QList<QPointer<Window> > m_windows;
+    void setWindowFocus();
     void cleanWindows();
     const QString getArgumentUrl ( const QString & );
 
@@ -55,10 +56,10 @@ class Main : public Application
     void sMessageReceived ( QLocalSocket* socket );
 
   public:
-    Main ( int &argc, char **argv );
-    static Main* instance();
+    xhtmldbg ( int &argc, char **argv );
+    static xhtmldbg* instance();
     Window* mainWindow();
-    ~Main();
+    ~xhtmldbg();
 
   public Q_SLOTS:
     Window* newMainWindow();

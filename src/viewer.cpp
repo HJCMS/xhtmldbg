@@ -44,9 +44,6 @@ Viewer::Viewer ( QWidget * parent )
   m_page->setNetworkAccessManager ( Application::networkAccessManager() );
   setPage ( m_page );
 
-  connect ( m_page, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
-            this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
-
   connect ( this, SIGNAL ( loadStarted () ),
             this, SLOT ( cursorwait () ) );
 

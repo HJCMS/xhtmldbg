@@ -27,14 +27,14 @@
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
 #include <QtCore/QTextCodec>
+#include <QtCore/QSettings>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
 
-/* QTidy */
-#include <QTidy/QTidy>
+class NetworkSettings;
 
 class NetworkAccessManager : public QNetworkAccessManager
 {
@@ -43,7 +43,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QNetworkRequest m_request;
+    NetworkSettings* m_networkSettings;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
 
   public Q_SLOTS:

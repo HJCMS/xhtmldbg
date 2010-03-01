@@ -24,8 +24,10 @@
 
 /* QtCore */
 #include <QtCore/QEvent>
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QAction>
@@ -125,6 +127,7 @@ class Window : public QMainWindow
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );
     void visibleSourceChanged();
+    void debuggerMessage ( const QList<QVariant> & );
 
   public:
     Window ( QSettings * settings = 0 );

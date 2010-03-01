@@ -20,6 +20,7 @@
 **/
 
 #include "networkaccessmanager.h"
+#include "networksettings.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -30,6 +31,7 @@
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
 {
+  m_networkSettings = new  NetworkSettings ( this );
   connect ( this, SIGNAL ( finished ( QNetworkReply * ) ),
             this, SLOT ( replyFinished ( QNetworkReply * ) ) );
 }
@@ -77,11 +79,8 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice *data )
 {
-  m_request = req;
-  m_request.setRawHeader ( "User-Agent", QTIDY_USER_AGENT );
-  m_request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, false );
-  m_request.setAttribute ( QNetworkRequest::HttpPipeliningAllowedAttribute, true );
-  return QNetworkAccessManager::createRequest ( op, m_request, data );
+  QNetworkRequest request = m_networkSettings->requestOptions ( req );
+  return QNetworkAccessManager::createRequest ( op, request, data );
 }
 
 NetworkAccessManager::~NetworkAccessManager()

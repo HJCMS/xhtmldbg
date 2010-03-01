@@ -62,7 +62,6 @@ class Viewer : public QWebView
 
   Q_SIGNALS:
     void addBookmark ( const QUrl &, const QString & );
-    void scriptConsoleMessage ( int, const QString & );
 
   public:
     Viewer ( QWidget * parent = 0 );

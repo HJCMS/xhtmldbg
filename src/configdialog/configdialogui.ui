@@ -6,14 +6,29 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>616</width>
-    <height>471</height>
+    <width>574</width>
+    <height>467</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Configure xhtmldbg[*]</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_3">
+  <layout class="QVBoxLayout" name="vLayout">
+   <property name="spacing">
+    <number>-1</number>
+   </property>
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
+   <property name="topMargin">
+    <number>5</number>
+   </property>
+   <property name="rightMargin">
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>10</number>
+   </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -185,7 +200,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="headers">
+        <widget class="QTableWidget" name="headersTable">
          <property name="toolTip">
           <string/>
          </property>
@@ -285,6 +300,119 @@
       <attribute name="title">
        <string>Network</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <widget class="QGroupBox" name="CacheSaveControlAttribute">
+         <property name="title">
+          <string>Enable Network Request Caching</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Note that the default Network Request does not have caching enabled.
+By default it isn't a good idea to enable Auto Caching with Debugging.</string>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+            <property name="indent">
+             <number>2</number>
+            </property>
+            <property name="textInteractionFlags">
+             <set>Qt::NoTextInteraction</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="SourceIsFromCacheAttribute">
+            <property name="text">
+             <string>Indicates whether the data was obtained from cache or not.</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>How the cache should be accessed?</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="CacheLoadControlAttribute">
+              <property name="statusTip">
+               <string notr="true"/>
+              </property>
+              <property name="whatsThis">
+               <string notr="true"/>
+              </property>
+              <property name="maxCount">
+               <number>20</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="DoNotBufferUploadDataAttribute">
+         <property name="text">
+          <string>Do Not Buffer Upload Data when doing a HTTP POST request.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="HttpPipeliningAllowedAttribute">
+         <property name="text">
+          <string>Allowe HTTP pipelining with requests.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="HttpPipeliningWasUsedAttribute">
+         <property name="text">
+          <string>Indicates whether the HTTP Pipelining was used for receiving data Requests.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>354</width>
+           <height>167</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab4">
+      <attribute name="title">
+       <string>Proxy</string>
+      </attribute>
      </widget>
     </widget>
    </item>
@@ -301,118 +429,5 @@
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>AutoCheck</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>84</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>AutoFormat</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>109</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>AutoDisabled</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>134</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>bootsplash</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>178</x>
-     <y>255</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tabStartShow0</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>170</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tabStartShow1</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>ConfigDialogUi</receiver>
-   <slot>setWindowModified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>451</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>324</x>
-     <y>238</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>toolButton</sender>
-   <signal>clicked()</signal>
-   <receiver>StartUpUrl</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>555</x>
-     <y>113</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>474</x>
-     <y>109</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

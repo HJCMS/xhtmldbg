@@ -20,6 +20,7 @@ ADD_SUBDIRECTORY (configdialog)
 
 SET (xhtmldbg_SOURCES
   main.cpp
+  xhtmldbg.cpp
   application.cpp
   window.cpp
   addresstoolbar.cpp
@@ -37,7 +38,7 @@ SET (xhtmldbg_SOURCES
 )
 
 SET (xhtmldbg_HEADERS
-  main.h
+  xhtmldbg.h
   application.h
   window.h
   addresstoolbar.h

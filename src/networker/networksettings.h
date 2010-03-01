@@ -19,48 +19,26 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGDIALOG_H
-#define CONFIGDIALOG_H
+#ifndef NETWORKSETTINGS_H
+#define NETWORKSETTINGS_H
 
 /* QtCore */
-#include <QtCore/QObject>
 #include <QtCore/QSettings>
+#include <QtCore/QObject>
 
-/* QtGui */
-#include <QtGui/QDialog>
-#include <QtGui/QPushButton>
-#include <QtGui/QWidget>
+/* QtNetwork */
+#include <QtNetwork/QNetworkRequest>
 
-#include "ui_configdialogui.h"
-
-class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
+class NetworkSettings : public QSettings
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    QSettings* cfg;
-    QPushButton* m_buttonCancel;
-    QPushButton* m_buttonClose;
-    QPushButton* m_buttonReset;
-    QPushButton* m_buttonRestore;
-    QPushButton* m_buttonSave;
-
-    void setCacheLoadControlComboBoxItems();
-    void loadHeaderDefinitions();
-    void saveHeaderDefinitions();
-
-  private Q_SLOTS:
-    void setModified();
-    void loadSettings();
-    void saveSettings();
-    void restoreSettings();
-    void quit();
-
   public:
-    ConfigDialog ( QWidget * parent = 0, QSettings * settings = 0 );
-    ~ConfigDialog();
+    NetworkSettings ( QObject * parent = 0 );
+    const QNetworkRequest requestOptions ( const QNetworkRequest & );
+    ~NetworkSettings();
 };
 
 #endif

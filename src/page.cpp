@@ -4,6 +4,7 @@
 **/
 
 #include "page.h"
+#include "xhtmldbg.h"
 
 /* QtCore */
 #include <QtCore/QString>
@@ -23,6 +24,10 @@ Page::Page ( QObject * parent )
   setObjectName ( "page" );
 
   QWebSettings* ws = settings ();
+  // Until QtWebkit defaults to 16
+  ws->setFontSize ( QWebSettings::DefaultFontSize, 16 );
+  ws->setFontSize ( QWebSettings::DefaultFixedFontSize, 16 );
+  // Page Settings
   ws->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
   ws->setAttribute ( QWebSettings::AutoLoadImages, true );
   ws->setAttribute ( QWebSettings::JavascriptEnabled, true );
@@ -45,7 +50,13 @@ Page::Page ( QObject * parent )
 void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
 {
   Q_UNUSED ( id )
-  emit scriptConsoleMessage ( l, m );
+  if ( m.isEmpty() )
+    return;
+
+  QList<QVariant> err;
+  err << l << 0 << m;
+
+  xhtmldbg::instance()->mainWindow()->debuggerMessage ( err );
 }
 
 void Page::triggerSelections()

@@ -2,10 +2,12 @@
 
 SET (networker_SOURCES
   networkaccessmanager.cpp
+  networksettings.cpp
 )
 
 SET (networker_HEADERS
   networkaccessmanager.h
+  networksettings.h
 )
 
 SET (networker_NOMOC

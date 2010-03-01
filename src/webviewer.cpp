@@ -68,9 +68,6 @@ void WebViewer::setSignals ( Viewer * view )
 
   connect ( view, SIGNAL ( loadFinished ( bool ) ),
             this, SIGNAL ( loadFinished ( bool ) ) );
-
-  connect ( view, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ),
-            this, SIGNAL ( scriptConsoleMessage ( int, const QString & ) ) );
 }
 
 Viewer* WebViewer::activeView()
