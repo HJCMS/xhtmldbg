@@ -713,7 +713,7 @@ Es ist keine gut Idee beim Debuggem das Automatische Speichern zu aktivieren.</t
     <message>
         <location filename="../src/window.cpp" line="224"/>
         <source>Bookmarks</source>
-        <translation>Leszeichen</translation>
+        <translation>Lesezeichen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="247"/>
