@@ -119,8 +119,209 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="35"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="43"/>
         <source>Configure xhtmldbg[*]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="91"/>
+        <source>Always load from network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="94"/>
+        <source>Load from the Network if cache is expired.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="97"/>
+        <source>Load from Cache if entry exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="100"/>
+        <source>Always load from Cache.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="270"/>
+        <source>Notice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="271"/>
+        <source>Settings Restored.
+Please restart the Configuration Dialog.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="279"/>
+        <source>Unsaved Changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="280"/>
+        <source>Found unsaved Changes.
+Do you realy wan to exit?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogUi</name>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="353"/>
+        <source>Configure xhtmldbg[*]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="354"/>
+        <source>QTidy Source Parser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="355"/>
+        <source>Enable Auto Source Check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="356"/>
+        <source>Enable Autoformat and Check Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="357"/>
+        <source>Disable autoformat and autocheck</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="358"/>
+        <source>Startup Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="359"/>
+        <source>Show Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="360"/>
+        <source>Show Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="361"/>
+        <source>Disable Bootsplash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="362"/>
+        <source>Max Items in History Menu:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="363"/>
+        <source>Defaults</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="364"/>
+        <source>Start Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="365"/>
+        <source>Load this URL as Default on start, if empty use recent Homepage.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="366"/>
+        <source>&lt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="367"/>
+        <source>Header Field Definitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="369"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="371"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="373"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="375"/>
+        <source>1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="377"/>
+        <source>2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="387"/>
+        <source>HTTP Header Field Definitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="389"/>
+        <source>Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="390"/>
+        <source>Enable Network Request Caching</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="391"/>
+        <source>Note that the default Network Request does not have caching enabled.
+By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="393"/>
+        <source>Indicates whether the data was obtained from cache or not.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="394"/>
+        <source>How the cache should be accessed?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="395"/>
+        <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="396"/>
+        <source>Allow HTTP pipelining with requests.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="397"/>
+        <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="398"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="399"/>
+        <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -219,14 +420,6 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
-    <name>InspectorWidget</name>
-    <message>
-        <location filename="../src/inspectorwidget.cpp" line="37"/>
-        <source>Inspector</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>KeywordsToolBar</name>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="40"/>
@@ -258,13 +451,23 @@ Do you realy wan to exit?</source>
 <context>
     <name>Messanger</name>
     <message>
-        <location filename="../src/messanger.cpp" line="41"/>
+        <location filename="../src/messanger.cpp" line="43"/>
         <source>Impartations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="47"/>
-        <source>Started Normaly waiting for Actions...</source>
+        <location filename="../src/messanger.cpp" line="88"/>
+        <source>Ascending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/messanger.cpp" line="92"/>
+        <source>Descending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/messanger.cpp" line="96"/>
+        <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -292,27 +495,27 @@ Do you realy wan to exit?</source>
 <context>
     <name>SourceView</name>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="200"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="206"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="201"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="207"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="203"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="209"/>
         <source>Save Content to...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="225"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="231"/>
         <source>Can&apos;t write Source to &quot;%1&quot; Permission Denied.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="227"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="233"/>
         <source>To Save Source Operation dropout</source>
         <translation type="unfinished"></translation>
     </message>
@@ -341,7 +544,7 @@ Do you realy wan to exit?</source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="75"/>
+        <location filename="../src/viewer.cpp" line="72"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -349,7 +552,7 @@ Do you realy wan to exit?</source>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="124"/>
+        <location filename="../src/webviewer.cpp" line="121"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -362,169 +565,169 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="89"/>
-        <location filename="../src/window.cpp" line="201"/>
+        <location filename="../src/window.cpp" line="86"/>
+        <location filename="../src/window.cpp" line="195"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="95"/>
+        <location filename="../src/window.cpp" line="92"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="101"/>
+        <location filename="../src/window.cpp" line="98"/>
         <source>DOM Viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="158"/>
+        <location filename="../src/window.cpp" line="152"/>
         <source>Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="162"/>
+        <location filename="../src/window.cpp" line="156"/>
         <source>Open Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="163"/>
+        <location filename="../src/window.cpp" line="157"/>
         <source>Load Document from Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="169"/>
+        <location filename="../src/window.cpp" line="163"/>
         <source>Open Html File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="170"/>
+        <location filename="../src/window.cpp" line="164"/>
         <source>Open Html from System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="176"/>
+        <location filename="../src/window.cpp" line="170"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="177"/>
+        <location filename="../src/window.cpp" line="171"/>
         <source>Close Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="184"/>
+        <location filename="../src/window.cpp" line="178"/>
         <source>Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="187"/>
+        <location filename="../src/window.cpp" line="181"/>
         <source>Parse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="188"/>
+        <location filename="../src/window.cpp" line="182"/>
         <source>Parse current Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="194"/>
+        <location filename="../src/window.cpp" line="188"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="195"/>
+        <location filename="../src/window.cpp" line="189"/>
         <source>Prepare and Format Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="204"/>
+        <location filename="../src/window.cpp" line="198"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="210"/>
+        <location filename="../src/window.cpp" line="204"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="216"/>
+        <location filename="../src/window.cpp" line="210"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="222"/>
+        <location filename="../src/window.cpp" line="216"/>
         <source>New Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="223"/>
+        <location filename="../src/window.cpp" line="217"/>
         <source>Add a new empty Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="230"/>
+        <location filename="../src/window.cpp" line="224"/>
         <source>Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="253"/>
+        <location filename="../src/window.cpp" line="247"/>
         <source>Organize Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="257"/>
+        <location filename="../src/window.cpp" line="251"/>
         <source>Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="259"/>
+        <location filename="../src/window.cpp" line="253"/>
         <source>Configure Tidyrc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="265"/>
-        <location filename="../src/window.cpp" line="299"/>
+        <location filename="../src/window.cpp" line="259"/>
+        <location filename="../src/window.cpp" line="293"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="270"/>
+        <location filename="../src/window.cpp" line="264"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="274"/>
+        <location filename="../src/window.cpp" line="268"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="275"/>
+        <location filename="../src/window.cpp" line="269"/>
         <source>about Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="280"/>
+        <location filename="../src/window.cpp" line="274"/>
         <source>about hjcms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="288"/>
+        <location filename="../src/window.cpp" line="282"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="374"/>
+        <location filename="../src/window.cpp" line="379"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="375"/>
+        <location filename="../src/window.cpp" line="380"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="380"/>
+        <location filename="../src/window.cpp" line="385"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

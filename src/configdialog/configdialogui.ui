@@ -377,7 +377,7 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
        <item>
         <widget class="QCheckBox" name="HttpPipeliningAllowedAttribute">
          <property name="text">
-          <string>Allowe HTTP pipelining with requests.</string>
+          <string>Allow HTTP pipelining with requests.</string>
          </property>
          <property name="checked">
           <bool>true</bool>
