@@ -58,7 +58,7 @@ class Messanger : public QDockWidget
 
   Q_SIGNALS:
     void marking ( int, int );
-    void itemClicked();
+    void itemSelected();
 
   public Q_SLOTS:
     void messages ( const QTidy::QTidyDiagnosis & );

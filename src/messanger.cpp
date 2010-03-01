@@ -54,9 +54,6 @@ Messanger::Messanger ( QWidget * parent )
 
   connect ( m_listWidget, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
             this, SLOT ( pretended ( QListWidgetItem * ) ) );
-
-  connect ( m_listWidget, SIGNAL ( itemSelectionChanged() ),
-            this, SIGNAL ( itemClicked() ) );
 }
 
 void Messanger::pretended ( QListWidgetItem * item )
@@ -68,6 +65,7 @@ void Messanger::pretended ( QListWidgetItem * item )
   int row = ( data.at ( 0 ).toInt() - 1 );
   int col = data.at ( 1 ).toInt();
   emit marking ( ( ( row >= 0 ) ? row : 0 ), col );
+  emit itemSelected();
 }
 
 void Messanger::sortAscending()

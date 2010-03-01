@@ -121,6 +121,8 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
 
   vLayout->addWidget ( buttonBox );
 
+  // qDebug() << Q_FUNC_INFO;
+
   initBookmarkTree();
 
   connect ( m_treeWidget, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),

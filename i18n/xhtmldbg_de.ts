@@ -291,8 +291,8 @@ Willst du wircklich beenden?</translation>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="479"/>
         <source>Note that the default Network Request does not have caching enabled.
 By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</source>
-        <translation>Hinweis, Die Standard Netzwerkanfragen werden nicht gespeichert.
-Es ist keine gut Idee beim Debuggem das Automatische Speichern zu aktivieren.</translation>
+        <translation type="unfinished">Hinweis, Die Standard Netzwerkanfragen werden nicht gespeichert.
+Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="481"/>

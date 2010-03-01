@@ -43,31 +43,11 @@ WebViewer::WebViewer ( QWidget * parent )
   m_viewer = new Viewer ( this );
   addViewerTab ( m_viewer );
 
-  setSignals ( m_viewer );
-
   connect ( this, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( pretended ( int ) ) );
 
   connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
             this, SLOT ( closeViewerTab ( int ) ) );
-}
-
-void WebViewer::setSignals ( Viewer * view )
-{
-  if ( ! view )
-    return;
-
-  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
-            this, SLOT ( updateTabTitle ( const QString & ) ) );
-
-  connect ( view, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
-            this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
-
-  connect ( view, SIGNAL ( urlChanged ( const QUrl & ) ),
-            this, SIGNAL ( urlChanged ( const QUrl & ) ) );
-
-  connect ( view, SIGNAL ( loadFinished ( bool ) ),
-            this, SIGNAL ( loadFinished ( bool ) ) );
 }
 
 Viewer* WebViewer::activeView()
@@ -115,7 +95,17 @@ void WebViewer::addViewerTab ( Viewer *view )
   if ( ! view )
     return;
 
-  setSignals ( view );
+  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
+            this, SLOT ( updateTabTitle ( const QString & ) ) );
+
+  connect ( view, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
+            this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
+
+  connect ( view, SIGNAL ( urlChanged ( const QUrl & ) ),
+            this, SIGNAL ( urlChanged ( const QUrl & ) ) );
+
+  connect ( view, SIGNAL ( loadFinished ( bool ) ),
+            this, SIGNAL ( loadFinished ( bool ) ) );
 
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();

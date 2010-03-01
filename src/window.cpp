@@ -127,7 +127,7 @@ Window::Window ( QSettings * settings )
   connect ( m_messanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
 
-  connect ( m_messanger, SIGNAL ( itemClicked () ),
+  connect ( m_messanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
 
   // Load Settings

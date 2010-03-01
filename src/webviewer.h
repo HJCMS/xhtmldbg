@@ -50,7 +50,6 @@ class WebViewer : public QTabWidget
   private:
     Viewer* m_viewer;
     Viewer* activeView();
-    void setSignals ( Viewer * );
     QUrl url;
 
   private Q_SLOTS:
