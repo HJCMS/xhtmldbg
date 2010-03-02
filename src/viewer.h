@@ -51,6 +51,7 @@ class Viewer : public QWebView
     Page* m_page;
 
   private Q_SLOTS:
+    void updateWebSettings();
     void cursorwait ();
     void cursorFinished ( bool );
     void bookmark();
@@ -58,10 +59,13 @@ class Viewer : public QWebView
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );
-    void contextMenuEvent( QContextMenuEvent * );
+    void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void addBookmark ( const QUrl &, const QString & );
+
+  public Q_SLOTS:
+    void findKeyword ( const QString & );
 
   public:
     Viewer ( QWidget * parent = 0 );

@@ -1,16 +1,17 @@
 [Desktop Entry]
 Type=Application
 Exec=xhtmldbg %u
-Name=XHTMLDBG
-GenericName=HTML Debugger
-GenericName[de]=HTML Debugger
-Comment=A HTML/XHTML Validator
+Name=XHTML Debugger
+Name[de]=XHTML Debugger
+GenericName=xhtmldbg
+Comment=A HTML/XHTML Markup Parser
+Comment[de]=Ein HTML/XHTML Hypertext Syntaxanalysierer
 MimeType=text/html;
 Icon=xhtmldbg
 Categories=Development;Debugger;
 Terminal=false
 X-DBUS-StartupType=Unique
-X-DBUS-ServiceName=de.hjcms.qtidy
+X-DBUS-ServiceName=de.hjcms.xhtmldbg
 X-KDE-StartupNotify=true
 X-KDE-InitialPreference=2
 X-KDE-AutoEmbed=false

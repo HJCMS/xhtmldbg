@@ -24,11 +24,18 @@
 #include "historymanager.h"
 #include "historyitem.h"
 
+/* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
 
+/* QtGui */
+#include <QtGui/QColor>
+#include <QtGui/QTabBar>
+
+/* QtWebKit */
 #include <QtWebKit/QWebFrame>
+#include <QtWebKit/QWebSettings>
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
@@ -90,6 +97,13 @@ void WebViewer::pretended ( int index )
     emit urlChanged ( url );
 }
 
+void WebViewer::setFavicon()
+{
+  QIcon icon = activeView()->icon();
+  if ( ! icon.isNull() )
+    setTabIcon ( currentIndex(), icon );
+}
+
 void WebViewer::addViewerTab ( Viewer *view )
 {
   if ( ! view )
@@ -106,6 +120,9 @@ void WebViewer::addViewerTab ( Viewer *view )
 
   connect ( view, SIGNAL ( loadFinished ( bool ) ),
             this, SIGNAL ( loadFinished ( bool ) ) );
+
+  connect ( view, SIGNAL ( iconChanged() ),
+            this, SLOT ( setFavicon() ) );
 
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
@@ -132,7 +149,7 @@ void WebViewer::keywords ( const QStringList &words )
 {
   foreach ( QString w, words )
   {
-    activeView()->findText ( w, QWebPage::HighlightAllOccurrences );
+    activeView()->findKeyword ( w );
   }
 }
 

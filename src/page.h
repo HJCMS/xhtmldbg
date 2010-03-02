@@ -25,6 +25,7 @@ class Page : public QWebPage
 
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
+    bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
 
   private Q_SLOTS:
     void triggerSelections();

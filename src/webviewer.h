@@ -55,6 +55,7 @@ class WebViewer : public QTabWidget
   private Q_SLOTS:
     void updateTabTitle ( const QString & );
     void pretended ( int );
+    void setFavicon();
 
   Q_SIGNALS:
     void urlChanged ( const QUrl & );

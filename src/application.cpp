@@ -46,6 +46,7 @@ Application::Application ( int &argc, char **argv )
   setGraphicsSystem ( QLatin1String ( "native" ) );
   QIcon::setThemeName ( "oxygen" );
 
+  // TODO QTWEBKIT_PLUGIN_PATH
 }
 
 void Application::newConnection()
