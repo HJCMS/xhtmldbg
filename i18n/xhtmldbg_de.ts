@@ -94,24 +94,24 @@
         <translation>Füge Eintrag in den Ausgwählten Bereich ein</translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="193"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="195"/>
         <source>Warning</source>
         <translation>Warnung</translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="194"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="196"/>
         <source>I didn&apos;t add Bookmark in to other Bookmark :-)
 Please select a Folder.</source>
         <translation>Ich füge keine Lesezeichen in andere Lesezeichen ein :)
 Bitte wähle einen Ordner aus.</translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="236"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="238"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="237"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="239"/>
         <source>Bookmark Manager found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation>Der Lesezeichen Manager hat nicht gespeicherte Änderungen entdeckt. Willst du wirklich beenden?</translation>
@@ -291,7 +291,7 @@ Willst du wircklich beenden?</translation>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="479"/>
         <source>Note that the default Network Request does not have caching enabled.
 By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</source>
-        <translation type="unfinished">Hinweis, Die Standard Netzwerkanfragen werden nicht gespeichert.
+        <translation>Hinweis, Die Standard Netzwerkanfragen werden nicht gespeichert.
 Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</translation>
     </message>
     <message>
@@ -501,17 +501,17 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
         <translation>Mitteilungen</translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="88"/>
+        <location filename="../src/messanger.cpp" line="86"/>
         <source>Ascending</source>
         <translation>Austeigend</translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="92"/>
+        <location filename="../src/messanger.cpp" line="90"/>
         <source>Descending</source>
         <translation>Absteigend</translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="96"/>
+        <location filename="../src/messanger.cpp" line="94"/>
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
@@ -589,7 +589,7 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="72"/>
+        <location filename="../src/viewer.cpp" line="137"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
@@ -597,7 +597,7 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="121"/>
+        <location filename="../src/webviewer.cpp" line="131"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>

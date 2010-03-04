@@ -39,7 +39,7 @@
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
-    , url ( QUrl ( QLatin1String ( "http://localhost" ) ) )
+    , url ( QUrl ( QLatin1String ( "http://www.hjcms.de" ) ) )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "webviewer" );
@@ -91,10 +91,13 @@ void WebViewer::updateTabTitle ( const QString &title )
 
 void WebViewer::pretended ( int index )
 {
-  Q_UNUSED ( index )
   QUrl url = activeView()->url();
   if ( url.isValid() )
     emit urlChanged ( url );
+
+  QIcon icon = QWebSettings::iconForUrl ( url );
+  if ( ! icon.isNull() )
+    setTabIcon ( index, icon );
 }
 
 void WebViewer::setFavicon()

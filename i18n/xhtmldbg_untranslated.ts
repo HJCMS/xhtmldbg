@@ -94,23 +94,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="193"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="195"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="194"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="196"/>
         <source>I didn&apos;t add Bookmark in to other Bookmark :-)
 Please select a Folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="236"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="238"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/bookmark/bookmarkeditor.cpp" line="237"/>
+        <location filename="../src/bookmark/bookmarkeditor.cpp" line="239"/>
         <source>Bookmark Manager found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
@@ -497,17 +497,17 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="88"/>
+        <location filename="../src/messanger.cpp" line="86"/>
         <source>Ascending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="92"/>
+        <location filename="../src/messanger.cpp" line="90"/>
         <source>Descending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/messanger.cpp" line="96"/>
+        <location filename="../src/messanger.cpp" line="94"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -585,7 +585,7 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="72"/>
+        <location filename="../src/viewer.cpp" line="137"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -593,7 +593,7 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="121"/>
+        <location filename="../src/webviewer.cpp" line="131"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>
