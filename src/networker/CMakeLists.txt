@@ -3,11 +3,13 @@
 SET (networker_SOURCES
   networkaccessmanager.cpp
   networksettings.cpp
+  networkcookie.cpp
 )
 
 SET (networker_HEADERS
   networkaccessmanager.h
   networksettings.h
+  networkcookie.h
 )
 
 SET (networker_NOMOC

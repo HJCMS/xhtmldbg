@@ -23,13 +23,18 @@
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QDir>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 
+/* QtGui */
+#include <QtGui/QDesktopServices>
+
 NetworkSettings::NetworkSettings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat,
                   QSettings::UserScope, "hjcms.de", "xhtmldbg", parent )
+    , wcfg ( QWebSettings::globalSettings() )
 {
   setObjectName ( QLatin1String ( "networksettings" ) );
 }
@@ -55,13 +60,22 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   {
     foreach ( QString key, keys )
     {
-      QByteArray val = value( key ).toByteArray();
+      QByteArray val = value ( key ).toByteArray();
       request.setRawHeader ( key.toAscii(), val );
     }
   }
   endGroup();
 
   return request;
+}
+
+const QString NetworkSettings::storageDirectory ()
+{
+  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+  QDir dir( dbPath );
+  dir.mkpath ( QLatin1String ( "storage" ) );
+  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  return wcfg->localStoragePath();
 }
 
 NetworkSettings::~NetworkSettings()

@@ -35,6 +35,7 @@
 #include <QtNetwork/QLocalSocket>
 
 class HistoryManager;
+class NetworkCookie;
 class NetworkAccessManager;
 
 class Application : public QApplication
@@ -63,6 +64,7 @@ class Application : public QApplication
     void busEventHandler ( const QString &type, const QString &str );
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();
+    static NetworkCookie* cookieManager();
     ~Application();
 
 };

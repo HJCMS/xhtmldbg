@@ -22,6 +22,7 @@
 #include "application.h"
 #include "historymanager.h"
 #include "networkaccessmanager.h"
+#include "networkcookie.h"
 
 #include <cstdlib>
 
@@ -164,9 +165,14 @@ NetworkAccessManager* Application::networkAccessManager()
   if ( !p_networkAccessManager )
   {
     p_networkAccessManager = new NetworkAccessManager();
-    // p_networkAccessManager->setCookieJar(new CookieJar);
+    p_networkAccessManager->setCookieJar ( new NetworkCookie );
   }
   return p_networkAccessManager;
+}
+
+NetworkCookie* Application::cookieManager()
+{
+  return ( NetworkCookie* ) networkAccessManager()->cookieJar();
 }
 
 Application::~Application()
