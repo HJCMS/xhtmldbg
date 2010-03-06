@@ -19,53 +19,55 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGDIALOG_H
-#define CONFIGDIALOG_H
+#ifndef EDITCOOKIESTABLE_H
+#define EDITCOOKIESTABLE_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
+#include <QtCore/QModelIndex>
 
 /* QtGui */
-#include <QtGui/QDialog>
-#include <QtGui/QPushButton>
+#include <QtGui/QComboBox>
+#include <QtGui/QTableWidget>
+#include <QtGui/QTableWidgetItem>
 #include <QtGui/QWidget>
 
-#include "ui_configdialogui.h"
-
-class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
+class ArrangementItem : public QComboBox
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    QSettings* cfg;
-    QPushButton* m_buttonCancel;
-    QPushButton* m_buttonClose;
-    QPushButton* m_buttonReset;
-    QPushButton* m_buttonRestore;
-    QPushButton* m_buttonSave;
-
-    void setCacheLoadControlComboBoxItems();
-
-    // load
-    void loadHeaderDefinitions();
-
-    // save
-    void saveHeaderDefinitions();
-
-  private Q_SLOTS:
-    void addCookieAccess();
-    void setModified();
-    void loadSettings();
-    void saveSettings();
-    void restoreSettings();
-    void quit();
+  Q_SIGNALS:
+    void itemChanged();
 
   public:
-    ConfigDialog ( QWidget * parent = 0, QSettings * settings = 0 );
-    ~ConfigDialog();
+    ArrangementItem ( const QString &name, int type, QWidget * parent = 0 );
+};
+
+class EditCookiesTable : public QTableWidget
+{
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+
+  private Q_SLOTS:
+    void cellChanged ( const QModelIndex & );
+
+  Q_SIGNALS:
+    void modified();
+
+  public Q_SLOTS:
+    void loadCookieArrangements ( QSettings * cfg );
+    void saveCookieArrangements ( QSettings * cfg );
+    void removeItem();
+    void removeAll();
+    void addCookie ( int, const QString & );
+
+  public:
+    EditCookiesTable ( QWidget * parent = 0 );
+    ~EditCookiesTable();
 };
 
 #endif

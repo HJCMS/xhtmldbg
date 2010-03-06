@@ -6,10 +6,12 @@ SET (configdialog_UI
 
 SET (configdialog_SOURCES
   configdialog.cpp
+  editcookiestable.cpp
 )
 
 SET (configdialog_HEADERS
   configdialog.h
+  editcookiestable.h
 )
 
 QT4_WRAP_UI (configdialog_UIC ${configdialog_UI})
@@ -20,6 +22,7 @@ ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
   ${QTIDY_BINARY_PROJECT_INCULDE}
 )
 

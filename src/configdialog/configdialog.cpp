@@ -20,6 +20,7 @@
 **/
 
 #include "configdialog.h"
+#include "editcookiestable.h"
 
 /* QtCore */
 #include <QtCore>
@@ -30,10 +31,6 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
-
-/*
-UserAgentLanguage
-*/
 
 ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
@@ -47,12 +44,21 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
 
   setupUi ( this );
 
+  QIcon icon;
+  // Set Tab Icons
+  tabWidget->setTabIcon ( 0, icon.fromTheme ( QLatin1String ( "preferences-system-windows-actions" ) ) );
+  tabWidget->setTabIcon ( 1, icon.fromTheme ( QLatin1String ( "preferences-system-windows" ) ) );
+  tabWidget->setTabIcon ( 2, icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
+  tabWidget->setTabIcon ( 3, icon.fromTheme ( QLatin1String ( "preferences-system-performance" ) ) );
+  tabWidget->setTabIcon ( 4, icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
+  tabWidget->setTabIcon ( 5, icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );
+  // Set PushButton Icons
+  removeCookieItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
+  removeAllCookies->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
+  addCookieArrangement->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
+
   // Modifications
   setCacheLoadControlComboBoxItems();
-
-
-  // Load Saved Settings
-  loadSettings();
 
   // Modify ButtonBox
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
@@ -60,6 +66,9 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   m_buttonSave = buttonBox->addButton ( QDialogButtonBox::Save );
   m_buttonReset = buttonBox->addButton ( QDialogButtonBox::Reset );
   m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
+
+  // Load Saved Settings
+  loadSettings();
 
   // connect ( , SIGNAL(), this, SLOT ( setModified() ) );
   // Check and Radio Boxes
@@ -85,8 +94,15 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( MaxHistoryItems, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
   // Line Edits
   connect ( StartUpUrl, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+  // Tables
+  connect ( headersTable, SIGNAL ( itemSelectionChanged() ), this, SLOT ( setModified() ) );
+  connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
 
   // Buttons
+  connect ( addCookieArrangement, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
+  connect ( removeCookieItem, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeItem() ) );
+  connect ( removeAllCookies, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeAll() ) );
+  // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
   connect ( m_buttonReset, SIGNAL ( clicked() ), this, SLOT ( loadSettings() ) );
   connect ( m_buttonRestore, SIGNAL ( clicked() ), this, SLOT ( restoreSettings() ) );
@@ -117,13 +133,13 @@ void ConfigDialog::loadHeaderDefinitions()
 {
   cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
   QStringList keys = cfg->allKeys();
-  if ( keys.size() > 1 )
+  if ( keys.size() >= 1 )
   {
-    headersTable->setRowCount( keys.size() );
+    headersTable->setRowCount ( keys.size() );
     int r = 0;
     foreach ( QString key, keys )
     {
-      QString val = cfg->value( key ).toString();
+      QString val = cfg->value ( key ).toString();
       if ( val.isEmpty() )
         continue;
 
@@ -138,14 +154,32 @@ void ConfigDialog::loadHeaderDefinitions()
 void ConfigDialog::saveHeaderDefinitions()
 {
   int rows = headersTable->rowCount();
-  cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
-  for ( int r = 0; r < rows; r++ )
+  cfg->remove ( QLatin1String ( "HeaderDefinitions" ) );
+  if ( rows >= 1 )
   {
-    QString key = headersTable->item ( r, 0 )->data ( Qt::EditRole ).toString();
-    QString val = headersTable->item ( r, 1 )->data ( Qt::EditRole ).toString();
-    cfg->setValue ( key, val );
+    cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
+    for ( int r = 0; r < rows; r++ )
+    {
+      QString key = headersTable->item ( r, 0 )->data ( Qt::EditRole ).toString();
+      QString val = headersTable->item ( r, 1 )->data ( Qt::EditRole ).toString();
+      cfg->setValue ( key, val );
+    }
+    cfg->endGroup();
   }
-  cfg->endGroup();
+}
+
+void ConfigDialog::addCookieAccess()
+{
+  if ( addCookieDomain->text().isEmpty() )
+    return;
+
+  QUrl url ( addCookieDomain->text() );
+  if ( url.isValid() && url.scheme().contains ( "http" ) )
+  {
+    QString domain = url.host().remove ( QRegExp ( "\\bwww\\." ) );
+    cookiesTable->addCookie ( selectedArrangementType->currentIndex(), domain );
+    addCookieDomain->setText ( QLatin1String ( "http://" ) );
+  }
 }
 
 void ConfigDialog::setModified()
@@ -192,6 +226,7 @@ void ConfigDialog::loadSettings()
   }
 
   loadHeaderDefinitions();
+  cookiesTable->loadCookieArrangements ( cfg );
   setWindowModified ( false );
 }
 
@@ -234,6 +269,7 @@ void ConfigDialog::saveSettings()
   }
 
   saveHeaderDefinitions();
+  cookiesTable->saveCookieArrangements ( cfg );
   setWindowModified ( false );
 }
 
