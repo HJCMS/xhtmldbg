@@ -40,6 +40,7 @@ ArrangementItem::ArrangementItem ( const QString &name, int type, QWidget * pare
   items << trUtf8 ( "Session" ) << trUtf8 ( "Blocked" ) << trUtf8 ( "Allowed" );
   addItems ( items );
   setCurrentIndex ( type );
+
   connect ( this, SIGNAL ( currentIndexChanged ( int ) ),
             this, SIGNAL ( itemChanged() ) );
 }
@@ -128,8 +129,11 @@ void EditCookiesTable::removeAll()
   emit modified();
 }
 
-void EditCookiesTable::addCookie ( int t, const QString &h )
+bool EditCookiesTable::addCookie ( int t, const QString &h )
 {
+  if ( h.isEmpty() || t < 0 )
+    return false;
+
   if ( rowCount() >= 1 )
   {
     for ( int r = 0; r < rowCount(); r++ )
@@ -138,7 +142,7 @@ void EditCookiesTable::addCookie ( int t, const QString &h )
       if ( key == h )
       {
         setCurrentCell ( r, 0 );
-        return;
+        return false;
       }
     }
   }
@@ -147,6 +151,7 @@ void EditCookiesTable::addCookie ( int t, const QString &h )
   setItem ( row, 0, new QTableWidgetItem ( h ) );
   setCellWidget ( row, 1, new ArrangementItem ( h, t, this ) );
   emit modified();
+  return true;
 }
 
 EditCookiesTable::~EditCookiesTable()

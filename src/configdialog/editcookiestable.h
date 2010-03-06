@@ -63,10 +63,10 @@ class EditCookiesTable : public QTableWidget
     void saveCookieArrangements ( QSettings * cfg );
     void removeItem();
     void removeAll();
-    void addCookie ( int, const QString & );
 
   public:
     EditCookiesTable ( QWidget * parent = 0 );
+    bool addCookie ( int, const QString & );
     ~EditCookiesTable();
 };
 

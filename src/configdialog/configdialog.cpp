@@ -23,10 +23,19 @@
 #include "editcookiestable.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QDebug>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QCheckBox>
+#include <QtGui/QIcon>
+#include <QtGui/QLineEdit>
+#include <QtGui/QMessageBox>
+#include <QtGui/QRadioButton>
+#include <QtGui/QSpinBox>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
@@ -177,8 +186,10 @@ void ConfigDialog::addCookieAccess()
   if ( url.isValid() && url.scheme().contains ( "http" ) )
   {
     QString domain = url.host().remove ( QRegExp ( "\\bwww\\." ) );
-    cookiesTable->addCookie ( selectedArrangementType->currentIndex(), domain );
-    addCookieDomain->setText ( QLatin1String ( "http://" ) );
+    if ( cookiesTable->addCookie ( selectedArrangementType->currentIndex(), domain ) )
+      addCookieDomain->setText ( QLatin1String ( "http://" ) );
+    else
+      addCookieDomain->setFocus();
   }
 }
 
