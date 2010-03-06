@@ -33,6 +33,24 @@
     </message>
 </context>
 <context>
+    <name>ArrangementItem</name>
+    <message>
+        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <source>Session</source>
+        <translation>Sitzung</translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <source>Blocked</source>
+        <translation>Verhindert</translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <source>Allowed</source>
+        <translation>Erlaubt</translation>
+    </message>
+</context>
+<context>
     <name>Bookmark</name>
     <message>
         <location filename="../src/bookmark/bookmark.cpp" line="47"/>
@@ -120,49 +138,49 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="43"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="40"/>
         <source>Configure xhtmldbg[*]</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="101"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="117"/>
         <source>Always load from network.</source>
         <translation>Immer direkt vom Netzwerk laden.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="104"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="120"/>
         <source>Load from the Network if cache is expired.</source>
         <translation>Lade vom Netzwerk der Speicher veraltet ist.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="107"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="123"/>
         <source>Load from Cache if entry exists.</source>
         <translation>Lade immer vom Speicher wenn ein Eintrag existiert.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="110"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="126"/>
         <source>Always load from Cache.</source>
         <translation>Lade immer vom Speicher.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="280"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="316"/>
         <source>Notice</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="281"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="317"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation>Einstellungen wurden Zurück gesetzt.
 Bitte starte den Konfiurations Dialog neu.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="289"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="325"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="290"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="326"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation>Ungespeicherte Einstelleungen gefunden.
@@ -172,202 +190,252 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>ConfigDialogUi</name>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="441"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="562"/>
         <source>Configure xhtmldbg[*]</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="442"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="563"/>
         <source>QTidy Source Parser</source>
         <translation>QTidy Syntaxanalysierer</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="443"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="564"/>
         <source>Enable Auto Source Check</source>
         <translation>Aktiviere Automatische Überprüfung</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="444"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="565"/>
         <source>Enable Autoformat and Check Source</source>
         <translation>Aktiviere Automatische Quelltext Formatierung</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="445"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="566"/>
         <source>Disable autoformat and autocheck</source>
         <translation>Deaktiviere Automatische Überprüfung und Quelltext Formatierung</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="446"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="567"/>
         <source>Startup Options</source>
         <translation>Start Optionen</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="447"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="568"/>
         <source>Show Browser</source>
         <translation>Zeige Browser</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="448"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="569"/>
         <source>Show Source</source>
         <translation>Zeige Quelltext</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="449"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="570"/>
         <source>Disable Bootsplash</source>
         <translation>Deaktiviere den Bootsplash</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="450"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="571"/>
         <source>Max Items in History Menu:</source>
         <translation>Maximal Anzahl im Historien Menü:</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="451"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="572"/>
         <source>Defaults</source>
         <translation>Standards</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="452"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="573"/>
         <source>Start Options</source>
         <translation>Start Optionen</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="453"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="574"/>
         <source>Load this URL as Default on start, if empty use recent Homepage.</source>
         <translation>Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="454"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="575"/>
         <source>&lt;</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="455"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="576"/>
         <source>Header Field Definitions</source>
         <translation>Dateikopf Definitionen</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="457"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="578"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="459"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="580"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="461"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="582"/>
         <source>0</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="463"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="584"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="465"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="586"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="475"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="596"/>
         <source>HTTP Header Field Definitions</source>
         <translation>HTTP Dateikopf Definitionen</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="477"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="495"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="598"/>
+        <source>Behavior</source>
+        <translation>Verhalten</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="616"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="478"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="617"/>
+        <source>Arrangements</source>
+        <translation>Regelungen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="618"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="619"/>
+        <source>Clear Table</source>
+        <translation>Leere Tabelle</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="621"/>
+        <source>Domain</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="623"/>
+        <source>Arrangement</source>
+        <translation>Regelung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="624"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="632"/>
+        <source>Add</source>
+        <translation>Einfügen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="625"/>
+        <source>Url:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="628"/>
+        <source>Merely current Session</source>
+        <translation>Ledeglich nur bei der Sitzung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="629"/>
+        <source>Always Blocked</source>
+        <translation>Immer verhindern</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="630"/>
+        <source>Always Allowed</source>
+        <translation>Immer erlauben</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="599"/>
         <source>Enable Network Request Caching</source>
         <translation>Aktiviere Netzwerk Anfragen Speicher</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="479"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="600"/>
         <source>Note that the default Network Request does not have caching enabled.
 By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</source>
         <translation>Hinweis, Die Standard Netzwerkanfragen werden nicht gespeichert.
 Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="481"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="602"/>
         <source>Indicates whether the data was obtained from cache or not.</source>
         <translation>Erkennen ob Daten vom Speicher entnommen wurden.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="482"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="603"/>
         <source>How the cache should be accessed?</source>
         <translation>Wie soll der Speicher verwendet werden?</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="483"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="604"/>
         <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
         <translation>Speichere keine Upload Daten wenn HTTP POST verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="484"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="605"/>
         <source>Allow HTTP pipelining with requests.</source>
         <translation>Erlaube HTTP Parallelverarbeitung bei den Anfragen.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="485"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="606"/>
         <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
         <translation>Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="486"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="607"/>
         <source>Network</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="487"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="608"/>
         <source>Font Settings</source>
         <translation>Schriften Einstellungen</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="488"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="609"/>
         <source>Default Font Size:</source>
         <translation>Standard Schriftgröße:</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="489"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="610"/>
         <source>Fixed Font Size:</source>
         <translation>Feste Standard Schriftgröße:</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="490"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="611"/>
         <source>Developer Extras Enabled</source>
         <translation>Entwickler Extras Aktivieren</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="491"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="612"/>
         <source>AutoLoad Images</source>
         <translation>Bilder Automatisch laden</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="492"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="613"/>
         <source>Javascript Enabled</source>
         <translation>JavaScript Aktivieren</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="493"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="614"/>
         <source>Plugins Enabled</source>
         <translation>Plugins Aktivieren</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="494"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="615"/>
         <source>Java Enabled</source>
         <translation>Java Aktivieren</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="496"/>
-        <source>Proxy</source>
-        <translation></translation>
     </message>
 </context>
 <context>
