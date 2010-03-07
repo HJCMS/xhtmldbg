@@ -52,7 +52,6 @@ CookieView::CookieView ( QWidget * parent )
   m_treeWidget = new QTreeWidget ( this );
   m_treeWidget->setAutoScroll ( true );
   m_treeWidget->setWordWrap ( true );
-  m_treeWidget->setMinimumWidth ( 500 );
   m_treeWidget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
   m_treeWidget->setHeaderLabels ( labels );
   m_treeWidget->setSortingEnabled ( false );
@@ -120,14 +119,14 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 
   // isSessionCookie
   QTreeWidgetItem* item3 = new QTreeWidgetItem ( root );
-  item3->setText ( 0, trUtf8 ( "SessionCookie" ) );
+  item3->setText ( 0, trUtf8 ( "Session Cookie" ) );
   item3->setForeground ( 0, Qt::blue );
   item3->setText ( 1, ( ( cookie.isSessionCookie() ) ? yes : no ) );
   root->addChild ( item3 );
 
   // isHttpOnly
   QTreeWidgetItem* item4 = new QTreeWidgetItem ( root );
-  item4->setText ( 0, trUtf8 ( "HttpOnly" ) );
+  item4->setText ( 0, trUtf8 ( "HTTP Only" ) );
   item4->setForeground ( 0, Qt::blue );
   item4->setText ( 1, ( ( cookie.isHttpOnly() ) ? yes : no ) );
   root->addChild ( item4 );
