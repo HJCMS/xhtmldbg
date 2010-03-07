@@ -11,7 +11,7 @@
     <message>
         <location filename="../src/aboutdialog.cpp" line="89"/>
         <source>&lt;h3&gt;The QTidy XHTML Debugger Application&lt;/h3&gt;&lt;p&gt;The goal of this Application is to Debug and Inspect Web-pages in One Application. You can Browse your Website Project and Debug it on the fly.&lt;/p&gt;&lt;dl&gt;&lt;dt&gt;Features:&lt;dt&gt;&lt;dd&gt;Web Navigation with QWebKit&lt;/dd&gt;&lt;dd&gt;Source Validation for  real XHTML debugging with &lt;a href=&quot;http://tidy.sourceforge.net&quot;&gt;Tidy&lt;/a&gt;.&lt;/dd&gt;&lt;dd&gt;Dom Inspection with &lt;a href=&quot;http://www.webkit.org&quot;&gt;Webkit&apos;s&lt;/a&gt; Dom Inspector Tools&lt;/dd&gt;&lt;dt&gt;Authors:&lt;/dt&gt;&lt;dd&gt;Heinemann Juergen (Undefined) &lt;a href=&quot;http://www.hjcms.de&quot;&gt;HJCMS&lt;/a&gt;&lt;dd&gt;&lt;dt&gt;Licenses:&lt;/dt&gt;&lt;dd&gt;XHTMLDBG GPLv3&lt;/dd&gt;&lt;dd&gt;libQTidy LGPLv3&lt;/dd&gt;&lt;/dl&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -343,7 +343,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="628"/>
         <source>Merely current Session</source>
-        <translation>Ledeglich nur bei der Sitzung</translation>
+        <translation>Lediglich nur für die Sitzung</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="629"/>

@@ -35,6 +35,7 @@
 #include "aboutdialog.h"
 #include "configdialog.h"
 #include "statusbar.h"
+#include "cookieview.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -106,6 +107,10 @@ Window::Window ( QSettings * settings )
   // XHTML & JavaScript Messanger DockWidget
   m_messanger = new Messanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
+
+  // Show Cookie Information
+  m_cookieView = new CookieView ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_cookieView );
 
   // finalize WindowDesign
   createMenus();
@@ -320,6 +325,7 @@ void Window::createToolBars()
   // Add QDockWidget View Actions to Display Menu
   m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_cookieView->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -364,6 +370,7 @@ void Window::requestsFinished ( bool ok )
       m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     }
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
+    m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
   }
 }
 

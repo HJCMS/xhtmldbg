@@ -51,6 +51,7 @@ class Messanger;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
+class CookieView;
 
 class Window : public QMainWindow
 {
@@ -108,6 +109,8 @@ class Window : public QMainWindow
     SourceWidget* m_sourceWidget;
     // Messanger
     Messanger* m_messanger;
+    // Cookie
+    CookieView* m_cookieView;
 
     void createMenus();
     void createToolBars();
