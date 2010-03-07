@@ -46,6 +46,7 @@ class CookieView : public QDockWidget
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    int minColumnWidth;
     NetworkCookie* m_networkCookie;
     QTreeWidget* m_treeWidget;
     void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );

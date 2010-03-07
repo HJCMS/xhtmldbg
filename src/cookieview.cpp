@@ -40,6 +40,7 @@
 
 CookieView::CookieView ( QWidget * parent )
     : QDockWidget ( parent )
+    , minColumnWidth ( 50 )
 {
   setObjectName ( "cookieview" );
   setWindowTitle ( trUtf8 ( "Cookies" ) );
@@ -100,6 +101,12 @@ QString CookieView::unserialize ( const QByteArray &data ) const
 
     return ( output.isEmpty() ) ?  retval : output;
   }
+  else if ( data.contains ( "|" ) )
+  {
+    QString retval ( data );
+    return retval.replace ( "|", "\n" );
+  }
+
   return QString ( data );
 }
 
@@ -110,6 +117,11 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   QFontMetrics fontMetric = m_treeWidget->fontMetrics();
   QString values = unserialize ( cookie.value() );
   int minWidth = ( fontMetric.width ( values ) + parent->font ( 0 ).weight() );
+  if ( minWidth > minColumnWidth )
+  {
+    minColumnWidth = minWidth;
+    m_treeWidget->setColumnWidth ( 1, minColumnWidth );
+  }
 
   // Name
   QTreeWidgetItem* root = new QTreeWidgetItem ( parent );
@@ -139,9 +151,6 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   item2->setText ( 0, trUtf8 ( "Value" ) );
   item2->setForeground ( 0, Qt::blue );
   item2->setText ( 1, values );
-  if ( minWidth >= item2->sizeHint ( 1 ).width() )
-    m_treeWidget->setColumnWidth ( 1, minWidth );
-
   root->addChild ( item2 );
 
   // isSessionCookie
@@ -176,6 +185,8 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 void CookieView::cookiesFromUrl ( const QUrl &url )
 {
   m_treeWidget->clear();
+  minColumnWidth = 50;
+
   if ( ! m_networkCookie )
     return;
 
