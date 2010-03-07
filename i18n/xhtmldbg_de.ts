@@ -138,49 +138,49 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="40"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="49"/>
         <source>Configure xhtmldbg[*]</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="117"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="126"/>
         <source>Always load from network.</source>
         <translation>Immer direkt vom Netzwerk laden.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="120"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="129"/>
         <source>Load from the Network if cache is expired.</source>
         <translation>Lade vom Netzwerk der Speicher veraltet ist.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="123"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="132"/>
         <source>Load from Cache if entry exists.</source>
         <translation>Lade immer vom Speicher wenn ein Eintrag existiert.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="126"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="135"/>
         <source>Always load from Cache.</source>
         <translation>Lade immer vom Speicher.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="316"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="327"/>
         <source>Notice</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="317"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="328"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation>Einstellungen wurden Zurück gesetzt.
 Bitte starte den Konfiurations Dialog neu.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="325"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="336"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="326"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="337"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation>Ungespeicherte Einstelleungen gefunden.
@@ -507,6 +507,70 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
     </message>
 </context>
 <context>
+    <name>CookieView</name>
+    <message>
+        <location filename="../src/cookieview.cpp" line="45"/>
+        <source>Cookies</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="50"/>
+        <source>Name</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="50"/>
+        <location filename="../src/cookieview.cpp" line="112"/>
+        <source>Value</source>
+        <translation>Wert</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="81"/>
+        <source>Yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="82"/>
+        <source>No</source>
+        <translation>Nein</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="92"/>
+        <source>Cookie</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="98"/>
+        <source>Domain</source>
+        <translation>Domäne</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="105"/>
+        <source>Path</source>
+        <translation>Pfad</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="122"/>
+        <source>Session Cookie</source>
+        <translation>Sitzungs Keks</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="129"/>
+        <source>HTTP Only</source>
+        <translation>Nur HTTP</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="136"/>
+        <source>Expiration</source>
+        <translation>Verfällt</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieview.cpp" line="143"/>
+        <source>Secure</source>
+        <translation>Sicher</translation>
+    </message>
+</context>
+<context>
     <name>DomViewer</name>
     <message>
         <location filename="../src/domviewer.cpp" line="37"/>
@@ -673,174 +737,174 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="69"/>
+        <location filename="../src/window.cpp" line="70"/>
         <source>XHTML Debugger</source>
         <translation>XHTLML Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="86"/>
-        <location filename="../src/window.cpp" line="195"/>
+        <location filename="../src/window.cpp" line="87"/>
+        <location filename="../src/window.cpp" line="200"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="92"/>
+        <location filename="../src/window.cpp" line="93"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="98"/>
+        <location filename="../src/window.cpp" line="99"/>
         <source>DOM Viewer</source>
         <translation>DOM Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="152"/>
+        <location filename="../src/window.cpp" line="157"/>
         <source>Application</source>
         <translation>Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="156"/>
+        <location filename="../src/window.cpp" line="161"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="157"/>
+        <location filename="../src/window.cpp" line="162"/>
         <source>Load Document from Url</source>
         <translation>Lade Dokument von Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="163"/>
+        <location filename="../src/window.cpp" line="168"/>
         <source>Open Html File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="164"/>
+        <location filename="../src/window.cpp" line="169"/>
         <source>Open Html from System</source>
         <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="170"/>
+        <location filename="../src/window.cpp" line="175"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="171"/>
+        <location filename="../src/window.cpp" line="176"/>
         <source>Close Debugger</source>
         <translation>Schliesse den Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="178"/>
+        <location filename="../src/window.cpp" line="183"/>
         <source>Debugger</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="181"/>
+        <location filename="../src/window.cpp" line="186"/>
         <source>Parse</source>
         <translation>Analysieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="182"/>
+        <location filename="../src/window.cpp" line="187"/>
         <source>Parse current Document Source</source>
         <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="188"/>
+        <location filename="../src/window.cpp" line="193"/>
         <source>Format</source>
         <translation>Formatiere</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="189"/>
+        <location filename="../src/window.cpp" line="194"/>
         <source>Prepare and Format Document Source</source>
         <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="198"/>
+        <location filename="../src/window.cpp" line="203"/>
         <source>Refresh</source>
         <translation>Auffrischen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="204"/>
+        <location filename="../src/window.cpp" line="209"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="210"/>
+        <location filename="../src/window.cpp" line="215"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="216"/>
+        <location filename="../src/window.cpp" line="221"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="217"/>
+        <location filename="../src/window.cpp" line="222"/>
         <source>Add a new empty Tab</source>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="224"/>
+        <location filename="../src/window.cpp" line="229"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="247"/>
+        <location filename="../src/window.cpp" line="252"/>
         <source>Organize Bookmarks</source>
         <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="251"/>
+        <location filename="../src/window.cpp" line="256"/>
         <source>Configuration</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="253"/>
+        <location filename="../src/window.cpp" line="258"/>
         <source>Configure Tidyrc</source>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="259"/>
-        <location filename="../src/window.cpp" line="293"/>
+        <location filename="../src/window.cpp" line="264"/>
+        <location filename="../src/window.cpp" line="298"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="264"/>
+        <location filename="../src/window.cpp" line="269"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="268"/>
+        <location filename="../src/window.cpp" line="273"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="269"/>
+        <location filename="../src/window.cpp" line="274"/>
         <source>about Qt</source>
         <translation>über Qt</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="274"/>
+        <location filename="../src/window.cpp" line="279"/>
         <source>about hjcms</source>
         <translation>über HJCMS</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="282"/>
+        <location filename="../src/window.cpp" line="287"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="379"/>
+        <location filename="../src/window.cpp" line="386"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="380"/>
+        <location filename="../src/window.cpp" line="387"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="385"/>
+        <location filename="../src/window.cpp" line="392"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
