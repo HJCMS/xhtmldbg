@@ -520,52 +520,52 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
     </message>
     <message>
         <location filename="../src/cookieview.cpp" line="50"/>
-        <location filename="../src/cookieview.cpp" line="112"/>
+        <location filename="../src/cookieview.cpp" line="139"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="81"/>
+        <location filename="../src/cookieview.cpp" line="108"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="82"/>
+        <location filename="../src/cookieview.cpp" line="109"/>
         <source>No</source>
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="92"/>
+        <location filename="../src/cookieview.cpp" line="119"/>
         <source>Cookie</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="98"/>
+        <location filename="../src/cookieview.cpp" line="125"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="105"/>
+        <location filename="../src/cookieview.cpp" line="132"/>
         <source>Path</source>
         <translation>Pfad</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="122"/>
+        <location filename="../src/cookieview.cpp" line="149"/>
         <source>Session Cookie</source>
         <translation>Sitzungs Keks</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="129"/>
-        <source>HTTP Only</source>
-        <translation>Nur HTTP</translation>
+        <location filename="../src/cookieview.cpp" line="156"/>
+        <source>Only for HTTP?</source>
+        <translation>Nur für HTTP?</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="136"/>
+        <location filename="../src/cookieview.cpp" line="163"/>
         <source>Expiration</source>
         <translation>Verfällt</translation>
     </message>
     <message>
-        <location filename="../src/cookieview.cpp" line="143"/>
+        <location filename="../src/cookieview.cpp" line="170"/>
         <source>Secure</source>
         <translation>Sicher</translation>
     </message>

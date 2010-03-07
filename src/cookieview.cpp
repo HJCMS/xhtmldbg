@@ -64,16 +64,43 @@ CookieView::CookieView ( QWidget * parent )
   setWidget ( m_treeWidget );
 }
 
+/**
+* TEST unserialize
+* @code
+    a:3:{s:3:"BID";i:1;s:7:"BGRUPPE";i:4;s:4:"SKEY";s:32:"8b3c3634669c41f26c1a511cb03d6bc0";}
+* @endcode
+*/
 QString CookieView::unserialize ( const QByteArray &data ) const
 {
-  QString ret ( data );
-  if ( ret.contains ( "%" ) )
+  if ( data.contains ( "%" ) )
   {
     QByteArray serial = QByteArray::fromPercentEncoding ( data );
     QString retval ( serial );
-    return retval;
+    retval.remove ( QRegExp ( "(^.{1,6}\\{)|(\\}$)" ) );
+    retval.remove ( QRegExp ( ";$" ) );
+
+    QString output;
+    QStringList buffer;
+    foreach ( QString p, retval.split ( QRegExp ( ";?[ais]:" ) ) )
+    {
+      if ( ! p.isEmpty() )
+      {
+        QString b = p.replace ( "\"", "" );
+        buffer << b.split ( QRegExp ( "\\d+:" ) ).last();
+      }
+    }
+
+    if ( buffer.size() % 2 != 0 )
+      buffer << "";
+
+    for ( int i = 0; i < buffer.size(); i += 2 )
+    {
+      output.append ( buffer.at ( i ) + "=" + buffer.at ( ( i+1 ) ) + "\n" );
+    }
+
+    return ( output.isEmpty() ) ?  retval : output;
   }
-  return ret;
+  return QString ( data );
 }
 
 void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
@@ -126,7 +153,7 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 
   // isHttpOnly
   QTreeWidgetItem* item4 = new QTreeWidgetItem ( root );
-  item4->setText ( 0, trUtf8 ( "HTTP Only" ) );
+  item4->setText ( 0, trUtf8 ( "Only for HTTP?" ) );
   item4->setForeground ( 0, Qt::blue );
   item4->setText ( 1, ( ( cookie.isHttpOnly() ) ? yes : no ) );
   root->addChild ( item4 );
@@ -160,12 +187,12 @@ void CookieView::cookiesFromUrl ( const QUrl &url )
     item->setExpanded ( true );
     item->setData ( 0, Qt::UserRole, name );
     item->setText ( 0, name );
-    item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
+    item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
     item->setToolTip ( 0, url.host() );
-    // dataMap.clear();
-    foreach ( QNetworkCookie cookie, cookies )
+    // Read all Cookies
+    foreach ( QNetworkCookie keks, cookies )
     {
-      setCookieData ( cookie, item );
+      setCookieData ( keks, item );
     }
   }
 }
