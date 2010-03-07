@@ -350,12 +350,15 @@ void Window::paintEvent ( QPaintEvent * ev )
 */
 void Window::requestsFinished ( bool ok )
 {
+  qDebug() << Q_FUNC_INFO << ok;
   if ( ok )
   {
     QString html = m_webViewer->toHtml();
     if ( ! html.isEmpty() )
     {
       m_sourceWidget->setSource ( html );
+      m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
+      m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
       // Is AutoCheck or AutoFormat Enabled?
       if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
       {
@@ -369,8 +372,6 @@ void Window::requestsFinished ( bool ok )
       }
       m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     }
-    m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
-    m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
   }
 }
 

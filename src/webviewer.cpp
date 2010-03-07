@@ -179,7 +179,7 @@ void WebViewer::setUrl ( const QUrl &u )
 
 const QUrl WebViewer::getUrl()
 {
-  return url;
+  return activeView()->url();
 }
 
 const QString WebViewer::toHtml()
