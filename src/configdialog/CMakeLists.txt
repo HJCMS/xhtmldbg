@@ -7,11 +7,13 @@ SET (configdialog_UI
 SET (configdialog_SOURCES
   configdialog.cpp
   editcookiestable.cpp
+  proxysettings.cpp
 )
 
 SET (configdialog_HEADERS
   configdialog.h
   editcookiestable.h
+  proxysettings.h
 )
 
 QT4_WRAP_UI (configdialog_UIC ${configdialog_UI})

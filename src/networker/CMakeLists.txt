@@ -4,12 +4,14 @@ SET (networker_SOURCES
   networkaccessmanager.cpp
   networksettings.cpp
   networkcookie.cpp
+  authenticationdialog.cpp
 )
 
 SET (networker_HEADERS
   networkaccessmanager.h
   networksettings.h
   networkcookie.h
+  authenticationdialog.h
 )
 
 SET (networker_NOMOC

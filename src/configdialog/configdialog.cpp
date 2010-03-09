@@ -21,6 +21,7 @@
 
 #include "configdialog.h"
 #include "editcookiestable.h"
+#include "proxysettings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -31,6 +32,7 @@
 
 /* QtGui */
 #include <QtGui/QCheckBox>
+#include <QtGui/QComboBox>
 #include <QtGui/QIcon>
 #include <QtGui/QLineEdit>
 #include <QtGui/QMessageBox>
@@ -40,6 +42,7 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkProxy>
 
 ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
@@ -79,7 +82,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // Load Saved Settings
   loadSettings();
 
-  // connect ( , SIGNAL(), this, SLOT ( setModified() ) );
   // Check and Radio Boxes
   connect ( AutoCheck, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoFormat, SIGNAL ( released() ), this, SLOT ( setModified() ) );
@@ -95,17 +97,27 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+
   // Group Boxes
   connect ( CacheSaveControlAttribute, SIGNAL ( clicked ( bool ) ), this, SLOT ( setModified() ) );
+
+  // Combo Boxes
+  connect ( CacheLoadControlAttribute, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( setModified() ) );
+
   // Spin Boxes
   connect ( DefaultFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
   connect ( DefaultFixedFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
   connect ( MaxHistoryItems, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+
   // Line Edits
   connect ( StartUpUrl, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+
   // Tables
   connect ( headersTable, SIGNAL ( itemSelectionChanged() ), this, SLOT ( setModified() ) );
+
+  // Sub Widget's
   connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
+  connect ( proxySettings, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
 
   // Buttons
   connect ( addCookieArrangement, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
@@ -123,19 +135,17 @@ void ConfigDialog::setCacheLoadControlComboBoxItems()
 {
   // Modify ComboBox CacheLoadControlAttribute
   CacheLoadControlAttribute->clear();
-  CacheLoadControlAttribute->addItem ( trUtf8 ( "Always load from network." ) );
+  CacheLoadControlAttribute->insertItem ( 0, trUtf8 ( "Always load from network." ), QNetworkRequest::AlwaysNetwork );
   CacheLoadControlAttribute->setItemData ( 0, QNetworkRequest::AlwaysNetwork, Qt::UserRole );
 
-  CacheLoadControlAttribute->addItem ( trUtf8 ( "Load from the Network if cache is expired." ) );
+  CacheLoadControlAttribute->insertItem ( 1, trUtf8 ( "Load from the Network if cache is expired." ), QNetworkRequest::PreferNetwork );
   CacheLoadControlAttribute->setItemData ( 1, QNetworkRequest::PreferNetwork, Qt::UserRole );
 
-  CacheLoadControlAttribute->addItem ( trUtf8 ( "Load from Cache if entry exists." ) );
+  CacheLoadControlAttribute->insertItem ( 2, trUtf8 ( "Load from Cache if entry exists." ), QNetworkRequest::PreferCache );
   CacheLoadControlAttribute->setItemData ( 2, QNetworkRequest::PreferCache, Qt::UserRole );
 
-  CacheLoadControlAttribute->addItem ( trUtf8 ( "Always load from Cache." ) );
+  CacheLoadControlAttribute->insertItem ( 3, trUtf8 ( "Always load from Cache." ), QNetworkRequest::AlwaysCache );
   CacheLoadControlAttribute->setItemData ( 3, QNetworkRequest::AlwaysCache, Qt::UserRole );
-
-  CacheLoadControlAttribute->setCurrentIndex ( 0 );
 }
 
 void ConfigDialog::loadHeaderDefinitions()
@@ -230,7 +240,7 @@ void ConfigDialog::loadSettings()
   // Spin Boxes
   foreach ( QSpinBox* box, findChildren<QSpinBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_spinbox_" ) )
       continue;
 
     box->setValue ( cfg->value ( box->objectName(), box->minimum() ).toUInt() );
@@ -238,6 +248,14 @@ void ConfigDialog::loadSettings()
 
   loadHeaderDefinitions();
   cookiesTable->loadCookieArrangements ( cfg );
+  proxySettings->load ( cfg );
+
+  // Cache Control
+  QNetworkRequest::CacheLoadControl controlCache = ( QNetworkRequest::CacheLoadControl )
+          cfg->value ( QLatin1String ( "CacheLoadControlAttribute" ), QNetworkRequest::AlwaysNetwork ).toUInt();
+
+  CacheLoadControlAttribute->setCurrentIndex ( CacheLoadControlAttribute->findData ( controlCache, Qt::UserRole ) );
+
   setWindowModified ( false );
 }
 
@@ -246,7 +264,7 @@ void ConfigDialog::saveSettings()
   // Radio Buttons
   foreach ( QRadioButton* box, findChildren<QRadioButton *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->setValue ( box->objectName(), box->isChecked() );
@@ -255,7 +273,7 @@ void ConfigDialog::saveSettings()
   // Check Boxes
   foreach ( QCheckBox* box, findChildren<QCheckBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->setValue ( box->objectName(), box->isChecked() );
@@ -264,7 +282,7 @@ void ConfigDialog::saveSettings()
   // Line Edits
   foreach ( QLineEdit* edit, findChildren<QLineEdit *>() )
   {
-    if ( edit->objectName().isEmpty() )
+    if ( edit->objectName().isEmpty() || edit->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->setValue ( edit->objectName(), edit->text() );
@@ -273,14 +291,19 @@ void ConfigDialog::saveSettings()
   // Spin Boxes
   foreach ( QSpinBox* box, findChildren<QSpinBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->setValue ( box->objectName(), box->value() );
   }
 
   saveHeaderDefinitions();
+
+  int cIndex = CacheLoadControlAttribute->itemData ( CacheLoadControlAttribute->currentIndex(), Qt::UserRole ).toUInt();
+  cfg->setValue ( QLatin1String ( "CacheLoadControlAttribute" ), cIndex );
+
   cookiesTable->saveCookieArrangements ( cfg );
+  proxySettings->save ( cfg );
   setWindowModified ( false );
 }
 
@@ -322,6 +345,9 @@ void ConfigDialog::restoreSettings()
     cfg->remove ( box->objectName() );
   }
 
+  cfg->remove ( QLatin1String ( "CacheLoadControlAttribute" ) );
+  cfg->remove ( QLatin1String ( "proxyType" ) );
+  proxySettings->setType ( QNetworkProxy::NoProxy );
   setWindowModified ( false );
 
   QMessageBox::information ( this, trUtf8 ( "Notice" ),

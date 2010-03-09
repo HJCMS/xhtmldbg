@@ -30,9 +30,11 @@
 #include <QtCore/QSettings>
 
 /* QtNetwork */
+#include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkProxy>
 
 class NetworkSettings;
 
@@ -45,6 +47,10 @@ class NetworkAccessManager : public QNetworkAccessManager
   private:
     NetworkSettings* m_networkSettings;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
+
+  private Q_SLOTS:
+    void authenticationRequired ( QNetworkReply *, QAuthenticator * );
+    void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

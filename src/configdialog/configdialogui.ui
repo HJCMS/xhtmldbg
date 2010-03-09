@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>679</width>
-    <height>487</height>
+    <width>665</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -45,6 +45,9 @@
        <string>Defaults</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="margin">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
@@ -168,6 +171,9 @@
        <string>Behavior</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_5">
+       <property name="margin">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
@@ -310,6 +316,9 @@
        <string>Network</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_7">
+       <property name="margin">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="CacheSaveControlAttribute">
          <property name="title">
@@ -419,6 +428,9 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
        <string>Browser</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="margin">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
@@ -547,6 +559,9 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
        <string notr="true">Cookies</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_9">
+       <property name="margin">
+        <number>2</number>
+       </property>
        <item>
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
@@ -753,6 +768,14 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
       <attribute name="title">
        <string notr="true">Proxy</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_10">
+       <property name="margin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="ProxySettings" name="proxySettings" native="true"/>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>
@@ -773,6 +796,12 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
    <class>EditCookiesTable</class>
    <extends>QTableWidget</extends>
    <header>editcookiestable.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ProxySettings</class>
+   <extends>QWidget</extends>
+   <header>proxysettings.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

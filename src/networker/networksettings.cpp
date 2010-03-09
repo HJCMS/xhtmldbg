@@ -72,10 +72,22 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
 const QString NetworkSettings::storageDirectory ()
 {
   QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir( dbPath );
+  QDir dir ( dbPath );
   dir.mkpath ( QLatin1String ( "storage" ) );
   wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
   return wcfg->localStoragePath();
+}
+
+const QNetworkProxy NetworkSettings::getProxy()
+{
+  QNetworkProxy proxy;
+  int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
+  proxy.setType ( ( QNetworkProxy::ProxyType ) type );
+  proxy.setHostName ( value ( QLatin1String ( "proxyHostName" ) ).toString() );
+  proxy.setPort ( value ( QLatin1String ( "proxyPort" ), 8080 ).toUInt() );
+  proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
+  proxy.setPassword ( value ( QLatin1String ( "proxyPassword" ) ).toString() );
+  return proxy;
 }
 
 NetworkSettings::~NetworkSettings()

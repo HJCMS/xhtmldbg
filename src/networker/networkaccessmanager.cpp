@@ -21,10 +21,12 @@
 
 #include "networkaccessmanager.h"
 #include "networksettings.h"
+#include "authenticationdialog.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
@@ -32,6 +34,16 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
 {
   m_networkSettings = new  NetworkSettings ( this );
+
+  if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
+    setProxy ( m_networkSettings->getProxy() );
+
+  connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
+            this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
+
+  connect ( this, SIGNAL ( proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * ) ),
+            this, SLOT ( proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * ) ) );
+
   connect ( this, SIGNAL ( finished ( QNetworkReply * ) ),
             this, SLOT ( replyFinished ( QNetworkReply * ) ) );
 }
@@ -58,6 +70,29 @@ QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
     }
   }
   return QTextCodec::codecForName ( encoding.toAscii() );
+}
+
+void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuthenticator * auth )
+{
+  AuthenticationDialog authDialog;
+  authDialog.setRealm ( auth->realm(), reply->url().toString() );
+  if ( authDialog.exec() == QDialog::Accepted )
+  {
+    auth->setUser ( authDialog.login() );
+    auth->setPassword ( authDialog.pass() );
+  }
+}
+
+void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &proxy, QAuthenticator * auth )
+{
+  AuthenticationDialog authDialog;
+  authDialog.setRealm ( auth->realm(), proxy.hostName() );
+  authDialog.setLogin ( m_networkSettings->value ( QLatin1String ( "proxyUser" ) ).toString() );
+  if ( authDialog.exec() == QDialog::Accepted )
+  {
+    auth->setUser ( authDialog.login() );
+    auth->setPassword ( authDialog.pass() );
+  }
 }
 
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )

@@ -32,6 +32,7 @@
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkProxy>
 
 class NetworkSettings : public QSettings
 {
@@ -46,6 +47,7 @@ class NetworkSettings : public QSettings
     NetworkSettings ( QObject * parent = 0 );
     const QNetworkRequest requestOptions ( const QNetworkRequest & );
     const QString storageDirectory();
+    const QNetworkProxy getProxy();
     ~NetworkSettings();
 };
 
