@@ -111,7 +111,7 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
 void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
 {
   QString certHost ( reply->url().host() );
-  bool found = false;
+  bool inWhiteList = false;
 
   if ( trustedCertsHostsList.isEmpty() )
   {
@@ -124,25 +124,24 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
       m_networkSettings->setArrayIndex ( i );
       if ( m_networkSettings->value ( "host" ).toString() == certHost )
       {
-        found = true;
+        inWhiteList = true;
         break;
       }
     }
     m_networkSettings->endArray();
+  }
 
-    if ( found )
-    {
-      reply->ignoreSslErrors();
-      return;
-    }
+  if ( inWhiteList )
+  {
+    reply->ignoreSslErrors();
+    return;
   }
   else if ( trustedCertsHostsList.contains ( certHost ) )
   {
     reply->ignoreSslErrors();
     return;
   }
-
-  if ( ! trustedCertsHostsList.contains ( certHost ) )
+  else
   {
     QStringList messages;
     QSslCertificate cert = errors.at ( 0 ).certificate ();
