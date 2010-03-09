@@ -159,6 +159,114 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
+    <name>CertDialog</name>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="37"/>
+        <source>Certification Notice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="48"/>
+        <source>Notice</source>
+        <translation type="unfinished">Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="51"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="63"/>
+        <source>Subject Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="68"/>
+        <source>Issuer Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="73"/>
+        <source>Organization (O)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="74"/>
+        <source>The name of the organization. (O)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="79"/>
+        <source>Common Name (CN)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="80"/>
+        <source>The common name; most often this is used to store the host name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="85"/>
+        <source>Locality (L)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="86"/>
+        <source>The locality. (L)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="91"/>
+        <source>Organizational UnitName (OU)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="92"/>
+        <source>The organizational unit name. (OU)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="97"/>
+        <source>CountryName (C)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="98"/>
+        <source>The country. (C)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="103"/>
+        <source>State or Province (ST)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="104"/>
+        <source>The state or province name. (ST)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="123"/>
+        <source>Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="131"/>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="173"/>
+        <source>Serial Nr.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="180"/>
+        <source>Expires</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConfigDialog</name>
     <message>
         <location filename="../src/configdialog/configdialog.cpp" line="52"/>
