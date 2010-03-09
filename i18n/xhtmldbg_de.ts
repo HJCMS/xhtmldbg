@@ -163,32 +163,32 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="37"/>
         <source>Certification Notice</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikats Hinweis</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="48"/>
         <source>Notice</source>
-        <translation type="unfinished">Hinweis</translation>
+        <translation>Hinweis</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="51"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Nachricht</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="63"/>
         <source>Subject Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Gegenstand Infos</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="68"/>
         <source>Issuer Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Aussteller Infos</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="73"/>
         <source>Organization (O)</source>
-        <translation type="unfinished"></translation>
+        <translation>Organisation</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="74"/>
@@ -198,7 +198,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="79"/>
         <source>Common Name (CN)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gemeinsamer Name (CN)</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="80"/>
@@ -208,7 +208,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="85"/>
         <source>Locality (L)</source>
-        <translation type="unfinished"></translation>
+        <translation>Örtlichkeit (L)</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="86"/>
@@ -218,7 +218,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="91"/>
         <source>Organizational UnitName (OU)</source>
-        <translation type="unfinished"></translation>
+        <translation>Aufbauorganisation (OU)</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="92"/>
@@ -228,7 +228,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="97"/>
         <source>CountryName (C)</source>
-        <translation type="unfinished"></translation>
+        <translation>Länder Name (C)</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="98"/>
@@ -238,7 +238,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="103"/>
         <source>State or Province (ST)</source>
-        <translation type="unfinished"></translation>
+        <translation>Staat oder Provinz (ST)</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="104"/>
@@ -248,22 +248,22 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="123"/>
         <source>Certificate</source>
-        <translation type="unfinished"></translation>
+        <translation>Zertifikat</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="131"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Importieren</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="173"/>
         <source>Serial Nr.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serien Nr.</translation>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="180"/>
         <source>Expires</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlischt</translation>
     </message>
 </context>
 <context>
