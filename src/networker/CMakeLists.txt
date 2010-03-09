@@ -5,6 +5,8 @@ SET (networker_SOURCES
   networksettings.cpp
   networkcookie.cpp
   authenticationdialog.cpp
+  certdialog.cpp
+  errorsdialog.cpp
 )
 
 SET (networker_HEADERS
@@ -12,6 +14,8 @@ SET (networker_HEADERS
   networksettings.h
   networkcookie.h
   authenticationdialog.h
+  certdialog.h
+  errorsdialog.h
 )
 
 SET (networker_NOMOC

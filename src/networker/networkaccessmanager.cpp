@@ -22,9 +22,11 @@
 #include "networkaccessmanager.h"
 #include "networksettings.h"
 #include "authenticationdialog.h"
+#include "certdialog.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QChar>
 #include <QtCore/QDebug>
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QRegExp>
@@ -34,6 +36,14 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
 {
   m_networkSettings = new  NetworkSettings ( this );
+  int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  for ( int i = 0; i < size; ++i )
+  {
+    m_networkSettings->setArrayIndex ( i );
+    qDebug() << Q_FUNC_INFO << m_networkSettings->value ( "host" ).toString();
+    trustedCertsHostsList.append ( m_networkSettings->value ( "host" ).toString() );
+  }
+  m_networkSettings->endArray();
 
   if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
     setProxy ( m_networkSettings->getProxy() );
@@ -46,6 +56,9 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( this, SIGNAL ( finished ( QNetworkReply * ) ),
             this, SLOT ( replyFinished ( QNetworkReply * ) ) );
+
+  connect ( this, SIGNAL ( sslErrors ( QNetworkReply *, const QList<QSslError> & ) ),
+            this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
 }
 
 QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
@@ -92,6 +105,31 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
   {
     auth->setUser ( authDialog.login() );
     auth->setPassword ( authDialog.pass() );
+  }
+}
+
+void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
+{
+  QString certHost ( reply->url().host() );
+  certHost.append ( QLatin1String ( ":" ) );
+  certHost.append ( QString::number ( reply->url().port ( 443 ) ) );
+
+  if ( ! trustedCertsHostsList.contains ( certHost ) )
+  {
+    QStringList messages;
+    QSslCertificate cert = errors.at ( 0 ).certificate ();
+    foreach ( QSslError err, errors )
+    {
+      messages << err.errorString();
+    }
+    CertDialog certDialog ( m_networkSettings );
+    certDialog.setCertificate ( cert, reply->url().host() );
+    certDialog.setMessages ( messages );
+    if ( certDialog.exec() == QDialog::Accepted )
+    {
+      reply->ignoreSslErrors();
+      trustedCertsHostsList.append ( certHost );
+    }
   }
 }
 

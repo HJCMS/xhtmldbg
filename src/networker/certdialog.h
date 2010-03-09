@@ -19,52 +19,56 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NETWORKACCESSMANAGER_H
-#define NETWORKACCESSMANAGER_H
+#ifndef CERTDIALOG_H
+#define CERTDIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QIODevice>
-#include <QtCore/QList>
 #include <QtCore/QString>
-#include <QtCore/QTextCodec>
-#include <QtCore/QSettings>
+#include <QtCore/QUrl>
+#include <QtCore/QVector>
+
+/* QtGui */
+#include <QtGui/QDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QWidget>
 
 /* QtNetwork */
-#include <QtNetwork/QAuthenticator>
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkProxy>
-#include <QtNetwork/QSslError>
 #include <QtNetwork/QSslCertificate>
 
 class NetworkSettings;
 
-class NetworkAccessManager : public QNetworkAccessManager
+class CertDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
-    QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
+    QString certHost;
+    QLabel* notify;
+    QTreeWidget* treeWidget;
+    QTreeWidgetItem* subjectInfo;
+    QTreeWidgetItem* issuerInfo;
+    struct RowItem
+    {
+      QString text;
+      QString tip;
+      QSslCertificate::SubjectInfo info;
+    };
+    QVector<RowItem> RowItems;
 
   private Q_SLOTS:
-    void authenticationRequired ( QNetworkReply *, QAuthenticator * );
-    void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
-    void certErrors ( QNetworkReply *, const QList<QSslError> & );
-
-  public Q_SLOTS:
-    void replyFinished ( QNetworkReply * );
+    void import();
 
   public:
-    NetworkAccessManager ( QObject *parent = 0 );
-    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
-                                   const QNetworkRequest &, QIODevice * );
-    ~NetworkAccessManager();
+    CertDialog ( NetworkSettings * settings, QWidget * parent = 0 );
+    void setCertificate ( const QSslCertificate &, const QString & );
+    void setMessages ( const QStringList & );
+    ~CertDialog();
 };
 
 #endif
