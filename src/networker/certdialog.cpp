@@ -147,7 +147,8 @@ void CertDialog::import()
   int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
   m_networkSettings->endArray();
 
-  m_networkSettings->beginWriteArray ( QLatin1String ( "TrustedCertsHosts" ), size );
+  m_networkSettings->beginWriteArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  m_networkSettings->setArrayIndex ( size );
   m_networkSettings->setValue ( QLatin1String ( "host" ) , certHost );
   m_networkSettings->endArray();
   accept();

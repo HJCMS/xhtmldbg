@@ -36,17 +36,17 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
 {
   m_networkSettings = new  NetworkSettings ( this );
+
+  if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
+    setProxy ( m_networkSettings->getProxy() );
+
   int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
   for ( int i = 0; i < size; ++i )
   {
     m_networkSettings->setArrayIndex ( i );
-    qDebug() << Q_FUNC_INFO << m_networkSettings->value ( "host" ).toString();
     trustedCertsHostsList.append ( m_networkSettings->value ( "host" ).toString() );
   }
   m_networkSettings->endArray();
-
-  if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
-    setProxy ( m_networkSettings->getProxy() );
 
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
@@ -111,8 +111,36 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
 void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
 {
   QString certHost ( reply->url().host() );
-  certHost.append ( QLatin1String ( ":" ) );
-  certHost.append ( QString::number ( reply->url().port ( 443 ) ) );
+  bool found = false;
+
+  if ( trustedCertsHostsList.isEmpty() )
+  {
+    if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
+      setProxy ( m_networkSettings->getProxy() );
+
+    int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
+    for ( int i = 0; i < size; ++i )
+    {
+      m_networkSettings->setArrayIndex ( i );
+      if ( m_networkSettings->value ( "host" ).toString() == certHost )
+      {
+        found = true;
+        break;
+      }
+    }
+    m_networkSettings->endArray();
+
+    if ( found )
+    {
+      reply->ignoreSslErrors();
+      return;
+    }
+  }
+  else if ( trustedCertsHostsList.contains ( certHost ) )
+  {
+    reply->ignoreSslErrors();
+    return;
+  }
 
   if ( ! trustedCertsHostsList.contains ( certHost ) )
   {
@@ -123,7 +151,7 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
       messages << err.errorString();
     }
     CertDialog certDialog ( m_networkSettings );
-    certDialog.setCertificate ( cert, reply->url().host() );
+    certDialog.setCertificate ( cert, certHost );
     certDialog.setMessages ( messages );
     if ( certDialog.exec() == QDialog::Accepted )
     {
