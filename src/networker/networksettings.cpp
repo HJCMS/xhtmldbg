@@ -24,12 +24,18 @@
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QFile>
+#include <QtCore/QIODevice>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QDesktopServices>
+
+/* QtNetwork */
+#include <QtNetwork/QSslCertificate>
 
 NetworkSettings::NetworkSettings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat,
@@ -88,6 +94,35 @@ const QNetworkProxy NetworkSettings::getProxy()
   proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
   proxy.setPassword ( value ( QLatin1String ( "proxyPassword" ) ).toString() );
   return proxy;
+}
+
+const QSslConfiguration NetworkSettings::sslConfiguration()
+{
+  QSslConfiguration ssl = QSslConfiguration::defaultConfiguration ();
+
+  QString dbpath = value ( QLatin1String ( "sslCaCertsPath" ) ).toString();
+  QFileInfo db ( dbpath );
+  if ( db.exists() )
+  {
+    QList<QSslCertificate> caCerts = ssl.caCertificates();
+    caCerts << QSslCertificate::fromPath ( db.absoluteFilePath(), QSsl::Pem, QRegExp::FixedString );
+    ssl.setCaCertificates ( caCerts );
+  }
+
+//   QString peerCert = value ( QLatin1String ( "sslPeerCertificate" ) ).toString();
+//   QFile fp ( peerCert );
+//   if ( fp.open ( QIODevice::ReadOnly ) )
+//   {
+//     QSslCertificate cert ( &fp, QSsl::Pem );
+//     if ( cert.isValid() )
+//       ssl.setLocalCertificate ( cert );
+//     else
+//       qWarning() << "Can not load your local Certificate";
+// 
+//     fp.close();
+//   }
+
+  return ssl;
 }
 
 NetworkSettings::~NetworkSettings()

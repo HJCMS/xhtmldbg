@@ -31,6 +31,9 @@
 #include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkReply>
+
 class ErrorsDialog : public QDialog
 {
     Q_OBJECT
@@ -40,11 +43,15 @@ class ErrorsDialog : public QDialog
   private:
     QLabel* message;
 
+  Q_SIGNALS:
+    void errorMessage ( const QString & );
+
   public Q_SLOTS:
     void setMessage ( const QString & );
 
   public:
     ErrorsDialog ( QWidget * parent = 0 );
+    bool setError ( QNetworkReply::NetworkError );
     virtual ~ErrorsDialog();
 };
 

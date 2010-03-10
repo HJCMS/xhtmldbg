@@ -21,6 +21,7 @@
 
 #include "window.h"
 #include "application.h"
+#include "networkaccessmanager.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
 #include "webviewer.h"
@@ -134,6 +135,9 @@ Window::Window ( QSettings * settings )
 
   connect ( m_messanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
+
+  connect ( Application::networkAccessManager(), SIGNAL ( netNotify ( const QString & ) ),
+            m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );

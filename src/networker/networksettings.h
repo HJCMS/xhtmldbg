@@ -33,6 +33,8 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkProxy>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QSslConfiguration>
 
 class NetworkSettings : public QSettings
 {
@@ -48,6 +50,7 @@ class NetworkSettings : public QSettings
     const QNetworkRequest requestOptions ( const QNetworkRequest & );
     const QString storageDirectory();
     const QNetworkProxy getProxy();
+    const QSslConfiguration sslConfiguration();
     ~NetworkSettings();
 };
 

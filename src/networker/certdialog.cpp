@@ -52,6 +52,7 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
 
   QVBoxLayout* t1Layout = new QVBoxLayout ( infoWidget );
   notify = new QLabel ( trUtf8 ( "Message" ), infoWidget );
+  notify->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
   notify->setIndent ( 2 );
   notify->setWordWrap ( true );
   t1Layout->addWidget ( notify );
@@ -59,16 +60,19 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
 
   treeWidget = new QTreeWidget ( infoWidget );
   treeWidget->setObjectName ( QLatin1String ( "certtable" ) );
-  treeWidget->setColumnCount ( 2 );
   treeWidget->setWordWrap ( false );
+  treeWidget->setColumnCount ( 2 );
+  QStringList treeHeaders;
+  treeHeaders << trUtf8( "Level" ) << trUtf8( "Values" );
+  treeWidget->setHeaderLabels ( treeHeaders );
 
   subjectInfo = new QTreeWidgetItem ( treeWidget->invisibleRootItem() );
-  subjectInfo->setText ( 0, trUtf8 ( "Subject Info" ) );
+  subjectInfo->setText ( 0, trUtf8 ( "Subject" ) );
   subjectInfo->setExpanded ( true );
   treeWidget->addTopLevelItem ( subjectInfo );
 
   issuerInfo = new QTreeWidgetItem ( treeWidget->invisibleRootItem() );
-  issuerInfo->setText ( 0, trUtf8 ( "Issuer Info" ) );
+  issuerInfo->setText ( 0, trUtf8 ( "Issuer" ) );
   issuerInfo->setExpanded ( true );
   treeWidget->addTopLevelItem ( issuerInfo );
 
@@ -150,8 +154,9 @@ void CertDialog::import()
   int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
   m_networkSettings->endArray();
 
+  int index = ( size < 0 ) ? 0 : size;
   m_networkSettings->beginWriteArray ( QLatin1String ( "TrustedCertsHosts" ) );
-  m_networkSettings->setArrayIndex ( size );
+  m_networkSettings->setArrayIndex ( index );
   m_networkSettings->setValue ( QLatin1String ( "host" ) , certHost );
   m_networkSettings->endArray();
   accept();

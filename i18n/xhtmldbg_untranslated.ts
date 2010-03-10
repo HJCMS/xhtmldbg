@@ -176,91 +176,101 @@ Do you realy wan to exit?</source>
     </message>
     <message>
         <location filename="../src/networker/certdialog.cpp" line="66"/>
-        <source>Subject Info</source>
+        <source>Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="71"/>
-        <source>Issuer Info</source>
+        <location filename="../src/networker/certdialog.cpp" line="66"/>
+        <source>Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="76"/>
+        <location filename="../src/networker/certdialog.cpp" line="70"/>
+        <source>Subject</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="75"/>
+        <source>Issuer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/certdialog.cpp" line="80"/>
         <source>Organization (O)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="77"/>
+        <location filename="../src/networker/certdialog.cpp" line="81"/>
         <source>The name of the organization. (O)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="82"/>
+        <location filename="../src/networker/certdialog.cpp" line="86"/>
         <source>Common Name (CN)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="83"/>
+        <location filename="../src/networker/certdialog.cpp" line="87"/>
         <source>The common name; most often this is used to store the host name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="88"/>
+        <location filename="../src/networker/certdialog.cpp" line="92"/>
         <source>Locality (L)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="89"/>
+        <location filename="../src/networker/certdialog.cpp" line="93"/>
         <source>The locality. (L)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="94"/>
+        <location filename="../src/networker/certdialog.cpp" line="98"/>
         <source>Organizational UnitName (OU)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="95"/>
+        <location filename="../src/networker/certdialog.cpp" line="99"/>
         <source>The organizational unit name. (OU)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="100"/>
+        <location filename="../src/networker/certdialog.cpp" line="104"/>
         <source>CountryName (C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="101"/>
+        <location filename="../src/networker/certdialog.cpp" line="105"/>
         <source>The country. (C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="106"/>
+        <location filename="../src/networker/certdialog.cpp" line="110"/>
         <source>State or Province (ST)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="107"/>
+        <location filename="../src/networker/certdialog.cpp" line="111"/>
         <source>The state or province name. (ST)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="126"/>
+        <location filename="../src/networker/certdialog.cpp" line="130"/>
         <source>Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="134"/>
+        <location filename="../src/networker/certdialog.cpp" line="138"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="176"/>
+        <location filename="../src/networker/certdialog.cpp" line="181"/>
         <source>Serial Nr.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="183"/>
+        <location filename="../src/networker/certdialog.cpp" line="188"/>
         <source>Expires</source>
         <translation type="unfinished"></translation>
     </message>
@@ -716,6 +726,219 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
     </message>
 </context>
 <context>
+    <name>ErrorsDialog</name>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="36"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="43"/>
+        <source>Unknown Failure Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="68"/>
+        <source>Bad Request (400)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="69"/>
+        <source>the remote server refused the connection (the server is not accepting requests)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="74"/>
+        <source>Server gone (410)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="75"/>
+        <source>the remote server closed the connection prematurely, before the entire reply was received and processed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="80"/>
+        <source>Invalid Hostname</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="81"/>
+        <source>the remote host name was not found (invalid hostname)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="86"/>
+        <source>Request Timeout (408)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="87"/>
+        <source>the connection to the remote server timed out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="93"/>
+        <source>the operation was canceled via calls to abort() or close() before it was finished.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="97"/>
+        <source>Ssl Handshake Failed Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="98"/>
+        <source>the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="103"/>
+        <source>Proxy Connection Refused Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="104"/>
+        <source>the connection to the proxy server was refused (the proxy server is not accepting requests)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="109"/>
+        <source>Proxy Connection Closed Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="110"/>
+        <source>the proxy server closed the connection prematurely, before the entire reply was received and processed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="115"/>
+        <source>Proxy Not Found Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="116"/>
+        <source>the proxy host name was not found (invalid proxy hostname)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="121"/>
+        <source>Proxy Timeout Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="122"/>
+        <source>the connection to the proxy timed out or the proxy did not reply in time to the request sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="127"/>
+        <source>Proxy Authentication Required Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="128"/>
+        <source>the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="133"/>
+        <source>Unauthorized (401)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="134"/>
+        <source>the access to the remote content was denied (similar to HTTP error 401)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="139"/>
+        <source>Forbidden (403)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="140"/>
+        <source>the operation requested on the remote content is not permitted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="145"/>
+        <source>Not found (404)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="146"/>
+        <source>the remote content was not found at the server (similar to HTTP error 404)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="151"/>
+        <source>Authentication Required Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="152"/>
+        <source>the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="157"/>
+        <source>Content Re Send Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="158"/>
+        <source>the request needed to be sent again, but this failed for example because the upload data could not be read a second time.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="164"/>
+        <source>QtNetwork Access API cannot honor the request because the protocol is not known.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="168"/>
+        <source>Protocol Invalid Operation Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="169"/>
+        <source>the requested operation is invalid for this protocol</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="175"/>
+        <source>an unknown network-related error was detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="180"/>
+        <source>an unknown proxy-related error was detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="185"/>
+        <source>an unknown error related to the remote content was detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="189"/>
+        <source>Protocol Failure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="190"/>
+        <source>a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="195"/>
+        <source>an unknown related error was detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>HistoryMenu</name>
     <message>
         <location filename="../src/historymenu.cpp" line="36"/>
@@ -917,27 +1140,27 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="220"/>
+        <location filename="../src/configdialog/sslconfig.cpp" line="218"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="222"/>
+        <location filename="../src/configdialog/sslconfig.cpp" line="221"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="237"/>
+        <location filename="../src/configdialog/sslconfig.cpp" line="236"/>
         <source>CA Bundle %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="238"/>
+        <location filename="../src/configdialog/sslconfig.cpp" line="237"/>
         <source>Certificate %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="240"/>
+        <location filename="../src/configdialog/sslconfig.cpp" line="239"/>
         <source>Open CA Database</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1010,174 +1233,174 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="70"/>
+        <location filename="../src/window.cpp" line="71"/>
         <source>XHTML Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="87"/>
-        <location filename="../src/window.cpp" line="200"/>
+        <location filename="../src/window.cpp" line="88"/>
+        <location filename="../src/window.cpp" line="204"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="93"/>
+        <location filename="../src/window.cpp" line="94"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="99"/>
+        <location filename="../src/window.cpp" line="100"/>
         <source>DOM Viewer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="157"/>
+        <location filename="../src/window.cpp" line="161"/>
         <source>Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="161"/>
+        <location filename="../src/window.cpp" line="165"/>
         <source>Open Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="162"/>
+        <location filename="../src/window.cpp" line="166"/>
         <source>Load Document from Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="168"/>
+        <location filename="../src/window.cpp" line="172"/>
         <source>Open Html File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="169"/>
+        <location filename="../src/window.cpp" line="173"/>
         <source>Open Html from System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="175"/>
+        <location filename="../src/window.cpp" line="179"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="176"/>
+        <location filename="../src/window.cpp" line="180"/>
         <source>Close Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="183"/>
+        <location filename="../src/window.cpp" line="187"/>
         <source>Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="186"/>
+        <location filename="../src/window.cpp" line="190"/>
         <source>Parse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="187"/>
+        <location filename="../src/window.cpp" line="191"/>
         <source>Parse current Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="193"/>
+        <location filename="../src/window.cpp" line="197"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="194"/>
+        <location filename="../src/window.cpp" line="198"/>
         <source>Prepare and Format Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="203"/>
+        <location filename="../src/window.cpp" line="207"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="209"/>
+        <location filename="../src/window.cpp" line="213"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="215"/>
+        <location filename="../src/window.cpp" line="219"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="221"/>
+        <location filename="../src/window.cpp" line="225"/>
         <source>New Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="222"/>
+        <location filename="../src/window.cpp" line="226"/>
         <source>Add a new empty Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="229"/>
+        <location filename="../src/window.cpp" line="233"/>
         <source>Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="252"/>
+        <location filename="../src/window.cpp" line="256"/>
         <source>Organize Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="256"/>
+        <location filename="../src/window.cpp" line="260"/>
         <source>Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="258"/>
+        <location filename="../src/window.cpp" line="262"/>
         <source>Configure Tidyrc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="264"/>
-        <location filename="../src/window.cpp" line="298"/>
+        <location filename="../src/window.cpp" line="268"/>
+        <location filename="../src/window.cpp" line="302"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="269"/>
+        <location filename="../src/window.cpp" line="273"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="273"/>
+        <location filename="../src/window.cpp" line="277"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="274"/>
+        <location filename="../src/window.cpp" line="278"/>
         <source>about Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="279"/>
+        <location filename="../src/window.cpp" line="283"/>
         <source>about hjcms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="287"/>
+        <location filename="../src/window.cpp" line="291"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="387"/>
+        <location filename="../src/window.cpp" line="391"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="388"/>
+        <location filename="../src/window.cpp" line="392"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="393"/>
+        <location filename="../src/window.cpp" line="397"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

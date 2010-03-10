@@ -38,6 +38,7 @@
 #include <QtNetwork/QNetworkProxy>
 #include <QtNetwork/QSslError>
 #include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslConfiguration>
 
 class NetworkSettings;
 
@@ -50,12 +51,17 @@ class NetworkAccessManager : public QNetworkAccessManager
   private:
     QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
+    QSslConfiguration sslConfig;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
 
   private Q_SLOTS:
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
     void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
     void certErrors ( QNetworkReply *, const QList<QSslError> & );
+    void replyErrors ( QNetworkReply::NetworkError );
+
+  Q_SIGNALS:
+    void netNotify ( const QString & );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

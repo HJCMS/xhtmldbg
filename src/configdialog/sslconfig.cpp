@@ -215,8 +215,8 @@ void SSLConfig::getPeerCertDialog()
 {
   QString path ( sslPeerCertificate->text() );
   QStringList filt;
-  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
   filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
+  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
 
   path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
 

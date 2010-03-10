@@ -23,6 +23,7 @@
 #include "networksettings.h"
 #include "authenticationdialog.h"
 #include "certdialog.h"
+#include "errorsdialog.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -36,6 +37,8 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
 {
   m_networkSettings = new  NetworkSettings ( this );
+
+  sslConfig = m_networkSettings->sslConfiguration();
 
   if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
     setProxy ( m_networkSettings->getProxy() );
@@ -160,6 +163,22 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
   }
 }
 
+void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
+{
+  if ( err == QNetworkReply::NoError )
+    return;
+
+  ErrorsDialog* errorsDialog = new ErrorsDialog;
+  connect ( errorsDialog, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SIGNAL ( netNotify ( const QString & ) ) );
+
+  if ( errorsDialog->setError ( err ) )
+  {
+    if ( errorsDialog->exec() )
+      delete errorsDialog;
+  }
+}
+
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 {
   return;
@@ -180,7 +199,13 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         QIODevice *data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
-  return QNetworkAccessManager::createRequest ( op, request, data );
+  QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
+  reply->setSslConfiguration ( sslConfig );
+
+  connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
+            this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
+
+  return reply;
 }
 
 NetworkAccessManager::~NetworkAccessManager()
