@@ -19,57 +19,52 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CERTDIALOG_H
-#define CERTDIALOG_H
+#ifndef SSLCONFIG_H
+#define SSLCONFIG_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
-#include <QtCore/QVector>
 
 /* QtGui */
-#include <QtGui/QDialog>
-#include <QtGui/QLabel>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QLineEdit>
+#include <QtGui/QScrollArea>
+#include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslConfiguration>
 
-class NetworkSettings;
-
-class CertDialog : public QDialog
+class SSLConfig : public QScrollArea
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    NetworkSettings* m_networkSettings;
-    QString certHost;
-    QLabel* notify;
-    QTreeWidget* treeWidget;
-    QTreeWidgetItem* subjectInfo;
-    QTreeWidgetItem* issuerInfo;
-    struct RowItem
-    {
-      QString text;
-      QString tip;
-      QSslCertificate::SubjectInfo info;
-    };
-    QVector<RowItem> RowItems;
+    QSslConfiguration ssl;
+    QWidget* centeredWidget;
+    QLineEdit* sslPeerCertificate;
+    QLineEdit* sslCaCertsDatabase;
+    QTableWidget* sslIssuers;
+    void fillCaCertIssuerTable();
 
   private Q_SLOTS:
-    void import();
+    void setCaCertDatabase ( const QString &p = QString() );
+    void getPeerCertDialog();
+    void getCaCertDatabaseDialog();
+
+  Q_SIGNALS:
+    void modified ();
+
+  public Q_SLOTS:
+    void load ( QSettings * cfg );
 
   public:
-    CertDialog ( NetworkSettings * settings, QWidget * parent = 0 );
-    void setCertificate ( const QSslCertificate &, const QString & );
-    void setMessages ( const QStringList & );
-    ~CertDialog();
+    SSLConfig ( QWidget * parent = 0 );
+    virtual ~SSLConfig();
 };
 
 #endif

@@ -22,6 +22,7 @@
 #include "configdialog.h"
 #include "editcookiestable.h"
 #include "proxysettings.h"
+#include "sslconfig.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -64,6 +65,7 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   tabWidget->setTabIcon ( 3, icon.fromTheme ( QLatin1String ( "preferences-system-performance" ) ) );
   tabWidget->setTabIcon ( 4, icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
   tabWidget->setTabIcon ( 5, icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );
+  tabWidget->setTabIcon ( 6, icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
   // Set PushButton Icons
   removeCookieItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   removeAllCookies->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
@@ -118,6 +120,7 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // Sub Widget's
   connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
   connect ( proxySettings, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
+  connect ( sslConfigWidget, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
 
   // Buttons
   connect ( addCookieArrangement, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
@@ -249,6 +252,7 @@ void ConfigDialog::loadSettings()
   loadHeaderDefinitions();
   cookiesTable->loadCookieArrangements ( cfg );
   proxySettings->load ( cfg );
+  sslConfigWidget->load ( cfg );
 
   // Cache Control
   QNetworkRequest::CacheLoadControl controlCache = ( QNetworkRequest::CacheLoadControl )

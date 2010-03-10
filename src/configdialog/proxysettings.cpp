@@ -38,7 +38,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "proxysettings" ) );
 
-  Qt::Alignment labelAligment = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
+  Qt::Alignment defalignment = ( Qt::AlignRight | Qt::AlignVCenter );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
@@ -52,7 +52,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 
   // Proxy Type
   QLabel* txtProxyType = new QLabel ( trUtf8 ( "The Network Proxy Type:" ), this );
-  txtProxyType->setAlignment ( labelAligment );
+  txtProxyType->setAlignment ( defalignment );
   txtProxyType->setIndent ( 2 );
   txtProxyType->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyType->setWordWrap ( false );
@@ -73,7 +73,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 
   // Proxy Hostname
   QLabel* txtProxyHost = new QLabel ( trUtf8 ( "The Hostname of the Proxy:" ), this );
-  txtProxyHost->setAlignment ( labelAligment );
+  txtProxyHost->setAlignment ( defalignment );
   txtProxyHost->setIndent ( 2 );
   txtProxyHost->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyHost->setWordWrap ( false );
@@ -86,7 +86,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 
   // Proxy Port
   QLabel* txtProxyPort = new QLabel ( trUtf8 ( "The Proxy Port Number:" ), this );
-  txtProxyPort->setAlignment ( labelAligment );
+  txtProxyPort->setAlignment ( defalignment );
   txtProxyPort->setIndent ( 2 );
   txtProxyPort->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPort->setWordWrap ( false );
@@ -101,7 +101,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 
   // Proxy User
   QLabel* txtProxyUser = new QLabel ( trUtf8 ( "The Authentication username:" ), this );
-  txtProxyUser->setAlignment ( labelAligment );
+  txtProxyUser->setAlignment ( defalignment );
   txtProxyUser->setIndent ( 2 );
   txtProxyUser->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyUser->setWordWrap ( false );
@@ -114,7 +114,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
 
   // Proxy Password
   QLabel* txtProxyPassword = new QLabel ( trUtf8 ( "The Authentication password:" ), this );
-  txtProxyPassword->setAlignment ( labelAligment );
+  txtProxyPassword->setAlignment ( defalignment );
   txtProxyPassword->setIndent ( 2 );
   txtProxyPassword->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPassword->setWordWrap ( false );

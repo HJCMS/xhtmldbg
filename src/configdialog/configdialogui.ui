@@ -777,6 +777,19 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab7">
+      <attribute name="title">
+       <string notr="true">SSL</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_11">
+       <property name="margin">
+        <number>2</number>
+       </property>
+       <item>
+        <widget class="SSLConfig" name="sslConfigWidget" native="true"/>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
    <item>
@@ -801,6 +814,12 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
    <class>ProxySettings</class>
    <extends>QWidget</extends>
    <header>proxysettings.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SSLConfig</class>
+   <extends>QWidget</extends>
+   <header>sslconfig.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

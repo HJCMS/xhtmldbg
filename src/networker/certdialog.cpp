@@ -23,10 +23,13 @@
 #include "networksettings.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QDateTime>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QHeaderView>
+#include <QtGui/QPushButton>
+#include <QtGui/QVBoxLayout>
 
 CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
     : QDialog ( parent )
