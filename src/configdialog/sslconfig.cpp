@@ -69,44 +69,56 @@ SSLConfig::SSLConfig ( QWidget * parent )
   QGridLayout* box1Layout = new QGridLayout ( m_groupBox1 );
   box1Layout->setVerticalSpacing ( 5 );
 
-  // Peer Certificate
-  box1Layout->addWidget ( new QLabel ( trUtf8 ( "Local Certificate:" ), m_groupBox1 ), 0, 0, 1, 1 );
+  // Info Certificates
+  QLabel* infocert = new QLabel ( trUtf8 ( "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">I know all my clients</a>?" ), m_groupBox1 );
+  infocert->setAlignment ( justifyAlign );
+  infocert->setTextInteractionFlags ( Qt::TextBrowserInteraction );
+  infocert->setWordWrap ( true );
+  infocert->setOpenExternalLinks ( true );
+  box1Layout->addWidget ( infocert, 0, 0, 1, 3 );
 
-  sslPeerCertificate = new QLineEdit ( m_groupBox1 );
-  sslPeerCertificate->setObjectName ( QLatin1String ( "sslPeerCertificate" ) );
-  box1Layout->addWidget ( sslPeerCertificate, 0, 1, 1, 1 );
+  // Public Certificates
+  QLabel* lbpubkey = new QLabel ( trUtf8 ( "Public Keyfile:" ), m_groupBox1 );
+  lbpubkey->setAlignment ( floatRight );
+  lbpubkey->setTextInteractionFlags ( Qt::NoTextInteraction );
+  box1Layout->addWidget ( lbpubkey, 1, 0, 1, 1 );
 
-  QToolButton* openPeerCertButton = new QToolButton ( m_groupBox1 );
-  openPeerCertButton->setObjectName ( QLatin1String ( "openpeercertbutton" ) );
-  openPeerCertButton->setText ( QLatin1String ( "..." ) );
-  openPeerCertButton->setIcon ( openIcon );
-  box1Layout->addWidget ( openPeerCertButton, 0, 2, 1, 1 );
+  sslPublicKey = new QLineEdit ( m_groupBox1 );
+  sslPublicKey->setObjectName ( QLatin1String ( "sslPublicKey" ) );
+  box1Layout->addWidget ( sslPublicKey, 1, 1, 1, 1 );
 
-  QString peerInfo = trUtf8 ( "The local Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">I know all my clients</a>?" );
-  QLabel* label2 = new QLabel ( peerInfo, m_groupBox1 );
-  label2->setAlignment ( justifyAlign );
-  label2->setTextInteractionFlags ( Qt::TextBrowserInteraction );
-  label2->setWordWrap ( true );
-  label2->setOpenExternalLinks ( true );
-  box1Layout->addWidget ( label2, 1, 0, 1, 3 );
+  QToolButton* openPupKeyButton = new QToolButton ( m_groupBox1 );
+  openPupKeyButton->setObjectName ( QLatin1String ( "openpupkeybutton" ) );
+  openPupKeyButton->setText ( QLatin1String ( "..." ) );
+  openPupKeyButton->setIcon ( openIcon );
+  box1Layout->addWidget ( openPupKeyButton, 1, 2, 1, 1 );
 
-  // PrivateKey
-  QLabel* label3 = new QLabel ( trUtf8 ( "PrivateKey:" ), m_groupBox1 );
-  label3->setAlignment ( floatRight );
-  label3->setTextInteractionFlags ( Qt::NoTextInteraction );
-  box1Layout->addWidget ( label3, 2, 0, 1, 1 );
+  // Private Certificates
+  QLabel* lbprivkey = new QLabel ( trUtf8 ( "Private Keyfile:" ), m_groupBox1 );
+  lbprivkey->setAlignment ( floatRight );
+  lbprivkey->setTextInteractionFlags ( Qt::NoTextInteraction );
+  box1Layout->addWidget ( lbprivkey, 2, 0, 1, 1 );
 
   sslPrivateKey = new QLineEdit ( m_groupBox1 );
   sslPrivateKey->setObjectName ( QLatin1String ( "sslPrivateKey" ) );
-  box1Layout->addWidget ( sslPrivateKey, 2, 1, 1, 3 );
+  box1Layout->addWidget ( sslPrivateKey, 2, 1, 1, 1 );
 
-  QString privKeyInfo = trUtf8 ( "The PrivateKey and local Certificate are required if your client must identify itself to an SSL server. XHTMLDBG didn't read the Key from your local Certificate, for more Info How-to print the PrivateKey from your Certificate, read the OpenSSL Manual Pages." );
-  QLabel* label4 = new QLabel ( privKeyInfo, m_groupBox1 );
-  label4->setAlignment ( justifyAlign );
-  label4->setTextInteractionFlags ( Qt::TextBrowserInteraction );
-  label4->setWordWrap ( true );
-  label4->setOpenExternalLinks ( true );
-  box1Layout->addWidget ( label4, 3, 0, 1, 3 );
+  QToolButton* openPrivKeyButton = new QToolButton ( m_groupBox1 );
+  openPrivKeyButton->setObjectName ( QLatin1String ( "openprivkeybutton" ) );
+  openPrivKeyButton->setText ( QLatin1String ( "..." ) );
+  openPrivKeyButton->setIcon ( openIcon );
+  box1Layout->addWidget ( openPrivKeyButton, 2, 2, 1, 1 );
+
+  // sslPassPhrase
+  QLabel* passphraseinfo = new QLabel ( trUtf8 ( "Private Key Password:" ), m_groupBox1 );
+  passphraseinfo->setAlignment ( floatRight );
+  passphraseinfo->setTextInteractionFlags ( Qt::NoTextInteraction );
+  box1Layout->addWidget ( passphraseinfo, 3, 0, 1, 1 );
+
+  sslPassPhrase = new QLineEdit ( m_groupBox1 );
+  sslPassPhrase->setObjectName ( QLatin1String ( "qt_ssl_pass_phrase" ) );
+  sslPassPhrase->setEchoMode ( QLineEdit::Password );
+  box1Layout->addWidget ( sslPassPhrase, 3, 1, 1, 3 );
 
   // add Box 1 Layout
   m_groupBox1->setLayout ( box1Layout );
@@ -153,19 +165,27 @@ SSLConfig::SSLConfig ( QWidget * parent )
   m_groupBox2->setLayout ( box2Layout );
   vLayout->addWidget ( m_groupBox2 );
 
+  trustedHostsList = new QListWidget ( this );
+
+  vLayout->addWidget ( trustedHostsList );
+
   // set main Layout
   centeredWidget->setLayout ( vLayout );
   setWidget ( centeredWidget );
 
-  connect ( openPeerCertButton, SIGNAL ( clicked() ), this, SLOT ( getPeerCertDialog() ) );
+  connect ( openPrivKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPrivKeyDialog() ) );
+  connect ( openPupKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPupKeyDialog() ) );
   connect ( openCaCertButton, SIGNAL ( clicked() ), this, SLOT ( getCaCertDatabaseDialog() ) );
+
   connect ( sslCaCertsDatabase, SIGNAL ( editingFinished () ),
             this, SLOT ( setCaCertDatabase() ) );
 
   connect ( sslCaCertsDatabase, SIGNAL ( textEdited ( const QString & ) ),
             this, SLOT ( setCaCertDatabase ( const QString & ) ) );
 
+  connect ( sslPublicKey, SIGNAL ( editingFinished () ), this, SIGNAL ( modified() ) );
   connect ( sslPrivateKey, SIGNAL ( editingFinished () ), this, SIGNAL ( modified() ) );
+  connect ( sslPassPhrase, SIGNAL ( editingFinished () ), this, SIGNAL ( modified() ) );
 }
 
 void SSLConfig::setCaCertDatabase ( const QString &p )
@@ -211,9 +231,27 @@ void SSLConfig::fillCaCertIssuerTable()
   sslIssuers->horizontalHeader()->setResizeMode ( QHeaderView::ResizeToContents );
 }
 
-void SSLConfig::getPeerCertDialog()
+void SSLConfig::getPrivKeyDialog()
 {
-  QString path ( sslPeerCertificate->text() );
+  QString path ( sslPrivateKey->text() );
+  QStringList filt;
+  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
+  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
+
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
+
+  QFileInfo db ( path );
+  if ( db.exists() )
+    sslPrivateKey->setText ( db.absoluteFilePath() );
+  else
+    sslPrivateKey->clear();
+
+  emit modified ();
+}
+
+void SSLConfig::getPupKeyDialog()
+{
+  QString path ( sslPublicKey->text() );
   QStringList filt;
   filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
   filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
@@ -222,9 +260,9 @@ void SSLConfig::getPeerCertDialog()
 
   QFileInfo db ( path );
   if ( db.exists() )
-    sslPeerCertificate->setText ( db.absoluteFilePath() );
+    sslPublicKey->setText ( db.absoluteFilePath() );
   else
-    sslPeerCertificate->clear();
+    sslPublicKey->clear();
 
   emit modified ();
 }
@@ -246,8 +284,38 @@ void SSLConfig::load ( QSettings * cfg )
   if ( ! cfg )
     return;
 
+  QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
+  sslPassPhrase->setText ( p );
+
   if ( ! sslCaCertsDatabase->text().isEmpty() )
     setCaCertDatabase ();
+
+  QStringList list;
+  int size = cfg->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  for ( int i = 0; i < size; ++i )
+  {
+    cfg->setArrayIndex ( i );
+    list.append ( cfg->value ( "host" ).toString() );
+  }
+  cfg->endArray();
+  trustedHostsList->addItems ( list );
+}
+
+void SSLConfig::save ( QSettings * cfg )
+{
+  if ( ! cfg )
+    return;
+
+  QByteArray p = sslPassPhrase->text().toAscii();
+  cfg->setValue ( QLatin1String ( "sslPassPhrase" ), p.toBase64() );
+
+  cfg->beginWriteArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  for ( int i = 0; i < trustedHostsList->count(); ++i )
+  {
+    cfg->setArrayIndex ( i );
+    cfg->setValue ( QLatin1String ( "host" ) , trustedHostsList->item ( i )->text() );
+  }
+  cfg->endArray();
 }
 
 SSLConfig::~SSLConfig()

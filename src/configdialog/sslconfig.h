@@ -29,6 +29,7 @@
 
 /* QtGui */
 #include <QtGui/QLineEdit>
+#include <QtGui/QListWidget>
 #include <QtGui/QScrollArea>
 #include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
@@ -46,15 +47,18 @@ class SSLConfig : public QScrollArea
   private:
     QSslConfiguration ssl;
     QWidget* centeredWidget;
-    QLineEdit* sslPeerCertificate;
     QLineEdit* sslPrivateKey;
+    QLineEdit* sslPublicKey;
+    QLineEdit* sslPassPhrase;
     QLineEdit* sslCaCertsDatabase;
     QTableWidget* sslIssuers;
+    QListWidget* trustedHostsList;
     void fillCaCertIssuerTable();
 
   private Q_SLOTS:
     void setCaCertDatabase ( const QString &p = QString() );
-    void getPeerCertDialog();
+    void getPrivKeyDialog();
+    void getPupKeyDialog();
     void getCaCertDatabaseDialog();
 
   Q_SIGNALS:
@@ -62,6 +66,7 @@ class SSLConfig : public QScrollArea
 
   public Q_SLOTS:
     void load ( QSettings * cfg );
+    void save ( QSettings * cfg );
 
   public:
     SSLConfig ( QWidget * parent = 0 );

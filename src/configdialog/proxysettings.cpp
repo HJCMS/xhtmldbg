@@ -121,7 +121,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
   gLayout->addWidget ( txtProxyPassword, 4, 0 );
 
   proxyPassword = new QLineEdit ( this );
-  proxyPassword->setObjectName ( QLatin1String ( "proxyPassword" ) );
+  proxyPassword->setObjectName ( QLatin1String ( "qt_proxy_password" ) );
   proxyPassword->setEchoMode ( QLineEdit::Password );
   proxyPassword->setText ( Password );
   gLayout->addWidget ( proxyPassword, 4, 1 );
@@ -145,6 +145,8 @@ void ProxySettings::save ( QSettings * cfg )
 {
   cfg->setValue ( QLatin1String ( "proxyType" ), getType() );
   cfg->setValue ( QLatin1String ( "enableProxy" ), enableProxy->isChecked() );
+  QByteArray p = proxyPassword->text().toAscii();
+  cfg->setValue ( QLatin1String ( "proxyPassword" ), p.toBase64() );
 }
 
 void ProxySettings::load ( QSettings * cfg )
@@ -152,6 +154,9 @@ void ProxySettings::load ( QSettings * cfg )
   int index = proxyType->findData ( cfg->value ( QLatin1String ( "proxyType" ), QNetworkProxy::NoProxy ), Qt::UserRole );
   if ( index >= 0 )
     proxyType->setCurrentIndex ( index );
+
+  QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "proxyPassword" ) ).toByteArray() ) );
+  proxyPassword->setText ( p );
 
   enableProxy->setChecked ( cfg->value ( QLatin1String ( "enableProxy" ), false ).toBool() );
 }

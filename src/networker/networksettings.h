@@ -23,7 +23,9 @@
 #define NETWORKSETTINGS_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QSettings>
+#include <QtCore/QString>
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
 
@@ -51,6 +53,7 @@ class NetworkSettings : public QSettings
     const QString storageDirectory();
     const QNetworkProxy getProxy();
     const QSslConfiguration sslConfiguration();
+    const QList<QString> trustedCertsList();
     ~NetworkSettings();
 };
 

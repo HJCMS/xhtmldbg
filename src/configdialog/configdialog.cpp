@@ -216,7 +216,7 @@ void ConfigDialog::loadSettings()
   // Radio Buttons
   foreach ( QRadioButton* box, findChildren<QRadioButton *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     box->setChecked ( cfg->value ( box->objectName(), box->isChecked() ).toBool() );
@@ -225,7 +225,7 @@ void ConfigDialog::loadSettings()
   // Check Boxes
   foreach ( QCheckBox* box, findChildren<QCheckBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     box->setChecked ( cfg->value ( box->objectName(), box->isChecked() ).toBool() );
@@ -234,7 +234,7 @@ void ConfigDialog::loadSettings()
   // Line Edits
   foreach ( QLineEdit* edit, findChildren<QLineEdit *>() )
   {
-    if ( edit->objectName().isEmpty() )
+    if ( edit->objectName().isEmpty() || edit->objectName().contains ( "qt_" ) )
       continue;
 
     edit->setText ( cfg->value ( edit->objectName(), edit->text() ).toString() );
@@ -243,7 +243,7 @@ void ConfigDialog::loadSettings()
   // Spin Boxes
   foreach ( QSpinBox* box, findChildren<QSpinBox *>() )
   {
-    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_spinbox_" ) )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     box->setValue ( cfg->value ( box->objectName(), box->minimum() ).toUInt() );
@@ -308,6 +308,7 @@ void ConfigDialog::saveSettings()
 
   cookiesTable->saveCookieArrangements ( cfg );
   proxySettings->save ( cfg );
+  sslConfigWidget->save ( cfg );
   setWindowModified ( false );
 }
 
@@ -316,7 +317,7 @@ void ConfigDialog::restoreSettings()
   // Radio Buttons
   foreach ( QRadioButton* box, findChildren<QRadioButton *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->remove ( box->objectName() );
@@ -325,7 +326,7 @@ void ConfigDialog::restoreSettings()
   // Check Boxes
   foreach ( QCheckBox* box, findChildren<QCheckBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->remove ( box->objectName() );
@@ -334,7 +335,7 @@ void ConfigDialog::restoreSettings()
   // Line Edits
   foreach ( QLineEdit* edit, findChildren<QLineEdit *>() )
   {
-    if ( edit->objectName().isEmpty() )
+    if ( edit->objectName().isEmpty() || edit->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->remove ( edit->objectName() );
@@ -343,7 +344,7 @@ void ConfigDialog::restoreSettings()
   // Spin Boxes
   foreach ( QSpinBox* box, findChildren<QSpinBox *>() )
   {
-    if ( box->objectName().isEmpty() )
+    if ( box->objectName().isEmpty() || box->objectName().contains ( "qt_" ) )
       continue;
 
     cfg->remove ( box->objectName() );

@@ -29,6 +29,7 @@
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QTextIStream>
 #include <QtCore/QVariant>
 
 /* QtGui */
@@ -36,6 +37,7 @@
 
 /* QtNetwork */
 #include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslKey>
 
 NetworkSettings::NetworkSettings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat,
@@ -108,21 +110,42 @@ const QSslConfiguration NetworkSettings::sslConfiguration()
     caCerts << QSslCertificate::fromPath ( db.absoluteFilePath(), QSsl::Pem, QRegExp::FixedString );
     ssl.setCaCertificates ( caCerts );
   }
+  QSslConfiguration::setDefaultConfiguration ( ssl );
 
-//   QString peerCert = value ( QLatin1String ( "sslPeerCertificate" ) ).toString();
-//   QFile fp ( peerCert );
-//   if ( fp.open ( QIODevice::ReadOnly ) )
+//   QFile fp0 ( value ( QLatin1String ( "sslPublicKey" ) ).toString() );
+//   if ( fp0.open ( QIODevice::ReadOnly ) )
 //   {
-//     QSslCertificate cert ( &fp, QSsl::Pem );
+//     QSslCertificate cert ( &fp0, QSsl::Pem );
 //     if ( cert.isValid() )
 //       ssl.setLocalCertificate ( cert );
 //     else
-//       qWarning() << "Can not load your local Certificate";
+//       qWarning() << "can not load public certificate";
 // 
-//     fp.close();
+//     fp0.close();
 //   }
-
+// 
+//   QByteArray pass ( QByteArray::fromBase64 ( value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
+//   QFile fp1 ( value ( QLatin1String ( "sslPrivateKey" ) ).toString() );
+//   if ( ! pass.isEmpty() && fp1.open ( QIODevice::ReadOnly ) )
+//   {
+//     QSslKey sslKey ( &fp1, QSsl::Rsa, QSsl::Pem, QSsl::PrivateKey, pass );
+//     ssl.setPrivateKey ( sslKey );
+//     fp1.close();
+//   }
   return ssl;
+}
+
+const QList<QString> NetworkSettings::trustedCertsList()
+{
+  QList<QString> list;
+  int size = beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  for ( int i = 0; i < size; ++i )
+  {
+    setArrayIndex ( i );
+    list.append ( value ( "host" ).toString() );
+  }
+  endArray();
+  return list;
 }
 
 NetworkSettings::~NetworkSettings()

@@ -43,13 +43,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
   if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
     setProxy ( m_networkSettings->getProxy() );
 
-  int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
-  for ( int i = 0; i < size; ++i )
-  {
-    m_networkSettings->setArrayIndex ( i );
-    trustedCertsHostsList.append ( m_networkSettings->value ( "host" ).toString() );
-  }
-  m_networkSettings->endArray();
+  trustedCertsHostsList << m_networkSettings->trustedCertsList();
 
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
@@ -114,32 +108,11 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
 void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
 {
   QString certHost ( reply->url().host() );
-  bool inWhiteList = false;
 
   if ( trustedCertsHostsList.isEmpty() )
-  {
-    if ( m_networkSettings->value ( QLatin1String ( "enableProxy" ), false ).toBool() )
-      setProxy ( m_networkSettings->getProxy() );
+    trustedCertsHostsList << m_networkSettings->trustedCertsList();
 
-    int size = m_networkSettings->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
-    for ( int i = 0; i < size; ++i )
-    {
-      m_networkSettings->setArrayIndex ( i );
-      if ( m_networkSettings->value ( "host" ).toString() == certHost )
-      {
-        inWhiteList = true;
-        break;
-      }
-    }
-    m_networkSettings->endArray();
-  }
-
-  if ( inWhiteList )
-  {
-    reply->ignoreSslErrors();
-    return;
-  }
-  else if ( trustedCertsHostsList.contains ( certHost ) )
+  if ( trustedCertsHostsList.contains ( certHost ) )
   {
     reply->ignoreSslErrors();
     return;
@@ -168,15 +141,14 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   if ( err == QNetworkReply::NoError )
     return;
 
-  ErrorsDialog* errorsDialog = new ErrorsDialog;
-  connect ( errorsDialog, SIGNAL ( errorMessage ( const QString & ) ),
+  ErrorsDialog* errdial = new ErrorsDialog;
+  connect ( errdial, SIGNAL ( errorMessage ( const QString & ) ),
             this, SIGNAL ( netNotify ( const QString & ) ) );
 
-  if ( errorsDialog->setError ( err ) )
-  {
-    if ( errorsDialog->exec() )
-      delete errorsDialog;
-  }
+  if ( errdial->setError ( err ) )
+    errdial->exec();
+
+  delete errdial;
 }
 
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
