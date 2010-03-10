@@ -154,7 +154,6 @@ SSLConfig::SSLConfig ( QWidget * parent )
   vLayout->addWidget ( m_groupBox2 );
 
   // set main Layout
-  vLayout->addStretch ( 1 );
   centeredWidget->setLayout ( vLayout );
   setWidget ( centeredWidget );
 

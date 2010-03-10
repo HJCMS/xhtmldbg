@@ -21,21 +21,38 @@
 
 #include "errorsdialog.h"
 
-/* QtCore */
-#include <QtCore>
-
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QDialogButtonBox>
+#include <QtGui/QVBoxLayout>
 
 ErrorsDialog::ErrorsDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "errorsdialog" ) );
-  
+  setWindowTitle ( trUtf8 ( "Error" ) );
+  setMinimumWidth ( 350 );
+  setMinimumHeight ( 100 );
+  setSizeGripEnabled ( true );
+  setContentsMargins ( 2, 2, 2, 9 );
+
+  QVBoxLayout* vLayout = new QVBoxLayout ( this );
+  message = new QLabel ( trUtf8 ( "Message" ), this );
+  message->setIndent ( 2 );
+  message->setWordWrap ( true );
+  vLayout->addWidget ( message );
+
+  QDialogButtonBox::StandardButtons buttons = ( QDialogButtonBox::Ok );
+  QDialogButtonBox* box = new QDialogButtonBox ( buttons, Qt::Horizontal, this );
+  vLayout->addWidget ( box );
+
+  setLayout ( vLayout );
+
+  connect ( box, SIGNAL ( accepted () ), this, SLOT ( accept() ) );
 }
 
-void ErrorsDialog::setMessage ( const QString & )
+void ErrorsDialog::setMessage ( const QString &m )
 {
+  message->setText ( m );
 }
 
 ErrorsDialog::~ErrorsDialog()

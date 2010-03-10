@@ -24,9 +24,11 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QDialog>
+#include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
 class ErrorsDialog : public QDialog
@@ -35,10 +37,15 @@ class ErrorsDialog : public QDialog
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
+  private:
+    QLabel* message;
+
+  public Q_SLOTS:
+    void setMessage ( const QString & );
+
   public:
     ErrorsDialog ( QWidget * parent = 0 );
-    void setMessage ( const QString & );
-    ~ErrorsDialog();
+    virtual ~ErrorsDialog();
 };
 
 #endif
