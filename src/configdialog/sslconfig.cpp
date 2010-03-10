@@ -67,6 +67,7 @@ SSLConfig::SSLConfig ( QWidget * parent )
   m_groupBox1->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
 
   QGridLayout* box1Layout = new QGridLayout ( m_groupBox1 );
+  box1Layout->setVerticalSpacing ( 5 );
 
   // Peer Certificate
   box1Layout->addWidget ( new QLabel ( trUtf8 ( "Local Certificate:" ), m_groupBox1 ), 0, 0, 1, 1 );
@@ -81,13 +82,31 @@ SSLConfig::SSLConfig ( QWidget * parent )
   openPeerCertButton->setIcon ( openIcon );
   box1Layout->addWidget ( openPeerCertButton, 0, 2, 1, 1 );
 
-  QString peerInfo = trUtf8 ( "The local Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ.<br>How can I authenticate clients based on certificates when <a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">I know all my clients</a>?" );
+  QString peerInfo = trUtf8 ( "The local Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">I know all my clients</a>?" );
   QLabel* label2 = new QLabel ( peerInfo, m_groupBox1 );
   label2->setAlignment ( justifyAlign );
   label2->setTextInteractionFlags ( Qt::TextBrowserInteraction );
   label2->setWordWrap ( true );
   label2->setOpenExternalLinks ( true );
   box1Layout->addWidget ( label2, 1, 0, 1, 3 );
+
+  // PrivateKey
+  QLabel* label3 = new QLabel ( trUtf8 ( "PrivateKey:" ), m_groupBox1 );
+  label3->setAlignment ( floatRight );
+  label3->setTextInteractionFlags ( Qt::NoTextInteraction );
+  box1Layout->addWidget ( label3, 2, 0, 1, 1 );
+
+  sslPrivateKey = new QLineEdit ( m_groupBox1 );
+  sslPrivateKey->setObjectName ( QLatin1String ( "sslPrivateKey" ) );
+  box1Layout->addWidget ( sslPrivateKey, 2, 1, 1, 3 );
+
+  QString privKeyInfo = trUtf8 ( "The PrivateKey and local Certificate are required if your client must identify itself to an SSL server. XHTMLDBG didn't read the Key from your local Certificate, for more Info How-to print the PrivateKey from your Certificate, read the OpenSSL Manual Pages." );
+  QLabel* label4 = new QLabel ( privKeyInfo, m_groupBox1 );
+  label4->setAlignment ( justifyAlign );
+  label4->setTextInteractionFlags ( Qt::TextBrowserInteraction );
+  label4->setWordWrap ( true );
+  label4->setOpenExternalLinks ( true );
+  box1Layout->addWidget ( label4, 3, 0, 1, 3 );
 
   // add Box 1 Layout
   m_groupBox1->setLayout ( box1Layout );
@@ -146,6 +165,8 @@ SSLConfig::SSLConfig ( QWidget * parent )
 
   connect ( sslCaCertsDatabase, SIGNAL ( textEdited ( const QString & ) ),
             this, SLOT ( setCaCertDatabase ( const QString & ) ) );
+
+  connect ( sslPrivateKey, SIGNAL ( editingFinished () ), this, SIGNAL ( modified() ) );
 }
 
 void SSLConfig::setCaCertDatabase ( const QString &p )

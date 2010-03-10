@@ -47,6 +47,7 @@ class SSLConfig : public QScrollArea
     QSslConfiguration ssl;
     QWidget* centeredWidget;
     QLineEdit* sslPeerCertificate;
+    QLineEdit* sslPrivateKey;
     QLineEdit* sslCaCertsDatabase;
     QTableWidget* sslIssuers;
     void fillCaCertIssuerTable();
