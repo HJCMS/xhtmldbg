@@ -89,14 +89,11 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
       break;
 
     case QNetworkReply::OperationCanceledError:
-      // setWindowTitle ( trUtf8 ( "Operation Canceled Error" ) );
       emit errorMessage ( trUtf8 ( "the operation was canceled via calls to abort() or close() before it was finished." ) );
       break;
 
     case QNetworkReply::SslHandshakeFailedError:
-      setWindowTitle ( trUtf8 ( "Ssl Handshake Failed Error" ) );
-      message->setText ( trUtf8 ( "the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted." ) );
-      opendialog = true;
+      emit errorMessage ( trUtf8 ( "the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted." ) );
       break;
 
     case QNetworkReply::ProxyConnectionRefusedError:
@@ -136,15 +133,11 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
       break;
 
     case QNetworkReply::ContentOperationNotPermittedError:
-      setWindowTitle ( trUtf8 ( "Forbidden (403)" ) );
-      message->setText ( trUtf8 ( "the operation requested on the remote content is not permitted" ) );
-      opendialog = true;
+      emit errorMessage ( trUtf8 ( "the operation requested on the remote content is not permitted" ) );
       break;
 
     case QNetworkReply::ContentNotFoundError:
-      setWindowTitle ( trUtf8 ( "Not found (404)" ) );
-      message->setText ( trUtf8 ( "the remote content was not found at the server (similar to HTTP error 404)" ) );
-      opendialog = true;
+      emit errorMessage ( trUtf8 ( "the remote content was not found at the server (similar to HTTP error 404)" ) );
       break;
 
     case QNetworkReply::AuthenticationRequiredError:
@@ -160,7 +153,6 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
       break;
 
     case QNetworkReply::ProtocolUnknownError:
-      // setWindowTitle ( trUtf8 ( "UnknownError" ) );
       emit errorMessage ( trUtf8 ( "QtNetwork Access API cannot honor the request because the protocol is not known." ) );
       break;
 
@@ -171,17 +163,14 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
       break;
 
     case QNetworkReply::UnknownNetworkError:
-      // setWindowTitle ( trUtf8 ( "Unknown Network Error" ) );
       emit errorMessage ( trUtf8 ( "an unknown network-related error was detected" ) );
       break;
 
     case QNetworkReply::UnknownProxyError:
-      // setWindowTitle ( trUtf8 ( "Unknown Proxy Error" ) );
       emit errorMessage ( trUtf8 ( "an unknown proxy-related error was detected" ) );
       break;
 
     case QNetworkReply::UnknownContentError:
-      // setWindowTitle ( trUtf8 ( "Unknown Content Error" ) );
       emit errorMessage ( trUtf8 ( "an unknown error related to the remote content was detected" ) );
       break;
 

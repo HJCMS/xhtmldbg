@@ -303,56 +303,56 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="494"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="497"/>
         <source>Notice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="495"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="498"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="516"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="535"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="538"/>
         <source>PKCS#12 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="517"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="534"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="520"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="522"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="540"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="552"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="555"/>
         <source>CA Bundle %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="553"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="556"/>
         <source>Certificate %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="555"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="558"/>
         <source>Open CA Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="570"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="573"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="571"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="574"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
@@ -882,162 +882,152 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="93"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="92"/>
         <source>the operation was canceled via calls to abort() or close() before it was finished.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="97"/>
-        <source>Ssl Handshake Failed Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="98"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="96"/>
         <source>the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="103"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="100"/>
         <source>Proxy Connection Refused Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="104"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="101"/>
         <source>the connection to the proxy server was refused (the proxy server is not accepting requests)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="109"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="106"/>
         <source>Proxy Connection Closed Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="110"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="107"/>
         <source>the proxy server closed the connection prematurely, before the entire reply was received and processed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="115"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="112"/>
         <source>Proxy Not Found Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="116"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="113"/>
         <source>the proxy host name was not found (invalid proxy hostname)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="121"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="118"/>
         <source>Proxy Timeout Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="122"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="119"/>
         <source>the connection to the proxy timed out or the proxy did not reply in time to the request sent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="127"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="124"/>
         <source>Proxy Authentication Required Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="128"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="125"/>
         <source>the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="133"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="130"/>
         <source>Unauthorized (401)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="134"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="131"/>
         <source>the access to the remote content was denied (similar to HTTP error 401)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="139"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="136"/>
         <source>Forbidden (403)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="140"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="137"/>
         <source>the operation requested on the remote content is not permitted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="145"/>
-        <source>Not found (404)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="146"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="142"/>
         <source>the remote content was not found at the server (similar to HTTP error 404)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="151"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="146"/>
         <source>Authentication Required Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="152"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="147"/>
         <source>the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="157"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="152"/>
         <source>Content Re Send Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="158"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="153"/>
         <source>the request needed to be sent again, but this failed for example because the upload data could not be read a second time.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="164"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="158"/>
         <source>QtNetwork Access API cannot honor the request because the protocol is not known.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="168"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="162"/>
         <source>Protocol Invalid Operation Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="169"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="163"/>
         <source>the requested operation is invalid for this protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="175"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="168"/>
         <source>an unknown network-related error was detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="180"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="172"/>
         <source>an unknown proxy-related error was detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="185"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="176"/>
         <source>an unknown error related to the remote content was detected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="189"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="180"/>
         <source>Protocol Failure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="190"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="181"/>
         <source>a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="195"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="186"/>
         <source>an unknown related error was detected</source>
         <translation type="unfinished"></translation>
     </message>
