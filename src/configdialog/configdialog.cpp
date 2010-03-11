@@ -208,8 +208,11 @@ void ConfigDialog::setCaCertIssuerTable()
     item1->setText ( cert.issuerInfo ( QSslCertificate::CommonName ) );
     sslIssuers->setItem ( row, 1, item1 );
 
+    QDateTime stamp = cert.expiryDate();
     QTableWidgetItem* item2 = new QTableWidgetItem ( ref );
-    item2->setText ( cert.expiryDate().toString ( Qt::DefaultLocaleLongDate ) );
+    item2->setText ( stamp.toString ( Qt::DefaultLocaleLongDate ) );
+    if ( stamp < QDateTime::currentDateTime () )
+      item2->setBackground ( Qt::yellow );
     sslIssuers->setItem ( row, 2, item2 );
     row++;
   }
