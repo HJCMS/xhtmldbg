@@ -22,23 +22,33 @@
 #include "configdialog.h"
 #include "editcookiestable.h"
 #include "proxysettings.h"
-#include "sslconfig.h"
 
 /* QtCore */
+#include <QtCore/QByteArray>
+#include <QtCore/QDateTime>
 #include <QtCore/QDebug>
+#include <QtCore/QFileInfo>
+#include <QtCore/QList>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QCheckBox>
 #include <QtGui/QComboBox>
+#include <QtGui/QFileDialog>
+#include <QtGui/QHeaderView>
 #include <QtGui/QIcon>
 #include <QtGui/QLineEdit>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QMessageBox>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSpinBox>
+#include <QtGui/QTableWidgetItem>
+#include <QtGui/QStyle>
+#include <QtGui/QToolButton>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
@@ -48,6 +58,7 @@
 ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
     , cfg ( settings )
+    , ssl ( QSslConfiguration::defaultConfiguration () )
 {
   setObjectName ( QLatin1String ( "configdialog" ) );
   setWindowTitle ( trUtf8 ( "Configure xhtmldbg[*]" ) );
@@ -70,6 +81,16 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   removeCookieItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   removeAllCookies->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
   addCookieArrangement->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
+  // Set ToolButton Icons
+  clearStartupUrlBtn->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  QIcon openFolderIcon = icon.fromTheme ( QLatin1String ( "document-open" ) );
+  openCaCertButton->setIcon ( openFolderIcon );
+  openPupKeyButton->setIcon ( openFolderIcon );
+  openPrivKeyButton->setIcon ( openFolderIcon );
+  clearPassButton->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  removeFromWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
+  addToWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
+  clearWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
 
   // Modifications
   setCacheLoadControlComboBoxItems();
@@ -113,6 +134,13 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
 
   // Line Edits
   connect ( StartUpUrl, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
+  connect ( sslPublicKey, SIGNAL ( editingFinished () ), this, SLOT ( setModified() ) );
+  connect ( sslPrivateKey, SIGNAL ( editingFinished () ), this, SLOT ( setModified() ) );
+  connect ( qt_ssl_pass_phrase, SIGNAL ( editingFinished () ), this, SLOT ( setModified() ) );
+  connect ( sslCaCertsDatabase, SIGNAL ( editingFinished () ),
+            this, SLOT ( setCaCertDatabase() ) );
+  connect ( sslCaCertsDatabase, SIGNAL ( textEdited ( const QString & ) ),
+            this, SLOT ( setCaCertDatabase ( const QString & ) ) );
 
   // Tables
   connect ( headersTable, SIGNAL ( itemSelectionChanged() ), this, SLOT ( setModified() ) );
@@ -120,12 +148,19 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // Sub Widget's
   connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
   connect ( proxySettings, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
-  connect ( sslConfigWidget, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
 
   // Buttons
   connect ( addCookieArrangement, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
   connect ( removeCookieItem, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeItem() ) );
   connect ( removeAllCookies, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeAll() ) );
+  connect ( openPrivKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPrivKeyDialog() ) );
+  connect ( openPupKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPupKeyDialog() ) );
+  connect ( openCaCertButton, SIGNAL ( clicked() ), this, SLOT ( getCaCertDatabaseDialog() ) );
+  connect ( removeFromWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( delTrustedHost() ) );
+  connect ( addToWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( addTrustedHost() ) );
+  connect ( clearWhiteListBtn, SIGNAL ( clicked() ), trustedHostsList, SLOT ( clear() ) );
+  connect ( clearWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( setModified() ) );
+
   // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
   connect ( m_buttonReset, SIGNAL ( clicked() ), this, SLOT ( loadSettings() ) );
@@ -151,6 +186,36 @@ void ConfigDialog::setCacheLoadControlComboBoxItems()
   CacheLoadControlAttribute->setItemData ( 3, QNetworkRequest::AlwaysCache, Qt::UserRole );
 }
 
+void ConfigDialog::setCaCertIssuerTable()
+{
+  QList<QSslCertificate> certs = ssl.caCertificates();
+  if ( certs.size() < 1 )
+    return;
+
+  QTableWidgetItem ref ( QTableWidgetItem::UserType );
+  ref.setFlags ( ( Qt::ItemIsSelectable | Qt::ItemIsEnabled ) );
+
+  sslIssuers->clearContents();
+  sslIssuers->setRowCount ( certs.size() );
+  int row = 0;
+  foreach ( QSslCertificate cert, certs )
+  {
+    QTableWidgetItem* item0 = new QTableWidgetItem ( ref );
+    item0->setText ( cert.issuerInfo ( QSslCertificate::Organization ) );
+    sslIssuers->setItem ( row, 0, item0 );
+
+    QTableWidgetItem* item1 = new QTableWidgetItem ( ref );
+    item1->setText ( cert.issuerInfo ( QSslCertificate::CommonName ) );
+    sslIssuers->setItem ( row, 1, item1 );
+
+    QTableWidgetItem* item2 = new QTableWidgetItem ( ref );
+    item2->setText ( cert.expiryDate().toString ( Qt::DefaultLocaleLongDate ) );
+    sslIssuers->setItem ( row, 2, item2 );
+    row++;
+  }
+  sslIssuers->horizontalHeader()->setResizeMode ( QHeaderView::ResizeToContents );
+}
+
 void ConfigDialog::loadHeaderDefinitions()
 {
   cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
@@ -173,6 +238,24 @@ void ConfigDialog::loadHeaderDefinitions()
   cfg->endGroup();
 }
 
+void ConfigDialog::loadUntrustedHostsWhiteList()
+{
+  QStringList list;
+  int size = cfg->beginReadArray ( QLatin1String ( "TrustedCertsHosts" ) );
+
+  if ( size < 0 )
+    list << QLatin1String ( "localhost" );
+
+  trustedHostsList->clear();
+  for ( int i = 0; i < size; ++i )
+  {
+    cfg->setArrayIndex ( i );
+    list.append ( cfg->value ( "host" ).toString() );
+  }
+  cfg->endArray();
+  trustedHostsList->addItems ( list );
+}
+
 void ConfigDialog::saveHeaderDefinitions()
 {
   int rows = headersTable->rowCount();
@@ -190,6 +273,18 @@ void ConfigDialog::saveHeaderDefinitions()
   }
 }
 
+void ConfigDialog::saveUntrustedHostsWhiteList()
+{
+  cfg->remove ( QLatin1String ( "TrustedCertsHosts" ) );
+  cfg->beginWriteArray ( QLatin1String ( "TrustedCertsHosts" ) );
+  for ( int i = 0; i < trustedHostsList->count(); ++i )
+  {
+    cfg->setArrayIndex ( i );
+    cfg->setValue ( QLatin1String ( "host" ) , trustedHostsList->item ( i )->text() );
+  }
+  cfg->endArray();
+}
+
 void ConfigDialog::addCookieAccess()
 {
   if ( addCookieDomain->text().isEmpty() )
@@ -204,6 +299,37 @@ void ConfigDialog::addCookieAccess()
     else
       addCookieDomain->setFocus();
   }
+}
+
+void ConfigDialog::addTrustedHost()
+{
+  if ( trustedEdit->text().isEmpty() )
+    return;
+
+  QUrl url;
+  url.setScheme ( QLatin1String ( "https" ) );
+  url.setHost ( trustedEdit->text() );
+  if ( ! url.isValid() )
+    return;
+
+  trustedHostsList->addItem ( url.host() );
+  trustedEdit->clear();
+  trustedEdit->setFocus();
+  setModified();
+}
+
+void ConfigDialog::delTrustedHost()
+{
+  foreach ( QListWidgetItem* item, trustedHostsList->selectedItems() )
+  {
+    if ( item->isSelected() )
+    {
+      trustedHostsList->removeItemWidget ( item );
+      delete item;
+      break;
+    }
+  }
+  setModified();
 }
 
 void ConfigDialog::setModified()
@@ -252,7 +378,14 @@ void ConfigDialog::loadSettings()
   loadHeaderDefinitions();
   cookiesTable->loadCookieArrangements ( cfg );
   proxySettings->load ( cfg );
-  sslConfigWidget->load ( cfg );
+
+  if ( ! sslCaCertsDatabase->text().isEmpty() )
+    setCaCertDatabase ();
+
+  loadUntrustedHostsWhiteList();
+
+  QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
+  qt_ssl_pass_phrase->setText ( p );
 
   // Cache Control
   QNetworkRequest::CacheLoadControl controlCache = ( QNetworkRequest::CacheLoadControl )
@@ -302,13 +435,16 @@ void ConfigDialog::saveSettings()
   }
 
   saveHeaderDefinitions();
+  saveUntrustedHostsWhiteList();
 
   int cIndex = CacheLoadControlAttribute->itemData ( CacheLoadControlAttribute->currentIndex(), Qt::UserRole ).toUInt();
   cfg->setValue ( QLatin1String ( "CacheLoadControlAttribute" ), cIndex );
 
+  QByteArray p = qt_ssl_pass_phrase->text().toAscii();
+  cfg->setValue ( QLatin1String ( "sslPassPhrase" ), p.toBase64() );
+
   cookiesTable->saveCookieArrangements ( cfg );
   proxySettings->save ( cfg );
-  sslConfigWidget->save ( cfg );
   setWindowModified ( false );
 }
 
@@ -358,6 +494,73 @@ void ConfigDialog::restoreSettings()
   QMessageBox::information ( this, trUtf8 ( "Notice" ),
                              trUtf8 ( "Settings Restored.\nPlease restart the Configuration Dialog." ) );
 
+}
+
+void ConfigDialog::setCaCertDatabase ( const QString &p )
+{
+  QString path = ( p.isEmpty() ) ? sslCaCertsDatabase->text() : p;
+  QFileInfo db ( path );
+  if ( db.exists() )
+  {
+    QList<QSslCertificate> caCerts = ssl.caCertificates();
+    caCerts << QSslCertificate::fromPath ( db.absoluteFilePath(), QSsl::Pem, QRegExp::FixedString );
+    ssl.setCaCertificates ( caCerts );
+    setCaCertIssuerTable();
+  }
+}
+
+void ConfigDialog::getPrivKeyDialog()
+{
+  QString path ( sslPrivateKey->text() );
+  QStringList filt;
+  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
+  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
+
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
+
+  sslPrivateKey->clear();
+
+  QFileInfo db ( path );
+  if ( db.exists() )
+    sslPrivateKey->setText ( db.absoluteFilePath() );
+
+  setModified();
+}
+
+void ConfigDialog::getPupKeyDialog()
+{
+  QString path ( sslPublicKey->text() );
+  QStringList filt;
+  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
+  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
+
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
+
+  sslPublicKey->clear();
+
+  QFileInfo db ( path );
+  if ( db.exists() )
+    sslPublicKey->setText ( db.absoluteFilePath() );
+
+  setModified();
+}
+
+void ConfigDialog::getCaCertDatabaseDialog()
+{
+  QString path ( sslCaCertsDatabase->text() );
+  QStringList filt;
+  filt << trUtf8 ( "CA Bundle %1" ).arg ( "*.crt ca-*" );
+  filt << trUtf8 ( "Certificate %1" ).arg ( "*.pem *.der" );
+
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open CA Database" ), path, filt.join ( ";;" ) );
+
+  sslCaCertsDatabase->clear ();
+
+  QFileInfo db ( path );
+  if ( db.exists() )
+    sslCaCertsDatabase->setText ( db.absoluteFilePath() );
+
+  setModified();
 }
 
 void ConfigDialog::quit()

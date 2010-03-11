@@ -278,48 +278,81 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigDialog</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="53"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="64"/>
         <source>Configure xhtmldbg[*]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="141"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="176"/>
         <source>Always load from network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="144"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="179"/>
         <source>Load from the Network if cache is expired.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="147"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="182"/>
         <source>Load from Cache if entry exists.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="150"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="185"/>
         <source>Always load from Cache.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="357"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="494"/>
         <source>Notice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="358"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="495"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="366"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="516"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="535"/>
+        <source>PKCS#12 Format %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="517"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="534"/>
+        <source>PEM or DER Encoding X.509 Format %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
+        <source>Open Certificate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="552"/>
+        <source>CA Bundle %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="553"/>
+        <source>Certificate %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="555"/>
+        <source>Open CA Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="570"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="367"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="571"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
@@ -328,249 +361,320 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigDialogUi</name>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="594"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="813"/>
         <source>Configure xhtmldbg[*]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="595"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="814"/>
         <source>QTidy Source Parser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="596"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="815"/>
         <source>Enable Auto Source Check</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="597"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="816"/>
         <source>Enable Autoformat and Check Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="598"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="817"/>
         <source>Disable autoformat and autocheck</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="599"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="818"/>
         <source>Startup Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="600"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="819"/>
         <source>Show Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="601"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="820"/>
         <source>Show Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="602"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="821"/>
         <source>Disable Bootsplash</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="603"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="822"/>
         <source>Max Items in History Menu:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="604"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="823"/>
         <source>Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="605"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="824"/>
         <source>Start Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="606"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="825"/>
         <source>Load this URL as Default on start, if empty use recent Homepage.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="607"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="826"/>
         <source>&lt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="608"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="827"/>
         <source>Header Field Definitions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="610"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="829"/>
         <source>Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="612"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="831"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="614"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="833"/>
         <source>0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="616"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="835"/>
         <source>1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="618"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="837"/>
         <source>2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="628"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="847"/>
         <source>HTTP Header Field Definitions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="630"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="849"/>
         <source>Behavior</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="648"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="867"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="649"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="868"/>
         <source>Arrangements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="650"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="869"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="651"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="870"/>
         <source>Clear Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="653"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="872"/>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="655"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="874"/>
         <source>Arrangement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="656"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="664"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="875"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="884"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="657"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="876"/>
         <source>Url:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="660"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="877"/>
+        <source>http://</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="880"/>
         <source>Merely current Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="661"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="881"/>
         <source>Always Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="662"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="882"/>
         <source>Always Allowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="631"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="885"/>
+        <source>CA Certificate Database</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="887"/>
+        <source>Organization (O)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="889"/>
+        <source>CommonName (CN)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="891"/>
+        <source>Expires</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="892"/>
+        <source>Database:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="893"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="900"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="901"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="902"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="906"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="908"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="910"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="894"/>
+        <source>Untrusted Certificate whitelist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="903"/>
+        <source>Client Authentication and Access Control</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="904"/>
+        <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="905"/>
+        <source>Public Keyfile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="907"/>
+        <source>Private Keyfile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="909"/>
+        <source>Private Key Password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="850"/>
         <source>Enable Network Request Caching</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="632"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="851"/>
         <source>Note that the default Network Request does not have caching enabled.
 By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="634"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="853"/>
         <source>Indicates whether the data was obtained from cache or not.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="635"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="854"/>
         <source>How the cache should be accessed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="636"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="855"/>
         <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="637"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="856"/>
         <source>Allow HTTP pipelining with requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="638"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="857"/>
         <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="639"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="858"/>
         <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="640"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="859"/>
         <source>Font Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="641"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="860"/>
         <source>Default Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="642"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="861"/>
         <source>Fixed Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="643"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="862"/>
         <source>Developer Extras Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="644"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="863"/>
         <source>AutoLoad Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="645"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="864"/>
         <source>Javascript Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="646"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="865"/>
         <source>Plugins Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="647"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="866"/>
         <source>Java Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1069,99 +1173,6 @@ By default it isn&apos;t a good idea to enable Auto Caching with Debugging.</sou
     <message>
         <location filename="../src/bookmark/bookmarktreereader.cpp" line="136"/>
         <source>Bookmark file is not Valid XBEL Scheme!</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SSLConfig</name>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="65"/>
-        <source>Client Authentication and Access Control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="73"/>
-        <source>Local Certificate:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="85"/>
-        <source>The local Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="94"/>
-        <source>PrivateKey:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="103"/>
-        <source>The PrivateKey and local Certificate are required if your client must identify itself to an SSL server. XHTMLDBG didn&apos;t read the Key from your local Certificate, for more Info How-to print the PrivateKey from your Certificate, read the OpenSSL Manual Pages.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="117"/>
-        <source>CA Certificate Database</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="124"/>
-        <source>Database:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="132"/>
-        <source>Default: /etc/ssl/certs/ca-certificates.crt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="134"/>
-        <source>Default: C:/ssl/ca-certificates.crt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="146"/>
-        <source>Organization (O)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="147"/>
-        <source>CommonName (CN)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="148"/>
-        <source>Expires</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="219"/>
-        <source>PKCS#12 Format %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="218"/>
-        <source>PEM or DER Encoding X.509 Format %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="221"/>
-        <source>Open Certificate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="236"/>
-        <source>CA Bundle %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="237"/>
-        <source>Certificate %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/sslconfig.cpp" line="239"/>
-        <source>Open CA Database</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

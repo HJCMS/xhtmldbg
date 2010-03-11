@@ -447,7 +447,7 @@ void Window::openFile ( const QUrl &url )
 
 void Window::openUrl ( const QUrl &url )
 {
-  if ( ! url.isValid() || url.scheme() != "http" )
+  if ( ! url.isValid() || ! url.scheme().contains( QRegExp( "http[s]?" ) ) )
     return;
 
   m_webViewer->setUrl ( url );

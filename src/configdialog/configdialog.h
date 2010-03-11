@@ -31,6 +31,10 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslConfiguration>
+
 #include "ui_configdialogui.h"
 
 class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
@@ -41,6 +45,7 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
 
   private:
     QSettings* cfg;
+    QSslConfiguration ssl;
     QPushButton* m_buttonCancel;
     QPushButton* m_buttonClose;
     QPushButton* m_buttonReset;
@@ -48,19 +53,28 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     QPushButton* m_buttonSave;
 
     void setCacheLoadControlComboBoxItems();
+    void setCaCertIssuerTable();
 
     // load
     void loadHeaderDefinitions();
+    void loadUntrustedHostsWhiteList();
 
     // save
     void saveHeaderDefinitions();
+    void saveUntrustedHostsWhiteList();
 
   private Q_SLOTS:
     void addCookieAccess();
+    void addTrustedHost();
+    void delTrustedHost();
     void setModified();
     void loadSettings();
     void saveSettings();
     void restoreSettings();
+    void setCaCertDatabase ( const QString &p = QString() );
+    void getPrivKeyDialog();
+    void getPupKeyDialog();
+    void getCaCertDatabaseDialog();
     void quit();
 
   public:
