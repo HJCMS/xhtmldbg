@@ -70,7 +70,7 @@
     <message>
         <location filename="../src/networker/authenticationdialog.cpp" line="62"/>
         <source>Login Password:</source>
-        <translation>Anmelde Paßwort:</translation>
+        <translation>Anmelde Passwort:</translation>
     </message>
 </context>
 <context>
@@ -598,7 +598,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="909"/>
         <source>Private Key Password:</source>
-        <translation>Privates Paßwort:</translation>
+        <translation>Privates Passwort:</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="850"/>
@@ -1149,7 +1149,7 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
     <message>
         <location filename="../src/configdialog/proxysettings.cpp" line="116"/>
         <source>The Authentication password:</source>
-        <translation>Authentifizierung&apos;s Paßwort:</translation>
+        <translation>Authentifizierung&apos;s Passwort:</translation>
     </message>
 </context>
 <context>

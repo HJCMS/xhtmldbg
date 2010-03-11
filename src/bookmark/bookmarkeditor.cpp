@@ -187,8 +187,8 @@ void BookmarkEditor::removeItemRow()
 void BookmarkEditor::addNewItemRow()
 {
   QTreeWidgetItem* mainItem = m_treeWidget->currentItem();
-  if ( ! mainItem->isSelected() )
-    return;
+  if ( ! mainItem )
+    mainItem = m_treeWidget->invisibleRootItem();
 
   if ( mainItem->columnCount() == 2 )
   {
