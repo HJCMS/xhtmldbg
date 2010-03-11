@@ -957,81 +957,76 @@ Es ist keine gut Idee beim Debuggen das Automatische Speichern zu aktivieren.</t
     </message>
     <message>
         <location filename="../src/networker/errorsdialog.cpp" line="136"/>
-        <source>Forbidden (403)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="137"/>
         <source>the operation requested on the remote content is not permitted</source>
         <translation>Diese Operation wird von der Gegenstelle nicht akzeptiert.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="142"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="140"/>
         <source>the remote content was not found at the server (similar to HTTP error 404)</source>
         <translation>Der angefragte Inhalt konnte nicht gefunden werden. (HTTP Status 404)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="146"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="144"/>
         <source>Authentication Required Error</source>
         <translation>Fehler - Authentifizierung erwartet</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="147"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="145"/>
         <source>the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
         <translation>Die Gegenstelle erwartet eine Authentifizierung aber Akzeptiert nicht alle übermittelten eingaben.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="152"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="150"/>
         <source>Content Re Send Error</source>
         <translation>Fehler - Bei der Daten Übertragung</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="153"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="151"/>
         <source>the request needed to be sent again, but this failed for example because the upload data could not be read a second time.</source>
         <translation>Die anfrage muss nochmal gesendet werden, dies wird wahrscheinlich fehlschlagen weil die Daten zum hoch laden zerstört sind oder nicht mehr im Speicher vorhanden sind.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="158"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="156"/>
         <source>QtNetwork Access API cannot honor the request because the protocol is not known.</source>
         <translation>Die Qt Network API konnte nicht alle anfrage Protokolle verarbeiten.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="162"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="160"/>
         <source>Protocol Invalid Operation Error</source>
         <translation>Fehler - Nicht erlaubte Protokoll Übertragung</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="163"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="161"/>
         <source>the requested operation is invalid for this protocol</source>
         <translation>Die Abfrageart für dieses Protokoll ist nicht erlaubt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="168"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="166"/>
         <source>an unknown network-related error was detected</source>
         <translation>Ein Unbekannter Netzwerkfehler wurde festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="172"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="170"/>
         <source>an unknown proxy-related error was detected</source>
         <translation>Ein Unbekannter Proxy Fehler wurde festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="176"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="174"/>
         <source>an unknown error related to the remote content was detected</source>
         <translation>Auf der Gegenstelle wurde ein Unbekannter Fehler festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="180"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="178"/>
         <source>Protocol Failure</source>
         <translation>Protokoll Fehler</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="181"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="179"/>
         <source>a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)</source>
         <translation>Ein Zusammenbruch des Protokolls wurde festgestellt. (Syntaxfehler, oder falsche Eingabe etc.)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="186"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="184"/>
         <source>an unknown related error was detected</source>
         <translation>Ein inhaltlich Unbekannter Fehler wurde festgestellt</translation>
     </message>
