@@ -50,8 +50,7 @@ NetworkSettings::NetworkSettings ( QObject * parent )
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
 {
   QNetworkRequest request = req;
-  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute,
-                         value ( "CacheSaveControlAttribute", false ).toBool() );
+  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
   request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute,
                          value ( "SourceIsFromCacheAttribute", false ).toBool() );
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
@@ -120,10 +119,10 @@ const QSslConfiguration NetworkSettings::sslConfiguration()
 //       ssl.setLocalCertificate ( cert );
 //     else
 //       qWarning() << "can not load public certificate";
-// 
+//
 //     fp0.close();
 //   }
-// 
+//
 //   QByteArray pass ( QByteArray::fromBase64 ( value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
 //   QFile fp1 ( value ( QLatin1String ( "sslPrivateKey" ) ).toString() );
 //   if ( ! pass.isEmpty() && fp1.open ( QIODevice::ReadOnly ) )
@@ -149,4 +148,5 @@ const QList<QString> NetworkSettings::trustedCertsList()
 }
 
 NetworkSettings::~NetworkSettings()
-{}
+{
+}

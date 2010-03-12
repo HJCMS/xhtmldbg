@@ -61,6 +61,7 @@ class Window : public QMainWindow
 
   private:
     QSettings* m_settings;
+    bool hasRealPageSource;
     // Main Menu
     QMenuBar* m_menuBar;
     // Status Bar
@@ -117,6 +118,7 @@ class Window : public QMainWindow
 
   private Q_SLOTS:
     void requestsFinished ( bool );
+    void setSourceView ( const QString & );
     void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();

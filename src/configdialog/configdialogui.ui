@@ -325,7 +325,7 @@
           <string>Enable Network Request Caching</string>
          </property>
          <property name="checkable">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
          <property name="checked">
           <bool>false</bool>
@@ -801,7 +801,7 @@ By default it isn't a good idea to enable Auto Caching with Debugging.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-358</y>
+            <y>0</y>
             <width>655</width>
             <height>788</height>
            </rect>

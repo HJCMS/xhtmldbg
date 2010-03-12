@@ -38,9 +38,11 @@ class StatusBar : public QStatusBar
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    QLabel* m_viewNetworkInfo;
     QLabel* m_viewPortInfo;
 
   public Q_SLOTS:
+    void slotWarningNoCache ( bool b = false );
     void displayBrowserWidth ( const QSize & );
 
   public:

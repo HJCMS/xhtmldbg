@@ -29,8 +29,10 @@
 #include <QtCore/QString>
 #include <QtCore/QTextCodec>
 #include <QtCore/QSettings>
+#include <QtCore/QUrl>
 
 /* QtNetwork */
+#include <QtNetwork/QAbstractNetworkCache>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -47,12 +49,16 @@ class NetworkAccessManager : public QNetworkAccessManager
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( const QUrl url READ getUrl WRITE setUrl )
 
   private:
+    QNetworkReply* xhtmlReply;
     QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
+    QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
+    QUrl url;
 
   private Q_SLOTS:
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
@@ -62,14 +68,18 @@ class NetworkAccessManager : public QNetworkAccessManager
 
   Q_SIGNALS:
     void netNotify ( const QString & );
+    void statusBarMessage ( const QString & );
+    void xhtmlSourceChanged ( const QString & );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );
+    void setUrl ( const QUrl & );
 
   public:
     NetworkAccessManager ( QObject *parent = 0 );
     QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
                                    const QNetworkRequest &, QIODevice * );
+    const QUrl getUrl();
     ~NetworkAccessManager();
 };
 

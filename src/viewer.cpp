@@ -121,6 +121,7 @@ void Viewer::updateWebSettings()
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
+  Application::networkAccessManager()->setUrl ( url() );
 }
 
 void Viewer::cursorFinished ( bool )

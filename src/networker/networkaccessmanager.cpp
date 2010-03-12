@@ -33,8 +33,13 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
+/* QtNetwork */
+#include <QtNetwork/QAbstractNetworkCache>
+#include <QtNetwork/QNetworkDiskCache>
+
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
+    , url ( QUrl ( "http://localhost" ) )
 {
   m_networkSettings = new  NetworkSettings ( this );
 
@@ -56,6 +61,11 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( this, SIGNAL ( sslErrors ( QNetworkReply *, const QList<QSslError> & ) ),
             this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
+
+  QNetworkDiskCache *diskCache = new QNetworkDiskCache ( this );
+  diskCache->setCacheDirectory ( m_networkSettings->storageDirectory() );
+  setCache ( diskCache );
+  xhtmlCache = cache();
 }
 
 QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
@@ -153,17 +163,39 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
 
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 {
-  return;
-  if ( reply )
+  if ( reply->url() == url )
   {
-    QByteArray retval ( reply->readAll() );
-    if ( retval.isEmpty() )
-      return;
+    QByteArray data;
+    QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
+    if ( mimeType.contains ( "text/html" ) )
+    {
+      QIODevice* dev = xhtmlCache->data ( reply->url() );
+      if ( ! dev )
+      {
+        qDebug() << Q_FUNC_INFO << "Invalid IODevice";
+        emit xhtmlSourceChanged ( QString::null );
+        return;
+      }
 
-    QTextCodec *codec = QTextCodec::codecForHtml ( retval, fetchHeaderEncoding ( reply ) );
-    QString out = codec->toUnicode ( retval );
-    qDebug() << Q_FUNC_INFO << out << reply->url();
+      data = dev->readAll();
+      if ( data.isEmpty() )
+      {
+        qDebug() << Q_FUNC_INFO << "No Cache";
+        emit xhtmlSourceChanged ( QString::null );
+        return;
+      }
+
+      QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( reply ) );
+      QString content = codec->toUnicode ( data );
+      emit xhtmlSourceChanged ( content );
+      delete dev;
+    }
   }
+}
+
+void NetworkAccessManager::setUrl ( const QUrl &u )
+{
+  url = u;
 }
 
 QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Operation op,
@@ -171,14 +203,25 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         QIODevice *data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
+
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setSslConfiguration ( sslConfig );
 
-  connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
-            this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
-
+  if ( reply->url() == url )
+  {
+    connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
+              this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
+  }
   return reply;
 }
 
+const QUrl NetworkAccessManager::getUrl()
+{
+  return url;
+}
+
 NetworkAccessManager::~NetworkAccessManager()
-{}
+{
+  if ( xhtmlCache )
+    xhtmlCache->clear();
+}

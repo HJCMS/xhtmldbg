@@ -66,6 +66,7 @@
 Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
+    , hasRealPageSource ( false )
 {
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
@@ -138,6 +139,9 @@ Window::Window ( QSettings * settings )
 
   connect ( Application::networkAccessManager(), SIGNAL ( netNotify ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
+
+  connect ( Application::networkAccessManager(), SIGNAL ( xhtmlSourceChanged ( const QString & ) ),
+            this, SLOT ( setSourceView ( const QString & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -354,13 +358,15 @@ void Window::paintEvent ( QPaintEvent * ev )
 */
 void Window::requestsFinished ( bool ok )
 {
-  qDebug() << Q_FUNC_INFO << ok;
   if ( ok )
   {
     QString html = m_webViewer->toHtml();
     if ( ! html.isEmpty() )
     {
-      m_sourceWidget->setSource ( html );
+      // FIXME if NetworkManager didn't receive the Source then use WebKit
+      if ( ! hasRealPageSource )
+        m_sourceWidget->setSource ( html );
+
       m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
       m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
       // Is AutoCheck or AutoFormat Enabled?
@@ -376,6 +382,21 @@ void Window::requestsFinished ( bool ok )
       }
       m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     }
+  }
+}
+
+void Window::setSourceView ( const QString &xhtml )
+{
+  if ( xhtml.isEmpty() )
+  {
+    hasRealPageSource = false;
+    m_statusBar->slotWarningNoCache ( true );
+  }
+  else
+  {
+    hasRealPageSource = true;
+    m_statusBar->slotWarningNoCache ( false );
+    m_sourceWidget->setSource ( xhtml );
   }
 }
 
@@ -396,8 +417,8 @@ void Window::openFileDialog()
 
   htmlFile = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open HTML File" ),
              QString::null, filters.join ( ";;" ) );
-
   if ( htmlFile.isEmpty() )
+
     return;
 
   QFileInfo info ( htmlFile );
@@ -438,6 +459,7 @@ void Window::openFile ( const QUrl &url )
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
       QString data = codec->toUnicode ( buffer );
+      hasRealPageSource = true;
       m_sourceWidget->setSource ( data );
       m_webViewer->setUrl ( url.path() );
       m_settings->setValue ( QLatin1String ( "RecentFile" ), url );
@@ -447,7 +469,7 @@ void Window::openFile ( const QUrl &url )
 
 void Window::openUrl ( const QUrl &url )
 {
-  if ( ! url.isValid() || ! url.scheme().contains( QRegExp( "http[s]?" ) ) )
+  if ( ! url.isValid() || ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
     return;
 
   m_webViewer->setUrl ( url );

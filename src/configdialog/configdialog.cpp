@@ -121,9 +121,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
 
-  // Group Boxes
-  connect ( CacheSaveControlAttribute, SIGNAL ( clicked ( bool ) ), this, SLOT ( setModified() ) );
-
   // Combo Boxes
   connect ( CacheLoadControlAttribute, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( setModified() ) );
 
@@ -395,7 +392,6 @@ void ConfigDialog::loadSettings()
           cfg->value ( QLatin1String ( "CacheLoadControlAttribute" ), QNetworkRequest::AlwaysNetwork ).toUInt();
 
   CacheLoadControlAttribute->setCurrentIndex ( CacheLoadControlAttribute->findData ( controlCache, Qt::UserRole ) );
-
   setWindowModified ( false );
 }
 
@@ -440,6 +436,7 @@ void ConfigDialog::saveSettings()
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
 
+  // Cache Control
   int cIndex = CacheLoadControlAttribute->itemData ( CacheLoadControlAttribute->currentIndex(), Qt::UserRole ).toUInt();
   cfg->setValue ( QLatin1String ( "CacheLoadControlAttribute" ), cIndex );
 
@@ -489,6 +486,7 @@ void ConfigDialog::restoreSettings()
     cfg->remove ( box->objectName() );
   }
 
+  cfg->remove ( QLatin1String ( "SourceIsFromCacheAttribute" ) );
   cfg->remove ( QLatin1String ( "CacheLoadControlAttribute" ) );
   cfg->remove ( QLatin1String ( "proxyType" ) );
   proxySettings->setType ( QNetworkProxy::NoProxy );
