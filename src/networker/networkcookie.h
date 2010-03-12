@@ -26,6 +26,7 @@
 #include <QtCore/QList>
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
+#include <QtCore/QUrl>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkCookie>
@@ -48,10 +49,12 @@ class NetworkCookie : public QNetworkCookieJar
     void load();
 
   Q_SIGNALS:
-    void cookiesAdd ( bool );
+    void cookiesRequest ( const QUrl & );
+    void cookiesChanged ();
 
   public Q_SLOTS:
     void save();
+    void reload();
 
   public:
     enum CookieArrangement { Session = 0, Blocked = 1, Allowed = 2 };

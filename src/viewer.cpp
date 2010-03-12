@@ -24,6 +24,8 @@
 #include "page.h"
 #include "application.h"
 #include "networkaccessmanager.h"
+#include "networkcookie.h"
+#include "cookieacceptdialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -38,12 +40,9 @@
 #include <QtGui/QMenu>
 #include <QtGui/QPalette>
 
-/* QtWebKit */
-// #include <QtWebKit/QWebElement>
-// #include <QtWebKit/QWebFrame>
-
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
+    , cookieAlreadyAdd ( false )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "webviewer" );
@@ -55,6 +54,9 @@ Viewer::Viewer ( QWidget * parent )
   m_page = new Page ( this );
   m_page->setNetworkAccessManager ( Application::networkAccessManager() );
   setPage ( m_page );
+
+  connect ( Application::cookieManager(), SIGNAL ( cookiesRequest ( const QUrl & ) ),
+            this, SLOT ( cookiesRequest ( const QUrl & ) ) );
 
   connect ( this, SIGNAL ( loadStarted () ),
             this, SLOT ( cursorwait () ) );
@@ -72,7 +74,7 @@ void Viewer::updateWebSettings()
   QWebSettings* ws = settings ();
 
   QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir( dbPath );
+  QDir dir ( dbPath );
   dir.mkpath ( QLatin1String ( "icons" ) );
   dir.mkpath ( QLatin1String ( "storage" ) );
 
@@ -166,6 +168,21 @@ void Viewer::unsupportedContent ( QNetworkReply *reply )
   qDebug() << "Unsupported Content:" << reply->url();
   if ( reply->error() == QNetworkReply::NoError )
     return;
+}
+
+void Viewer::cookiesRequest ( const QUrl &u )
+{
+  QString pageHost ( url().host() );
+  QString cookieHost ( u.host() );
+  if ( pageHost.contains ( cookieHost ) && ! cookieAlreadyAdd )
+  {
+    CookieAcceptDialog diag ( u, this );
+    if ( diag.exec() )
+    {
+      cookieAlreadyAdd = true;
+      Application::cookieManager()->reload();
+    }
+  }
 }
 
 void Viewer::findKeyword ( const QString &word )

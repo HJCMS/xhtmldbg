@@ -36,6 +36,7 @@ SET (xhtmldbg_SOURCES
   historymenu.cpp
   statusbar.cpp
   cookieview.cpp
+  cookieacceptdialog.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -54,6 +55,7 @@ SET (xhtmldbg_HEADERS
   historymenu.h
   statusbar.h
   cookieview.h
+  cookieacceptdialog.h
 )
 
 SET (xhtmldbg_NOMOC

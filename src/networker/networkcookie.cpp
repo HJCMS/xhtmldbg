@@ -27,7 +27,6 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
-#include <QtCore/QUrl>
 #include <QtCore/QVariant>
 
 /* QtWebKit */
@@ -156,8 +155,16 @@ void NetworkCookie::load()
     return;
 
   qRegisterMetaTypeStreamOperators<QList<QNetworkCookie> > ( "QList<QNetworkCookie>" );
-  QSettings qs ( storedir + QLatin1String ( "/cookie.jar" ), QSettings::IniFormat );
+  QSettings qs ( storedir + QLatin1String ( "/cookiejar.ini" ), QSettings::IniFormat );
   setAllCookies ( qvariant_cast<QList<QNetworkCookie> > ( qs.value ( QLatin1String ( "cookies" ) ) ) );
+}
+
+void NetworkCookie::reload()
+{
+  cookiesSession.clear();
+  cookiesAllowed.clear();
+  cookiesBlocked.clear();
+  load();
 }
 
 void NetworkCookie::save()
@@ -166,7 +173,7 @@ void NetworkCookie::save()
   if ( storedir.isEmpty() )
     return;
 
-  QSettings qs ( storedir + QLatin1String ( "/cookie.jar" ), QSettings::IniFormat );
+  QSettings qs ( storedir + QLatin1String ( "/cookiejar.ini" ), QSettings::IniFormat );
   QList<QNetworkCookie> cookies = allCookies();
   for ( int i = cookies.count() - 1; i >= 0; --i )
   {
@@ -196,27 +203,34 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   QString h = url.host().remove ( QRegExp ( "\\bwww\\." ) );
 
   if ( cookiesBlocked.indexOf ( h ) != -1 )
-    return add;
+    return false;
 
   yes = ( cookiesAllowed.indexOf ( h ) != -1 ) ? true : false;
   tmp = ( cookiesSession.indexOf ( h ) != -1 ) ? true : false;
 
-  QDateTime now = QDateTime::currentDateTime();
-  now = now.addDays ( m_netcfg->value ( QLatin1String ( "CookieLifeTime" ), 15 ).toUInt() );
-
-  foreach ( QNetworkCookie cookie, list )
+  if ( tmp || yes )
   {
-    QList<QNetworkCookie> cookies;
-    if ( !cookie.isSessionCookie() && cookie.expirationDate() > now )
-      cookie.setExpirationDate ( now );
+    QDateTime now = QDateTime::currentDateTime();
+    now = now.addDays ( m_netcfg->value ( QLatin1String ( "CookieLifeTime" ), 15 ).toUInt() );
 
-    cookies += cookie;
+    foreach ( QNetworkCookie cookie, list )
+    {
+      QList<QNetworkCookie> cookies;
+      if ( !cookie.isSessionCookie() && cookie.expirationDate() > now )
+        cookie.setExpirationDate ( now );
 
-    if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
-      add = true;
+      cookies += cookie;
+
+      if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
+        add = true;
+    }
   }
 
-  emit cookiesAdd( add );
+  if ( add )
+    emit cookiesChanged ();
+  else
+    emit cookiesRequest ( url );
+
   return add;
 }
 

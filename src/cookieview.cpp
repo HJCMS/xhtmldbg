@@ -68,7 +68,11 @@ CookieView::CookieView ( QWidget * parent )
 /**
 * TEST unserialize
 * @code
-    a:3:{s:3:"BID";i:1;s:7:"BGRUPPE";i:4;s:4:"SKEY";s:32:"8b3c3634669c41f26c1a511cb03d6bc0";}
+    a = Array
+    s = String
+    i = Integer
+    o = Object
+    a:3:{s:3:"ID";i:1;s:7:"GID";i:4;s:4:"KEY";s:32:"8b3c3634669c41f26c1a511cb03d6bc0";}
 * @endcode
 */
 QString CookieView::unserialize ( const QByteArray &data ) const
@@ -77,12 +81,12 @@ QString CookieView::unserialize ( const QByteArray &data ) const
   {
     QByteArray serial = QByteArray::fromPercentEncoding ( data );
     QString retval ( serial );
-    retval.remove ( QRegExp ( "(^.{1,6}\\{)|(\\}$)" ) );
+    retval.remove ( QRegExp ( "(^.{1,5}\\{)|(\\}$)" ) );
     retval.remove ( QRegExp ( ";$" ) );
 
     QString output;
     QStringList buffer;
-    foreach ( QString p, retval.split ( QRegExp ( ";?[ais]:" ) ) )
+    foreach ( QString p, retval.split ( QRegExp ( ";?[asio]:" ) ) )
     {
       if ( ! p.isEmpty() )
       {
@@ -100,11 +104,6 @@ QString CookieView::unserialize ( const QByteArray &data ) const
     }
 
     return ( output.isEmpty() ) ?  retval : output;
-  }
-  else if ( data.contains ( "|" ) )
-  {
-    QString retval ( data );
-    return retval.replace ( "|", "\n" );
   }
 
   return QString ( data );

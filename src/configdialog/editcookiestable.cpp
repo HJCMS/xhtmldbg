@@ -49,7 +49,13 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
-
+  if ( columnCount () != 2 )
+  {
+    setColumnCount ( 2 );
+    QStringList lb ( trUtf8 ( "Domain" ) );
+    lb << trUtf8 ( "Arrangement" );
+    setHorizontalHeaderLabels ( lb );
+  }
   connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
             this, SLOT ( cellChanged ( const QModelIndex & ) ) );
 }
@@ -76,6 +82,7 @@ void EditCookiesTable::loadCookieArrangements ( QSettings * cfg )
       if ( val < 0 )
         continue;
 
+      // qDebug() << Q_FUNC_INFO << key << val;
       setItem ( r, 0, new QTableWidgetItem ( key ) );
       ArrangementItem* item = new ArrangementItem ( key, val, this );
       connect ( item, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
