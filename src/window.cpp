@@ -37,6 +37,7 @@
 #include "configdialog.h"
 #include "statusbar.h"
 #include "cookieview.h"
+#include "headerview.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -44,6 +45,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QMap>
 #include <QtCore/QProcess>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -73,6 +75,8 @@ Window::Window ( QSettings * settings )
   setObjectName ( "xhtmldbgwindow" );
   QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
   setWindowIcon ( qTidyIcon );
+
+  m_netManager = Application::networkAccessManager();
 
   // StatusBar
   m_statusBar = new StatusBar ( statusBar() );
@@ -114,6 +118,10 @@ Window::Window ( QSettings * settings )
   m_cookieView = new CookieView ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_cookieView );
 
+  // Show Received Document Headers
+  m_headerView = new HeaderView ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_headerView );
+
   // finalize WindowDesign
   createMenus();
   createToolBars();
@@ -137,11 +145,14 @@ Window::Window ( QSettings * settings )
   connect ( m_messanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
 
-  connect ( Application::networkAccessManager(), SIGNAL ( netNotify ( const QString & ) ),
+  connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
-  connect ( Application::networkAccessManager(), SIGNAL ( xhtmlSourceChanged ( const QString & ) ),
+  connect ( m_netManager, SIGNAL ( xhtmlSourceChanged ( const QString & ) ),
             this, SLOT ( setSourceView ( const QString & ) ) );
+
+  connect ( m_netManager, SIGNAL ( receivedHeaders ( const QMap<QString,QString> & ) ),
+            m_headerView, SLOT ( setHeaders ( const QMap<QString,QString> & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -334,6 +345,7 @@ void Window::createToolBars()
   m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_cookieView->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_headerView->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )

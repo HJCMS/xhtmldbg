@@ -24,11 +24,13 @@
 #include "xhtmldbg.h"
 
 /* QtCore */
-#include <QtCore>
-// #include <QtCore/QString>
+#include <QtCore/QDateTime>
+#include <QtCore/QRegExp>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QFrame>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QHeaderView>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkCookie>

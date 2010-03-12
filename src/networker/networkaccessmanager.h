@@ -23,12 +23,14 @@
 #define NETWORKACCESSMANAGER_H
 
 /* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QByteArray>
 #include <QtCore/QIODevice>
 #include <QtCore/QList>
+#include <QtCore/QMap>
+#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QTextCodec>
 #include <QtCore/QSettings>
+#include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 
 /* QtNetwork */
@@ -52,7 +54,6 @@ class NetworkAccessManager : public QNetworkAccessManager
     Q_PROPERTY ( const QUrl url READ getUrl WRITE setUrl )
 
   private:
-    QNetworkReply* xhtmlReply;
     QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
     QAbstractNetworkCache* xhtmlCache;
@@ -70,6 +71,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     void netNotify ( const QString & );
     void statusBarMessage ( const QString & );
     void xhtmlSourceChanged ( const QString & );
+    void receivedHeaders ( const QMap<QString,QString> & );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

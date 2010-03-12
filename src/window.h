@@ -42,6 +42,7 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
+class NetworkAccessManager;
 class AddressToolBar;
 class KeywordsToolBar;
 class WebViewer;
@@ -52,6 +53,7 @@ class Bookmark;
 class HistoryMenu;
 class StatusBar;
 class CookieView;
+class HeaderView;
 
 class Window : public QMainWindow
 {
@@ -62,6 +64,8 @@ class Window : public QMainWindow
   private:
     QSettings* m_settings;
     bool hasRealPageSource;
+    // Network Manager
+    NetworkAccessManager* m_netManager;
     // Main Menu
     QMenuBar* m_menuBar;
     // Status Bar
@@ -112,6 +116,8 @@ class Window : public QMainWindow
     Messanger* m_messanger;
     // Cookie
     CookieView* m_cookieView;
+    // Received Headers
+    HeaderView* m_headerView;
 
     void createMenus();
     void createToolBars();

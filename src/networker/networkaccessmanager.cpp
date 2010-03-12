@@ -169,6 +169,13 @@ void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
     QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
     if ( mimeType.contains ( "text/html" ) )
     {
+      QMap<QString,QString> map;
+      foreach ( QByteArray k, reply->rawHeaderList() )
+      {
+        map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
+      }
+      emit receivedHeaders ( map );
+
       QIODevice* dev = xhtmlCache->data ( reply->url() );
       if ( ! dev )
       {
