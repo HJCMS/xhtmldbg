@@ -42,7 +42,6 @@ class StatusBar : public QStatusBar
     QLabel* m_viewPortInfo;
 
   public Q_SLOTS:
-    void slotWarningNoCache ( bool b = false );
     void displayBrowserWidth ( const QSize & );
 
   public:

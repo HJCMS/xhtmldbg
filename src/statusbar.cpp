@@ -37,19 +37,8 @@ StatusBar::StatusBar ( QStatusBar * parent )
   setObjectName ( QLatin1String ( "statusbar" ) );
   setContentsMargins ( 2, 5, 2, 2 );
 
-
-  QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
-  QPixmap pic = cacheIcon.pixmap ( 16, QIcon::Disabled, QIcon::On );
-
-  // Display Browser ViewPort Width
-  m_viewNetworkInfo = new QLabel ( this );
-  m_viewNetworkInfo->setObjectName ( QLatin1String ( "viewportinfolabel" ) );
-  m_viewNetworkInfo->setFrameShape ( QFrame::NoFrame );
-  m_viewNetworkInfo->setContentsMargins ( 5, 2, 5, 2 );
-  m_viewNetworkInfo->setPixmap ( pic );
-  m_viewNetworkInfo->setScaledContents ( true );
-  m_viewNetworkInfo->setToolTip ( trUtf8 ( "Display Information about to read from Cache or not." ) );
-  insertPermanentWidget ( 0, m_viewNetworkInfo );
+//   QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
+//   QPixmap pic = cacheIcon.pixmap ( 16, QIcon::Disabled, QIcon::On );
 
   // Display Browser ViewPort Width
   m_viewPortInfo = new QLabel ( this );
@@ -59,27 +48,7 @@ StatusBar::StatusBar ( QStatusBar * parent )
   QString info1 = trUtf8 ( "Display Browser Dimension Width x Height with Pixel." );
   m_viewPortInfo->setToolTip ( info1 );
   m_viewPortInfo->setStatusTip ( info1 );
-  insertPermanentWidget ( 1, m_viewPortInfo );
-}
-
-void StatusBar::slotWarningNoCache ( bool b )
-{
-  QString infotxt;
-  QIcon::Mode mode;
-  QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
-  if ( b )
-  {
-    infotxt = trUtf8 ( "Read rendered Browser Source (no cache availably)" );
-    mode = QIcon::Normal;
-  }
-  else
-  {
-    infotxt = trUtf8 ( "Read Source from Cache" );
-    mode = QIcon::Disabled;
-  }
-  m_viewNetworkInfo->setPixmap ( cacheIcon.pixmap ( 16, mode ) );
-  m_viewNetworkInfo->setStatusTip ( infotxt );
-  showMessage ( infotxt, 1024 );
+  insertPermanentWidget ( 0, m_viewPortInfo );
 }
 
 void StatusBar::displayBrowserWidth ( const QSize &s )
