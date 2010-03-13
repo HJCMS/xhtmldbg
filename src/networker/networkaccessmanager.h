@@ -30,11 +30,9 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QSettings>
-#include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 
 /* QtNetwork */
-#include <QtNetwork/QAbstractNetworkCache>
 #include <QtNetwork/QAuthenticator>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -58,7 +56,6 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkSettings* m_networkSettings;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
-    QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
     QUrl url;
 
   private Q_SLOTS:
@@ -70,8 +67,7 @@ class NetworkAccessManager : public QNetworkAccessManager
   Q_SIGNALS:
     void netNotify ( const QString & );
     void statusBarMessage ( const QString & );
-    void xhtmlSourceChanged ( const QString & );
-    void receivedHeaders ( const QMap<QString,QString> & );
+    void receivedHostHeaders ( const QString &, const QMap<QString,QString> & );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

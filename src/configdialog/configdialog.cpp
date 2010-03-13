@@ -92,9 +92,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   addToWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
   clearWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
 
-  // Modifications
-  setCacheLoadControlComboBoxItems();
-
   // Modify ButtonBox
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
   m_buttonClose = buttonBox->addButton ( QDialogButtonBox::Close );
@@ -111,7 +108,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( AutoDisabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( tabStartShow0, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( tabStartShow1, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( SourceIsFromCacheAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( DoNotBufferUploadDataAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningAllowedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningWasUsedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
@@ -120,9 +116,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-
-  // Combo Boxes
-  connect ( CacheLoadControlAttribute, SIGNAL ( currentIndexChanged ( int ) ), this, SLOT ( setModified() ) );
 
   // Spin Boxes
   connect ( DefaultFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );
@@ -164,23 +157,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( m_buttonRestore, SIGNAL ( clicked() ), this, SLOT ( restoreSettings() ) );
   connect ( m_buttonCancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
   connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( quit() ) );
-}
-
-void ConfigDialog::setCacheLoadControlComboBoxItems()
-{
-  // Modify ComboBox CacheLoadControlAttribute
-  CacheLoadControlAttribute->clear();
-  CacheLoadControlAttribute->insertItem ( 0, trUtf8 ( "Always load from network." ), QNetworkRequest::AlwaysNetwork );
-  CacheLoadControlAttribute->setItemData ( 0, QNetworkRequest::AlwaysNetwork, Qt::UserRole );
-
-  CacheLoadControlAttribute->insertItem ( 1, trUtf8 ( "Load from the Network if cache is expired." ), QNetworkRequest::PreferNetwork );
-  CacheLoadControlAttribute->setItemData ( 1, QNetworkRequest::PreferNetwork, Qt::UserRole );
-
-  CacheLoadControlAttribute->insertItem ( 2, trUtf8 ( "Load from Cache if entry exists." ), QNetworkRequest::PreferCache );
-  CacheLoadControlAttribute->setItemData ( 2, QNetworkRequest::PreferCache, Qt::UserRole );
-
-  CacheLoadControlAttribute->insertItem ( 3, trUtf8 ( "Always load from Cache." ), QNetworkRequest::AlwaysCache );
-  CacheLoadControlAttribute->setItemData ( 3, QNetworkRequest::AlwaysCache, Qt::UserRole );
 }
 
 void ConfigDialog::setCaCertIssuerTable()
@@ -387,11 +363,6 @@ void ConfigDialog::loadSettings()
   QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
   qt_ssl_pass_phrase->setText ( p );
 
-  // Cache Control
-  QNetworkRequest::CacheLoadControl controlCache = ( QNetworkRequest::CacheLoadControl )
-          cfg->value ( QLatin1String ( "CacheLoadControlAttribute" ), QNetworkRequest::AlwaysNetwork ).toUInt();
-
-  CacheLoadControlAttribute->setCurrentIndex ( CacheLoadControlAttribute->findData ( controlCache, Qt::UserRole ) );
   setWindowModified ( false );
 }
 
@@ -435,10 +406,6 @@ void ConfigDialog::saveSettings()
 
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
-
-  // Cache Control
-  int cIndex = CacheLoadControlAttribute->itemData ( CacheLoadControlAttribute->currentIndex(), Qt::UserRole ).toUInt();
-  cfg->setValue ( QLatin1String ( "CacheLoadControlAttribute" ), cIndex );
 
   QByteArray p = qt_ssl_pass_phrase->text().toAscii();
   cfg->setValue ( QLatin1String ( "sslPassPhrase" ), p.toBase64() );
@@ -486,8 +453,6 @@ void ConfigDialog::restoreSettings()
     cfg->remove ( box->objectName() );
   }
 
-  cfg->remove ( QLatin1String ( "SourceIsFromCacheAttribute" ) );
-  cfg->remove ( QLatin1String ( "CacheLoadControlAttribute" ) );
   cfg->remove ( QLatin1String ( "proxyType" ) );
   proxySettings->setType ( QNetworkProxy::NoProxy );
   setWindowModified ( false );

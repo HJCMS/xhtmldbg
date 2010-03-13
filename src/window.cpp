@@ -27,7 +27,8 @@
 #include "webviewer.h"
 #include "sourcewidget.h"
 #include "domviewer.h"
-#include "messanger.h"
+#include "tidymessanger.h"
+#include "jsmessanger.h"
 #include "bookmark.h"
 #include "historymanager.h"
 #include "historyitem.h"
@@ -110,9 +111,13 @@ Window::Window ( QSettings * settings )
   m_dockDomViewWidget->setWidget ( m_domViewer );
   addDockWidget ( Qt::RightDockWidgetArea, m_dockDomViewWidget );
 
-  // XHTML & JavaScript Messanger DockWidget
-  m_messanger = new Messanger ( this );
-  addDockWidget ( Qt::BottomDockWidgetArea, m_messanger );
+  // XHTML Messanger DockWidget
+  m_tidyMessanger = new TidyMessanger ( this );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger );
+
+  // JavaScript Messanger DockWidget
+  m_jsMessanger = new JSMessanger ( this );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger );
 
   // Show Cookie Information
   m_cookieView = new CookieView ( this );
@@ -134,25 +139,22 @@ Window::Window ( QSettings * settings )
             this, SLOT ( requestsFinished ( bool ) ) );
 
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
-            m_messanger, SLOT ( clearItems () ) );
+            m_tidyMessanger, SLOT ( clearItems () ) );
 
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
-            m_messanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
+            m_tidyMessanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
 
-  connect ( m_messanger, SIGNAL ( marking ( int, int ) ),
+  connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
 
-  connect ( m_messanger, SIGNAL ( itemSelected () ),
+  connect ( m_tidyMessanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
 
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
-  connect ( m_netManager, SIGNAL ( xhtmlSourceChanged ( const QString & ) ),
-            this, SLOT ( setSourceView ( const QString & ) ) );
-
-  connect ( m_netManager, SIGNAL ( receivedHeaders ( const QMap<QString,QString> & ) ),
-            m_headerView, SLOT ( setHeaders ( const QMap<QString,QString> & ) ) );
+  connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
+            m_headerView, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -342,7 +344,8 @@ void Window::createToolBars()
   m_viewBarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
   m_viewBarsMenu->addSeparator ();
   // Add QDockWidget View Actions to Display Menu
-  m_viewBarsMenu->addAction ( m_messanger->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_jsMessanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_cookieView->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_headerView->toggleViewAction() );
@@ -381,34 +384,17 @@ void Window::requestsFinished ( bool ok )
 
       m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
       m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
+      // Clear Message for new incoming Page Source
+      m_tidyMessanger->clearItems();
+
       // Is AutoCheck or AutoFormat Enabled?
       if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
-      {
-        m_messanger->clearItems ();
         m_sourceWidget->format();
-      }
       else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
-      {
-        m_messanger->clearItems ();
         m_sourceWidget->check();
-      }
+
       m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     }
-  }
-}
-
-void Window::setSourceView ( const QString &xhtml )
-{
-  if ( xhtml.isEmpty() )
-  {
-    hasRealPageSource = false;
-    m_statusBar->slotWarningNoCache ( true );
-  }
-  else
-  {
-    hasRealPageSource = true;
-    m_statusBar->slotWarningNoCache ( false );
-    m_sourceWidget->setSource ( xhtml );
   }
 }
 
@@ -493,18 +479,9 @@ void Window::visibleSourceChanged()
     m_centralWidget->setCurrentIndex ( 1 );
 }
 
-/**
-* QList<QVariant> err;
-* err << row << column << message;
-*/
-void Window::debuggerMessage ( const QList<QVariant> &err )
+JSMessanger* Window::JavaScriptMessanger() const
 {
-  int row = err.first().toUInt();
-  QString message = err.last().toString();
-  if ( message.isEmpty() )
-    return;
-
-  m_messanger->messages ( row, message );
+  return m_jsMessanger;
 }
 
 Window::~Window()

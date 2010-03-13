@@ -45,20 +45,30 @@ NetworkSettings::NetworkSettings ( QObject * parent )
     , wcfg ( QWebSettings::globalSettings() )
 {
   setObjectName ( QLatin1String ( "networksettings" ) );
+
+  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+  QDir dir ( dbPath );
+  dir.mkpath ( QLatin1String ( "icons" ) );
+  dir.mkpath ( QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
+  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
 }
 
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
 {
   QNetworkRequest request = req;
-  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
-  request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute,
-                         value ( "SourceIsFromCacheAttribute", false ).toBool() );
+  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, false );
+  request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, false );
+  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork );
+
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
                          value ( "DoNotBufferUploadDataAttribute", true ).toBool() );
   request.setAttribute ( QNetworkRequest::HttpPipeliningAllowedAttribute,
                          value ( "HttpPipeliningAllowedAttribute", true ).toBool() );
   request.setAttribute ( QNetworkRequest::HttpPipeliningWasUsedAttribute,
                          value ( "HttpPipeliningWasUsedAttribute", true ).toBool() );
+
 
   // Headers
   beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
@@ -78,10 +88,6 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
 
 const QString NetworkSettings::storageDirectory ()
 {
-  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir ( dbPath );
-  dir.mkpath ( QLatin1String ( "storage" ) );
-  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
   return wcfg->localStoragePath();
 }
 

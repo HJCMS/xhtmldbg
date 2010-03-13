@@ -48,7 +48,8 @@ class KeywordsToolBar;
 class WebViewer;
 class SourceWidget;
 class DomViewer;
-class Messanger;
+class TidyMessanger;
+class JSMessanger;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
@@ -112,8 +113,10 @@ class Window : public QMainWindow
     DomViewer* m_domViewer;
     // Source Viewer
     SourceWidget* m_sourceWidget;
-    // Messanger
-    Messanger* m_messanger;
+    // Tidy Messages
+    TidyMessanger* m_tidyMessanger;
+    // JavaScript Messages
+    JSMessanger* m_jsMessanger;
     // Cookie
     CookieView* m_cookieView;
     // Received Headers
@@ -124,7 +127,6 @@ class Window : public QMainWindow
 
   private Q_SLOTS:
     void requestsFinished ( bool );
-    void setSourceView ( const QString & );
     void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();
@@ -138,10 +140,10 @@ class Window : public QMainWindow
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );
     void visibleSourceChanged();
-    void debuggerMessage ( const QList<QVariant> & );
 
   public:
     Window ( QSettings * settings = 0 );
+    JSMessanger* JavaScriptMessanger() const;
     ~Window();
 };
 

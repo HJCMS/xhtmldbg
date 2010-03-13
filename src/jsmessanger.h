@@ -19,35 +19,46 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HEADERVIEW_H
-#define HEADERVIEW_H
+#ifndef JSMESSANGER_H
+#define JSMESSANGER_H
 
 /* QtCore */
-#include <QtCore/QMap>
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QContextMenuEvent>
 #include <QtGui/QDockWidget>
-#include <QtGui/QTreeWidget>
+#include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
+#include <QtGui/QIcon>
 
-class HeaderView : public QDockWidget
+class JSMessanger : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QTreeWidget* m_treeWidget;
+    QListWidget* m_listWidget;
+    const QIcon iconNotice;
+    const QIcon iconWarning;
+    const QIcon iconCritical;
+
+  private Q_SLOTS:
+    void sortAscending();
+    void sortDescending();
+
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
 
   public Q_SLOTS:
-    void setHeaders ( const QString &, const QMap<QString,QString> & );
+    void messages ( const QString &, int, const QString & );
     void clearItems();
 
   public:
-    HeaderView ( QWidget * parent = 0 );
-    virtual ~HeaderView();
+    JSMessanger ( QWidget * parent = 0 );
+    ~JSMessanger();
 };
 
 #endif

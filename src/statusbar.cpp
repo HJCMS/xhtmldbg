@@ -28,6 +28,8 @@
 
 /* QtGui */
 #include <QtGui/QFrame>
+#include <QtGui/QIcon>
+#include <QtGui/QPixmap>
 
 StatusBar::StatusBar ( QStatusBar * parent )
     : QStatusBar ( parent )
@@ -35,15 +37,18 @@ StatusBar::StatusBar ( QStatusBar * parent )
   setObjectName ( QLatin1String ( "statusbar" ) );
   setContentsMargins ( 2, 5, 2, 2 );
 
+
+  QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
+  QPixmap pic = cacheIcon.pixmap ( 16, QIcon::Disabled, QIcon::On );
+
   // Display Browser ViewPort Width
   m_viewNetworkInfo = new QLabel ( this );
   m_viewNetworkInfo->setObjectName ( QLatin1String ( "viewportinfolabel" ) );
   m_viewNetworkInfo->setFrameShape ( QFrame::NoFrame );
   m_viewNetworkInfo->setContentsMargins ( 5, 2, 5, 2 );
-  m_viewNetworkInfo->setText ( trUtf8 ( "Read Source from Cache" ) );
-  QString info0 = trUtf8 ( "Display Information about the Network Manager works." );
-  m_viewNetworkInfo->setToolTip ( info0 );
-  m_viewNetworkInfo->setStatusTip ( info0 );
+  m_viewNetworkInfo->setPixmap ( pic );
+  m_viewNetworkInfo->setScaledContents ( true );
+  m_viewNetworkInfo->setToolTip ( trUtf8 ( "Display Information about to read from Cache or not." ) );
   insertPermanentWidget ( 0, m_viewNetworkInfo );
 
   // Display Browser ViewPort Width
@@ -59,16 +64,22 @@ StatusBar::StatusBar ( QStatusBar * parent )
 
 void StatusBar::slotWarningNoCache ( bool b )
 {
+  QString infotxt;
+  QIcon::Mode mode;
+  QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
   if ( b )
   {
-    m_viewNetworkInfo->setText ( trUtf8 ( "(No Cache) Source is from WebKit" ) );
-    m_viewNetworkInfo->setForegroundRole ( QPalette::LinkVisited );
+    infotxt = trUtf8 ( "Read rendered Browser Source (no cache availably)" );
+    mode = QIcon::Normal;
   }
   else
   {
-    m_viewNetworkInfo->setText ( trUtf8 ( "Read Source from Cache" ) );
-    m_viewNetworkInfo->setForegroundRole ( QPalette::Text );
+    infotxt = trUtf8 ( "Read Source from Cache" );
+    mode = QIcon::Disabled;
   }
+  m_viewNetworkInfo->setPixmap ( cacheIcon.pixmap ( 16, mode ) );
+  m_viewNetworkInfo->setStatusTip ( infotxt );
+  showMessage ( infotxt, 1024 );
 }
 
 void StatusBar::displayBrowserWidth ( const QSize &s )

@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef MESSANGER_H
-#define MESSANGER_H
+#ifndef TIDYMESSANGER_H
+#define TIDYMESSANGER_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -36,7 +36,7 @@
 /* QTidy */
 #include <QTidy/QTidyParser>
 
-class Messanger : public QDockWidget
+class TidyMessanger : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -66,8 +66,8 @@ class Messanger : public QDockWidget
     void clearItems();
 
   public:
-    Messanger ( QWidget * parent = 0 );
-    ~Messanger();
+    TidyMessanger ( QWidget * parent = 0 );
+    ~TidyMessanger();
 };
 
 #endif

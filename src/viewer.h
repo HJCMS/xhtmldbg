@@ -68,9 +68,11 @@ class Viewer : public QWebView
 
   public Q_SLOTS:
     void findKeyword ( const QString & );
+    void openUrl ( const QUrl & );
 
   public:
     Viewer ( QWidget * parent = 0 );
+    const QString source();
     ~Viewer();
 };
 

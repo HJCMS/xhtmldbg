@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "messanger.h"
+#include "tidymessanger.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -33,14 +33,14 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QMenu>
 
-Messanger::Messanger ( QWidget * parent )
+TidyMessanger::TidyMessanger ( QWidget * parent )
     : QDockWidget ( parent )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
     , iconCritical ( QString::fromUtf8 ( ":/icons/critical.png" ) )
 {
-  setObjectName ( "messanger" );
-  setWindowTitle ( trUtf8 ( "Impartations" ) );
+  setObjectName ( "tidymessanger" );
+  setWindowTitle ( trUtf8 ( "HTML/XHTML Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
   m_listWidget = new QListWidget ( this );
@@ -56,7 +56,7 @@ Messanger::Messanger ( QWidget * parent )
             this, SLOT ( pretended ( QListWidgetItem * ) ) );
 }
 
-void Messanger::pretended ( QListWidgetItem * item )
+void TidyMessanger::pretended ( QListWidgetItem * item )
 {
   QList<QVariant> data = item->data ( Qt::UserRole ).toList();
   if ( data.size() <= 0 )
@@ -68,17 +68,17 @@ void Messanger::pretended ( QListWidgetItem * item )
   emit itemSelected();
 }
 
-void Messanger::sortAscending()
+void TidyMessanger::sortAscending()
 {
   m_listWidget->sortItems ( Qt::AscendingOrder );
 }
 
-void Messanger::sortDescending()
+void TidyMessanger::sortDescending()
 {
   m_listWidget->sortItems ( Qt::DescendingOrder );
 }
 
-void Messanger::contextMenuEvent ( QContextMenuEvent *e )
+void TidyMessanger::contextMenuEvent ( QContextMenuEvent *e )
 {
   QMenu* menu = new QMenu ( this );
 
@@ -97,7 +97,7 @@ void Messanger::contextMenuEvent ( QContextMenuEvent *e )
   menu->exec ( e->globalPos() );
 }
 
-void Messanger::messages ( const QTidy::QTidyDiagnosis &d )
+void TidyMessanger::messages ( const QTidy::QTidyDiagnosis &d )
 {
   QString IconName;
   QList<QVariant> pair;
@@ -144,7 +144,7 @@ void Messanger::messages ( const QTidy::QTidyDiagnosis &d )
   m_listWidget->addItem ( item );
 }
 
-void Messanger::messages ( int l, const QString &m )
+void TidyMessanger::messages ( int l, const QString &m )
 {
   QList<QVariant> pair;
   pair << l << 0;
@@ -155,11 +155,11 @@ void Messanger::messages ( int l, const QString &m )
   m_listWidget->addItem ( item );
 }
 
-void Messanger::clearItems()
+void TidyMessanger::clearItems()
 {
   m_listWidget->clear();
 }
 
-Messanger::~Messanger()
+TidyMessanger::~TidyMessanger()
 {
 }

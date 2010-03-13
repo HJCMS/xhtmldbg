@@ -25,7 +25,8 @@ SET (xhtmldbg_SOURCES
   window.cpp
   addresstoolbar.cpp
   keywordstoolbar.cpp
-  messanger.cpp
+  tidymessanger.cpp
+  jsmessanger.cpp
   domviewer.cpp
   aboutdialog.cpp
   webviewer.cpp
@@ -46,7 +47,8 @@ SET (xhtmldbg_HEADERS
   window.h
   addresstoolbar.h
   keywordstoolbar.h
-  messanger.h
+  tidymessanger.h
+  jsmessanger.h
   domviewer.h
   aboutdialog.h
   webviewer.h

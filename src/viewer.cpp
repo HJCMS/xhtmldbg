@@ -40,6 +40,10 @@
 #include <QtGui/QMenu>
 #include <QtGui/QPalette>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkAccessManager>
+
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
     , cookieAlreadyAdd ( false )
@@ -51,12 +55,21 @@ Viewer::Viewer ( QWidget * parent )
   setContextMenuPolicy ( Qt::DefaultContextMenu );
   updateWebSettings();
 
+  NetworkAccessManager* netManager = Application::networkAccessManager();
+
   m_page = new Page ( this );
-  m_page->setNetworkAccessManager ( Application::networkAccessManager() );
+  m_page->setNetworkAccessManager ( netManager );
+  m_page->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );
   setPage ( m_page );
 
   connect ( Application::cookieManager(), SIGNAL ( cookiesRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
+
+  connect ( m_page, SIGNAL ( getUrl ( const QUrl & ) ),
+            this, SLOT ( openUrl ( const QUrl & ) ) );
+
+  connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
+            netManager, SLOT ( setUrl ( const QUrl & ) ) );
 
   connect ( this, SIGNAL ( loadStarted () ),
             this, SLOT ( cursorwait () ) );
@@ -71,57 +84,52 @@ void Viewer::updateWebSettings()
   QSettings* cfg = new QSettings ( QSettings::NativeFormat,
                                    QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
 
-  QWebSettings* ws = settings ();
+  QWebSettings* wcfg = settings ();
 
   QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
   QDir dir ( dbPath );
   dir.mkpath ( QLatin1String ( "icons" ) );
   dir.mkpath ( QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
+  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
 
-  ws->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
-  ws->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
 
-  ws->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
+                       cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
+                       cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
 
   // Until QtWebkit defaults to 16
-  ws->setFontSize ( QWebSettings::DefaultFontSize,
-                    cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
+  wcfg->setFontSize ( QWebSettings::DefaultFontSize,
+                      cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
 
-  ws->setFontSize ( QWebSettings::DefaultFixedFontSize,
-                    cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
+  wcfg->setFontSize ( QWebSettings::DefaultFixedFontSize,
+                      cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
   // Page Settings
-  ws->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
-                     cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
+  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
+                       cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
 
-  ws->setAttribute ( QWebSettings::AutoLoadImages,
-                     cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
+  wcfg->setAttribute ( QWebSettings::AutoLoadImages,
+                       cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
 
-  ws->setAttribute ( QWebSettings::JavascriptEnabled,
-                     cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
+  wcfg->setAttribute ( QWebSettings::JavascriptEnabled,
+                       cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
 
-  ws->setAttribute ( QWebSettings::PluginsEnabled,
-                     cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
+  wcfg->setAttribute ( QWebSettings::PluginsEnabled,
+                       cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
 
-  ws->setAttribute ( QWebSettings::JavaEnabled,
-                     cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
+  wcfg->setAttribute ( QWebSettings::JavaEnabled,
+                       cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
 
-  ws->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
-                     cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
-
-  ws->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
-                     cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
-
-  ws->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
-                     cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
-
-  ws->setAttribute ( QWebSettings::LocalStorageEnabled,
-                     cfg->value ( QLatin1String ( "LocalStorageEnabled" ), false ).toBool() );
+  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
+                       cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
 }
 
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
-  Application::networkAccessManager()->setUrl ( url() );
 }
 
 void Viewer::cursorFinished ( bool )
@@ -189,6 +197,17 @@ void Viewer::cookiesRequest ( const QUrl &u )
 void Viewer::findKeyword ( const QString &word )
 {
   findText ( word, QWebPage::HighlightAllOccurrences );
+}
+
+void Viewer::openUrl ( const QUrl &url )
+{
+  setUrl ( url );
+  emit linkClicked ( url ); // @ref NetworkAccessManager
+}
+
+const QString Viewer::source()
+{
+  return m_page->xhtmlSource();
 }
 
 Viewer::~Viewer()

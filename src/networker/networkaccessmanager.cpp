@@ -33,10 +33,6 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
-/* QtNetwork */
-#include <QtNetwork/QAbstractNetworkCache>
-#include <QtNetwork/QNetworkDiskCache>
-
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
     , url ( QUrl ( "http://localhost" ) )
@@ -61,35 +57,6 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( this, SIGNAL ( sslErrors ( QNetworkReply *, const QList<QSslError> & ) ),
             this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
-
-  QNetworkDiskCache *diskCache = new QNetworkDiskCache ( this );
-  diskCache->setCacheDirectory ( m_networkSettings->storageDirectory() );
-  setCache ( diskCache );
-  xhtmlCache = cache();
-}
-
-QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
-{
-  QString encoding ( "UTF-8" );
-  if ( reply )
-  {
-    QByteArray cType = reply->rawHeader ( "Content-Type" );
-    if ( ! cType.isEmpty() )
-    {
-      QString Charset ( cType );
-      foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
-      {
-        param.trimmed();
-        if ( param.contains ( "charset", Qt::CaseInsensitive ) )
-        {
-          QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
-          encoding = buf.toUpper();
-          break;
-        }
-      }
-    }
-  }
-  return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
 void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuthenticator * auth )
@@ -163,40 +130,18 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
 
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 {
-  if ( reply->url() == url )
+  if ( reply && ( reply->url().host() == url.host() ) )
   {
-    QByteArray data;
     QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
-    if ( mimeType.contains ( "text/html" ) )
+    if ( ! mimeType.contains ( "text/html" ) )
+      return;
+
+    QMap<QString,QString> map;
+    foreach ( QByteArray k, reply->rawHeaderList() )
     {
-      QMap<QString,QString> map;
-      foreach ( QByteArray k, reply->rawHeaderList() )
-      {
-        map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
-      }
-      emit receivedHeaders ( map );
-
-      QIODevice* dev = xhtmlCache->data ( reply->url() );
-      if ( ! dev )
-      {
-        qDebug() << Q_FUNC_INFO << "Invalid IODevice";
-        emit xhtmlSourceChanged ( QString::null );
-        return;
-      }
-
-      data = dev->readAll();
-      if ( data.isEmpty() )
-      {
-        qDebug() << Q_FUNC_INFO << "No Cache";
-        emit xhtmlSourceChanged ( QString::null );
-        return;
-      }
-
-      QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( reply ) );
-      QString content = codec->toUnicode ( data );
-      emit xhtmlSourceChanged ( content );
-      delete dev;
+      map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
     }
+    emit receivedHostHeaders ( reply->url().host(), map );
   }
 }
 
@@ -210,10 +155,8 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         QIODevice *data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
-
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setSslConfiguration ( sslConfig );
-
   if ( reply->url() == url )
   {
     connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
@@ -228,7 +171,4 @@ const QUrl NetworkAccessManager::getUrl()
 }
 
 NetworkAccessManager::~NetworkAccessManager()
-{
-  if ( xhtmlCache )
-    xhtmlCache->clear();
-}
+{}

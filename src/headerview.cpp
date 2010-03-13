@@ -53,11 +53,22 @@ HeaderView::HeaderView ( QWidget * parent )
   setWidget ( m_treeWidget );
 }
 
-void HeaderView::setHeaders ( const QMap<QString,QString> &map )
+void HeaderView::setHeaders ( const QString &host, const QMap<QString,QString> &map )
 {
-  m_treeWidget->clear();
+  QFontMetrics fontMetric = m_treeWidget->fontMetrics();
+  int minWidth = 0;
 
-  QTreeWidgetItem* parent = m_treeWidget->invisibleRootItem();
+  if ( m_treeWidget->findItems ( host, Qt::MatchExactly, 0 ).size() > 0 )
+    return;
+
+  clearItems ();
+
+  QTreeWidgetItem* parent = new QTreeWidgetItem ( m_treeWidget->invisibleRootItem() );
+  parent->setExpanded ( true );
+  parent->setData ( 0, Qt::DisplayRole, host );
+  parent->setText ( 1, trUtf8 ( "Hostname" ) );
+  parent->setForeground ( 1, Qt::lightGray );
+
   QMapIterator<QString,QString> it ( map );
   while ( it.hasNext() )
   {
@@ -66,7 +77,18 @@ void HeaderView::setHeaders ( const QMap<QString,QString> &map )
     item->setData ( 0, Qt::DisplayRole, it.key() );
     item->setData ( 1, Qt::DisplayRole, it.value() );
     parent->addChild ( item );
+    int cw = ( fontMetric.width ( it.value() ) + item->font ( 0 ).weight() );
+    if ( cw > minWidth )
+      minWidth = cw;
   }
+
+  if ( minWidth > 10 )
+    m_treeWidget->setColumnWidth ( 1, minWidth );
+}
+
+void HeaderView::clearItems ()
+{
+  m_treeWidget->clear();
 }
 
 HeaderView::~HeaderView()

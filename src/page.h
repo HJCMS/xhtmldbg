@@ -7,21 +7,34 @@
 #define PAGE_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 #include <QtCore/QByteArray>
 #include <QtCore/QIODevice>
 #include <QtCore/QEvent>
 
+/* QtWebKit */
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebFrame>
+
+/* QtNetwork */
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
 
 class Page : public QWebPage
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://qtidy.hjcms.de" )
+    Q_PROPERTY ( QString xhtml READ xhtmlSource )
+
+  private:
+    QString xhtml;
+    QNetworkReply* reply;
+    QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
 
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
@@ -29,9 +42,15 @@ class Page : public QWebPage
 
   private Q_SLOTS:
     void triggerSelections();
+    void headerFinished();
+    void replyFinished();
+
+  Q_SIGNALS:
+    void getUrl ( const QUrl & );
 
   public:
     Page ( QObject* parent = 0 );
+    const QString xhtmlSource();
     virtual ~Page();
 };
 

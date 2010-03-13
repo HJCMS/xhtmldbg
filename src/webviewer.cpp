@@ -173,7 +173,7 @@ void WebViewer::forward ()
 
 void WebViewer::setUrl ( const QUrl &u )
 {
-  activeView()->setUrl ( u );
+  activeView()->openUrl ( u );
   url = u;
 }
 
@@ -184,7 +184,11 @@ const QUrl WebViewer::getUrl()
 
 const QString WebViewer::toHtml()
 {
-  return activeView()->page()->currentFrame()->toHtml ();
+  QString source = activeView()->source ();
+  if ( source.isEmpty() )
+    return activeView()->page()->currentFrame()->toHtml ();
+  else
+    return source;
 }
 
 const QWebElement WebViewer::toWebElement()

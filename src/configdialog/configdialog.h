@@ -52,7 +52,6 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     QPushButton* m_buttonRestore;
     QPushButton* m_buttonSave;
 
-    void setCacheLoadControlComboBoxItems();
     void setCaCertIssuerTable();
 
     // load
