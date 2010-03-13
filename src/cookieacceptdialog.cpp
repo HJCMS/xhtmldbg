@@ -30,6 +30,7 @@
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QTableWidgetItem>
 #include <QtGui/QVBoxLayout>
 
@@ -56,24 +57,27 @@ CookieAcceptDialog::CookieAcceptDialog ( const QUrl &url, QWidget * parent )
   m_editCookiesTable = new EditCookiesTable ( this );
   m_editCookiesTable->loadCookieArrangements ( m_settings );
   m_editCookiesTable->addCookie ( 1, host );
-  layout->addWidget ( m_editCookiesTable );
-
-  QDialogButtonBox* box = new QDialogButtonBox ( QDialogButtonBox::Ok, Qt::Horizontal, this );
-  box->setObjectName ( QLatin1String ( "buttonBox" ) );
-  layout->addWidget ( box );
-
-  setLayout ( layout );
 
   QList<QTableWidgetItem *> list = m_editCookiesTable->findItems ( host, Qt::MatchExactly );
   if ( list.size() > 0 )
     m_editCookiesTable->setCurrentItem ( list.at ( 0 ) );
 
-  connect ( box, SIGNAL ( accepted() ), this, SLOT ( finish() ) );
+  layout->addWidget ( m_editCookiesTable );
+
+  QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
+  box->setObjectName ( QLatin1String ( "buttonBox" ) );
+  QPushButton* save = box->addButton ( trUtf8 ( "Ready" ), QDialogButtonBox::ActionRole );
+  layout->addWidget ( box );
+
+  setLayout ( layout );
+
+  connect ( save, SIGNAL ( clicked() ), this, SLOT ( saveAndExit() ) );
 }
 
-void CookieAcceptDialog::finish()
+void CookieAcceptDialog::saveAndExit()
 {
   m_editCookiesTable->saveCookieArrangements ( m_settings );
+
   accept();
 }
 

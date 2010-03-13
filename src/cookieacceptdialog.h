@@ -44,10 +44,10 @@ class CookieAcceptDialog : public QDialog
     QSettings* m_settings;
 
   private Q_SLOTS:
-    void finish();
+    void saveAndExit();
 
   public:
-    CookieAcceptDialog ( const QUrl &, QWidget * parent = 0 );
+    CookieAcceptDialog ( const QUrl &url, QWidget * parent = 0 );
     ~CookieAcceptDialog();
 };
 

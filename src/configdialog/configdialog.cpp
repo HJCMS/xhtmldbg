@@ -116,6 +116,7 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( JavaEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
 
   // Spin Boxes
   connect ( DefaultFontSize, SIGNAL ( editingFinished() ), this, SLOT ( setModified() ) );

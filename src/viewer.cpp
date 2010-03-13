@@ -22,20 +22,17 @@
 #include "viewer.h"
 #include "webviewer.h"
 #include "page.h"
-#include "application.h"
+#include "xhtmldbg.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "cookieacceptdialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QDir>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QBrush>
-#include <QtGui/QDesktopServices>
 #include <QtGui/QColor>
 #include <QtGui/QMenu>
 #include <QtGui/QPalette>
@@ -53,16 +50,16 @@ Viewer::Viewer ( QWidget * parent )
 
   setContentsMargins ( 0, 0, 0, 0 );
   setContextMenuPolicy ( Qt::DefaultContextMenu );
-  updateWebSettings();
 
-  NetworkAccessManager* netManager = Application::networkAccessManager();
+  NetworkAccessManager* netManager = xhtmldbg::instance()->networkAccessManager();
+  cookieManager = xhtmldbg::instance()->cookieManager();
 
   m_page = new Page ( this );
   m_page->setNetworkAccessManager ( netManager );
   m_page->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );
   setPage ( m_page );
 
-  connect ( Application::cookieManager(), SIGNAL ( cookiesRequest ( const QUrl & ) ),
+  connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
 
   connect ( m_page, SIGNAL ( getUrl ( const QUrl & ) ),
@@ -78,53 +75,14 @@ Viewer::Viewer ( QWidget * parent )
             this, SLOT ( cursorFinished ( bool ) ) );
 }
 
-void Viewer::updateWebSettings()
+void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
 {
-  // Settings
-  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
-                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+  if ( ! cookieManager )
+    return;
 
-  QWebSettings* wcfg = settings ();
-
-  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir ( dbPath );
-  dir.mkpath ( QLatin1String ( "icons" ) );
-  dir.mkpath ( QLatin1String ( "storage" ) );
-  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
-  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
-
-  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
-
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
-                       cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
-                       cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
-
-  // Until QtWebkit defaults to 16
-  wcfg->setFontSize ( QWebSettings::DefaultFontSize,
-                      cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
-
-  wcfg->setFontSize ( QWebSettings::DefaultFixedFontSize,
-                      cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
-  // Page Settings
-  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
-                       cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::AutoLoadImages,
-                       cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::JavascriptEnabled,
-                       cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::PluginsEnabled,
-                       cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::JavaEnabled,
-                       cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
-                       cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
+  CookieAcceptDialog cookiediag ( cookieUrl, this );
+  if ( cookiediag.exec() )
+    cookieManager->reload();
 }
 
 void Viewer::cursorwait ()
@@ -179,19 +137,15 @@ void Viewer::unsupportedContent ( QNetworkReply *reply )
     return;
 }
 
-// FIXME bugfix
 void Viewer::cookiesRequest ( const QUrl &u )
 {
   QString pageHost ( url().host() );
   QString cookieHost ( u.host() );
+
   if ( pageHost.contains ( cookieHost ) && ! cookieAlreadyAdd )
   {
-    CookieAcceptDialog diag ( u, this );
-    if ( diag.exec() )
-    {
-      cookieAlreadyAdd = true;
-      Application::cookieManager()->reload();
-    }
+    cookieAlreadyAdd = true;
+    openCookieRequestDialog ( u );
   }
 }
 
@@ -203,7 +157,6 @@ void Viewer::findKeyword ( const QString &word )
 void Viewer::openUrl ( const QUrl &url )
 {
   setUrl ( url );
-  emit linkClicked ( url ); // @ref NetworkAccessManager
 }
 
 const QString Viewer::source()

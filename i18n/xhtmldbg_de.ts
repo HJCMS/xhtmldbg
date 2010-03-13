@@ -284,57 +284,57 @@ Do you realy wan to exit?</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="460"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="461"/>
         <source>Notice</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="461"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="462"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation>Einstellungen wurden Zurück gesetzt.
 Bitte starte den Konfiurations Dialog neu.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="482"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="501"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="483"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="502"/>
         <source>PKCS#12 Format %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="483"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="500"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="484"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="501"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="485"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="503"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="486"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="504"/>
         <source>Open Certificate</source>
         <translation>Öffne Zertifikat</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="518"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
         <source>CA Bundle %1</source>
         <translation>CA Bündle %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="520"/>
         <source>Certificate %1</source>
         <translation>Zertifikat %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="521"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="522"/>
         <source>Open CA Database</source>
         <translation>Öffne CA Datenbank</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="536"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="538"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation>Ungespeicherte Einstellungen gefunden.
@@ -712,14 +712,19 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>CookieAcceptDialog</name>
     <message>
-        <location filename="../src/cookieacceptdialog.cpp" line="40"/>
+        <location filename="../src/cookieacceptdialog.cpp" line="41"/>
         <source>URL Cookie Requirement</source>
         <translation>URL Keks Anforderung</translation>
     </message>
     <message>
-        <location filename="../src/cookieacceptdialog.cpp" line="53"/>
+        <location filename="../src/cookieacceptdialog.cpp" line="54"/>
         <source>The Host have sent a Cookie request, add here the Arrangement.</source>
         <translation>Die Webseite möchte einen Keks setzen, bearbeite hier deine Regelung.</translation>
+    </message>
+    <message>
+        <location filename="../src/cookieacceptdialog.cpp" line="69"/>
+        <source>Ready</source>
+        <translation>Fertig</translation>
     </message>
 </context>
 <context>
@@ -1243,7 +1248,7 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="148"/>
+        <location filename="../src/viewer.cpp" line="106"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
@@ -1251,7 +1256,7 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="131"/>
+        <location filename="../src/webviewer.cpp" line="185"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>

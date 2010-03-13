@@ -40,6 +40,7 @@
 #include <QtWebKit/QWebPage>
 
 class Page;
+class NetworkCookie;
 
 class Viewer : public QWebView
 {
@@ -50,9 +51,10 @@ class Viewer : public QWebView
   private:
     bool cookieAlreadyAdd;
     Page* m_page;
+    NetworkCookie* cookieManager;
+    void openCookieRequestDialog ( const QUrl & );
 
   private Q_SLOTS:
-    void updateWebSettings();
     void cursorwait ();
     void cursorFinished ( bool );
     void bookmark();

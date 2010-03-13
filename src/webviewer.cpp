@@ -27,10 +27,13 @@
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QSettings>
 #include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QColor>
+#include <QtGui/QDesktopServices>
 #include <QtGui/QTabBar>
 
 /* QtWebKit */
@@ -48,6 +51,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setTabsClosable ( true );
 
   m_viewer = new Viewer ( this );
+  updateWebSettings();
   addViewerTab ( m_viewer );
 
   connect ( this, SIGNAL ( currentChanged ( int ) ),
@@ -55,6 +59,56 @@ WebViewer::WebViewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
             this, SLOT ( closeViewerTab ( int ) ) );
+}
+
+void WebViewer::updateWebSettings()
+{
+  // Settings
+  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
+                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+
+  QWebSettings* wcfg = QWebSettings::globalSettings();
+
+  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+  QDir dir ( dbPath );
+  dir.mkpath ( QLatin1String ( "icons" ) );
+  dir.mkpath ( QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
+  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+
+  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
+
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
+                       cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
+                       cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
+
+  // Until QtWebkit defaults to 16
+  wcfg->setFontSize ( QWebSettings::DefaultFontSize,
+                      cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
+
+  wcfg->setFontSize ( QWebSettings::DefaultFixedFontSize,
+                      cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
+
+  // Page Settings
+  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
+                       cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::AutoLoadImages,
+                       cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::JavascriptEnabled,
+                       cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::PluginsEnabled,
+                       cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::JavaEnabled,
+                       cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
+                       cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
 }
 
 Viewer* WebViewer::activeView()

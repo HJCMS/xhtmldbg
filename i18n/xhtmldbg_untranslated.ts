@@ -283,56 +283,56 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="460"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="461"/>
         <source>Notice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="461"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="462"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="482"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="501"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="483"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="502"/>
         <source>PKCS#12 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="483"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="500"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="484"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="501"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="485"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="503"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="486"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="504"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="518"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
         <source>CA Bundle %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="519"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="520"/>
         <source>Certificate %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="521"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="522"/>
         <source>Open CA Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="536"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="537"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="538"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
@@ -709,13 +709,18 @@ Do you realy wan to exit?</source>
 <context>
     <name>CookieAcceptDialog</name>
     <message>
-        <location filename="../src/cookieacceptdialog.cpp" line="40"/>
+        <location filename="../src/cookieacceptdialog.cpp" line="41"/>
         <source>URL Cookie Requirement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookieacceptdialog.cpp" line="53"/>
+        <location filename="../src/cookieacceptdialog.cpp" line="54"/>
         <source>The Host have sent a Cookie request, add here the Arrangement.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookieacceptdialog.cpp" line="69"/>
+        <source>Ready</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1240,7 +1245,7 @@ Do you realy wan to exit?</source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="148"/>
+        <location filename="../src/viewer.cpp" line="106"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1248,7 +1253,7 @@ Do you realy wan to exit?</source>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="131"/>
+        <location filename="../src/webviewer.cpp" line="185"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>
