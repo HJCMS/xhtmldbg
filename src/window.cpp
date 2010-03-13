@@ -69,7 +69,6 @@
 Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
-    , hasRealPageSource ( false )
 {
   // Window Properties
   setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
@@ -375,27 +374,24 @@ void Window::requestsFinished ( bool ok )
 {
   if ( ok )
   {
-    QString html = m_webViewer->toHtml();
-    if ( ! html.isEmpty() )
-    {
-      // FIXME if NetworkManager didn't receive the Source then use WebKit
-      if ( ! hasRealPageSource )
-        m_sourceWidget->setSource ( html );
-
-      m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
-      m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
-      // Clear Message for new incoming Page Source
-      m_tidyMessanger->clearItems();
-
-      // Is AutoCheck or AutoFormat Enabled?
-      if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
-        m_sourceWidget->format();
-      else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
-        m_sourceWidget->check();
-
-      m_domViewer->setDomTree ( m_webViewer->toWebElement() );
-    }
+    m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+    m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
+    m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
   }
+}
+
+void Window::setSource ( const QString &source )
+{
+  m_tidyMessanger->clearItems();
+  if ( source.isEmpty() )
+    return;
+
+  m_sourceWidget->setSource ( source );
+  // Is AutoCheck or AutoFormat Enabled?
+  if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
+    m_sourceWidget->format();
+  else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
+    m_sourceWidget->check();
 }
 
 void Window::openTidyConfigApplication()
@@ -457,7 +453,6 @@ void Window::openFile ( const QUrl &url )
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
       QString data = codec->toUnicode ( buffer );
-      hasRealPageSource = true;
       m_sourceWidget->setSource ( data );
       m_webViewer->setUrl ( url.path() );
       m_settings->setValue ( QLatin1String ( "RecentFile" ), url );

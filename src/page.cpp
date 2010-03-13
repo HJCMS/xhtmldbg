@@ -72,23 +72,25 @@ QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
   return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
-void Page::headerFinished()
-{}
+bool Page::prepareContent ( QNetworkReply * dev )
+{
+  xhtml.clear();
+  QByteArray data = dev->readAll();
+  if ( data.isEmpty() )
+    return false;
+
+  QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
+  xhtmldbg::instance()->mainWindow()->setSource ( codec->toUnicode ( data ) );
+  return true;
+}
 
 void Page::replyFinished()
 {
   if ( reply )
   {
     QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
-    if ( mimeType.contains ( "text/html" ) )
-    {
-      QByteArray data = reply->readAll();
-      QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( reply ) );
-      xhtml = codec->toUnicode ( data );
-      // qDebug() << Q_FUNC_INFO << xhtml.length();
-      // xhtmldbg::instance()->mainWindow()->setSourceView ( xhtml );
+    if ( mimeType.contains ( "text/html" ) &&  prepareContent ( reply ) )
       emit getUrl ( reply->url() );
-    }
   }
 }
 
@@ -103,7 +105,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
       break;
 
     case QWebPage::NavigationTypeFormSubmitted:
-      qDebug() << Q_FUNC_INFO << "NavigationTypeFormSubmitted";
       break;
 
     case QWebPage::NavigationTypeBackOrForward:
@@ -117,16 +118,12 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
       break;
 
     case QWebPage::NavigationTypeFormResubmitted:
-      qDebug() << Q_FUNC_INFO << "NavigationTypeFormResubmitted";
       break;
 
     case QWebPage::NavigationTypeOther:
-      reply = networkAccessManager()->head ( request );
-      connect ( reply, SIGNAL ( finished() ), this, SLOT ( headerFinished() ) );
       break;
 
     default:
-      qDebug() << Q_FUNC_INFO << "UNKNOWN";
       break;
   }
   return QWebPage::acceptNavigationRequest ( frame, request, type );

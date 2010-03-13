@@ -64,7 +64,6 @@ class Window : public QMainWindow
 
   private:
     QSettings* m_settings;
-    bool hasRealPageSource;
     // Network Manager
     NetworkAccessManager* m_netManager;
     // Main Menu
@@ -137,6 +136,7 @@ class Window : public QMainWindow
     void paintEvent ( QPaintEvent * );
 
   public Q_SLOTS:
+    void setSource ( const QString & );
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );
     void visibleSourceChanged();

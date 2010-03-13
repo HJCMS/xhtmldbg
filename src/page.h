@@ -35,6 +35,7 @@ class Page : public QWebPage
     QString xhtml;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
+    bool prepareContent ( QNetworkReply * dev );
 
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
@@ -42,7 +43,6 @@ class Page : public QWebPage
 
   private Q_SLOTS:
     void triggerSelections();
-    void headerFinished();
     void replyFinished();
 
   Q_SIGNALS:

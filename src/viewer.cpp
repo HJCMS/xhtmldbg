@@ -179,6 +179,7 @@ void Viewer::unsupportedContent ( QNetworkReply *reply )
     return;
 }
 
+// FIXME bugfix
 void Viewer::cookiesRequest ( const QUrl &u )
 {
   QString pageHost ( url().host() );
