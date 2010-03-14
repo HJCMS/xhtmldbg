@@ -60,7 +60,7 @@ QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
   QString encoding ( "UTF-8" );
   if ( reply )
   {
-    QByteArray cType = reply->rawHeader ( "Content-Type" );
+    QByteArray cType = reply->rawHeader ( QByteArray( "Content-Type" ) );
     if ( ! cType.isEmpty() )
     {
       QString Charset ( cType );

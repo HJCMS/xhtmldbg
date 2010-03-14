@@ -55,6 +55,7 @@ class HistoryMenu;
 class StatusBar;
 class CookieView;
 class HeaderView;
+class FormView;
 
 class Window : public QMainWindow
 {
@@ -120,6 +121,8 @@ class Window : public QMainWindow
     CookieView* m_cookieView;
     // Received Headers
     HeaderView* m_headerView;
+    // Posted Form Data
+    FormView* m_formView;
 
     void createMenus();
     void createToolBars();

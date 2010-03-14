@@ -39,6 +39,7 @@ SET (xhtmldbg_SOURCES
   cookieview.cpp
   cookieacceptdialog.cpp
   headerview.cpp
+  formview.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -60,6 +61,7 @@ SET (xhtmldbg_HEADERS
   cookieview.h
   cookieacceptdialog.h
   headerview.h
+  formview.h
 )
 
 SET (xhtmldbg_NOMOC

@@ -39,6 +39,7 @@
 #include "statusbar.h"
 #include "cookieview.h"
 #include "headerview.h"
+#include "formview.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -126,6 +127,10 @@ Window::Window ( QSettings * settings )
   m_headerView = new HeaderView ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerView );
 
+  // Show Posted Formsdata
+  m_formView = new FormView ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_formView );
+
   // finalize WindowDesign
   createMenus();
   createToolBars();
@@ -154,6 +159,9 @@ Window::Window ( QSettings * settings )
 
   connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
             m_headerView, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
+
+  connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
+            m_formView, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -348,6 +356,7 @@ void Window::createToolBars()
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_cookieView->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_headerView->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_formView->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -378,7 +387,7 @@ void Window::requestsFinished ( bool ok )
     m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
-    QUrl recent ( m_webViewer->getUrl().toString ( options ), QUrl::StrictMode );
+    QUrl recent ( m_webViewer->getUrl().toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
   }
 }

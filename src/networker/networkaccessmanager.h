@@ -59,6 +59,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
     QUrl url;
+    void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
 
   private Q_SLOTS:
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
@@ -70,6 +71,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     void netNotify ( const QString & );
     void statusBarMessage ( const QString & );
     void receivedHostHeaders ( const QString &, const QMap<QString,QString> & );
+    void postedRefererData ( const QUrl &, const QStringList & );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

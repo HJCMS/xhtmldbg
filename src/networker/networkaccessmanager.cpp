@@ -33,6 +33,7 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
 
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
@@ -132,6 +133,51 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   delete errdial;
 }
 
+void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevice * data )
+{
+  if ( req.rawHeader ( QByteArray ( "Referer" ) ).isEmpty() )
+    return;
+
+  if ( data->isOpen() )
+  {
+    QByteArray postData = QByteArray::fromPercentEncoding ( data->peek ( 1024 * 1024 ) );
+    QTextCodec* codec = QTextCodec::codecForHtml ( postData, QTextCodec::codecForName ( "UTF-8" ) );
+    QString string = codec->toUnicode ( postData );
+    if ( string.contains ( "WebKitFormBoundary" ) )
+    {
+      QStringList buffer, list;
+      QStringList line = string.split ( "\n" );
+      line.removeFirst();
+
+      for ( int l = 0; l < line.size(); l++ )
+      {
+        QString str = line.at(l).trimmed();
+        if ( str.contains ( "Content-Disposition" ) )
+          buffer << str.split ( "name=" ).last().remove ( "\"" );
+        if ( str.contains ( "WebKitFormBoundary" ) )
+          buffer << line.at( ( l - 1 ) );
+        else
+          continue;
+      }
+
+      if ( buffer.size() % 2 != 0 )
+        buffer << "";
+
+      for ( int i = 0; i < buffer.size(); i += 2 )
+      {
+        list << ( buffer.at ( i ) + "=" + buffer.at ( ( i+1 ) ) );
+      }
+      buffer.clear();
+      // qDebug() << list;
+      emit postedRefererData ( req.url(), list );
+      return;
+    }
+    QStringList param = string.split ( QString::fromUtf8 ( "&" ) );
+    if ( param.size() >= 1 )
+      emit postedRefererData ( req.url(), param );
+  }
+}
+
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 {
   if ( reply && ( reply->url().host() == url.host() ) )
@@ -171,6 +217,9 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setSslConfiguration ( sslConfig );
+  if ( op == QNetworkAccessManager::PostOperation && data )
+    fetchPostedData ( reply->request(), data );
+
   if ( reply->url() == url )
   {
     connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
