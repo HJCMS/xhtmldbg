@@ -84,7 +84,7 @@ void FormView::setPostedData ( const QUrl &url, const QStringList &list )
   if ( url.hasFragment() )
   {
     QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
-    item->setData ( 0, Qt::DisplayRole, trUtf8 ( "Fragment" ) );
+    item->setData ( 0, Qt::DisplayRole, trUtf8 ( "Anchor" ) );
     item->setForeground ( 0, Qt::lightGray );
     item->setData ( 1, Qt::DisplayRole, url.fragment() );
     parent->addChild ( item );
