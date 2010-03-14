@@ -19,6 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#include "version.h"
 #include "window.h"
 #include "application.h"
 #include "networkaccessmanager.h"
@@ -72,7 +73,8 @@ Window::Window ( QSettings * settings )
     , m_settings ( settings )
 {
   // Window Properties
-  setWindowTitle ( trUtf8 ( "XHTML Debugger" ) );
+  QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg( XHTMLDBG_VERSION_STRING );
+  setWindowTitle ( winTitle );
   setObjectName ( "xhtmldbgwindow" );
   QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
   setWindowIcon ( qTidyIcon );
@@ -83,7 +85,7 @@ Window::Window ( QSettings * settings )
   m_statusBar = new StatusBar ( statusBar() );
   setStatusBar ( m_statusBar );
 
-  // Browser DockWidget
+  // Central TabWidget
   m_centralWidget = new QTabWidget ( this );
   m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
   m_centralWidget->setTabPosition ( QTabWidget::South );

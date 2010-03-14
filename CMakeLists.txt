@@ -31,10 +31,8 @@ FIND_PACKAGE (QTidy REQUIRED)
 
 SET (XHTMLDBG_VERSION_MAJOR 0)
 SET (XHTMLDBG_VERSION_MINOR 8)
-SET (XHTMLDBG_VERSION_RELEASE 1)
+SET (XHTMLDBG_VERSION_RELEASE 2)
 SET (XHTMLDBG_VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}")
-SET (XHTMLDBG_VERSION_STRING "${XHTMLDBG_VERSION}")
-SET (XHTMLDBG_DEFINITIONS "-DXHTMLDBG_VERSION_STRING=\"${XHTMLDBG_VERSION}\"")
 SET (XHTMLDBG_DISTRIBUTION_TEXT "compiled sources" CACHE STRING "Indicate the distribution in bug reports")
 SET (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
 SET (XHTMLDBG_CXXFLAGS "" CACHE STRING "Defined in pkg-config file")
@@ -152,6 +150,14 @@ SET (EXECUTABLE_OUTPUT_PATH
 
 SET (LIBRARY_OUTPUT_PATH
   ${CMAKE_CURRENT_BINARY_DIR}/app
+)
+
+##############################################################
+## Configure files
+##############################################################
+
+CONFIGURE_FILE (version.h.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/version.h
 )
 
 ##############################################################

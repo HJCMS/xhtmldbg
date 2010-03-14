@@ -19,6 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#include "version.h"
 #include "aboutdialog.h"
 
 /* QtCore */
@@ -35,7 +36,8 @@ AboutDialog::AboutDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "aboutdialog" ) );
-  setWindowTitle ( trUtf8 ( "About xhtmldbg & HJCMS" ) );
+  QString winTitle = trUtf8 ( "About xhtmldbg (v%1) & HJCMS" ).arg( XHTMLDBG_VERSION_STRING );
+  setWindowTitle ( winTitle );
   setMinimumWidth ( 450 );
   setMinimumHeight ( 350 );
   setSizeGripEnabled ( true );
@@ -58,7 +60,7 @@ AboutDialog::AboutDialog ( QWidget * parent )
   textLabel->setMargin ( 5 );
   textLabel->setText ( aboutText() );
   textLabel->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
-  layout->addWidget ( textLabel, 0, 1, 3, 1, Qt::AlignTop );
+  layout->addWidget ( textLabel, 0, 1, 2, 1, Qt::AlignTop );
 
   QLabel* ImgLabel2 = new QLabel ( this );
   ImgLabel2->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -67,14 +69,6 @@ AboutDialog::AboutDialog ( QWidget * parent )
   ImgLabel2->setAlignment ( Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop );
   ImgLabel2->setSizePolicy ( QSizePolicy::Minimum, QSizePolicy::Expanding );
   layout->addWidget ( ImgLabel2, 1, 0, 1, 1, Qt::AlignTop );
-
-  QLabel* ImgLabel3 = new QLabel ( this );
-  ImgLabel3->setTextInteractionFlags ( Qt::NoTextInteraction );
-  ImgLabel3->setPixmap ( QPixmap( QString::fromUtf8 ( ":/icons/lgplv3.png" ) ) );
-  ImgLabel3->setLayoutDirection ( Qt::RightToLeft );
-  ImgLabel3->setAlignment ( Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop );
-  ImgLabel3->setSizePolicy ( QSizePolicy::Minimum, QSizePolicy::Expanding );
-  layout->addWidget ( ImgLabel3, 2, 0, 1, 1, Qt::AlignTop );
 
   QDialogButtonBox* box = new QDialogButtonBox ( QDialogButtonBox::Ok, Qt::Horizontal, this );
   layout->addWidget ( box, 3, 0, 1, 2, Qt::AlignHCenter );
@@ -86,10 +80,10 @@ AboutDialog::AboutDialog ( QWidget * parent )
 
 const QString AboutDialog::aboutText()
 {
-  return trUtf8 ( "<h3>The QTidy XHTML Debugger Application</h3><p>The goal of this Application is to Debug and Inspect Web-pages in One Application. You can Browse your Website Project and Debug it on the fly.</p>\
+  return QString::fromUtf8 ( "<h3>The QTidy XHTML Debugger Application</h3><p>The goal of this Application is to Debug and Inspect Web-pages in One Application. You can Browse your Website Project and Debug it on the fly.</p>\
 <dl><dt>Features:<dt><dd>Web Navigation with QWebKit</dd><dd>Source Validation for  real XHTML debugging with <a href=\"http://tidy.sourceforge.net\">Tidy</a>.</dd><dd>Dom Inspection with <a href=\"http://www.webkit.org\">Webkit's</a> Dom Inspector Tools</dd>\
 <dt>Authors:</dt><dd>Heinemann Juergen (Undefined) <a href=\"http://www.hjcms.de\">HJCMS</a><dd>\
-<dt>Licenses:</dt><dd>XHTMLDBG GPLv3</dd><dd>libQTidy LGPLv3</dd></dl>" );
+<dt>Licenses:</dt><dd>XHTMLDBG GPLv3</dd><dd>libQTidy LGPLv2</dd></dl>" );
 }
 
 AboutDialog::~AboutDialog()
