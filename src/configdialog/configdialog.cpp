@@ -72,11 +72,10 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // Set Tab Icons
   tabWidget->setTabIcon ( 0, icon.fromTheme ( QLatin1String ( "preferences-system-windows-actions" ) ) );
   tabWidget->setTabIcon ( 1, icon.fromTheme ( QLatin1String ( "preferences-system-windows" ) ) );
-  tabWidget->setTabIcon ( 2, icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
-  tabWidget->setTabIcon ( 3, icon.fromTheme ( QLatin1String ( "preferences-system-performance" ) ) );
-  tabWidget->setTabIcon ( 4, icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
-  tabWidget->setTabIcon ( 5, icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );
-  tabWidget->setTabIcon ( 6, icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
+  tabWidget->setTabIcon ( 2, icon.fromTheme ( QLatin1String ( "preferences-system-performance" ) ) );
+  tabWidget->setTabIcon ( 3, icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
+  tabWidget->setTabIcon ( 4, icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
+  tabWidget->setTabIcon ( 5, icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
   // Set PushButton Icons
   removeCookieItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   removeAllCookies->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );

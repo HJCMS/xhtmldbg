@@ -60,9 +60,6 @@ Viewer::Viewer ( QWidget * parent )
   connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
 
-  connect ( m_page, SIGNAL ( getUrl ( const QUrl & ) ),
-            this, SLOT ( openUrl ( const QUrl & ) ) );
-
   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
             netManager, SLOT ( setUrl ( const QUrl & ) ) );
 

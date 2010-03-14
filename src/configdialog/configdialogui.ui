@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>693</width>
-    <height>492</height>
+    <width>665</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -313,65 +313,9 @@
      </widget>
      <widget class="QWidget" name="tab3">
       <attribute name="title">
-       <string>Network</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_7">
-       <property name="margin">
-        <number>2</number>
-       </property>
-       <item>
-        <widget class="QCheckBox" name="DoNotBufferUploadDataAttribute">
-         <property name="text">
-          <string>Do Not Buffer Upload Data when doing a HTTP POST request.</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="HttpPipeliningAllowedAttribute">
-         <property name="text">
-          <string>Allow HTTP pipelining with requests.</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="HttpPipeliningWasUsedAttribute">
-         <property name="text">
-          <string>Indicates whether the HTTP Pipelining was used for receiving data Requests.</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>354</width>
-           <height>167</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab4">
-      <attribute name="title">
        <string>Browser</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <property name="margin">
-        <number>2</number>
-       </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
@@ -481,6 +425,36 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="DoNotBufferUploadDataAttribute">
+         <property name="text">
+          <string>Do Not Buffer Upload Data when doing a HTTP POST request.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="HttpPipeliningAllowedAttribute">
+         <property name="text">
+          <string>Allow HTTP pipelining with requests.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="HttpPipeliningWasUsedAttribute">
+         <property name="text">
+          <string>Indicates whether the HTTP Pipelining was used for receiving data Requests.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_3">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -495,7 +469,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab5">
+     <widget class="QWidget" name="tab4">
       <attribute name="title">
        <string notr="true">Cookies</string>
       </attribute>
@@ -712,7 +686,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab6">
+     <widget class="QWidget" name="tab5">
       <attribute name="title">
        <string notr="true">Proxy</string>
       </attribute>
@@ -725,7 +699,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab7">
+     <widget class="QWidget" name="tab6">
       <attribute name="title">
        <string notr="true">SSL</string>
       </attribute>
@@ -1060,22 +1034,6 @@
  <resources/>
  <connections>
   <connection>
-   <sender>clearPassButton</sender>
-   <signal>clicked()</signal>
-   <receiver>qt_ssl_pass_phrase</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>645</x>
-     <y>635</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>608</x>
-     <y>633</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>clearStartupUrlBtn</sender>
    <signal>clicked()</signal>
    <receiver>StartUpUrl</receiver>
@@ -1088,6 +1046,22 @@
     <hint type="destinationlabel">
      <x>595</x>
      <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearPassButton</sender>
+   <signal>clicked()</signal>
+   <receiver>qt_ssl_pass_phrase</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>645</x>
+     <y>635</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>608</x>
+     <y>633</y>
     </hint>
    </hints>
   </connection>
