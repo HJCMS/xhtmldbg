@@ -43,6 +43,7 @@
 #include <QtNetwork/QSslConfiguration>
 
 class NetworkSettings;
+class NetworkCookie;
 
 class NetworkAccessManager : public QNetworkAccessManager
 {
@@ -52,6 +53,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     Q_PROPERTY ( const QUrl url READ getUrl WRITE setUrl )
 
   private:
+    NetworkCookie* m_networkCookie;
     QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
     QAbstractNetworkCache* xhtmlCache;
@@ -75,9 +77,11 @@ class NetworkAccessManager : public QNetworkAccessManager
 
   public:
     NetworkAccessManager ( QObject *parent = 0 );
-    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
-                                   const QNetworkRequest &, QIODevice * );
     const QUrl getUrl();
+    NetworkCookie* cookieJar() const;
+    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
+                                   const QNetworkRequest &req, QIODevice *data = 0 );
+    QNetworkReply* get ( const QNetworkRequest &req );
     ~NetworkAccessManager();
 };
 

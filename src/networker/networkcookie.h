@@ -58,7 +58,7 @@ class NetworkCookie : public QNetworkCookieJar
 
   public:
     enum CookieArrangement { Session = 0, Blocked = 1, Allowed = 2 };
-    NetworkCookie ( QObject * parent = 0 );
+    NetworkCookie ( NetworkSettings * settings, QObject * parent = 0 );
     QList<QNetworkCookie> cookiesForUrl ( const QUrl & ) const;
     bool setCookiesFromUrl ( const QList<QNetworkCookie> &, const QUrl & );
     virtual ~NetworkCookie();

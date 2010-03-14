@@ -376,7 +376,10 @@ void Window::requestsFinished ( bool ok )
   {
     m_domViewer->setDomTree ( m_webViewer->toWebElement() );
     m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
-    m_settings->setValue ( QLatin1String ( "RecentUrl" ), m_webViewer->getUrl() );
+    // Make Secure
+    QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
+    QUrl recent ( m_webViewer->getUrl().toString ( options ), QUrl::StrictMode );
+    m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
   }
 }
 

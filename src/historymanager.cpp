@@ -40,7 +40,7 @@ HistoryManager::HistoryManager ( QObject * parent )
 
 const QUrl HistoryManager::toUrl ( const QString &path )
 {
-  QUrl url ( path.toLower() );
+  QUrl url ( path.toLower(), QUrl::StrictMode );
   url.setPassword ( QString::null );
   url.setHost ( url.host() );
   return url;

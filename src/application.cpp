@@ -165,14 +165,13 @@ NetworkAccessManager* Application::networkAccessManager()
   if ( !p_networkAccessManager )
   {
     p_networkAccessManager = new NetworkAccessManager();
-    p_networkAccessManager->setCookieJar ( new NetworkCookie );
   }
   return p_networkAccessManager;
 }
 
 NetworkCookie* Application::cookieManager()
 {
-  return ( NetworkCookie* ) networkAccessManager()->cookieJar();
+  return networkAccessManager()->cookieJar();
 }
 
 Application::~Application()

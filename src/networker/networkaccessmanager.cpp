@@ -21,6 +21,7 @@
 
 #include "networkaccessmanager.h"
 #include "networksettings.h"
+#include "networkcookie.h"
 #include "authenticationdialog.h"
 #include "certdialog.h"
 #include "errorsdialog.h"
@@ -38,6 +39,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     , url ( QUrl ( "http://localhost" ) )
 {
   m_networkSettings = new  NetworkSettings ( this );
+  m_networkCookie = new NetworkCookie ( m_networkSettings, this );
 
   sslConfig = m_networkSettings->sslConfiguration();
 
@@ -45,6 +47,8 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     setProxy ( m_networkSettings->getProxy() );
 
   trustedCertsHostsList << m_networkSettings->trustedCertsList();
+
+  setCookieJar ( m_networkCookie );
 
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
@@ -150,9 +154,19 @@ void NetworkAccessManager::setUrl ( const QUrl &u )
   url = u;
 }
 
+const QUrl NetworkAccessManager::getUrl()
+{
+  return url;
+}
+
+NetworkCookie* NetworkAccessManager::cookieJar() const
+{
+  return m_networkCookie;
+}
+
 QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Operation op,
         const QNetworkRequest &req,
-        QIODevice *data )
+        QIODevice * data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
@@ -165,9 +179,10 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   return reply;
 }
 
-const QUrl NetworkAccessManager::getUrl()
+QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
-  return url;
+  setUrl ( req.url() );
+  return createRequest ( QNetworkAccessManager::GetOperation, req );
 }
 
 NetworkAccessManager::~NetworkAccessManager()

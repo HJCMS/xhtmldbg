@@ -113,14 +113,14 @@ QDataStream &operator>> ( QDataStream &stream, QList<QNetworkCookie> &list )
 * @end Codes from demonstration applications of the Qt Toolkit.
 ****************************************************************************/
 
-NetworkCookie::NetworkCookie ( QObject * parent )
+NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
-    , m_netcfg ( 0 )
+    , m_netcfg ( settings )
     , cookiesBlocked ( 0 )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
 {
-  m_netcfg = new NetworkSettings ( this );
+//   m_netcfg = new NetworkSettings ( this );
   load();
 }
 

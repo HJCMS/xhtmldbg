@@ -24,6 +24,8 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 
+class NetworkAccessManager;
+
 class Page : public QWebPage
 {
     Q_OBJECT
@@ -32,6 +34,7 @@ class Page : public QWebPage
     Q_PROPERTY ( QString xhtml READ xhtmlSource )
 
   private:
+    NetworkAccessManager* m_netManager;
     QString xhtml;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
@@ -49,10 +52,9 @@ class Page : public QWebPage
     void getUrl ( const QUrl & );
 
   public:
-    Page ( QObject* parent = 0 );
+    Page ( NetworkAccessManager * manager, QObject* parent = 0 );
     const QString xhtmlSource();
     virtual ~Page();
 };
-
 
 #endif

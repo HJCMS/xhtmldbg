@@ -54,9 +54,7 @@ Viewer::Viewer ( QWidget * parent )
   NetworkAccessManager* netManager = xhtmldbg::instance()->networkAccessManager();
   cookieManager = xhtmldbg::instance()->cookieManager();
 
-  m_page = new Page ( this );
-  m_page->setNetworkAccessManager ( netManager );
-  m_page->setLinkDelegationPolicy ( QWebPage::DelegateAllLinks );
+  m_page = new Page ( netManager, this );
   setPage ( m_page );
 
   connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),

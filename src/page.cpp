@@ -4,7 +4,9 @@
 **/
 
 #include "page.h"
+#include "viewer.h"
 #include "xhtmldbg.h"
+#include "networkaccessmanager.h"
 #include "jsmessanger.h"
 
 /* QtCore */
@@ -24,11 +26,16 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-Page::Page ( QObject * parent )
+Page::Page ( NetworkAccessManager * manager, QObject * parent )
     : QWebPage ( parent )
+    , m_netManager ( manager )
     , xhtml ( QString::null )
 {
   setObjectName ( "page" );
+
+  setNetworkAccessManager ( m_netManager );
+  // setLinkDelegationPolicy ( QWebPage::DelegateExternalLinks );
+
   reply = 0;
 
   action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
@@ -97,36 +104,45 @@ void Page::replyFinished()
 bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &request,
                                      QWebPage::NavigationType type )
 {
+  bool b = QWebPage::acceptNavigationRequest ( frame, request, type );
+  if ( ! b )
+    return b;
+
+  // fetch Request Types for setSource View
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:
-      reply = networkAccessManager()->get ( request );
+      reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      break;
-
-    case QWebPage::NavigationTypeFormSubmitted:
-      break;
+      return true;
 
     case QWebPage::NavigationTypeBackOrForward:
-      reply = networkAccessManager()->get ( request );
+      reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      break;
+      return true;
 
     case QWebPage::NavigationTypeReload:
-      reply = networkAccessManager()->get ( request );
+      reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
+      return true;
+
+    case QWebPage::NavigationTypeFormSubmitted:
+      // The user activated a submit button for an HTML form.
       break;
 
     case QWebPage::NavigationTypeFormResubmitted:
-      break;
+      // An HTML form was submitted a second time.
+      return false;
 
     case QWebPage::NavigationTypeOther:
+      // typically a external reload or header location href request
+      // after this a getRequest is used by WebKit
       break;
 
     default:
       break;
   }
-  return QWebPage::acceptNavigationRequest ( frame, request, type );
+  return b;
 }
 
 void Page::triggerSelections()
