@@ -797,7 +797,7 @@ Do you realy wan to exit?</source>
     <name>DomInspector</name>
     <message>
         <location filename="../src/dominspector/dominspector.cpp" line="39"/>
-        <source>DOM</source>
+        <source>DomTree</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

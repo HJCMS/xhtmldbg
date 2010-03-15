@@ -800,8 +800,8 @@ Willst du wircklich beenden?</translation>
     <name>DomInspector</name>
     <message>
         <location filename="../src/dominspector/dominspector.cpp" line="39"/>
-        <source>DOM</source>
-        <translation></translation>
+        <source>DomTree</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
