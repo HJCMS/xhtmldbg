@@ -19,46 +19,36 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DOMINSPECTOR_H
-#define DOMINSPECTOR_H
+#ifndef LISTSTYLESHEET_H
+#define LISTSTYLESHEET_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QVector>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QSplitter>
-#include <QtGui/QWidget>
+#include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
-class DomTree;
-class ListStyleSheet;
-
-class DomInspector : public QDockWidget
+class ListStyleSheet : public QListWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    const QString highlight;
-    QList<QWebElement> lastSelections;
-    QSplitter* m_splitter;
-    DomTree* m_domTree;
-    ListStyleSheet* m_listStyleSheet;
-
-  private Q_SLOTS:
-    void setVisible ( const QWebElement & );
+    QVector<QString> cssAttributes;
 
   public Q_SLOTS:
-    void setDomTree ( const QWebElement & );
+    void setStyleSheetList ( const QWebElement & );
 
   public:
-    DomInspector ( const QString &highlightColor, QWidget * parent = 0 );
-    ~DomInspector ();
+    ListStyleSheet ( QWidget * parent = 0 );
+    ~ListStyleSheet();
 };
 
 #endif

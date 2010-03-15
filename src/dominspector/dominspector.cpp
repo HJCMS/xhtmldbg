@@ -21,12 +21,11 @@
 
 #include "dominspector.h"
 #include "domtree.h"
+#include "liststylesheet.h"
 
 /* QtCore */
-#include <QtCore>
-
-/* QtGui */
-#include <QtGui>
+#include <QtCore/QDebug>
+#include <QtCore/QFile>
 
 /* QtWebKit */
 #include <QtWebKit/QWebPage>
@@ -35,30 +34,28 @@ DomInspector::DomInspector ( const QString &highlightColor, QWidget * parent )
     : QDockWidget ( parent )
     , highlight ( highlightColor )
 {
+  Q_INIT_RESOURCE ( dominspector );
   setObjectName ( QLatin1String ( "domviewerdock" ) );
-  setWindowTitle ( trUtf8 ( "DOM" ) );
+  setWindowTitle ( trUtf8 ( "DomTree" ) );
   setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
-  m_domTree = new DomTree ( this );
+  m_splitter = new QSplitter ( Qt::Vertical, this );
+  m_splitter->setObjectName ( QLatin1String ( "domsplitter" ) );
 
-  setWidget ( m_domTree );
+  m_domTree = new DomTree ( m_splitter );
+  m_splitter->insertWidget ( 0, m_domTree );
+
+  m_listStyleSheet = new ListStyleSheet ( m_splitter );
+  m_splitter->insertWidget ( 1, m_listStyleSheet );
+
+  setWidget ( m_splitter );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
             this, SLOT ( setVisible ( const QWebElement & ) ) );
-}
 
-const QString DomInspector::javascript ( const QString &filename )
-{
-  QString js ( QLatin1String ( "(alert('Script Engine Failure');)" ) );
-  QFile file ( QString ( ":/scripts/%1.js" ).arg ( filename ) );
-  if ( file.open ( QFile::ReadOnly ) )
-  {
-    js = file.readAll();
-    file.close();
-    return js;
-  }
-  return js;
+  connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
+            m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
 }
 
 void DomInspector::setVisible ( const QWebElement &element )
@@ -81,6 +78,7 @@ void DomInspector::setDomTree ( const QWebElement &element )
     return;
 
   m_domTree->setDomTree ( element );
+  m_listStyleSheet->clear();
 }
 
 DomInspector::~DomInspector()

@@ -3,17 +3,18 @@
 SET (dominspector_SOURCES
   dominspector.cpp
   domtree.cpp
+  liststylesheet.cpp
 )
 
 SET (dominspector_HEADERS
   dominspector.h
   domtree.h
-)
-
-SET (dominspector_STATIC_HEADERS
+  liststylesheet.h
 )
 
 QT4_WRAP_CPP (dominspector_MOC ${dominspector_HEADERS})
+
+QT4_ADD_RESOURCES (dominspector_RESRC dominspector.qrc)
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -22,6 +23,7 @@ INCLUDE_DIRECTORIES (
 
 ADD_LIBRARY (DomInspector STATIC
   ${dominspector_MOC}
+  ${dominspector_RESRC}
   ${dominspector_HEADERS}
   ${dominspector_STATIC_HEADERS}
   ${dominspector_SOURCES}
