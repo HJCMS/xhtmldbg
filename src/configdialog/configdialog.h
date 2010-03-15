@@ -46,6 +46,8 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
   private:
     QSettings* cfg;
     QSslConfiguration ssl;
+    QString highlightColor;
+    QString defaultHighlightStyleSheet;
     QPushButton* m_buttonCancel;
     QPushButton* m_buttonClose;
     QPushButton* m_buttonReset;
@@ -71,6 +73,7 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     void saveSettings();
     void restoreSettings();
     void setCaCertDatabase ( const QString &p = QString() );
+    void setDomTreeHighlightColor();
     void getPrivKeyDialog();
     void getPupKeyDialog();
     void getCaCertDatabaseDialog();

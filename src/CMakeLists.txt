@@ -9,6 +9,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
+  ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/configdialog
   ${XHTMLDBG_INCLUDES}
 )
@@ -18,6 +19,7 @@ ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (networker)
+ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (configdialog)
 
 SET (xhtmldbg_SOURCES
@@ -29,7 +31,6 @@ SET (xhtmldbg_SOURCES
   keywordstoolbar.cpp
   tidymessanger.cpp
   jsmessanger.cpp
-  domviewer.cpp
   aboutdialog.cpp
   webviewer.cpp
   viewer.cpp
@@ -49,7 +50,6 @@ SET (xhtmldbg_HEADERS
   keywordstoolbar.h
   tidymessanger.h
   jsmessanger.h
-  domviewer.h
   aboutdialog.h
   webviewer.h
   viewer.h
@@ -82,7 +82,7 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  SourceViewer Bookmark Docking
+  SourceViewer Bookmark Docking DomInspector
   OpenUrlDialog Networker ConfigDialog
 )
 

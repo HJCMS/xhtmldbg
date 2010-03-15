@@ -19,38 +19,42 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "domviewer.h"
+#include "domtree.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QDebug>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QFrame>
+#include <QtGui/QHeaderView>
 
-/* QtWebKit */
-#include <QtXml/QDomDocument>
-
-DomViewer::DomViewer ( QWidget * parent )
+DomTree::DomTree ( QWidget * parent )
     : QTreeWidget ( parent )
 {
-  setObjectName ( QLatin1String ( "domviewer" ) );
+  setObjectName ( QLatin1String ( "domtree" ) );
+  QStringList labels;
   labels << trUtf8 ( "STag" ) << trUtf8 ( "AttName" ) << trUtf8 ( "AttValue" );
   setHeaderLabels ( labels );
   setSortingEnabled ( false );
   header()->setResizeMode ( QHeaderView::ResizeToContents );
   setFrameStyle ( QFrame::Box );
+
+  connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
+            this, SLOT ( itemSelected ( QTreeWidgetItem *, int ) ) );
 }
 
-QTreeWidgetItem* DomViewer::createChildItem ( const QString &name, QTreeWidgetItem* parent )
+QTreeWidgetItem* DomTree::createTopLevelItem ( const QString &name )
 {
-  QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+  QTreeWidgetItem* item = new QTreeWidgetItem ( invisibleRootItem() );
   item->setExpanded ( name.contains ( QRegExp ( "(html|body)" ) ) );
-  item->setData ( 0, Qt::UserRole, name );
-  item->setText ( 0, name );
+  item->setData ( 0, Qt::DisplayRole, name );
+  addTopLevelItem ( item );
   return item;
 }
 
-void DomViewer::parseAttributes ( const QWebElement &element, QTreeWidgetItem* parent )
+void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* parent )
 {
   if ( element.hasAttributes() )
   {
@@ -59,6 +63,7 @@ void DomViewer::parseAttributes ( const QWebElement &element, QTreeWidgetItem* p
     {
       QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
       item->setText ( 0, QString::fromUtf8 ( "AttDef" ) );
+      item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
       item->setForeground ( 0, Qt::lightGray );
       item->setText ( 1, name );
       item->setForeground ( 1, Qt::blue );
@@ -74,17 +79,19 @@ void DomViewer::parseAttributes ( const QWebElement &element, QTreeWidgetItem* p
   {
     QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
     item->setText ( 0, QString::fromUtf8 ( "EmptyElemTag" ) );
+    item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
     item->setForeground ( 0, Qt::lightGray );
   }
   else if ( element.firstChild().isNull() )
   {
     QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
     item->setText ( 0, QString::fromUtf8 ( "CDSect" ) );
+    item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
     item->setForeground ( 0, Qt::lightGray );
   }
 }
 
-void DomViewer::parseElements ( const QWebElement &element, QTreeWidgetItem* parent )
+void DomTree::parseElements ( const QWebElement &element, QTreeWidgetItem* parent )
 {
   if ( ! parent )
     return;
@@ -94,6 +101,15 @@ void DomViewer::parseElements ( const QWebElement &element, QTreeWidgetItem* par
   {
     QString name = child.localName();
     QTreeWidgetItem* item = createChildItem ( name, parent );
+
+    QVariant itemVars;
+    TreeItem dataItem;
+    dataItem.name = name;
+    dataItem.element = child;
+    itemVars.setValue ( dataItem );
+
+    item->setData ( 0, Qt::UserRole, itemVars );
+
     parseAttributes ( child, item );
     parent->addChild ( item );
     parseElements ( child, item );
@@ -101,17 +117,32 @@ void DomViewer::parseElements ( const QWebElement &element, QTreeWidgetItem* par
   }
 }
 
-void DomViewer::setDomTree ( const QWebElement &we )
+QTreeWidgetItem* DomTree::createChildItem ( const QString &name, QTreeWidgetItem* parent )
+{
+  QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+  item->setExpanded ( name.contains ( QRegExp ( "(html|body)" ) ) );
+  item->setData ( 0, Qt::DisplayRole, name );
+  return item;
+}
+
+void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
+{
+  Q_UNUSED ( column )
+
+  TreeItem ti = item->data ( 0, Qt::UserRole ).value<TreeItem>();
+  emit itemClicked ( ti.element );
+}
+
+void DomTree::setDomTree ( const QWebElement &we )
 {
   clear();
-  QTreeWidgetItem* item = createChildItem ( we.localName(), invisibleRootItem() );
+
+  QTreeWidgetItem* item = createTopLevelItem ( we.localName() );
   item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
   item->setToolTip ( 0, we.namespaceUri() );
   parseAttributes ( we, item );
-  addTopLevelItem ( item );
   parseElements ( we, item );
 }
 
-DomViewer::~DomViewer()
-{
-}
+DomTree::~DomTree()
+{}

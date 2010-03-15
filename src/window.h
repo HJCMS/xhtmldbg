@@ -32,7 +32,6 @@
 /* QtGui */
 #include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
-#include <QtGui/QDockWidget>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
@@ -47,12 +46,12 @@ class AddressToolBar;
 class KeywordsToolBar;
 class WebViewer;
 class SourceWidget;
-class DomViewer;
 class TidyMessanger;
 class JSMessanger;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
+class DomInspector;
 class CookiesDock;
 class HeaderDock;
 class PostDock;
@@ -108,9 +107,8 @@ class Window : public QMainWindow
     QTabWidget* m_centralWidget;
     // Browser Widget
     WebViewer* m_webViewer;
-    // Document DomViewer
-    QDockWidget* m_dockDomViewWidget;
-    DomViewer* m_domViewer;
+    // HTML Document Dom Tree Viewer
+    DomInspector* m_domInspector;
     // Source Viewer
     SourceWidget* m_sourceWidget;
     // Tidy Messages

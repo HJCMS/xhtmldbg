@@ -37,6 +37,8 @@
 
 /* QtGui */
 #include <QtGui/QCheckBox>
+#include <QtGui/QColor>
+#include <QtGui/QColorDialog>
 #include <QtGui/QComboBox>
 #include <QtGui/QFileDialog>
 #include <QtGui/QHeaderView>
@@ -150,6 +152,8 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( addToWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( addTrustedHost() ) );
   connect ( clearWhiteListBtn, SIGNAL ( clicked() ), trustedHostsList, SLOT ( clear() ) );
   connect ( clearWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( setModified() ) );
+  connect ( openHighlightSettings, SIGNAL ( clicked() ),
+            this, SLOT ( setDomTreeHighlightColor() ) );
 
   // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
@@ -351,6 +355,10 @@ void ConfigDialog::loadSettings()
     box->setValue ( cfg->value ( box->objectName(), box->minimum() ).toUInt() );
   }
 
+  highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  defaultHighlightStyleSheet = QString ( "background-color: %1;" ).arg ( highlightColor );
+  labelHighlightPreview->setStyleSheet ( defaultHighlightStyleSheet );
+
   loadHeaderDefinitions();
   cookiesTable->loadCookieArrangements ( cfg );
   proxySettings->load ( cfg );
@@ -404,6 +412,8 @@ void ConfigDialog::saveSettings()
     cfg->setValue ( box->objectName(), box->value() );
   }
 
+  cfg->setValue ( QLatin1String ( "highlightColor" ), highlightColor );
+
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
 
@@ -453,6 +463,7 @@ void ConfigDialog::restoreSettings()
     cfg->remove ( box->objectName() );
   }
 
+  cfg->remove ( QLatin1String ( "highlightColor" ) );
   cfg->remove ( QLatin1String ( "proxyType" ) );
   proxySettings->setType ( QNetworkProxy::NoProxy );
   setWindowModified ( false );
@@ -472,6 +483,20 @@ void ConfigDialog::setCaCertDatabase ( const QString &p )
     caCerts << QSslCertificate::fromPath ( db.absoluteFilePath(), QSsl::Pem, QRegExp::FixedString );
     ssl.setCaCertificates ( caCerts );
     setCaCertIssuerTable();
+  }
+}
+
+void ConfigDialog::setDomTreeHighlightColor()
+{
+  highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  QColorDialog* dialog = new QColorDialog ( this );
+  dialog->setCurrentColor ( QColor ( highlightColor ) );
+  if ( dialog->exec() )
+  {
+    highlightColor = dialog->selectedColor().name();
+    defaultHighlightStyleSheet = QString ( "background-color: %1;" ).arg ( highlightColor );
+    labelHighlightPreview->setStyleSheet ( defaultHighlightStyleSheet );
+    setModified();
   }
 }
 

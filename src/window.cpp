@@ -27,7 +27,6 @@
 #include "keywordstoolbar.h"
 #include "webviewer.h"
 #include "sourcewidget.h"
-#include "domviewer.h"
 #include "tidymessanger.h"
 #include "jsmessanger.h"
 #include "bookmark.h"
@@ -38,6 +37,7 @@
 #include "aboutdialog.h"
 #include "configdialog.h"
 #include "statusbar.h"
+#include "dominspector.h"
 #include "cookiesdock.h"
 #include "headerdock.h"
 #include "postdock.h"
@@ -62,8 +62,8 @@
 #include <QtGui/QKeySequence>
 
 /* QtWebKit */
-#include <QtWebKit/QWebInspector>
 #include <QtWebKit/QWebPage>
+#include <QtWebKit/QWebElement>
 
 /* QTidy */
 #include <QTidy/QTidy>
@@ -73,7 +73,7 @@ Window::Window ( QSettings * settings )
     , m_settings ( settings )
 {
   // Window Properties
-  QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg( XHTMLDBG_VERSION_STRING );
+  QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
   setWindowTitle ( winTitle );
   setObjectName ( "xhtmldbgwindow" );
   QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
@@ -103,15 +103,9 @@ Window::Window ( QSettings * settings )
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
 
   // Show Document DomTree in DockWidget
-  m_dockDomViewWidget = new QDockWidget ( this );
-  m_dockDomViewWidget->setObjectName ( QLatin1String ( "domviewerdock" ) );
-  m_dockDomViewWidget->setWindowTitle ( trUtf8 ( "DOM Viewer" ) );
-  m_dockDomViewWidget->setWindowIcon ( qTidyIcon );
-  m_dockDomViewWidget->setAllowedAreas ( ( m_dockDomViewWidget->allowedAreas() & ~Qt::TopDockWidgetArea ) );
-  m_dockDomViewWidget->setFeatures ( ( m_dockDomViewWidget->features() & ~QDockWidget::DockWidgetFloatable ) );
-  m_domViewer = new DomViewer ( m_dockDomViewWidget );
-  m_dockDomViewWidget->setWidget ( m_domViewer );
-  addDockWidget ( Qt::RightDockWidgetArea, m_dockDomViewWidget );
+  QString col = m_settings->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  m_domInspector = new DomInspector ( col, this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
   // XHTML Messanger DockWidget
   m_tidyMessanger = new TidyMessanger ( this );
@@ -355,7 +349,7 @@ void Window::createToolBars()
   // Add QDockWidget View Actions to Display Menu
   m_viewBarsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_jsMessanger->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_domInspector->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_cookiesDock->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_headerDock->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_postDock->toggleViewAction() );
@@ -385,7 +379,7 @@ void Window::requestsFinished ( bool ok )
 {
   if ( ok )
   {
-    m_domViewer->setDomTree ( m_webViewer->toWebElement() );
+    m_domInspector->setDomTree ( m_webViewer->toWebElement() );
     m_cookiesDock->cookiesFromUrl ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );

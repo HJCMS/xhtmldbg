@@ -19,39 +19,51 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DOMVIEWER_H
-#define DOMVIEWER_H
+#ifndef DOMTREE_H
+#define DOMTREE_H
 
 /* QtCore */
+#include <QtCore/QList>
+#include <QtCore/QMetaType>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QFont>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
-#include <QtGui/QWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
-class DomViewer : public QTreeWidget
+class DomTree : public QTreeWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QStringList labels;
-    QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
+    QTreeWidgetItem* createTopLevelItem ( const QString & );
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
     void parseElements ( const QWebElement &, QTreeWidgetItem* );
+    QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
 
-  public Q_SLOTS:
-    void setDomTree ( const QWebElement & );
+  private Q_SLOTS:
+    void itemSelected ( QTreeWidgetItem *, int );
+
+  Q_SIGNALS:
+    void itemClicked ( const QWebElement & );
 
   public:
-    DomViewer ( QWidget * parent = 0 );
-    ~DomViewer();
+    struct TreeItem
+    {
+      QString name;
+      QWebElement element;
+    };
+    DomTree ( QWidget * parent = 0 );
+    void setDomTree ( const QWebElement & );
+    ~DomTree();
 };
+
+Q_DECLARE_METATYPE ( DomTree::TreeItem )
 
 #endif
