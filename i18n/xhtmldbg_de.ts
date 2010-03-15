@@ -346,7 +346,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="788"/>
         <source>QTidy Source Parser</source>
-        <translation>QTidy Syntaxanalysierer</translation>
+        <translation>QTidy Syntax Analysierer</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="789"/>
@@ -401,7 +401,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="799"/>
         <source>Select Hightlight Color</source>
-        <translation>Wähle ein Hervorhebungs Farbe</translation>
+        <translation>Wähle eine Hervorhebungs Farbe</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="800"/>
@@ -587,7 +587,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="858"/>
         <source>Organization (O)</source>
-        <translation>Organisation</translation>
+        <translation>Organisation (O)</translation>
     </message>
     <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="860"/>
@@ -801,7 +801,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../src/dominspector/dominspector.cpp" line="39"/>
         <source>DomTree</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -890,7 +890,7 @@ Willst du wircklich beenden?</translation>
     <message>
         <location filename="../src/networker/errorsdialog.cpp" line="92"/>
         <source>the operation was canceled via calls to abort() or close() before it was finished.</source>
-        <translation>Die Operation wurde frühzeitig abgebrochen.</translation>
+        <translation>Die Operation wurde Intern frühzeitig abgebrochen. (Umleitung etc.)</translation>
     </message>
     <message>
         <location filename="../src/networker/errorsdialog.cpp" line="96"/>

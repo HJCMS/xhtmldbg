@@ -99,7 +99,8 @@ const QNetworkProxy NetworkSettings::getProxy()
   proxy.setHostName ( value ( QLatin1String ( "proxyHostName" ) ).toString() );
   proxy.setPort ( value ( QLatin1String ( "proxyPort" ), 8080 ).toUInt() );
   proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
-  proxy.setPassword ( value ( QLatin1String ( "proxyPassword" ) ).toString() );
+  QString pass ( QByteArray::fromBase64 ( value ( QLatin1String ( "proxyPassword" ) ).toByteArray() ) );
+  proxy.setPassword ( pass );
   return proxy;
 }
 
