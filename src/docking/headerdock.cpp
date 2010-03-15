@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "headerview.h"
+#include "headerdock.h"
 
 /* QtCore */
 #include <QtCore/QMapIterator>
@@ -31,39 +31,33 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QTreeWidgetItem>
 
-HeaderView::HeaderView ( QWidget * parent )
-    : QDockWidget ( parent )
+HeaderDock::HeaderDock ( QWidget * parent )
+    : Docking ( parent )
 {
   setObjectName ( "headerview" );
   setWindowTitle ( trUtf8 ( "Header" ) );
-  setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+  setColumnCount ( 2 );
 
   QStringList labels;
   labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
-
-  m_treeWidget = new QTreeWidget ( this );
-  m_treeWidget->setAutoScroll ( true );
-  m_treeWidget->setWordWrap ( true );
-  m_treeWidget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  m_treeWidget->setHeaderLabels ( labels );
-  m_treeWidget->setSortingEnabled ( false );
-  m_treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
-  m_treeWidget->setFrameStyle ( QFrame::Box );
-
-  setWidget ( m_treeWidget );
+  setTreeHeaderLabels ( labels );
 }
 
-void HeaderView::setHeaders ( const QString &host, const QMap<QString,QString> &map )
+void HeaderDock::setTreeHeaderLabels ( const QStringList &labels )
 {
-  QFontMetrics fontMetric = m_treeWidget->fontMetrics();
+  Docking::setTreeHeaderLabels ( labels );
+}
+
+void HeaderDock::setHeaders ( const QString &host, const QMap<QString,QString> &map )
+{
   int minWidth = 0;
 
-  if ( m_treeWidget->findItems ( host, Qt::MatchExactly, 0 ).size() > 0 )
+  if ( itemExists ( host ) )
     return;
 
-  clearItems ();
+  clearContent ();
 
-  QTreeWidgetItem* parent = new QTreeWidgetItem ( m_treeWidget->invisibleRootItem() );
+  QTreeWidgetItem* parent = addTopLevelItem ( rootItem() );
   parent->setExpanded ( true );
   parent->setData ( 0, Qt::DisplayRole, host );
   parent->setText ( 1, trUtf8 ( "Hostname" ) );
@@ -77,19 +71,14 @@ void HeaderView::setHeaders ( const QString &host, const QMap<QString,QString> &
     item->setData ( 0, Qt::DisplayRole, it.key() );
     item->setData ( 1, Qt::DisplayRole, it.value() );
     parent->addChild ( item );
-    int cw = ( fontMetric.width ( it.value() ) + item->font ( 0 ).weight() );
+    int cw = ( fontMetric().width ( it.value() ) + item->font ( 0 ).weight() );
     if ( cw > minWidth )
       minWidth = cw;
   }
 
   if ( minWidth > 10 )
-    m_treeWidget->setColumnWidth ( 1, minWidth );
+    setColumnWidth ( 1, minWidth );
 }
 
-void HeaderView::clearItems ()
-{
-  m_treeWidget->clear();
-}
-
-HeaderView::~HeaderView()
+HeaderDock::~HeaderDock()
 {}

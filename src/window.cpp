@@ -38,9 +38,9 @@
 #include "aboutdialog.h"
 #include "configdialog.h"
 #include "statusbar.h"
-#include "cookieview.h"
-#include "headerview.h"
-#include "formview.h"
+#include "cookiesdock.h"
+#include "headerdock.h"
+#include "postdock.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -122,16 +122,16 @@ Window::Window ( QSettings * settings )
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger );
 
   // Show Cookie Information
-  m_cookieView = new CookieView ( this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_cookieView );
+  m_cookiesDock = new CookiesDock ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_cookiesDock );
 
   // Show Received Document Headers
-  m_headerView = new HeaderView ( this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_headerView );
+  m_headerDock = new HeaderDock ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
 
   // Show Posted Formsdata
-  m_formView = new FormView ( this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_formView );
+  m_postDock = new PostDock ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_postDock );
 
   // finalize WindowDesign
   createMenus();
@@ -160,10 +160,10 @@ Window::Window ( QSettings * settings )
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
   connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
-            m_headerView, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
+            m_headerDock, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
 
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
-            m_formView, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
+            m_postDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -356,9 +356,9 @@ void Window::createToolBars()
   m_viewBarsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_jsMessanger->toggleViewAction() );
   m_viewBarsMenu->addAction ( m_dockDomViewWidget->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_cookieView->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_headerView->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_formView->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_cookiesDock->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_headerDock->toggleViewAction() );
+  m_viewBarsMenu->addAction ( m_postDock->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
@@ -386,7 +386,7 @@ void Window::requestsFinished ( bool ok )
   if ( ok )
   {
     m_domViewer->setDomTree ( m_webViewer->toWebElement() );
-    m_cookieView->cookiesFromUrl ( m_webViewer->getUrl() );
+    m_cookiesDock->cookiesFromUrl ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );

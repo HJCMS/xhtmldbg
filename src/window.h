@@ -53,9 +53,9 @@ class JSMessanger;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
-class CookieView;
-class HeaderView;
-class FormView;
+class CookiesDock;
+class HeaderDock;
+class PostDock;
 
 class Window : public QMainWindow
 {
@@ -118,11 +118,11 @@ class Window : public QMainWindow
     // JavaScript Messages
     JSMessanger* m_jsMessanger;
     // Cookie
-    CookieView* m_cookieView;
+    CookiesDock* m_cookiesDock;
     // Received Headers
-    HeaderView* m_headerView;
+    HeaderDock* m_headerDock;
     // Posted Form Data
-    FormView* m_formView;
+    PostDock* m_postDock;
 
     void createMenus();
     void createToolBars();

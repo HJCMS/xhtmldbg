@@ -19,52 +19,33 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "cookieview.h"
+#include "cookiesdock.h"
 #include "networkcookie.h"
 #include "xhtmldbg.h"
 
 /* QtCore */
-#include <QtCore/QDateTime>
-#include <QtCore/QRegExp>
+#include <QtCore>
 
 /* QtGui */
-#include <QtGui/QFrame>
-#include <QtGui/QSizePolicy>
-#include <QtGui/QHeaderView>
+#include <QtGui>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkCookie>
-#include <QtNetwork/QNetworkCookieJar>
-
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-
-CookieView::CookieView ( QWidget * parent )
-    : QDockWidget ( parent )
-    , minColumnWidth ( 50 )
+CookiesDock::CookiesDock ( QWidget * parent )
+    : Docking ( parent )
 {
   setObjectName ( "cookieview" );
   setWindowTitle ( trUtf8 ( "Cookies" ) );
-  setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
-  setWindowIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
-
-  QStringList labels;
-  labels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );
-
-  m_treeWidget = new QTreeWidget ( this );
-  m_treeWidget->setAutoScroll ( true );
-  m_treeWidget->setWordWrap ( true );
-  m_treeWidget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  m_treeWidget->setHeaderLabels ( labels );
-  m_treeWidget->setSortingEnabled ( false );
-  m_treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
-  m_treeWidget->setFrameStyle ( QFrame::Box );
 
   // get CookieJar
   m_networkCookie = xhtmldbg::instance()->cookieManager();
 
-  setWidget ( m_treeWidget );
+  QStringList labels;
+  labels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );
+  setTreeHeaderLabels ( labels );
+}
+
+void CookiesDock::setTreeHeaderLabels ( const QStringList &labels )
+{
+  Docking::setTreeHeaderLabels ( labels );
 }
 
 /**
@@ -77,7 +58,7 @@ CookieView::CookieView ( QWidget * parent )
     a:3:{s:3:"ID";i:1;s:7:"GID";i:4;s:4:"KEY";s:32:"8b3c3634669c41f26c1a511cb03d6bc0";}
 * @endcode
 */
-QString CookieView::unserialize ( const QByteArray &data ) const
+QString CookiesDock::unserialize ( const QByteArray &data ) const
 {
   if ( data.contains ( "%" ) )
   {
@@ -111,17 +92,16 @@ QString CookieView::unserialize ( const QByteArray &data ) const
   return QString ( data );
 }
 
-void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
+void CookiesDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
 {
   QString yes ( trUtf8 ( "Yes" ) );
   QString no ( trUtf8 ( "No" ) );
-  QFontMetrics fontMetric = m_treeWidget->fontMetrics();
   QString values = unserialize ( cookie.value() );
-  int minWidth = ( fontMetric.width ( values ) + parent->font ( 0 ).weight() );
+  int minWidth = ( fontMetric().width ( values ) + parent->font ( 0 ).weight() );
   if ( minWidth > minColumnWidth )
   {
     minColumnWidth = minWidth;
-    m_treeWidget->setColumnWidth ( 1, minColumnWidth );
+    setColumnWidth ( 1, minColumnWidth );
   }
 
   // Name
@@ -183,9 +163,9 @@ void CookieView::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   root->addChild ( item6 );
 }
 
-void CookieView::cookiesFromUrl ( const QUrl &url )
+void CookiesDock::cookiesFromUrl ( const QUrl &url )
 {
-  m_treeWidget->clear();
+  clearContent();
   minColumnWidth = 50;
 
   if ( ! m_networkCookie )
@@ -195,8 +175,7 @@ void CookieView::cookiesFromUrl ( const QUrl &url )
   if ( cookies.size() >= 1 )
   {
     QString name = url.host().remove ( QRegExp ( "\\bwww\\." ) );
-    QTreeWidgetItem* item = new QTreeWidgetItem ( m_treeWidget->invisibleRootItem() );
-    item->setExpanded ( true );
+    QTreeWidgetItem* item = addTopLevelItem ( rootItem() );
     item->setData ( 0, Qt::UserRole, name );
     item->setText ( 0, name );
     item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
@@ -209,5 +188,5 @@ void CookieView::cookiesFromUrl ( const QUrl &url )
   }
 }
 
-CookieView::~CookieView()
+CookiesDock::~CookiesDock()
 {}

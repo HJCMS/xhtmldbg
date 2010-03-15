@@ -19,45 +19,34 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COOKIEVIEW_H
-#define COOKIEVIEW_H
+#ifndef HEADERDOCK_H
+#define HEADERDOCK_H
 
 /* QtCore */
-#include <QtCore/QByteArray>
+#include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
 #include <QtGui/QWidget>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkCookie>
+#include "docking.h"
 
-class NetworkCookie;
-
-class CookieView : public QDockWidget
+class HeaderDock : public Docking
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    int minColumnWidth;
-    NetworkCookie* m_networkCookie;
-    QTreeWidget* m_treeWidget;
-    void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
-    QString unserialize ( const QByteArray & ) const;
+  protected:
+    void setTreeHeaderLabels ( const QStringList & );
 
   public Q_SLOTS:
-    void cookiesFromUrl ( const QUrl & );
+    void setHeaders ( const QString &, const QMap<QString,QString> & );
 
   public:
-    CookieView ( QWidget * parent = 0 );
-    virtual ~CookieView();
+    HeaderDock ( QWidget * parent = 0 );
+    ~HeaderDock();
 };
 
 #endif

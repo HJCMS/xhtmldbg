@@ -19,36 +19,34 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef FORMVIEW_H
-#define FORMVIEW_H
+#ifndef POSTDOCK_H
+#define POSTDOCK_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QTreeWidget>
 #include <QtGui/QWidget>
 
-class FormView : public QDockWidget
+#include "docking.h"
+
+class PostDock : public Docking
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    QTreeWidget* m_treeWidget;
+  protected:
+    void setTreeHeaderLabels ( const QStringList & );
 
   public Q_SLOTS:
     void setPostedData ( const QUrl &, const QStringList & );
-    void clearItems();
 
   public:
-    FormView ( QWidget * parent = 0 );
-    virtual ~FormView();
+    PostDock ( QWidget * parent = 0 );
+    ~PostDock();
 };
 
 #endif

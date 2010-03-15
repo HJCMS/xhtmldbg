@@ -19,35 +19,47 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HEADERVIEW_H
-#define HEADERVIEW_H
+#ifndef DOCKING_H
+#define DOCKING_H
 
 /* QtCore */
-#include <QtCore/QMap>
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
+#include <QtGui/QFontMetrics>
 #include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
 #include <QtGui/QWidget>
 
-class HeaderView : public QDockWidget
+class Docking : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( int columns READ columnCount WRITE setColumnCount )
 
   private:
     QTreeWidget* m_treeWidget;
 
+  protected:
+    int columns;
+    virtual void setTreeHeaderLabels ( const QStringList & ) = 0;
+    QTreeWidgetItem* rootItem() const;
+    const QFontMetrics fontMetric();
+
   public Q_SLOTS:
-    void setHeaders ( const QString &, const QMap<QString,QString> & );
-    void clearItems();
+    void clearContent();
 
   public:
-    HeaderView ( QWidget * parent = 0 );
-    virtual ~HeaderView();
+    explicit Docking ( QWidget * parent = 0 );
+    int columnCount();
+    void setColumnCount ( int );
+    void setColumnWidth ( int column, int width );
+    QTreeWidgetItem* addTopLevelItem ( QTreeWidgetItem *, bool expand = true );
+    void addTopLevelChildItem ( QTreeWidgetItem * child );
+    bool itemExists ( const QString & );
+    virtual ~Docking();
 };
 
 #endif

@@ -6,6 +6,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/configdialog
@@ -15,6 +16,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (openurldialog)
+ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (configdialog)
 
@@ -36,10 +38,7 @@ SET (xhtmldbg_SOURCES
   historyitem.cpp
   historymenu.cpp
   statusbar.cpp
-  cookieview.cpp
   cookieacceptdialog.cpp
-  headerview.cpp
-  formview.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -58,10 +57,7 @@ SET (xhtmldbg_HEADERS
   historymanager.h
   historymenu.h
   statusbar.h
-  cookieview.h
   cookieacceptdialog.h
-  headerview.h
-  formview.h
 )
 
 SET (xhtmldbg_NOMOC
@@ -86,7 +82,8 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  SourceViewer Bookmark OpenUrlDialog Networker ConfigDialog
+  SourceViewer Bookmark Docking
+  OpenUrlDialog Networker ConfigDialog
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)
