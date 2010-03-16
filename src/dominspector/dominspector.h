@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -44,20 +45,28 @@ class DomInspector : public QDockWidget
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    const QString highlight;
-    QList<QWebElement> lastSelections;
+    QSettings* cfg;
     QSplitter* m_splitter;
     DomTree* m_domTree;
     ListStyleSheet* m_listStyleSheet;
+    bool hasBorderStyleSheet ( const QWebElement & ) const;
 
   private Q_SLOTS:
     void setVisible ( const QWebElement & );
+
+  protected:
+    struct SelectedItem {
+      bool border;
+      bool background;
+      QWebElement element;
+    };
+    QList<SelectedItem> lastSelections;
 
   public Q_SLOTS:
     void setDomTree ( const QWebElement & );
 
   public:
-    DomInspector ( const QString &highlightColor, QWidget * parent = 0 );
+    DomInspector ( QWidget * parent = 0, QSettings * settings = 0 );
     ~DomInspector ();
 };
 

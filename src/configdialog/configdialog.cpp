@@ -113,6 +113,8 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( HttpPipeliningAllowedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningWasUsedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( bootsplash, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( enableHighlightBackground, SIGNAL ( released() ), this, SLOT ( setModified() ) );
+  connect ( enableHighlightBorder, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( DeveloperExtrasEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
@@ -152,8 +154,10 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( addToWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( addTrustedHost() ) );
   connect ( clearWhiteListBtn, SIGNAL ( clicked() ), trustedHostsList, SLOT ( clear() ) );
   connect ( clearWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( setModified() ) );
-  connect ( openHighlightSettings, SIGNAL ( clicked() ),
-            this, SLOT ( setDomTreeHighlightColor() ) );
+  connect ( openBackgroundHighlightSettings, SIGNAL ( clicked() ),
+            this, SLOT ( setDomTreeBackgroundColor() ) );
+  connect ( openBorderHighlightSettings, SIGNAL ( clicked() ),
+            this, SLOT ( setDomTreeBorderColor() ) );
 
   // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
@@ -355,9 +359,13 @@ void ConfigDialog::loadSettings()
     box->setValue ( cfg->value ( box->objectName(), box->minimum() ).toUInt() );
   }
 
-  highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
-  defaultHighlightStyleSheet = QString ( "background-color: %1;" ).arg ( highlightColor );
-  labelHighlightPreview->setStyleSheet ( defaultHighlightStyleSheet );
+  highlightBackgroundColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  defaultBackgroundStyle = QString ( "background-color: %1;" ).arg ( highlightBackgroundColor );
+  labelHighlightBackground->setStyleSheet ( defaultBackgroundStyle );
+
+  highlightBorderColor = cfg->value ( QLatin1String ( "highlightBorder" ), QLatin1String ( "red" ) ).toString();
+  defaultBorderStyle = QString ( "background-color: %1;" ).arg ( highlightBorderColor );
+  labelHighlightBorder->setStyleSheet ( defaultBorderStyle );
 
   loadHeaderDefinitions();
   cookiesTable->loadCookieArrangements ( cfg );
@@ -412,7 +420,8 @@ void ConfigDialog::saveSettings()
     cfg->setValue ( box->objectName(), box->value() );
   }
 
-  cfg->setValue ( QLatin1String ( "highlightColor" ), highlightColor );
+  cfg->setValue ( QLatin1String ( "highlightColor" ), highlightBackgroundColor );
+  cfg->setValue ( QLatin1String ( "highlightBorder" ), highlightBorderColor );
 
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
@@ -464,7 +473,9 @@ void ConfigDialog::restoreSettings()
   }
 
   cfg->remove ( QLatin1String ( "highlightColor" ) );
+  cfg->remove ( QLatin1String ( "highlightBorder" ) );
   cfg->remove ( QLatin1String ( "proxyType" ) );
+
   proxySettings->setType ( QNetworkProxy::NoProxy );
   setWindowModified ( false );
 
@@ -486,16 +497,28 @@ void ConfigDialog::setCaCertDatabase ( const QString &p )
   }
 }
 
-void ConfigDialog::setDomTreeHighlightColor()
+void ConfigDialog::setDomTreeBackgroundColor()
 {
-  highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
   QColorDialog* dialog = new QColorDialog ( this );
-  dialog->setCurrentColor ( QColor ( highlightColor ) );
+  dialog->setCurrentColor ( QColor ( highlightBackgroundColor ) );
   if ( dialog->exec() )
   {
-    highlightColor = dialog->selectedColor().name();
-    defaultHighlightStyleSheet = QString ( "background-color: %1;" ).arg ( highlightColor );
-    labelHighlightPreview->setStyleSheet ( defaultHighlightStyleSheet );
+    highlightBackgroundColor = dialog->selectedColor().name();
+    defaultBackgroundStyle = QString ( "background-color: %1;" ).arg ( highlightBackgroundColor );
+    labelHighlightBackground->setStyleSheet ( defaultBackgroundStyle );
+    setModified();
+  }
+}
+
+void ConfigDialog::setDomTreeBorderColor()
+{
+  QColorDialog* dialog = new QColorDialog ( this );
+  dialog->setCurrentColor ( QColor ( highlightBorderColor ) );
+  if ( dialog->exec() )
+  {
+    highlightBorderColor = dialog->selectedColor().name();
+    defaultBorderStyle = QString ( "background-color: %1;" ).arg ( highlightBorderColor );
+    labelHighlightBorder->setStyleSheet ( defaultBorderStyle );
     setModified();
   }
 }

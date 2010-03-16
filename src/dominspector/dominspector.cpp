@@ -30,9 +30,9 @@
 /* QtWebKit */
 #include <QtWebKit/QWebPage>
 
-DomInspector::DomInspector ( const QString &highlightColor, QWidget * parent )
+DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
     : QDockWidget ( parent )
-    , highlight ( highlightColor )
+    , cfg ( settings )
 {
   Q_INIT_RESOURCE ( dominspector );
   setObjectName ( QLatin1String ( "domviewerdock" ) );
@@ -58,18 +58,66 @@ DomInspector::DomInspector ( const QString &highlightColor, QWidget * parent )
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
 }
 
+bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
+{
+  if ( element.tagName().contains ( "fieldset", Qt::CaseInsensitive ) )
+    return true;
+
+  QStringList styles ( "solid" );
+  styles << "dashed" << "dotted" << "double" << "groove" << "ridge" << "inset" << "outset";
+  QString pattern = QString( "\\b(%1)\\b" ).arg ( styles.join( "|" ) );
+
+  QStringList cssAttributes ( "border-color" );
+  cssAttributes << "border-style" << "border";
+  foreach ( QString attr, cssAttributes )
+  {
+    QString value = element.styleProperty ( attr, QWebElement::CascadedStyle );
+    if ( ! value.isEmpty() )
+      return value.contains ( QRegExp ( pattern, Qt::CaseInsensitive ) );
+  }
+  return false;
+}
+
 void DomInspector::setVisible ( const QWebElement &element )
 {
-  QString color = QString ( "%1 !important" ).arg ( highlight );
+  bool background = cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool();
+  bool border = cfg->value ( QLatin1String ( "enableHighlightBorder" ), true ).toBool();
+  QString highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  QString backgroundStyle = QString ( "%1 !important" ).arg ( highlightColor );
+  QString highlightBorder = cfg->value ( QLatin1String ( "highlightBorder" ), QLatin1String ( "red" ) ).toString();
+  QString borderStyle = QString ( "1px solid %1 !important" ).arg ( highlightBorder );
+
   if ( lastSelections.size() != 0 )
   {
-    lastSelections.first().setStyleProperty ( QString::fromUtf8 ( "background-color" ), "" );
+    if ( lastSelections.first().background )
+      lastSelections.first().element.setStyleProperty ( QString::fromUtf8 ( "background-color" ), "" );
+
+    if ( lastSelections.first().border )
+      lastSelections.first().element.setStyleProperty ( QString::fromUtf8 ( "border" ), "none !important" );
+
     lastSelections.removeFirst();
   }
+
   QWebElement ele ( element );
-  ele.setStyleProperty ( QString::fromUtf8 ( "background-color" ), color );
-  ele.setFocus();
-  lastSelections << ele;
+  SelectedItem selection;
+  selection.element = ele;
+  if ( background )
+  {
+    selection.background = true;
+    ele.setStyleProperty ( QString::fromUtf8 ( "background-color" ), backgroundStyle );
+  }
+  else
+    selection.background = false;
+
+  if ( border && ! hasBorderStyleSheet ( element ) )
+  {
+    selection.border = true;
+    ele.setStyleProperty ( QString::fromUtf8 ( "border" ), borderStyle );
+  }
+  else
+    selection.border = false;
+
+  lastSelections << selection;
 }
 
 void DomInspector::setDomTree ( const QWebElement &element )

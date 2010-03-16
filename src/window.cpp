@@ -103,8 +103,7 @@ Window::Window ( QSettings * settings )
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
 
   // Show Document DomTree in DockWidget
-  QString col = m_settings->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
-  m_domInspector = new DomInspector ( col, this );
+  m_domInspector = new DomInspector ( this, m_settings );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
   // XHTML Messanger DockWidget

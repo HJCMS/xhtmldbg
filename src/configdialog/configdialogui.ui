@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>665</width>
-    <height>492</height>
+    <height>494</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -153,12 +153,28 @@
          <property name="title">
           <string>Inspector Highlighted Foreground Color</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_8">
-          <item>
-           <widget class="QLabel" name="labelHighlightPreview">
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="enableHighlightBackground">
+            <property name="text">
+             <string>Highlight Background</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="labelHighlightBackground">
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>50</width>
+              <height>10</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
               <height>50</height>
              </size>
             </property>
@@ -185,10 +201,61 @@
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="openHighlightSettings">
+          <item row="0" column="2">
+           <widget class="QPushButton" name="openBackgroundHighlightSettings">
             <property name="text">
-             <string>Select Hightlight Color</string>
+             <string>pick Background Color</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="enableHighlightBorder">
+            <property name="text">
+             <string>Highlight Border</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="labelHighlightBorder">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>10</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string notr="true"/>
+            </property>
+            <property name="statusTip">
+             <string notr="true"/>
+            </property>
+            <property name="whatsThis">
+             <string notr="true"/>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: red;</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Panel</enum>
+            </property>
+            <property name="text">
+             <string>Preview</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QPushButton" name="openBorderHighlightSettings">
+            <property name="text">
+             <string>pick Border Color</string>
             </property>
            </widget>
           </item>
