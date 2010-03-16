@@ -2,3 +2,5 @@ build/
 templates/
 xhtmldbg.k*
 tags
+commit.sh
+
