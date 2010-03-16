@@ -133,9 +133,11 @@ Window::Window ( QSettings * settings )
   setCentralWidget ( m_centralWidget );
 
   // SIGNALS
-  // connect ( , SIGNAL ( ), , SLOT ( ) );
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
+
+  connect ( m_webViewer, SIGNAL ( statusBarMessage ( const QString & ) ),
+            m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
             m_tidyMessanger, SLOT ( clearItems () ) );

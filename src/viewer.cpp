@@ -30,12 +30,19 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QString>
+#include <QtCore/QPoint>
+#include <QtCore/QRect>
 
 /* QtGui */
 #include <QtGui/QBrush>
 #include <QtGui/QColor>
+#include <QtGui/QCursor>
+#include <QtGui/QHelpEvent>
+#include <QtGui/QIcon>
 #include <QtGui/QMenu>
+#include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
+#include <QtGui/QToolTip>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
@@ -68,6 +75,9 @@ Viewer::Viewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( cursorFinished ( bool ) ) );
+
+  connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
+            this, SLOT ( linkInfos ( const QString &, const QString &, const QString & ) ) );
 }
 
 void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
@@ -157,6 +167,22 @@ void Viewer::openUrl ( const QUrl &url )
 const QString Viewer::source()
 {
   return m_page->xhtmlSource();
+}
+
+/** TODO Extra ToolTips for more Information about links in WebPages */
+void Viewer::linkInfos ( const QString &link, const QString &title, const QString & )
+{
+  if ( ! link.isEmpty() )
+    emit statusBarMessage ( link );
+
+  if ( title.isEmpty() )
+    return;
+
+  // qDebug() << Q_FUNC_INFO << point;
+  //   QHelpEvent ev ( QEvent::ToolTip, point, pos() );
+  // link << content;
+  QPoint point = cursor ().pos();
+  QToolTip::showText ( point, title, this, QRect ( point, QSize ( 20, 20 ) ) );
 }
 
 Viewer::~Viewer()

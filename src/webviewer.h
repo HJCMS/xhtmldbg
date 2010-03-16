@@ -62,6 +62,7 @@ class WebViewer : public QTabWidget
     void urlChanged ( const QUrl & );
     void addBookmark ( const QUrl &, const QString & );
     void loadFinished ( bool );
+    void statusBarMessage ( const QString & );
 
   public Q_SLOTS:
     void addViewerTab ( Viewer * );

@@ -60,6 +60,7 @@ class Viewer : public QWebView
     void bookmark();
     void unsupportedContent ( QNetworkReply * );
     void cookiesRequest ( const QUrl & );
+    void linkInfos ( const QString &, const QString &, const QString & );
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );

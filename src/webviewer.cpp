@@ -59,6 +59,7 @@ WebViewer::WebViewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
             this, SLOT ( closeViewerTab ( int ) ) );
+
 }
 
 void WebViewer::updateWebSettings()
@@ -180,6 +181,9 @@ void WebViewer::addViewerTab ( Viewer *view )
 
   connect ( view, SIGNAL ( iconChanged() ),
             this, SLOT ( setFavicon() ) );
+
+  connect ( view, SIGNAL ( statusBarMessage ( const QString & ) ),
+            this, SIGNAL ( statusBarMessage ( const QString & ) ) );
 
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
