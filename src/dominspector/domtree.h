@@ -42,6 +42,7 @@ class DomTree : public QTreeWidget
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    int minCellWidth;
     QTreeWidgetItem* createTopLevelItem ( const QString & );
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
     void parseElements ( const QWebElement &, QTreeWidgetItem* );

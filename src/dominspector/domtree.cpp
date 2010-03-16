@@ -28,19 +28,23 @@
 
 /* QtGui */
 #include <QtGui/QFrame>
+#include <QtGui/QFontMetrics>
 #include <QtGui/QHeaderView>
+#include <QtGui/QSizePolicy>
 #include <QtGui/QTreeWidgetItemIterator>
 
 DomTree::DomTree ( QWidget * parent )
     : QTreeWidget ( parent )
+    , minCellWidth ( 50 )
 {
   setObjectName ( QLatin1String ( "domtree" ) );
   QStringList labels;
   labels << trUtf8 ( "STag" ) << trUtf8 ( "AttName" ) << trUtf8 ( "AttValue" );
   setHeaderLabels ( labels );
   setSortingEnabled ( false );
-
   header()->setResizeMode ( QHeaderView::ResizeToContents );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
+
   setFrameStyle ( QFrame::Box );
 
   connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
@@ -71,8 +75,13 @@ void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* par
       item->setText ( 1, name );
       item->setForeground ( 1, Qt::blue );
       item->setTextAlignment ( 1, Qt::AlignRight );
-      item->setText ( 2, element.attribute ( name ) );
+      QString attr = element.attribute ( name );
+      item->setText ( 2, attr );
       item->setTextAlignment ( 2, Qt::AlignLeft );
+      int cw = ( fontMetrics().width ( attr ) + 10 );
+      if ( cw > minCellWidth )
+        minCellWidth = cw;
+
       attributes << item;
     }
     parent->addChildren ( attributes );
@@ -138,13 +147,15 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
 void DomTree::setDomTree ( const QWebElement &we )
 {
   clear();
+  minCellWidth = 50;
 
   QTreeWidgetItem* item = createTopLevelItem ( we.localName() );
   item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
   item->setToolTip ( 0, we.namespaceUri() );
   parseAttributes ( we, item );
   parseElements ( we, item );
-  header()->setResizeMode ( QHeaderView::ResizeToContents );
+
+  setColumnWidth ( 2, minCellWidth );
 }
 
 bool DomTree::findItem ( const QWebElement &element )

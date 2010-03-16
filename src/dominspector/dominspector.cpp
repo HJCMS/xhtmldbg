@@ -49,6 +49,7 @@ DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
   m_listStyleSheet = new ListStyleSheet ( m_splitter );
   m_splitter->insertWidget ( 1, m_listStyleSheet );
 
+  m_splitter->setStretchFactor ( 0, 1 );
   setWidget ( m_splitter );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),

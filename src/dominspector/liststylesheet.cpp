@@ -38,8 +38,9 @@ ListStyleSheet::ListStyleSheet ( QWidget * parent )
   setSelectionMode ( QAbstractItemView::SingleSelection );
   setEditTriggers ( QAbstractItemView::NoEditTriggers );
   setBackgroundRole ( QPalette::AlternateBase );
-  setAlternatingRowColors ( true ); 
+  setAlternatingRowColors ( true );
   setContextMenuPolicy ( Qt::NoContextMenu );
+  setMinimumHeight ( 80 );
 
   QFile fp ( QString::fromUtf8 ( ":/css.list" ) );
   if ( fp.open ( QIODevice::ReadOnly ) )
