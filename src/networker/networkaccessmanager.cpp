@@ -26,7 +26,11 @@
 #include "certdialog.h"
 #include "errorsdialog.h"
 
+#include <climits>
+
 /* QtCore */
+#include <QtCore/QGlobalStatic>
+#include <QtCore/QBuffer>
 #include <QtCore/QByteArray>
 #include <QtCore/QChar>
 #include <QtCore/QDebug>
@@ -51,6 +55,8 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   setCookieJar ( m_networkCookie );
 
+  htmlReply = 0x00;
+
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
 
@@ -62,6 +68,30 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( this, SIGNAL ( sslErrors ( QNetworkReply *, const QList<QSslError> & ) ),
             this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
+}
+
+QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
+{
+  QString encoding ( "UTF-8" );
+  if ( reply )
+  {
+    QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
+    if ( ! cType.isEmpty() )
+    {
+      QString Charset ( cType );
+      foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
+      {
+        param.trimmed();
+        if ( param.contains ( "charset", Qt::CaseInsensitive ) )
+        {
+          QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
+          encoding = buf.toUpper();
+          break;
+        }
+      }
+    }
+  }
+  return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
 void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuthenticator * auth )
@@ -133,6 +163,27 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   delete errdial;
 }
 
+void NetworkAccessManager::replyProcess()
+{
+  if ( htmlReply )
+  {
+    QString mimeType = htmlReply->header ( QNetworkRequest::ContentTypeHeader ).toString();
+    if ( ! mimeType.contains ( "text/html" ) )
+      return;
+
+    if ( ! htmlReply->seek( 0 ) )
+      return;
+
+    qint64 maxSize = ( SCHAR_MAX * htmlReply->size() );
+    QByteArray data = htmlReply->peek ( maxSize );
+    if ( data.isEmpty() )
+      return;
+
+    QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( htmlReply ) );
+    // emit postReplySource ( codec->toUnicode ( data ) );
+  }
+}
+
 void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevice * data )
 {
   if ( req.rawHeader ( QByteArray ( "Referer" ) ).isEmpty() )
@@ -151,11 +202,11 @@ void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevi
 
       for ( int l = 0; l < line.size(); l++ )
       {
-        QString str = line.at(l).trimmed();
+        QString str = line.at ( l ).trimmed();
         if ( str.contains ( "Content-Disposition" ) )
           buffer << str.split ( "name=" ).last().remove ( "\"" );
         if ( str.contains ( "WebKitFormBoundary" ) )
-          buffer << line.at( ( l - 1 ) );
+          buffer << line.at ( ( l - 1 ) );
         else
           continue;
       }
@@ -218,7 +269,11 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setSslConfiguration ( sslConfig );
   if ( op == QNetworkAccessManager::PostOperation && data )
-    fetchPostedData ( reply->request(), data );
+  {
+    htmlReply = reply;
+    fetchPostedData ( htmlReply->request(), data );
+    connect ( htmlReply, SIGNAL ( readyRead() ), this, SLOT ( replyProcess() ) );
+  }
 
   if ( reply->url() == url )
   {
@@ -232,6 +287,29 @@ QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
   setUrl ( req.url() );
   return createRequest ( QNetworkAccessManager::GetOperation, req );
+}
+
+QNetworkReply* NetworkAccessManager::head ( const QNetworkRequest &req )
+{
+  setUrl ( req.url() );
+  return createRequest ( QNetworkAccessManager::HeadOperation, req );
+}
+
+QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, QIODevice* data )
+{
+  setUrl ( req.url() );
+  return createRequest ( QNetworkAccessManager::PostOperation, req, data );
+}
+
+QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QByteArray &arr )
+{
+  setUrl ( req.url() );
+  QBuffer* data = new QBuffer;
+  data->setData ( arr );
+  data->open ( QIODevice::ReadOnly );
+  QNetworkReply *reply = createRequest ( QNetworkAccessManager::PostOperation, req, data );
+  data->setParent ( reply );
+  return reply;
 }
 
 NetworkAccessManager::~NetworkAccessManager()

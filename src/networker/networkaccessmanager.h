@@ -30,6 +30,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QSettings>
+#include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 
 /* QtNetwork */
@@ -54,11 +55,13 @@ class NetworkAccessManager : public QNetworkAccessManager
 
   private:
     NetworkCookie* m_networkCookie;
+    QNetworkReply* htmlReply;
     QList<QString> trustedCertsHostsList;
     NetworkSettings* m_networkSettings;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
     QUrl url;
+    QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );
     void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
 
   private Q_SLOTS:
@@ -66,12 +69,18 @@ class NetworkAccessManager : public QNetworkAccessManager
     void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
     void certErrors ( QNetworkReply *, const QList<QSslError> & );
     void replyErrors ( QNetworkReply::NetworkError );
+    void replyProcess ();
 
   Q_SIGNALS:
     void netNotify ( const QString & );
     void statusBarMessage ( const QString & );
+    void postReplySource ( const QString & );
     void receivedHostHeaders ( const QString &, const QMap<QString,QString> & );
     void postedRefererData ( const QUrl &, const QStringList & );
+
+  protected:
+    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
+                                   const QNetworkRequest &req, QIODevice *data = 0 );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );
@@ -81,8 +90,9 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkAccessManager ( QObject *parent = 0 );
     const QUrl getUrl();
     NetworkCookie* cookieJar() const;
-    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
-                                   const QNetworkRequest &req, QIODevice *data = 0 );
+    QNetworkReply* head ( const QNetworkRequest & );
+    QNetworkReply* post ( const QNetworkRequest &, QIODevice * );
+    QNetworkReply* post ( const QNetworkRequest &, const QByteArray & );
     QNetworkReply* get ( const QNetworkRequest &req );
     ~NetworkAccessManager();
 };

@@ -163,6 +163,9 @@ Window::Window ( QSettings * settings )
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_postDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
+  connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
+            this, SLOT ( setSource ( const QString & ) ) );
+
   // Load Settings
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
