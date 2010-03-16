@@ -24,10 +24,12 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QPoint>
 #include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QContextMenuEvent>
+#include <QtGui/QMouseEvent>
 #include <QtGui/QTabWidget>
 #include <QtGui/QWidget>
 
@@ -35,6 +37,7 @@
 #include <QtNetwork/QNetworkReply>
 
 /* QtWebKit */
+#include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebView>
 #include <QtWebKit/QWebHistory>
 #include <QtWebKit/QWebPage>
@@ -53,6 +56,7 @@ class Viewer : public QWebView
     Page* m_page;
     NetworkCookie* cookieManager;
     void openCookieRequestDialog ( const QUrl & );
+    void findChildNode ( const QPoint & );
 
   private Q_SLOTS:
     void cursorwait ();
@@ -65,9 +69,11 @@ class Viewer : public QWebView
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );
     void contextMenuEvent ( QContextMenuEvent * );
+    void mousePressEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void addBookmark ( const QUrl &, const QString & );
+    void hitTestResult ( const QWebElement & );
 
   public Q_SLOTS:
     void findKeyword ( const QString & );

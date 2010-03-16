@@ -8,13 +8,12 @@
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QEvent>
+#include <QtCore/QIODevice>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
-#include <QtCore/QByteArray>
-#include <QtCore/QIODevice>
-#include <QtCore/QEvent>
 
 /* QtWebKit */
 #include <QtWebKit/QWebPage>

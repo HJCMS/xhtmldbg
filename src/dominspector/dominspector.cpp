@@ -65,7 +65,7 @@ bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
 
   QStringList styles ( "solid" );
   styles << "dashed" << "dotted" << "double" << "groove" << "ridge" << "inset" << "outset";
-  QString pattern = QString( "\\b(%1)\\b" ).arg ( styles.join( "|" ) );
+  QString pattern = QString ( "\\b(%1)\\b" ).arg ( styles.join ( "|" ) );
 
   QStringList cssAttributes ( "border-color" );
   cssAttributes << "border-style" << "border";
@@ -127,6 +127,12 @@ void DomInspector::setDomTree ( const QWebElement &element )
 
   m_domTree->setDomTree ( element );
   m_listStyleSheet->clear();
+}
+
+void DomInspector::findItem ( const QWebElement &element )
+{
+  if ( m_domTree->findItem ( element ) )
+    m_listStyleSheet->setStyleSheetList ( element );
 }
 
 DomInspector::~DomInspector()

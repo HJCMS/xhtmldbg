@@ -64,6 +64,7 @@ class DomInspector : public QDockWidget
 
   public Q_SLOTS:
     void setDomTree ( const QWebElement & );
+    void findItem ( const QWebElement & );
 
   public:
     DomInspector ( QWidget * parent = 0, QSettings * settings = 0 );

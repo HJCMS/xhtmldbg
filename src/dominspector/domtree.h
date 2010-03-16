@@ -61,6 +61,7 @@ class DomTree : public QTreeWidget
     };
     DomTree ( QWidget * parent = 0 );
     void setDomTree ( const QWebElement & );
+    bool findItem ( const QWebElement & );
     ~DomTree();
 };
 

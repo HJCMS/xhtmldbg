@@ -44,6 +44,9 @@
 #include <QtGui/QPalette>
 #include <QtGui/QToolTip>
 
+/* QtWebKit */
+#include <QtWebKit/QWebHitTestResult>
+
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkAccessManager>
@@ -90,6 +93,12 @@ void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
     cookieManager->reload();
 }
 
+void Viewer::findChildNode ( const QPoint &p )
+{
+  if ( ! p.isNull() )
+    emit hitTestResult ( page()->currentFrame()->hitTestContent ( p ).element() );
+}
+
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
@@ -114,6 +123,12 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
   menu->exec ( e->globalPos() );
   delete menu;
+}
+
+void Viewer::mousePressEvent ( QMouseEvent * ev )
+{
+  findChildNode ( ev->pos() );
+  QWebView::mousePressEvent ( ev );
 }
 
 Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )

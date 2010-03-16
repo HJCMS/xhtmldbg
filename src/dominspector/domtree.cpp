@@ -29,6 +29,7 @@
 /* QtGui */
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
+#include <QtGui/QTreeWidgetItemIterator>
 
 DomTree::DomTree ( QWidget * parent )
     : QTreeWidget ( parent )
@@ -38,6 +39,7 @@ DomTree::DomTree ( QWidget * parent )
   labels << trUtf8 ( "STag" ) << trUtf8 ( "AttName" ) << trUtf8 ( "AttValue" );
   setHeaderLabels ( labels );
   setSortingEnabled ( false );
+
   header()->setResizeMode ( QHeaderView::ResizeToContents );
   setFrameStyle ( QFrame::Box );
 
@@ -49,6 +51,7 @@ QTreeWidgetItem* DomTree::createTopLevelItem ( const QString &name )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( invisibleRootItem() );
   item->setExpanded ( name.contains ( QRegExp ( "(html|body)" ) ) );
+  item->setChildIndicatorPolicy ( QTreeWidgetItem::ShowIndicator );
   item->setData ( 0, Qt::DisplayRole, name );
   addTopLevelItem ( item );
   return item;
@@ -120,8 +123,7 @@ void DomTree::parseElements ( const QWebElement &element, QTreeWidgetItem* paren
 QTreeWidgetItem* DomTree::createChildItem ( const QString &name, QTreeWidgetItem* parent )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
-  item->setExpanded ( name.contains ( QRegExp ( "(html|body)" ) ) );
-  item->setData ( 0, Qt::DisplayRole, name );
+  item->setText ( 0, name );
   return item;
 }
 
@@ -142,6 +144,29 @@ void DomTree::setDomTree ( const QWebElement &we )
   item->setToolTip ( 0, we.namespaceUri() );
   parseAttributes ( we, item );
   parseElements ( we, item );
+  header()->setResizeMode ( QHeaderView::ResizeToContents );
+}
+
+bool DomTree::findItem ( const QWebElement &element )
+{
+  bool found = false;
+  if ( element.localName().isEmpty() || topLevelItemCount() < 1 )
+    return found;
+
+  QTreeWidgetItemIterator it ( invisibleRootItem(), QTreeWidgetItemIterator::Enabled );
+  while ( *it )
+  {
+    if ( ( *it )->data ( 0, Qt::UserRole ).value<TreeItem>().element == element )
+    {
+      ( *it )->setExpanded ( true );
+      setCurrentItem ( ( *it ), 0 );
+      scrollToItem ( ( *it ), QAbstractItemView::PositionAtTop );
+      found = true;
+      break;
+    }
+    ++it;
+  }
+  return found;
 }
 
 DomTree::~DomTree()

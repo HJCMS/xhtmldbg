@@ -62,8 +62,8 @@
 #include <QtGui/QKeySequence>
 
 /* QtWebKit */
-#include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebPage>
 
 /* QTidy */
 #include <QTidy/QTidy>
@@ -135,6 +135,9 @@ Window::Window ( QSettings * settings )
   // SIGNALS
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
+
+  connect ( m_webViewer, SIGNAL ( hitTestResult ( const QWebElement & ) ),
+            m_domInspector, SLOT ( findItem ( const QWebElement & ) ) );
 
   connect ( m_webViewer, SIGNAL ( statusBarMessage ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
@@ -372,9 +375,7 @@ void Window::paintEvent ( QPaintEvent * ev )
 }
 
 /**
-* if page request is finished prepare all methodes
-* for nested Widgets
-* file:///home/heinemann/hjcms/libQTidy/tests/in_426885.html
+* if page request is finished prepare all methodes for nested Widgets
 */
 void Window::requestsFinished ( bool ok )
 {
