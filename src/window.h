@@ -48,6 +48,7 @@ class WebViewer;
 class SourceWidget;
 class TidyMessanger;
 class JSMessanger;
+class AppEvents;
 class Bookmark;
 class HistoryMenu;
 class StatusBar;
@@ -115,6 +116,8 @@ class Window : public QMainWindow
     TidyMessanger* m_tidyMessanger;
     // JavaScript Messages
     JSMessanger* m_jsMessanger;
+    // Display Infromation from XHTMLDBG
+    AppEvents* m_appEvents;
     // Cookie
     CookiesDock* m_cookiesDock;
     // Received Headers

@@ -28,6 +28,29 @@
     </message>
 </context>
 <context>
+    <name>AppEvents</name>
+    <message>
+        <location filename="../src/appevents.cpp" line="37"/>
+        <source>XHTMLDBG Impartations</source>
+        <translation>XHTMLDBG Mitteilungen</translation>
+    </message>
+    <message>
+        <location filename="../src/appevents.cpp" line="66"/>
+        <source>Ascending</source>
+        <translation>Aufteigend</translation>
+    </message>
+    <message>
+        <location filename="../src/appevents.cpp" line="70"/>
+        <source>Descending</source>
+        <translation>Absteigend</translation>
+    </message>
+    <message>
+        <location filename="../src/appevents.cpp" line="74"/>
+        <source>Clear</source>
+        <translation>Leeren</translation>
+    </message>
+</context>
+<context>
     <name>ArrangementItem</name>
     <message>
         <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
@@ -823,17 +846,17 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>DomTree</name>
     <message>
-        <location filename="../src/dominspector/domtree.cpp" line="39"/>
+        <location filename="../src/dominspector/domtree.cpp" line="42"/>
         <source>STag</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtree.cpp" line="39"/>
+        <location filename="../src/dominspector/domtree.cpp" line="42"/>
         <source>AttName</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtree.cpp" line="39"/>
+        <location filename="../src/dominspector/domtree.cpp" line="42"/>
         <source>AttValue</source>
         <translation></translation>
     </message>
@@ -1129,6 +1152,14 @@ Willst du wircklich beenden?</translation>
     </message>
 </context>
 <context>
+    <name>NetworkAccessManager</name>
+    <message>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="189"/>
+        <source>Content-Location header in POST requests is undefined; servers are free to ignore it in those cases.</source>
+        <translation>Ein Content-Location haeder in POST anfragen ist undefiniert, Servers steht es frei so etwas zu Ignorieren.</translation>
+    </message>
+</context>
+<context>
     <name>OpenUrlDialog</name>
     <message>
         <location filename="../src/openurldialog/openurldialog.cpp" line="37"/>
@@ -1316,164 +1347,179 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="96"/>
-        <location filename="../src/window.cpp" line="228"/>
+        <location filename="../src/window.cpp" line="97"/>
+        <location filename="../src/window.cpp" line="236"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="102"/>
+        <location filename="../src/window.cpp" line="103"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="185"/>
+        <location filename="../src/window.cpp" line="193"/>
         <source>Application</source>
         <translation>Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="189"/>
+        <location filename="../src/window.cpp" line="197"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="190"/>
+        <location filename="../src/window.cpp" line="198"/>
         <source>Load Document from Url</source>
         <translation>Lade Dokument von Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="196"/>
+        <location filename="../src/window.cpp" line="204"/>
         <source>Open Html File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="197"/>
+        <location filename="../src/window.cpp" line="205"/>
         <source>Open Html from System</source>
         <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="203"/>
+        <location filename="../src/window.cpp" line="211"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="204"/>
+        <location filename="../src/window.cpp" line="212"/>
         <source>Close Debugger</source>
         <translation>Schliesse den Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="211"/>
+        <location filename="../src/window.cpp" line="219"/>
         <source>Debugger</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="214"/>
+        <location filename="../src/window.cpp" line="222"/>
         <source>Parse</source>
         <translation>Analysieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="215"/>
+        <location filename="../src/window.cpp" line="223"/>
         <source>Parse current Document Source</source>
         <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="221"/>
+        <location filename="../src/window.cpp" line="229"/>
         <source>Format</source>
         <translation>Formatiere</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="222"/>
+        <location filename="../src/window.cpp" line="230"/>
         <source>Prepare and Format Document Source</source>
         <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="231"/>
+        <location filename="../src/window.cpp" line="239"/>
         <source>Refresh</source>
         <translation>Auffrischen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="237"/>
+        <location filename="../src/window.cpp" line="245"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="243"/>
+        <location filename="../src/window.cpp" line="251"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="249"/>
+        <location filename="../src/window.cpp" line="257"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="250"/>
+        <location filename="../src/window.cpp" line="258"/>
         <source>Add a new empty Tab</source>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="257"/>
+        <location filename="../src/window.cpp" line="265"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="280"/>
+        <location filename="../src/window.cpp" line="288"/>
         <source>Organize Bookmarks</source>
         <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="284"/>
+        <location filename="../src/window.cpp" line="292"/>
         <source>Configuration</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="286"/>
+        <location filename="../src/window.cpp" line="294"/>
         <source>Configure Tidyrc</source>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="292"/>
-        <location filename="../src/window.cpp" line="326"/>
+        <location filename="../src/window.cpp" line="300"/>
+        <location filename="../src/window.cpp" line="334"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="297"/>
+        <location filename="../src/window.cpp" line="305"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="301"/>
+        <location filename="../src/window.cpp" line="309"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="302"/>
+        <location filename="../src/window.cpp" line="310"/>
         <source>about Qt</source>
         <translation>über Qt</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="307"/>
+        <location filename="../src/window.cpp" line="315"/>
         <source>about hjcms</source>
         <translation>über HJCMS</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="315"/>
+        <location filename="../src/window.cpp" line="323"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="416"/>
+        <location filename="../src/window.cpp" line="357"/>
+        <source>Toolbars</source>
+        <translation>Werkzeugleisten</translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="366"/>
+        <source>Impartations</source>
+        <translation>Mitteilungen</translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="373"/>
+        <source>Inspectors</source>
+        <translation>Kontrolleure</translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="435"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="417"/>
+        <location filename="../src/window.cpp" line="436"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="422"/>
+        <location filename="../src/window.cpp" line="441"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

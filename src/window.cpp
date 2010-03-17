@@ -29,6 +29,7 @@
 #include "sourcewidget.h"
 #include "tidymessanger.h"
 #include "jsmessanger.h"
+#include "appevents.h"
 #include "bookmark.h"
 #include "historymanager.h"
 #include "historyitem.h"
@@ -110,6 +111,10 @@ Window::Window ( QSettings * settings )
   m_tidyMessanger = new TidyMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger );
 
+  // Display Infromation from XHTMLDBG
+  m_appEvents = new AppEvents ( this );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_appEvents );
+
   // JavaScript Messanger DockWidget
   m_jsMessanger = new JSMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger );
@@ -155,7 +160,7 @@ Window::Window ( QSettings * settings )
             this, SLOT ( visibleSourceChanged () ) );
 
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
-            m_statusBar, SLOT ( showMessage ( const QString & ) ) );
+            m_appEvents, SLOT ( insertMessage ( const QString & ) ) );
 
   connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
             m_headerDock, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
@@ -348,18 +353,29 @@ void Window::createToolBars()
   addToolBar ( m_keywordsToolBar );
 
   // Add ToolBar View Actions to Display Menu
-  m_viewBarsMenu->addAction ( m_actionsToolBar->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_addressToolBar->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
-  m_viewBarsMenu->addSeparator ();
-  // Add QDockWidget View Actions to Display Menu
-  m_viewBarsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_jsMessanger->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_domInspector->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_cookiesDock->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_headerDock->toggleViewAction() );
-  m_viewBarsMenu->addAction ( m_postDock->toggleViewAction() );
+  QIcon icon = QIcon::fromTheme ( "preferences-system-windows-actions" );
+  QMenu* viewToolbarsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Toolbars" ) );
+  viewToolbarsMenu->setIcon ( icon );
+  viewToolbarsMenu->addAction ( m_actionsToolBar->toggleViewAction() );
+  viewToolbarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
+  viewToolbarsMenu->addAction ( m_addressToolBar->toggleViewAction() );
+  viewToolbarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
+  viewToolbarsMenu->addSeparator ();
+
+  // Add TOP|BOTTOM QDockWidget View Actions to Display Menu
+  QMenu* impartationsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Impartations" ) );
+  impartationsMenu->setIcon ( icon );
+  impartationsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
+  impartationsMenu->addAction ( m_jsMessanger->toggleViewAction() );
+  impartationsMenu->addAction ( m_appEvents->toggleViewAction() );
+
+  // Add RIGHT|LEFT QDockWidget View Actions to Display Menu
+  QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Inspectors" ) );
+  inspectorsMenu->setIcon ( icon );
+  inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
+  inspectorsMenu->addAction ( m_cookiesDock->toggleViewAction() );
+  inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
+  inspectorsMenu->addAction ( m_postDock->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )
