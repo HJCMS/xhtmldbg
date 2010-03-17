@@ -120,7 +120,9 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
 {
-//   m_netcfg = new NetworkSettings ( this );
+  if ( ! m_netcfg )
+    m_netcfg = new NetworkSettings ( this );
+
   load();
 }
 
