@@ -29,7 +29,6 @@
 #include <climits>
 
 /* QtCore */
-#include <QtCore/QGlobalStatic>
 #include <QtCore/QBuffer>
 #include <QtCore/QByteArray>
 #include <QtCore/QChar>
@@ -163,7 +162,21 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   delete errdial;
 }
 
-void NetworkAccessManager::replyProcess()
+const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
+{
+  QByteArray readBytes;
+  qint64 maxBufferSize = ( UCHAR_MAX * 1024 );
+  qint64 bytesToRead = qMax<qint64> ( 0, maxBufferSize );
+  bytesToRead = qBound<qint64> ( 1, bytesToRead, device->bytesAvailable() );
+  readBytes.resize ( bytesToRead );
+  qint64 topicalBytes = device->peek ( readBytes.data(), readBytes.size() );
+  if ( topicalBytes != -1 )
+    readBytes.resize ( topicalBytes );
+
+  return readBytes;
+}
+
+void NetworkAccessManager::peekReplyProcess()
 {
   if ( htmlReply )
   {
@@ -171,11 +184,19 @@ void NetworkAccessManager::replyProcess()
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 
-    if ( ! htmlReply->isOpen() )
+    QIODevice* copyDevice = htmlReply;
+    if ( ! copyDevice || ! htmlReply->isOpen() )
       return;
 
-//     QIODevice* copyDevice = htmlReply;
-//     qDebug() << copyDevice->isOpen();
+    peekPostData.append ( peekDeviceData( copyDevice ) );
+
+    // FIXME I know this is a very difficult hack :-/
+    if ( peekPostData.contains ( QByteArray ( "</html>" ) ) )
+    {
+      QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( htmlReply ) );
+      // qDebug() << codec->toUnicode ( peekPostData );
+      emit postReplySource ( codec->toUnicode ( peekPostData ) );
+    }
   }
 }
 
@@ -186,7 +207,7 @@ void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevi
 
   if ( data->isOpen() )
   {
-    QByteArray postData = QByteArray::fromPercentEncoding ( data->peek ( 1024 * 1024 ) );
+    QByteArray postData = QByteArray::fromPercentEncoding ( data->peek ( UCHAR_MAX * 1024 ) );
     QTextCodec* codec = QTextCodec::codecForHtml ( postData, QTextCodec::codecForName ( "UTF-8" ) );
     QString string = codec->toUnicode ( postData );
     if ( string.contains ( "WebKitFormBoundary" ) )
@@ -265,9 +286,10 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   reply->setSslConfiguration ( sslConfig );
   if ( op == QNetworkAccessManager::PostOperation && data )
   {
+    peekPostData.clear();
     htmlReply = reply;
     fetchPostedData ( htmlReply->request(), data );
-    connect ( htmlReply, SIGNAL ( readyRead() ), this, SLOT ( replyProcess() ) );
+    connect ( htmlReply, SIGNAL ( readyRead() ), this, SLOT ( peekReplyProcess() ) );
   }
 
   if ( reply->url() == url )

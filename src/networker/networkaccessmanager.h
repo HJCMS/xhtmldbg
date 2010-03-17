@@ -54,6 +54,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     Q_PROPERTY ( const QUrl url READ getUrl WRITE setUrl )
 
   private:
+    QByteArray peekPostData;
     NetworkCookie* m_networkCookie;
     QNetworkReply* htmlReply;
     QList<QString> trustedCertsHostsList;
@@ -63,13 +64,14 @@ class NetworkAccessManager : public QNetworkAccessManager
     QUrl url;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );
     void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
+    const QByteArray peekDeviceData ( QIODevice * );
 
   private Q_SLOTS:
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
     void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
     void certErrors ( QNetworkReply *, const QList<QSslError> & );
     void replyErrors ( QNetworkReply::NetworkError );
-    void replyProcess ();
+    void peekReplyProcess ();
 
   Q_SIGNALS:
     void netNotify ( const QString & );
