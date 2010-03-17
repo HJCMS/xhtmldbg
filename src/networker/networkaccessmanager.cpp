@@ -184,11 +184,17 @@ void NetworkAccessManager::peekReplyProcess()
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 
+    if( htmlReply->hasRawHeader ( QByteArray ( "location" ) ) )
+    {
+      emit netNotify ( trUtf8( "a Content-Location different from the URI used to retrieve." ) );
+      peekPostData.clear();
+    }
+
     QIODevice* copyDevice = htmlReply;
     if ( ! copyDevice || ! htmlReply->isOpen() )
       return;
 
-    peekPostData.append ( peekDeviceData( copyDevice ) );
+    peekPostData.append ( peekDeviceData ( copyDevice ) );
 
     // FIXME I know this is a very difficult hack :-/
     if ( peekPostData.contains ( QByteArray ( "</html>" ) ) )
@@ -283,6 +289,7 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
+  reply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   reply->setSslConfiguration ( sslConfig );
   if ( op == QNetworkAccessManager::PostOperation && data )
   {
