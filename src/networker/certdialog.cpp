@@ -76,6 +76,13 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   issuerInfo->setExpanded ( true );
   treeWidget->addTopLevelItem ( issuerInfo );
 
+  /**
+  * Um das ganze etwas Übersichtlicher zu halten. Verwende ich hier
+  * einen Vector weil beim befüllen der zweiten Spalte eine Referenz
+  * auf das Datenfeld der 1. Spalte erfolgen muss! Erscheint es mir
+  * von der Performance aus gesehen hier als sinnvoll.
+  * Und weil die Einträge so mehrfach eingelesen werden können.
+  **/
   RowItem item1;
   item1.text = trUtf8 ( "Organization (O)" );
   item1.tip = trUtf8 ( "The name of the organization. (O)" );
@@ -146,6 +153,11 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   connect ( box, SIGNAL ( rejected () ), this, SLOT ( reject() ) );
 }
 
+/**
+* Lese/Schreibe aus der Konfiguration die Weiße liste für voraussichtlich
+* nicht vertrauenswürdige Zertifikate aus.
+* Danach wird der Dialog beendet!
+*/
 void CertDialog::import()
 {
   if ( certHost.isEmpty() )
@@ -162,6 +174,10 @@ void CertDialog::import()
   accept();
 }
 
+/**
+* Füge die Zertifikate in die liste ein!
+* Nehme hierfür die Schlüssel aus dem Vector.
+*/
 void CertDialog::setCertificate ( const QSslCertificate &pem, const QString &host )
 {
   certHost = host;
@@ -192,6 +208,9 @@ void CertDialog::setCertificate ( const QSslCertificate &pem, const QString &hos
   treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
 }
 
+/**
+* Hier werden die vom Netzwerk Manager generierten Nachrichten eingefügt.
+*/
 void CertDialog::setMessages ( const QStringList &mess )
 {
   notify->setText ( mess.join ( "\n" ) );

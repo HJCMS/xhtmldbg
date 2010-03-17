@@ -1256,27 +1256,27 @@ Do you realy wan to exit?</source>
 <context>
     <name>SourceView</name>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="206"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="214"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="207"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="215"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="209"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="217"/>
         <source>Save Content to...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="231"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="239"/>
         <source>Can&apos;t write Source to &quot;%1&quot; Permission Denied.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="233"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="241"/>
         <source>To Save Source Operation dropout</source>
         <translation type="unfinished"></translation>
     </message>

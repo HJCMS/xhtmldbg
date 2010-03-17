@@ -1259,27 +1259,27 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>SourceView</name>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="206"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="214"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="207"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="215"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="209"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="217"/>
         <source>Save Content to...</source>
         <translation>Speichere Inhalt nach ...</translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="231"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="239"/>
         <source>Can&apos;t write Source to &quot;%1&quot; Permission Denied.</source>
         <translation>Kann Quelltext nicht nach &quot;%1&quot;speichern, Zugriff Verweigert.</translation>
     </message>
     <message>
-        <location filename="../src/sourceviewer/sourceview.cpp" line="233"/>
+        <location filename="../src/sourceviewer/sourceview.cpp" line="241"/>
         <source>To Save Source Operation dropout</source>
         <translation>Der Speichern Vorgang wurde abgebrochen</translation>
     </message>

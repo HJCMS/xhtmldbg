@@ -53,11 +53,21 @@ ErrorsDialog::ErrorsDialog ( QWidget * parent )
   connect ( box, SIGNAL ( accepted () ), this, SLOT ( accept() ) );
 }
 
+/**
+* Hier wird die vom Netzwerk Manager generierte Nachricht eingefügt.
+*/
 void ErrorsDialog::setMessage ( const QString &m )
 {
   message->setText ( m );
 }
 
+/**
+* Eine grobe Übersetzung der Netzwerk Meldungen!
+* @note Nicht alle Nachrichten werden als PopUp ausgegeben!
+* Diese senden das Signal errorMessage zurück an den Manager,
+* der es dann mit @ref NetworkAccessManager::netNotify über @class Window
+* an @ref AppEvents::insertMessage weiter gibt.
+*/
 bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
 {
   bool opendialog = false;

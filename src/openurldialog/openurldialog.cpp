@@ -24,6 +24,7 @@
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
+#include <QtCore/QRegExp>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -53,11 +54,17 @@ OpenUrlDialog::OpenUrlDialog ( QWidget * parent )
   connect ( box, SIGNAL ( rejected () ), this, SLOT ( reject() ) );
 }
 
+/**
+* Überprüfe die Aktuell übergebene Adresse anhand des Schemas.
+* Danach verwende den von Qt zu Verfügung gestellten strikten Modus.
+* Es werden http und https als Schema akzeptiert. Danach wird der
+* SLOT accept() ausgelöst.
+*/
 void OpenUrlDialog::checkInput()
 {
   QUrl url;
   url.setUrl ( m_lineEdit->text(), QUrl::StrictMode );
-  if ( url.isValid() && url.scheme() == "http" && !url.encodedHost().isEmpty() )
+  if ( url.isValid() && url.scheme().contains ( QRegExp( "http[s]?" ) ) && !url.encodedHost().isEmpty() )
   {
     emit openUrl ( url );
     accept();
