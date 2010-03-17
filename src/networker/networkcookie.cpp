@@ -164,7 +164,7 @@ void NetworkCookie::reload()
   cookiesSession.clear();
   cookiesAllowed.clear();
   cookiesBlocked.clear();
-//   load();
+  load();
 }
 
 void NetworkCookie::save()

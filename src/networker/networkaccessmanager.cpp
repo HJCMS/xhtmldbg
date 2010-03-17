@@ -171,16 +171,11 @@ void NetworkAccessManager::replyProcess()
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 
-    if ( ! htmlReply->seek( 0 ) )
+    if ( ! htmlReply->isOpen() )
       return;
 
-    qint64 maxSize = ( SCHAR_MAX * htmlReply->size() );
-    QByteArray data = htmlReply->peek ( maxSize );
-    if ( data.isEmpty() )
-      return;
-
-    QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( htmlReply ) );
-    // emit postReplySource ( codec->toUnicode ( data ) );
+//     QIODevice* copyDevice = htmlReply;
+//     qDebug() << copyDevice->isOpen();
   }
 }
 
@@ -291,19 +286,16 @@ QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 
 QNetworkReply* NetworkAccessManager::head ( const QNetworkRequest &req )
 {
-  setUrl ( req.url() );
   return createRequest ( QNetworkAccessManager::HeadOperation, req );
 }
 
 QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, QIODevice* data )
 {
-  setUrl ( req.url() );
   return createRequest ( QNetworkAccessManager::PostOperation, req, data );
 }
 
 QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QByteArray &arr )
 {
-  setUrl ( req.url() );
   QBuffer* data = new QBuffer;
   data->setData ( arr );
   data->open ( QIODevice::ReadOnly );

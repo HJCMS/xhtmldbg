@@ -108,7 +108,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   if ( ! b )
     return b;
 
-  // qDebug() << Q_FUNC_INFO << request.url();
+  // qDebug() << frame->renderTreeDump();
 
   // fetch Request Types for setSource View
   switch ( type )
