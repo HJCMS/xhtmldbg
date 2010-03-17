@@ -105,10 +105,11 @@ SourceView::SourceView ( const QFont &font, QWidget * parent )
 }
 
 /**
-* This SLOT is required for set Cursor Position in Document Content.
-* @note All Class Signals will blocked by blockSignals(true) to avoid
-* signal loops with cursorPositionChanged and @class ListLines.
-*/
+* Dieser SLOT wird von außerhalb für das setzen des Maus Cursors
+* auf den Dokumenten Inhalt benötigt.
+* @note Zu diesem Zeitraum werden die Signale blockiert damit es nicht
+*  zu einer endlosschleife mit @class ListLines kommt.
+**/
 bool SourceView::setBlockWithNumber ( int row, int column )
 {
   Q_UNUSED ( column )
@@ -133,8 +134,11 @@ bool SourceView::setBlockWithNumber ( int row, int column )
 }
 
 /**
-* Generate Items for @class ListLines and fetch TextBlock height
-* for multible LineWrapMode and sends Signal textChanged( QList...
+* Erstelle die Listeneinträge für @class ListLines Anhand der anzahl
+* der Textblöcke. Die höhe der einzelnen Texblöcke muss für die Zeilen-
+* umbruch Darstellung mit übergeben werden. Diese Methode wird immer dann
+* aufgerufen wenn sich bei den Textblöcken etwas verändert.
+* Das verhalten wird mittels dem Signal textChanged() umgesetzt.
 */
 void SourceView::createListWidgetItems()
 {
@@ -152,6 +156,7 @@ void SourceView::createListWidgetItems()
       QString title = QString ( "%1" ).arg ( i, f, 10, QChar ( '0' ) );
       QListWidgetItem* item = new QListWidgetItem;
       item->setData ( Qt::DisplayRole, title );
+      item->setData ( Qt::UserRole, i );
 
       if ( blockHeight > 0 )
       {
@@ -163,13 +168,15 @@ void SourceView::createListWidgetItems()
 
       list << item;
     }
-  // qDebug() << viewport()->size().height();
     emit textChanged ( list );
   }
 }
 
 /**
-* To send SIGNAL lineChanged if Cursor Position was Changed
+* Wird immer dann aufgerufen wenn der Maus Cursor im Dokument
+* gesetzt oder verschoben wird und Übermittelt an @class SourceWidget
+* das Signal lineChanged(int) damit in @class ListLines der Eintrag
+* für die Zeilen Hervorhebung gesetzt werden kann.
 */
 void SourceView::cursorPosChanged()
 {
@@ -177,8 +184,9 @@ void SourceView::cursorPosChanged()
 }
 
 /**
-* Change LineWrapMode and WordWrapMode with ShortCutKey_F10
-* @ref createListWidgetItems
+* Dieser SLOT wird für den Zeilenumbruch über Tastenkürzel "ShortCutKey_F10" aufgerufen.
+* @note Durch einen Zeilenumbruch muss @ref createListWidgetItems aufgerufen werden
+* damit die Listeneinträge aus @class ListLines sich dem Dokumenten inhalt anpassen.
 */
 void SourceView::swapWordWrap()
 {
@@ -197,7 +205,7 @@ void SourceView::swapWordWrap()
 }
 
 /**
-* QFileDialog::getSaveFileName to save current Document Content.
+* Standard Dialog für das Speichern des aktuellen Dokumenten Inhaltes.
 */
 void SourceView::saveSource()
 {
@@ -235,9 +243,10 @@ void SourceView::saveSource()
 }
 
 /**
-* Open PrintDialog and format current Source
-* with LineWrapMode to the printable Document Content.
-* @ref createListWidgetItems
+* Standard Drucken Dialog für den Dokumenten Quelltext.
+* @note Beim Aufruf wird der Zeilenumbruch eingeschaltet damit der
+*   Druckbreich nicht aus dem Druckbreich heraus läuft.
+* @todo Das muss noch mal komplett Überarbeitet werden :-/
 */
 void SourceView::printSource()
 {
@@ -299,12 +308,18 @@ void SourceView::printSource()
   createListWidgetItems();
 }
 
-/** Verwende Unix Clipboard bei jeder Selektierungs Aktion */
+/**
+* Verwende das X-Server Clipboard bei jeder Auswahl
+*/
 void SourceView::Clipboard()
 {
   setEnabled ( ! QApplication::clipboard()->text().isEmpty() );
 }
 
+/**
+* Erweitertes Menü mit den QTidy und Datei Werkzeugen.
+* @note Die Unicode einträge habe ich entfernt!
+**/
 void SourceView::contextMenuEvent ( QContextMenuEvent *e )
 {
   // WARNING For undo redo copy paste the Context Menu must initialed in contextMenuEvent !!!
@@ -321,6 +336,11 @@ void SourceView::contextMenuEvent ( QContextMenuEvent *e )
   editMenu->exec ( e->globalPos() );
 }
 
+/**
+* Diese Methode nimmt die von QTidy generierten Nachrichten Inhalte an.
+* Im Moment wird nur die Zeile gesucht, das setzen der Zeilentiefe muss
+* noch umgesetzt werden!
+**/
 void SourceView::fetchRow ( QListWidgetItem *item )
 {
   QList<QVariant> data = item->data ( Qt::UserRole ).toList();
@@ -329,20 +349,33 @@ void SourceView::fetchRow ( QListWidgetItem *item )
   if ( row < 1 )
     return;
 
+  // TODO set cursor position to source, used by tidymessanger
   if ( setBlockWithNumber ( ( row - 1 ) ) )
     qDebug() << Q_FUNC_INFO << "TODO find() Function";
 }
 
+/**
+* Standard Methode für das setzen des Dokumenten Inhaltes!
+* Es wird immer Text Blank verwendet kein HTML!
+**/
 void SourceView::setSource ( const QString &html )
 {
   setPlainText ( html );
 }
 
+/**
+* Im Prinzip das gleiche wie @ref fetchRow nur die
+* Übergebenen Paramater haben sich geändert!
+**/
 void SourceView::setCursorToRow ( int row, int column )
 {
   setBlockWithNumber ( row, column );
 }
 
+/**
+* Standard Methode für das nehmen des Dokumenten Inhaltes!
+* Es wird immer Text Blank verwendet kein HTML!
+**/
 const QString SourceView::source()
 {
   return toPlainText();

@@ -102,11 +102,19 @@ SourceWidget::SourceWidget ( QWidget * parent )
     setSource ( "<html>\n<head><title>Start</title></head>\n<body>\n</body>\n</html>\n" );
 }
 
+/**
+* Standard weiterleitung an @ref SourceView::setSource
+*/
 void SourceWidget::setSource ( const QString &source )
 {
   m_sourceView->setSource ( source );
 }
 
+/**
+* Nehme Meldung für Zeile und Spalte entgegen.
+* @ref SourceView::setCursorToRow
+* @ref ListLines::setCurrentRow
+*/
 void SourceWidget::fetchBlock ( int row, int column )
 {
   Q_UNUSED ( column )
@@ -114,12 +122,18 @@ void SourceWidget::fetchBlock ( int row, int column )
   m_sourceView->setCursorToRow ( row, column );
 }
 
+/**
+* Standard QTidy Quelltextprüfung
+*/
 void SourceWidget::check()
 {
   emit clearMessages();
   parser->checkContent ( m_sourceView->source() );
 }
 
+/**
+* Standard QTidy Bereinigung und Quelltextprüfung
+*/
 void SourceWidget::format()
 {
   QString html = m_sourceView->source();
@@ -134,12 +148,19 @@ void SourceWidget::format()
   check();
 }
 
+/**
+* Nehme die Aktuelle ~/.tidyrc Konfiguration
+* von @ref QTidy::QTidySettings
+*/
 const QString SourceWidget::getTidyrc()
 {
   QTidy::QTidySettings rc ( tidyrc );
   return rc.TidyConfig();
 }
 
+/**
+* Setze die tidy Konfiguration z.B: ~/.tidyrc
+*/
 void SourceWidget::setTidyrc ( const QString &rc )
 {
   tidyrc = rc;

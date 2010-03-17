@@ -27,6 +27,7 @@
 
 /* QtGui */
 #include <QtGui/QAbstractItemView>
+#include <QtGui/QFontMetrics>
 #include <QtGui/QPalette>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
@@ -74,6 +75,13 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
             this, SIGNAL ( currentRowChanged ( int ) ) );
 }
 
+/**
+* Setze bei einem klick auf den Eintrag die aktuelle Zeile im Text Dokument.
+* @note Weil @class SourceView und @class ListLines mit einander bei einem
+*  Scrollen syncronisiert werden. Müssen die Signale in diesem Zeitraum
+*  geblockt werden damit es nicht zu einer endlos Schleife kommt wenn
+*  der Cursor auf die Textzeile einen Scroll im Textfeld verursacht.
+*/
 void ListLines::setCurrentRow ( int r )
 {
   /* NOTE Block Signals an didn't send currentRowChanged 
@@ -83,6 +91,12 @@ void ListLines::setCurrentRow ( int r )
   blockSignals ( false );
 }
 
+/**
+* Befülle die Liste mit den aus @ref SourceView::createListWidgetItems()
+* erstellten Inhalten. Wenn das neu einfügen der Zeilen fertig ist nehme
+* mit fontMetrics die aktuelle Schriftengröße und hänge als Margin Platzhalter 
+* zwei 0. an damit es nicht zu Fehldarstellungen bei mehr als 13000 Zeilen kommt.
+*/
 void ListLines::setItems ( const QList<QListWidgetItem*> &list )
 {
   int c = 0;
@@ -93,13 +107,20 @@ void ListLines::setItems ( const QList<QListWidgetItem*> &list )
     {
       m_listWidget->addItem ( i );
       c++;
-      if ( c >= list.size() )
-        setMaximumWidth ( i->sizeHint().width() );
     }
-    m_listWidget->addItem ( QString::number( list.size() ) );
+    QString lastItem = QString::number( list.size() );
+    m_listWidget->addItem ( lastItem );
+    int fwidth = fontMetrics().width( lastItem + "00" );
+    setMaximumWidth ( fwidth );
   }
 }
 
+/**
+* Verarbeite den Scrollbalken für die Syncronisierung mit
+* @class SourceView siehe auch @ref setCurrentRow zu diesem Thema.
+* Es ist wichtig das QAbstractItemView::ScrollPerPixel definiert ist
+* damit es zu einer sauberen Scrollleisten syncronisierung kommt.
+*/
 void ListLines::setValue ( int i )
 {
   m_listWidget->verticalScrollBar ()->setValue ( i );
