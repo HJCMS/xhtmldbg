@@ -42,17 +42,17 @@ DomToolBar::DomToolBar ( QWidget * parent )
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Fixed );
 
   QIcon icon;
-  QAction* acPrune = addAction ( trUtf8 ( "Prune" ) );
+  QAction* acPrune = addAction ( trUtf8 ( "Collapse" ) );
   acPrune->setIcon ( icon.fromTheme ( QLatin1String ( "view-list-tree" ) ) );
-  acPrune->setToolTip ( trUtf8( "Prune DomTree" ) );
+  acPrune->setToolTip ( trUtf8( "Collapse Tree" ) );
 
   QAction* acExpand = addAction ( trUtf8 ( "Expand" ) );
   acExpand->setIcon (icon.fromTheme ( QLatin1String ( "view-process-all-tree" ) ) );
-  acExpand->setToolTip ( trUtf8( "Expanding DomTree" ) );
+  acExpand->setToolTip ( trUtf8( "Expanding Tree" ) );
 
   QAction* acDeselect = addAction ( trUtf8 ( "Deselect" ) );
   acDeselect->setIcon (icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
-  acDeselect->setToolTip ( trUtf8( "Unselect Highlighted Section" ) );
+  acDeselect->setToolTip ( trUtf8( "Deselect Highlights" ) );
 
   connect ( acPrune, SIGNAL ( triggered() ), this, SIGNAL ( prune() ) );
   connect ( acExpand, SIGNAL ( triggered() ), this, SIGNAL ( expand() ) );
