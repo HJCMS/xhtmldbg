@@ -36,6 +36,7 @@
 #include <QtWebKit/QWebElement>
 
 class DomTree;
+class DomToolBar;
 class ListStyleSheet;
 
 class DomInspector : public QDockWidget
@@ -46,7 +47,8 @@ class DomInspector : public QDockWidget
 
   private:
     QSettings* cfg;
-    QSplitter* m_splitter;
+    DomToolBar* m_domToolBar;
+    QSplitter* m_domSplitter;
     DomTree* m_domTree;
     ListStyleSheet* m_listStyleSheet;
     bool hasBorderStyleSheet ( const QWebElement & ) const;

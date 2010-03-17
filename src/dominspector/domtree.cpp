@@ -39,12 +39,11 @@ DomTree::DomTree ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "domtree" ) );
   QStringList labels;
-  labels << trUtf8 ( "STag" ) << trUtf8 ( "AttName" ) << trUtf8 ( "AttValue" );
+  labels << QLatin1String ( "STag" ) << QLatin1String ( "AttName " ) << QLatin1String ( "AttValue" );
   setHeaderLabels ( labels );
   setSortingEnabled ( false );
   header()->setResizeMode ( QHeaderView::ResizeToContents );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
-
   setFrameStyle ( QFrame::Box );
 
   connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
@@ -178,6 +177,23 @@ bool DomTree::findItem ( const QWebElement &element )
     ++it;
   }
   return found;
+}
+
+void DomTree::setPrune()
+{
+  collapseAll();
+  // expand html head body
+  for ( int t = 0; t < 3; t++ )
+  {
+    if ( invisibleRootItem()->child ( t ) )
+      invisibleRootItem()->child ( t )->setExpanded ( true );
+  }
+}
+
+void DomTree::setUnselect()
+{
+  TreeItem ti = invisibleRootItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
+  emit itemClicked ( ti.element );
 }
 
 DomTree::~DomTree()

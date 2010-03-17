@@ -19,57 +19,30 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DOMTREE_H
-#define DOMTREE_H
+#ifndef DOMTOOLBAR_H
+#define DOMTOOLBAR_H
 
 /* QtCore */
-#include <QtCore/QList>
-#include <QtCore/QMetaType>
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QTreeWidget>
-#include <QtGui/QTreeWidgetItem>
+#include <QtGui/QToolBar>
+#include <QtGui/QWidget>
 
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
-
-class DomTree : public QTreeWidget
+class DomToolBar : public QToolBar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
-  private:
-    int minCellWidth;
-    QTreeWidgetItem* createTopLevelItem ( const QString & );
-    void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
-    void parseElements ( const QWebElement &, QTreeWidgetItem* );
-    QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
-
-  private Q_SLOTS:
-    void itemSelected ( QTreeWidgetItem *, int );
-
   Q_SIGNALS:
-    void itemClicked ( const QWebElement & );
-
-  public Q_SLOTS:
-    void setPrune();
-    void setUnselect();
+    void prune();
+    void expand();
+    void unselect();
 
   public:
-    struct TreeItem
-    {
-      QString name;
-      QWebElement element;
-    };
-    DomTree ( QWidget * parent = 0 );
-    void setDomTree ( const QWebElement & );
-    bool findItem ( const QWebElement & );
-    ~DomTree();
+    DomToolBar ( QWidget * patent = 0 );
+    ~DomToolBar();
 };
-
-Q_DECLARE_METATYPE ( DomTree::TreeItem )
 
 #endif

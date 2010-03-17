@@ -4,12 +4,14 @@ SET (dominspector_SOURCES
   dominspector.cpp
   domtree.cpp
   liststylesheet.cpp
+  domtoolbar.cpp
 )
 
 SET (dominspector_HEADERS
   dominspector.h
   domtree.h
   liststylesheet.h
+  domtoolbar.h
 )
 
 QT4_WRAP_CPP (dominspector_MOC ${dominspector_HEADERS})

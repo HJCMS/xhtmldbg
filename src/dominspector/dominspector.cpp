@@ -20,12 +20,17 @@
 **/
 
 #include "dominspector.h"
+#include "domtoolbar.h"
 #include "domtree.h"
 #include "liststylesheet.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
+
+/* QtGui */
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QSizePolicy>
 
 /* QtWebKit */
 #include <QtWebKit/QWebPage>
@@ -39,24 +44,44 @@ DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
   setWindowTitle ( trUtf8 ( "DomTree" ) );
   setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+  setContentsMargins ( 1, 1, 1, 1 );
 
-  m_splitter = new QSplitter ( Qt::Vertical, this );
-  m_splitter->setObjectName ( QLatin1String ( "domsplitter" ) );
+  m_domSplitter = new QSplitter ( Qt::Vertical, this );
 
-  m_domTree = new DomTree ( m_splitter );
-  m_splitter->insertWidget ( 0, m_domTree );
+  QWidget* layer = new QWidget ( m_domSplitter );
+  layer->setContentsMargins ( 0, 0, 0, 0 );
+  layer->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
 
-  m_listStyleSheet = new ListStyleSheet ( m_splitter );
-  m_splitter->insertWidget ( 1, m_listStyleSheet );
+  QVBoxLayout* vLayout = new QVBoxLayout ( layer );
+  vLayout->setContentsMargins ( 0, 0, 0, 0 );
 
-  m_splitter->setStretchFactor ( 0, 1 );
-  setWidget ( m_splitter );
+  m_domTree = new DomTree ( layer );
+  vLayout->addWidget ( m_domTree );
+
+  m_domToolBar = new DomToolBar ( layer );
+  vLayout->addWidget ( m_domToolBar );
+
+  layer->setLayout ( vLayout );
+  m_domSplitter->insertWidget ( 0, layer );
+
+  m_listStyleSheet = new ListStyleSheet ( m_domSplitter );
+  m_domSplitter->insertWidget ( 1, m_listStyleSheet );
+
+  m_domSplitter->setStretchFactor ( 0, 1 );
+  m_domSplitter->setCollapsible ( 0, false );
+  m_domSplitter->setCollapsible ( 1, true );
+
+  setWidget ( m_domSplitter );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
             this, SLOT ( setVisible ( const QWebElement & ) ) );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
+
+  connect ( m_domToolBar, SIGNAL ( prune() ), m_domTree, SLOT ( setPrune() ) );
+  connect ( m_domToolBar, SIGNAL ( expand() ), m_domTree, SLOT ( expandAll() ) );
+  connect ( m_domToolBar, SIGNAL ( unselect() ), m_domTree, SLOT ( setUnselect() ) );
 }
 
 bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const

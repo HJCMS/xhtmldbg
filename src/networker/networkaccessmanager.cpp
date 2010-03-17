@@ -186,7 +186,7 @@ void NetworkAccessManager::peekReplyProcess()
 
     if( htmlReply->hasRawHeader ( QByteArray ( "location" ) ) )
     {
-      emit netNotify ( trUtf8( "Content-Location header in POST requests is undefined; servers are free to ignore it in those cases." ) );
+      emit netNotify ( trUtf8( "Multible Content-Location header from POST Request received. Note - Many Webservers are free to ignore this." ) );
       peekPostData.clear();
     }
 
