@@ -20,6 +20,7 @@
 **/
 
 #include "addresstoolbar.h"
+#include "historyitem.h"
 
 /* QtCore */
 #include <QtCore/QString>
@@ -27,14 +28,32 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QAction>
+#include <QtGui/QCompleter>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
-#include <QtGui/QCompleter>
 #include <QtGui/QIcon>
+
+AddressEdit::AddressEdit ( QToolBar * parent )
+    : QLineEdit ( "http://", parent )
+{
+  setObjectName ( QLatin1String ( "addressedit" ) );
+  setMinimumWidth ( 400 );
+}
+
+/**
+* Setze den QCompleter für das LineEdit
+*/
+void AddressEdit::updateCompliter ( const QStringList &history )
+{
+  setCompleter ( new QCompleter ( history, this ) );
+}
+
+AddressEdit::~AddressEdit()
+{}
 
 AddressToolBar::AddressToolBar ( QWidget * parent )
     : QToolBar ( parent )
+    , urlPattern ( QRegExp ( "http[s]?" ) )
 {
   setObjectName ( QLatin1String ( "addresstoolbar" ) );
   setWindowTitle ( trUtf8 ( "Address" ) );
@@ -44,39 +63,101 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
 
   QIcon icon;
 
+  goToIndex = addAction ( QLatin1String ( "Index" ) );
+  goToIndex->setIcon ( icon.fromTheme ( QLatin1String ( "go-up" ) ) );
+  goToIndex->setEnabled ( false );
+
   QLabel *label = new QLabel ( trUtf8 ( "Address:" ), this );
   label->setContentsMargins ( 5, 0, 5, 0 );
   addWidget ( label );
 
-  m_lineEdit = new QLineEdit ( "http://", this );
-  m_lineEdit->setMinimumWidth ( 400 );
-  QStringList urls; // = m_settings->getHistoryList();
-  if ( urls.size() >= 1 )
-  {
-    QCompleter *cpl = new QCompleter ( urls, this );
-    m_lineEdit->setCompleter ( cpl );
-  }
-  addWidget ( m_lineEdit );
+  m_addressEdit = new AddressEdit ( this );
+  addWidget ( m_addressEdit );
 
   QAction *cb = addAction ( trUtf8 ( "Clear" ) );
-  cb->setIcon( icon.fromTheme ( QLatin1String( "edit-clear-locationbar-rtl" ) ) );
+  cb->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
 
-  connect ( m_lineEdit, SIGNAL ( returnPressed () ), this, SLOT ( checkInput () ) );
-  connect ( cb, SIGNAL ( triggered() ), m_lineEdit, SLOT ( clear() ) );
+  QAction *go = addAction ( QLatin1String ( "Go" ) );
+  go->setIcon ( icon.fromTheme ( QLatin1String ( "go-jump-locationbar" ) ) );
+
+  connect ( m_addressEdit, SIGNAL ( textChanged ( const QString & ) ),
+            this, SLOT ( validatePath ( const QString & ) ) );
+  connect ( m_addressEdit, SIGNAL ( returnPressed () ), this, SLOT ( checkInput () ) );
+  connect ( goToIndex, SIGNAL ( triggered () ), this, SLOT ( urlToHostIndex () ) );
+  connect ( cb, SIGNAL ( triggered() ), m_addressEdit, SLOT ( clear() ) );
+  connect ( go, SIGNAL ( triggered() ), this, SLOT ( checkInput () ) );
 }
 
+/**
+* Die Adresse ungeprüft in die Adresszeile einfügen.
+*/
 void AddressToolBar::setUrl ( const QUrl &url )
 {
-  m_lineEdit->setText ( url.toString() );
+  m_addressEdit->setText ( url.toString() );
 }
 
-void AddressToolBar::checkInput ()
+/**
+* Dieser SLOT wird von Signal @ref HistoryManager::updateHistoryMenu aufgerufen.
+*/
+void AddressToolBar::updateHistoryItems ( const QList<HistoryItem> &items )
 {
-  QUrl url ( m_lineEdit->text() );
+  if ( items.count() >= 1 )
+  {
+    QStringList history;
+    foreach ( HistoryItem item, items )
+    {
+      history << item.url;
+    }
+    m_addressEdit->updateCompliter ( history );
+  }
+}
+
+/**
+* Prüfe ob die Angegebene Addresse einen Pfad enthält.
+* Wenn nicht dann die Aktion goToIndex Deaktivieren.
+*/
+void AddressToolBar::validatePath ( const QString &address )
+{
+  QUrl url ( address );
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( !url.scheme().contains ( "http" ) )
+  if ( !url.scheme().contains ( urlPattern ) )
+    return;
+
+  goToIndex->setEnabled ( ( ( url.path().length() > 1 ) ? true : false ) );
+}
+
+/**
+* Entferne Pfad,Prädikat und Anker von der Adresse und setze
+* Die abgeschnitte Adresse wieder in @class AddressEdit ein.
+* Danach wird @ref checkInput aufgerufen.
+*/
+void AddressToolBar::urlToHostIndex ()
+{
+  QUrl url ( m_addressEdit->text() );
+  if ( !url.isValid() || url.isRelative() )
+    return;
+
+  if ( !url.scheme().contains ( urlPattern ) )
+    return;
+
+  QUrl::FormattingOptions flags = ( QUrl::RemovePath | QUrl::RemoveQuery | QUrl::RemoveFragment );
+  m_addressEdit->setText ( url.toString ( flags ) );
+  checkInput();
+}
+
+/**
+* Überprüfen ob es sich um eine Valide Adresse handelt.
+* Wenn ja wird das signal @ref urlChanged angestoßen.
+*/
+void AddressToolBar::checkInput ()
+{
+  QUrl url ( m_addressEdit->text() );
+  if ( !url.isValid() || url.isRelative() )
+    return;
+
+  if ( !url.scheme().contains ( urlPattern ) )
     return;
 
   emit urlChanged ( url );

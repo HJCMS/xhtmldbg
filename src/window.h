@@ -42,6 +42,7 @@
 #include <QtGui/QWidget>
 
 class NetworkAccessManager;
+class HistoryManager;
 class AddressToolBar;
 class KeywordsToolBar;
 class WebViewer;
@@ -67,6 +68,8 @@ class Window : public QMainWindow
     QSettings* m_settings;
     // Network Manager
     NetworkAccessManager* m_netManager;
+    // Address History Manager
+    HistoryManager* m_historyManager;
     // Main Menu
     QMenuBar* m_menuBar;
     // Status Bar

@@ -28,9 +28,24 @@
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 #include <QtGui/QToolBar>
+
+class HistoryItem;
+
+class AddressEdit : public QLineEdit
+{
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+
+  public:
+    AddressEdit ( QToolBar * parent = 0 );
+    void updateCompliter ( const QStringList & );
+    ~AddressEdit();
+};
 
 class AddressToolBar : public QToolBar
 {
@@ -39,9 +54,14 @@ class AddressToolBar : public QToolBar
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QLineEdit* m_lineEdit;
+    const QRegExp urlPattern;
+    QAction *goToIndex;
+    AddressEdit* m_addressEdit;
+    QStringList historylist;
 
   private Q_SLOTS:
+    void validatePath ( const QString & );
+    void urlToHostIndex();
     void checkInput();
 
   Q_SIGNALS:
@@ -49,6 +69,7 @@ class AddressToolBar : public QToolBar
 
   public Q_SLOTS:
     void setUrl ( const QUrl & );
+    void updateHistoryItems ( const QList<HistoryItem> & );
 
   public:
     AddressToolBar ( QWidget * parent = 0 );

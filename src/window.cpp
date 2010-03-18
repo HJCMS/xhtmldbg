@@ -134,6 +134,7 @@ Window::Window ( QSettings * settings )
 
   // finalize WindowDesign
   createMenus();
+  // NOTE must after createMenus() for HistoryManager
   createToolBars();
 
   setCentralWidget ( m_centralWidget );
@@ -172,16 +173,14 @@ Window::Window ( QSettings * settings )
   connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
             this, SLOT ( setSource ( const QString & ) ) );
 
-  // Load Settings
-  restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
-  restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
-
   QUrl fallback ( "http://www.hjcms.de" );
   QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ), fallback ).toUrl();
   openUrl ( ( startup.isEmpty() ? recent : startup ) );
 
-  update();
+  // Load Window Settings
+  restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
+  restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
 }
 
 void Window::createMenus()
@@ -276,7 +275,7 @@ void Window::createMenus()
             m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
 
   // History Menu
-  HistoryManager* m_historyManager = Application::historyManager();
+  m_historyManager = Application::historyManager();
   m_historyMenu = new HistoryMenu ( m_bookmarkerMenu );
   m_bookmarkerMenu->addMenu ( m_historyMenu );
   connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),
@@ -339,6 +338,8 @@ void Window::createToolBars()
 
   // Address Input ToolBar
   m_addressToolBar = new AddressToolBar ( this );
+  connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),
+            m_addressToolBar, SLOT ( updateHistoryItems ( const QList<HistoryItem> & ) ) );
   connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
             m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
   connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),

@@ -240,9 +240,6 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
   if ( title.isEmpty() )
     return;
 
-  // qDebug() << Q_FUNC_INFO << point;
-  //   QHelpEvent ev ( QEvent::ToolTip, point, pos() );
-  // link << content;
   QPoint point = cursor ().pos();
   QToolTip::showText ( point, title, this, QRect ( point, QSize ( 20, 20 ) ) );
 }
