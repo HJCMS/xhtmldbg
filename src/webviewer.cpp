@@ -62,6 +62,10 @@ WebViewer::WebViewer ( QWidget * parent )
 
 }
 
+/**
+* Das lesen aller Web Einstellungen muss
+* vor dem ersten erstellen ein tabs erfolgen.
+*/
 void WebViewer::updateWebSettings()
 {
   // Settings
@@ -125,6 +129,10 @@ Viewer* WebViewer::activeView()
   return m_viewer;
 }
 
+/**
+* Wird von Signal @ref WebView::titleChanged aufgerufen.
+* Hier den Tab Titel, Tip und WasIstDas setzen.
+*/
 void WebViewer::updateTabTitle ( const QString &title )
 {
   int max = 20;
@@ -144,6 +152,10 @@ void WebViewer::updateTabTitle ( const QString &title )
   setTabWhatsThis ( index, title );
 }
 
+/**
+* Bei einem Tabwechsel die Url der Seite
+* ermitteln und weiter an @ref urlChanged geben.
+*/
 void WebViewer::pretended ( int index )
 {
   QUrl url = activeView()->url();
@@ -151,17 +163,22 @@ void WebViewer::pretended ( int index )
     emit urlChanged ( url );
 
   QIcon icon = QWebSettings::iconForUrl ( url );
-  if ( ! icon.isNull() )
-    setTabIcon ( index, icon );
+  setTabIcon ( index, icon );
 }
 
+/**
+* Setze wenn vorhanden einen Icon in das Tab
+* an sonsten mit leeren Icon wieder entfernen.
+*/
 void WebViewer::setFavicon()
 {
   QIcon icon = activeView()->icon();
-  if ( ! icon.isNull() )
-    setTabIcon ( currentIndex(), icon );
+  setTabIcon ( currentIndex(), icon );
 }
 
+/**
+* Ein neues Tab erstellen und die Signale hierfür neu Initialsieren.
+*/
 void WebViewer::addViewerTab ( Viewer *view )
 {
   if ( ! view )
@@ -194,6 +211,9 @@ void WebViewer::addViewerTab ( Viewer *view )
   setCurrentIndex ( index );
 }
 
+/**
+* Wird für eine Leere Seite erstellen benötigt.
+*/
 void WebViewer::addViewerTab ()
 {
   Viewer* view = new Viewer ( this );
@@ -209,6 +229,9 @@ void WebViewer::closeViewerTab ( int index )
   removeTab ( index );
 }
 
+/**
+* Liste auflösen und weiter an @ref WebView::findKeyword senden.
+*/
 void WebViewer::keywords ( const QStringList &words )
 {
   foreach ( QString w, words )
@@ -232,17 +255,27 @@ void WebViewer::forward ()
   activeView()->forward();
 }
 
+/**
+* Weiter auf @ref WebView::openUrl senden.
+*/
 void WebViewer::setUrl ( const QUrl &u )
 {
   activeView()->openUrl ( u );
   url = u;
 }
 
+/**
+* Aktuelle URL von @ref WebView::url holen.
+*/
 const QUrl WebViewer::getUrl()
 {
   return activeView()->url();
 }
 
+/**
+* Wenn kein XHTML Quelltext verfügbar ist wird der
+* von QWebKit generierte HTML Quelltext verwendet.
+*/
 const QString WebViewer::toHtml()
 {
   QString source = activeView()->source ();
@@ -252,16 +285,21 @@ const QString WebViewer::toHtml()
     return source;
 }
 
+/**
+* Oberster WebElement baum für @class DomTree
+*/
 const QWebElement WebViewer::toWebElement()
 {
   return activeView()->page()->currentFrame()->documentElement ();
 }
 
+/**
+* Leere Seite
+*/
 const QString WebViewer::blank()
 {
   return QString::fromUtf8 ( "<html>\n<head>\n<title>QTidy Startpage</title>\n</head>\n<body>\n<div>New Empty Page</div>\n</body>\n</html>" );
 }
 
 WebViewer::~WebViewer()
-{
-}
+{}
