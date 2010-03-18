@@ -149,6 +149,9 @@ Window::Window ( QSettings * settings )
   connect ( m_webViewer, SIGNAL ( statusBarMessage ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
+  connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
+            m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
+
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
             m_tidyMessanger, SLOT ( clearItems () ) );
 
@@ -179,8 +182,8 @@ Window::Window ( QSettings * settings )
   openUrl ( ( startup.isEmpty() ? recent : startup ) );
 
   // Load Window Settings
-  restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
+  restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
 }
 
 void Window::createMenus()
@@ -414,7 +417,10 @@ void Window::requestsFinished ( bool ok )
 void Window::setApplicationMessage ( const QString &message )
 {
   if ( ! message.isEmpty() )
+  {
+    m_statusBar->notice ( true ); // TODO Notification for StatusBar
     m_appEvents->insertMessage ( message );
+  }
 }
 
 void Window::setSource ( const QString &source )

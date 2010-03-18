@@ -11,6 +11,7 @@
 #include <QtCore/QEvent>
 #include <QtCore/QIODevice>
 #include <QtCore/QObject>
+#include <QtCore/QRect>
 #include <QtCore/QString>
 #include <QtCore/QTextCodec>
 #include <QtCore/QUrl>

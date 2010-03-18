@@ -21,6 +21,8 @@
 
 #include "statusbar.h"
 
+#include <climits>
+
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QString>
@@ -28,8 +30,8 @@
 
 /* QtGui */
 #include <QtGui/QFrame>
-#include <QtGui/QIcon>
 #include <QtGui/QPixmap>
+#include <QtGui/QIcon>
 
 StatusBar::StatusBar ( QStatusBar * parent )
     : QStatusBar ( parent )
@@ -37,8 +39,23 @@ StatusBar::StatusBar ( QStatusBar * parent )
   setObjectName ( QLatin1String ( "statusbar" ) );
   setContentsMargins ( 2, 5, 2, 2 );
 
-//   QIcon cacheIcon = QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cache" ) );
-//   QPixmap pic = cacheIcon.pixmap ( 16, QIcon::Disabled, QIcon::On );
+  // Display Notifications
+  m_noticeLabel = new QLabel ( this );
+  m_noticeLabel->setObjectName ( QLatin1String ( "noticelabel" ) );
+  m_noticeLabel->setFrameShape ( QFrame::NoFrame );
+  m_noticeLabel->setContentsMargins ( 5, 2, 5, 2 );
+  QIcon noticeIcon ( QString::fromUtf8 ( ":/icons/notice.png" ) );
+  m_noticeLabel->setPixmap ( noticeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
+  insertPermanentWidget ( 0, m_noticeLabel );
+  m_noticeLabel->setEnabled ( false );
+
+  // Display Current Pagse Size
+  m_viewPageSize = new QLabel ( this );
+  m_viewPageSize->setObjectName ( QLatin1String ( "viewpagesizelabel" ) );
+  m_viewPageSize->setFrameShape ( QFrame::NoFrame );
+  m_viewPageSize->setContentsMargins ( 5, 2, 5, 2 );
+  m_viewPageSize->setText ( QLatin1String ( "Bytes" ) );
+  insertPermanentWidget ( 1, m_viewPageSize );
 
   // Display Browser ViewPort Width
   m_viewPortInfo = new QLabel ( this );
@@ -48,7 +65,29 @@ StatusBar::StatusBar ( QStatusBar * parent )
   QString info1 = trUtf8 ( "Display Browser Dimension Width x Height with Pixel." );
   m_viewPortInfo->setToolTip ( info1 );
   m_viewPortInfo->setStatusTip ( info1 );
-  insertPermanentWidget ( 0, m_viewPortInfo );
+  insertPermanentWidget ( 2, m_viewPortInfo );
+}
+
+void StatusBar::notice ( bool notice )
+{
+  m_noticeLabel->setEnabled ( notice );
+}
+
+void StatusBar::setLoadedPageSize ( qint64 bytes )
+{
+  QString out;
+  if ( bytes > 1024 )
+  {
+    out = QString::number ( ( bytes / 1024 ) );
+    out.append ( " kB" );
+    m_viewPageSize->setText ( out );
+  }
+  else
+  {
+    out = QString::number ( ( bytes ) );
+    out.append ( " Bytes" );
+    m_viewPageSize->setText ( out );
+  }
 }
 
 void StatusBar::displayBrowserWidth ( const QSize &s )

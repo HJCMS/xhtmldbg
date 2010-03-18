@@ -71,6 +71,7 @@ class Viewer : public QWebView
     void mousePressEvent ( QMouseEvent * );
 
   Q_SIGNALS:
+    void totalBytes ( qint64 );
     void addBookmark ( const QUrl &, const QString & );
     void hitTestResult ( const QWebElement & );
 

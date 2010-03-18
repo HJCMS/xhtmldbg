@@ -59,6 +59,7 @@ class WebViewer : public QTabWidget
     void setFavicon();
 
   Q_SIGNALS:
+    void bytesLoaded ( qint64 );
     void urlChanged ( const QUrl & );
     void addBookmark ( const QUrl &, const QString & );
     void loadFinished ( bool );

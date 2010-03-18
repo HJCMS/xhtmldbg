@@ -205,6 +205,9 @@ void WebViewer::addViewerTab ( Viewer *view )
   connect ( view, SIGNAL ( hitTestResult ( const QWebElement & ) ),
             this, SIGNAL ( hitTestResult ( const QWebElement & ) ) );
 
+  connect ( view, SIGNAL ( totalBytes ( qint64 ) ),
+            this, SIGNAL ( bytesLoaded ( qint64 ) ) );
+
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
   int index = addTab ( view, title );
