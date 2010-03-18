@@ -67,22 +67,26 @@ Viewer::Viewer ( QWidget * parent )
   m_page = new Page ( netManager, this );
   setPage ( m_page );
 
+  /* signal cookie nachfrage dialog */
   connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
-
+  /* bei jeder verknüpfungs anfrage dem netzwerk manager
+  * mitteilen welches die orignal anfrage adresse */
   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
             netManager, SLOT ( setUrl ( const QUrl & ) ) );
-
-  connect ( this, SIGNAL ( loadStarted () ),
-            this, SLOT ( cursorwait () ) );
-
-  connect ( this, SIGNAL ( loadFinished ( bool ) ),
-            this, SLOT ( cursorFinished ( bool ) ) );
-
+  /* start maus-sanduhr */
+  connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
+  /* stop maus-sanduhr */
+  connect ( this, SIGNAL ( loadFinished ( bool ) ), this, SLOT ( cursorFinished ( bool ) ) );
+  /* bei überfahren mir der maus informationen der verknüpfung ausgeben. */
   connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
             this, SLOT ( linkInfos ( const QString &, const QString &, const QString & ) ) );
 }
 
+/**
+* Öffnet den Keks Dialog und sendet danach das
+* Signal @ref CookieManager::reload
+*/
 void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
 {
   if ( ! cookieManager )
@@ -93,27 +97,50 @@ void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
     cookieManager->reload();
 }
 
+/**
+* Mit dieser Methode wird das Signal für die
+* Klasse @class DomTree aufgearbeitet.
+* Mit hitTestContent wird vom aktuellen Rahmen
+* die Position des WebElementes abgegriffen.
+*/
 void Viewer::findChildNode ( const QPoint &p )
 {
   if ( ! p.isNull() )
     emit hitTestResult ( page()->currentFrame()->hitTestContent ( p ).element() );
 }
 
+/**
+* Setze die Maus Sanduhr
+* Wird immer dann aufgerufen wenn ein
+* Signal loadStarted abgegeben wird.
+*/
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
 }
 
+/**
+* Entferne die Maus Sanduhr
+* Wird immer dann aufgerufen wenn ein
+* Signal loadFinished abgegeben wird.
+*/
 void Viewer::cursorFinished ( bool )
 {
   setCursor ( Qt::ArrowCursor );
 }
 
+/**
+* Konvertiere Lesezeichen Signal @ref addBookmark
+* von @ref contextMenuEvent Menu
+*/
 void Viewer::bookmark()
 {
   emit addBookmark ( url(), title() );
 }
 
+/**
+* Füge Lesezeichen Aktion mit ein.
+*/
 void Viewer::contextMenuEvent ( QContextMenuEvent * e )
 {
   QMenu* menu = m_page->createStandardContextMenu();
@@ -125,12 +152,20 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   delete menu;
 }
 
+/**
+* Event für @ref findChildNode und dem Auffinden
+* von WebElementen für @class DomTree
+*/
 void Viewer::mousePressEvent ( QMouseEvent * ev )
 {
   findChildNode ( ev->pos() );
   QWebView::mousePressEvent ( ev );
 }
 
+/**
+* Alle Fenster anfragen werden in einem neuen
+* Tab gesetzt und nicht ein zweites Fenster geöffnet !
+*/
 Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 {
   if ( QWebPage::WebModalDialog == t )
@@ -150,18 +185,16 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
   return this;
 }
 
-void Viewer::unsupportedContent ( QNetworkReply *reply )
-{
-  qDebug() << "Unsupported Content:" << reply->url();
-  if ( reply->error() == QNetworkReply::NoError )
-    return;
-}
-
+/**
+* Dieser Slot wird vom Signal cookiesRequest aufgerufen.
+* Es wird zuerst Überprüft ob @ref cookieAlreadyAdd bereits
+* existiert oder die URL Identisch mit Seiten Url ist!
+* 3.Anbieter werden generell abgwewiesen!
+*/
 void Viewer::cookiesRequest ( const QUrl &u )
 {
   QString pageHost ( url().host() );
   QString cookieHost ( u.host() );
-
   if ( pageHost.contains ( cookieHost ) && ! cookieAlreadyAdd )
   {
     cookieAlreadyAdd = true;
@@ -169,22 +202,36 @@ void Viewer::cookiesRequest ( const QUrl &u )
   }
 }
 
+/**
+* Dieser SLOT wird von @class KeywordsToolBar benötigt
+* um die gesuchten Schlüsselwörter hervor zu heben.
+* @todo Eine ausgabe über die Anzahl der Treffer!
+*/
 void Viewer::findKeyword ( const QString &word )
 {
   findText ( word, QWebPage::HighlightAllOccurrences );
 }
 
+/**
+* Slot auf QWebView::setUrl
+*/
 void Viewer::openUrl ( const QUrl &url )
 {
   setUrl ( url );
 }
 
+/**
+* Gibt den Original von page() Quelltext zurück!
+*/
 const QString Viewer::source()
 {
   return m_page->xhtmlSource();
 }
 
-/** TODO Extra ToolTips for more Information about links in WebPages */
+/**
+* Erstelle Extras für die Anzeige erweiterte Verknüpfungs Informationen.
+* TODO Externe Klasse mit Prädikat type= Auflösung und Content-Type etc...
+*/
 void Viewer::linkInfos ( const QString &link, const QString &title, const QString & )
 {
   if ( ! link.isEmpty() )

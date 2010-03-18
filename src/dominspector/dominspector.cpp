@@ -27,12 +27,15 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
+#include <QtCore/QRect>
+#include <QtCore/QPoint>
 
 /* QtGui */
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QSizePolicy>
 
 /* QtWebKit */
+#include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebPage>
 
 DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
@@ -150,6 +153,10 @@ void DomInspector::setVisible ( const QWebElement &element )
 
     lastSelections.removeFirst();
   }
+
+  // if QWebFrame is Valid scroll to Content
+  if ( element.webFrame() )
+    element.webFrame()->setScrollPosition ( element.geometry().topLeft() );
 
   QWebElement ele ( element );
   SelectedItem selection;

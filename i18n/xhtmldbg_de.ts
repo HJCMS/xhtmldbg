@@ -824,7 +824,7 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>DomInspector</name>
     <message>
-        <location filename="../src/dominspector/dominspector.cpp" line="44"/>
+        <location filename="../src/dominspector/dominspector.cpp" line="47"/>
         <source>DomTree</source>
         <translation></translation>
     </message>
@@ -893,187 +893,199 @@ Willst du wircklich beenden?</translation>
         <translation>Unbekannte Fehler Nachricht</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="78"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="75"/>
+        <source>
+Reasons : </source>
+        <translation>
+Gründe : </translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="81"/>
         <source>Bad Request (400)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="79"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="82"/>
         <source>the remote server refused the connection (the server is not accepting requests)</source>
         <translation>Der Server verweigert den Verbindungsaufbau. (Der Server nimmt die Anfrage nicht an.)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="84"/>
-        <source>Server gone (410)</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="85"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="90"/>
         <source>the remote server closed the connection prematurely, before the entire reply was received and processed</source>
         <translation>Der Server hat die Verbindung geschlossen, bevor eine Antwort gesendet wurde.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="90"/>
-        <source>Invalid Hostname</source>
-        <translation>Falscher Hostname</translation>
+        <location filename="../src/networker/errorsdialog.cpp" line="99"/>
+        <source>Invalid Hostname or Host not Found</source>
+        <translation>Falscher Hostname oder Host nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="91"/>
-        <source>the remote host name was not found (invalid hostname)</source>
-        <translation>Der Server konnte nicht gefunden werden. (eventuell ein falscher Hostname)</translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="96"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="109"/>
         <source>Request Timeout (408)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="97"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="110"/>
         <source>the connection to the remote server timed out</source>
         <translation>Die Verbindung zum Server wurde wegen Zeitüberschreitung geschlossen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="102"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="119"/>
         <source>the operation was canceled via calls to abort() or close() before it was finished.</source>
         <translation>Die Operation wurde Intern frühzeitig abgebrochen. (Vielleicht ein nicht Unterstütztes Protokoll)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="106"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="125"/>
         <source>the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted.</source>
         <translation>Das Aushandeln der SSL/TLS Verbindung ist wegen Verschlüsselungsproblemen fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="110"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="132"/>
         <source>Proxy Connection Refused Error</source>
         <translation>Fehler - Proxy Zugang Verweigert</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="111"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="133"/>
         <source>the connection to the proxy server was refused (the proxy server is not accepting requests)</source>
         <translation>Die Verbindung zum Proxy Server wurde unterbrochen. (Der Proxy verweigert die Anfrage.)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="116"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="142"/>
         <source>Proxy Connection Closed Error</source>
         <translation>Verbindung zum Proxy Server wurde unterbrochen Fehler</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="117"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="143"/>
         <source>the proxy server closed the connection prematurely, before the entire reply was received and processed</source>
         <translation>Der Proxy Server schließt/verliert die Verbindung bevor es zur einer Antwort kommt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="122"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="150"/>
         <source>Proxy Not Found Error</source>
         <translation>Fehler - Der Proxy konnte nicht gefunden werden</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="123"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="151"/>
         <source>the proxy host name was not found (invalid proxy hostname)</source>
         <translation>Der Proxy Hostname wurde nicht gefunden. (falscher Proxy Hostname)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="128"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="158"/>
         <source>Proxy Timeout Error</source>
         <translation>Fehler - Zeitüberschreitung zum Proxy</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="129"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="159"/>
         <source>the connection to the proxy timed out or the proxy did not reply in time to the request sent</source>
         <translation>Die Verbindung zum Proxy wurde wegen Zeitüberschreitung beim warten auf Antwort abgebrochen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="134"/>
-        <source>Proxy Authentication Required Error</source>
-        <translation>Fehler - Der Proxy erwartet eine Authentifizierung</translation>
+        <location filename="../src/networker/errorsdialog.cpp" line="89"/>
+        <source>Server Gone (410)</source>
+        <translation>Server Verschwunden (410)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="135"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="100"/>
+        <source>Invalid Hostname, Server is currently down or DNS Problems.</source>
+        <translation>flascher Hostname, Server ist nicht erreichbar oder DNS Probleme.</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="101"/>
+        <source>The Remote Hostname was not found.</source>
+        <translation>Der entfernte Hostname konnte nicht aufgeöst werden.</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="166"/>
+        <source>Proxy Authentication Required Error (407)</source>
+        <translation>Fehler: Proxy Authentifizierung Notwendig (407)</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="167"/>
         <source>the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)</source>
         <translation>Der Proxy erwartet eine Authentifizierung aber Akzeptiert nicht alle übermittelten eingaben (Konfigurationsfehler)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="140"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="174"/>
         <source>Unauthorized (401)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="141"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="175"/>
         <source>the access to the remote content was denied (similar to HTTP error 401)</source>
         <translation>Die Verbindung zur Gegenstelle wurde Verweigert (HTTP Status 401)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="146"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="182"/>
         <source>the operation requested on the remote content is not permitted</source>
         <translation>Diese Operation wird von der Gegenstelle nicht akzeptiert.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="150"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="188"/>
         <source>the remote content was not found at the server (similar to HTTP error 404)</source>
         <translation>Der angefragte Inhalt konnte nicht gefunden werden. (HTTP Status 404)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="154"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="194"/>
         <source>Authentication Required Error</source>
         <translation>Fehler - Authentifizierung erwartet</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="155"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="195"/>
         <source>the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
         <translation>Die Gegenstelle erwartet eine Authentifizierung aber Akzeptiert nicht alle übermittelten eingaben.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="160"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="202"/>
         <source>Content Re Send Error</source>
         <translation>Fehler - Bei der Daten Übertragung</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="161"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="203"/>
         <source>the request needed to be sent again, but this failed for example because the upload data could not be read a second time.</source>
         <translation>Die anfrage muss nochmal gesendet werden, dies wird wahrscheinlich fehlschlagen weil die Daten zum hoch laden zerstört sind oder nicht mehr im Speicher vorhanden sind.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="166"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="210"/>
         <source>QtNetwork Access API cannot honor the request because the protocol is not known.</source>
         <translation>Die Qt Network API konnte nicht alle anfrage Protokolle verarbeiten.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="170"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="216"/>
         <source>Protocol Invalid Operation Error</source>
         <translation>Fehler - Nicht erlaubte Protokoll Übertragung</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="171"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="217"/>
         <source>the requested operation is invalid for this protocol</source>
         <translation>Die Abfrageart für dieses Protokoll ist nicht erlaubt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="176"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="224"/>
         <source>an unknown network-related error was detected</source>
         <translation>Ein Unbekannter Netzwerkfehler wurde festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="180"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="230"/>
         <source>an unknown proxy-related error was detected</source>
         <translation>Ein Unbekannter Proxy Fehler wurde festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="184"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="236"/>
         <source>an unknown error related to the remote content was detected</source>
         <translation>Auf der Gegenstelle wurde ein Unbekannter Fehler festgestellt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="188"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="242"/>
         <source>Protocol Failure</source>
         <translation>Protokoll Fehler</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="189"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="243"/>
         <source>a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)</source>
         <translation>Ein Zusammenbruch des Protokolls wurde festgestellt. (Syntaxfehler, oder falsche Eingabe etc.)</translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="194"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="249"/>
         <source>an unknown related error was detected</source>
         <translation>Ein inhaltlich Unbekannter Fehler wurde festgestellt</translation>
     </message>
@@ -1174,8 +1186,8 @@ Willst du wircklich beenden?</translation>
     <name>NetworkAccessManager</name>
     <message>
         <location filename="../src/networker/networkaccessmanager.cpp" line="189"/>
-        <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this.</source>
-        <translation>Mehrfacher Content-Location header bei der POST abfrage. Achtung - Viele Webserver ignorieren so etwas.</translation>
+        <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
+        <translation>Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)</translation>
     </message>
 </context>
 <context>
@@ -1364,7 +1376,7 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="120"/>
+        <location filename="../src/viewer.cpp" line="147"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>

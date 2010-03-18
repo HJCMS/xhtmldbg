@@ -62,7 +62,6 @@ class Viewer : public QWebView
     void cursorwait ();
     void cursorFinished ( bool );
     void bookmark();
-    void unsupportedContent ( QNetworkReply * );
     void cookiesRequest ( const QUrl & );
     void linkInfos ( const QString &, const QString &, const QString & );
 
