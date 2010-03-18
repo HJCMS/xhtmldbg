@@ -1200,8 +1200,9 @@ Do you realy wan to exit?</source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="96"/>
-        <source>Cannot handle Request: %1</source>
+        <location filename="../src/page.cpp" line="115"/>
+        <location filename="../src/page.cpp" line="127"/>
+        <source>Unsupported Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

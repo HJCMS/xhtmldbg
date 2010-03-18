@@ -1203,9 +1203,10 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="96"/>
-        <source>Cannot handle Request: %1</source>
-        <translation>Kann diese Anfrage nicht verarbeiten: %1</translation>
+        <location filename="../src/page.cpp" line="115"/>
+        <location filename="../src/page.cpp" line="127"/>
+        <source>Unsupported Request: %1</source>
+        <translation>Anfrage wird nicht Unterstützt: %1</translation>
     </message>
 </context>
 <context>
