@@ -785,52 +785,52 @@ Willst du wircklich beenden?</translation>
     </message>
     <message>
         <location filename="../src/docking/cookiesdock.cpp" line="42"/>
-        <location filename="../src/docking/cookiesdock.cpp" line="132"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="140"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="97"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="105"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="98"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="106"/>
         <source>No</source>
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="112"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="120"/>
         <source>Cookie</source>
         <translation>Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="118"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="126"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="125"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="133"/>
         <source>Path</source>
         <translation>Pfad</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="139"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="147"/>
         <source>Session Cookie</source>
         <translation>Sitzungs Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="146"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="154"/>
         <source>Only for HTTP?</source>
         <translation>Nur HTTP?</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="153"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="161"/>
         <source>Expiration</source>
         <translation>Verfällt</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="160"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="168"/>
         <source>Secure</source>
         <translation>Sicher</translation>
     </message>
@@ -1172,11 +1172,24 @@ Willst du wircklich beenden?</translation>
     </message>
 </context>
 <context>
+    <name>ListStyleSheet</name>
+    <message>
+        <location filename="../src/dominspector/liststylesheet.cpp" line="96"/>
+        <source>Rendered from Stylesheet Document</source>
+        <translation>Abgegeben vom StyleSheet Dokument</translation>
+    </message>
+    <message>
+        <location filename="../src/dominspector/liststylesheet.cpp" line="98"/>
+        <source>Contained &quot;style&quot; Attribute</source>
+        <translation>Enthält ein &quot;style&quot; Prädikat</translation>
+    </message>
+</context>
+<context>
     <name>NetworkAccessManager</name>
     <message>
         <location filename="../src/networker/networkaccessmanager.cpp" line="189"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this.</source>
-        <translation>Mehrfacher Content-Location header der bei POST abfrage. Achtung - Viele Webserver ignorieren so etwas.</translation>
+        <translation>Mehrfacher Content-Location header bei der POST abfrage. Achtung - Viele Webserver ignorieren so etwas.</translation>
     </message>
 </context>
 <context>

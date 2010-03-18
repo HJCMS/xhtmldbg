@@ -50,6 +50,11 @@ DomTree::DomTree ( QWidget * parent )
             this, SLOT ( itemSelected ( QTreeWidgetItem *, int ) ) );
 }
 
+/**
+* Oberste Baumeinträge erstellen. Wenn im Text html oder body
+* enthalten sind erstelle einen aufgeklappten Eintrag.
+* @note Diese Einträge enthalten kein struct zum WebElement.
+*/
 QTreeWidgetItem* DomTree::createTopLevelItem ( const QString &name )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( invisibleRootItem() );
@@ -60,6 +65,14 @@ QTreeWidgetItem* DomTree::createTopLevelItem ( const QString &name )
   return item;
 }
 
+/**
+* In dem übergeben WebElement nach Prädikaten suchen.
+* Es werden je nach vorkommen 3 Zustände dargestellt.
+* @li AttDef (Attribute Definition) - Blau hervorgehoben
+* @li EmptyElemTag (Leeres Element) - Hellgrau dargestellt
+* @li CDSect      (CDATA Abschnitt) - Hellgrau dargestellt
+* @note Die hier erstellten Einträge erben das struct vom Elterneintrag.
+*/
 void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* parent )
 {
   if ( element.hasAttributes() )
@@ -102,6 +115,10 @@ void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* par
   }
 }
 
+/**
+* Einen Eintrag für das WebElement erstellen und nach Kindern suchen.
+* @note In dieser Methode wird das struct @ref TreeItem gesetzt.
+*/
 void DomTree::parseElements ( const QWebElement &element, QTreeWidgetItem* parent )
 {
   if ( ! parent )
@@ -128,6 +145,10 @@ void DomTree::parseElements ( const QWebElement &element, QTreeWidgetItem* paren
   }
 }
 
+/**
+* Standard Methode für das erstellen eines Eintrages.
+* Es wird das Objekt erstellt und der Titel gesetzt.
+*/
 QTreeWidgetItem* DomTree::createChildItem ( const QString &name, QTreeWidgetItem* parent )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
@@ -135,6 +156,11 @@ QTreeWidgetItem* DomTree::createChildItem ( const QString &name, QTreeWidgetItem
   return item;
 }
 
+/**
+* Bei einer Auswahl mit der Maus wird der Eintrag hier
+* aufbereitet in dem das struct eingelesen wird und mit
+* dem WebElement ein signal @ref itemClicked angestoßen.
+*/
 void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
 {
   Q_UNUSED ( column )
@@ -143,6 +169,12 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
   emit itemClicked ( ti.element );
 }
 
+/**
+* Einstiegs Methode für das befüllen des Baums.
+* Setze den Kopfeintrag und rufe @ref parseAttributes
+* und @ref parseElements auf danach korrigiere die
+* zweite Spaltenbreite mit dem @ref minCellWidth Wert.
+*/
 void DomTree::setDomTree ( const QWebElement &we )
 {
   clear();
@@ -157,6 +189,13 @@ void DomTree::setDomTree ( const QWebElement &we )
   setColumnWidth ( 2, minCellWidth );
 }
 
+/**
+* Wenn im Browser ein klick auf ein Webelement gemacht wird.
+* Suche bei den Einträgen - In dem der Baum mit einem Iterator
+* durchlaufen wird. Vergleiche das übergebene Element mit dem
+* in @ref TreeItem abgelegten Element. Bei Erfolg setze die
+* Position auf den Eintrag und klappe diesen Baum auf.
+*/
 bool DomTree::findItem ( const QWebElement &element )
 {
   bool found = false;
@@ -179,6 +218,10 @@ bool DomTree::findItem ( const QWebElement &element )
   return found;
 }
 
+/**
+* Den Baum wieder zusammen ziehen, Elemente wie
+* html, head und body wieder sichtbar machen.
+*/
 void DomTree::setPrune()
 {
   collapseAll();
@@ -190,6 +233,11 @@ void DomTree::setPrune()
   }
 }
 
+/**
+* Damit die farbliche Hervorhebung im Browser wieder
+* entfernt wird setze den Zeiger auf eines der Elemente.
+* Die kein struct @ref TreeItem enthalten.
+*/
 void DomTree::setUnselect()
 {
   TreeItem ti = invisibleRootItem()->data ( 0, Qt::UserRole ).value<TreeItem>();

@@ -108,9 +108,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   if ( ! b )
     return b;
 
-  // qDebug() << frame->renderTreeDump();
-
-  // fetch Request Types for setSource View
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:

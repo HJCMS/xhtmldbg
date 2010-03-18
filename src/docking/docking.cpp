@@ -1,7 +1,5 @@
 /**
-* This file is part of the QTidy project
-*
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -75,9 +73,9 @@ int Docking::columnCount()
   return m_treeWidget->columnCount ();
 }
 
-void Docking::setColumnCount ( int c )
+void Docking::setColumnCount ( int count )
 {
-  m_treeWidget->setColumnCount ( c );
+  m_treeWidget->setColumnCount ( count );
 }
 
 void Docking::setColumnWidth ( int column, int width )

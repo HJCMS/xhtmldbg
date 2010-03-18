@@ -24,10 +24,12 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
 /* QtGui */
+#include <QtGui/QIcon>
 #include <QtGui/QListWidget>
 #include <QtGui/QListWidgetItem>
 
@@ -41,13 +43,19 @@ class ListStyleSheet : public QListWidget
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    QSettings* cfg;
+    const QIcon cascadedStyle;
+    const QIcon inlineStyle;
+    QString excludeRgb;
     QVector<QString> cssAttributes;
+    bool exclude ( const QString &, const QString & );
+    void addStyleItem ( const QString &, const QString &, bool cascaded = true );
 
   public Q_SLOTS:
     void setStyleSheetList ( const QWebElement & );
 
   public:
-    ListStyleSheet ( QWidget * parent = 0 );
+    ListStyleSheet ( QWidget * parent = 0, QSettings * settings = 0 );
     ~ListStyleSheet();
 };
 

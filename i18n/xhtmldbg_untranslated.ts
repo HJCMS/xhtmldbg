@@ -782,52 +782,52 @@ Do you realy wan to exit?</source>
     </message>
     <message>
         <location filename="../src/docking/cookiesdock.cpp" line="42"/>
-        <location filename="../src/docking/cookiesdock.cpp" line="132"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="140"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="97"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="105"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="98"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="106"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="112"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="120"/>
         <source>Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="118"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="126"/>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="125"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="133"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="139"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="147"/>
         <source>Session Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="146"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="154"/>
         <source>Only for HTTP?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="153"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="161"/>
         <source>Expiration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="160"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="168"/>
         <source>Secure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1165,6 +1165,19 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="57"/>
         <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ListStyleSheet</name>
+    <message>
+        <location filename="../src/dominspector/liststylesheet.cpp" line="96"/>
+        <source>Rendered from Stylesheet Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dominspector/liststylesheet.cpp" line="98"/>
+        <source>Contained &quot;style&quot; Attribute</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

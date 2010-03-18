@@ -64,7 +64,7 @@ DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
   layer->setLayout ( vLayout );
   m_domSplitter->insertWidget ( 0, layer );
 
-  m_listStyleSheet = new ListStyleSheet ( m_domSplitter );
+  m_listStyleSheet = new ListStyleSheet ( m_domSplitter, cfg );
   m_domSplitter->insertWidget ( 1, m_listStyleSheet );
 
   m_domSplitter->setStretchFactor ( 0, 1 );
@@ -84,6 +84,10 @@ DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
   connect ( m_domToolBar, SIGNAL ( unselect() ), m_domTree, SLOT ( setUnselect() ) );
 }
 
+/**
+* Versuche hier bei dem WebElement heraus zu finden ob nicht
+* schon (z.B: fieldset) ein Rahmen enthalten ist.
+*/
 bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
 {
   if ( element.tagName().contains ( "fieldset", Qt::CaseInsensitive ) )
@@ -104,6 +108,29 @@ bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
   return false;
 }
 
+/**
+* In dieser Methode wird die Hervorhebung für den Browser erstellt.
+* Mit QWebElement::setStyleProperty wird je nach Möglichkeit der Stylesheet verändert.
+* @li background-color @code  background-color: yellow !important; @endcode
+* @li border           @code  border: 1px solid red !important; @endcode
+* @note Es ist Wichtig das "!important" gesetzt ist sonst Ignoriert WebKit die angaben.
+*
+* @note Hier gibt es einige Probleme was das Überschreiben betrifft!
+* 1) Hat ein Element schon einen Rahmen und kann QWebElement diesen finden!
+*    Bestes Beispiel ist das "fieldset" Element.
+* 2) Wenn ich hier hingehe und ein WebElement Neu Schreibe dann werden dieses
+*    in @class DomTree wegen der neuen Speicher Adresse nicht mehr gefunden.
+*    Es kann auch keine Kopie eines WebElementes z.B. in einem struct zwischen
+*    gelagert werden weil sonst der Pointer auf das Element verloren geht.
+*    Klar - Ich könnte jetzt auch ein Vector mit den Pointern befüllen
+*    aber mal ehrlich, das ist in meinen Augen sinnloses Speicherfressen.
+*
+* Aus diesem Grund habe ich mich nun so entschieden.
+* Bei Änderungen kopiere die Informationen in das QList @ref lastSelections
+* und halte immer das zuletzt verwendete Element in diesem struct fest.
+* Wenn ein erneuter Aufruf dieser Methode erfolgt erst nachsehen ob in
+* @ref lastSelections Inhalte enthalten sind, welche noch bereinigt werden müssen.
+*/
 void DomInspector::setVisible ( const QWebElement &element )
 {
   bool background = cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool();
@@ -146,6 +173,10 @@ void DomInspector::setVisible ( const QWebElement &element )
   lastSelections << selection;
 }
 
+/**
+* Dieser slot ruft die Methode @ref DomTree::setDomTree auf.
+* Gleichzeitig werden Inhalte aus @class ListStyleSheet entfernt.
+*/
 void DomInspector::setDomTree ( const QWebElement &element )
 {
   if ( ! element.webFrame() )
@@ -155,6 +186,11 @@ void DomInspector::setDomTree ( const QWebElement &element )
   m_listStyleSheet->clear();
 }
 
+/**
+* Dieser slot ruft die Methode @ref DomTree::findItem auf.
+* Wenn diese true zurück gibt dann Zeige den CSS StyleSheet
+* mit @ref ListStyleSheet::setStyleSheetList an.
+*/
 void DomInspector::findItem ( const QWebElement &element )
 {
   if ( m_domTree->findItem ( element ) )

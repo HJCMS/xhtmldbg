@@ -43,13 +43,17 @@ CookiesDock::CookiesDock ( QWidget * parent )
   setTreeHeaderLabels ( labels );
 }
 
+/**
+* Kopfdaten erstellen
+*/
 void CookiesDock::setTreeHeaderLabels ( const QStringList &labels )
 {
   Docking::setTreeHeaderLabels ( labels );
 }
 
 /**
-* TEST unserialize
+* Ein von PHP Serialisierten Keks wieder in einen lesbaren
+* Text verwandeln.
 * @code
     a = Array
     s = String
@@ -92,6 +96,10 @@ QString CookiesDock::unserialize ( const QByteArray &data ) const
   return QString ( data );
 }
 
+/**
+* Durchlaufe alle nutzbaren Cookie Parameter
+* und füge diese in ein Item ein.
+*/
 void CookiesDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
 {
   QString yes ( trUtf8 ( "Yes" ) );
@@ -163,6 +171,10 @@ void CookiesDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem*
   root->addChild ( item6 );
 }
 
+/**
+* Suche anhand der URL nach einem Cookie von
+* @class NetworkCookie
+*/
 void CookiesDock::cookiesFromUrl ( const QUrl &url )
 {
   clearContent();
