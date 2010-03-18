@@ -846,37 +846,37 @@ Willst du wircklich beenden?</translation>
 <context>
     <name>DomToolBar</name>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="35"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="37"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="49"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="54"/>
         <source>Expand</source>
         <translation>Einblenden</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="45"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="50"/>
         <source>Collapse</source>
         <translation>Ausblenden</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="47"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="52"/>
         <source>Collapse Tree</source>
         <translation>Baum Ausblenden</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="51"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="56"/>
         <source>Expanding Tree</source>
         <translation>Baum Einblenden</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="53"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="58"/>
         <source>Deselect</source>
         <translation>Abwählen</translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="55"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="60"/>
         <source>Deselect Highlights</source>
         <translation>Hervorhebung Abwählen</translation>
     </message>
@@ -1198,6 +1198,14 @@ Willst du wircklich beenden?</translation>
         <location filename="../src/openurldialog/openurldialog.cpp" line="38"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <location filename="../src/page.cpp" line="96"/>
+        <source>Cannot handle Request: %1</source>
+        <translation>Kann diese Anfrage nicht verarbeiten: %1</translation>
     </message>
 </context>
 <context>
@@ -1542,17 +1550,17 @@ Willst du wircklich beenden?</translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="435"/>
+        <location filename="../src/window.cpp" line="441"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="436"/>
+        <location filename="../src/window.cpp" line="442"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="441"/>
+        <location filename="../src/window.cpp" line="447"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

@@ -82,7 +82,8 @@ void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* par
     {
       QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
       item->setText ( 0, QString::fromUtf8 ( "AttDef" ) );
-      item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
+      if ( ! name.contains ( QRegExp ( "(html|head|body)" ) ) )
+        item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
       item->setForeground ( 0, Qt::lightGray );
       item->setText ( 1, name );
       item->setForeground ( 1, Qt::blue );

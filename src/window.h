@@ -140,6 +140,7 @@ class Window : public QMainWindow
     void paintEvent ( QPaintEvent * );
 
   public Q_SLOTS:
+    void setApplicationMessage ( const QString & );
     void setSource ( const QString & );
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );

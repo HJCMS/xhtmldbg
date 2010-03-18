@@ -34,10 +34,10 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setObjectName ( "page" );
 
   setNetworkAccessManager ( m_netManager );
-  // setLinkDelegationPolicy ( QWebPage::DelegateExternalLinks );
 
-  reply = 0;
+  reply = 0x00;
 
+  // merge ShortCuts with Application Window
   action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
   action ( QWebPage::Back )->setShortcut ( QKeySequence::Back );
   action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
@@ -45,8 +45,13 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
+  connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
+            this, SLOT ( unsupportedContent ( const QNetworkRequest & ) ) );
 }
 
+/**
+* Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster
+*/
 void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
 {
   if ( m.isEmpty() )
@@ -55,6 +60,9 @@ void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & 
   xhtmldbg::instance()->mainWindow()->JavaScriptMessanger()->messages ( m, l, id );
 }
 
+/**
+* Versuche mit dem Datenkopf Content-Type den Zeichensatz zu ermitteln.
+*/
 QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
 {
   QString encoding ( "UTF-8" );
@@ -79,6 +87,11 @@ QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
   return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
+/**
+* Hier wird der Datenstrom ausgelesen und in den
+* passenden Zeichnsatz gesetzt. Danach geht es
+* weiter an @ref Window::setSource
+*/
 bool Page::prepareContent ( QNetworkReply * dev )
 {
   xhtml.clear();
@@ -87,10 +100,39 @@ bool Page::prepareContent ( QNetworkReply * dev )
     return false;
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
-  xhtmldbg::instance()->mainWindow()->setSource ( codec->toUnicode ( data ) );
+  xhtml = codec->toUnicode ( data );
+  xhtmldbg::instance()->mainWindow()->setSource ( xhtml );
   return true;
 }
 
+/**
+* Wenn eine Anfrage nicht verabeitet werden kann,
+* gebe eine Meldung an das Hauptfenster weiter.
+*/
+void Page::unsupportedContent ( QNetworkReply * reply )
+{
+  QUrl url ( reply->url() );
+  QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url.toString() );
+  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
+}
+
+/**
+* In diesem Programm werden keine Plugins oder Donwloads
+* durchgeführt, es ist ein Quelltext Debugger.
+* Deshalb an dieser Stelle die entsprechende Meldung.
+*/
+void Page::unsupportedContent ( const QNetworkRequest &request )
+{
+  QString url = request.url().toString();
+  QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url );
+  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
+}
+
+/**
+* Wenn eine GET Anfrage erfolgreich verlaufen ist suche in der
+* Antwort den Datenkopf ContentTypeHeader und gebe diese weiter
+* an die Methode @ref prepareContent
+*/
 void Page::replyFinished()
 {
   if ( reply )
@@ -101,6 +143,10 @@ void Page::replyFinished()
   }
 }
 
+/**
+* Lege eine Kopie der GET anfragen für die Quelltext darstellung an.
+* @note POST kann nur vom Netzwerk Manager verarbeitet werden.
+*/
 bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &request,
                                      QWebPage::NavigationType type )
 {
@@ -144,6 +190,9 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   return b;
 }
 
+/**
+* Alle ausgewählten Texte an das Unix Clipboard weiter geben.
+*/
 void Page::triggerSelections()
 {
   QString txt = selectedText();
@@ -153,10 +202,15 @@ void Page::triggerSelections()
   QApplication::clipboard()->setText ( txt );
 }
 
+/**
+* Temporärer Quelltext wird in @ref prepareContent erstellt.
+*/
 const QString Page::xhtmlSource()
 {
   return xhtml;
 }
 
 Page::~Page()
-{}
+{
+  xhtml.clear();
+}

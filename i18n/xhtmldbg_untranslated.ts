@@ -843,37 +843,37 @@ Do you realy wan to exit?</source>
 <context>
     <name>DomToolBar</name>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="35"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="37"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="49"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="54"/>
         <source>Expand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="45"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="50"/>
         <source>Collapse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="47"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="52"/>
         <source>Collapse Tree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="51"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="56"/>
         <source>Expanding Tree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="53"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="58"/>
         <source>Deselect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/dominspector/domtoolbar.cpp" line="55"/>
+        <location filename="../src/dominspector/domtoolbar.cpp" line="60"/>
         <source>Deselect Highlights</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1194,6 +1194,14 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/openurldialog/openurldialog.cpp" line="38"/>
         <source>Open Url</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Page</name>
+    <message>
+        <location filename="../src/page.cpp" line="96"/>
+        <source>Cannot handle Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1539,17 +1547,17 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="435"/>
+        <location filename="../src/window.cpp" line="441"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="436"/>
+        <location filename="../src/window.cpp" line="442"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="441"/>
+        <location filename="../src/window.cpp" line="447"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

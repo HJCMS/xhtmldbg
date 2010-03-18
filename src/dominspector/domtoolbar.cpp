@@ -22,12 +22,14 @@
 #include "domtoolbar.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QAction>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QIcon>
+#include <QtGui/QLayout>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 
@@ -35,24 +37,27 @@ DomToolBar::DomToolBar ( QWidget * parent )
     : QToolBar ( trUtf8 ( "Actions" ), parent )
 {
   setObjectName ( QLatin1String ( "domtoolbar" ) );
-  setContentsMargins ( 10, 1, 10, 1 );
+  setContentsMargins ( 10, 0, 10, 0 );
   setMovable ( false );
   setFloatable ( false );
   setOrientation ( Qt::Horizontal );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Fixed );
 
+  if ( layout() )
+    layout()->setSpacing ( 5 );
+
   QIcon icon;
   QAction* acPrune = addAction ( trUtf8 ( "Collapse" ) );
   acPrune->setIcon ( icon.fromTheme ( QLatin1String ( "view-list-tree" ) ) );
-  acPrune->setToolTip ( trUtf8( "Collapse Tree" ) );
+  acPrune->setToolTip ( trUtf8 ( "Collapse Tree" ) );
 
   QAction* acExpand = addAction ( trUtf8 ( "Expand" ) );
-  acExpand->setIcon (icon.fromTheme ( QLatin1String ( "view-process-all-tree" ) ) );
-  acExpand->setToolTip ( trUtf8( "Expanding Tree" ) );
+  acExpand->setIcon ( icon.fromTheme ( QLatin1String ( "view-process-all-tree" ) ) );
+  acExpand->setToolTip ( trUtf8 ( "Expanding Tree" ) );
 
   QAction* acDeselect = addAction ( trUtf8 ( "Deselect" ) );
-  acDeselect->setIcon (icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
-  acDeselect->setToolTip ( trUtf8( "Deselect Highlights" ) );
+  acDeselect->setIcon ( icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
+  acDeselect->setToolTip ( trUtf8 ( "Deselect Highlights" ) );
 
   connect ( acPrune, SIGNAL ( triggered() ), this, SIGNAL ( prune() ) );
   connect ( acExpand, SIGNAL ( triggered() ), this, SIGNAL ( expand() ) );

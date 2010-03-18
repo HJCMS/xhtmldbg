@@ -409,6 +409,12 @@ void Window::requestsFinished ( bool ok )
   }
 }
 
+void Window::setApplicationMessage ( const QString &message )
+{
+  if ( ! message.isEmpty() )
+    m_appEvents->insertMessage ( message );
+}
+
 void Window::setSource ( const QString &source )
 {
   m_tidyMessanger->clearItems();

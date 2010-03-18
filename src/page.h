@@ -37,15 +37,17 @@ class Page : public QWebPage
     QString xhtml;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
-    bool prepareContent ( QNetworkReply * dev );
+    bool prepareContent ( QNetworkReply * );
+    void unsupportedContent ( QNetworkReply * );
+
+  private Q_SLOTS:
+    void unsupportedContent ( const QNetworkRequest & );
+    void triggerSelections();
+    void replyFinished();
 
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
     bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
-
-  private Q_SLOTS:
-    void triggerSelections();
-    void replyFinished();
 
   Q_SIGNALS:
     void getUrl ( const QUrl & );
