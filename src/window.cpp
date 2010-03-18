@@ -23,6 +23,7 @@
 #include "window.h"
 #include "application.h"
 #include "networkaccessmanager.h"
+#include "networkcookie.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
 #include "webviewer.h"
@@ -470,7 +471,11 @@ void Window::openUrlDialog()
 void Window::openConfigDialog()
 {
   ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
-  dialog->exec();
+  if ( dialog->exec() )
+  {
+    m_netManager->cookieJar()->reload();
+  }
+  delete dialog;
 }
 
 void Window::openFile ( const QUrl &url )

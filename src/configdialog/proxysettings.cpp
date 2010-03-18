@@ -130,6 +130,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
   enableProxy->setLayout ( gLayout );
   vLayout->addWidget ( enableProxy );
   vLayout->addStretch ();
+  vLayout->addWidget ( new QLabel ( trUtf8( "Application restart required." ), this ) );
 
   setLayout ( vLayout );
 

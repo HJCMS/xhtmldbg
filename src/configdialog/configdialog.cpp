@@ -107,12 +107,9 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( AutoCheck, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoFormat, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoDisabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( tabStartShow0, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( tabStartShow1, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( DoNotBufferUploadDataAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningAllowedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( HttpPipeliningWasUsedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( bootsplash, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( enableHighlightBackground, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( enableHighlightBorder, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( DeveloperExtrasEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );

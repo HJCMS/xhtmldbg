@@ -112,6 +112,7 @@ void EditCookiesTable::saveCookieArrangements ( QSettings * cfg )
     }
     cfg->endGroup();
   }
+
 }
 
 void EditCookiesTable::removeItem()
