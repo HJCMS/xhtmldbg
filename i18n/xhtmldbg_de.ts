@@ -35,17 +35,17 @@
         <translation>XHTMLDBG Mitteilungen</translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="69"/>
+        <location filename="../src/appevents.cpp" line="71"/>
         <source>Ascending</source>
         <translation>Aufteigend</translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="73"/>
+        <location filename="../src/appevents.cpp" line="75"/>
         <source>Descending</source>
         <translation>Absteigend</translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="77"/>
+        <location filename="../src/appevents.cpp" line="79"/>
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
@@ -1375,18 +1375,38 @@ Gründe : </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="214"/>
-        <source>SEO Result for &quot;%1&quot;: </source>
-        <translation>SEO Ergebnis von &quot;%1&quot;: </translation>
+        <source>SEO Result for &quot;%1&quot; Url: </source>
+        <translation>SEO Ergebnis für &quot;%1&quot; Url: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="215"/>
-        <source>Missing</source>
-        <translation>fehlt</translation>
+        <location filename="../src/viewer.cpp" line="222"/>
+        <source>Word boundary: </source>
+        <translation>An Wortgrenzen:</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="227"/>
-        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6</source>
-        <translation>Einfach: %1; Groß- Kleinschreibung: %2; An Wortgrenzen: %3; Meta Schlüsselwörter: %4; Meta Beschreibung: %5; Titel: %6</translation>
+        <location filename="../src/viewer.cpp" line="226"/>
+        <source>Case Sensitive: </source>
+        <translation>Groß Kleinschreibung:</translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="236"/>
+        <source>Meta Keywords: </source>
+        <translation>Meta Schlüsselwörter:</translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="242"/>
+        <source>Meta Description: </source>
+        <translation>Meta Beschreibung:</translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="249"/>
+        <source>Page Title: </source>
+        <translation>Seiten Titel:</translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="254"/>
+        <source>Summary: </source>
+        <translation>Zusammen:</translation>
     </message>
 </context>
 <context>

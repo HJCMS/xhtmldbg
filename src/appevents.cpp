@@ -47,6 +47,8 @@ AppEvents::AppEvents ( QWidget * parent )
   m_listWidget->setSelectionMode ( QAbstractItemView::SingleSelection );
   m_listWidget->setEditTriggers ( QAbstractItemView::NoEditTriggers );
   m_listWidget->setContextMenuPolicy ( Qt::ActionsContextMenu );
+  m_listWidget->setBackgroundRole ( QPalette::AlternateBase );
+  m_listWidget->setAlternatingRowColors ( true );
 
   setWidget ( m_listWidget );
 }

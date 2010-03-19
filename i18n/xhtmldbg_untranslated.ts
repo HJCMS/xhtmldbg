@@ -35,17 +35,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="69"/>
+        <location filename="../src/appevents.cpp" line="71"/>
         <source>Ascending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="73"/>
+        <location filename="../src/appevents.cpp" line="75"/>
         <source>Descending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/appevents.cpp" line="77"/>
+        <location filename="../src/appevents.cpp" line="79"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1370,17 +1370,37 @@ Reasons : </source>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="214"/>
-        <source>SEO Result for &quot;%1&quot;: </source>
+        <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="215"/>
-        <source>Missing</source>
+        <location filename="../src/viewer.cpp" line="222"/>
+        <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="227"/>
-        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6</source>
+        <location filename="../src/viewer.cpp" line="226"/>
+        <source>Case Sensitive: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="236"/>
+        <source>Meta Keywords: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="242"/>
+        <source>Meta Description: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="249"/>
+        <source>Page Title: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="254"/>
+        <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

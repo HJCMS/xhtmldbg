@@ -210,23 +210,49 @@ void Viewer::cookiesRequest ( const QUrl &u )
 */
 void Viewer::findKeyword ( const QString &word )
 {
-  QString wA, wB, wC, wD, wE;
-  QString message = trUtf8 ( "SEO Result for \"%1\": " ).arg ( word );
-  QString site = title().isEmpty() ? trUtf8( "Missing" ) : title();
+  int summary = 0;
+  QString message = trUtf8 ( "SEO Result for \"%1\" Url: " ).arg ( word );
+  message.append ( url().toString ( ( QUrl::RemovePassword | QUrl::RemoveFragment ) ) );
+  message.append ( "\n" );
 
   findText ( word, QWebPage::HighlightAllOccurrences );
+
   QString body = bodyContent();
-  wA = QString::number ( body.count ( word, Qt::CaseInsensitive ) );
-  wB = QString::number ( body.count ( word, Qt::CaseSensitive ) );
-  wC = QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) );
+  // An Wortgrenzen:
+  message.append ( trUtf8 ( "Word boundary: " ) );
+  message.append ( QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) ) );
+  message.append ( " " );
+  // Groß- Kleinschreibung:
+  message.append ( trUtf8 ( "Case Sensitive: " ) );
+  message.append ( QString::number ( body.count ( word, Qt::CaseSensitive ) ) );
+  message.append ( " " );
+
+  summary = body.count ( word, Qt::CaseInsensitive );
 
   QStringList meta = m_page->keywordMetaTagItems();
-  wD = QString::number ( meta.at(0).count ( word, Qt::CaseInsensitive ) );
-  wE = QString::number ( meta.at(1).count ( word, Qt::CaseInsensitive ) );
-  message.append (
-      trUtf8 ( "Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6" )
-      .arg ( wA, wB, wC, wD, wE, site )
-  );
+
+  // Meta Schlüsselwörter:
+  int keywords = meta.at ( 0 ).count ( word, Qt::CaseInsensitive );
+  message.append ( trUtf8 ( "Meta Keywords: " ) );
+  message.append ( QString::number ( keywords ) );
+  message.append ( " " );
+
+  // Meta Beschreibung:
+  int description = meta.at ( 1 ).count ( word, Qt::CaseInsensitive );
+  message.append ( trUtf8 ( "Meta Description: " ) );
+  message.append ( QString::number ( description ) );
+  message.append ( " " );
+
+  // Seiten Titel:
+  QString site = title().isEmpty() ? "0" : title();
+  int inTitle = site.count ( word, Qt::CaseInsensitive );
+  message.append ( trUtf8 ( "Page Title: " ) );
+  message.append ( QString::number ( inTitle ) );
+  message.append ( " " );
+
+  // Insgesamt:
+  message.append ( trUtf8 ( "Summary: " ) );
+  message.append ( QString::number ( ( summary + keywords + description + inTitle ) ) );
 
   xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
 }
