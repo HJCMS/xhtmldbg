@@ -1374,8 +1374,13 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="226"/>
-        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5</source>
+        <location filename="../src/viewer.cpp" line="215"/>
+        <source>Missing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="227"/>
+        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

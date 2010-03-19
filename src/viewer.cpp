@@ -212,6 +212,7 @@ void Viewer::findKeyword ( const QString &word )
 {
   QString wA, wB, wC, wD, wE;
   QString message = trUtf8 ( "SEO Result for \"%1\": " ).arg ( word );
+  QString site = title().isEmpty() ? trUtf8( "Missing" ) : title();
 
   findText ( word, QWebPage::HighlightAllOccurrences );
   QString body = bodyContent();
@@ -223,8 +224,8 @@ void Viewer::findKeyword ( const QString &word )
   wD = QString::number ( meta.at(0).count ( word, Qt::CaseInsensitive ) );
   wE = QString::number ( meta.at(1).count ( word, Qt::CaseInsensitive ) );
   message.append (
-      trUtf8 ( "Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5" )
-      .arg ( wA, wB, wC, wD, wE )
+      trUtf8 ( "Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6" )
+      .arg ( wA, wB, wC, wD, wE, site )
   );
 
   xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );

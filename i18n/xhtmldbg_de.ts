@@ -1379,9 +1379,14 @@ Gründe : </translation>
         <translation>SEO Ergebnis von &quot;%1&quot;: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="226"/>
-        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5</source>
-        <translation>Einfach: %1; Groß- Kleinschreibung: %2; An Wordgrenzen: %2; Meta Schlüsselwörter: %4; Meta Beschreibung %5</translation>
+        <location filename="../src/viewer.cpp" line="215"/>
+        <source>Missing</source>
+        <translation>fehlt</translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="227"/>
+        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5; Title: %6</source>
+        <translation>Einfach: %1; Groß- Kleinschreibung: %2; An Wortgrenzen: %3; Meta Schlüsselwörter: %4; Meta Beschreibung: %5; Titel: %6</translation>
     </message>
 </context>
 <context>
