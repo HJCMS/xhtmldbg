@@ -36,28 +36,35 @@ HeaderDock::HeaderDock ( QWidget * parent )
 {
   setObjectName ( "headerview" );
   setWindowTitle ( trUtf8 ( "Header" ) );
-  setColumnCount ( 2 );
 
   QStringList labels;
   labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
-  setTreeHeaderLabels ( labels );
+  setColumnCount ( 2, 0 );
+  setTreeHeaderLabels ( labels, 0 );
+
+  m_treePostVars = new QTreeWidget ( this );
+  m_treePostVars->setObjectName ( QLatin1String ( "postvariables" ) );
+  addTreeWidget ( m_treePostVars );
+  setColumnCount ( 2, 1 );
+  setTreeHeaderLabels ( labels, 1 );
 }
 
-void HeaderDock::setTreeHeaderLabels ( const QStringList &labels )
+void HeaderDock::setTreeHeaderLabels ( const QStringList &labels, int index )
 {
-  Docking::setTreeHeaderLabels ( labels );
+  Docking::setTreeHeaderLabels ( labels, index );
 }
 
-void HeaderDock::setHeaders ( const QString &host, const QMap<QString,QString> &map )
+void HeaderDock::setHeaderData ( const QString &host, const QMap<QString,QString> &map )
 {
+  int widgetIndex = 0;
   int minWidth = 0;
 
   if ( itemExists ( host ) )
     return;
 
-  clearContent ();
+  clearContent ( widgetIndex );
 
-  QTreeWidgetItem* parent = addTopLevelItem ( rootItem() );
+  QTreeWidgetItem* parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
   parent->setExpanded ( true );
   parent->setData ( 0, Qt::DisplayRole, host );
   parent->setText ( 1, trUtf8 ( "Hostname" ) );
@@ -71,13 +78,64 @@ void HeaderDock::setHeaders ( const QString &host, const QMap<QString,QString> &
     item->setData ( 0, Qt::DisplayRole, it.key() );
     item->setData ( 1, Qt::DisplayRole, it.value() );
     parent->addChild ( item );
-    int cw = ( fontMetric().width ( it.value() ) + item->font ( 0 ).weight() );
+    int cw = ( fontMetric ( widgetIndex ).width ( it.value() ) + item->font ( 0 ).weight() );
     if ( cw > minWidth )
       minWidth = cw;
   }
 
-  if ( minWidth > 10 )
-    setColumnWidth ( 1, minWidth );
+  setColumnWidth ( 1, minWidth, widgetIndex );
+  resizeSections ( widgetIndex );
+}
+
+void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
+{
+  int widgetIndex = 1;
+  int minWidth = 0;
+
+  clearContent ( widgetIndex );
+
+  QTreeWidgetItem* parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
+  parent->setData ( 0, Qt::DisplayRole, url.host() );
+  parent->setText ( 1, url.path() );
+  parent->setForeground ( 1, Qt::lightGray );
+
+  if ( url.hasQuery() )
+  {
+    QList<QPair<QString, QString> > pairs ( url.queryItems() );
+    for ( int i = 0; i < pairs.size(); i++ )
+    {
+      QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+      item->setData ( 0, Qt::DisplayRole, pairs.at ( i ).first );
+      item->setForeground ( 0, Qt::lightGray );
+      item->setData ( 1, Qt::DisplayRole, pairs.at ( i ).second );
+      parent->addChild ( item );
+    }
+  }
+
+  if ( url.hasFragment() )
+  {
+    QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+    item->setData ( 0, Qt::DisplayRole, trUtf8 ( "Anchor" ) );
+    item->setForeground ( 0, Qt::lightGray );
+    item->setData ( 1, Qt::DisplayRole, url.fragment() );
+    item->setData ( 1, Qt::ToolTipRole, QLatin1String ( "Fragment" ) );
+    parent->addChild ( item );
+  }
+
+  foreach ( QString str, list )
+  {
+    QStringList data = str.split ( QString::fromUtf8 ( "=" ) );
+    QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+    item->setData ( 0, Qt::DisplayRole, data.first() );
+    item->setData ( 1, Qt::DisplayRole, data.last() );
+    parent->addChild ( item );
+    int cw = ( fontMetric ( widgetIndex ).width ( data.last() ) + item->font ( 0 ).weight() );
+    if ( cw > minWidth )
+      minWidth = cw;
+  }
+
+  setColumnWidth ( 1, minWidth, widgetIndex );
+  resizeSections ( widgetIndex );
 }
 
 HeaderDock::~HeaderDock()

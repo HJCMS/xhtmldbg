@@ -42,7 +42,6 @@
 #include "dominspector.h"
 #include "cookiesdock.h"
 #include "headerdock.h"
-#include "postdock.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -128,10 +127,6 @@ Window::Window ( QSettings * settings )
   m_headerDock = new HeaderDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
 
-  // Show Posted Formsdata
-  m_postDock = new PostDock ( this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_postDock );
-
   // finalize WindowDesign
   createMenus();
   // NOTE must after createMenus() for HistoryManager
@@ -168,10 +163,10 @@ Window::Window ( QSettings * settings )
             m_appEvents, SLOT ( insertMessage ( const QString & ) ) );
 
   connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
-            m_headerDock, SLOT ( setHeaders ( const QString &, const QMap<QString,QString> & ) ) );
+            m_headerDock, SLOT ( setHeaderData ( const QString &, const QMap<QString,QString> & ) ) );
 
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
-            m_postDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
+            m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
   connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
             this, SLOT ( setSource ( const QString & ) ) );
@@ -380,7 +375,6 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
   inspectorsMenu->addAction ( m_cookiesDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
-  inspectorsMenu->addAction ( m_postDock->toggleViewAction() );
 }
 
 void Window::closeEvent ( QCloseEvent *event )

@@ -46,9 +46,10 @@ CookiesDock::CookiesDock ( QWidget * parent )
 /**
 * Kopfdaten erstellen
 */
-void CookiesDock::setTreeHeaderLabels ( const QStringList &labels )
+void CookiesDock::setTreeHeaderLabels ( const QStringList &labels, int index )
 {
-  Docking::setTreeHeaderLabels ( labels );
+  Q_UNUSED ( index )
+  Docking::setTreeHeaderLabels ( labels, 0 );
 }
 
 /**

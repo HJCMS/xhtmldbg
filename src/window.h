@@ -56,7 +56,6 @@ class StatusBar;
 class DomInspector;
 class CookiesDock;
 class HeaderDock;
-class PostDock;
 
 class Window : public QMainWindow
 {
@@ -125,8 +124,6 @@ class Window : public QMainWindow
     CookiesDock* m_cookiesDock;
     // Received Headers
     HeaderDock* m_headerDock;
-    // Posted Form Data
-    PostDock* m_postDock;
 
     void createMenus();
     void createToolBars();

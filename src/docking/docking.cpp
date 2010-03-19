@@ -20,6 +20,7 @@
 #include "docking.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -35,55 +36,75 @@ Docking::Docking ( QWidget * parent )
   setObjectName ( "dockingwidget" );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
-  m_treeWidget = new QTreeWidget ( this );
-  m_treeWidget->setObjectName ( QLatin1String ( "dockingtreewidget" ) );
-  m_treeWidget->setColumnCount ( columns );
-  m_treeWidget->setAutoScroll ( true );
-  m_treeWidget->setWordWrap ( true );
-  m_treeWidget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  m_treeWidget->setSortingEnabled ( false );
-  m_treeWidget->header()->setResizeMode ( QHeaderView::ResizeToContents );
-  m_treeWidget->setFrameStyle ( QFrame::Box );
+  DockingSplitter = new QSplitter ( Qt::Vertical, this );
 
-  setWidget ( m_treeWidget );
+  DockingTreeWidgetTop = new QTreeWidget ( this );
+  DockingTreeWidgetTop->setObjectName ( QLatin1String ( "dockingtreewidgettop" ) );
+  DockingTreeWidgetTop->setColumnCount ( columns );
+  addTreeWidget ( DockingTreeWidgetTop );
+
+  setWidget ( DockingSplitter );
 }
 
-void Docking::setTreeHeaderLabels ( const QStringList &labels )
+void Docking::setTreeHeaderLabels ( const QStringList &labels, int index )
 {
-  m_treeWidget->setHeaderLabels ( labels );
+  widget ( index )->setHeaderLabels ( labels );
 }
 
-QTreeWidgetItem* Docking::rootItem() const
+QTreeWidgetItem* Docking::rootItem ( int index )
 {
-  return m_treeWidget->invisibleRootItem();
+  return widget ( index )->invisibleRootItem();
 }
 
-const QFontMetrics Docking::fontMetric()
+const QFontMetrics Docking::fontMetric( int index )
 {
-  return m_treeWidget->fontMetrics();
+  return widget ( index )->fontMetrics();
 }
 
-void Docking::clearContent()
+void Docking::addTreeWidget ( QTreeWidget * widget )
 {
-  m_treeWidget->clear ();
+  Q_ASSERT ( widget );
+  widget->setAutoScroll ( true );
+  widget->setWordWrap ( true );
+  widget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  widget->setSortingEnabled ( false );
+  widget->header()->setResizeMode ( QHeaderView::Interactive );
+  widget->setFrameStyle ( QFrame::Box );
+  DockingSplitter->insertWidget ( DockingSplitter->count(), widget );
 }
 
-int Docking::columnCount()
+QTreeWidget* Docking::widget ( int index )
 {
-  return m_treeWidget->columnCount ();
+  Q_ASSERT ( ( DockingSplitter->count() >= index ) );
+  return ( QTreeWidget* ) DockingSplitter->widget ( index );
 }
 
-void Docking::setColumnCount ( int count )
+void Docking::clearContent ( int index )
 {
-  m_treeWidget->setColumnCount ( count );
+  widget ( index )->clear ();
 }
 
-void Docking::setColumnWidth ( int column, int width )
+void Docking::resizeSections ( int index )
+{
+  widget ( index )->header ()->resizeSections ( QHeaderView::ResizeToContents );
+}
+
+int Docking::columnCount ( int index )
+{
+  return widget ( index )->columnCount ();
+}
+
+void Docking::setColumnCount ( int count, int index )
+{
+  widget ( index )->setColumnCount ( count );
+}
+
+void Docking::setColumnWidth ( int column, int width, int index )
 {
   if ( column < 0 || width < 10 )
     return;
 
-  m_treeWidget->setColumnWidth ( column, width );
+  widget ( index )->setColumnWidth ( column, width );
 }
 
 QTreeWidgetItem* Docking::addTopLevelItem ( QTreeWidgetItem * parent, bool expand )
@@ -94,15 +115,15 @@ QTreeWidgetItem* Docking::addTopLevelItem ( QTreeWidgetItem * parent, bool expan
   return item;
 }
 
-void Docking::addTopLevelChildItem ( QTreeWidgetItem * child )
+void Docking::addTopLevelChildItem ( QTreeWidgetItem * child, int index )
 {
   Q_ASSERT ( child );
-  rootItem()->addChild ( child );
+  rootItem ( index )->addChild ( child );
 }
 
-bool Docking::itemExists ( const QString &txt )
+bool Docking::itemExists ( const QString &txt, int index )
 {
-  if ( m_treeWidget->findItems ( txt, Qt::MatchExactly, 0 ).size() > 0 )
+  if ( widget ( index )->findItems ( txt, Qt::MatchExactly, 0 ).size() > 0 )
     return true;
   else
     return false;

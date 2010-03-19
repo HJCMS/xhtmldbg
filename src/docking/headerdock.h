@@ -26,6 +26,7 @@
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QWidget>
@@ -38,11 +39,15 @@ class HeaderDock : public Docking
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
+  private:
+    QTreeWidget* m_treePostVars;
+
   protected:
-    void setTreeHeaderLabels ( const QStringList & );
+    void setTreeHeaderLabels ( const QStringList &, int index = 0 );
 
   public Q_SLOTS:
-    void setHeaders ( const QString &, const QMap<QString,QString> & );
+    void setHeaderData ( const QString &, const QMap<QString,QString> & );
+    void setPostedData ( const QUrl &, const QStringList & );
 
   public:
     HeaderDock ( QWidget * parent = 0 );

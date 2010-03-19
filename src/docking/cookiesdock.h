@@ -50,7 +50,7 @@ class CookiesDock : public Docking
     QString unserialize ( const QByteArray & ) const;
 
   protected:
-     void setTreeHeaderLabels ( const QStringList & );
+     void setTreeHeaderLabels ( const QStringList &, int index = 0 );
 
   public Q_SLOTS:
     void cookiesFromUrl ( const QUrl & );

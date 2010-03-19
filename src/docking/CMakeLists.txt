@@ -4,14 +4,12 @@ SET (docking_SOURCES
   docking.cpp
   cookiesdock.cpp
   headerdock.cpp
-  postdock.cpp
 )
 
 SET (docking_HEADERS
   docking.h
   cookiesdock.h
   headerdock.h
-  postdock.h
 )
 
 SET (docking_STATIC_HEADERS
