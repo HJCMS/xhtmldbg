@@ -1207,11 +1207,6 @@ Reasons : </source>
         <source>Unsupported Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../src/page.cpp" line="222"/>
-        <source>unavailably</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ProxySettings</name>

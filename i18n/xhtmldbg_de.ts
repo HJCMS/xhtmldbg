@@ -1212,11 +1212,6 @@ Gründe : </translation>
         <source>Unsupported Request: %1</source>
         <translation>Anfrage wird nicht Unterstützt: %1</translation>
     </message>
-    <message>
-        <location filename="../src/page.cpp" line="222"/>
-        <source>unavailably</source>
-        <translation>nicht verfügbar</translation>
-    </message>
 </context>
 <context>
     <name>ProxySettings</name>
