@@ -257,7 +257,6 @@ const QString Viewer::source()
 
 /**
 * Erstelle Extras für die Anzeige erweiterte Verknüpfungs Informationen.
-* TODO Externe Klasse mit Prädikat type= Auflösung und Content-Type etc...
 */
 void Viewer::linkInfos ( const QString &link, const QString &title, const QString & )
 {
