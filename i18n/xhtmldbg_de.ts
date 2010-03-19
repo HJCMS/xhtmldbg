@@ -1386,7 +1386,7 @@ Gründe : </translation>
     <message>
         <location filename="../src/viewer.cpp" line="226"/>
         <source>Case Sensitive: </source>
-        <translation>Groß Kleinschreibung: </translation>
+        <translation>Groß- Kleinschreibung: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="236"/>

@@ -222,6 +222,7 @@ void Viewer::findKeyword ( const QString &word )
   message.append ( trUtf8 ( "Word boundary: " ) );
   message.append ( QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) ) );
   message.append ( " " );
+
   // Groß- Kleinschreibung:
   message.append ( trUtf8 ( "Case Sensitive: " ) );
   message.append ( QString::number ( body.count ( word, Qt::CaseSensitive ) ) );
