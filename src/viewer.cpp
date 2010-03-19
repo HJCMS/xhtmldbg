@@ -207,11 +207,27 @@ void Viewer::cookiesRequest ( const QUrl &u )
 /**
 * Dieser SLOT wird von @class KeywordsToolBar benötigt
 * um die gesuchten Schlüsselwörter hervor zu heben.
-* @todo Eine ausgabe über die Anzahl der Treffer!
 */
 void Viewer::findKeyword ( const QString &word )
 {
+  QString wA, wB, wC, wD, wE;
+  QString message = trUtf8 ( "SEO Result for \"%1\": " ).arg ( word );
+
   findText ( word, QWebPage::HighlightAllOccurrences );
+  QString body = bodyContent();
+  wA = QString::number ( body.count ( word, Qt::CaseInsensitive ) );
+  wB = QString::number ( body.count ( word, Qt::CaseSensitive ) );
+  wC = QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) );
+
+  QStringList meta = m_page->keywordMetaTagItems();
+  wD = QString::number ( meta.first().count ( word, Qt::CaseInsensitive ) );
+  wE = QString::number ( meta.last().count ( word, Qt::CaseInsensitive ) );
+  message.append (
+      trUtf8 ( "Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5" )
+      .arg ( wA, wB, wC, wD, wE )
+  );
+
+  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
 }
 
 /**
@@ -220,6 +236,15 @@ void Viewer::findKeyword ( const QString &word )
 void Viewer::openUrl ( const QUrl &url )
 {
   setUrl ( url );
+}
+
+/**
+* Such im aktuellen Frame mit QwebElement nach dem BODY
+* Tag und gibt dieses als text Zurück.
+*/
+const QString Viewer::bodyContent()
+{
+  return m_page->currentFrame()->findFirstElement ( QLatin1String ( "body" ) ).toPlainText();
 }
 
 /**

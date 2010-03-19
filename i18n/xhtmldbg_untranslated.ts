@@ -1202,9 +1202,14 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="121"/>
-        <location filename="../src/page.cpp" line="133"/>
+        <location filename="../src/page.cpp" line="122"/>
+        <location filename="../src/page.cpp" line="134"/>
         <source>Unsupported Request: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="222"/>
+        <source>unavailably</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1366,6 +1371,16 @@ Reasons : </source>
     <message>
         <location filename="../src/viewer.cpp" line="149"/>
         <source>Bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="214"/>
+        <source>SEO Result for &quot;%1&quot;: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="226"/>
+        <source>Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1542,17 +1557,17 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="479"/>
+        <location filename="../src/window.cpp" line="519"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="480"/>
+        <location filename="../src/window.cpp" line="520"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="485"/>
+        <location filename="../src/window.cpp" line="525"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

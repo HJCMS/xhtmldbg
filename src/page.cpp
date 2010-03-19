@@ -12,6 +12,7 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QList>
+#include <QtCore/QMultiMap>
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QVariant>
@@ -206,6 +207,31 @@ void Page::triggerSelections()
     return;
 
   QApplication::clipboard()->setText ( txt );
+}
+
+/**
+* Suche im Aktuellen Dokument nach META Tags mit dem Prädikat name="keywords|description"
+* Und gebe eine Liste der Schlüsselwörter zurück.
+* Damit es nicht wegen fehlerhaften Zeigern zu abstürtzen kommt werden immer 2 Inhalte erzeugt.
+* Dabei ist first() die "keywords" und last() die "description".
+* Fehlende Inhalte werden durch @e "unavailably" ersetzt.
+*/
+const QStringList Page::keywordMetaTagItems()
+{
+  QStringList words;
+  QString missed = trUtf8 ( "unavailably" );
+  QMultiMap<QString, QString> map = currentFrame()->metaData ();
+  if ( map.values ( "keywords" ).isEmpty() )
+    words << missed;
+  else
+    words << map.values ( "keywords" );
+
+  if ( map.values ( "description" ).isEmpty() )
+    words << missed;
+  else
+    words << map.values ( "description" );
+
+  return words;
 }
 
 /**

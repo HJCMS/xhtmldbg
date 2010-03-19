@@ -81,6 +81,7 @@ class Viewer : public QWebView
 
   public:
     Viewer ( QWidget * parent = 0 );
+    const QString bodyContent();
     const QString source();
     ~Viewer();
 };

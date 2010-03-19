@@ -13,6 +13,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QRect>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 
@@ -55,6 +56,7 @@ class Page : public QWebPage
 
   public:
     Page ( NetworkAccessManager * manager, QObject* parent = 0 );
+    const QStringList keywordMetaTagItems();
     const QString xhtmlSource();
     virtual ~Page();
 };
