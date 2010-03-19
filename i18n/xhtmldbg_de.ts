@@ -1381,32 +1381,32 @@ Gründe : </translation>
     <message>
         <location filename="../src/viewer.cpp" line="222"/>
         <source>Word boundary: </source>
-        <translation>An Wortgrenzen:</translation>
+        <translation>An Wortgrenzen: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="226"/>
         <source>Case Sensitive: </source>
-        <translation>Groß Kleinschreibung:</translation>
+        <translation>Groß Kleinschreibung: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="236"/>
         <source>Meta Keywords: </source>
-        <translation>Meta Schlüsselwörter:</translation>
+        <translation>Meta Schlüsselwörter: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="242"/>
         <source>Meta Description: </source>
-        <translation>Meta Beschreibung:</translation>
+        <translation>Meta Beschreibung: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="249"/>
         <source>Page Title: </source>
-        <translation>Seiten Titel:</translation>
+        <translation>Seiten Titel: </translation>
     </message>
     <message>
         <location filename="../src/viewer.cpp" line="254"/>
         <source>Summary: </source>
-        <translation>Zusammen:</translation>
+        <translation>Zusammen: </translation>
     </message>
 </context>
 <context>
