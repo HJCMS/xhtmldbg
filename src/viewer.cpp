@@ -220,8 +220,8 @@ void Viewer::findKeyword ( const QString &word )
   wC = QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) );
 
   QStringList meta = m_page->keywordMetaTagItems();
-  wD = QString::number ( meta.first().count ( word, Qt::CaseInsensitive ) );
-  wE = QString::number ( meta.last().count ( word, Qt::CaseInsensitive ) );
+  wD = QString::number ( meta.at(0).count ( word, Qt::CaseInsensitive ) );
+  wE = QString::number ( meta.at(1).count ( word, Qt::CaseInsensitive ) );
   message.append (
       trUtf8 ( "Simple: %1; Case Sensitive: %2; Word boundary: %3; Meta Keywords: %4; Meta Description: %5" )
       .arg ( wA, wB, wC, wD, wE )
