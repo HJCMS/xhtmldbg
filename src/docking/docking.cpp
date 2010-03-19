@@ -21,8 +21,6 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QFrame>
@@ -75,7 +73,7 @@ void Docking::addTreeWidget ( QTreeWidget * widget )
 
 QTreeWidget* Docking::widget ( int index )
 {
-  Q_ASSERT ( ( DockingSplitter->count() >= index ) );
+  Q_ASSERT_X ( ( DockingSplitter->count() >= index ), "Docking::widget", "Invalid Index to find TreeWidget" );
   return ( QTreeWidget* ) DockingSplitter->widget ( index );
 }
 

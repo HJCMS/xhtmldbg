@@ -32,6 +32,7 @@
 /* QtGui */
 #include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
+#include <QtGui/QIcon>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
@@ -65,6 +66,7 @@ class Window : public QMainWindow
 
   private:
     QSettings* m_settings;
+    const QIcon qTidyIcon;
     // Network Manager
     NetworkAccessManager* m_netManager;
     // Address History Manager

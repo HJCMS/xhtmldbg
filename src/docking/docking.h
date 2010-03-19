@@ -22,6 +22,8 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -48,88 +50,95 @@ class Docking : public QDockWidget
 
   private:
     /**
-    * DockingSplitter
+    * @var DockingSplitter
+    * this splitter is already add in constructer
+    * and contains 1 TreeWidget by default
     */
     QSplitter* DockingSplitter;
 
     /**
-    * DockingTreeWidgetTop with index 0
+    * @var DockingTreeWidgetTop
+    * the default TreeWidget with index 0
+    * this widget is already add in constructer
     */
     QTreeWidget* DockingTreeWidgetTop;
 
     /**
-    * Current Column Count
-    * Default: 2
+    * @var columns
+    * this variable have no effect and was add for compatible property flags
+    * the default column count for TreeWidgets is 2
     */
     int columns;
 
   protected:
     /**
-    * Set Item Labels
-    * @param labels Header Labels
-    * @param index DockingTreeWidget Index
+    * force reimplementation for setting header labels to indexed TreeWidget
+    * @param labels List of Header Labels
+    * @param index  The Index for used TreeWidget Default 0
     */
     virtual void setTreeHeaderLabels ( const QStringList &labels, int index = 0 ) = 0;
 
     /**
-    * Invisible RootItem
-    * @param index DockingTreeWidget Index
+    * get the invisible rootitem for given indexed TreeWidget
+    * @param index The Index for used TreeWidget Default 0
     */
     QTreeWidgetItem* rootItem ( int index = 0 );
 
     /**
-    * Font Metric from ListWidget
-    * @param index DockingTreeWidget Index
+    * QFontMetric from TreeWidget with given index
+    * @param index The Index for used TreeWidget Default 0
     */
     const QFontMetrics fontMetric ( int index = 0 );
 
     /**
-    * insert a second Docking TreeWidget
+    * insert a new TreeWidget behind the top TreeWidget
+    * the class will automatically append this TreeWidget from top
     */
     void addTreeWidget ( QTreeWidget * widget );
 
     /**
-    * get DockingTreeWidget with index
-    * @param index DockingTreeWidget Index
+    * fetch TreeWidget by index
+    * @param index The Index for used TreeWidget Default 0
     */
     QTreeWidget* widget ( int index = 0 );
 
   public Q_SLOTS:
     /**
-    * Remove all ListWidget Items
-    * @param index DockingTreeWidget Index
+    * remove all TreeWidget items with given index
+    * @param index The Index for used TreeWidget Default 0
     */
     void clearContent ( int index = 0 );
 
     /**
-    * Resize all Header Sections to Contents
-    * @param index DockingTreeWidget Index
+    * resize all header sections to column contents with given index
+    * @param index The Index for used TreeWidget Default 0
     */
     void resizeSections ( int index = 0 );
 
   public:
     /**
-    * Current Column Count
+    * the current column count from indexed TreeWidget
+    * @param index The Index for used TreeWidget Default 0
     */
     int columnCount ( int index = 0 );
 
     /**
-    * set Column Count
+    * set column count to indexed TreeWidget
     * @param count count
-    * @param index DockingTreeWidget Index
+    * @param index The Index for used TreeWidget Default 0
     */
     void setColumnCount ( int count, int index = 0 );
 
     /**
-    * resize the Column With
+    * resize the column with to indexed TreeWidget
     * @param column Column
     * @param width Width
-    * @param index DockingTreeWidget Index
+    * @param index The Index for used TreeWidget Default 0
     */
     void setColumnWidth ( int column, int width, int index = 0 );
 
     /**
-    * insert a TopLevelItem
+    * insert a new TopLevelItem to parent QTreeWidgetItem
     * @param parent Item
     * @param expand Expanded or Collapse
     */
@@ -138,15 +147,15 @@ class Docking : public QDockWidget
     /**
     * insert a ChildItem to TopLevelItem
     * @param child Item
-    * @param index DockingTreeWidget Index
+    * @param index The Index for used TreeWidget Default 0
     */
     void addTopLevelChildItem ( QTreeWidgetItem * child, int index = 0 );
 
     /**
-    * find item with given text
+    * find item with given text and indexed TreeWidget
     * this matches exactly
     * @param txt String to match
-    * @param index DockingTreeWidget Index
+    * @param index The Index for used TreeWidget Default 0
     */
     bool itemExists ( const QString &txt, int index = 0 );
 

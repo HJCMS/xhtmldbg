@@ -59,6 +59,7 @@ class TidyMessanger : public QDockWidget
   Q_SIGNALS:
     void marking ( int, int );
     void itemSelected();
+    void invisibleNotice ( bool );
 
   public Q_SLOTS:
     void messages ( const QTidy::QTidyDiagnosis & );

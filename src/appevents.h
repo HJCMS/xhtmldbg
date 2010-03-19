@@ -50,6 +50,9 @@ class AppEvents : public QDockWidget
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
 
+  Q_SIGNALS:
+    void invisibleNotice ( bool );
+
   public Q_SLOTS:
     void insertMessage ( const QString & );
     void clearItems();

@@ -52,6 +52,9 @@ class JSMessanger : public QDockWidget
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
 
+  Q_SIGNALS:
+    void invisibleNotice ( bool );
+
   public Q_SLOTS:
     void messages ( const QString &, int, const QString & );
     void clearItems();

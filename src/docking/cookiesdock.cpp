@@ -198,6 +198,7 @@ void CookiesDock::cookiesFromUrl ( const QUrl &url )
     {
       setCookieData ( keks, item );
     }
+    resizeSections ();
   }
 }
 

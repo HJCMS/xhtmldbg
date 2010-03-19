@@ -72,13 +72,14 @@
 Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
+    , qTidyIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
 {
-  // Window Properties
+  // Standard Fenster optionen
+  setObjectName ( "xhtmldbgwindow" );
+  setWindowIcon ( qTidyIcon );
+
   QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
   setWindowTitle ( winTitle );
-  setObjectName ( "xhtmldbgwindow" );
-  QIcon qTidyIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
-  setWindowIcon ( qTidyIcon );
 
   m_netManager = Application::networkAccessManager();
 
@@ -86,55 +87,57 @@ Window::Window ( QSettings * settings )
   m_statusBar = new StatusBar ( statusBar() );
   setStatusBar ( m_statusBar );
 
-  // Central TabWidget
+  // Zentrales TabWidget für Quelltext und Browser
   m_centralWidget = new QTabWidget ( this );
   m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
   m_centralWidget->setTabPosition ( QTabWidget::South );
   m_centralWidget->setTabsClosable ( false );
 
-  // WebViewer
+  // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
   m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
   m_centralWidget->setTabIcon ( 0, qTidyIcon );
   m_centralWidget->setCurrentIndex ( 0 );
 
-  // Show XHTML Source
+  // Quelltext Anzeige
   m_sourceWidget = new SourceWidget ( this );
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
 
-  // Show Document DomTree in DockWidget
+  // Ansicht Dokumenten Baum
   m_domInspector = new DomInspector ( this, m_settings );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
-  // XHTML Messanger DockWidget
+  // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger );
 
-  // Display Infromation from XHTMLDBG
+  // Programm Nachrichtenfenster für interne Nachrichten
   m_appEvents = new AppEvents ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_appEvents );
 
-  // JavaScript Messanger DockWidget
+  // JavaScript Nachrichtenfenster
   m_jsMessanger = new JSMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger );
 
-  // Show Cookie Information
+  // Zeige Keks Informationen
   m_cookiesDock = new CookiesDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_cookiesDock );
 
-  // Show Received Document Headers
+  // Zeige Datenköpfe für CGI GET/POST und Header an.
   m_headerDock = new HeaderDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
 
-  // finalize WindowDesign
+  // erstelle alle Menü einträge
   createMenus();
-  // NOTE must after createMenus() for HistoryManager
+
+  /* WARNING Muss wegen dem HistoryManager nach createMenus() kommen. */
   createToolBars();
 
+  // Design abschliessen
   setCentralWidget ( m_centralWidget );
 
-  // SIGNALS
+  // WebViewer {
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
             this, SLOT ( requestsFinished ( bool ) ) );
 
@@ -146,19 +149,25 @@ Window::Window ( QSettings * settings )
 
   connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
-
+  // } WebViewer
+  // SourceWidget {
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
             m_tidyMessanger, SLOT ( clearItems () ) );
 
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
             m_tidyMessanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
-
+  // } SourceWidget
+  // TidyMessanger {
   connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
 
   connect ( m_tidyMessanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
 
+  connect ( m_tidyMessanger, SIGNAL ( invisibleNotice ( bool ) ),
+            m_statusBar, SLOT ( notice ( bool ) ) );
+  // } TidyMessanger
+  // NetworkAccessManager {
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_appEvents, SLOT ( insertMessage ( const QString & ) ) );
 
@@ -170,6 +179,15 @@ Window::Window ( QSettings * settings )
 
   connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
             this, SLOT ( setSource ( const QString & ) ) );
+  // } NetworkAccessManager
+  // JSMessanger {
+  connect ( m_jsMessanger, SIGNAL ( invisibleNotice ( bool ) ),
+            m_statusBar, SLOT ( notice ( bool ) ) );
+  // } JSMessanger
+  // AppEvents {
+  connect ( m_appEvents, SIGNAL ( invisibleNotice ( bool ) ),
+            m_statusBar, SLOT ( notice ( bool ) ) );
+  // } AppEvents
 
   QUrl fallback ( "http://www.hjcms.de" );
   QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
@@ -411,10 +429,7 @@ void Window::requestsFinished ( bool ok )
 void Window::setApplicationMessage ( const QString &message )
 {
   if ( ! message.isEmpty() )
-  {
-    m_statusBar->notice ( true ); // TODO Notification for StatusBar
     m_appEvents->insertMessage ( message );
-  }
 }
 
 void Window::setSource ( const QString &source )

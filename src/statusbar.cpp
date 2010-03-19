@@ -46,8 +46,9 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_noticeLabel->setContentsMargins ( 5, 2, 5, 2 );
   QIcon noticeIcon ( QString::fromUtf8 ( ":/icons/notice.png" ) );
   m_noticeLabel->setPixmap ( noticeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
-  insertPermanentWidget ( 0, m_noticeLabel );
+  m_noticeLabel->setToolTip ( trUtf8 ( "indistinguishable messages" ) );
   m_noticeLabel->setEnabled ( false );
+  insertPermanentWidget ( 0, m_noticeLabel );
 
   // Display Current Pagse Size
   m_viewPageSize = new QLabel ( this );
@@ -55,6 +56,7 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_viewPageSize->setFrameShape ( QFrame::NoFrame );
   m_viewPageSize->setContentsMargins ( 5, 2, 5, 2 );
   m_viewPageSize->setText ( QLatin1String ( "Bytes" ) );
+  m_viewPageSize->setToolTip ( trUtf8 ( "the rendered page size" ) );
   insertPermanentWidget ( 1, m_viewPageSize );
 
   // Display Browser ViewPort Width
@@ -62,17 +64,32 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_viewPortInfo->setObjectName ( QLatin1String ( "viewportinfolabel" ) );
   m_viewPortInfo->setFrameShape ( QFrame::NoFrame );
   m_viewPortInfo->setContentsMargins ( 5, 2, 5, 2 );
-  QString info1 = trUtf8 ( "Display Browser Dimension Width x Height with Pixel." );
-  m_viewPortInfo->setToolTip ( info1 );
-  m_viewPortInfo->setStatusTip ( info1 );
+  m_viewPortInfo->setToolTip ( trUtf8 ( "Display Browser Dimension Width x Height with Pixel." ) );
   insertPermanentWidget ( 2, m_viewPortInfo );
 }
 
+/**
+* Wenn eine Meldung zu einem nicht sichtbaren Fenster eingeht.
+* Wird hier mit @b false der Icon Hinweis eingeschaltet!
+* Für diesen Zweck ist bei den Nachrichten Fenstern:
+* @li AppEvents
+* @li JSMessanger
+* @li TidyMessanger
+* das signal @ref invisibleNotice vorhanden. Wenn jetzt eines dieser
+* Dock Fenster das signal @ref invisibleNotice mit @b true sendet,
+* wird die Icon Meldung wieder abgeschaltet!
+*/
 void StatusBar::notice ( bool notice )
 {
-  m_noticeLabel->setEnabled ( notice );
+  m_noticeLabel->setEnabled ( ( notice ? false : true ) );
 }
 
+/**
+* Wird von @ref WebViewer::bytesLoaded aufgerufen und
+* Übermittelt die Anzahl der geladenen Bytes der
+* aktuellen Seite.
+* @todo Die Berechnung muss noch Überarbeitet werden!
+*/
 void StatusBar::setLoadedPageSize ( qint64 bytes )
 {
   QString out;
@@ -90,6 +107,10 @@ void StatusBar::setLoadedPageSize ( qint64 bytes )
   }
 }
 
+/**
+* Wird von @ref Window::paintEvent aufgerufen und
+* übermittelt die aktuelle Fenstergröße des Browsers.
+*/
 void StatusBar::displayBrowserWidth ( const QSize &s )
 {
   QString w = QString::number ( s.width() );
