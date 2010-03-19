@@ -75,6 +75,7 @@ class WebViewer : public QTabWidget
     void back ();
     void forward ();
     void setUrl ( const QUrl & );
+    void setWebFocus();
 
   public:
     WebViewer ( QWidget * parent = 0 );

@@ -190,6 +190,8 @@ Window::Window ( QSettings * settings )
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
+  // zum abschluss den focus auf den Browser setzen
+  m_webViewer->setWebFocus();
 }
 
 void Window::createMenus()
@@ -199,7 +201,7 @@ void Window::createMenus()
   QIcon icon;
 
   // Main Menu
-  m_applicationMenu = m_menuBar->addMenu ( trUtf8 ( "Application" ) );
+  m_applicationMenu = m_menuBar->addMenu ( trUtf8 ( "&Application" ) );
   m_applicationMenu ->setObjectName ( QLatin1String ( "applicationmenu" ) );
 
   // Action Open URL Dialog
@@ -225,7 +227,7 @@ void Window::createMenus()
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
 
   // Debugger Menu
-  m_debuggerMenu = m_menuBar->addMenu ( trUtf8 ( "Debugger" ) );
+  m_debuggerMenu = m_menuBar->addMenu ( trUtf8 ( "&Debugger" ) );
 
   // Action Parse Document Source
   actionParse = m_debuggerMenu->addAction ( trUtf8 ( "Parse" ) );
@@ -242,7 +244,7 @@ void Window::createMenus()
   connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Viewer Menu
-  m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "Browser" ) );
+  m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "&Browser" ) );
 
   // Action WebView Reload
   actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
@@ -295,10 +297,11 @@ void Window::createMenus()
   // Bookmark Manager Action
   QIcon bookEditIcon ( icon.fromTheme ( QLatin1String ( "bookmarks-organize" ) ) );
   QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, trUtf8 ( "Organize Bookmarks" ) );
+  editorAction->setShortcut ( Qt::CTRL + Qt::Key_B );
   connect ( editorAction, SIGNAL ( triggered() ), m_bookmarkMenu, SLOT ( openBookmarkEditor() ) );
 
   // Configuration Menu
-  m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "Configuration" ) );
+  m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "S&ettings" ) );
   // Action Open qtidyrc
   actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
   actionTidyConfig->setIcon ( icon.fromTheme ( QLatin1String ( "configure-toolbars" ) ) );
@@ -306,7 +309,7 @@ void Window::createMenus()
             this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
-  actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Settings" ) );
+  actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Configure" ) );
   actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 

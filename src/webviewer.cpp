@@ -44,10 +44,9 @@ WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
     , url ( QUrl ( QLatin1String ( "http://www.hjcms.de" ) ) )
 {
-  if ( objectName().isEmpty() )
-    setObjectName ( "webviewer" );
-
+  setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
+  setFocusPolicy ( Qt::StrongFocus );
   setTabsClosable ( true );
 
   m_viewer = new Viewer ( this );
@@ -59,7 +58,6 @@ WebViewer::WebViewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
             this, SLOT ( closeViewerTab ( int ) ) );
-
 }
 
 /**
@@ -265,6 +263,15 @@ void WebViewer::setUrl ( const QUrl &u )
 {
   activeView()->openUrl ( u );
   url = u;
+}
+
+/**
+* Wird Normalerweise nach dem start aufgerufen und
+* setzt den Focus auf das aktuelle Browser Fenster.
+**/
+void WebViewer::setWebFocus()
+{
+  activeView()->setFocus ( Qt::ActiveWindowFocusReason );
 }
 
 /**
