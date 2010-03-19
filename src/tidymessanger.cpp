@@ -92,7 +92,7 @@ void TidyMessanger::contextMenuEvent ( QContextMenuEvent *e )
 
   QAction* ac_clear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
                                         trUtf8 ( "Clear" ) );
-  connect ( ac_clear, SIGNAL ( triggered() ), m_listWidget, SLOT ( clear() ) );
+  connect ( ac_clear, SIGNAL ( triggered() ), this, SLOT ( clearItems() ) );
 
   menu->exec ( e->globalPos() );
 }
@@ -142,6 +142,7 @@ void TidyMessanger::messages ( const QTidy::QTidyDiagnosis &d )
   QListWidgetItem* item = new QListWidgetItem ( qIcon, d.message, m_listWidget );
   item->setData ( Qt::UserRole, pair );
   m_listWidget->addItem ( item );
+  emit itemsChanged ( true );
 }
 
 void TidyMessanger::messages ( int l, const QString &m )
@@ -153,11 +154,13 @@ void TidyMessanger::messages ( int l, const QString &m )
   QListWidgetItem* item = new QListWidgetItem ( qIcon, m, m_listWidget );
   item->setData ( Qt::UserRole, pair );
   m_listWidget->addItem ( item );
+  emit itemsChanged ( true );
 }
 
 void TidyMessanger::clearItems()
 {
   m_listWidget->clear();
+  emit itemsChanged ( false );
 }
 
 TidyMessanger::~TidyMessanger()

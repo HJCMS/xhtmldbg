@@ -54,10 +54,16 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 */
 void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
 {
+  Q_UNUSED ( l )
+  Q_UNUSED ( id )
   if ( m.isEmpty() )
     return;
 
-  xhtmldbg::instance()->mainWindow()->JavaScriptMessanger()->messages ( m, l, id );
+  QByteArray cmd = QByteArray::fromPercentEncoding ( m.toAscii() );
+  QString message ( cmd );
+  message.remove ( QRegExp ( "[\\/\n]+" ) );
+
+  xhtmldbg::instance()->mainWindow()->setJavaScriptMessage ( message );
 }
 
 /**

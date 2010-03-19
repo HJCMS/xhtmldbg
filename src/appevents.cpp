@@ -26,16 +26,19 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QLabel>
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QMenu>
 
 AppEvents::AppEvents ( QWidget * parent )
     : QDockWidget ( parent )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
+    , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
 {
   setObjectName ( "appevents" );
   setWindowTitle ( trUtf8 ( "XHTMLDBG Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+  setFocusPolicy ( Qt::StrongFocus );
 
   m_listWidget = new QListWidget ( this );
   m_listWidget->setSortingEnabled ( true );
@@ -77,9 +80,16 @@ void AppEvents::contextMenuEvent ( QContextMenuEvent *e )
   menu->exec ( e->globalPos() );
 }
 
-void AppEvents::insertMessage ( const QString &mess )
+void AppEvents::statusMessage ( const QString &mess )
 {
   m_listWidget->addItem ( new QListWidgetItem ( iconNotice, mess.trimmed(), m_listWidget ) );
+  emit itemsChanged();
+}
+
+void AppEvents::warningMessage ( const QString &mess )
+{
+  m_listWidget->addItem ( new QListWidgetItem ( iconWarning, mess.trimmed(), m_listWidget ) );
+  emit itemsChanged();
 }
 
 void AppEvents::clearItems()

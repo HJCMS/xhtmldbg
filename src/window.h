@@ -32,6 +32,7 @@
 /* QtGui */
 #include <QtGui/QAction>
 #include <QtGui/QCloseEvent>
+#include <QtGui/QDockWidget>
 #include <QtGui/QIcon>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
@@ -129,6 +130,7 @@ class Window : public QMainWindow
 
     void createMenus();
     void createToolBars();
+    void tabifyDockedWidgetUp ( QDockWidget * );
 
   private Q_SLOTS:
     void requestsFinished ( bool );
@@ -142,7 +144,8 @@ class Window : public QMainWindow
     void paintEvent ( QPaintEvent * );
 
   public Q_SLOTS:
-    void setApplicationMessage ( const QString & );
+    void setJavaScriptMessage ( const QString & );
+    void setApplicationMessage ( const QString &, bool warning = false );
     void setSource ( const QString & );
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );
@@ -150,7 +153,6 @@ class Window : public QMainWindow
 
   public:
     Window ( QSettings * settings = 0 );
-    JSMessanger* JavaScriptMessanger() const;
     ~Window();
 };
 

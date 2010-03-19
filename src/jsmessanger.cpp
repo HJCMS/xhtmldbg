@@ -36,8 +36,6 @@
 JSMessanger::JSMessanger ( QWidget * parent )
     : QDockWidget ( parent )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
-    , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
-    , iconCritical ( QString::fromUtf8 ( ":/icons/critical.png" ) )
 {
   setObjectName ( "jsmessanger" );
   setWindowTitle ( trUtf8 ( "JavaScript Impartations" ) );
@@ -83,18 +81,10 @@ void JSMessanger::contextMenuEvent ( QContextMenuEvent *e )
   menu->exec ( e->globalPos() );
 }
 
-void JSMessanger::messages ( const QString & m, int l, const QString & id )
+void JSMessanger::insertMessage ( const QString &message )
 {
-  Q_UNUSED ( id )
-
-  QByteArray cmd = QByteArray::fromPercentEncoding ( m.toAscii() );
-  QString message ( cmd );
-  message.remove ( QRegExp ( "[\\/\n]+" ) );
-
-  QIcon qIcon ( QString::fromUtf8 ( ":/icons/warning.png" ) );
-  QListWidgetItem* item = new QListWidgetItem ( qIcon, message.trimmed(), m_listWidget );
-  item->setData ( Qt::UserRole, l );
-  m_listWidget->addItem ( item );
+  m_listWidget->addItem ( new QListWidgetItem ( iconNotice, message, m_listWidget ) );
+  emit itemsChanged();
 }
 
 void JSMessanger::clearItems()

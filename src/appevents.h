@@ -42,6 +42,7 @@ class AppEvents : public QDockWidget
   private:
     QListWidget* m_listWidget;
     const QIcon iconNotice;
+    const QIcon iconWarning;
 
   private Q_SLOTS:
     void sortAscending();
@@ -51,10 +52,11 @@ class AppEvents : public QDockWidget
     void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
-    void invisibleNotice ( bool );
+    void itemsChanged();
 
   public Q_SLOTS:
-    void insertMessage ( const QString & );
+    void statusMessage ( const QString & );
+    void warningMessage ( const QString & );
     void clearItems();
 
   public:

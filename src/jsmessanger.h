@@ -42,8 +42,6 @@ class JSMessanger : public QDockWidget
   private:
     QListWidget* m_listWidget;
     const QIcon iconNotice;
-    const QIcon iconWarning;
-    const QIcon iconCritical;
 
   private Q_SLOTS:
     void sortAscending();
@@ -53,10 +51,10 @@ class JSMessanger : public QDockWidget
     void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
-    void invisibleNotice ( bool );
+    void itemsChanged();
 
   public Q_SLOTS:
-    void messages ( const QString &, int, const QString & );
+    void insertMessage ( const QString & );
     void clearItems();
 
   public:

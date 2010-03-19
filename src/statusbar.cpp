@@ -46,7 +46,7 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_noticeLabel->setContentsMargins ( 5, 2, 5, 2 );
   QIcon noticeIcon ( QString::fromUtf8 ( ":/icons/notice.png" ) );
   m_noticeLabel->setPixmap ( noticeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
-  m_noticeLabel->setToolTip ( trUtf8 ( "indistinguishable messages" ) );
+  m_noticeLabel->setToolTip ( trUtf8 ( "QTidy Messanger contains Impartations" ) );
   m_noticeLabel->setEnabled ( false );
   insertPermanentWidget ( 0, m_noticeLabel );
 
@@ -69,19 +69,12 @@ StatusBar::StatusBar ( QStatusBar * parent )
 }
 
 /**
-* Wenn eine Meldung zu einem nicht sichtbaren Fenster eingeht.
-* Wird hier mit @b false der Icon Hinweis eingeschaltet!
-* Für diesen Zweck ist bei den Nachrichten Fenstern:
-* @li AppEvents
-* @li JSMessanger
-* @li TidyMessanger
-* das signal @ref invisibleNotice vorhanden. Wenn jetzt eines dieser
-* Dock Fenster das signal @ref invisibleNotice mit @b true sendet,
-* wird die Icon Meldung wieder abgeschaltet!
+* Wenn mit @ref TidyMessanger::itemsChanged Nachrichten eingehen 
+* diese hier hervorheben.
 */
 void StatusBar::notice ( bool notice )
 {
-  m_noticeLabel->setEnabled ( ( notice ? false : true ) );
+  m_noticeLabel->setEnabled ( notice );
 }
 
 /**

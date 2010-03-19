@@ -110,15 +110,15 @@ Window::Window ( QSettings * settings )
 
   // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
-  addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
 
   // Programm Nachrichtenfenster für interne Nachrichten
   m_appEvents = new AppEvents ( this );
-  addDockWidget ( Qt::BottomDockWidgetArea, m_appEvents );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_appEvents, Qt::Horizontal );
 
   // JavaScript Nachrichtenfenster
   m_jsMessanger = new JSMessanger ( this );
-  addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger, Qt::Horizontal );
 
   // Zeige Keks Informationen
   m_cookiesDock = new CookiesDock ( this );
@@ -164,12 +164,12 @@ Window::Window ( QSettings * settings )
   connect ( m_tidyMessanger, SIGNAL ( itemSelected () ),
             this, SLOT ( visibleSourceChanged () ) );
 
-  connect ( m_tidyMessanger, SIGNAL ( invisibleNotice ( bool ) ),
+  connect ( m_tidyMessanger, SIGNAL ( itemsChanged ( bool ) ),
             m_statusBar, SLOT ( notice ( bool ) ) );
   // } TidyMessanger
   // NetworkAccessManager {
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
-            m_appEvents, SLOT ( insertMessage ( const QString & ) ) );
+            m_appEvents, SLOT ( warningMessage ( const QString & ) ) );
 
   connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
             m_headerDock, SLOT ( setHeaderData ( const QString &, const QMap<QString,QString> & ) ) );
@@ -180,21 +180,14 @@ Window::Window ( QSettings * settings )
   connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
             this, SLOT ( setSource ( const QString & ) ) );
   // } NetworkAccessManager
-  // JSMessanger {
-  connect ( m_jsMessanger, SIGNAL ( invisibleNotice ( bool ) ),
-            m_statusBar, SLOT ( notice ( bool ) ) );
-  // } JSMessanger
-  // AppEvents {
-  connect ( m_appEvents, SIGNAL ( invisibleNotice ( bool ) ),
-            m_statusBar, SLOT ( notice ( bool ) ) );
-  // } AppEvents
 
+  // Wenn noch kein Eintrag vorhanden öffne meine HP
   QUrl fallback ( "http://www.hjcms.de" );
   QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ), fallback ).toUrl();
   openUrl ( ( startup.isEmpty() ? recent : startup ) );
 
-  // Load Window Settings
+  // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
 }
@@ -395,6 +388,10 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
 }
 
+/**
+* Standard closeEvent für das Speichern von
+* Fenster- Geometrie und Status.
+*/
 void Window::closeEvent ( QCloseEvent *event )
 {
   m_settings->setValue ( "MainWindowState", saveState() );
@@ -402,6 +399,15 @@ void Window::closeEvent ( QCloseEvent *event )
   QMainWindow::closeEvent ( event );
 }
 
+/**
+* Eigentlich bietet QWebPage ja das signal repaintRequest
+* Diese wird aber permanent bei jedem Seiten update aufgerufen.
+* Ich finde diese Methode daher etwas besser.
+* Sie wird nur aufgerufen wenn sich bei Fenster, Splitter,
+* DockWidget etc. die Bereiche verändern.
+* Ich habe hier absichtlich kein resizeEvent verwendet weil
+* das Seltsamerweise zu einem Schwarzen WebViewer führt.
+*/
 void Window::paintEvent ( QPaintEvent * ev )
 {
   Q_UNUSED ( ev )
@@ -411,7 +417,24 @@ void Window::paintEvent ( QPaintEvent * ev )
 }
 
 /**
-* if page request is finished prepare all methodes for nested Widgets
+* Prüft ob das DockWidget ein tab besitzt und sichtbar ist.
+* Wenn es ein Tab ist, dann wird es nach vorne geholt.
+*/
+void Window::tabifyDockedWidgetUp ( QDockWidget *dockWidget )
+{
+  foreach ( QDockWidget* toHide, tabifiedDockWidgets ( dockWidget ) )
+  {
+    tabifyDockWidget ( toHide, dockWidget );
+  }
+}
+
+/**
+* Diese Methode wird von QWebView::loadFinished aufgerufen.
+* Erst wenn das ergebnis true ergibt werden folgendes eingebunden:
+* @li DomTree::setDomTree
+* @li CookiesDock::cookiesFromUrl
+* @li QSettings::setValue (RecentUrl)
+* Beim setzen von @em RecentUrl werden Passwörter und Anker entfernt.
 */
 void Window::requestsFinished ( bool ok )
 {
@@ -426,12 +449,43 @@ void Window::requestsFinished ( bool ok )
   }
 }
 
-void Window::setApplicationMessage ( const QString &message )
+/**
+* Nachrichten an @ref AppEvents übermitteln.
+* Wenn das Dock nicht sichtbar ist wird es nach vorne geholt!
+*/
+void Window::setApplicationMessage ( const QString &message, bool warning )
 {
-  if ( ! message.isEmpty() )
-    m_appEvents->insertMessage ( message );
+  if ( message.isEmpty() )
+    return;
+
+  if ( warning )
+    m_appEvents->warningMessage ( message );
+  else
+    m_appEvents->statusMessage ( message );
+
+  tabifyDockedWidgetUp ( m_appEvents );
 }
 
+/**
+* Nachrichten an @ref JSMessanger übermitteln.
+* Wenn das Dock nicht sichtbar ist wird es nach vorne geholt!
+*/
+void Window::setJavaScriptMessage ( const QString &message )
+{
+  if ( message.isEmpty() )
+    return;
+
+  m_jsMessanger->insertMessage ( message );
+  tabifyDockedWidgetUp ( m_jsMessanger );
+}
+
+/**
+* Hier wird der Quelltext in @class SourceView eingefügt.
+* Gleichzeitig @ref TidyMessanger::clearItems aufgerufen.
+* Wenn der überreichte Quelltext nicht leer ist wird
+* in den Einstellungen nachgesehen ob @em AutoFormat oder
+* @em AutoCheck aktiviert sind und entsprechend ausgeführt.
+*/
 void Window::setSource ( const QString &source )
 {
   m_tidyMessanger->clearItems();
@@ -446,11 +500,18 @@ void Window::setSource ( const QString &source )
     m_sourceWidget->check();
 }
 
+/**
+* Standard SLOT für den Aufruf des Programms qtidyrc
+*/
 void Window::openTidyConfigApplication()
 {
   QProcess::startDetached ( QString::fromUtf8 ( "qtidyrc" ) );
 }
 
+/**
+* Standard Dialog für das öffnen einer HTML Datei.
+* Nach dem Dialog wird @ref openFile aufgerufen.
+*/
 void Window::openFileDialog()
 {
   QString htmlFile;
@@ -475,6 +536,9 @@ void Window::openFileDialog()
   }
 }
 
+/**
+* Standard Dialog für das öffnen einer URL
+*/
 void Window::openUrlDialog()
 {
   OpenUrlDialog* dialog = new OpenUrlDialog ( this );
@@ -484,6 +548,10 @@ void Window::openUrlDialog()
   dialog->exec();
 }
 
+/**
+* Standard Dialog für das öffnen der Konfiguration.
+* Wenn kein abbruch werden Cookies neu eingelesen.
+*/
 void Window::openConfigDialog()
 {
   ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
@@ -494,6 +562,13 @@ void Window::openConfigDialog()
   delete dialog;
 }
 
+/**
+* Wird von @ref openFileDialog verwendet um zu prüfen ob es
+* sich um ein file Schema handelt und existiert.
+* Danach wird sie in ein QTextStream eingelesen und weiter
+* an @ref setSource, der Pfad @ref WebViewer::setUrl gegeben.
+* Bei den Einstellungen wird @em RecentFile modifiziert.
+*/
 void Window::openFile ( const QUrl &url )
 {
   if ( ! url.isValid() || url.scheme() != "file" )
@@ -509,13 +584,17 @@ void Window::openFile ( const QUrl &url )
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
       QString data = codec->toUnicode ( buffer );
-      m_sourceWidget->setSource ( data );
+      setSource ( data );
       m_webViewer->setUrl ( url.path() );
       m_settings->setValue ( QLatin1String ( "RecentFile" ), url );
     }
   }
 }
 
+/**
+* Primitive überprüfung ob es sich um eine Url handelt.
+* Wenn ja wird @ref WebViewer::setUrl aufgerufen.
+*/
 void Window::openUrl ( const QUrl &url )
 {
   if ( ! url.isValid() || ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
@@ -524,15 +603,14 @@ void Window::openUrl ( const QUrl &url )
   m_webViewer->setUrl ( url );
 }
 
+/**
+* Methode zum prüfen ob das Quelltext Fenster sichtbar ist.
+* Wenn nicht wird es nach vorne geholt.
+*/
 void Window::visibleSourceChanged()
 {
   if ( m_centralWidget->currentIndex() != 1 )
     m_centralWidget->setCurrentIndex ( 1 );
-}
-
-JSMessanger* Window::JavaScriptMessanger() const
-{
-  return m_jsMessanger;
 }
 
 Window::~Window()
