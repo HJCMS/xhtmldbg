@@ -214,12 +214,12 @@ void Page::triggerSelections()
 * Und gebe eine Liste der Schlüsselwörter zurück.
 * Damit es nicht wegen fehlerhaften Zeigern zu abstürtzen kommt werden immer 2 Inhalte erzeugt.
 * Dabei ist first() die "keywords" und last() die "description".
-* Fehlende Inhalte werden durch @e "unavailably" ersetzt.
+* Fehlende Inhalte werden durch @e "NULL" ersetzt.
 */
 const QStringList Page::keywordMetaTagItems()
 {
   QStringList words;
-  QString missed = trUtf8 ( "unavailably" );
+  QString missed = QLatin1String ( "NULL" );
   QMultiMap<QString, QString> map = currentFrame()->metaData ();
   if ( map.values ( "keywords" ).isEmpty() )
     words << missed;
