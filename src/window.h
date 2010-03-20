@@ -58,6 +58,7 @@ class StatusBar;
 class DomInspector;
 class CookiesDock;
 class HeaderDock;
+class CSSValidator;
 
 class Window : public QMainWindow
 {
@@ -127,6 +128,8 @@ class Window : public QMainWindow
     CookiesDock* m_cookiesDock;
     // Received Headers
     HeaderDock* m_headerDock;
+    // CSS Validator
+    CSSValidator* m_cssValidator;
 
     void createMenus();
     void createToolBars();

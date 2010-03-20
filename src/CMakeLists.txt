@@ -11,6 +11,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/configdialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -21,6 +22,7 @@ ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (configdialog)
+ADD_SUBDIRECTORY (cssvalidator)
 
 SET (xhtmldbg_SOURCES
   main.cpp
@@ -85,7 +87,7 @@ ADD_EXECUTABLE (xhtmldbg
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
   SourceViewer Bookmark Docking DomInspector
-  OpenUrlDialog Networker ConfigDialog
+  OpenUrlDialog Networker ConfigDialog CSSValidator
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)

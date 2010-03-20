@@ -19,7 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "jsmessanger.h"
+#include "cssvalidator.h"
+#include "validator.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -33,12 +34,12 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QMenu>
 
-JSMessanger::JSMessanger ( QWidget * parent )
+CSSValidator::CSSValidator ( QWidget * parent )
     : QDockWidget ( parent )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
 {
-  setObjectName ( "jsmessanger" );
-  setWindowTitle ( trUtf8 ( "JavaScript Impartations" ) );
+  setObjectName ( QLatin1String ( "cssvalidator" ) );
+  setWindowTitle ( trUtf8 ( "CSS Validation" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
   m_listWidget = new QListWidget ( this );
@@ -54,17 +55,17 @@ JSMessanger::JSMessanger ( QWidget * parent )
   setWidget ( m_listWidget );
 }
 
-void JSMessanger::sortAscending()
+void CSSValidator::sortAscending()
 {
   m_listWidget->sortItems ( Qt::AscendingOrder );
 }
 
-void JSMessanger::sortDescending()
+void CSSValidator::sortDescending()
 {
   m_listWidget->sortItems ( Qt::DescendingOrder );
 }
 
-void JSMessanger::contextMenuEvent ( QContextMenuEvent *e )
+void CSSValidator::contextMenuEvent ( QContextMenuEvent *e )
 {
   QMenu* menu = new QMenu ( this );
 
@@ -83,17 +84,15 @@ void JSMessanger::contextMenuEvent ( QContextMenuEvent *e )
   menu->exec ( e->globalPos() );
 }
 
-void JSMessanger::insertMessage ( const QString &message )
+void CSSValidator::runCssCheck ( const QUrl &url )
 {
-  m_listWidget->addItem ( new QListWidgetItem ( iconNotice, message, m_listWidget ) );
-  emit itemsChanged();
+  qDebug() << Q_FUNC_INFO << url.toString();
 }
 
-void JSMessanger::clearItems()
+void CSSValidator::clearItems()
 {
   m_listWidget->clear();
 }
 
-JSMessanger::~JSMessanger()
-{
-}
+CSSValidator::~CSSValidator()
+{}

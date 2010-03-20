@@ -31,6 +31,7 @@
 #include "tidymessanger.h"
 #include "jsmessanger.h"
 #include "appevents.h"
+#include "cssvalidator.h"
 #include "bookmark.h"
 #include "historymanager.h"
 #include "historyitem.h"
@@ -119,6 +120,10 @@ Window::Window ( QSettings * settings )
   // JavaScript Nachrichtenfenster
   m_jsMessanger = new JSMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger, Qt::Horizontal );
+
+  // CSS Validator Prozess
+  m_cssValidator = new CSSValidator ( this );
+  addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
 
   // Zeige Keks Informationen
   m_cookiesDock = new CookiesDock ( this );
@@ -382,6 +387,7 @@ void Window::createToolBars()
   impartationsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
   impartationsMenu->addAction ( m_jsMessanger->toggleViewAction() );
   impartationsMenu->addAction ( m_appEvents->toggleViewAction() );
+  impartationsMenu->addAction ( m_cssValidator->toggleViewAction() );
 
   // Add RIGHT|LEFT QDockWidget View Actions to Display Menu
   QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Inspectors" ) );
@@ -445,6 +451,7 @@ void Window::requestsFinished ( bool ok )
   {
     m_domInspector->setDomTree ( m_webViewer->toWebElement() );
     m_cookiesDock->cookiesFromUrl ( m_webViewer->getUrl() );
+    m_cssValidator->runCssCheck ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );

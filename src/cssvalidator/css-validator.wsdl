@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<description xmlns="http://www.w3.org/ns/wsdl"
+  xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+  targetNamespace= "http://www.w3.org/2005/07/css-validator"
+  xmlns:tns= "http://jigsaw.w3.org/css-validator/valid"
+  xmlns:wsoap= "http://www.w3.org/ns/wsdl/soap"
+  xmlns:m="http://www.w3.org/2005/07/css-validator"
+  xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+
+  <!-- DOCUMENTATION -->
+  <documentation xml:lang="en">
+    This is the CSS validation service of the W3C
+  </documentation>
+
+  <!-- TYPES -->
+  <types>
+    <!-- SCHEMA -->
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      xmlns:m="http://www.w3.org/2005/07/css-validator"
+      targetNamespace="http://www.w3.org/2005/07/css-validator"
+      xmlns="http://www.w3.org/2005/07/css-validator"
+      elementFormDefault="qualified" >
+
+      <xs:element name="validateURI" type="m:tValidateRequestURI"/>
+      <xs:complexType name="tValidateRequestURI" >
+        <xs:sequence>
+          <xs:element name="uri" form="unqualified" type="xs:anyURI"/>
+          <xs:element name="usermedium" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="profile" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="warning" form="unqualified" type="xs:int" minOccurs="0"/>
+          <xs:element name="lang" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="output" form="unqualified" type="xs:string" fixed="soap12"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:element name="validateText" type="m:tValidateRequestText"/>
+      <xs:complexType name="tValidateRequestText" >
+        <xs:sequence>
+          <xs:element name="text" form="unqualified" type="xs:string"/>
+          <xs:element name="usermedium" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="profile" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="warning" form="unqualified" type="xs:int" minOccurs="0"/>
+          <xs:element name="lang" form="unqualified" type="xs:string" minOccurs="0"/>
+          <xs:element name="output" form="unqualified" type="xs:string" fixed="soap12"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:element name="cssvalidationresponse" type="m:tCssvalidationresponse" />
+      <xs:complexType name="tCssvalidationresponse">
+        <xs:sequence>
+          <xs:element name="uri" type="xs:anyURI"/>
+          <xs:element name="checkedby" type="xs:anyURI"/>
+          <xs:element name="csslevel" type="xs:string"/>
+          <xs:element name="date" type="xs:date"/>
+          <xs:element name="validity" type="xs:boolean"/>
+          <xs:element name="result" type="m:tResult" />
+        </xs:sequence>
+        <xs:attribute ref="soap:encodingStyle" use="required"/>
+      </xs:complexType>
+
+      <xs:complexType name="tResult" >
+        <xs:sequence>
+          <xs:element name="errors" type="m:tErrors" />
+          <xs:element name="warnings" type="m:tWarnings" />
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="tErrors" >
+        <xs:sequence>
+          <xs:element name="errorcount" type="xs:integer" />
+          <xs:element maxOccurs="unbounded" name="errorlist" type="m:tErrorlist" />
+        </xs:sequence>
+        <xs:attribute ref="xml:lang" use="required"/>
+      </xs:complexType>
+
+      <xs:complexType name="tErrorlist" >
+        <xs:sequence>
+          <xs:element name="uri" type="xs:anyURI" />
+          <xs:element maxOccurs="unbounded" name="error" type="m:tError" />
+        </xs:sequence>
+      </xs:complexType>
+
+
+      <xs:complexType name="tError">
+        <xs:sequence>
+          <xs:element name="line" type="xs:integer"/>
+          <xs:element name="errortype" type="xs:string" />
+          <xs:element minOccurs="0" name="context" type="xs:string" />
+          <xs:element minOccurs="0" name="message" type="xs:string" />
+          <xs:element minOccurs="0" name="property" type="xs:string" />
+          <xs:element minOccurs="0" name="errorsubtype" type="xs:string" />
+          <xs:element minOccurs="0" name="skippedstring" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+
+
+      <xs:complexType name="tWarnings">
+        <xs:sequence>
+          <xs:element name="warningcount" type="xs:integer" />
+          <xs:element maxOccurs="unbounded" name="warninglist" type="m:tWarninglist"/>
+        </xs:sequence>
+        <xs:attribute ref="xml:lang" use="required"/>
+      </xs:complexType>
+
+      <xs:complexType name="tWarninglist">
+        <xs:sequence>
+          <xs:element name="uri" type="xs:anyURI" />
+          <xs:element maxOccurs="unbounded" name="warning" type="m:tWarning" />
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:complexType name="tWarning">
+        <xs:sequence>
+          <xs:element name="line" type="xs:integer" />
+          <xs:element name="level" type="xs:integer" />
+          <xs:element name="message" type="xs:string"/>
+          <xs:element minOccurs="0" name="context" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+
+      <xs:element name="errordetail" type="xs:string"/>
+    </xs:schema>
+  </types>
+
+  <!-- INTERFACE -->
+  <interface name = "validationInterface" >
+
+    <fault name = "invalidDataFault" element = "tns:invalidDataError"/>
+    <fault name = "processingFault" element = "tns:errordetail"/>
+
+    <operation name="validiteURI" pattern="http://www.w3.org/ns/wsdl/in-out"
+      style="http://www.w3.org/ns/wsdl/style/iri" wsdlx:safe = "true">
+      <input messageLabel="In" element="m:validateURI" />
+      <output messageLabel="Out" element="m:cssvalidationresponse" />
+      <outfault ref="tns:invalidDataFault" messageLabel="Out" />
+      <outfault ref="tns:processingFault" messageLabel="Out" />
+    </operation>
+
+    <operation name="validiteText" pattern="http://www.w3.org/ns/wsdl/in-out"
+      style="http://www.w3.org/ns/wsdl/style/iri" wsdlx:safe = "true">
+      <input messageLabel="In" element="m:validateText" />
+      <output messageLabel="Out" element="m:cssvalidationresponse" />
+      <outfault ref="tns:invalidDataFault" messageLabel="Out" />
+      <outfault ref="tns:processingFault" messageLabel="Out" />
+    </operation>
+
+  </interface>
+
+  <!-- BINDING -->
+  <binding name="validationSOAPBinding"
+    interface="tns:validationInterface"
+    type="http://www.w3.org/ns/wsdl/soap"
+    wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP">
+    <fault ref="tns:invalidDataFault" wsoap:code="soap:Sender"/>
+    <fault ref="tns:processingFault" wsoap:code="soap:Receiver"/>
+    <operation ref="tns:validateURI"
+              wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
+
+    <operation ref="tns:validateText"
+              wsoap:mep="http://www.w3.org/2003/05/soap/mep/soap-response"/>
+  </binding>
+
+  <!-- SERVICE -->
+  <service name="validationService" interface="tns:validationInterface">
+    <endpoint name="validationEndpoint" binding="tns:validationSOAPBinding"
+              address ="http://jigsaw.w3.org/css-validator/validator"/>
+  </service>
+
+</description>
