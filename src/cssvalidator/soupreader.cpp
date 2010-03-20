@@ -36,9 +36,50 @@ SoupReader::SoupReader ( QObject * parent )
   setObjectName ( QLatin1String ( "soupreader" ) );
 }
 
-const QDomNode SoupReader::errorlistNode ( int index )
+const QString SoupReader::prepareMessage ( const QDomNode &node ) const
 {
-  return dom.elementsByTagName ( "m:errorlist" ).item ( index );
+  //nodeItem( nodes.item(i).firstChild() );
+  QString value;
+  if ( ! node.isElement() )
+    return value;
+
+  QDomElement element = node.toElement();
+  if ( ! element.hasChildNodes() )
+    return value;
+
+  QStringList exclude ( "m:errortype" );
+  exclude << "m:errorsubtype" << "m:skippedstring";
+
+  QStringList messages ( trUtf8 ( "Line" ) );
+  for ( QDomNode n = element.firstChild(); !n.isNull(); n = n.nextSibling() )
+  {
+    QDomText t = n.firstChild().toText();
+    if ( !t.isNull() && ! exclude.contains ( n.nodeName() ) )
+      messages << t.data().trimmed();
+  }
+
+  if ( messages.size() > 2 )
+    return messages.join ( " " );
+
+  return value;
+}
+
+const QDomElement SoupReader::errorListNode ( int index )
+{
+  QDomNode node = dom.elementsByTagName ( "m:errorlist" ).item ( index );
+  if ( node.isElement() )
+    return node.toElement();
+
+  return QDomElement();
+}
+
+const QDomElement SoupReader::warningListNode ( int index )
+{
+  QDomNode node = dom.elementsByTagName ( "m:warninglist" ).item ( index );
+  if ( node.isElement() )
+    return node.toElement();
+
+  return QDomElement();
 }
 
 const QString SoupReader::nodeItem ( const QDomNode &node ) const
@@ -65,10 +106,15 @@ const QString SoupReader::nodeItem ( const QDomNode &node ) const
 **/
 void SoupReader::readAllErrors()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
-  QDomNodeList nodes = dom.elementsByTagName ( "m:validity" );
+  QDomNodeList nodes = errorListNode().elementsByTagName ( "m:error" );
+  for ( int i = 0; i < nodes.count(); i++ )
+  {
+    QString buffer = prepareMessage ( nodes.item ( i ) );
+    if ( buffer.isEmpty() )
+      continue;
 
-  readAllWarnings();
+    emit parserError ( buffer );
+  }
 }
 
 /**
@@ -123,6 +169,8 @@ bool SoupReader::readReceivedXML ( const QString &xml )
 
   if ( hasErrors() )
     readAllErrors();
+
+  // TODO readAllWarnings();
 
   return true;
 }

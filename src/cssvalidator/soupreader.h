@@ -39,8 +39,9 @@ class SoupReader : public QObject
 
   private:
     QDomDocument dom;
-    QDomElement node;
-    const QDomNode errorlistNode ( int index = 0 );
+    const QString prepareMessage ( const QDomNode & ) const;
+    const QDomElement errorListNode ( int index = 0 );
+    const QDomElement warningListNode ( int index = 0 );
     const QString nodeItem ( const QDomNode & ) const;
     void readAllErrors();
     void readAllWarnings();

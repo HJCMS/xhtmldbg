@@ -76,7 +76,7 @@ class CSSValidator : public QDockWidget
 
   public:
     CSSValidator ( QWidget * parent = 0, QSettings * settings = 0 );
-    ~CSSValidator();
+    virtual ~CSSValidator();
 };
 
 #endif

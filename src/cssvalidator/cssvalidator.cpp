@@ -185,7 +185,7 @@ void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
   switch ( stat )
   {
     case QProcess::NormalExit:
-      noticeItem ( trUtf8 ( "CSS Validation finished." ) );
+      // noticeItem ( trUtf8 ( "CSS Validation finished." ) );
       m_validator->waitForFinished ( 50 );
       break;
 
@@ -222,4 +222,7 @@ void CSSValidator::readStandardReply ()
 }
 
 CSSValidator::~CSSValidator()
-{}
+{
+  if ( m_validator->isRunning() )
+    m_validator->kill();
+}
