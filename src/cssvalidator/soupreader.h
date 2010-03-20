@@ -19,37 +19,42 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef VALIDATOR_H
-#define VALIDATOR_H
+#ifndef SOUPREADER_H
+#define SOUPREADER_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QProcess>
-#include <QtCore/QSettings>
-#include <QtCore/QProcessEnvironment>
+#include <QtCore/QString>
 
-class Validator : public QProcess
+/* QtXml */
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomNode>
+
+class SoupReader : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QProcessEnvironment p_env;
-    QStringList parameters;
+    QDomDocument dom;
+    QDomElement node;
+    const QDomNode errorlistNode ( int index = 0 );
+    const QString nodeItem ( const QDomNode & ) const;
+    void readAllErrors();
+    void readAllWarnings();
+    bool hasErrors();
 
   Q_SIGNALS:
-    void running ();
-    void down ();
-
-  public Q_SLOTS:
-    bool isRunning();
+    void congratulation ( const QString & );
+    void warnings ( const QString & );
+    void parserError ( const QString & );
 
   public:
-    Validator ( QObject * parent = 0 );
-    void setEnviromentVariable ( QSettings * );
-    bool validate ( const QString &url );
-    ~Validator();
+    SoupReader ( QObject * parent = 0 );
+    bool readReceivedXML ( const QString & );
+    ~SoupReader();
 };
 
 #endif

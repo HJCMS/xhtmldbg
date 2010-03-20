@@ -3,16 +3,19 @@
 SET (cssvalidator_SOURCES
   validator.cpp
   cssvalidator.cpp
+  soupreader.cpp
 )
 
 SET (cssvalidator_HEADERS
   validator.h
   cssvalidator.h
+  soupreader.h
+)
+
+SET (cssvalidator_NOMOC
 )
 
 QT4_WRAP_CPP (cssvalidator_MOC ${cssvalidator_HEADERS})
-
-QT4_ADD_RESOURCES (cssvalidator_RESRC cssvalidator.qrc)
 
 ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 
@@ -23,7 +26,7 @@ INCLUDE_DIRECTORIES (
 
 ADD_LIBRARY (CSSValidator STATIC
   ${cssvalidator_MOC}
-  ${cssvalidator_RESRC}
+  ${cssvalidator_NOMOC}
   ${cssvalidator_HEADERS}
   ${cssvalidator_SOURCES}
 )
@@ -32,6 +35,7 @@ TARGET_LINK_LIBRARIES (CSSValidator
   ${QT_QTMAIN_LIBRARY}
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  ${QT_QTXML_LIBRARY}
 )
 
 ## EOF

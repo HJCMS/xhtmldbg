@@ -122,7 +122,7 @@ Window::Window ( QSettings * settings )
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger, Qt::Horizontal );
 
   // CSS Validator Prozess
-  m_cssValidator = new CSSValidator ( this );
+  m_cssValidator = new CSSValidator ( this, m_settings );
   addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
 
   // Zeige Keks Informationen

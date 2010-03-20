@@ -30,11 +30,90 @@
 Validator::Validator ( QObject * parent )
     : QProcess ( parent )
     , p_env ( QProcessEnvironment::systemEnvironment() )
+    , parameters ( 0 )
 {
   setObjectName ( QLatin1String ( "validator" ) );
-  // Add CLASSPATH Environment Variable
-  p_env.insert ( "CLASSPATH", ".:/home/heinemann/hjcms/xhtmldbg/src/cssvalidator/WEB-INF/lib:/usr/share/java" );
-  setProcessEnvironment ( p_env );
+  setProcessChannelMode ( QProcess::SeparateChannels );
+  setReadChannel ( QProcess::StandardOutput );
+  setStandardErrorFile ( "/tmp/xhtmldbg.log" );
+}
+
+void Validator::setEnviromentVariable ( QSettings * cfg )
+{
+  if ( !cfg )
+    return;
+
+  QStringList clList ( "." );
+  QString libdir = cfg->value ( "classpath", QLatin1String ( "/usr/share/java/css-validator" ) ).toString();
+  QDir dir ( libdir );
+  if ( dir.exists() )
+  {
+    foreach ( QString jar, dir.entryList ( QStringList ( "*.jar" ), QDir::Files, QDir::Name ) )
+    {
+      clList << dir.dirName() + dir.separator() + jar;
+    }
+
+    if ( clList.isEmpty() )
+      return;
+
+//     p_env.insert ( "CLASSPATH", clList.join ( ":" ) );
+//     setProcessEnvironment ( p_env );
+
+    QString w3c = cfg->value ( "validator", QLatin1String ( "/usr/share/java/css-validator.jar" ) ).toString();
+    QFileInfo info ( w3c );
+    if ( info.exists() )
+    {
+      parameters.clear();
+      parameters << "-classpath" << clList.join ( ":" );
+      parameters << "-jar" << info.fileName() << "--output=soap12" << "--warning=2";
+      parameters << "--profile=css21" << "--lang=de";
+      setWorkingDirectory ( info.absolutePath() );
+    }
+  }
+}
+
+bool Validator::isRunning()
+{
+  switch ( state() )
+  {
+    case QProcess::NotRunning:
+    {
+      emit down ();
+      return false;
+    }
+
+    case QProcess::Starting:
+    {
+      emit running ();
+      return true;
+    }
+
+    case QProcess::Running:
+    {
+      emit running ();
+      return true;
+    }
+
+    default:
+    {
+      emit down ();
+      return false;
+    }
+  }
+}
+
+bool Validator::validate ( const QString &url )
+{
+  if ( url.isEmpty() )
+    return false;
+
+  if ( parameters.size() < 5 )
+    return false;
+
+  parameters << url;
+  start ( "java", parameters );
+  // qDebug() << Q_FUNC_INFO << parameters;
+  return true;
 }
 
 Validator::~Validator()

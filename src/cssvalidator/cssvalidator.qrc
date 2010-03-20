@@ -1,7 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-  <qresource prefix="/" >
-    <file>css-validator.xml</file>
-    <file>css-validator.wsdl</file>
-  </qresource>
-</RCC>

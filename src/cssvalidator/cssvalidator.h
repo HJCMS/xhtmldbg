@@ -24,6 +24,8 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QProcess>
+#include <QtCore/QSettings>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -34,6 +36,7 @@
 #include <QtGui/QIcon>
 
 class Validator;
+class SoupReader;
 
 class CSSValidator : public QDockWidget
 {
@@ -42,13 +45,24 @@ class CSSValidator : public QDockWidget
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
+    QSettings* cfg;
     Validator* m_validator;
+    SoupReader* m_soupReader;
     QListWidget* m_listWidget;
     const QIcon iconNotice;
+    const QIcon iconWarning;
+    const QIcon iconCritical;
+    void readInputData ( const QByteArray & );
 
   private Q_SLOTS:
     void sortAscending();
     void sortDescending();
+    void noticeItem ( const QString & );
+    void warningItem ( const QString & );
+    void criticalItem ( const QString & );
+    void errors ( QProcess::ProcessError );
+    void exited ( int, QProcess::ExitStatus );
+    void readStandardReply ();
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
@@ -61,7 +75,7 @@ class CSSValidator : public QDockWidget
     void clearItems();
 
   public:
-    CSSValidator ( QWidget * parent = 0 );
+    CSSValidator ( QWidget * parent = 0, QSettings * settings = 0 );
     ~CSSValidator();
 };
 
