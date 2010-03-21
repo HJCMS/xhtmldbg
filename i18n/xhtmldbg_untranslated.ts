@@ -415,56 +415,87 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="479"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="485"/>
         <source>Notice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="480"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="486"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="527"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="546"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="533"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="551"/>
         <source>PKCS#12 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="528"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="545"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="534"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="550"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="530"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="548"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="536"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="553"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="563"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="567"/>
         <source>CA Bundle %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="564"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="568"/>
         <source>Certificate %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="566"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="570"/>
         <source>Open CA Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="581"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="584"/>
+        <source>Java %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="585"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="601"/>
+        <source>All %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="586"/>
+        <source>Find Java Application</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="600"/>
+        <source>Java-Archive %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="602"/>
+        <source>Find W3C CSS Validator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="615"/>
+        <source>Find W3C CSS Validator Java-Archive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configdialog/configdialog.cpp" line="629"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="582"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="630"/>
         <source>Found unsaved Changes.
 Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>

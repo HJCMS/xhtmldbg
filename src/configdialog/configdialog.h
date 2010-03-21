@@ -80,6 +80,9 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     void getPrivKeyDialog();
     void getPupKeyDialog();
     void getCaCertDatabaseDialog();
+    void getJavaDialog();
+    void getCSSValidatorDialog();
+    void getClassPathDialog();
     void quit();
 
   public:

@@ -88,6 +88,9 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   openCaCertButton->setIcon ( openFolderIcon );
   openPupKeyButton->setIcon ( openFolderIcon );
   openPrivKeyButton->setIcon ( openFolderIcon );
+  css_appl_btn->setIcon ( openFolderIcon );
+  css_validator_btn->setIcon ( openFolderIcon );
+  css_classpath_btn->setIcon ( openFolderIcon );
   clearPassButton->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   removeFromWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   addToWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
@@ -147,6 +150,9 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( openPrivKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPrivKeyDialog() ) );
   connect ( openPupKeyButton, SIGNAL ( clicked() ), this, SLOT ( getPupKeyDialog() ) );
   connect ( openCaCertButton, SIGNAL ( clicked() ), this, SLOT ( getCaCertDatabaseDialog() ) );
+  connect ( css_appl_btn, SIGNAL ( clicked() ), this, SLOT ( getJavaDialog() ) );
+  connect ( css_validator_btn, SIGNAL ( clicked() ), this, SLOT ( getCSSValidatorDialog() ) );
+  connect ( css_classpath_btn, SIGNAL ( clicked() ), this, SLOT ( getClassPathDialog() ) );
   connect ( removeFromWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( delTrustedHost() ) );
   connect ( addToWhiteListBtn, SIGNAL ( clicked() ), this, SLOT ( addTrustedHost() ) );
   connect ( clearWhiteListBtn, SIGNAL ( clicked() ), trustedHostsList, SLOT ( clear() ) );
@@ -529,13 +535,12 @@ void ConfigDialog::getPrivKeyDialog()
 
   path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
 
-  sslPrivateKey->clear();
-
   QFileInfo db ( path );
   if ( db.exists() )
+  {
     sslPrivateKey->setText ( db.absoluteFilePath() );
-
-  setModified();
+    setModified();
+  }
 }
 
 void ConfigDialog::getPupKeyDialog()
@@ -547,13 +552,12 @@ void ConfigDialog::getPupKeyDialog()
 
   path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
 
-  sslPublicKey->clear();
-
   QFileInfo db ( path );
   if ( db.exists() )
+  {
     sslPublicKey->setText ( db.absoluteFilePath() );
-
-  setModified();
+    setModified();
+  }
 }
 
 void ConfigDialog::getCaCertDatabaseDialog()
@@ -565,13 +569,57 @@ void ConfigDialog::getCaCertDatabaseDialog()
 
   path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open CA Database" ), path, filt.join ( ";;" ) );
 
-  sslCaCertsDatabase->clear ();
-
   QFileInfo db ( path );
   if ( db.exists() )
+  {
     sslCaCertsDatabase->setText ( db.absoluteFilePath() );
+    setModified();
+  }
+}
 
-  setModified();
+void ConfigDialog::getJavaDialog()
+{
+  QString path ( css_appl->text() );
+  QStringList filt;
+  filt << trUtf8 ( "Java %1" ).arg ( "*java*" );
+  filt << trUtf8 ( "All %1" ).arg ( "*" );
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Find Java Application" ),
+                                        QString ( "/usr/bin" ), filt.join ( ";;" ) );
+  QFileInfo db ( path );
+  if ( db.exists() )
+  {
+    css_appl->setText ( db.absoluteFilePath() );
+    setModified();
+  }
+}
+
+void ConfigDialog::getCSSValidatorDialog()
+{
+  QString path ( css_validator->text() );
+  QStringList filt;
+  filt << trUtf8 ( "Java-Archive %1" ).arg ( "*.jar" );
+  filt << trUtf8 ( "All %1" ).arg ( "*" );
+  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Find W3C CSS Validator" ),
+                                        QString ( "/usr/share/java" ), filt.join ( ";;" ) );
+  QFileInfo db ( path );
+  if ( db.exists() )
+  {
+    css_validator->setText ( db.absoluteFilePath() );
+    setModified();
+  }
+}
+
+void ConfigDialog::getClassPathDialog()
+{
+  QString path ( css_classpath->text() );
+  path = QFileDialog::getExistingDirectory ( this, trUtf8 ( "Find W3C CSS Validator Java-Archive" ),
+          QString ( "/usr/share/java" ) );
+  QFileInfo db ( path );
+  if ( db.exists() )
+  {
+    css_classpath->setText ( db.absoluteFilePath() );
+    setModified();
+  }
 }
 
 void ConfigDialog::quit()
