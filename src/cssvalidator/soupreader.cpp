@@ -22,13 +22,10 @@
 #include "soupreader.h"
 
 /* QtCore */
-#include <QtCore>
-// #include <QtCore/QDir>
-// #include <QtCore/QFileInfo>
-// #include <QtCore/QTextStream>
-
-/* QtGui */
-#include <QtGui>
+#include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QTextStream>
 
 SoupReader::SoupReader ( QObject * parent )
     : QObject ( parent )
@@ -64,6 +61,12 @@ const QString SoupReader::prepareMessage ( const QDomNode &node ) const
   return value;
 }
 
+/**
+* Suche m:errorlist Element
+* @code
+*   <m:errorlist>...</m:errorlist>
+* @endcode
+**/
 const QDomElement SoupReader::errorListNode ( int index )
 {
   QDomNode node = dom.elementsByTagName ( "m:errorlist" ).item ( index );
@@ -73,6 +76,12 @@ const QDomElement SoupReader::errorListNode ( int index )
   return QDomElement();
 }
 
+/**
+* Suche m:warninglist Element
+* @code
+*   <m:warninglist>...</m:warninglist>
+* @endcode
+**/
 const QDomElement SoupReader::warningListNode ( int index )
 {
   QDomNode node = dom.elementsByTagName ( "m:warninglist" ).item ( index );
@@ -125,11 +134,19 @@ void SoupReader::readAllErrors()
 **/
 void SoupReader::readAllWarnings()
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  QDomNodeList nodes = warningListNode().elementsByTagName ( "m:warning" );
+  for ( int i = 0; i < nodes.count(); i++ )
+  {
+    QString buffer = prepareMessage ( nodes.item ( i ) );
+    if ( buffer.isEmpty() )
+      continue;
+
+    emit warnings ( buffer );
+  }
 }
 
 /**
-* Wenn m:validity trus ist dann nicht weiter nach fehlern suchen.
+* Wenn m:validity true ist dann nicht weiter nach fehlern suchen.
 * @code
 *   <m:validity>true</m:validity>
 * @endcode
@@ -145,19 +162,11 @@ bool SoupReader::hasErrors()
   return true;
 }
 
-bool SoupReader::readReceivedXML ( const QString &xml )
+bool SoupReader::readReceivedXML ( const QByteArray &xml )
 {
   QString errorMsg;
   int errorLine;
   int errorColumn;
-
-  if ( ! dom.setContent ( xml, &errorMsg, &errorLine, &errorColumn ) )
-  {
-    QString erdom = QString ( "%1 at Line %2 Column %3" )
-                    .arg ( errorMsg, QString::number ( errorLine ), QString::number ( errorColumn ) );
-    emit parserError ( erdom );
-    return false;
-  }
 
   QFile fp ( "/tmp/xhtmldbg_parsing.xml" );
   if ( fp.open ( QIODevice::WriteOnly ) )
@@ -167,10 +176,18 @@ bool SoupReader::readReceivedXML ( const QString &xml )
     fp.close();
   }
 
+  if ( ! dom.setContent ( xml, &errorMsg, &errorLine, &errorColumn ) )
+  {
+    QString erdom = QString ( "%1 at Line %2 Column %3" )
+                    .arg ( errorMsg, QString::number ( errorLine ), QString::number ( errorColumn ) );
+    emit parserError ( erdom );
+    return false;
+  }
+
   if ( hasErrors() )
     readAllErrors();
 
-  // TODO readAllWarnings();
+  readAllWarnings();
 
   return true;
 }

@@ -25,6 +25,8 @@
 #include "validatormenu.h"
 #include "cssconfigure.h"
 
+#include <climits>
+
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QList>
@@ -134,6 +136,8 @@ void CSSValidator::doubleClicked ( QListWidgetItem * item )
     else
       warningItem ( trUtf8 ( "CSS Validator says: Invalid Url and denies this request." ) );
   }
+  else
+    qWarning ( "QT::BUG (%d) demolished QListWidgetItem ", __LINE__ );
 }
 
 /**
@@ -141,10 +145,12 @@ void CSSValidator::doubleClicked ( QListWidgetItem * item )
 */
 void CSSValidator::processTriggered()
 {
+  soupData.clear();
   setCursor ( Qt::WaitCursor );
   clearItems();
-  QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( m_validator->getValidation() );
-  noticeItem ( message );
+  QString url = m_validator->getValidation();
+  QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( url );
+  placeUrlItem ( message, QUrl(url) );
 }
 
 /**
@@ -182,7 +188,7 @@ void CSSValidator::placeUrlItem ( const QString &message, const QUrl &url )
 {
   QListWidgetItem* item = new QListWidgetItem ( iconNotice, message );
   item->setData ( Qt::UserRole, url );
-  item->setData ( Qt::ToolTipRole, url.toString() );
+  item->setToolTip ( url.toString() );
   m_listWidget->addItem ( item );
 }
 
@@ -219,7 +225,9 @@ void CSSValidator::contextMenuEvent ( QContextMenuEvent *e )
 }
 
 /**
-* Wenn kein Prozess am laufen ist die Sanduhr entfernen.
+* Dieser Listener sorgt dafür das - wenn kein Prozess
+* am laufen ist die Sanduhr entfernt wird.
+* Sollte Eigentlich nicht passieren ;)
 */
 void CSSValidator::mouseMoveEvent ( QMouseEvent * e )
 {
@@ -229,10 +237,12 @@ void CSSValidator::mouseMoveEvent ( QMouseEvent * e )
 }
 
 /**
-* In diesem Slot wird die Url für die Überprüfung entgegen
-* genommen. Dabei wird immer Passwort und Fragment entfernt.
-* Gleichzeitig geht ein Hinweis in das Listenfeld.
-*
+* In diesem Slot wird die Url für die Überprüfung entgegen genommen.
+* Dabei wird immer das Passwort und die Anker entfernt.
+* Gleichzeitig geht ein Hinweis in das Listenfeld das eine Adresse
+* zum Validieren zu vefügung steht.
+* Zum abschluss wir die Adress an @ref Validator::setValidation weiter
+* geleitet.
 */
 void CSSValidator::addForValidation ( const QUrl &url )
 {
@@ -245,11 +255,18 @@ void CSSValidator::addForValidation ( const QUrl &url )
   }
 }
 
+/**
+* Öffentlicher Slot für das leeren des Listenfensters
+*/
 void CSSValidator::clearItems()
 {
   m_listWidget->clear();
 }
 
+/**
+* Im fehlerfall die Meldungen abfangen und das Liste Fenster
+* senden. Danach den Schreib- Lesemodus beenden!
+*/
 void CSSValidator::errors ( QProcess::ProcessError err )
 {
   QString errtxt = m_validator->errorString();
@@ -282,17 +299,25 @@ void CSSValidator::errors ( QProcess::ProcessError err )
   m_validator->close();
 }
 
+/**
+* Wenn der Prozess beendet wurde nachsehen welcher status
+* dieser zurück gegeben hat. Ist das beenden suaber verlaufen
+* schliesse den Schreibmodus und gebe dem LesenModus 100
+* Millisekunden Zeit für eine Antwort.
+* Zum abschluss Schließe die Verbindung!
+*/
 void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
 {
   Q_UNUSED ( exitCode )
   switch ( stat )
   {
     case QProcess::NormalExit:
-      m_validator->waitForFinished ( 50 );
+      m_validator->closeWriteChannel ();
       break;
 
     case QProcess::CrashExit:
       criticalItem ( trUtf8 ( "Crashed see logfiles" ) );
+      m_validator->close();
       break;
 
     default:
@@ -301,6 +326,11 @@ void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
   m_validator->close();
 }
 
+/**
+* Methode zum öffnen des CSS Konfigurations Dialoges.
+* Bei einem gültigen beenden werden die Umgebungswerte
+* mit @ref Validator::setEnviromentVariable neu eingelesen.
+*/
 void CSSValidator::openConfigurationDialog()
 {
   CSSConfigure* dialog = new CSSConfigure ( this, cfg );
@@ -310,31 +340,36 @@ void CSSValidator::openConfigurationDialog()
   delete dialog;
 }
 
-void CSSValidator::readInputData ( const QByteArray &data )
-{
-  QString soup ( data );
-  if ( soup.isEmpty() || soup.contains ( QRegExp ( "^[\\s]?\\{.+\\}[\\s\\n\\r]" ) ) )
-    return;
-
-  if ( m_soupReader->readReceivedXML ( soup.trimmed() ) )
-    m_validator->closeReadChannel ( QProcess::StandardOutput );
-}
-
 /**
-* Der css-validator
+* Bei Antworten des CSS-Validierers nach sehen ob es
+* sich um ein XML-Deklaration handelt! Wenn nicht,
+* verwerfen und die weiteren DatenStröme einlesen.
+* In der Regel wirft der Validator 3 Datenströme.
+* @li {...} Hinweiss über die übergebene Konfiguration
+* @li       Zur Trennnung einen Leeren Datenstrom
+* @li <?xml Das XML-Dokument
+* Wenn der Datenstrom eingelesen werden konnte dann diesen
+* an die Methode @ref SoupReader::readReceivedXML weiterleiten.
+* Gibt diese Methode true zurück den Lesespeicher wieder
+* freigeben und die Mausanzeige zurück auf normal stellen!
 */
 void CSSValidator::readStandardReply ()
 {
   QByteArray data = m_validator->readAllStandardOutput();
-  if ( data.startsWith ( QByteArray ( "{" ) ) || data.size() < 50 )
+  if ( data.startsWith ( QByteArray ( "{output=soap12" ) ) || data.size() < 50 )
     return;
 
-  readInputData ( data );
-  setCursor ( Qt::ArrowCursor );
+  soupData.append ( data );
+
+  if ( m_validator->waitForFinished ( 100 ) )
+  {
+    if ( m_soupReader->readReceivedXML ( soupData ) )
+      m_validator->closeReadChannel ( QProcess::StandardOutput );
+
+    setCursor ( Qt::ArrowCursor );
+  }
 }
 
 CSSValidator::~CSSValidator()
 {
-  if ( m_validator->isRunning() )
-    m_validator->kill();
 }

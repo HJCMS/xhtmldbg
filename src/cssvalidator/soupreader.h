@@ -23,6 +23,7 @@
 #define SOUPREADER_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
@@ -54,7 +55,7 @@ class SoupReader : public QObject
 
   public:
     SoupReader ( QObject * parent = 0 );
-    bool readReceivedXML ( const QString & );
+    bool readReceivedXML ( const QByteArray & );
     ~SoupReader();
 };
 

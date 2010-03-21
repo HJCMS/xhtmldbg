@@ -22,6 +22,7 @@
 #include "validator.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QIODevice>
@@ -40,7 +41,7 @@ Validator::Validator ( QObject * parent )
   setProcessChannelMode ( QProcess::SeparateChannels );
   setReadChannel ( QProcess::StandardOutput );
   if ( errorLog.open () )
-    setStandardErrorFile ( errorLog.fileName() );
+    setStandardErrorFile ( QDir::tempPath() + QDir::separator() + errorLog.fileName() );
 
   connect ( this, SIGNAL ( readyRead () ), this, SLOT ( cleaning() ) );
 }
@@ -48,6 +49,9 @@ Validator::Validator ( QObject * parent )
 const QString Validator::param ( const QString &key, QSettings * cfg ) const
 {
   QMap<QString,QString> map;
+  map["css_appl"] = "java";
+  map["css_classpath"] = "/usr/share/java/css-validator";
+  map["css_validator"] = "/usr/share/java/css-validator.jar";
   map["css_profile"] = "css2";
   map["css_lang"] = "en";
   map["css_medium"] = "all";
@@ -68,12 +72,11 @@ void Validator::setEnviromentVariable ( QSettings * cfg )
     return;
 
   // Pfad zum Java Programm
-  javaAppl = cfg->value ( "css_appl", QLatin1String ( "java" ) ).toString();
+  javaAppl = param ( "css_appl", cfg );
 
   QStringList clList ( "." );
   // Klassen Pfad des W3C Validierers
-  QString libdir = cfg->value ( "css_classpath", QLatin1String ( "/usr/share/java/css-validator" ) ).toString();
-  QDir dir ( libdir );
+  QDir dir ( param ( "css_classpath", cfg ) );
   if ( dir.exists() )
   {
     foreach ( QString jar, dir.entryList ( QStringList ( "*.jar" ), QDir::Files, QDir::Name ) )
@@ -82,11 +85,13 @@ void Validator::setEnviromentVariable ( QSettings * cfg )
     }
 
     if ( clList.isEmpty() )
+    {
+      qWarning ( "(%d) empty validador parameter list", __LINE__ );
       return;
+    }
 
     // Pfad zur W3C Validierer Datei
-    QString w3c = cfg->value ( "css_validator", QLatin1String ( "/usr/share/java/css-validator.jar" ) ).toString();
-    QFileInfo info ( w3c );
+    QFileInfo info ( param ( "css_validator", cfg ) );
     if ( info.exists() )
     {
       parameters.clear();
@@ -125,10 +130,7 @@ bool Validator::isRunning()
     }
 
     default:
-    {
-      emit down ();
       return false;
-    }
   }
 }
 
@@ -171,4 +173,7 @@ void Validator::validate()
 }
 
 Validator::~Validator()
-{}
+{
+  if ( isRunning() )
+    kill();
+}

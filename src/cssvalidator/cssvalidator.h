@@ -56,9 +56,10 @@ class CSSValidator : public QDockWidget
     ValidatorMenu* m_menu;
     Validator* m_validator;
     SoupReader* m_soupReader;
+    QByteArray soupData;
 
     void openConfigurationDialog();
-    void readInputData ( const QByteArray & );
+    void placeUrlItem ( const QString &, const QUrl & );
 
   private Q_SLOTS:
     void processTriggered();
@@ -66,7 +67,6 @@ class CSSValidator : public QDockWidget
     void sortAscending();
     void sortDescending();
     void openConfig();
-    void placeUrlItem ( const QString &, const QUrl & );
     void noticeItem ( const QString & );
     void warningItem ( const QString & );
     void criticalItem ( const QString & );
@@ -87,7 +87,7 @@ class CSSValidator : public QDockWidget
 
   public:
     CSSValidator ( QWidget * parent = 0, QSettings * settings = 0 );
-    virtual ~CSSValidator();
+    ~CSSValidator();
 };
 
 #endif

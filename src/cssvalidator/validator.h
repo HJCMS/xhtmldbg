@@ -61,7 +61,7 @@ class Validator : public QProcess
     const QString getValidation ();
     bool setValidation ( const QString &url );
     void setEnviromentVariable ( QSettings * );
-    ~Validator();
+    virtual ~Validator();
 };
 
 #endif
