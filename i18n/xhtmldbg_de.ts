@@ -234,62 +234,62 @@ Do you realy wan to exit?</source>
 <context>
     <name>CSSValidator</name>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="51"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="53"/>
         <source>CSS Validation</source>
         <translation>CSS Prüfung</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="129"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="131"/>
         <source>Rejected - CSS Validator is busy ...</source>
         <translation>Verworfen - Die CSS Prüfung ist beschäftigt ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="135"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="137"/>
         <source>CSS Validator says: Invalid Url and denies this request.</source>
         <translation>Der CSS Validator sagt: Ungültige Adresse und verweigert die Anfrage.</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="146"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="150"/>
         <source>Checking (%1). Please wait a little!</source>
         <translation>Prüfe (%1). Bitte warte einen Augenblick!</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="243"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="251"/>
         <source>To take in &quot;%1&quot; for Validation.</source>
         <translation>Nehme &quot;%1&quot; für die Überprüfung an.</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="259"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="274"/>
         <source>FailedToStart (%1) ...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="263"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="278"/>
         <source>Crashed (%1) ...</source>
         <translation>Abgestürzt (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="267"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="282"/>
         <source>Timedout (%1) ...</source>
         <translation>Zeitüberschreitung (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="271"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="286"/>
         <source>WriteError (%1) ...</source>
         <translation>Schreibfehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="275"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="290"/>
         <source>ReadError (%1) ...</source>
         <translation>Lesefehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="279"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="294"/>
         <source>UnknownError (%1) ...</source>
         <translation>Unbekannter Fehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="295"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="317"/>
         <source>Crashed see logfiles</source>
         <translation>Abgestürzt - Sehe die Logdateien ein</translation>
     </message>
@@ -1443,12 +1443,12 @@ Gründe : </translation>
 <context>
     <name>SoupReader</name>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="53"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="50"/>
         <source>Line</source>
         <translation>Zeile</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="142"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="159"/>
         <source>Congratulations! No Error Found.</source>
         <translation>Gratuliere! Keine Fehler gefunden.</translation>
     </message>
@@ -1538,7 +1538,7 @@ Gründe : </translation>
 <context>
     <name>Validator</name>
     <message>
-        <location filename="../src/cssvalidator/validator.cpp" line="163"/>
+        <location filename="../src/cssvalidator/validator.cpp" line="165"/>
         <source>to deny access for this reason missing url. Please note: The CSS Validator discarded shared url&apos;s! Remedy: reload the page.</source>
         <translation>Der Zugriff wurde wegen fehlender Adresse verweigert. Beachte bitte: Der CSS Validierer verwirft nach Verwendung die Adresse! Abhilfe: Die Seite neu laden.</translation>
     </message>

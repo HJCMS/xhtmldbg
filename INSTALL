@@ -8,6 +8,8 @@ General "xhtmldbg" Requirements:
   -  qtidyrc >= 0.7.2 (required) http://qtidy.hjcms.de
   -  Tidy >= Released on 25 March 2009  (required) http://tidy.sourceforge.net
   -  Oxygen Icon Theme >= 4.4.0 (required) ftp://ftp.kde.org/pub/kde/stable/
+  -  Java Binary >= 1.5.0
+  -  W3C Validator from CVS 2010 http://jigsaw.w3.org/css-validator/DOWNLOAD.html
 
 On Windows and Mac OS X, if you want to install the precompiled binary
 packages, simply launch the package and follow the instructions in the
@@ -31,6 +33,25 @@ and GCC 4.0.1 to develop applications.
 
 4) make
 5) make DESTDIR=/tmp/test install
+6) Checking if W3C Validator works on your System
+
+#!/bin/sh
+##
+# Testscript for W3C Validator
+
+CLASSPATH=".:"
+for i in /usr/share/java/css-validator/*.jar ; do
+  CLASSPATH="$CLASSPATH:$i"
+done
+
+java -classpath "$CLASSPATH" \
+  -jar /usr/share/java/css-validator.jar \
+  --output=soap12 \
+  --medium=all \
+  --warning=1 \
+  --profile=css21 \
+  --lang=de http://www.bing.com
+
 
 INSTALL_TREE:/usr
 |-- bin
