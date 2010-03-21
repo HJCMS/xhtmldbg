@@ -32,9 +32,12 @@
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
+#include <QtGui/QMouseEvent>
 #include <QtGui/QWidget>
 #include <QtGui/QIcon>
 
+class ValidatorMenu;
 class Validator;
 class SoupReader;
 
@@ -46,17 +49,24 @@ class CSSValidator : public QDockWidget
 
   private:
     QSettings* cfg;
-    Validator* m_validator;
-    SoupReader* m_soupReader;
-    QListWidget* m_listWidget;
     const QIcon iconNotice;
     const QIcon iconWarning;
     const QIcon iconCritical;
+    QListWidget* m_listWidget;
+    ValidatorMenu* m_menu;
+    Validator* m_validator;
+    SoupReader* m_soupReader;
+
+    void openConfigurationDialog();
     void readInputData ( const QByteArray & );
 
   private Q_SLOTS:
+    void processTriggered();
+    void doubleClicked ( QListWidgetItem * );
     void sortAscending();
     void sortDescending();
+    void openConfig();
+    void placeUrlItem ( const QString &, const QUrl & );
     void noticeItem ( const QString & );
     void warningItem ( const QString & );
     void criticalItem ( const QString & );
@@ -66,12 +76,13 @@ class CSSValidator : public QDockWidget
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
+    void mouseMoveEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void itemsChanged();
 
   public Q_SLOTS:
-    void runCssCheck ( const QUrl & );
+    void addForValidation ( const QUrl & );
     void clearItems();
 
   public:

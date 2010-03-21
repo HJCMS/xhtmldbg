@@ -451,7 +451,7 @@ void Window::requestsFinished ( bool ok )
   {
     m_domInspector->setDomTree ( m_webViewer->toWebElement() );
     m_cookiesDock->cookiesFromUrl ( m_webViewer->getUrl() );
-    m_cssValidator->runCssCheck ( m_webViewer->getUrl() );
+    m_cssValidator->addForValidation ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );

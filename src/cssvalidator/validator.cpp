@@ -22,20 +22,44 @@
 #include "validator.h"
 
 /* QtCore */
-#include <QtCore>
-
-/* QtGui */
-#include <QtGui>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QIODevice>
+#include <QtCore/QMap>
+#include <QtCore/QTemporaryFile>
+#include <QtCore/QVariant>
+#include <QtCore/QProcessEnvironment>
 
 Validator::Validator ( QObject * parent )
     : QProcess ( parent )
-    , p_env ( QProcessEnvironment::systemEnvironment() )
+    , errorLog ( QString::fromUtf8 ( "xhtmldbg_validator_XXXXXX" ), parent )
     , parameters ( 0 )
+    , javaAppl ( QLatin1String ( "java" ) )
 {
   setObjectName ( QLatin1String ( "validator" ) );
   setProcessChannelMode ( QProcess::SeparateChannels );
   setReadChannel ( QProcess::StandardOutput );
-  setStandardErrorFile ( "/tmp/xhtmldbg.log" );
+  if ( errorLog.open () )
+    setStandardErrorFile ( errorLog.fileName() );
+
+  connect ( this, SIGNAL ( readyRead () ), this, SLOT ( cleaning() ) );
+}
+
+const QString Validator::param ( const QString &key, QSettings * cfg ) const
+{
+  QMap<QString,QString> map;
+  map["css_profile"] = "css2";
+  map["css_lang"] = "en";
+  map["css_medium"] = "all";
+  map["css_warning"] = "0";
+  return cfg->value ( key, map[key] ).toString();
+}
+
+void Validator::cleaning()
+{
+  url.clear();
+  if ( parameters.contains ( "http" ) )
+    parameters.removeLast();
 }
 
 void Validator::setEnviromentVariable ( QSettings * cfg )
@@ -43,8 +67,12 @@ void Validator::setEnviromentVariable ( QSettings * cfg )
   if ( !cfg )
     return;
 
+  // Pfad zum Java Programm
+  javaAppl = cfg->value ( "css_appl", QLatin1String ( "java" ) ).toString();
+
   QStringList clList ( "." );
-  QString libdir = cfg->value ( "classpath", QLatin1String ( "/usr/share/java/css-validator" ) ).toString();
+  // Klassen Pfad des W3C Validierers
+  QString libdir = cfg->value ( "css_classpath", QLatin1String ( "/usr/share/java/css-validator" ) ).toString();
   QDir dir ( libdir );
   if ( dir.exists() )
   {
@@ -56,17 +84,19 @@ void Validator::setEnviromentVariable ( QSettings * cfg )
     if ( clList.isEmpty() )
       return;
 
-//     p_env.insert ( "CLASSPATH", clList.join ( ":" ) );
-//     setProcessEnvironment ( p_env );
-
-    QString w3c = cfg->value ( "validator", QLatin1String ( "/usr/share/java/css-validator.jar" ) ).toString();
+    // Pfad zur W3C Validierer Datei
+    QString w3c = cfg->value ( "css_validator", QLatin1String ( "/usr/share/java/css-validator.jar" ) ).toString();
     QFileInfo info ( w3c );
     if ( info.exists() )
     {
       parameters.clear();
       parameters << "-classpath" << clList.join ( ":" );
-      parameters << "-jar" << info.fileName() << "--output=soap12" << "--warning=2";
-      parameters << "--profile=css21" << "--lang=de";
+      parameters << "-jar" << info.fileName();
+      parameters << "--output=soap12";
+      parameters << QString ( "--warning=%1" ).arg ( param ( "css_warning", cfg ) );
+      parameters << QString ( "--profile=%1" ).arg ( param ( "css_profile", cfg ) );
+      parameters << QString ( "--lang=%1" ).arg ( param ( "css_lang", cfg ) );
+      parameters << QString ( "--medium=%1" ).arg ( param ( "css_medium", cfg ) );
       setWorkingDirectory ( info.absolutePath() );
     }
   }
@@ -102,18 +132,42 @@ bool Validator::isRunning()
   }
 }
 
-bool Validator::validate ( const QString &url )
+const QString Validator::getValidation ()
 {
-  if ( url.isEmpty() )
+  return url;
+}
+
+bool Validator::setValidation ( const QString &str )
+{
+  if ( str.isEmpty() )
     return false;
+
+  url = str;
 
   if ( parameters.size() < 5 )
     return false;
 
-  parameters << url;
-  start ( "java", parameters );
-  // qDebug() << Q_FUNC_INFO << parameters;
+  if ( parameters.contains ( url ) )
+    return false;
+
   return true;
+}
+
+void Validator::validate()
+{
+  if ( parameters.size() < 5 )
+    return;
+
+  if ( url.isEmpty() )
+  {
+    emit criticalError ( trUtf8 ( "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page." ) );
+    return;
+  }
+
+  QStringList cmd;
+  cmd << parameters << url;
+
+  start ( javaAppl, cmd );
 }
 
 Validator::~Validator()

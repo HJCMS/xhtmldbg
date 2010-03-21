@@ -26,29 +26,41 @@
 #include <QtCore/QObject>
 #include <QtCore/QProcess>
 #include <QtCore/QSettings>
-#include <QtCore/QProcessEnvironment>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QTemporaryFile>
 
 class Validator : public QProcess
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_PROPERTY ( QString url READ getValidation WRITE setValidation )
 
   private:
-    QProcessEnvironment p_env;
+    QTemporaryFile errorLog;
     QStringList parameters;
+    QString javaAppl;
+    QString url;
+    const QString param ( const QString &, QSettings * ) const;
+
+  private Q_SLOTS:
+    void cleaning();
 
   Q_SIGNALS:
+    void criticalError ( const QString & );
     void running ();
     void down ();
 
   public Q_SLOTS:
-    bool isRunning();
+    void validate ();
 
   public:
     Validator ( QObject * parent = 0 );
+    bool isRunning();
+    const QString getValidation ();
+    bool setValidation ( const QString &url );
     void setEnviromentVariable ( QSettings * );
-    bool validate ( const QString &url );
     ~Validator();
 };
 
