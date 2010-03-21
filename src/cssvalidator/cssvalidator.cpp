@@ -136,8 +136,6 @@ void CSSValidator::doubleClicked ( QListWidgetItem * item )
     else
       warningItem ( trUtf8 ( "CSS Validator says: Invalid Url and denies this request." ) );
   }
-  else
-    qWarning ( "QT::BUG (%d) demolished QListWidgetItem ", __LINE__ );
 }
 
 /**
