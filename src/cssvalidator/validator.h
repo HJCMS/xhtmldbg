@@ -38,7 +38,8 @@ class Validator : public QProcess
     Q_PROPERTY ( QString url READ getValidation WRITE setValidation )
 
   private:
-    QTemporaryFile errorLog;
+    QTemporaryFile tempFile;
+    QString errorLog;
     QStringList parameters;
     QString javaAppl;
     QString url;
@@ -49,8 +50,6 @@ class Validator : public QProcess
 
   Q_SIGNALS:
     void criticalError ( const QString & );
-    void running ();
-    void down ();
 
   public Q_SLOTS:
     void validate ();
@@ -61,6 +60,7 @@ class Validator : public QProcess
     const QString getValidation ();
     bool setValidation ( const QString &url );
     void setEnviromentVariable ( QSettings * );
+    const QString errorsLogFile();
     virtual ~Validator();
 };
 

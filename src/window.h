@@ -150,6 +150,7 @@ class Window : public QMainWindow
     void setJavaScriptMessage ( const QString & );
     void setApplicationMessage ( const QString &, bool warning = false );
     void setSource ( const QString & );
+    void checkStyleSheet ( const QUrl & );
     void openFile ( const QUrl & );
     void openUrl ( const QUrl & );
     void visibleSourceChanged();

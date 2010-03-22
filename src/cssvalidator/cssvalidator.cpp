@@ -75,8 +75,10 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
   // Kontext Menü
   m_menu = new ValidatorMenu ( this );
 
-
   // Listen Signale
+  connect ( m_listWidget, SIGNAL ( itemPressed ( QListWidgetItem * ) ),
+            this, SLOT ( markItem ( QListWidgetItem * ) ) );
+
   connect ( m_listWidget, SIGNAL ( itemDoubleClicked ( QListWidgetItem * ) ),
             this, SLOT ( doubleClicked ( QListWidgetItem * ) ) );
 
@@ -96,6 +98,7 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
   connect ( m_validator, SIGNAL ( started() ), this, SLOT ( processTriggered() ) );
 
   // Signale der XML Analyse
+  connect ( m_soupReader, SIGNAL ( beginParsed () ), this, SLOT ( clearItems () ) );
   connect ( m_soupReader, SIGNAL ( parserError ( const QString & ) ),
             this, SLOT ( criticalItem ( const QString & ) ) );
 
@@ -115,40 +118,79 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
 }
 
 /**
-* Wenn in diesem Eintrag eine URL Definiert ist.
-* Wird diese URL bei einem Doppel Klick geprüft.
+* Die eingereichte Adresse prüfen und nachsehen ob bei
+* @class Validator schon ein Prozess am laufen ist.
+* Wenn nicht und @ref Validator::setValidation kein
+* false zurück gibt, dann die Adresse in @ref usedUrl
+* schreiben und true zurück geben.
 */
-void CSSValidator::doubleClicked ( QListWidgetItem * item )
+bool CSSValidator::prepareToExecute ( const QUrl &url )
 {
-  if ( item->data ( Qt::UserRole ).isValid() )
+  if ( url.isValid() && ! url.toString().isEmpty() )
   {
-    QString remote = item->data ( Qt::UserRole ).toUrl().toString();
-    if ( remote.isEmpty() )
-      return;
-
     if ( m_validator->isRunning() )
     {
       warningItem ( trUtf8 ( "Rejected - CSS Validator is busy ..." ) );
-      return;
+      return false;
     }
-    if ( m_validator->setValidation ( remote ) )
-      m_validator->validate();
-    else
-      warningItem ( trUtf8 ( "CSS Validator says: Invalid Url and denies this request." ) );
+
+    if ( m_validator->setValidation ( url.toString() ) )
+    {
+      usedUrl = url.toString();
+      return true;
+    }
   }
+  return false;
 }
 
 /**
-* Wird aufgerufen wenn ein Prozess gestartet wird.
+* Bei einem auswählen mit itemPressed diesen
+* Eintrag bei @ref prepareToExecute gegenprüfen
+* und im Menü die Aktion aCheck (de)aktivieren.
+*/
+void CSSValidator::markItem ( QListWidgetItem * item )
+{
+  if ( ! item->data ( Qt::UserRole ).isValid() )
+  {
+    m_menu->enableCheckUrlAction ( false );
+    return;
+  }
+
+  QUrl url = item->data ( Qt::UserRole ).toUrl();
+  if ( prepareToExecute ( url ) )
+    m_menu->enableCheckUrlAction ( true );
+}
+
+/**
+* Wenn in diesem Eintrag eine URL Definiert ist.
+* Wird diese Adresse bei einem Doppel Klick von
+* @ref prepareToExecute geprüft und direkt ein
+* Prozess sofort gestartet.
+*/
+void CSSValidator::doubleClicked ( QListWidgetItem * item )
+{
+  if ( ! item->data ( Qt::UserRole ).isValid() )
+    return;
+
+  QUrl url = item->data ( Qt::UserRole ).toUrl();
+  if ( prepareToExecute ( url ) )
+    m_validator->validate();
+  else
+    warningItem ( trUtf8 ( "CSS Validator says: Invalid Url and denies this request." ) );
+}
+
+/**
+* Dieser slot wird aufgerufen wenn ein
+* Prozess gestartet wurde.
 */
 void CSSValidator::processTriggered()
 {
+  usedUrl = m_validator->getValidation();
   soupData.clear();
   setCursor ( Qt::WaitCursor );
   clearItems();
-  QString url = m_validator->getValidation();
-  QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( url );
-  placeUrlItem ( message, QUrl(url) );
+  QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( usedUrl );
+  placeUrlItem ( message, QUrl ( usedUrl ) );
 }
 
 /**
@@ -188,6 +230,18 @@ void CSSValidator::placeUrlItem ( const QString &message, const QUrl &url )
   item->setData ( Qt::UserRole, url );
   item->setToolTip ( url.toString() );
   m_listWidget->addItem ( item );
+}
+
+/**
+* Versucht eine übergeben Adresse sofort zu Überprüfen.
+* Soll aber keinen laufenden Prozess beenden oder behindern!
+* Falls ein Prozess schon am laufen ist wird er hier Ignoriert!
+* Dieser slot ist Reserviert für Zugriffe der IDE!
+*/
+void CSSValidator::forceValidation ( const QUrl &url )
+{
+  if ( prepareToExecute ( url ) )
+    m_validator->validate();
 }
 
 /**
@@ -249,7 +303,6 @@ void CSSValidator::addForValidation ( const QUrl &url )
   {
     QString display = url.toString ( QUrl::StripTrailingSlash | QUrl::RemoveFragment );
     placeUrlItem ( trUtf8 ( "To take in \"%1\" for Validation." ).arg ( display ), QUrl ( remote ) );
-    m_validator->setValidation ( remote );
   }
 }
 
@@ -306,7 +359,17 @@ void CSSValidator::errors ( QProcess::ProcessError err )
 */
 void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
 {
+#ifdef XHTMLDBG_DEBUG
+
+  qDebug ( "(XHTMLDBG) Validator closed process with exit code: %d status: %d (%d)"
+           , exitCode, stat, __LINE__ );
+
+#else
+
   Q_UNUSED ( exitCode )
+
+#endif
+
   switch ( stat )
   {
     case QProcess::NormalExit:
@@ -361,7 +424,7 @@ void CSSValidator::readStandardReply ()
 
   if ( m_validator->waitForFinished ( 100 ) )
   {
-    if ( m_soupReader->readReceivedXML ( soupData ) )
+    if ( m_soupReader->readReceivedXML ( soupData, usedUrl ) )
       m_validator->closeReadChannel ( QProcess::StandardOutput );
 
     setCursor ( Qt::ArrowCursor );

@@ -40,22 +40,25 @@ class SoupReader : public QObject
 
   private:
     QDomDocument dom;
+    QString currenUrl;
     const QString prepareMessage ( const QDomNode & ) const;
     const QDomElement errorListNode ( int index = 0 );
     const QDomElement warningListNode ( int index = 0 );
     const QString nodeItem ( const QDomNode & ) const;
+    const QString cssFileName ( const QDomElement & ) const;
     void readAllErrors();
     void readAllWarnings();
     bool hasErrors();
 
   Q_SIGNALS:
+    void beginParsed();
     void congratulation ( const QString & );
     void warnings ( const QString & );
     void parserError ( const QString & );
 
   public:
     SoupReader ( QObject * parent = 0 );
-    bool readReceivedXML ( const QByteArray & );
+    bool readReceivedXML ( const QByteArray &, const QString & );
     ~SoupReader();
 };
 

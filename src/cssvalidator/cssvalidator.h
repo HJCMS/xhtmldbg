@@ -52,17 +52,20 @@ class CSSValidator : public QDockWidget
     const QIcon iconNotice;
     const QIcon iconWarning;
     const QIcon iconCritical;
+    QString usedUrl;
     QListWidget* m_listWidget;
     ValidatorMenu* m_menu;
     Validator* m_validator;
     SoupReader* m_soupReader;
     QByteArray soupData;
 
+    bool prepareToExecute ( const QUrl & );
     void openConfigurationDialog();
     void placeUrlItem ( const QString &, const QUrl & );
 
   private Q_SLOTS:
     void processTriggered();
+    void markItem ( QListWidgetItem * );
     void doubleClicked ( QListWidgetItem * );
     void sortAscending();
     void sortDescending();
@@ -83,6 +86,7 @@ class CSSValidator : public QDockWidget
 
   public Q_SLOTS:
     void addForValidation ( const QUrl & );
+    void forceValidation ( const QUrl & );
     void clearItems();
 
   public:

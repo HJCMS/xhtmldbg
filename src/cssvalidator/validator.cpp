@@ -27,25 +27,45 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QIODevice>
 #include <QtCore/QMap>
-#include <QtCore/QTemporaryFile>
 #include <QtCore/QVariant>
 #include <QtCore/QProcessEnvironment>
 
+static inline const QString tempFilePath()
+{
+  QString p ( QDir::tempPath() );
+  p.append ( QDir::separator() );
+  p.append ( QString::fromUtf8 ( "XHTMLDBG_Validator_XXXXXX.log" ) );
+  return p;
+}
+
 Validator::Validator ( QObject * parent )
     : QProcess ( parent )
-    , errorLog ( QString::fromUtf8 ( "xhtmldbg_validator_XXXXXX" ), parent )
+    , tempFile ( tempFilePath(), parent )
+    , errorLog ( tempFilePath() )
     , parameters ( 0 )
     , javaAppl ( QLatin1String ( "java" ) )
 {
   setObjectName ( QLatin1String ( "validator" ) );
   setProcessChannelMode ( QProcess::SeparateChannels );
   setReadChannel ( QProcess::StandardOutput );
-  if ( errorLog.open () )
-    setStandardErrorFile ( QDir::tempPath() + QDir::separator() + errorLog.fileName() );
+
+  /* Generiere einen Temporären Dateinamen und setzte
+  * mit dieser den Protokoll Dateipfad für die Fehler Meldungen */
+  if ( tempFile.open () )
+  {
+    errorLog = tempFile.fileName(); // Wenn OK dann überschreiben.
+    setStandardErrorFile ( errorLog, QIODevice::Append );
+  }
+  else
+    setStandardErrorFile ( errorLog );
 
   connect ( this, SIGNAL ( readyRead () ), this, SLOT ( cleaning() ) );
 }
 
+/**
+* Lese Konfigurations Parameter und falle bei bedarf
+* in die Grundeinstellungen zurück.
+*/
 const QString Validator::param ( const QString &key, QSettings * cfg ) const
 {
   QMap<QString,QString> map;
@@ -59,6 +79,9 @@ const QString Validator::param ( const QString &key, QSettings * cfg ) const
   return cfg->value ( key, map[key] ).toString();
 }
 
+/**
+* Wird aufgerufen wenn ein Prozess beendet wurde.
+*/
 void Validator::cleaning()
 {
   url.clear();
@@ -66,6 +89,11 @@ void Validator::cleaning()
     parameters.removeLast();
 }
 
+/**
+* Umgebungs Variablen aus den Einstellungen lesen
+* und komplett neu setzen. Wird unter anderem auch
+* dem schließen des Konfigurations Dialoges aufgerufen.
+*/
 void Validator::setEnviromentVariable ( QSettings * cfg )
 {
   if ( !cfg )
@@ -107,38 +135,38 @@ void Validator::setEnviromentVariable ( QSettings * cfg )
   }
 }
 
+/**
+* Methode für den aktuellen Prozess Status ab zu fragen.
+*/
 bool Validator::isRunning()
 {
   switch ( state() )
   {
     case QProcess::NotRunning:
-    {
-      emit down ();
       return false;
-    }
 
     case QProcess::Starting:
-    {
-      emit running ();
       return true;
-    }
 
     case QProcess::Running:
-    {
-      emit running ();
       return true;
-    }
 
     default:
       return false;
   }
 }
 
+/**
+* Welche Adresse wird zu Zeit verwendet.
+*/
 const QString Validator::getValidation ()
 {
   return url;
 }
 
+/**
+* Setze die Adresse, welche geprüft werden soll.
+*/
 bool Validator::setValidation ( const QString &str )
 {
   if ( str.isEmpty() )
@@ -155,6 +183,9 @@ bool Validator::setValidation ( const QString &str )
   return true;
 }
 
+/**
+* Starte einen neuen Prozess.
+*/
 void Validator::validate()
 {
   if ( parameters.size() < 5 )
@@ -172,6 +203,19 @@ void Validator::validate()
   start ( javaAppl, cmd );
 }
 
+/**
+* Stelle den Pfad zu Fehlerprotokoll Datei
+* für andere Klasse zu verfügung.
+*/
+const QString Validator::errorsLogFile()
+{
+  return errorLog;
+}
+
+/**
+* Sicher gehen das nicht noch ein Prozess
+* am laufen ist. Wenn doch knall hart schließen.
+*/
 Validator::~Validator()
 {
   if ( isRunning() )

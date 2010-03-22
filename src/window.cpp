@@ -490,6 +490,17 @@ void Window::setJavaScriptMessage ( const QString &message )
 }
 
 /**
+* Versuche den StyleSheet für diese Url beim
+* Validierer direkt auf zu rufen!
+* Laufende Prozesse werden nicht angehalten!
+*/
+void Window::checkStyleSheet ( const QUrl &url )
+{
+  m_statusBar->showMessage ( trUtf8 ( "Check StyleSheet for %1" ).arg ( url.host() ), 1024 );
+  m_cssValidator->forceValidation ( url );
+}
+
+/**
 * Hier wird der Quelltext in @class SourceView eingefügt.
 * Gleichzeitig @ref TidyMessanger::clearItems aufgerufen.
 * Wenn der überreichte Quelltext nicht leer ist wird

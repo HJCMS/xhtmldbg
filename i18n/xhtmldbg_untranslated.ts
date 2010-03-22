@@ -234,57 +234,57 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="131"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="133"/>
         <source>Rejected - CSS Validator is busy ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="137"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="179"/>
         <source>CSS Validator says: Invalid Url and denies this request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="150"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="192"/>
         <source>Checking (%1). Please wait a little!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="251"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="305"/>
         <source>To take in &quot;%1&quot; for Validation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="274"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="327"/>
         <source>FailedToStart (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="278"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="331"/>
         <source>Crashed (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="282"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="335"/>
         <source>Timedout (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="286"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="339"/>
         <source>WriteError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="290"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="343"/>
         <source>ReadError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="294"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="347"/>
         <source>UnknownError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="317"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="380"/>
         <source>Crashed see logfiles</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1465,13 +1465,18 @@ Reasons : </source>
 <context>
     <name>SoupReader</name>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="50"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="60"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="159"/>
-        <source>Congratulations! No Error Found.</source>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="141"/>
+        <source>File:.%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="203"/>
+        <source>Congratulations! No Error Found. (%1)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1560,7 +1565,7 @@ Reasons : </source>
 <context>
     <name>Validator</name>
     <message>
-        <location filename="../src/cssvalidator/validator.cpp" line="165"/>
+        <location filename="../src/cssvalidator/validator.cpp" line="196"/>
         <source>to deny access for this reason missing url. Please note: The CSS Validator discarded shared url&apos;s! Remedy: reload the page.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1578,32 +1583,32 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="41"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="42"/>
         <source>Dropout</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="42"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="43"/>
         <source>Dropout current request</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="46"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="47"/>
         <source>Ascending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="50"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="51"/>
         <source>Descending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="54"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="55"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/validatormenu.cpp" line="58"/>
+        <location filename="../src/cssvalidator/validatormenu.cpp" line="59"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1611,42 +1616,52 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="149"/>
+        <location filename="../src/viewer.cpp" line="150"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="214"/>
+        <location filename="../src/viewer.cpp" line="155"/>
+        <source>StyleSheet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="158"/>
+        <source>Start CSS Validation for this Site.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="231"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="222"/>
+        <location filename="../src/viewer.cpp" line="239"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="227"/>
+        <location filename="../src/viewer.cpp" line="244"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="237"/>
+        <location filename="../src/viewer.cpp" line="254"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="243"/>
+        <location filename="../src/viewer.cpp" line="260"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="250"/>
+        <location filename="../src/viewer.cpp" line="267"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="255"/>
+        <location filename="../src/viewer.cpp" line="272"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1832,17 +1847,22 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="529"/>
+        <location filename="../src/window.cpp" line="499"/>
+        <source>Check StyleSheet for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="540"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="530"/>
+        <location filename="../src/window.cpp" line="541"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="535"/>
+        <location filename="../src/window.cpp" line="546"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

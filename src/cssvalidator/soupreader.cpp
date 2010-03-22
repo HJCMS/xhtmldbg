@@ -25,7 +25,9 @@
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QTemporaryFile>
 #include <QtCore/QTextStream>
+#include <QtCore/QUrl>
 
 SoupReader::SoupReader ( QObject * parent )
     : QObject ( parent )
@@ -33,9 +35,17 @@ SoupReader::SoupReader ( QObject * parent )
   setObjectName ( QLatin1String ( "soupreader" ) );
 }
 
+/**
+* Lese alle Kinder Textknoten aus @param node und
+* schreibe diese in einen String in dem Überflüssige
+* Zeilenumbrüche und Leerzeichen entfernt werden.
+* Die folgenden Kinder Element werden ignoriert!
+* @li m:errortype
+* @li m:errorsubtype
+* @li m:skippedstring
+*/
 const QString SoupReader::prepareMessage ( const QDomNode &node ) const
 {
-  //nodeItem( nodes.item(i).firstChild() );
   QString value;
   if ( ! node.isElement() )
     return value;
@@ -52,7 +62,10 @@ const QString SoupReader::prepareMessage ( const QDomNode &node ) const
   {
     QDomText t = n.firstChild().toText();
     if ( !t.isNull() && ! exclude.contains ( n.nodeName() ) )
-      messages << t.data().trimmed();
+    {
+      QString m = t.data().trimmed();
+      messages << m.replace ( QRegExp ( "\\s{2,}|[\\n\\r]" ), " " );
+    }
   }
 
   if ( messages.size() > 2 )
@@ -91,6 +104,9 @@ const QDomElement SoupReader::warningListNode ( int index )
   return QDomElement();
 }
 
+/**
+* Sucht in einem Element nach einem #TEXT Wert.
+**/
 const QString SoupReader::nodeItem ( const QDomNode &node ) const
 {
   QString value;
@@ -108,6 +124,26 @@ const QString SoupReader::nodeItem ( const QDomNode &node ) const
 }
 
 /**
+* Suche in einem listen Element nach dem "m:uri" Knoten
+* und löse den Dateinamen auf.
+*/
+const QString SoupReader::cssFileName ( const QDomElement &element ) const
+{
+  QString file;
+  QDomNode node = element.elementsByTagName ( "m:uri" ).item ( 0 );
+  if ( ! node.isElement() )
+    return file;
+
+  if ( ! node.firstChild().nodeValue().isEmpty() )
+  {
+    QUrl url ( node.firstChild().nodeValue().trimmed() );
+    if ( ! url.path().isEmpty() )
+      return trUtf8 ( "File:.%1" ).arg ( url.path () );
+  }
+  return file;
+}
+
+/**
 * Suche alle errors im gesamtem dom.
 * @code
 *   <m:errors>...</m:errors>
@@ -115,12 +151,16 @@ const QString SoupReader::nodeItem ( const QDomNode &node ) const
 **/
 void SoupReader::readAllErrors()
 {
+  QString css = cssFileName ( errorListNode() );
   QDomNodeList nodes = errorListNode().elementsByTagName ( "m:error" );
   for ( int i = 0; i < nodes.count(); i++ )
   {
     QString buffer = prepareMessage ( nodes.item ( i ) );
     if ( buffer.isEmpty() )
       continue;
+
+    if ( ! css.isEmpty() )
+      buffer.prepend ( css + " " );
 
     emit parserError ( buffer );
   }
@@ -134,12 +174,16 @@ void SoupReader::readAllErrors()
 **/
 void SoupReader::readAllWarnings()
 {
+  QString css = cssFileName ( warningListNode() );
   QDomNodeList nodes = warningListNode().elementsByTagName ( "m:warning" );
   for ( int i = 0; i < nodes.count(); i++ )
   {
     QString buffer = prepareMessage ( nodes.item ( i ) );
     if ( buffer.isEmpty() )
       continue;
+
+    if ( ! css.isEmpty() )
+      buffer.prepend ( css + " " );
 
     emit warnings ( buffer );
   }
@@ -156,25 +200,39 @@ bool SoupReader::hasErrors()
   QDomNode node = dom.elementsByTagName ( "m:validity" ).item ( 0 );
   if ( node.isElement() && node.toElement().firstChild().nodeValue() == "true" )
   {
-    emit congratulation ( trUtf8 ( "Congratulations! No Error Found." ) );
+    emit congratulation ( trUtf8 ( "Congratulations! No Error Found. (%1)" ).arg ( currenUrl ) );
     return false;
   }
   return true;
 }
 
-bool SoupReader::readReceivedXML ( const QByteArray &xml )
+/**
+* Nehme den Datestrom entgegen und füge diesen in ein DomDocument.
+* Wenn es zu fehlern kommt sofort abbrechen und ein signal
+* @ref parserError abstossen. Ist das Dokument Valiede schreibe
+* für die weiteren Nachrichten die Adresse nach @ref currenUrl.
+* Prüfe im nächsten Schritt mit @ref hasErrors ob Fehler vorhanden
+* sind, wenn ja dann @ref readAllErrors aufrufen und danach weiter
+* zu @ref readAllWarnings gehen. Warnungen werden immer ausgelesen!
+*/
+bool SoupReader::readReceivedXML ( const QByteArray &xml, const QString &url )
 {
   QString errorMsg;
   int errorLine;
   int errorColumn;
 
-  QFile fp ( "/tmp/xhtmldbg_parsing.xml" );
-  if ( fp.open ( QIODevice::WriteOnly ) )
+#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
+
+  QTemporaryFile fp ( "/tmp/xhtmldbg_soup_XXXXXX.xml" );
+  fp.setAutoRemove ( false );
+  if ( fp.open () )
   {
     QTextStream stream ( &fp );
     stream << xml;
     fp.close();
   }
+
+#endif
 
   if ( ! dom.setContent ( xml, &errorMsg, &errorLine, &errorColumn ) )
   {
@@ -183,6 +241,11 @@ bool SoupReader::readReceivedXML ( const QByteArray &xml )
     emit parserError ( erdom );
     return false;
   }
+
+  // vor der Nachrichten generierung die URL setzen.
+  currenUrl = url;
+
+  emit beginParsed();
 
   if ( hasErrors() )
     readAllErrors();

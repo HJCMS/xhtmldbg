@@ -52,6 +52,9 @@ class ValidatorMenu : public QMenu
     void configure();
     void clearlist();
 
+  public Q_SLOTS:
+    void enableCheckUrlAction ( bool b = false );
+
   public:
     ValidatorMenu ( QWidget * parent = 0 );
     virtual ~ValidatorMenu ();

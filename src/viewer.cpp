@@ -23,6 +23,7 @@
 #include "webviewer.h"
 #include "page.h"
 #include "xhtmldbg.h"
+#include "window.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "cookieacceptdialog.h"
@@ -150,6 +151,13 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   add->setObjectName ( QLatin1String ( "addbookmarkaction" ) );
   add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
+
+  QAction* style = menu->addAction ( trUtf8 ( "StyleSheet" ) );
+  style->setObjectName ( QLatin1String ( "stylesheet" ) );
+  style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
+  style->setToolTip ( trUtf8( "Start CSS Validation for this Site." ) );
+  connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
+
   menu->exec ( e->globalPos() );
   delete menu;
 }
@@ -202,6 +210,15 @@ void Viewer::cookiesRequest ( const QUrl &u )
     cookieAlreadyAdd = true;
     openCookieRequestDialog ( u );
   }
+}
+
+/**
+* Sende eine Stylesheet Validieren Anfrage!
+* Ausgelöst durch den Eintrag im Kontext Menü.
+*/
+void Viewer::checkingStyleSheet()
+{
+  xhtmldbg::instance()->mainWindow()->checkStyleSheet ( url() );
 }
 
 /**

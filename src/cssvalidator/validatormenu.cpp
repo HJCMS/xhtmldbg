@@ -22,10 +22,10 @@
 #include "validatormenu.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QIcon>
 
 ValidatorMenu::ValidatorMenu ( QWidget * parent )
     : QMenu ( parent )
@@ -35,6 +35,7 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   // Aktuelle Url Überprüfen
   aCheck = addAction ( QIcon::fromTheme ( QLatin1String ( "system-run" ) ), trUtf8 ( "Check" ) );
   aCheck->setToolTip ( trUtf8 ( "Checking last changed url" ) );
+  aCheck->setEnabled ( false );
   connect ( aCheck, SIGNAL ( triggered() ), this, SIGNAL ( check() ) );
 
   // Sofort Abbrechen (killen)
@@ -57,6 +58,11 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   // Liste leeren
   aClearItem = addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ), trUtf8 ( "Clear" ) );
   connect ( aClearItem, SIGNAL ( triggered() ), this, SIGNAL ( clearlist() ) );
+}
+
+void ValidatorMenu::enableCheckUrlAction ( bool b )
+{
+  aCheck->setEnabled ( b );
 }
 
 ValidatorMenu::~ValidatorMenu()

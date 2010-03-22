@@ -63,6 +63,7 @@ class Viewer : public QWebView
     void cursorFinished ( bool );
     void bookmark();
     void cookiesRequest ( const QUrl & );
+    void checkingStyleSheet();
     void linkInfos ( const QString &, const QString &, const QString & );
 
   protected:
