@@ -30,11 +30,15 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QProcessEnvironment>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
+
+/* QtGui */
+#include <QtGui/QIcon>
 
 xhtmldbg::xhtmldbg ( int &argc, char **argv ) : Application ( argc, argv )
 {
@@ -46,6 +50,14 @@ xhtmldbg::xhtmldbg ( int &argc, char **argv ) : Application ( argc, argv )
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
                                QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+
+  QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
+
+  // Setting Default Application Properties
+  setGraphicsSystem ( QLatin1String ( "native" ) );
+  QStringList iconSearchPaths ( "/usr/share/icons" );
+  QIcon::setThemeSearchPaths ( m_settings->value ( "iconthemepath", iconSearchPaths ).toStringList() );
+  QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

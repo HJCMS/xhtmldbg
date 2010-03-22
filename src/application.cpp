@@ -31,9 +31,6 @@
 #include <QtCore/QFile>
 #include <QtCore/QGlobalStatic>
 
-/* QtGui */
-#include <QtGui/QIcon>
-
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
 
@@ -43,11 +40,6 @@ Application::Application ( int &argc, char **argv )
 {
   setObjectName ( "Application" );
   Q_INIT_RESOURCE ( xhtmldbg );
-  // Setting Default Application Properties
-  setGraphicsSystem ( QLatin1String ( "native" ) );
-  QIcon::setThemeName ( "oxygen" );
-
-  // TODO QTWEBKIT_PLUGIN_PATH
 }
 
 void Application::newConnection()

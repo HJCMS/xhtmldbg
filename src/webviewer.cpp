@@ -44,7 +44,7 @@
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
-    , url ( QUrl ( QLatin1String ( "http://www.hjcms.de" ) ) )
+    , url ( QUrl ( QLatin1String ( "http://www.selfhtml.org" ) ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
