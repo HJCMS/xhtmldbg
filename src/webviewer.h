@@ -83,6 +83,7 @@ class WebViewer : public QTabWidget
     const QString toHtml();
     const QWebElement toWebElement();
     static const QString blank();
+    void setAboutPage ( const QString & );
     ~WebViewer();
 };
 

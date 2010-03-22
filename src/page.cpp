@@ -161,22 +161,44 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   if ( ! b )
     return b;
 
+  if ( request.url().scheme() == "file" )
+  {
+    xhtmldbg::instance()->mainWindow()->openFile ( request.url() );
+    return true;
+  }
+
+#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
+  qDebug ( "(XHTMLDBG) WebPage acceptNavigationRequest Type: %d", type );
+#endif
+
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:
+    {
       reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      return true;
+      b = true;
+    }
+    break;
 
     case QWebPage::NavigationTypeBackOrForward:
+    {
       reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      return true;
+      b = true;
+    }
+    break;
 
     case QWebPage::NavigationTypeReload:
+    {
+      if ( request.url().scheme() == "about" )
+        return false;
+
       reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      return true;
+      b = true;
+    }
+    break;
 
     case QWebPage::NavigationTypeFormSubmitted:
       // The user activated a submit button for an HTML form.

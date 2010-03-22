@@ -187,10 +187,21 @@ Window::Window ( QSettings * settings )
   // } NetworkAccessManager
 
   // Wenn noch kein Eintrag vorhanden öffne meine HP
-  QUrl fallback ( "http://www.hjcms.de" );
-  QUrl recent = m_settings->value ( QLatin1String ( "RecentUrl" ), fallback ).toUrl();
-  QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ), fallback ).toUrl();
-  openUrl ( ( startup.isEmpty() ? recent : startup ) );
+  QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
+  QUrl recentUrl = m_settings->value ( QLatin1String ( "RecentUrl" ) ).toUrl();
+  if ( startup.isValid() && ! startup.isEmpty() )
+  {
+    openUrl ( startup );
+  }
+  else if ( recentUrl.isValid() && ! recentUrl.isEmpty() )
+  {
+    if ( recentUrl.scheme().contains ( "http" ) )
+      openUrl ( recentUrl );
+    else
+      m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
+  }
+  else
+    m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
 
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
@@ -507,11 +518,16 @@ void Window::checkStyleSheet ( const QUrl &url )
 * in den Einstellungen nachgesehen ob @em AutoFormat oder
 * @em AutoCheck aktiviert sind und entsprechend ausgeführt.
 */
-void Window::setSource ( const QString &source )
+bool Window::setSource ( const QString &source )
 {
   m_tidyMessanger->clearItems();
+
+#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
+  qDebug ( "(XHTMLDBG) Window::setSource length: %d", source.length() );
+#endif
+
   if ( source.isEmpty() )
-    return;
+    return false;
 
   m_sourceWidget->setSource ( source );
   // Is AutoCheck or AutoFormat Enabled?
@@ -519,6 +535,8 @@ void Window::setSource ( const QString &source )
     m_sourceWidget->format();
   else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
     m_sourceWidget->check();
+
+  return true;
 }
 
 /**
@@ -553,7 +571,11 @@ void Window::openFileDialog()
   if ( info.exists() )
   {
     url.setPath ( info.absoluteFilePath() );
-    openFile ( url );
+    if ( openFile ( url ) )
+    {
+      m_webViewer->setUrl ( url.path() );
+      m_settings->setValue ( QLatin1String ( "RecentUrl" ), url );
+    }
   }
 }
 
@@ -588,12 +610,12 @@ void Window::openConfigDialog()
 * sich um ein file Schema handelt und existiert.
 * Danach wird sie in ein QTextStream eingelesen und weiter
 * an @ref setSource, der Pfad @ref WebViewer::setUrl gegeben.
-* Bei den Einstellungen wird @em RecentFile modifiziert.
+* Bei den Einstellungen wird @em RecentUrl modifiziert.
 */
-void Window::openFile ( const QUrl &url )
+bool Window::openFile ( const QUrl &url )
 {
   if ( ! url.isValid() || url.scheme() != "file" )
-    return;
+    return false;
 
   QFile fp ( url.path() );
   if ( fp.open ( QFile::ReadOnly ) )
@@ -605,23 +627,29 @@ void Window::openFile ( const QUrl &url )
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
       QString data = codec->toUnicode ( buffer );
-      setSource ( data );
-      m_webViewer->setUrl ( url.path() );
-      m_settings->setValue ( QLatin1String ( "RecentFile" ), url );
+      return setSource ( data );
     }
   }
+  return false;
 }
 
 /**
 * Primitive überprüfung ob es sich um eine Url handelt.
 * Wenn ja wird @ref WebViewer::setUrl aufgerufen.
 */
-void Window::openUrl ( const QUrl &url )
+bool Window::openUrl ( const QUrl &url )
 {
-  if ( ! url.isValid() || ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
-    return;
+  if ( ! url.isValid() )
+    return false;
+
+  if ( url.scheme().contains ( "file" ) )
+    return false;
+
+  if ( ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
+    return false;
 
   m_webViewer->setUrl ( url );
+  return true;
 }
 
 /**

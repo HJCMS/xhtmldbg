@@ -240,6 +240,9 @@ void CSSValidator::placeUrlItem ( const QString &message, const QUrl &url )
 */
 void CSSValidator::forceValidation ( const QUrl &url )
 {
+  if ( ! url.scheme().contains ( QRegExp ( "^(http|file)" ) ) )
+    return;
+
   if ( prepareToExecute ( url ) )
     m_validator->validate();
 }
@@ -298,6 +301,9 @@ void CSSValidator::mouseMoveEvent ( QMouseEvent * e )
 */
 void CSSValidator::addForValidation ( const QUrl &url )
 {
+  if ( ! url.scheme().contains ( QRegExp ( "^(http|file)" ) ) )
+    return;
+
   QString remote = url.toString ( ( QUrl::RemovePassword | QUrl::RemoveFragment ) );
   if ( ! remote.isEmpty() )
   {

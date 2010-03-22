@@ -149,10 +149,10 @@ class Window : public QMainWindow
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );
     void setApplicationMessage ( const QString &, bool warning = false );
-    void setSource ( const QString & );
+    bool setSource ( const QString & );
     void checkStyleSheet ( const QUrl & );
-    void openFile ( const QUrl & );
-    void openUrl ( const QUrl & );
+    bool openFile ( const QUrl & );
+    bool openUrl ( const QUrl & );
     void visibleSourceChanged();
 
   public:

@@ -28,8 +28,10 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
+#include <QtCore/QTextStream>
 
 /* QtGui */
 #include <QtGui/QColor>
@@ -309,6 +311,23 @@ const QWebElement WebViewer::toWebElement()
 const QString WebViewer::blank()
 {
   return QString::fromUtf8 ( "<html>\n<head>\n<title>QTidy Startpage</title>\n</head>\n<body>\n<div>New Empty Page</div>\n</body>\n</html>" );
+}
+
+/**
+* Setze eine About Seite!
+*/
+void WebViewer::setAboutPage ( const QString &type )
+{
+  QString about = QString ( ":/about/html/%1.html" ).arg ( type );
+  QFile fp ( about );
+  if ( fp.open ( QFile::ReadOnly ) )
+  {
+    QTextStream rc ( &fp );
+    QByteArray html = rc.device()->readAll();
+    fp.close();
+    if ( ! html.isEmpty() )
+      activeView()->setContent ( html, "text/html", QString ( "about:%1" ).arg ( type ) );
+  }
 }
 
 WebViewer::~WebViewer()

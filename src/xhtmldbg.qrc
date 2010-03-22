@@ -9,4 +9,7 @@
     <file>icons/qtidy.png</file>
     <file>icons/warning.png</file>
   </qresource>
+  <qresource prefix="/about" >
+    <file>html/welcome.html</file>
+  </qresource>
 </RCC>

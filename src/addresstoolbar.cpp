@@ -53,7 +53,7 @@ AddressEdit::~AddressEdit()
 
 AddressToolBar::AddressToolBar ( QWidget * parent )
     : QToolBar ( parent )
-    , urlPattern ( QRegExp ( "http[s]?" ) )
+    , urlPattern ( QRegExp ( "^(http|file)" ) )
 {
   setObjectName ( QLatin1String ( "addresstoolbar" ) );
   setWindowTitle ( trUtf8 ( "Address" ) );
