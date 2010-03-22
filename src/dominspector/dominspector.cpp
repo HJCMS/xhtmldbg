@@ -154,9 +154,18 @@ void DomInspector::setVisible ( const QWebElement &element )
     lastSelections.removeFirst();
   }
 
-  // if QWebFrame is Valid scroll to Content
-  if ( element.webFrame() )
-    element.webFrame()->setScrollPosition ( element.geometry().topLeft() );
+  /* Hole für das Element den dazu gehörigen QWebFrame.
+  * Wenn gefunden und bei einem anklicken das Element nicht sichtbar ist.
+  * Springe mit dem slot setScrollPosition an den Seiten Kopf. */
+  QRect elementRect = element.geometry();
+  if ( elementRect.isValid() && element.webFrame() )
+  {
+    QWebFrame* currentFrame = element.webFrame();
+    QRect topRect = currentFrame->geometry();
+    topRect.setTop ( currentFrame->scrollPosition().y() );
+    if ( ! topRect.contains ( elementRect ) )
+      currentFrame->setScrollPosition ( elementRect.topLeft() );
+  }
 
   QWebElement ele ( element );
   SelectedItem selection;
