@@ -28,6 +28,7 @@
 #include <climits>
 
 /* QtCore */
+#include <QtCore/QByteArrayMatcher>
 #include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
@@ -418,12 +419,13 @@ void CSSValidator::openConfigurationDialog()
 * Wenn der Datenstrom eingelesen werden konnte dann diesen
 * an die Methode @ref SoupReader::readReceivedXML weiterleiten.
 * Gibt diese Methode true zurück den Lesespeicher wieder
-* freigeben und die Mausanzeige zurück auf normal stellen!
+* freigeben und die Mausanzeiger zurück auf normal stellen!
 */
 void CSSValidator::readStandardReply ()
 {
+  QByteArrayMatcher match ( "{output=soap12" );
   QByteArray data = m_validator->readAllStandardOutput();
-  if ( data.startsWith ( QByteArray ( "{output=soap12" ) ) || data.size() < 50 )
+  if ( match.indexIn ( data, 0 ) != -1 || data.size() < 50 )
     return;
 
   soupData.append ( data );
