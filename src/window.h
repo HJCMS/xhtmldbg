@@ -54,6 +54,7 @@ class JSMessanger;
 class AppEvents;
 class Bookmark;
 class HistoryMenu;
+class AutoReloadMenu;
 class StatusBar;
 class DomInspector;
 class CookiesDock;
@@ -104,6 +105,8 @@ class Window : public QMainWindow
     Bookmark* m_bookmarkMenu;
     // History Menu
     HistoryMenu* m_historyMenu;
+    // Setting Reload Interval
+    AutoReloadMenu* m_autoReloadMenu;
     // Configuration Menu
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;

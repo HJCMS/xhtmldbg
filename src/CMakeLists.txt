@@ -43,6 +43,8 @@ SET (xhtmldbg_SOURCES
   statusbar.cpp
   cookieacceptdialog.cpp
   appevents.cpp
+  autoreloader.cpp
+  autoreloadmenu.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -62,6 +64,8 @@ SET (xhtmldbg_HEADERS
   statusbar.h
   cookieacceptdialog.h
   appevents.h
+  autoreloader.h
+  autoreloadmenu.h
 )
 
 SET (xhtmldbg_NOMOC

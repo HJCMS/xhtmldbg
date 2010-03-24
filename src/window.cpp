@@ -43,6 +43,7 @@
 #include "dominspector.h"
 #include "cookiesdock.h"
 #include "headerdock.h"
+#include "autoreloadmenu.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -287,6 +288,10 @@ void Window::createMenus()
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
   connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addViewerTab () ) );
+
+  // Autoreload Menu Aciotn
+  m_autoReloadMenu = new AutoReloadMenu ( m_viewMenu );
+  m_viewMenu->addMenu ( m_autoReloadMenu );
 
   // Bookmark/History Menues
   QIcon bookmarksIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) );
@@ -556,16 +561,20 @@ void Window::openFileDialog()
 {
   QString htmlFile;
   QStringList filters;
-  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm" );
+  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm *.xhtml" );
   filters << trUtf8 ( "Markup Document %1" ).arg ( "*.xml *.xslt *.xbel" );
+  filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.text" );
+  filters << trUtf8 ( "Unsupported Document Formats %1" ).arg ( "*.*" );
+
+  QString lastDirectory = m_settings->value ( QLatin1String ( "RecentDirectory" ) ).toString();
 
   QUrl url;
   url.setScheme ( QLatin1String ( "file" ) );
 
   htmlFile = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open HTML File" ),
-             QString::null, filters.join ( ";;" ) );
-  if ( htmlFile.isEmpty() )
+             lastDirectory, filters.join ( ";;" ) );
 
+  if ( htmlFile.isEmpty() )
     return;
 
   QFileInfo info ( htmlFile );
@@ -576,6 +585,7 @@ void Window::openFileDialog()
     {
       m_webViewer->setUrl ( url.path() );
       m_settings->setValue ( QLatin1String ( "RecentUrl" ), url );
+      m_settings->setValue ( QLatin1String ( "RecentDirectory" ), info.absolutePath() );
     }
   }
 }
