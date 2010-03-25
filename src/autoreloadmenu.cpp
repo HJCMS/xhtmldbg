@@ -37,43 +37,65 @@ AutoReloadMenu::AutoReloadMenu ( QMenu * parent )
   setIcon ( timeIcon );
 
   disableReload = addAction ( timeIcon, trUtf8 ( "Disabled" ) );
+  disableReload->setCheckable ( true );
+  disableReload->setChecked ( true );
   connect ( disableReload, SIGNAL ( triggered() ), this, SLOT ( setTimerDisable() ) );
 
   ac15_seconds = addAction ( timeIcon, trUtf8 ( "15 Seconds" ) );
+  ac15_seconds->setCheckable ( true );
   connect ( ac15_seconds, SIGNAL ( triggered() ), this, SLOT ( set15_seconds() ) );
 
   ac30_seconds = addAction ( timeIcon, trUtf8 ( "30 Seconds" ) );
+  ac30_seconds->setCheckable ( true );
   connect ( ac30_seconds, SIGNAL ( triggered() ), this, SLOT ( set30_seconds() ) );
 
   ac45_seconds = addAction ( timeIcon, trUtf8 ( "45 Seconds" ) );
+  ac45_seconds->setCheckable ( true );
   connect ( ac45_seconds, SIGNAL ( triggered() ), this, SLOT ( set45_seconds() ) );
 
   ac60_seconds = addAction ( timeIcon, trUtf8 ( "1 Minute" ) );
+  ac60_seconds->setCheckable ( true );
   connect ( ac60_seconds, SIGNAL ( triggered() ), this, SLOT ( set60_seconds() ) );
+
+  setActiveAction ( disableReload );
+}
+
+void AutoReloadMenu::swapChecked ( QAction *action )
+{
+  foreach ( QAction* item, findChildren<QAction*>() )
+  {
+    if ( item != action )
+      item->setChecked ( false );
+  }
 }
 
 void AutoReloadMenu::setTimerDisable()
 {
+  swapChecked ( disableReload );
   emit reloadInterval ( 0 );
 }
 
 void AutoReloadMenu::set15_seconds()
 {
+  swapChecked ( ac15_seconds );
   emit reloadInterval ( 15 );
 }
 
 void AutoReloadMenu::set30_seconds()
 {
+  swapChecked ( ac30_seconds );
   emit reloadInterval ( 30 );
 }
 
 void AutoReloadMenu::set45_seconds()
 {
+  swapChecked ( ac45_seconds );
   emit reloadInterval ( 45 );
 }
 
 void AutoReloadMenu::set60_seconds()
 {
+  swapChecked ( ac60_seconds );
   emit reloadInterval ( 60 );
 }
 

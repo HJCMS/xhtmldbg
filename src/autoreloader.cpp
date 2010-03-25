@@ -21,15 +21,52 @@
 
 #include "autoreloader.h"
 
-/* QtCore */
-#include <QtCore>
+#include <unistd.h>
 
-/* QtGui */
-#include <QtGui>
+/* QtCore */
+#include <QtCore/QDebug>
+#include <QtCore/QString>
 
 AutoReloader::AutoReloader ( QObject * parent )
     : QObject ( parent )
-{}
+    , reloadInSeconds ( 0 )
+    , incrementer ( 0 )
+{
+  setObjectName ( QLatin1String ( "autoreloader" ) );
+  m_timer = new QTimer ( this );
+  m_timer->setInterval ( 1000 );
+  connect ( m_timer, SIGNAL ( timeout() ), this, SLOT ( timeStamp() ) );
+}
+
+void AutoReloader::timeStamp()
+{
+  ++incrementer;
+  if ( reloadInSeconds <= incrementer )
+  {
+    emit reload();
+    incrementer = 0;
+  }
+  emit status ( reloadInSeconds, incrementer );
+}
+
+void AutoReloader::setInterval ( int sek )
+{
+  if ( m_timer->isActive() )
+    m_timer->stop();
+
+  if ( sek < 15 )
+  {
+    emit status ( 0, 0 );
+    return;
+  }
+
+  reloadInSeconds = sek;
+  incrementer = 0;
+  m_timer->start ();
+}
 
 AutoReloader::~AutoReloader()
-{}
+{
+  if ( m_timer->isActive() )
+    m_timer->stop();
+}

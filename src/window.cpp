@@ -44,6 +44,7 @@
 #include "cookiesdock.h"
 #include "headerdock.h"
 #include "autoreloadmenu.h"
+#include "autoreloader.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -102,6 +103,9 @@ Window::Window ( QSettings * settings )
   m_centralWidget->setTabIcon ( 0, qTidyIcon );
   m_centralWidget->setCurrentIndex ( 0 );
 
+  // Auromatische Seiten Aktualisierung
+  m_autoReloader = new AutoReloader ( this );
+
   // Quelltext Anzeige
   m_sourceWidget = new SourceWidget ( this );
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
@@ -123,7 +127,7 @@ Window::Window ( QSettings * settings )
   m_jsMessanger = new JSMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger, Qt::Horizontal );
 
-  // CSS Validator Prozess
+  // CSS Validierer Prozess
   m_cssValidator = new CSSValidator ( this, m_settings );
   addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
 
@@ -131,7 +135,7 @@ Window::Window ( QSettings * settings )
   m_cookiesDock = new CookiesDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_cookiesDock );
 
-  // Zeige Datenköpfe für CGI GET/POST und Header an.
+  // Zeige Datenköpfe für CGI GET/POST und HTTP Header an.
   m_headerDock = new HeaderDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
 
@@ -187,8 +191,16 @@ Window::Window ( QSettings * settings )
   connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
             this, SLOT ( setSource ( const QString & ) ) );
   // } NetworkAccessManager
+  // AutoReload {
+  connect ( m_autoReloadMenu, SIGNAL ( reloadInterval ( int ) ),
+            m_autoReloader, SLOT ( setInterval ( int ) ) );
+  connect ( m_autoReloader, SIGNAL ( status ( int, int ) ),
+            m_statusBar, SLOT ( timerStatus ( int, int ) ) );
+  connect ( m_autoReloader, SIGNAL ( reload () ),
+            m_webViewer, SLOT ( refresh() ) );
+  // } AutoReload
 
-  // Wenn noch kein Eintrag vorhanden öffne meine HP
+  // Wenn noch kein Eintrag vorhanden öffne about:welcome
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
   QUrl recentUrl = m_settings->value ( QLatin1String ( "RecentUrl" ) ).toUrl();
   if ( startup.isValid() && ! startup.isEmpty() )
@@ -561,7 +573,7 @@ void Window::openFileDialog()
 {
   QString htmlFile;
   QStringList filters;
-  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm *.xhtml" );
+  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm *.xhtml *.html.*" );
   filters << trUtf8 ( "Markup Document %1" ).arg ( "*.xml *.xslt *.xbel" );
   filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.text" );
   filters << trUtf8 ( "Unsupported Document Formats %1" ).arg ( "*.*" );
@@ -654,7 +666,7 @@ bool Window::openUrl ( const QUrl &url )
     return false;
 
   if ( url.scheme().contains ( "file" ) )
-    return false;
+    return false; // Siehe openFile
 
   if ( ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
     return false;

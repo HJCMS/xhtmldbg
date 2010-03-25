@@ -56,6 +56,7 @@ class Bookmark;
 class HistoryMenu;
 class AutoReloadMenu;
 class StatusBar;
+class AutoReloader;
 class DomInspector;
 class CookiesDock;
 class HeaderDock;
@@ -105,8 +106,10 @@ class Window : public QMainWindow
     Bookmark* m_bookmarkMenu;
     // History Menu
     HistoryMenu* m_historyMenu;
-    // Setting Reload Interval
+    // Auto Reload WebPage Menu
     AutoReloadMenu* m_autoReloadMenu;
+    // Setting Reload Interval
+    AutoReloader* m_autoReloader;
     // Configuration Menu
     QMenu* m_configurationMenu;
     QAction* actionTidyConfig;

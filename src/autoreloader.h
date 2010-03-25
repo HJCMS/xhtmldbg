@@ -32,9 +32,24 @@ class AutoReloader : public QObject
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
+  private:
+    int reloadInSeconds;
+    int incrementer;
+    QTimer *m_timer;
+
+  private Q_SLOTS:
+    void timeStamp();
+
+  Q_SIGNALS:
+    void reload();
+    void status ( int, int );
+
+  public Q_SLOTS:
+    void setInterval ( int );
+
   public:
     AutoReloader ( QObject * parent = 0 );
-    ~AutoReloader();
+    virtual ~AutoReloader();
 };
 
 #endif

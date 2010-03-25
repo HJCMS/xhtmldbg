@@ -39,6 +39,15 @@ StatusBar::StatusBar ( QStatusBar * parent )
   setObjectName ( QLatin1String ( "statusbar" ) );
   setContentsMargins ( 2, 5, 2, 2 );
 
+  m_refreshLabel = new QLabel ( this );
+  m_refreshLabel->setObjectName ( QLatin1String ( "refreshlabel" ) );
+  m_refreshLabel->setFrameShape ( QFrame::NoFrame );
+  m_refreshLabel->setContentsMargins ( 5, 2, 5, 2 );
+  m_refreshLabel->setToolTip ( trUtf8 ( "Reload Status" ) );
+  QIcon timeIcon ( QIcon::fromTheme ( QLatin1String ( "clock" ) ) );
+  m_refreshLabel->setPixmap ( timeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
+  insertPermanentWidget ( 0, m_refreshLabel );
+
   // Display Notifications
   m_noticeLabel = new QLabel ( this );
   m_noticeLabel->setObjectName ( QLatin1String ( "noticelabel" ) );
@@ -48,7 +57,7 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_noticeLabel->setPixmap ( noticeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
   m_noticeLabel->setToolTip ( trUtf8 ( "QTidy Messanger contains Impartations" ) );
   m_noticeLabel->setEnabled ( false );
-  insertPermanentWidget ( 0, m_noticeLabel );
+  insertPermanentWidget ( 1, m_noticeLabel );
 
   // Display Current Pagse Size
   m_viewPageSize = new QLabel ( this );
@@ -57,7 +66,7 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_viewPageSize->setContentsMargins ( 5, 2, 5, 2 );
   m_viewPageSize->setText ( QLatin1String ( "Bytes" ) );
   m_viewPageSize->setToolTip ( trUtf8 ( "the rendered page size" ) );
-  insertPermanentWidget ( 1, m_viewPageSize );
+  insertPermanentWidget ( 2, m_viewPageSize );
 
   // Display Browser ViewPort Width
   m_viewPortInfo = new QLabel ( this );
@@ -65,11 +74,32 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_viewPortInfo->setFrameShape ( QFrame::NoFrame );
   m_viewPortInfo->setContentsMargins ( 5, 2, 5, 2 );
   m_viewPortInfo->setToolTip ( trUtf8 ( "Display Browser Dimension Width x Height with Pixel." ) );
-  insertPermanentWidget ( 2, m_viewPortInfo );
+  insertPermanentWidget ( 3, m_viewPortInfo );
 }
 
 /**
-* Wenn mit @ref TidyMessanger::itemsChanged Nachrichten eingehen 
+* Zeigt Informationen über den Aktuellen Status der
+* Seiten Aktualisierung an.
+*/
+void StatusBar::timerStatus ( int max, int sek )
+{
+  if ( max == 0 )
+  {
+    m_refreshLabel->setText ( QString::null );
+    QIcon timeIcon ( QIcon::fromTheme ( QLatin1String ( "clock" ) ) );
+    m_refreshLabel->setPixmap ( timeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
+  }
+  else
+  {
+    m_refreshLabel->setEnabled ( true );
+    QString status;
+    status.sprintf ( "%02d", ( max - sek ) );
+    m_refreshLabel->setText ( status );
+  }
+}
+
+/**
+* Wenn mit @ref TidyMessanger::itemsChanged Nachrichten eingehen
 * diese hier hervorheben.
 */
 void StatusBar::notice ( bool notice )

@@ -104,22 +104,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/autoreloadmenu.cpp" line="42"/>
+        <location filename="../src/autoreloadmenu.cpp" line="44"/>
         <source>15 Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/autoreloadmenu.cpp" line="45"/>
+        <location filename="../src/autoreloadmenu.cpp" line="48"/>
         <source>30 Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/autoreloadmenu.cpp" line="48"/>
+        <location filename="../src/autoreloadmenu.cpp" line="52"/>
         <source>45 Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/autoreloadmenu.cpp" line="51"/>
+        <location filename="../src/autoreloadmenu.cpp" line="56"/>
         <source>1 Minute</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1552,22 +1552,27 @@ Reasons : </source>
 <context>
     <name>StatusBar</name>
     <message>
-        <location filename="../src/statusbar.cpp" line="49"/>
+        <location filename="../src/statusbar.cpp" line="46"/>
+        <source>Reload Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/statusbar.cpp" line="58"/>
         <source>QTidy Messanger contains Impartations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="59"/>
+        <location filename="../src/statusbar.cpp" line="68"/>
         <source>the rendered page size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="67"/>
+        <location filename="../src/statusbar.cpp" line="76"/>
         <source>Display Browser Dimension Width x Height with Pixel.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="111"/>
+        <location filename="../src/statusbar.cpp" line="141"/>
         <source>Browser %1x%2 px</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1710,202 +1715,202 @@ Reasons : </source>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="101"/>
+        <location filename="../src/window.cpp" line="102"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="107"/>
+        <location filename="../src/window.cpp" line="111"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="226"/>
+        <location filename="../src/window.cpp" line="238"/>
         <source>Open Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="227"/>
+        <location filename="../src/window.cpp" line="239"/>
         <source>Load Document from Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="233"/>
+        <location filename="../src/window.cpp" line="245"/>
         <source>Open Html File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="234"/>
+        <location filename="../src/window.cpp" line="246"/>
         <source>Open Html from System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="240"/>
+        <location filename="../src/window.cpp" line="252"/>
         <source>Quit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="241"/>
+        <location filename="../src/window.cpp" line="253"/>
         <source>Close Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="251"/>
+        <location filename="../src/window.cpp" line="263"/>
         <source>Parse</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="252"/>
+        <location filename="../src/window.cpp" line="264"/>
         <source>Parse current Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="258"/>
+        <location filename="../src/window.cpp" line="270"/>
         <source>Format</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="259"/>
+        <location filename="../src/window.cpp" line="271"/>
         <source>Prepare and Format Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="268"/>
+        <location filename="../src/window.cpp" line="280"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="274"/>
+        <location filename="../src/window.cpp" line="286"/>
         <source>Back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="280"/>
+        <location filename="../src/window.cpp" line="292"/>
         <source>Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="286"/>
+        <location filename="../src/window.cpp" line="298"/>
         <source>New Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="287"/>
+        <location filename="../src/window.cpp" line="299"/>
         <source>Add a new empty Tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="298"/>
+        <location filename="../src/window.cpp" line="310"/>
         <source>Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="321"/>
+        <location filename="../src/window.cpp" line="333"/>
         <source>Organize Bookmarks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="328"/>
+        <location filename="../src/window.cpp" line="340"/>
         <source>Configure Tidyrc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="368"/>
+        <location filename="../src/window.cpp" line="380"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="339"/>
+        <location filename="../src/window.cpp" line="351"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="222"/>
+        <location filename="../src/window.cpp" line="234"/>
         <source>&amp;Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="248"/>
+        <location filename="../src/window.cpp" line="260"/>
         <source>&amp;Debugger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="265"/>
+        <location filename="../src/window.cpp" line="277"/>
         <source>&amp;Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="326"/>
+        <location filename="../src/window.cpp" line="338"/>
         <source>S&amp;ettings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="334"/>
+        <location filename="../src/window.cpp" line="346"/>
         <source>Configure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="343"/>
+        <location filename="../src/window.cpp" line="355"/>
         <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="344"/>
+        <location filename="../src/window.cpp" line="356"/>
         <source>about Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="349"/>
+        <location filename="../src/window.cpp" line="361"/>
         <source>about hjcms</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="357"/>
+        <location filename="../src/window.cpp" line="369"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="393"/>
+        <location filename="../src/window.cpp" line="405"/>
         <source>Toolbars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="402"/>
+        <location filename="../src/window.cpp" line="414"/>
         <source>Impartations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="410"/>
+        <location filename="../src/window.cpp" line="422"/>
         <source>Inspectors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="516"/>
+        <location filename="../src/window.cpp" line="528"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="564"/>
+        <location filename="../src/window.cpp" line="576"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="565"/>
+        <location filename="../src/window.cpp" line="577"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="566"/>
+        <location filename="../src/window.cpp" line="578"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="567"/>
+        <location filename="../src/window.cpp" line="579"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="574"/>
+        <location filename="../src/window.cpp" line="586"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>
