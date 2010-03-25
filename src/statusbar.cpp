@@ -44,8 +44,10 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_refreshLabel->setFrameShape ( QFrame::NoFrame );
   m_refreshLabel->setContentsMargins ( 5, 2, 5, 2 );
   m_refreshLabel->setToolTip ( trUtf8 ( "Reload Status" ) );
-  QIcon timeIcon ( QIcon::fromTheme ( QLatin1String ( "clock" ) ) );
-  m_refreshLabel->setPixmap ( timeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
+  m_refreshLabel->setMinimumWidth ( 26 );
+  m_refreshLabel->setAlignment ( Qt::AlignCenter );
+  m_refreshLabel->setStyleSheet ( "background-image:url(':/icons/clock.png');background-position:center;background-repeat:no-repeat;" );
+  m_refreshLabel->setEnabled ( false );
   insertPermanentWidget ( 0, m_refreshLabel );
 
   // Display Notifications
@@ -86,16 +88,12 @@ void StatusBar::timerStatus ( int max, int sek )
   if ( max == 0 )
   {
     m_refreshLabel->setText ( QString::null );
-    QIcon timeIcon ( QIcon::fromTheme ( QLatin1String ( "clock" ) ) );
-    m_refreshLabel->setPixmap ( timeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
+    return;
   }
-  else
-  {
-    m_refreshLabel->setEnabled ( true );
-    QString status;
-    status.sprintf ( "%02d", ( max - sek ) );
-    m_refreshLabel->setText ( status );
-  }
+
+  QString status;
+  status.sprintf ( "%02d", ( max - sek ) );
+  m_refreshLabel->setText ( status );
 }
 
 /**

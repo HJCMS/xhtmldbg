@@ -2,6 +2,7 @@
 <RCC version="1.0">
   <qresource prefix="/" >
     <file>icons/critical.png</file>
+    <file>icons/clock.png</file>
     <file>icons/gplv3.png</file>
     <file>icons/html.png</file>
     <file>icons/lgplv3.png</file>
