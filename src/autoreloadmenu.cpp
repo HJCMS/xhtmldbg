@@ -41,17 +41,25 @@ AutoReloadMenu::AutoReloadMenu ( QMenu * parent )
   disableReload->setChecked ( true );
   connect ( disableReload, SIGNAL ( triggered() ), this, SLOT ( setTimerDisable() ) );
 
-  ac15_seconds = addAction ( timeIcon, trUtf8 ( "15 Seconds" ) );
-  ac15_seconds->setCheckable ( true );
-  connect ( ac15_seconds, SIGNAL ( triggered() ), this, SLOT ( set15_seconds() ) );
+  ac10_seconds = addAction ( timeIcon, trUtf8 ( "10 Seconds" ) );
+  ac10_seconds->setCheckable ( true );
+  connect ( ac10_seconds, SIGNAL ( triggered() ), this, SLOT ( set10_seconds() ) );
+
+  ac20_seconds = addAction ( timeIcon, trUtf8 ( "20 Seconds" ) );
+  ac20_seconds->setCheckable ( true );
+  connect ( ac20_seconds, SIGNAL ( triggered() ), this, SLOT ( set20_seconds() ) );
 
   ac30_seconds = addAction ( timeIcon, trUtf8 ( "30 Seconds" ) );
   ac30_seconds->setCheckable ( true );
   connect ( ac30_seconds, SIGNAL ( triggered() ), this, SLOT ( set30_seconds() ) );
 
-  ac45_seconds = addAction ( timeIcon, trUtf8 ( "45 Seconds" ) );
-  ac45_seconds->setCheckable ( true );
-  connect ( ac45_seconds, SIGNAL ( triggered() ), this, SLOT ( set45_seconds() ) );
+  ac40_seconds = addAction ( timeIcon, trUtf8 ( "40 Seconds" ) );
+  ac40_seconds->setCheckable ( true );
+  connect ( ac40_seconds, SIGNAL ( triggered() ), this, SLOT ( set40_seconds() ) );
+
+  ac50_seconds = addAction ( timeIcon, trUtf8 ( "50 Seconds" ) );
+  ac50_seconds->setCheckable ( true );
+  connect ( ac50_seconds, SIGNAL ( triggered() ), this, SLOT ( set50_seconds() ) );
 
   ac60_seconds = addAction ( timeIcon, trUtf8 ( "1 Minute" ) );
   ac60_seconds->setCheckable ( true );
@@ -75,10 +83,16 @@ void AutoReloadMenu::setTimerDisable()
   emit reloadInterval ( 0 );
 }
 
-void AutoReloadMenu::set15_seconds()
+void AutoReloadMenu::set10_seconds()
 {
-  swapChecked ( ac15_seconds );
-  emit reloadInterval ( 15 );
+  swapChecked ( ac10_seconds );
+  emit reloadInterval ( 10 );
+}
+
+void AutoReloadMenu::set20_seconds()
+{
+  swapChecked ( ac20_seconds );
+  emit reloadInterval ( 20 );
 }
 
 void AutoReloadMenu::set30_seconds()
@@ -87,10 +101,16 @@ void AutoReloadMenu::set30_seconds()
   emit reloadInterval ( 30 );
 }
 
-void AutoReloadMenu::set45_seconds()
+void AutoReloadMenu::set40_seconds()
 {
-  swapChecked ( ac45_seconds );
-  emit reloadInterval ( 45 );
+  swapChecked ( ac40_seconds );
+  emit reloadInterval ( 40 );
+}
+
+void AutoReloadMenu::set50_seconds()
+{
+  swapChecked ( ac50_seconds );
+  emit reloadInterval ( 50 );
 }
 
 void AutoReloadMenu::set60_seconds()

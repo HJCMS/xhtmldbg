@@ -38,17 +38,21 @@ class AutoReloadMenu : public QMenu
 
   private:
     QAction* disableReload;
-    QAction* ac15_seconds;
+    QAction* ac10_seconds;
+    QAction* ac20_seconds;
     QAction* ac30_seconds;
-    QAction* ac45_seconds;
+    QAction* ac40_seconds;
+    QAction* ac50_seconds;
     QAction* ac60_seconds;
     void swapChecked ( QAction * );
 
   private Q_SLOTS:
     void setTimerDisable();
-    void set15_seconds();
+    void set10_seconds();
+    void set20_seconds();
     void set30_seconds();
-    void set45_seconds();
+    void set40_seconds();
+    void set50_seconds();
     void set60_seconds();
 
   Q_SIGNALS:

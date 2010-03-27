@@ -34,10 +34,22 @@ AutoReloader::AutoReloader ( QObject * parent )
 {
   setObjectName ( QLatin1String ( "autoreloader" ) );
   m_timer = new QTimer ( this );
+  // 1 Sekunde = 1000 Millisekunden (SI-Einheitensystem)
   m_timer->setInterval ( 1000 );
   connect ( m_timer, SIGNAL ( timeout() ), this, SLOT ( timeStamp() ) );
 }
 
+/**
+* Die Intervalzeit ist auf eine Sekunde eingestellt.
+* Diese Methode erhöht bei jeden Aufruf den
+* Inkrementalgeber @ref incrementer  um eine Sekunde.
+* Ist der Wert von @ref reloadInSeconds erreicht wird
+* das signal @ref reload abgestoßen und der
+* Inkrementalgeber wieder auf 0 gesetzt.
+* Gleichzeitig erfolgt bei jedem Aufruf das signal @ref status
+* bei dem der Entpunkt-Faktor @ref reloadInSeconds und der
+* Aktuelle Inkrementalgeber Status gesendet werden.
+*/
 void AutoReloader::timeStamp()
 {
   ++incrementer;
@@ -49,12 +61,21 @@ void AutoReloader::timeStamp()
   emit status ( reloadInSeconds, incrementer );
 }
 
+/**
+* Stoppe alle laufenden Zeitgeber und nehme
+* die Intervalzeit in Sekunden entgegen.
+* Setze den Inkrementalgeber @ref incrementer
+* auf 0 und @ref reloadInSeconds erhält den neuen
+* Wert mit dem der Zeitgeber neu gestartet wird.
+* Wenn die Überreichte Zeit unterhalb von 5 liegt,
+* wird der Zeitgeber abgeschaltet.
+*/
 void AutoReloader::setInterval ( int sek )
 {
   if ( m_timer->isActive() )
     m_timer->stop();
 
-  if ( sek < 15 )
+  if ( sek < 5 )
   {
     emit status ( 0, 0 );
     return;

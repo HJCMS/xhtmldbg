@@ -105,21 +105,31 @@
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="44"/>
-        <source>15 Seconds</source>
-        <translation>15 Sekunden</translation>
+        <source>10 Seconds</source>
+        <translation type="unfinished">45 Sekunden {10 ?}</translation>
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="48"/>
+        <source>20 Seconds</source>
+        <translation type="unfinished">45 Sekunden {20 ?}</translation>
+    </message>
+    <message>
+        <location filename="../src/autoreloadmenu.cpp" line="56"/>
+        <source>40 Seconds</source>
+        <translation type="unfinished">45 Sekunden {40 ?}</translation>
+    </message>
+    <message>
+        <location filename="../src/autoreloadmenu.cpp" line="60"/>
+        <source>50 Seconds</source>
+        <translation type="unfinished">45 Sekunden {50 ?}</translation>
+    </message>
+    <message>
+        <location filename="../src/autoreloadmenu.cpp" line="52"/>
         <source>30 Seconds</source>
         <translation>30 Sekunden</translation>
     </message>
     <message>
-        <location filename="../src/autoreloadmenu.cpp" line="52"/>
-        <source>45 Seconds</source>
-        <translation>45 Sekunden</translation>
-    </message>
-    <message>
-        <location filename="../src/autoreloadmenu.cpp" line="56"/>
+        <location filename="../src/autoreloadmenu.cpp" line="64"/>
         <source>1 Minute</source>
         <translation>1 Minute</translation>
     </message>
@@ -1566,22 +1576,22 @@ Gründe : </translation>
         <translation>Aktualisieren Status</translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="58"/>
+        <location filename="../src/statusbar.cpp" line="60"/>
         <source>QTidy Messanger contains Impartations</source>
         <translation>Das QTidy Nachrichtenfenster enthält Nachrichten</translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="68"/>
+        <location filename="../src/statusbar.cpp" line="70"/>
         <source>the rendered page size</source>
         <translation>Abgegebene Seitengröße</translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="76"/>
+        <location filename="../src/statusbar.cpp" line="78"/>
         <source>Display Browser Dimension Width x Height with Pixel.</source>
         <translation>Zeige Browser Dimensionen Breit x Hoch in Pixel an.</translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="141"/>
+        <location filename="../src/statusbar.cpp" line="139"/>
         <source>Browser %1x%2 px</source>
         <translation></translation>
     </message>
