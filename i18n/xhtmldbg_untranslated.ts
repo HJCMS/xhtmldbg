@@ -277,57 +277,57 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="134"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="149"/>
         <source>Rejected - CSS Validator is busy ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="180"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="195"/>
         <source>CSS Validator says: Invalid Url and denies this request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="193"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="208"/>
         <source>Checking (%1). Please wait a little!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="312"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="329"/>
         <source>To take in &quot;%1&quot; for Validation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="334"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="351"/>
         <source>FailedToStart (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="338"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="355"/>
         <source>Crashed (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="342"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="359"/>
         <source>Timedout (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="346"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="363"/>
         <source>WriteError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="350"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="367"/>
         <source>ReadError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="354"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="371"/>
         <source>UnknownError (%1) ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="387"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="404"/>
         <source>Crashed see logfiles</source>
         <translation type="unfinished"></translation>
     </message>

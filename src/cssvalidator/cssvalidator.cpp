@@ -119,6 +119,21 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
 }
 
 /**
+* Nachsehen ob diese Adresse nicht für die
+* Prüfung existiert.
+* Wenn ja dann true zurück geben.
+*/
+bool CSSValidator::isUnique ( const QUrl &url )
+{
+  for ( int i = 0 ; i < m_listWidget->count(); i++ )
+  {
+    if ( m_listWidget->item ( i )->data ( Qt::UserRole ).toUrl() == url )
+      return false;
+  }
+  return true;
+}
+
+/**
 * Die eingereichte Adresse prüfen und nachsehen ob bei
 * @class Validator schon ein Prozess am laufen ist.
 * Wenn nicht und @ref Validator::setValidation kein
@@ -309,7 +324,9 @@ void CSSValidator::addForValidation ( const QUrl &url )
   if ( ! remote.isEmpty() )
   {
     QString display = url.toString ( QUrl::StripTrailingSlash | QUrl::RemoveFragment );
-    placeUrlItem ( trUtf8 ( "To take in \"%1\" for Validation." ).arg ( display ), QUrl ( remote ) );
+    QUrl remoteUrl ( remote );
+    if ( isUnique ( remoteUrl ) )
+      placeUrlItem ( trUtf8 ( "To take in \"%1\" for Validation." ).arg ( display ), remoteUrl );
   }
 }
 

@@ -282,57 +282,57 @@ Do you realy wan to exit?</source>
         <translation>CSS Prüfung</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="134"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="149"/>
         <source>Rejected - CSS Validator is busy ...</source>
         <translation>Verworfen - Die CSS Prüfung ist beschäftigt ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="180"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="195"/>
         <source>CSS Validator says: Invalid Url and denies this request.</source>
         <translation>Der CSS Validator sagt: Ungültige Adresse und verweigert die Anfrage.</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="193"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="208"/>
         <source>Checking (%1). Please wait a little!</source>
         <translation>Prüfe (%1). Bitte warte einen Augenblick!</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="312"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="329"/>
         <source>To take in &quot;%1&quot; for Validation.</source>
         <translation>Nehme &quot;%1&quot; für die Überprüfung an.</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="334"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="351"/>
         <source>FailedToStart (%1) ...</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="338"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="355"/>
         <source>Crashed (%1) ...</source>
         <translation>Abgestürzt (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="342"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="359"/>
         <source>Timedout (%1) ...</source>
         <translation>Zeitüberschreitung (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="346"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="363"/>
         <source>WriteError (%1) ...</source>
         <translation>Schreibfehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="350"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="367"/>
         <source>ReadError (%1) ...</source>
         <translation>Lesefehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="354"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="371"/>
         <source>UnknownError (%1) ...</source>
         <translation>Unbekannter Fehler (%1) ...</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/cssvalidator.cpp" line="387"/>
+        <location filename="../src/cssvalidator/cssvalidator.cpp" line="404"/>
         <source>Crashed see logfiles</source>
         <translation>Abgestürzt - Sehe die Logdateien ein</translation>
     </message>

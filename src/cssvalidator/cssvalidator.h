@@ -59,6 +59,7 @@ class CSSValidator : public QDockWidget
     SoupReader* m_soupReader;
     QByteArray soupData;
 
+    bool isUnique ( const QUrl & );
     bool prepareToExecute ( const QUrl & );
     void openConfigurationDialog();
     void placeUrlItem ( const QString &, const QUrl & );
