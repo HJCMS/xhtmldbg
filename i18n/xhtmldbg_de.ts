@@ -106,22 +106,22 @@
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="44"/>
         <source>10 Seconds</source>
-        <translation type="unfinished">45 Sekunden {10 ?}</translation>
+        <translation>10 Sekunden</translation>
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="48"/>
         <source>20 Seconds</source>
-        <translation type="unfinished">45 Sekunden {20 ?}</translation>
+        <translation>20 Sekunden</translation>
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="56"/>
         <source>40 Seconds</source>
-        <translation type="unfinished">45 Sekunden {40 ?}</translation>
+        <translation>40 Sekunden</translation>
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="60"/>
         <source>50 Seconds</source>
-        <translation type="unfinished">45 Sekunden {50 ?}</translation>
+        <translation>50 Sekunden</translation>
     </message>
     <message>
         <location filename="../src/autoreloadmenu.cpp" line="52"/>
