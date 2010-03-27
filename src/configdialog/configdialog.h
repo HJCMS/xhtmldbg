@@ -28,6 +28,7 @@
 
 /* QtGui */
 #include <QtGui/QDialog>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
@@ -61,13 +62,18 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     // load
     void loadHeaderDefinitions();
     void loadUntrustedHostsWhiteList();
+    void loadUserAgentList();
 
     // save
     void saveHeaderDefinitions();
     void saveUntrustedHostsWhiteList();
+    void saveUserAgentList();
 
   private Q_SLOTS:
     void addCookieAccess();
+    void userAgentForEdit ( QListWidgetItem * );
+    void addUserAgent();
+    void delUserAgent();
     void addTrustedHost();
     void delTrustedHost();
     void setModified();

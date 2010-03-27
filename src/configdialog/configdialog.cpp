@@ -19,6 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#include "version.h"
 #include "configdialog.h"
 #include "editcookiestable.h"
 #include "proxysettings.h"
@@ -29,6 +30,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QList>
+#include <QtCore/QLocale>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 #include <QtCore/QString>
@@ -78,6 +80,7 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   tabWidget->setTabIcon ( 3, icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
   tabWidget->setTabIcon ( 4, icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
   tabWidget->setTabIcon ( 5, icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
+  tabWidget->setTabIcon ( 6, icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
   // Set PushButton Icons
   removeCookieItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   removeAllCookies->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
@@ -95,6 +98,9 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   removeFromWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   addToWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
   clearWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
+  // UserAgent Buttons
+  addAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
+  removeAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
 
   // Modify ButtonBox
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
@@ -161,6 +167,11 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
             this, SLOT ( setDomTreeBackgroundColor() ) );
   connect ( openBorderHighlightSettings, SIGNAL ( clicked() ),
             this, SLOT ( setDomTreeBorderColor() ) );
+  // UserAgents
+  connect ( userAgentList, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
+            this, SLOT ( userAgentForEdit ( QListWidgetItem * ) ) );
+  connect ( addAgentBtn, SIGNAL ( clicked() ), this, SLOT ( addUserAgent() ) );
+  connect ( removeAgentBtn, SIGNAL ( clicked() ), this, SLOT ( delUserAgent() ) );
 
   // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
@@ -243,6 +254,39 @@ void ConfigDialog::loadUntrustedHostsWhiteList()
   trustedHostsList->addItems ( list );
 }
 
+void ConfigDialog::loadUserAgentList()
+{
+  QStringList list;
+  QLocale locale = QLocale::system();
+  int size = cfg->beginReadArray ( QLatin1String ( "UserAgents" ) );
+
+  QString iso639_1 = locale.name().remove ( QRegExp ( "([_\\-].+)$" ) );
+  QString iso3166 = locale.name();
+
+  if ( size < 1 )
+  {
+    QString defaultAgent = QString ( "Mozilla/5.0 (compatible; XHTMLDBG/%1; %2, %3) AppleWebKit (KHTML, like Gecko)" )
+                           .arg ( XHTMLDBG_VERSION_STRING, iso639_1, iso3166 );
+    list << defaultAgent;
+    userAgentList->addItems ( list );
+    cfg->endArray(); // !!!Nicht vergessen!!!
+    return;
+  }
+
+  for ( int i = 0; i < size; ++i )
+  {
+    cfg->setArrayIndex ( i );
+    list.append ( cfg->value ( "agent" ).toString() );
+  }
+  cfg->endArray();
+
+  if ( list.size() >= 1 )
+  {
+    userAgentList->clear();
+    userAgentList->addItems ( list );
+  }
+}
+
 void ConfigDialog::saveHeaderDefinitions()
 {
   int rows = headersTable->rowCount();
@@ -272,6 +316,21 @@ void ConfigDialog::saveUntrustedHostsWhiteList()
   cfg->endArray();
 }
 
+void ConfigDialog::saveUserAgentList()
+{
+  cfg->remove ( QLatin1String ( "UserAgents" ) );
+  if ( userAgentList->count() < 1 )
+    return;
+
+  cfg->beginWriteArray ( QLatin1String ( "UserAgents" ) );
+  for ( int i = 0; i < userAgentList->count(); i++ )
+  {
+    cfg->setArrayIndex ( i );
+    cfg->setValue ( QLatin1String ( "agent" ), userAgentList->item ( i )->text() );
+  }
+  cfg->endArray();
+}
+
 void ConfigDialog::addCookieAccess()
 {
   if ( addCookieDomain->text().isEmpty() )
@@ -286,6 +345,70 @@ void ConfigDialog::addCookieAccess()
     else
       addCookieDomain->setFocus();
   }
+}
+
+/**
+* Bei einem anklicken den User Agent für das bearbeiten holen.
+*/
+void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
+{
+  int r = userAgentList->row ( item );
+  QString buffer = item->text();
+  if ( buffer.isEmpty() )
+    return;
+
+  /* Trick: Setzte die Reihe für den Update vorgang! */
+  item->setData ( Qt::UserRole, r );
+  qt_modifyUserAgent->setText ( buffer );
+}
+
+/**
+* Füge eine neue Benutzer Kennung in die Liste ein,
+* oder Editiere einen vorhandenen User-Agent.
+*/
+void ConfigDialog::addUserAgent()
+{
+  bool addItemAction = true;
+  QString selectedAgent = qt_modifyUserAgent->text();
+  if ( selectedAgent.isEmpty() )
+    return;
+
+  foreach ( QListWidgetItem* item, userAgentList->selectedItems() )
+  {
+    if ( ! item->data ( Qt::UserRole ).isNull() )
+    {
+      item->setText ( selectedAgent );
+      item->setData ( Qt::UserRole, QVariant() );
+      addItemAction = false;
+      break;
+    }
+  }
+
+  if ( addItemAction )
+    userAgentList->addItem ( selectedAgent );
+
+  qt_modifyUserAgent->clear();
+  qt_modifyUserAgent->setFocus();
+  setModified();
+}
+
+/**
+* Entferne den augewählten User Agent aus der Liste.
+*/
+void ConfigDialog::delUserAgent()
+{
+  foreach ( QListWidgetItem* item, userAgentList->selectedItems() )
+  {
+    if ( item->isSelected() )
+    {
+      userAgentList->removeItemWidget ( item );
+      delete item;
+      break;
+    }
+  }
+  qt_modifyUserAgent->clear();
+  qt_modifyUserAgent->setFocus();
+  setModified();
 }
 
 void ConfigDialog::addTrustedHost()
@@ -319,7 +442,7 @@ void ConfigDialog::delTrustedHost()
   setModified();
 }
 
-void ConfigDialog::setModified()
+void ConfigDialog::setModified ()
 {
   setWindowModified ( true );
 }
@@ -378,6 +501,7 @@ void ConfigDialog::loadSettings()
     setCaCertDatabase ();
 
   loadUntrustedHostsWhiteList();
+  loadUserAgentList();
 
   QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
   qt_ssl_pass_phrase->setText ( p );
@@ -428,6 +552,7 @@ void ConfigDialog::saveSettings()
 
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
+  saveUserAgentList();
 
   QByteArray p = qt_ssl_pass_phrase->text().toAscii();
   cfg->setValue ( QLatin1String ( "sslPassPhrase" ), p.toBase64() );
@@ -478,6 +603,7 @@ void ConfigDialog::restoreSettings()
   cfg->remove ( QLatin1String ( "highlightColor" ) );
   cfg->remove ( QLatin1String ( "highlightBorder" ) );
   cfg->remove ( QLatin1String ( "proxyType" ) );
+  cfg->remove ( QLatin1String ( "UserAgents" ) );
 
   proxySettings->setType ( QNetworkProxy::NoProxy );
   setWindowModified ( false );

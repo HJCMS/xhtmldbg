@@ -430,7 +430,7 @@ void CSSValidator::openConfigurationDialog()
 * sich um ein XML-Deklaration handelt! Wenn nicht,
 * verwerfen und die weiteren DatenStröme einlesen.
 * In der Regel wirft der Validator 3 Datenströme.
-* @li {...} Hinweiss über die übergebene Konfiguration
+* @li {...} Hinweis über die übergebene Konfiguration
 * @li       Zur Trennnung einen Leeren Datenstrom
 * @li <?xml Das XML-Dokument
 * Wenn der Datenstrom eingelesen werden konnte dann diesen
