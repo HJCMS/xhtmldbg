@@ -463,92 +463,92 @@ Do you realy wan to exit?</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="611"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="668"/>
         <source>Notice</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="612"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="669"/>
         <source>Settings Restored.
 Please restart the Configuration Dialog.</source>
         <translation>Einstellungen wurden Zurück gesetzt.
 Bitte starte den Konfiurations Dialog neu.</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="659"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="677"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="732"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="753"/>
         <source>PKCS#12 Format %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="660"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="676"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="733"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="752"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="662"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="679"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="735"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="755"/>
         <source>Open Certificate</source>
         <translation>Öffne Zertifikat</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="693"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="772"/>
         <source>CA Bundle %1</source>
         <translation>CA Bündle %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="694"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="773"/>
         <source>Certificate %1</source>
         <translation>Zertifikat %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="696"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="775"/>
         <source>Open CA Database</source>
         <translation>Öffne CA Datenbank</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="710"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="792"/>
         <source>Java %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="711"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="727"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="793"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="812"/>
         <source>All %1</source>
         <translation>Alles %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="712"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="794"/>
         <source>Find Java Application</source>
         <translation>Find die Java Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="726"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="811"/>
         <source>Java-Archive %1</source>
         <translation>Java-Archiv %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="728"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="813"/>
         <source>Find W3C CSS Validator</source>
         <translation>Finde den W3C CSS Validierer</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="741"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="829"/>
         <source>Find W3C CSS Validator Java-Archive</source>
         <translation>Finde das W3C CSS Validierer Java-Archiv</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="755"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="847"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="756"/>
+        <location filename="../src/configdialog/configdialog.cpp" line="848"/>
         <source>Found unsaved Changes.
-Do you realy wan to exit?</source>
-        <translation>Ungespeicherte Einstellungen gefunden.
-Willst du wircklich beenden?</translation>
+Do you realy want to exit?</source>
+        <translation>Nicht gespeicherte Änderungen gefunden.
+Möchtest du wirklich Beenden?</translation>
     </message>
 </context>
 <context>
@@ -1632,6 +1632,14 @@ Gründe : </translation>
     </message>
 </context>
 <context>
+    <name>UserAgentMenu</name>
+    <message>
+        <location filename="../src/useragentmenu.cpp" line="36"/>
+        <source>User Agent</source>
+        <translation>Benutzer Kennung</translation>
+    </message>
+</context>
+<context>
     <name>Validator</name>
     <message>
         <location filename="../src/cssvalidator/validator.cpp" line="196"/>
@@ -1685,52 +1693,52 @@ Gründe : </translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="150"/>
+        <location filename="../src/viewer.cpp" line="157"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="155"/>
+        <location filename="../src/viewer.cpp" line="163"/>
         <source>StyleSheet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="158"/>
+        <location filename="../src/viewer.cpp" line="166"/>
         <source>Start CSS Validation for this Site.</source>
         <translation>Starte CSS Validierung für diese Seite.</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="231"/>
+        <location filename="../src/viewer.cpp" line="242"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation>SEO Ergebnis für &quot;%1&quot; Url: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="239"/>
+        <location filename="../src/viewer.cpp" line="250"/>
         <source>Word boundary: </source>
         <translation>An Wortgrenzen: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="244"/>
+        <location filename="../src/viewer.cpp" line="255"/>
         <source>Case Sensitive: </source>
         <translation>Groß- Kleinschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="254"/>
+        <location filename="../src/viewer.cpp" line="265"/>
         <source>Meta Keywords: </source>
         <translation>Meta Schlüsselwörter: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="260"/>
+        <location filename="../src/viewer.cpp" line="271"/>
         <source>Meta Description: </source>
         <translation>Meta Beschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="267"/>
+        <location filename="../src/viewer.cpp" line="278"/>
         <source>Page Title: </source>
         <translation>Seiten Titel: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="272"/>
+        <location filename="../src/viewer.cpp" line="283"/>
         <source>Summary: </source>
         <translation>Zusammen: </translation>
     </message>
