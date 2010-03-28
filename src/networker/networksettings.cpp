@@ -19,6 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#include "version.h"
 #include "networksettings.h"
 
 /* QtCore */
@@ -27,6 +28,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QFile>
 #include <QtCore/QIODevice>
+#include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QTextIStream>
@@ -55,6 +57,29 @@ NetworkSettings::NetworkSettings ( QObject * parent )
   wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
 }
 
+/**
+* Suche in der Konfiguration nach dem aktuellen UserAgentString
+* Wenn keiner vorhanden setze den XHTMLDBG User-Agent
+*/
+const QByteArray NetworkSettings::userAgentString()
+{
+  QString defaultAgent = value ( "UserAgentString" ).toString();
+  if ( defaultAgent.isEmpty() )
+  {
+    QLocale locale = QLocale::system();
+    QString iso639_1 = locale.name().remove ( QRegExp ( "([_\\-].+)$" ) );
+    QString iso3166 = locale.name();
+    defaultAgent.append ( "Mozilla/5.0 (compatible; XHTMLDBG/" );
+    defaultAgent.append ( XHTMLDBG_VERSION_STRING );
+    defaultAgent.append ( " " + iso639_1 + ", " + iso3166 );
+    defaultAgent.append ( ") AppleWebKit (KHTML, like Gecko)" );
+  }
+  return defaultAgent.toAscii();
+}
+
+/**
+* Diese Methode wird vor jeder Netzwerkanfrage gesetzt!
+*/
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
 {
   QNetworkRequest request = req;
@@ -82,6 +107,9 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
     }
   }
   endGroup();
+
+  // User-Agent
+  request.setRawHeader ( QByteArray( "User-Agent" ), userAgentString() );
 
   return request;
 }
@@ -118,6 +146,7 @@ const QSslConfiguration NetworkSettings::sslConfiguration()
   }
   QSslConfiguration::setDefaultConfiguration ( ssl );
 
+// TODO !!! Qt4 macht beim setzen eigener Zertifikate noch Probleme!!!
 //   QFile fp0 ( value ( QLatin1String ( "sslPublicKey" ) ).toString() );
 //   if ( fp0.open ( QIODevice::ReadOnly ) )
 //   {

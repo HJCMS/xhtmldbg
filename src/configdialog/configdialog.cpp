@@ -181,6 +181,13 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( m_buttonClose, SIGNAL ( clicked() ), this, SLOT ( quit() ) );
 }
 
+/**
+* Lese mit QSslCertificate::caCertificates() alle Zertifikate
+* in ein QList und durchlaufe sie in einer foreach Schleife.
+* Bevor die Issuer in die Tabelle eingtragen werden prüfe ob
+* das Zertifikat nicht schon abgelaufen ist!
+* Wenn ja setze einen gelben Hinweis Hintergrund!
+*/
 void ConfigDialog::setCaCertIssuerTable()
 {
   QList<QSslCertificate> certs = ssl.caCertificates();
@@ -214,6 +221,9 @@ void ConfigDialog::setCaCertIssuerTable()
   sslIssuers->horizontalHeader()->setResizeMode ( QHeaderView::ResizeToContents );
 }
 
+/**
+* Lade die Datenkopf Definitionen aus der Konfiguration
+*/
 void ConfigDialog::loadHeaderDefinitions()
 {
   cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
@@ -236,6 +246,9 @@ void ConfigDialog::loadHeaderDefinitions()
   cfg->endGroup();
 }
 
+/**
+* Lade die Verdrauenswürdigen Zertifikate aus der Konfiguration
+*/
 void ConfigDialog::loadUntrustedHostsWhiteList()
 {
   QStringList list;
@@ -254,6 +267,11 @@ void ConfigDialog::loadUntrustedHostsWhiteList()
   trustedHostsList->addItems ( list );
 }
 
+/**
+* Lade die User-Agents aus der Konfiguration wenn noch kein
+* EIntrag vorhanden setzte XHTMLDBG Agent und nehme die Einträge
+* aus der UI Komponente.
+*/
 void ConfigDialog::loadUserAgentList()
 {
   QStringList list;
@@ -287,8 +305,14 @@ void ConfigDialog::loadUserAgentList()
   }
 }
 
+/**
+* Die vom Benutzer gesetzten Datenköpfe in die Konfiguration schreiben.
+* Mit exclude werden die Header Definitionen ausgeschlossen die,
+* wie z.B: User-Agent nicht hier hinein gehören.
+*/
 void ConfigDialog::saveHeaderDefinitions()
 {
+  QStringList exclude ( "user-agent" );
   int rows = headersTable->rowCount();
   cfg->remove ( QLatin1String ( "HeaderDefinitions" ) );
   if ( rows >= 1 )
@@ -298,12 +322,16 @@ void ConfigDialog::saveHeaderDefinitions()
     {
       QString key = headersTable->item ( r, 0 )->data ( Qt::EditRole ).toString();
       QString val = headersTable->item ( r, 1 )->data ( Qt::EditRole ).toString();
-      cfg->setValue ( key, val );
+      if ( ! exclude.contains ( key.toLower() ) )
+        cfg->setValue ( key, val );
     }
     cfg->endGroup();
   }
 }
 
+/**
+* Aktuelle Liste der Verdrauenswürdigen Zertifikate speichern.
+*/
 void ConfigDialog::saveUntrustedHostsWhiteList()
 {
   cfg->remove ( QLatin1String ( "TrustedCertsHosts" ) );
@@ -316,6 +344,9 @@ void ConfigDialog::saveUntrustedHostsWhiteList()
   cfg->endArray();
 }
 
+/**
+* Aktuelle User-Agent Liste speichern.
+*/
 void ConfigDialog::saveUserAgentList()
 {
   cfg->remove ( QLatin1String ( "UserAgents" ) );
@@ -331,6 +362,9 @@ void ConfigDialog::saveUserAgentList()
   cfg->endArray();
 }
 
+/**
+* Eine Domäne in die Cookies Liste aufnehmen.
+*/
 void ConfigDialog::addCookieAccess()
 {
   if ( addCookieDomain->text().isEmpty() )
@@ -411,6 +445,10 @@ void ConfigDialog::delUserAgent()
   setModified();
 }
 
+/**
+* Eine neue Domäne in die Vertrauenswürdige
+* Zertifikat's Liste aufnehmen.
+*/
 void ConfigDialog::addTrustedHost()
 {
   if ( trustedEdit->text().isEmpty() )
@@ -428,6 +466,10 @@ void ConfigDialog::addTrustedHost()
   setModified();
 }
 
+/**
+* Suche alle ausgewählten Domänen in Liste für
+* Vertrauenswürdige Zertifikate und entferne diese.
+*/
 void ConfigDialog::delTrustedHost()
 {
   foreach ( QListWidgetItem* item, trustedHostsList->selectedItems() )
@@ -442,11 +484,17 @@ void ConfigDialog::delTrustedHost()
   setModified();
 }
 
+/**
+* Setzt die setWindowModified Methode
+*/
 void ConfigDialog::setModified ()
 {
   setWindowModified ( true );
 }
 
+/**
+* Lade alle Einstellungen
+*/
 void ConfigDialog::loadSettings()
 {
   // Radio Buttons
@@ -509,6 +557,9 @@ void ConfigDialog::loadSettings()
   setWindowModified ( false );
 }
 
+/**
+* Schreibe alle Einstellungen in die Konfiguration
+*/
 void ConfigDialog::saveSettings()
 {
   // Radio Buttons
@@ -562,6 +613,12 @@ void ConfigDialog::saveSettings()
   setWindowModified ( false );
 }
 
+/**
+* Entferne alle Schlüssel aus der Konfiguration die
+* diesem Konfigurations Dialog bekannt sind.
+* Nach einem Neustart des Dialoges werden die, im UI
+* Dialog gestzten Standards wieder verwendet.
+*/
 void ConfigDialog::restoreSettings()
 {
   // Radio Buttons
@@ -613,6 +670,11 @@ void ConfigDialog::restoreSettings()
 
 }
 
+/**
+* Lese die CA Bündel Datei aus und Schreibe alle
+* Issuer in die Liste @ref caCerts danach wird die
+* Methode @ref setCaCertIssuerTable neu aufgerufen.
+*/
 void ConfigDialog::setCaCertDatabase ( const QString &p )
 {
   QString path = ( p.isEmpty() ) ? sslCaCertsDatabase->text() : p;
@@ -626,6 +688,10 @@ void ConfigDialog::setCaCertDatabase ( const QString &p )
   }
 }
 
+/**
+* Öffne einen QColorDialog und setze die farbliche Hintergrund
+* Hervorhebung für die anklicken Funktion des Dom Baumes.
+*/
 void ConfigDialog::setDomTreeBackgroundColor()
 {
   QColorDialog* dialog = new QColorDialog ( this );
@@ -639,6 +705,10 @@ void ConfigDialog::setDomTreeBackgroundColor()
   }
 }
 
+/**
+* Öffne einen QColorDialog und setze die farbliche Rahmen
+* Hervorhebung für die anklicken Funktion des Dom Baumes.
+*/
 void ConfigDialog::setDomTreeBorderColor()
 {
   QColorDialog* dialog = new QColorDialog ( this );
@@ -652,6 +722,9 @@ void ConfigDialog::setDomTreeBorderColor()
   }
 }
 
+/**
+* Dialog für die Suche nach dem Privaten Schlüssel.
+*/
 void ConfigDialog::getPrivKeyDialog()
 {
   QString path ( sslPrivateKey->text() );
@@ -669,6 +742,9 @@ void ConfigDialog::getPrivKeyDialog()
   }
 }
 
+/**
+* Dialog für die Suche nach dem Öffentlichen Schlüssel
+*/
 void ConfigDialog::getPupKeyDialog()
 {
   QString path ( sslPublicKey->text() );
@@ -686,6 +762,9 @@ void ConfigDialog::getPupKeyDialog()
   }
 }
 
+/**
+* Dialog zum finden der CA Bündel Datei.
+*/
 void ConfigDialog::getCaCertDatabaseDialog()
 {
   QString path ( sslCaCertsDatabase->text() );
@@ -703,6 +782,9 @@ void ConfigDialog::getCaCertDatabaseDialog()
   }
 }
 
+/**
+* Dialog zum finden des "java" Programms
+*/
 void ConfigDialog::getJavaDialog()
 {
   QString path ( css_appl->text() );
@@ -719,6 +801,9 @@ void ConfigDialog::getJavaDialog()
   }
 }
 
+/**
+* Dialog zum finden der css-validator.jar Datei.
+*/
 void ConfigDialog::getCSSValidatorDialog()
 {
   QString path ( css_validator->text() );
@@ -735,6 +820,9 @@ void ConfigDialog::getCSSValidatorDialog()
   }
 }
 
+/**
+* Dialog zum finden der css-validator Archive.
+*/
 void ConfigDialog::getClassPathDialog()
 {
   QString path ( css_classpath->text() );
@@ -748,12 +836,16 @@ void ConfigDialog::getClassPathDialog()
   }
 }
 
+/**
+* Vor dem Beenden nach ungespeicherten Einträgen suchen
+* und bei bedarf zuvor eine Meldung ausgeben.
+*/
 void ConfigDialog::quit()
 {
   QMessageBox::StandardButton status = QMessageBox::Yes;
   if ( isWindowModified() )
     status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
-                                     trUtf8 ( "Found unsaved Changes.\nDo you realy wan to exit?" ),
+                                     trUtf8 ( "Found unsaved Changes.\nDo you realy want to exit?" ),
                                      ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
 
   if ( status == QMessageBox::Yes )

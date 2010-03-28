@@ -45,6 +45,7 @@ SET (xhtmldbg_SOURCES
   appevents.cpp
   autoreloader.cpp
   autoreloadmenu.cpp
+  useragentmenu.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -66,6 +67,7 @@ SET (xhtmldbg_HEADERS
   appevents.h
   autoreloader.h
   autoreloadmenu.h
+  useragentmenu.h
 )
 
 SET (xhtmldbg_NOMOC

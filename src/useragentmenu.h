@@ -19,43 +19,37 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NETWORKSETTINGS_H
-#define NETWORKSETTINGS_H
+#ifndef UserAgentMenu_H
+#define UserAgentMenu_H
 
 /* QtCore */
-#include <QtCore/QList>
+#include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
-#include <QtCore/QObject>
-#include <QtCore/QVariant>
+#include <QtCore/QSignalMapper>
 
-/* QtWebKit */
-#include <QtWebKit/QWebSettings>
+/* QtGui */
+#include <QtGui/QIcon>
+#include <QtGui/QMenu>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkProxy>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QSslConfiguration>
-
-class NetworkSettings : public QSettings
+class UserAgentMenu : public QMenu
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   private:
-    QWebSettings* wcfg;
-    const QByteArray userAgentString();
+    QSettings* cfg;
+    const QIcon agentIcon;
+    QSignalMapper* m_signalMapper;
+    void addAgentActions();
+
+  private Q_SLOTS:
+    void clicked ( const QString & );
 
   public:
-    NetworkSettings ( QObject * parent = 0 );
-    const QNetworkRequest requestOptions ( const QNetworkRequest & );
-    const QString storageDirectory();
-    const QNetworkProxy getProxy();
-    const QSslConfiguration sslConfiguration();
-    const QList<QString> trustedCertsList();
-    ~NetworkSettings();
+    UserAgentMenu ( QMenu * parent = 0, QSettings * settings = 0 );
+    ~UserAgentMenu ();
 };
 
 #endif

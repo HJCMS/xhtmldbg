@@ -27,12 +27,14 @@
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "cookieacceptdialog.h"
+#include "useragentmenu.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
+#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QBrush>
@@ -142,21 +144,30 @@ void Viewer::bookmark()
 }
 
 /**
-* Füge Lesezeichen Aktion mit ein.
+* Füge Aktionen für (Lesezeichen|Stylesheet|User-Agent) mit ein.
 */
 void Viewer::contextMenuEvent ( QContextMenuEvent * e )
 {
+  // Settings
+  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
+                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+
   QMenu* menu = m_page->createStandardContextMenu();
+  // Lesezeichen
   QAction* add = menu->addAction ( trUtf8 ( "Bookmark" ) );
   add->setObjectName ( QLatin1String ( "addbookmarkaction" ) );
   add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
 
+  // Stylesheet Überprüfung
   QAction* style = menu->addAction ( trUtf8 ( "StyleSheet" ) );
   style->setObjectName ( QLatin1String ( "stylesheet" ) );
   style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
   style->setToolTip ( trUtf8( "Start CSS Validation for this Site." ) );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
+
+  // User-Agent
+  menu->addMenu( new UserAgentMenu ( menu, cfg ) );
 
   menu->exec ( e->globalPos() );
   delete menu;
