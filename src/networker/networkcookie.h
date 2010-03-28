@@ -33,6 +33,7 @@
 #include <QtNetwork/QNetworkCookieJar>
 
 class NetworkSettings;
+class AutoSaver;
 
 class NetworkCookie : public QNetworkCookieJar
 {
@@ -43,6 +44,7 @@ class NetworkCookie : public QNetworkCookieJar
 
   private:
     NetworkSettings* m_netcfg;
+    AutoSaver* m_autoSaver;
     QStringList cookiesBlocked;
     QStringList cookiesAllowed;
     QStringList cookiesSession;

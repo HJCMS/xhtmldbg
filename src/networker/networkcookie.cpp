@@ -21,6 +21,7 @@
 
 #include "networkcookie.h"
 #include "networksettings.h"
+#include "autosaver.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -116,6 +117,7 @@ QDataStream &operator>> ( QDataStream &stream, QList<QNetworkCookie> &list )
 NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
     , m_netcfg ( settings )
+    , m_autoSaver ( new AutoSaver ( this ) )
     , cookiesBlocked ( 0 )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
@@ -229,7 +231,10 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   if ( add )
+  {
+    m_autoSaver->saveIfNeccessary();
     emit cookiesChanged ();
+  }
   else
     emit cookiesRequest ( url );
 
@@ -238,5 +243,5 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
 NetworkCookie::~NetworkCookie()
 {
-  save();
+  m_autoSaver->saveIfNeccessary();
 }

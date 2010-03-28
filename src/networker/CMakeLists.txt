@@ -7,6 +7,7 @@ SET (networker_SOURCES
   authenticationdialog.cpp
   certdialog.cpp
   errorsdialog.cpp
+  autosaver.cpp
 )
 
 SET (networker_HEADERS
@@ -16,6 +17,7 @@ SET (networker_HEADERS
   authenticationdialog.h
   certdialog.h
   errorsdialog.h
+  autosaver.h
 )
 
 SET (networker_NOMOC
