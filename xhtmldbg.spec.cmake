@@ -8,11 +8,10 @@
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
-Version:        @XHTMLDBG_VERSION_STRING@
+Version:        0.8.3
 Release:        %{_release}
 License:        GPLv3
 AutoReqProv:    on
-Source0:        xhtmldbg-%{version}.tar.bz2
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -35,7 +34,9 @@ Author:
 
 %prep
 
-%setup -q
+%setup -q -T -c %{name}
+
+git clone http://repository.hjcms.de/hjcms/xhtmldbg .
 
 %__mkdir_p build
 

@@ -10,7 +10,7 @@ debug_build_target=$HOME/hjcms/xhtmldbg/build
 # -DCMAKE_CXX_COMPILER:FILEPATH=$(which mpic++) \
 # -DCMAKE_C_COMPILER:FILEPATH=$(which mpicc) \
 
-MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686"
+MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -pedantic"
 
 runcmake() {
 	cmake \
