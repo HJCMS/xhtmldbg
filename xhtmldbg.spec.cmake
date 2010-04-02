@@ -36,7 +36,8 @@ Author:
 
 %setup -q -T -c %{name}
 
-git clone http://repository.hjcms.de/hjcms/xhtmldbg .
+## Password: anonymous
+git clone http://anonymous@repository.hjcms.de/hjcms/xhtmldbg .
 
 %__mkdir_p build
 

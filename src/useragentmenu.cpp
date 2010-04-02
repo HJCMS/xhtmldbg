@@ -64,15 +64,15 @@ void UserAgentMenu::addAgentActions()
   for ( int i = 0; i < size; ++i )
   {
     cfg->setArrayIndex ( i );
-    QString buff = cfg->value ( "agent" ).toString();
-    if ( buff.isEmpty() )
+    QString ag = cfg->value ( "agent" ).toString();
+    QString ti = cfg->value ( "title" ).toString();
+    if ( ag.isEmpty() || ti.isEmpty() )
       continue;
 
-    QString shortString = buff.left ( 97 ) + QString ( "..." );
-    QAction* ac = addAction ( agentIcon, shortString );
-    ac->setToolTip ( buff );
+    QAction* ac = addAction ( agentIcon, ti );
+    ac->setToolTip ( ag );
     connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
-    m_signalMapper->setMapping ( ac, buff );
+    m_signalMapper->setMapping ( ac, ag );
   }
   cfg->endArray();
 }

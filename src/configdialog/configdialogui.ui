@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>659</width>
-    <height>573</height>
+    <width>741</width>
+    <height>548</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -902,7 +902,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>627</width>
+            <width>709</width>
             <height>788</height>
            </rect>
           </property>
@@ -1231,7 +1231,7 @@
            <string notr="true">Mozilla/5.0 (compatible; XHTMLDBG/0.8.3; en, en_US) AppleWebKit (KHTML, like Gecko)</string>
           </property>
           <property name="toolTip">
-           <string notr="true"/>
+           <string notr="true">xhtmldbg (en)</string>
           </property>
           <property name="statusTip">
            <string notr="true"/>
@@ -1261,7 +1261,7 @@
            <string notr="true">Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6</string>
           </property>
           <property name="toolTip">
-           <string notr="true">Firefox Windows XP Version 3.5.6</string>
+           <string notr="true">Firefox Windows XP Version 3.5.6 (en)</string>
           </property>
           <property name="statusTip">
            <string notr="true"/>
@@ -1269,13 +1269,51 @@
          </item>
          <item>
           <property name="text">
-           <string notr="true">Mozilla/5.0 (compatible; Konqueror/3.2; Linux 2.6.30) (KHTML, like Gecko)</string>
+           <string notr="true">Mozilla/5.0 (compatible; Konqueror/3.2; en) (KHTML, like Gecko)</string>
           </property>
           <property name="toolTip">
-           <string notr="true"/>
+           <string notr="true">KDE3 Konqueror (en)</string>
           </property>
           <property name="statusTip">
            <string notr="true"/>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">Mozilla/5.0 (compatible; Konqueror/4.4; en) KHTML/4.4.0 (like Gecko)</string>
+          </property>
+          <property name="toolTip">
+           <string notr="true">KDE4 Konqueror (en)</string>
+          </property>
+          <property name="statusTip">
+           <string notr="true"/>
+          </property>
+          <property name="whatsThis">
+           <string notr="true"/>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">Mozilla/5.0 (Macintosh; U; PPC Mac OS X 10.4; en-US; rv:1.9.0.10) Gecko/2009042315 Firefox/3.0.10</string>
+          </property>
+          <property name="toolTip">
+           <string notr="true">PPC Mac OS X 10.4 Firefox (en)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_8; de-de) AppleWebKit/531.21.8 (KHTML, like Gecko) Version/4.0.4 Safari/531.21.10</string>
+          </property>
+          <property name="toolTip">
+           <string notr="true">Intel Mac OS X 10.5.8 Safari/531.21.10 (de)</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string notr="true">Mozilla/5.0 (X11; U; Linux; en-US) AppleWebKit/532.4 (KHTML, like Gecko) Arora/0.10.2 Safari/532.4</string>
+          </property>
+          <property name="toolTip">
+           <string notr="true">Arora Linux WebKit/532.4 (en)</string>
           </property>
          </item>
          <item>
@@ -1283,7 +1321,7 @@
            <string notr="true">Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)</string>
           </property>
           <property name="toolTip">
-           <string notr="true"/>
+           <string notr="true">Internet Explorer 6</string>
           </property>
           <property name="statusTip">
            <string notr="true"/>
@@ -1295,22 +1333,61 @@
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
           <widget class="QLabel" name="label_14">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
            <property name="text">
             <string>Agent:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
-           <property name="indent">
-            <number>3</number>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="qt_modifyUserAgent"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_15">
+           <property name="minimumSize">
+            <size>
+             <width>50</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Menu Title:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
           </widget>
          </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="qt_userAgentTitle"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QLineEdit" name="qt_modifyUserAgent"/>
+          <spacer name="horizontalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
           <widget class="QToolButton" name="addAgentBtn">

@@ -268,13 +268,13 @@ void ConfigDialog::loadUntrustedHostsWhiteList()
 }
 
 /**
-* Lade die User-Agents aus der Konfiguration wenn noch kein
-* EIntrag vorhanden setzte XHTMLDBG Agent und nehme die Einträge
-* aus der UI Komponente.
+* Lade die User-Agents aus der Konfiguration. Wenn noch kein
+* Eintrag vorhanden ist setzte den System XHTMLDBG Agent
+* und nehme die Einträge aus der UI Komponente.
 */
 void ConfigDialog::loadUserAgentList()
 {
-  QStringList list;
+  QList<QListWidgetItem*> list;
   QLocale locale = QLocale::system();
   int size = cfg->beginReadArray ( QLatin1String ( "UserAgents" ) );
 
@@ -283,26 +283,29 @@ void ConfigDialog::loadUserAgentList()
 
   if ( size < 1 )
   {
+    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
     QString defaultAgent = QString ( "Mozilla/5.0 (compatible; XHTMLDBG/%1; %2, %3) AppleWebKit (KHTML, like Gecko)" )
                            .arg ( XHTMLDBG_VERSION_STRING, iso639_1, iso3166 );
-    list << defaultAgent;
-    userAgentList->addItems ( list );
+    item->setText ( defaultAgent );
+    item->setData ( Qt::UserRole, false ); // Muss false sein
+    item->setData ( Qt::ToolTipRole, trUtf8 ( "detected xhtmldbg user-agent" ) );
+    userAgentList->addItem ( item );
     cfg->endArray(); // !!!Nicht vergessen!!!
     return;
   }
 
+  userAgentList->clear();
+
   for ( int i = 0; i < size; ++i )
   {
     cfg->setArrayIndex ( i );
-    list.append ( cfg->value ( "agent" ).toString() );
+    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
+    item->setText ( cfg->value ( "agent" ).toString() );
+    item->setData ( Qt::UserRole, false ); // Muss false sein
+    item->setData ( Qt::ToolTipRole, cfg->value ( "title" ).toString() );
+    userAgentList->addItem ( item );
   }
   cfg->endArray();
-
-  if ( list.size() >= 1 )
-  {
-    userAgentList->clear();
-    userAgentList->addItems ( list );
-  }
 }
 
 /**
@@ -358,6 +361,8 @@ void ConfigDialog::saveUserAgentList()
   {
     cfg->setArrayIndex ( i );
     cfg->setValue ( QLatin1String ( "agent" ), userAgentList->item ( i )->text() );
+    cfg->setValue ( QLatin1String ( "title" ), userAgentList->item ( i )->data ( Qt::ToolTipRole ).toString() );
+    userAgentList->item ( i )->setData ( Qt::UserRole, false ); // Muss false sein
   }
   cfg->endArray();
 }
@@ -386,14 +391,14 @@ void ConfigDialog::addCookieAccess()
 */
 void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
 {
-  int r = userAgentList->row ( item );
   QString buffer = item->text();
   if ( buffer.isEmpty() )
     return;
 
-  /* Trick: Setzte die Reihe für den Update vorgang! */
-  item->setData ( Qt::UserRole, r );
+  /* Trick: Setzte auf "true" für den Update vorgang in Qt::UserRole ! */
+  item->setData ( Qt::UserRole, true );
   qt_modifyUserAgent->setText ( buffer );
+  qt_userAgentTitle->setText ( item->data ( Qt::ToolTipRole ).toString() );
 }
 
 /**
@@ -403,26 +408,37 @@ void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
 void ConfigDialog::addUserAgent()
 {
   bool addItemAction = true;
-  QString selectedAgent = qt_modifyUserAgent->text();
-  if ( selectedAgent.isEmpty() )
+  QString agentString = qt_modifyUserAgent->text();
+  QString agentTitle = qt_userAgentTitle->text();
+  if ( agentString.isEmpty() || agentTitle.isEmpty() )
     return;
 
   foreach ( QListWidgetItem* item, userAgentList->selectedItems() )
   {
-    if ( ! item->data ( Qt::UserRole ).isNull() )
+    if ( item->data ( Qt::UserRole ).toBool() )
     {
-      item->setText ( selectedAgent );
-      item->setData ( Qt::UserRole, QVariant() );
+      item->setText ( agentString );
+      /* wieder auf false setzen siehe @ref userAgentForEdit */
+      item->setData ( Qt::UserRole, false );
+      item->setData ( Qt::ToolTipRole, agentTitle );
       addItemAction = false;
       break;
     }
   }
 
   if ( addItemAction )
-    userAgentList->addItem ( selectedAgent );
+  {
+    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
+    item->setText ( agentString );
+    item->setData ( Qt::UserRole, false ); // Muss false sein
+    item->setData ( Qt::ToolTipRole, agentTitle );
+    userAgentList->addItem ( item );
+  }
 
   qt_modifyUserAgent->clear();
   qt_modifyUserAgent->setFocus();
+  qt_userAgentTitle->clear();
+  qt_userAgentTitle->setFocus();
   setModified();
 }
 
@@ -442,6 +458,8 @@ void ConfigDialog::delUserAgent()
   }
   qt_modifyUserAgent->clear();
   qt_modifyUserAgent->setFocus();
+  qt_userAgentTitle->clear();
+  qt_userAgentTitle->setFocus();
   setModified();
 }
 
