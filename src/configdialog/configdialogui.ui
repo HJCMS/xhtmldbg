@@ -1199,6 +1199,12 @@
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <item>
         <widget class="QListWidget" name="userAgentList">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>250</height>
+          </size>
+         </property>
          <property name="editTriggers">
           <set>QAbstractItemView::CurrentChanged|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
          </property>
@@ -1391,6 +1397,9 @@
          </item>
          <item>
           <widget class="QToolButton" name="addAgentBtn">
+           <property name="toolTip">
+            <string>Modify or Integrate User-Agent</string>
+           </property>
            <property name="text">
             <string>...</string>
            </property>
@@ -1398,12 +1407,25 @@
          </item>
          <item>
           <widget class="QToolButton" name="removeAgentBtn">
+           <property name="toolTip">
+            <string>Remove Selected User-Agent</string>
+           </property>
            <property name="text">
             <string>...</string>
            </property>
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_16">
+         <property name="text">
+          <string>You can sort with Drag and Drop the Items from User-Agent list. The first Item on Top is the primary User-Agent.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <spacer name="verticalSpacer_2">

@@ -388,12 +388,22 @@ void ConfigDialog::addCookieAccess()
 
 /**
 * Bei einem anklicken den User Agent für das bearbeiten holen.
+* Setzte den ausgwählten Eintrag bei data(Qt::UserRole) auf "true"
+* Dies ist deshalb Notwendig damit bei einer Änderung der Eintrag
+* wieder gefunden werden kann!
 */
 void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
 {
   QString buffer = item->text();
   if ( buffer.isEmpty() )
     return;
+
+  /* Wenn der Benutzer mehrfach anklickt dafür sorgen dass
+  * der zuletzt gewählte Eintrag wieder auf false gesetzt wird! */
+  for ( int i = 0; i < userAgentList->count(); i++ )
+  {
+    userAgentList->item ( i )->setData ( Qt::UserRole, false );
+  }
 
   /* Trick: Setzte auf "true" für den Update vorgang in Qt::UserRole ! */
   item->setData ( Qt::UserRole, true );
@@ -402,8 +412,8 @@ void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
 }
 
 /**
-* Füge eine neue Benutzer Kennung in die Liste ein,
-* oder Editiere einen vorhandenen User-Agent.
+* Füge eine neue Benutzer Kennung in die Liste ein oder Editiere
+* einen vorhandenen User-Agent.
 */
 void ConfigDialog::addUserAgent()
 {
