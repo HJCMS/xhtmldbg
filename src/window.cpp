@@ -45,6 +45,7 @@
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
+#include "xhtmldbgadaptor.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -87,11 +88,8 @@ Window::Window ( QSettings * settings )
 
   m_netManager = Application::networkAccessManager();
 
-  // StatusBar
-  m_statusBar = new StatusBar ( statusBar() );
-  setStatusBar ( m_statusBar );
-
   // Zentrales TabWidget für Quelltext und Browser
+  // TabWidgets {
   m_centralWidget = new QTabWidget ( this );
   m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
   m_centralWidget->setTabPosition ( QTabWidget::South );
@@ -103,14 +101,20 @@ Window::Window ( QSettings * settings )
   m_centralWidget->setTabIcon ( 0, qTidyIcon );
   m_centralWidget->setCurrentIndex ( 0 );
 
-  // Auromatische Seiten Aktualisierung
-  m_autoReloader = new AutoReloader ( this );
-
   // Quelltext Anzeige
-  m_sourceWidget = new SourceWidget ( this );
+  m_sourceWidget = new SourceWidget ( m_centralWidget );
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
+  // } TabWidgets
 
+  // StatusBar
+  m_statusBar = new StatusBar ( statusBar() );
+  setStatusBar ( m_statusBar );
+
+  // Automatische Seiten Aktualisierung
+  m_autoReloader = new AutoReloader ( this );
+
+  // DockWidgets {
   // Ansicht Dokumenten Baum
   m_domInspector = new DomInspector ( this, m_settings );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
@@ -138,6 +142,7 @@ Window::Window ( QSettings * settings )
   // Zeige Datenköpfe für CGI GET/POST und HTTP Header an.
   m_headerDock = new HeaderDock ( this );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
+  // } DockWidgets
 
   // erstelle alle Menü einträge
   createMenus();
@@ -147,6 +152,10 @@ Window::Window ( QSettings * settings )
 
   // Design abschliessen
   setCentralWidget ( m_centralWidget );
+
+  // bei DBus anmelden
+  m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
+  m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
 
   // WebViewer {
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
@@ -540,7 +549,7 @@ bool Window::setSource ( const QString &source )
 {
   m_tidyMessanger->clearItems();
 
-#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
+#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG_VERBOSE
   qDebug ( "(XHTMLDBG) Window::setSource length: %d", source.length() );
 #endif
 

@@ -246,7 +246,7 @@ void SourceView::saveSource()
 * Standard Drucken Dialog für den Dokumenten Quelltext.
 * @note Beim Aufruf wird der Zeilenumbruch eingeschaltet damit der
 *   Druckbreich nicht aus dem Druckbreich heraus läuft.
-* @todo Das muss noch mal komplett Überarbeitet werden :-/
+* FIXME Das muss noch mal komplett Überarbeitet werden :-/
 */
 void SourceView::printSource()
 {
@@ -324,7 +324,7 @@ void SourceView::contextMenuEvent ( QContextMenuEvent *e )
 {
   // WARNING For undo redo copy paste the Context Menu must initialed in contextMenuEvent !!!
   editMenu = createStandardContextMenu();
-  /* FIXME It is recomment to set ObjectName for the MainMenu
+  /* NOTICE It is recomment to set ObjectName for the MainMenu
   and then delete QUnicodeControlCharacterMenu Object */
   editMenu->setObjectName ( "primarycontextmenu" );
   foreach ( QMenu *m, editMenu->findChildren<QMenu*>() )

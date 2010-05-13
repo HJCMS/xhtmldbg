@@ -1,0 +1,2 @@
+- 2010/05/02 Juergen Heinemann (Undefined)
+  Add: cmake Option XHTMLDBG_BUILD_VERBOSE:BOOL for more Debugging Messages with -DCMAKE_BUILD_TYPE:STRING=Debug

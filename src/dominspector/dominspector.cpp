@@ -77,7 +77,7 @@ DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
   setWidget ( m_domSplitter );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
-            this, SLOT ( setVisible ( const QWebElement & ) ) );
+            this, SLOT ( setElementVisible ( const QWebElement & ) ) );
 
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
@@ -134,7 +134,7 @@ bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
 * Wenn ein erneuter Aufruf dieser Methode erfolgt erst nachsehen ob in
 * @ref lastSelections Inhalte enthalten sind, welche noch bereinigt werden müssen.
 */
-void DomInspector::setVisible ( const QWebElement &element )
+void DomInspector::setElementVisible ( const QWebElement &element )
 {
   bool background = cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool();
   bool border = cfg->value ( QLatin1String ( "enableHighlightBorder" ), true ).toBool();

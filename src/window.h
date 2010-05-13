@@ -43,6 +43,9 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 class NetworkAccessManager;
 class HistoryManager;
 class AddressToolBar;
@@ -61,6 +64,7 @@ class DomInspector;
 class CookiesDock;
 class HeaderDock;
 class CSSValidator;
+class XHtmldbgAdaptor;
 
 class Window : public QMainWindow
 {
@@ -136,6 +140,8 @@ class Window : public QMainWindow
     HeaderDock* m_headerDock;
     // CSS Validator
     CSSValidator* m_cssValidator;
+    // Dbus Adaptor
+    XHtmldbgAdaptor* m_xhtmldbgAdaptor;
 
     void createMenus();
     void createToolBars();

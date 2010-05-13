@@ -113,6 +113,9 @@ void CookiesDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem*
     setColumnWidth ( 1, minColumnWidth );
   }
 
+  if ( cookie.name() == QString::fromUtf8 ( "XDEBUG_SESSION" ) && ! values.isEmpty() )
+    emit isXdebugCookie ( values );
+
   // Name
   QTreeWidgetItem* root = new QTreeWidgetItem ( parent );
   root->setExpanded ( true );

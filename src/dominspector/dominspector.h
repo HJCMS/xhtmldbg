@@ -54,7 +54,7 @@ class DomInspector : public QDockWidget
     bool hasBorderStyleSheet ( const QWebElement & ) const;
 
   private Q_SLOTS:
-    void setVisible ( const QWebElement & );
+    void setElementVisible ( const QWebElement & );
 
   protected:
     struct SelectedItem {

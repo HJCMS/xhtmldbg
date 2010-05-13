@@ -42,7 +42,7 @@
 
 xhtmldbg::xhtmldbg ( int &argc, char **argv ) : Application ( argc, argv )
 {
-  setApplicationVersion ( "0.2.6" );
+  setApplicationVersion ( "0.8.2" );
   setApplicationName ( "xhtmldbg" );
   setOrganizationDomain ( "hjcms.de" );
   setObjectName ( "xhtmldbg" );

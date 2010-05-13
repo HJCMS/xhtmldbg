@@ -26,6 +26,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QTemporaryFile>
+#include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 #include <QtCore/QUrl>
 
@@ -64,7 +65,8 @@ const QString SoupReader::prepareMessage ( const QDomNode &node ) const
     if ( !t.isNull() && ! exclude.contains ( n.nodeName() ) )
     {
       QString m = t.data().trimmed();
-      messages << m.replace ( QRegExp ( "\\s{2,}|[\\n\\r]" ), " " );
+      QString block = m.replace ( QRegExp ( "\\s{2,}|[\\n\\r]" ), " " );
+      messages << block;
     }
   }
 

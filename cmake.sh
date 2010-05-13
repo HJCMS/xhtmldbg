@@ -10,17 +10,18 @@ debug_build_target=$HOME/hjcms/xhtmldbg/build
 # -DCMAKE_CXX_COMPILER:FILEPATH=$(which mpic++) \
 # -DCMAKE_C_COMPILER:FILEPATH=$(which mpicc) \
 
-MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -pedantic"
+MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -Wformat -Woverloaded-virtual -pedantic"
+MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer -fexpensive-optimizations"
 
-runcmake() {
-	cmake \
-		-DCMAKE_CXX_FLAGS:STRING="$MY_CFLAGS" \
-		-DCMAKE_C_FLAGS:STRING="$MY_CFLAGS" \
-		-DCMAKE_INSTALL_PREFIX:PATH=/usr \
-		-DCMAKE_BUILD_TYPE:STRING=Debug \
-		-DQTIDY_ENABLE_FPIE:BOOL=ON \
-		-DCMAKE_SKIP_RPATH:BOOL=ON \
-		-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ../
+function runcmake()
+{
+  cmake \
+    -DCMAKE_CXX_FLAGS:STRING="$MY_CFLAGS" \
+    -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+    -DCMAKE_BUILD_TYPE:STRING=Debug \
+    -DXHTMLDBG_BUILD_VERBOSE:BOOL=ON \
+    -DCMAKE_SKIP_RPATH:BOOL=ON \
+    -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON ../
 }
 
 echo "cmake"

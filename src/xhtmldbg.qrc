@@ -11,6 +11,8 @@
     <file>icons/warning.png</file>
   </qresource>
   <qresource prefix="/about" >
+    <file>html/blank.html</file>
     <file>html/welcome.html</file>
+    <file>html/xdebug.html</file>
   </qresource>
 </RCC>

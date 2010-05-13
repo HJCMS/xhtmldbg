@@ -77,6 +77,8 @@ StatusBar::StatusBar ( QStatusBar * parent )
   m_viewPortInfo->setContentsMargins ( 5, 2, 5, 2 );
   m_viewPortInfo->setToolTip ( trUtf8 ( "Display Browser Dimension Width x Height with Pixel." ) );
   insertPermanentWidget ( 3, m_viewPortInfo );
+
+  reformat();
 }
 
 /**
@@ -109,7 +111,6 @@ void StatusBar::notice ( bool notice )
 * Wird von @ref WebViewer::bytesLoaded aufgerufen und
 * Übermittelt die Anzahl der geladenen Bytes der
 * aktuellen Seite.
-* @todo Die Berechnung muss noch Überarbeitet werden!
 */
 void StatusBar::setLoadedPageSize ( qint64 bytes )
 {

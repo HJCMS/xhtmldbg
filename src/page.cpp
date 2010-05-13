@@ -167,7 +167,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     return true;
   }
 
-#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
+#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG_VERBOSE
   qDebug ( "(XHTMLDBG) WebPage acceptNavigationRequest Type: %d", type );
 #endif
 

@@ -59,7 +59,7 @@ Viewer::Viewer ( QWidget * parent )
     , cookieAlreadyAdd ( false )
 {
   if ( objectName().isEmpty() )
-    setObjectName ( "webviewer" );
+    setObjectName ( "viewer" );
 
   setContentsMargins ( 0, 0, 0, 0 );
   setContextMenuPolicy ( Qt::DefaultContextMenu );

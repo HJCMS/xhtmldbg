@@ -46,6 +46,7 @@ SET (xhtmldbg_SOURCES
   autoreloader.cpp
   autoreloadmenu.cpp
   useragentmenu.cpp
+  xhtmldbgadaptor.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -68,6 +69,7 @@ SET (xhtmldbg_HEADERS
   autoreloader.h
   autoreloadmenu.h
   useragentmenu.h
+  xhtmldbgadaptor.h
 )
 
 SET (xhtmldbg_NOMOC
@@ -81,19 +83,25 @@ INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
 QT4_ADD_RESOURCES (xhtmldbg_RESRC xhtmldbg.qrc)
 
 ADD_EXECUTABLE (xhtmldbg
-  ${qrc_rcresource}
   ${xhtmldbg_RESRC}
   ${xhtmldbg_MOC}
   ${xhtmldbg_NOMOC}
   ${xhtmldbg_UI}
+  ${xhtmldbg_ADAPTOR}
   ${xhtmldbg_HEADERS}
   ${xhtmldbg_SOURCES}
 )
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  SourceViewer Bookmark Docking DomInspector
-  OpenUrlDialog Networker ConfigDialog CSSValidator
+  SourceViewer
+  Bookmark
+  Docking
+  DomInspector
+  OpenUrlDialog
+  Networker
+  ConfigDialog
+  CSSValidator
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)

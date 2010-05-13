@@ -26,10 +26,12 @@
 
 #include <cstdlib>
 
+#include <QtCore/QByteArray>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QGlobalStatic>
+#include <QtCore/QProcessEnvironment>
 
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
@@ -53,12 +55,20 @@ void Application::newConnection()
   delete soc;
 }
 
-QString Application::myName() const
+/**
+* Setzt den lokalen Socket Namen für den Descriptor
+*/
+QString Application::myName () const
 {
   QString name = applicationName();
   Q_ASSERT ( ! name.isEmpty() );
-  name += QString ( QLatin1String ( "_%1_%2" ) ).arg ( getuid() ).arg ( getgid() );
-  return name;
+  QProcessEnvironment pe ( QProcessEnvironment::systemEnvironment () );
+  QString uid = QString::number ( getuid() );
+  /* Achtung: @ref xdebugger/xdebugserver.h localSocketDescriptor()
+  * Der XDebugServer verwendet auch das Format (applicationName()_$USER)
+  * Wenn das Format hier geändert wird dann auch dort ebenfalls ändern!
+  */
+  return QString ( "%1_%2" ).arg ( name , pe.value ( QLatin1String ( "USER" ), uid ) );
 }
 
 bool Application::startUniqueServer()
@@ -68,6 +78,7 @@ bool Application::startUniqueServer()
     return b;
 
   m_server = new QLocalServer ( this );
+  m_server->setMaxPendingConnections ( 2 );
   connect ( m_server, SIGNAL ( newConnection() ),
             this, SLOT ( newConnection() ) );
 
@@ -75,7 +86,7 @@ bool Application::startUniqueServer()
   {
     if ( QAbstractSocket::AddressInUseError == m_server->serverError() )
     {
-      QString fullServerName = QDir::tempPath() + QLatin1String ( "/" ) + myName();
+      QString fullServerName = QDir::tempPath() + QDir::separator() + myName();
       if ( QFile::exists ( fullServerName ) )
         QFile::remove ( fullServerName );
 

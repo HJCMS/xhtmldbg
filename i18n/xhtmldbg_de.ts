@@ -247,30 +247,26 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="123"/>
         <source>Configure CSS Validation</source>
-        <translation>Konfiguriere die CSS Uberprüfung</translation>
+        <translation>Konfiguriere den W3C Validierer</translation>
     </message>
     <message>
         <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="124"/>
         <source>The CSS profile used for the validation.</source>
-        <translatorcomment>css_profile</translatorcomment>
         <translation>Das CSS-Profil für die Validierung.</translation>
     </message>
     <message>
         <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="125"/>
         <source>The language used for the response.</source>
-        <translatorcomment>css_lang</translatorcomment>
         <translation>Die Ausgabesprache.</translation>
     </message>
     <message>
         <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="126"/>
         <source>The warning level.</source>
-        <translatorcomment>css_warning</translatorcomment>
         <translation>Menge der ausgegebenen Warnungen.</translation>
     </message>
     <message>
         <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="127"/>
         <source>The medium used for the validation.</source>
-        <translatorcomment>css_medium</translatorcomment>
         <translation>Das Medium für die Validierung.</translation>
     </message>
 </context>
@@ -635,6 +631,22 @@ Möchtest du wirklich Beenden?</translation>
         <translation></translation>
     </message>
     <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1036"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1039"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1042"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1109"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1116"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1117"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1118"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1122"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1124"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1126"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1137"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1141"/>
+        <source>...</source>
+        <translation></translation>
+    </message>
+    <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="1037"/>
         <source>Path to W3C Validator file</source>
         <translation>Pfad zur W3C Validierer Datei</translation>
@@ -862,52 +874,6 @@ Möchtest du wirklich Beenden?</translation>
         <translation>Datenbank:</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1132"/>
-        <source>Agent:</source>
-        <translation>Kennung:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1133"/>
-        <source>Menu Title:</source>
-        <translation>Menü Titel:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1135"/>
-        <source>Modify or Integrate User-Agent</source>
-        <translation>Bearbeite oder füge neue Benutzer Kennung ein</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1139"/>
-        <source>Remove Selected User-Agent</source>
-        <translation>Entferne gewählte Benutzer Kennung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1142"/>
-        <source>You can sort with Drag and Drop the Items from User-Agent list. The first Item on Top is the primary User-Agent.</source>
-        <translation>Du kannst mit Maus ziehen und fallen lassen, Einträge in der Benutzer Kennung Liste sortieren. Der Oberste Eintrag ist der Primär verwendete.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1143"/>
-        <source>User Agents</source>
-        <translation>Benutzer Kennung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1036"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1039"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1042"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1109"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1116"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1117"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1118"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1122"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1124"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1126"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1137"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1141"/>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="1110"/>
         <source>Untrusted Certificate whitelist</source>
         <translation>Weiße Liste für nicht vertrauenswürdige Zertifikate</translation>
@@ -936,6 +902,36 @@ Möchtest du wirklich Beenden?</translation>
         <location filename="../build/src/configdialog/ui_configdialogui.h" line="1125"/>
         <source>Private Key Password:</source>
         <translation>Privates Passwort:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1132"/>
+        <source>Agent:</source>
+        <translation>Kennung:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1133"/>
+        <source>Menu Title:</source>
+        <translation>Menü Titel:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1135"/>
+        <source>Modify or Integrate User-Agent</source>
+        <translation>Bearbeite oder füge neue Benutzer Kennung ein.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1139"/>
+        <source>Remove Selected User-Agent</source>
+        <translation>Entferne gewählte Benutzer Kennung.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1142"/>
+        <source>You can sort with Drag and Drop the Items from User-Agent list. The first Item on Top is the primary User-Agent.</source>
+        <translation>Du kannst mit Maus ziehen und fallen lassen, Einträge in der Benutzer Kennung Liste sortieren. Der Oberste Eintrag ist der Primär verwendete.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1143"/>
+        <source>User Agents</source>
+        <translation>Benutzer Kennungen</translation>
     </message>
 </context>
 <context>
@@ -1038,7 +1034,7 @@ Möchtest du wirklich Beenden?</translation>
     </message>
     <message>
         <location filename="../src/docking/cookiesdock.cpp" line="42"/>
-        <location filename="../src/docking/cookiesdock.cpp" line="141"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="144"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
@@ -1053,37 +1049,37 @@ Möchtest du wirklich Beenden?</translation>
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="121"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="124"/>
         <source>Cookie</source>
         <translation>Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="127"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="130"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="134"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="137"/>
         <source>Path</source>
         <translation>Pfad</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="148"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="151"/>
         <source>Session Cookie</source>
         <translation>Sitzungs Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="155"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="158"/>
         <source>Only for HTTP?</source>
         <translation>Nur HTTP?</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="162"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="165"/>
         <source>Expiration</source>
         <translation>Verfällt</translation>
     </message>
     <message>
-        <location filename="../src/docking/cookiesdock.cpp" line="169"/>
+        <location filename="../src/docking/cookiesdock.cpp" line="172"/>
         <source>Secure</source>
         <translation>Sicher</translation>
     </message>
@@ -1554,17 +1550,17 @@ Gründe : </translation>
 <context>
     <name>SoupReader</name>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="60"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="61"/>
         <source>Line</source>
         <translation>Zeile</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="141"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="143"/>
         <source>File:.%1</source>
         <translation>Datei:.%1</translation>
     </message>
     <message>
-        <location filename="../src/cssvalidator/soupreader.cpp" line="203"/>
+        <location filename="../src/cssvalidator/soupreader.cpp" line="205"/>
         <source>Congratulations! No Error Found. (%1)</source>
         <translation>Gratulation! Es wurden keine Fehler gefunden. (%1)</translation>
     </message>
@@ -1628,7 +1624,7 @@ Gründe : </translation>
         <translation>Zeige Browser Dimensionen Breit x Hoch in Pixel an.</translation>
     </message>
     <message>
-        <location filename="../src/statusbar.cpp" line="139"/>
+        <location filename="../src/statusbar.cpp" line="140"/>
         <source>Browser %1x%2 px</source>
         <translation></translation>
     </message>
@@ -1771,7 +1767,7 @@ Gründe : </translation>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="212"/>
+        <location filename="../src/webviewer.cpp" line="213"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>
@@ -1779,202 +1775,202 @@ Gründe : </translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="102"/>
+        <location filename="../src/window.cpp" line="100"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="111"/>
+        <location filename="../src/window.cpp" line="106"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="238"/>
+        <location filename="../src/window.cpp" line="247"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="239"/>
+        <location filename="../src/window.cpp" line="248"/>
         <source>Load Document from Url</source>
         <translation>Lade Dokument von Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="245"/>
+        <location filename="../src/window.cpp" line="254"/>
         <source>Open Html File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="246"/>
+        <location filename="../src/window.cpp" line="255"/>
         <source>Open Html from System</source>
         <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="252"/>
+        <location filename="../src/window.cpp" line="261"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="253"/>
+        <location filename="../src/window.cpp" line="262"/>
         <source>Close Debugger</source>
         <translation>Schliesse den Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="263"/>
+        <location filename="../src/window.cpp" line="272"/>
         <source>Parse</source>
         <translation>Analysieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="264"/>
+        <location filename="../src/window.cpp" line="273"/>
         <source>Parse current Document Source</source>
         <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="270"/>
+        <location filename="../src/window.cpp" line="279"/>
         <source>Format</source>
         <translation>Formatiere</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="271"/>
+        <location filename="../src/window.cpp" line="280"/>
         <source>Prepare and Format Document Source</source>
         <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="280"/>
+        <location filename="../src/window.cpp" line="289"/>
         <source>Refresh</source>
         <translation>Auffrischen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="286"/>
+        <location filename="../src/window.cpp" line="295"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="292"/>
+        <location filename="../src/window.cpp" line="301"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="298"/>
+        <location filename="../src/window.cpp" line="307"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="299"/>
+        <location filename="../src/window.cpp" line="308"/>
         <source>Add a new empty Tab</source>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="310"/>
+        <location filename="../src/window.cpp" line="319"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="333"/>
+        <location filename="../src/window.cpp" line="342"/>
         <source>Organize Bookmarks</source>
         <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="340"/>
+        <location filename="../src/window.cpp" line="349"/>
         <source>Configure Tidyrc</source>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="380"/>
+        <location filename="../src/window.cpp" line="389"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="351"/>
+        <location filename="../src/window.cpp" line="360"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="234"/>
+        <location filename="../src/window.cpp" line="243"/>
         <source>&amp;Application</source>
         <translation>&amp;Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="260"/>
+        <location filename="../src/window.cpp" line="269"/>
         <source>&amp;Debugger</source>
         <translation>&amp;Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="277"/>
+        <location filename="../src/window.cpp" line="286"/>
         <source>&amp;Browser</source>
         <translation>&amp;Browser</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="338"/>
+        <location filename="../src/window.cpp" line="347"/>
         <source>S&amp;ettings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="346"/>
+        <location filename="../src/window.cpp" line="355"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="355"/>
+        <location filename="../src/window.cpp" line="364"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="356"/>
+        <location filename="../src/window.cpp" line="365"/>
         <source>about Qt</source>
         <translation>über Qt</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="361"/>
+        <location filename="../src/window.cpp" line="370"/>
         <source>about hjcms</source>
         <translation>über HJCMS</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="369"/>
+        <location filename="../src/window.cpp" line="378"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="405"/>
+        <location filename="../src/window.cpp" line="414"/>
         <source>Toolbars</source>
         <translation>Werkzeugleisten</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="414"/>
+        <location filename="../src/window.cpp" line="423"/>
         <source>Impartations</source>
         <translation>Mitteilungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="422"/>
+        <location filename="../src/window.cpp" line="431"/>
         <source>Inspectors</source>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="528"/>
+        <location filename="../src/window.cpp" line="537"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="576"/>
+        <location filename="../src/window.cpp" line="585"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="577"/>
+        <location filename="../src/window.cpp" line="586"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="578"/>
+        <location filename="../src/window.cpp" line="587"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="579"/>
+        <location filename="../src/window.cpp" line="588"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="586"/>
+        <location filename="../src/window.cpp" line="595"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

@@ -52,6 +52,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setTabsClosable ( true );
 
   m_viewer = new Viewer ( this );
+  m_viewer->setObjectName ( QLatin1String ( "startpage" ) );
   updateWebSettings();
   addViewerTab ( m_viewer );
 
@@ -212,6 +213,8 @@ void WebViewer::addViewerTab ( Viewer *view )
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
   int index = addTab ( view, title );
   setCurrentIndex ( index );
+  if ( uri.toString().contains ( "about:" ) )
+    setAboutPage ( uri.toString().split ( ":" ).last() );
 }
 
 /**

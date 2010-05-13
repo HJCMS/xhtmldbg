@@ -19,48 +19,43 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COOKIESDOCK_H
-#define COOKIESDOCK_H
+#ifndef XHTMLDBGADAPTOR_H
+#define XHTMLDBGADAPTOR_H
 
 /* QtCore */
-#include <QtCore/QByteArray>
 #include <QtCore/QObject>
-#include <QtCore/QUrl>
+#include <QtCore/QString>
 
-/* QtGui */
-#include <QtGui/QWidget>
+/* QtDBus */
+#include <QtDBus/QDBusAbstractAdaptor>
+#include <QtDBus/QDBusConnection>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkCookie>
-
-#include "docking.h"
-
-class NetworkCookie;
-
-class CookiesDock : public Docking
+class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
+    Q_CLASSINFO ( "D-Bus Introspection", ""
+"<interface name=\"de.hjcms.xhtmldbg\" >\n"
+" <method name=\"message\">\n"
+"   <arg direction=\"in\" type=\"s\" name=\"mess\" />\n"
+"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"true\"/>\n"
+" </method>\n"
+"</interface>\n"
+"" )
 
   private:
-    int minColumnWidth;
-    NetworkCookie* m_networkCookie;
-    void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
-    QString unserialize ( const QByteArray & ) const;
-
-  protected:
-    void setTreeHeaderLabels ( const QStringList &, int index = 0 );
-
-  Q_SIGNALS:
-    void isXdebugCookie ( const QString & );
-
-  public Q_SLOTS:
-    void cookiesFromUrl ( const QUrl & );
+    QDBusConnection* m_bus;
 
   public:
-    CookiesDock ( QWidget * parent = 0 );
-    ~CookiesDock ();
+    XHtmldbgAdaptor ( QObject *parent = 0 );
+    bool registerSubObject ( QObject * object );
+    virtual ~XHtmldbgAdaptor();
+
+  public Q_SLOTS:
+    Q_NOREPLY void message ( const QString &mess );
+
 };
 
 #endif
