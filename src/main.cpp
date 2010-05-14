@@ -1,5 +1,5 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
 * Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
 *
@@ -28,11 +28,11 @@
 #include <QtCore/QString>
 #include <QtCore/QTranslator>
 
-#include "xhtmldbg.h"
+#include "xhtmldbgmain.h"
 
 int main ( int argc, char *argv[] )
 {
-  xhtmldbg app ( argc, argv );
+  xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
 

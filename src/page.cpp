@@ -1,11 +1,27 @@
-/***
-* Author: Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
-* Copyright: See COPYING file that comes with this distribution
+/**
+* This file is part of the xhtmldbg project
+*
+* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2010
+*
+* This library is free software; you can redistribute it and/or
+* modify it under the terms of the GNU Library General Public
+* License as published by the Free Software Foundation; either
+* version 2 of the License, or (at your option) any later version.
+*
+* This library is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Library General Public License for more details.
+*
+* You should have received a copy of the GNU Library General Public License
+* along with this library; see the file COPYING.LIB.  If not, write to
+* the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301, USA.
 **/
 
 #include "page.h"
 #include "viewer.h"
-#include "xhtmldbg.h"
+#include "xhtmldbgmain.h"
 #include "networkaccessmanager.h"
 #include "jsmessanger.h"
 
@@ -64,7 +80,7 @@ void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & 
   QString message ( cmd );
   message.remove ( QRegExp ( "[\\/\n]+" ) );
 
-  xhtmldbg::instance()->mainWindow()->setJavaScriptMessage ( message );
+  xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( message );
 }
 
 /**
@@ -108,7 +124,7 @@ bool Page::prepareContent ( QNetworkReply * dev )
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
   xhtml = codec->toUnicode ( data );
-  xhtmldbg::instance()->mainWindow()->setSource ( xhtml );
+  xhtmldbgmain::instance()->mainWindow()->setSource ( xhtml );
   return true;
 }
 
@@ -120,7 +136,7 @@ void Page::unsupportedContent ( QNetworkReply * reply )
 {
   QUrl url ( reply->url() );
   QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url.toString() );
-  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
 }
 
 /**
@@ -132,7 +148,7 @@ void Page::unsupportedContent ( const QNetworkRequest &request )
 {
   QString url = request.url().toString();
   QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url );
-  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
 }
 
 /**
@@ -163,7 +179,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
   if ( request.url().scheme() == "file" )
   {
-    xhtmldbg::instance()->mainWindow()->openFile ( request.url() );
+    xhtmldbgmain::instance()->mainWindow()->openFile ( request.url() );
     return true;
   }
 

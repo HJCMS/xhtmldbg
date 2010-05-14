@@ -1,5 +1,5 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
 * Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
 *

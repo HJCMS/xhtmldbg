@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -28,6 +28,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QVariant>
+#include <QtCore/QVector>
 
 /* QtGui */
 #include <QtGui/QAction>
@@ -65,12 +66,17 @@ class CookiesDock;
 class HeaderDock;
 class CSSValidator;
 class XHtmldbgAdaptor;
+class xhtmldbgplugger;
+
+namespace xhtmldbg {
+  class Interface;
+}
 
 class Window : public QMainWindow
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
     QSettings* m_settings;
@@ -142,10 +148,19 @@ class Window : public QMainWindow
     CSSValidator* m_cssValidator;
     // Dbus Adaptor
     XHtmldbgAdaptor* m_xhtmldbgAdaptor;
+    // Plugin Interface
+    xhtmldbgplugger* plugger;
+    // Plugin Menu
+    QMenu* m_pluginMenu;
+    // Toolbars Subsection Display Plugins
+    QMenu* m_diplayPlugins;
+    // Plugins
+    QVector<xhtmldbg::Interface*> plugins;
 
     void createMenus();
     void createToolBars();
     void tabifyDockedWidgetUp ( QDockWidget * );
+    void registerPlugins();
 
   private Q_SLOTS:
     void requestsFinished ( bool );

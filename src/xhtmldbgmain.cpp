@@ -1,5 +1,5 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
 * Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
 *
@@ -19,7 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "xhtmldbg.h"
+#include "version.h"
+#include "xhtmldbgmain.h"
 
 #include <cstdlib>
 
@@ -40,9 +41,9 @@
 /* QtGui */
 #include <QtGui/QIcon>
 
-xhtmldbg::xhtmldbg ( int &argc, char **argv ) : Application ( argc, argv )
+xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv )
 {
-  setApplicationVersion ( "0.8.2" );
+  setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( "xhtmldbg" );
   setOrganizationDomain ( "hjcms.de" );
   setObjectName ( "xhtmldbg" );
@@ -83,7 +84,7 @@ xhtmldbg::xhtmldbg ( int &argc, char **argv ) : Application ( argc, argv )
 #endif
 }
 
-void xhtmldbg::setWindowFocus()
+void xhtmldbgmain::setWindowFocus()
 {
   if ( ! mainWindow() )
     return;
@@ -98,7 +99,7 @@ void xhtmldbg::setWindowFocus()
 #endif
 }
 
-void xhtmldbg::cleanWindows()
+void xhtmldbgmain::cleanWindows()
 {
   for ( int i = m_windows.count() - 1; i >= 0; --i )
   {
@@ -107,12 +108,12 @@ void xhtmldbg::cleanWindows()
   }
 }
 
-xhtmldbg* xhtmldbg::instance()
+xhtmldbgmain* xhtmldbgmain::instance()
 {
-  return ( static_cast<xhtmldbg*> ( QCoreApplication::instance() ) );
+  return ( static_cast<xhtmldbgmain*> ( QCoreApplication::instance() ) );
 }
 
-void xhtmldbg::sMessageReceived ( QLocalSocket* socket )
+void xhtmldbgmain::sMessageReceived ( QLocalSocket* socket )
 {
   QString message;
   QTextStream stream ( socket );
@@ -165,7 +166,7 @@ void xhtmldbg::sMessageReceived ( QLocalSocket* socket )
   return;
 }
 
-Window* xhtmldbg::newMainWindow()
+Window* xhtmldbgmain::newMainWindow()
 {
   Window *debugger = new Window ( m_settings );
   m_windows.prepend ( debugger );
@@ -174,7 +175,7 @@ Window* xhtmldbg::newMainWindow()
   return debugger;
 }
 
-Window* xhtmldbg::mainWindow()
+Window* xhtmldbgmain::mainWindow()
 {
   cleanWindows();
 
@@ -194,7 +195,7 @@ Window* xhtmldbg::mainWindow()
   return activeWindow;
 }
 
-const QString xhtmldbg::getArgumentUrl ( const QString &str )
+const QString xhtmldbgmain::getArgumentUrl ( const QString &str )
 {
   if ( QFile::exists ( str ) )
   {
@@ -204,7 +205,7 @@ const QString xhtmldbg::getArgumentUrl ( const QString &str )
   return str;
 }
 
-xhtmldbg::~xhtmldbg()
+xhtmldbgmain::~xhtmldbgmain()
 {
   qDeleteAll ( m_windows );
 }

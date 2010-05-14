@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -45,7 +45,13 @@
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
+/* DBus */
 #include "xhtmldbgadaptor.h"
+/* Interface */
+#include "xhtmldbgplugger.h"
+#include "xhtmldbgplugininfo.h"
+#include "xhtmldbginterface.h"
+
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -144,6 +150,11 @@ Window::Window ( QSettings * settings )
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
   // } DockWidgets
 
+  // WARNING Muss vor createMenus() und createToolBars() kommen!
+  // xhtmldbgplugger {
+  plugger = new xhtmldbgplugger ( this );
+  // } xhtmldbgplugger
+
   // erstelle alle Menü einträge
   createMenus();
 
@@ -156,6 +167,11 @@ Window::Window ( QSettings * settings )
   // bei DBus anmelden
   m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
   m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
+
+  // jetzt die Plugins laden
+  // xhtmldbgplugger {
+  registerPlugins();
+  // } xhtmldbgplugger
 
   // WebViewer {
   connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
@@ -356,6 +372,9 @@ void Window::createMenus()
   actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
+  // Plugin Menu
+  m_pluginMenu = m_menuBar->addMenu ( trUtf8 ( "Extras" ) );
+
   // Show Enable/Disable Toolbars Menu
   m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
 
@@ -433,6 +452,10 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
   inspectorsMenu->addAction ( m_cookiesDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
+
+  // Plugin Menu
+  m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Plugins" ) );
+  m_diplayPlugins->setIcon ( icon );
 }
 
 /**
@@ -476,6 +499,31 @@ void Window::tabifyDockedWidgetUp ( QDockWidget *dockWidget )
 }
 
 /**
+* Beim Start nach Plugins suchen und diese entsprechent
+* dem type in die einzelnen Menüs einfügen.
+* @ref m_pluginMenu Im TopLevel MenuBar
+* @ref m_diplayPlugins Im Anzeigen Menü
+*/
+void Window::registerPlugins()
+{
+  QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
+  plugins.clear();
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( xhtmldbg::PluginInfo::Dialog ) )
+  {
+    xhtmldbg::PluginInfo* info = plug->pluginInfo();
+    if ( info )
+    {
+      plugins.push_back ( plug );
+      QAction* ac = m_pluginMenu->addAction ( info->getName() );
+      ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
+      ac->setIcon ( icon );
+      ac->setToolTip ( info->getDescription() );
+      connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
+    }
+  }
+}
+
+/**
 * Diese Methode wird von QWebView::loadFinished aufgerufen.
 * Erst wenn das ergebnis true ergibt werden folgendes eingebunden:
 * @li DomTree::setDomTree
@@ -494,6 +542,11 @@ void Window::requestsFinished ( bool ok )
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
+    // An alle Plugins die Daten übergeben
+    for ( int i = 0; i < plugins.size(); ++i )
+    {
+      plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
+    }
   }
 }
 

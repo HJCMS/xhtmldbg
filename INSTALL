@@ -12,10 +12,6 @@ General "xhtmldbg" Requirements:
   -  Java Binary >= 1.5.0
   -  W3C Validator from CVS 2010 http://jigsaw.w3.org/css-validator/DOWNLOAD.html
 
-On Windows and Mac OS X, if you want to install the precompiled binary
-packages, simply launch the package and follow the instructions in the
-installation wizard.
-
 For Mac OS X Cocoa, the binary package requires Mac OS X 10.5 (Leopard) or later
 and GCC 4.0.1 to develop applications.
 
@@ -61,58 +57,67 @@ java -classpath "$CLASSPATH" \
 
 
 INSTALL_TREE:/usr
-|-- bin
-|   `-- xhtmldbg
-`-- share
-    |-- applications
-    |   `-- xhtmldbg.desktop
-    |-- icons
-    |   `-- oxygen
-    |       |-- 128x128
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 16x16
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 192x192
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 22x22
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 24x24
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 32x32
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 36x36
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 48x48
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 64x64
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 72x72
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       |-- 96x96
-    |       |   `-- apps
-    |       |       `-- xhtmldbg.png
-    |       `-- scalable
-    |           `-- apps
-    |               `-- xhtmldbg.svgz
-    |-- pixmaps
-    |   `-- xhtmldbg.xpm
-    |-- qt
-    |   `-- translations
-    |       `-- xhtmldbg_de.qm
-    `-- xhtmldbg
-        |-- AUTHORS
-        |-- COPYING
-        |-- ChangeLog
-        |-- NEWS
-        |-- README
-        `-- xhtmldbg_untranslated.ts
+    |-- bin
+    |   `-- xhtmldbg
+    |-- include
+    |   `-- xhtmldbg-1.0
+    |       `-- xhtmldbginterface.h
+    |-- lib
+    |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.*
+    |   |-- libxhtmldbg-1.0.so.0.*
+    |   `-- pkgconfig
+    |       `-- xhtmldbg.pc
+    `-- share
+        |-- applications
+        |   `-- xhtmldbg.desktop
+        |-- icons
+        |   `-- oxygen
+        |       |-- 128x128
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 16x16
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 192x192
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 22x22
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 24x24
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 32x32
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 36x36
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 48x48
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 64x64
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 72x72
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       |-- 96x96
+        |       |   `-- apps
+        |       |       `-- xhtmldbg.png
+        |       `-- scalable
+        |           `-- apps
+        |               `-- xhtmldbg.svgz
+        |-- pixmaps
+        |   `-- xhtmldbg.xpm
+        |-- qt
+        |   `-- translations
+        |       `-- xhtmldbg_de.qm
+        `-- xhtmldbg
+            |-- AUTHORS
+            |-- COPYING
+            |-- ChangeLog
+            |-- NEWS
+            |-- README
+            `-- xhtmldbg_untranslated.ts

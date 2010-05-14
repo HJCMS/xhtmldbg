@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -21,7 +21,7 @@
 
 #include "cookiesdock.h"
 #include "networkcookie.h"
-#include "xhtmldbg.h"
+#include "xhtmldbgmain.h"
 
 /* QtCore */
 #include <QtCore>
@@ -36,7 +36,7 @@ CookiesDock::CookiesDock ( QWidget * parent )
   setWindowTitle ( trUtf8 ( "Cookies" ) );
 
   // get CookieJar
-  m_networkCookie = xhtmldbg::instance()->cookieManager();
+  m_networkCookie = xhtmldbgmain::instance()->cookieManager();
 
   QStringList labels;
   labels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );

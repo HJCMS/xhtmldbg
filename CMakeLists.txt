@@ -159,6 +159,10 @@ SET (LIBRARY_OUTPUT_PATH
   ${CMAKE_CURRENT_BINARY_DIR}/app
 )
 
+SET (PLUGIN_OUTPUT_PATH
+  ${CMAKE_CURRENT_BINARY_DIR}/app/plugins
+)
+
 ##############################################################
 ## Configure files
 ##############################################################
@@ -179,12 +183,17 @@ SET (XHTMLDBG_INCLUDES
   ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
+SET (XHTMLDBG_INCLUDE_INTERFACE
+  ${CMAKE_CURRENT_BINARY_DIR}/src/interface
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/interface
+)
+
 ##############################################################
 ## LINKER PATHS
 ##############################################################
 
 SET (XHTMLDBG_LIBRARIES
-  ${QT_QTMAIN_LIBRARY}
+  ${QT_QTGUI_LIBRARY}
   ${QT_QTNETWORK_LIBRARY}
   ${QT_QTWEBKIT_LIBRARY}
   ${QT_QTDBUS_LIBRARY}

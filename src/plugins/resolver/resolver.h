@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,50 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef XHTMLDBG_H
-#define XHTMLDBG_H
+#ifndef RESOLVERPLUGIN_H
+#define RESOLVERPLUGIN_H
 
 /* QtCore */
-#include <QtCore/QList>
 #include <QtCore/QObject>
-#include <QtCore/QPointer>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
-/* QtGui */
-#include <QtGui/QApplication>
+/* xhtmldbg */
+#include <xhtmldbgplugininfo.h>
+#include <xhtmldbginterface.h>
 
-/* QtNetwork */
-#include <QtNetwork/QLocalServer>
-#include <QtNetwork/QLocalSocket>
+class HostResolver;
 
-#include "application.h"
-#include "window.h"
-
-class xhtmldbg : public Application
+class ResolverPlugin : public xhtmldbg::Interface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_INTERFACES ( xhtmldbg::Interface )
 
   private:
-    QSettings* m_settings;
-    QList<QPointer<Window> > m_windows;
-    void setWindowFocus();
-    void cleanWindows();
-    const QString getArgumentUrl ( const QString & );
-
-  private Q_SLOTS:
-    void sMessageReceived ( QLocalSocket* socket );
-
-  public:
-    xhtmldbg ( int &argc, char **argv );
-    static xhtmldbg* instance();
-    Window* mainWindow();
-    ~xhtmldbg();
+    HostResolver* m_resolver;
+    QUrl p_url;
+    QString p_content;
 
   public Q_SLOTS:
-    Window* newMainWindow();
+    void proccess ();
+
+  public:
+    bool create ( QObject * parent );
+    void setContent ( const QString &source );
+    void setUrl ( const QUrl &url );
+    xhtmldbg::PluginInfo::PluginType type ();
+    xhtmldbg::PluginInfo* pluginInfo ();
 };
 
 #endif

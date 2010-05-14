@@ -8,15 +8,16 @@
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
-Version:        0.8.3
+Version:        @XHTMLDBG_VERSION@
 Release:        %{_release}
 License:        GPLv3
 AutoReqProv:    on
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires:       QTidy >= 0.7.1 qtidyrc oxygen-icon-theme >= 4.4.0
-BuildRequires:  cmake libtidy-devel QTidy-devel >= 0.8.2 update-desktop-files oxygen-icon-theme >= 4.4.0
+Requires:       QTidy >= @QTIDY_VERSION@ qtidyrc oxygen-icon-theme >= 4.4.0
+BuildRequires:  cmake libtidy-devel QTidy-devel >= @QTIDY_VERSION@
+BuildRequires:  update-desktop-files oxygen-icon-theme >= 4.4.0
 BuildArch:      %{_target_cpu}
 ExclusiveOs:    %{_os}
 
@@ -27,6 +28,32 @@ ExclusiveOs:    %{_os}
 
 %description
 Tidy HTML/XML Validator and Debugger.
+
+Author:
+-------------
+  Juergen Heinemann (Undefined)
+
+%package -n libxhtmldbg
+Summary:     xhtmldbg Plugin Interface Library
+License:     LGPLv3
+AutoReqProv: on
+
+%description -n libxhtmldbg
+This Library is used by xhtmldbg for load Plugins
+
+Author:
+-------------
+  Juergen Heinemann (Undefined)
+
+%package -n libxhtmldbg-devel
+Summary:     Development Package for the xhtmldbg Plugin Interface Library
+License:     LGPLv3
+AutoReqProv: on
+Requires:    libxhtmldbg = %{version}
+Requires:    c++_compiler pkgconfig qt4-devel >= 4.6.0
+
+%description -n libxhtmldbg-devel
+This Library is used by xhtmldbg for load Plugins
 
 Author:
 -------------
@@ -57,6 +84,8 @@ cmake -Wno-dev \
 popd
 
 %install
+## Reserved by Plugin Interface
+%__mkdir_p $RPM_BUILD_ROOT/%{_libdir}/%{name}
 
 pushd build
   %makeinstall
@@ -71,6 +100,7 @@ popd
 %files
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
+%dir %{_libdir}/%{name}
 %{_qt_transdir}/xhtmldbg_*.qm
 %dir %{_datadir}/%{name}
 %doc %{_datadir}/%{name}/AUTHORS
@@ -107,6 +137,30 @@ popd
 %{_datadir}/icons/oxygen/*/apps/%{name}.png
 %{_datadir}/icons/oxygen/*/apps/xhtmldbg.svgz
 %{_datadir}/pixmaps/%{name}.xpm
+
+%post -n libxhtmldbg -p /sbin/ldconfig
+##
+
+%postun -n libxhtmldbg -p /sbin/ldconfig
+##
+
+%files -n libxhtmldbg
+%defattr(-,root,root,-)
+%doc COPYING.LIB AUTHORS README
+%{_libdir}/libxhtmldbg-1.0.so.*
+
+%post
+##
+
+%postun
+##
+
+%files -n libxhtmldbg-devel
+%defattr(-,root,root,-)
+%{_libdir}/libxhtmldbg-1.0.so
+%{_libdir}/pkgconfig/xhtmldbg.pc
+%dir %{_includedir}/xhtmldbg-1.0
+%{_includedir}/xhtmldbg-1.0/*.h
 
 %clean
 test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT

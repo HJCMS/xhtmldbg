@@ -1,7 +1,8 @@
 build/
 templates/
-xhtmldbg.k*
 tags
 commit.sh
-
 findicon.sh
+xhtmldbg.kdevelop.filelist
+xhtmldbg.kdevelop.pcs
+xhtmldbg.kdevses

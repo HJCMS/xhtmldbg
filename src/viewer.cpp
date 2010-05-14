@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -22,7 +22,7 @@
 #include "viewer.h"
 #include "webviewer.h"
 #include "page.h"
-#include "xhtmldbg.h"
+#include "xhtmldbgmain.h"
 #include "window.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
@@ -64,8 +64,8 @@ Viewer::Viewer ( QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setContextMenuPolicy ( Qt::DefaultContextMenu );
 
-  NetworkAccessManager* netManager = xhtmldbg::instance()->networkAccessManager();
-  cookieManager = xhtmldbg::instance()->cookieManager();
+  NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
+  cookieManager = xhtmldbgmain::instance()->cookieManager();
 
   m_page = new Page ( netManager, this );
   setPage ( m_page );
@@ -229,7 +229,7 @@ void Viewer::cookiesRequest ( const QUrl &u )
 */
 void Viewer::checkingStyleSheet()
 {
-  xhtmldbg::instance()->mainWindow()->checkStyleSheet ( url() );
+  xhtmldbgmain::instance()->mainWindow()->checkStyleSheet ( url() );
 }
 
 /**
@@ -283,7 +283,7 @@ void Viewer::findKeyword ( const QString &word )
   message.append ( trUtf8 ( "Summary: " ) );
   message.append ( QString::number ( ( summary + keywords + description + inTitle ) ) );
 
-  xhtmldbg::instance()->mainWindow()->setApplicationMessage ( message );
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
 }
 
 /**

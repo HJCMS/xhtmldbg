@@ -1,4 +1,6 @@
 /**
+* This file is part of the xhtmldbg project
+*
 * Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
@@ -45,7 +47,7 @@ class Docking : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
     Q_PROPERTY ( int columns READ columnCount WRITE setColumnCount )
 
   private:

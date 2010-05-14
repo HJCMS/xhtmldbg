@@ -3,6 +3,7 @@
 SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${XHTMLDBG_INCLUDE_INTERFACE}
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
@@ -15,6 +16,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${XHTMLDBG_INCLUDES}
 )
 
+ADD_SUBDIRECTORY (interface)
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (openurldialog)
@@ -23,10 +25,11 @@ ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (configdialog)
 ADD_SUBDIRECTORY (cssvalidator)
+ADD_SUBDIRECTORY (plugins)
 
 SET (xhtmldbg_SOURCES
   main.cpp
-  xhtmldbg.cpp
+  xhtmldbgmain.cpp
   application.cpp
   window.cpp
   addresstoolbar.cpp
@@ -50,7 +53,7 @@ SET (xhtmldbg_SOURCES
 )
 
 SET (xhtmldbg_HEADERS
-  xhtmldbg.h
+  xhtmldbgmain.h
   application.h
   window.h
   addresstoolbar.h
@@ -94,6 +97,7 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
+  xhtmldbginterface
   SourceViewer
   Bookmark
   Docking

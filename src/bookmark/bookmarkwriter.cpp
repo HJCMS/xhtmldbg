@@ -1,7 +1,7 @@
 /**
-* This file is part of the QTidy project
+* This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -42,9 +42,9 @@ static const QString qtidy_license()
 {
   return QString::fromUtf8 ( "\n\
 ********************************************************************************\n\
-* This file is part of the QTidy project\n\
+* This file is part of the xhtmldbg project\n\
 *\n\
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010\n\
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010\n\
 *\n\
 * This library is free software; you can redistribute it and/or\n\
 * modify it under the terms of the GNU Library General Public\n\
