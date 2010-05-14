@@ -76,16 +76,25 @@ xhtmldbgplugger::xhtmldbgplugger ( QObject * parent )
 */
 const QStringList xhtmldbgplugger::findPlugins ()
 {
-  QStringList plugins;
+  /* Verhindern das gleiche Plugins aus mehreren
+  * Verzeichnissen dargestellt werden! */
+  QStringList unique;
+  QStringList plugins; // Liste der Plugins
+
   foreach ( QString path, p_dir.searchPaths ( "plugins" ) )
   {
     p_dir.setPath ( path );
     foreach ( QString p, p_dir.entryList ( filters, QDir::Files, QDir::Name ) )
     {
-      if ( QLibrary::isLibrary ( p ) )
+      QFileInfo info( p );
+      if ( QLibrary::isLibrary ( p ) && ! unique.contains ( info.baseName() ) )
+      {
+        unique << info.baseName();
         plugins << QString ( "%1%2%3" ).arg ( p_dir.path(), p_dir.separator(), p );
+      }
     }
   }
+  unique.clear();
   return plugins;
 }
 

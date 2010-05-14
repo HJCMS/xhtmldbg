@@ -1553,17 +1553,17 @@ Reasons : </source>
 <context>
     <name>ResolverPlugin</name>
     <message>
-        <location filename="../src/plugins/resolver/resolver.cpp" line="63"/>
-        <source>Resolver</source>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="64"/>
+        <source>IP Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/plugins/resolver/resolver.cpp" line="65"/>
-        <source>Resolve Hostnames from Url</source>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="66"/>
+        <source>Resolve IP Addresses from Hostname with given Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message utf8="true">
-        <location filename="../src/plugins/resolver/resolver.cpp" line="66"/>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="67"/>
         <source>Jürgen Heinemann (Undefined)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1896,11 +1896,6 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="376"/>
-        <source>Extras</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/window.cpp" line="408"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
@@ -1933,6 +1928,12 @@ Reasons : </source>
     <message>
         <location filename="../src/window.cpp" line="371"/>
         <source>Configure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="376"/>
+        <location filename="../src/window.cpp" line="457"/>
+        <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1971,37 +1972,32 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="457"/>
-        <source>Plugins</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/window.cpp" line="590"/>
+        <location filename="../src/window.cpp" line="591"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="638"/>
+        <location filename="../src/window.cpp" line="647"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="639"/>
+        <location filename="../src/window.cpp" line="648"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="640"/>
+        <location filename="../src/window.cpp" line="649"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="641"/>
+        <location filename="../src/window.cpp" line="650"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="648"/>
+        <location filename="../src/window.cpp" line="657"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

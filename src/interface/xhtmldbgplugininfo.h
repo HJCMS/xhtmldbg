@@ -39,6 +39,7 @@ namespace xhtmldbg
       Q_CLASSINFO ( "Description", "XHTMLDBG Plugin Info" )
       Q_ENUMS ( PluginType )
       Q_PROPERTY ( QString Name READ getName WRITE setName )
+      Q_PROPERTY ( QString GenericName READ getGenericName WRITE setGenericName )
       Q_PROPERTY ( QString Version READ getVersion WRITE setVersion )
       Q_PROPERTY ( QString Description READ getDescription WRITE setDescription )
       Q_PROPERTY ( QString Author READ getAuthor WRITE setAuthor )
@@ -53,6 +54,7 @@ namespace xhtmldbg
     private:
       const PluginType pluginType; /**< \short Plugin Type */
       QString Name;                /**< \short Plugin Name */
+      QString GenericName;         /**< \short Plugin Menu Name */
       QString Version;             /**< \short Plugin Version */
       QString Description;         /**< \short Plugin Description */
       QString Author;              /**< \short Plugin Author */
@@ -62,6 +64,9 @@ namespace xhtmldbg
 
       /** \short Plugin Name */
       const QString getName();
+
+      /** \short Plugin Menu Name */
+      const QString getGenericName();
 
       /** \short Plugin Version */
       const QString getVersion();
@@ -76,6 +81,11 @@ namespace xhtmldbg
       * \param n  Full Plugin Name
       */
       void setName ( const QString &n );
+
+      /** Plugin Name
+      * \param n  Plugin Name for Menu
+      */
+      void setGenericName ( const QString &n );
 
       /** Plugin Name
       * \param n  Full Plugin Name

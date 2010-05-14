@@ -60,9 +60,10 @@ xhtmldbg::PluginInfo::PluginType ResolverPlugin::type ()
 xhtmldbg::PluginInfo* ResolverPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
-  inf->setName ( trUtf8 ( "Resolver" ) );
+  inf->setName ( QLatin1String ( "Resolver" ) );
+  inf->setGenericName ( trUtf8( "IP Address" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( trUtf8 ( "Resolve Hostnames from Url" ) );
+  inf->setDescription ( trUtf8 ( "Resolve IP Addresses from Hostname with given Url" ) );
   inf->setAuthor ( trUtf8 ( "Jürgen Heinemann (Undefined)" ) );
   return inf;
 }

@@ -1558,17 +1558,17 @@ Gründe : </translation>
 <context>
     <name>ResolverPlugin</name>
     <message>
-        <location filename="../src/plugins/resolver/resolver.cpp" line="63"/>
-        <source>Resolver</source>
-        <translation>Wandler</translation>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="64"/>
+        <source>IP Address</source>
+        <translation>IP Adresse</translation>
     </message>
     <message>
-        <location filename="../src/plugins/resolver/resolver.cpp" line="65"/>
-        <source>Resolve Hostnames from Url</source>
-        <translation>Den Hostnamen von einer URL auflösen</translation>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="66"/>
+        <source>Resolve IP Addresses from Hostname with given Url</source>
+        <translation>IP Adressen an Hander URL aus den Hostname auflösen.</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/plugins/resolver/resolver.cpp" line="66"/>
+        <location filename="../src/plugins/resolver/resolver.cpp" line="67"/>
         <source>Jürgen Heinemann (Undefined)</source>
         <translation></translation>
     </message>
@@ -1901,11 +1901,6 @@ Gründe : </translation>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="376"/>
-        <source>Extras</source>
-        <translation>Extras</translation>
-    </message>
-    <message>
         <location filename="../src/window.cpp" line="408"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
@@ -1939,6 +1934,12 @@ Gründe : </translation>
         <location filename="../src/window.cpp" line="371"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
+    </message>
+    <message>
+        <location filename="../src/window.cpp" line="376"/>
+        <location filename="../src/window.cpp" line="457"/>
+        <source>Extensions</source>
+        <translation>Erweiterungen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="383"/>
@@ -1976,37 +1977,32 @@ Gründe : </translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="457"/>
-        <source>Plugins</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../src/window.cpp" line="590"/>
+        <location filename="../src/window.cpp" line="591"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="638"/>
+        <location filename="../src/window.cpp" line="647"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="639"/>
+        <location filename="../src/window.cpp" line="648"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="640"/>
+        <location filename="../src/window.cpp" line="649"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="641"/>
+        <location filename="../src/window.cpp" line="650"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="648"/>
+        <location filename="../src/window.cpp" line="657"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

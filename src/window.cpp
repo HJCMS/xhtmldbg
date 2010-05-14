@@ -373,7 +373,7 @@ void Window::createMenus()
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
   // Plugin Menu
-  m_pluginMenu = m_menuBar->addMenu ( trUtf8 ( "Extras" ) );
+  m_pluginMenu = m_menuBar->addMenu ( trUtf8 ( "Extensions" ) );
 
   // Show Enable/Disable Toolbars Menu
   m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
@@ -454,7 +454,7 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
 
   // Plugin Menu
-  m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Plugins" ) );
+  m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );
   m_diplayPlugins->setIcon ( icon );
 }
 
@@ -464,6 +464,7 @@ void Window::createToolBars()
 */
 void Window::closeEvent ( QCloseEvent *event )
 {
+  plugins.clear(); // Vector Leeren
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
   QMainWindow::closeEvent ( event );
@@ -514,10 +515,10 @@ void Window::registerPlugins()
     if ( info )
     {
       plugins.push_back ( plug );
-      QAction* ac = m_pluginMenu->addAction ( info->getName() );
+      QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
       ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
       ac->setIcon ( icon );
-      ac->setToolTip ( info->getDescription() );
+      ac->setStatusTip ( info->getDescription() );
       connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
     }
   }
@@ -542,7 +543,7 @@ void Window::requestsFinished ( bool ok )
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
-    // An alle Plugins die Daten übergeben
+    // An alle Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
     {
       plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
@@ -609,8 +610,16 @@ bool Window::setSource ( const QString &source )
   if ( source.isEmpty() )
     return false;
 
+  // Quelltext einfügen
   m_sourceWidget->setSource ( source );
-  // Is AutoCheck or AutoFormat Enabled?
+
+  // An alle Plugins den Quelltext übergeben
+  for ( int i = 0; i < plugins.size(); ++i )
+  {
+    plugins.at ( i )->setContent ( source );
+  }
+
+  // Ist AutoCheck oder AutoFormat aktiviert?
   if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
     m_sourceWidget->format();
   else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
@@ -624,7 +633,7 @@ bool Window::setSource ( const QString &source )
 */
 void Window::openTidyConfigApplication()
 {
-  QProcess::startDetached ( QString::fromUtf8 ( "qtidyrc" ) );
+  QProcess::startDetached ( QLatin1String ( "qtidyrc" ) );
 }
 
 /**

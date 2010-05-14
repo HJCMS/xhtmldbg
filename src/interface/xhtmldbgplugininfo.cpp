@@ -33,6 +33,11 @@ namespace xhtmldbg
     return Name;
   }
 
+  const QString PluginInfo::getGenericName()
+  {
+    return GenericName;
+  }
+
   const QString PluginInfo::getVersion()
   {
     return Version;
@@ -51,6 +56,11 @@ namespace xhtmldbg
   void PluginInfo::setName ( const QString &n )
   {
     Name = n;
+  }
+
+  void PluginInfo::setGenericName ( const QString &n )
+  {
+    GenericName = n;
   }
 
   void PluginInfo::setVersion ( const QString &v )
