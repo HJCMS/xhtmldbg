@@ -28,51 +28,81 @@ namespace xhtmldbg
       , pluginType ( type )
   {}
 
+  /**
+  * Den realen Namen abfragen
+  */
   const QString PluginInfo::getName()
   {
     return Name;
   }
 
+  /**
+  * Menü Titel abfrage
+  */
   const QString PluginInfo::getGenericName()
   {
     return GenericName;
   }
 
+  /**
+  * Versions abfrage.
+  */
   const QString PluginInfo::getVersion()
   {
     return Version;
   }
 
+  /**
+  * Beschreibungs abfrage.
+  */
   const QString PluginInfo::getDescription()
   {
     return Description;
   }
 
+  /**
+  * Plugin Autor abfrage
+  */
   const QString PluginInfo::getAuthor()
   {
     return Author;
   }
 
+  /**
+  * Den realen Plugin Name setzen
+  */
   void PluginInfo::setName ( const QString &n )
   {
     Name = n;
   }
 
+  /**
+  * Den Namen für den Menü Eintrag einfügen.
+  */
   void PluginInfo::setGenericName ( const QString &n )
   {
     GenericName = n;
   }
 
+  /**
+  * Die Versions Nummer in from eines Textes einfügen.
+  */
   void PluginInfo::setVersion ( const QString &v )
   {
     Version = v;
   }
 
+  /**
+  * Die Beschreibung einfügen
+  */
   void PluginInfo::setDescription ( const QString &d )
   {
     Description = d;
   }
 
+  /**
+  * Den Autor einfügen
+  */
   void PluginInfo::setAuthor ( const QString &a )
   {
     Author = a;

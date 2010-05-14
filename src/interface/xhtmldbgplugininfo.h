@@ -47,8 +47,8 @@ namespace xhtmldbg
     public:
       enum PluginType
       {
-        Dialog,   /**< \short this Plugin is a QDialog */
-        Dock      /**< \short this Plugin is a QDockWidget */
+        PopUp, /**< \short this Plugin is a Popup (QDialog QMessageBox etc.) */
+        Dock   /**< \short this Plugin is a QDockWidget */
       };
 
     private:
@@ -60,7 +60,12 @@ namespace xhtmldbg
       QString Author;              /**< \short Plugin Author */
 
     public:
-      explicit PluginInfo ( QObject * parent = 0, PluginType type = PluginInfo::Dialog );
+      /**
+      * Plugin constructer
+      * @param parent Object
+      * @param type   Plugin Type to use default: Popup
+      */
+      explicit PluginInfo ( QObject * parent = 0, PluginType type = PluginInfo::PopUp );
 
       /** \short Plugin Name */
       const QString getName();
@@ -77,27 +82,27 @@ namespace xhtmldbg
       /** \short Plugin Author */
       const QString getAuthor();
 
-      /** Plugin Name
+      /** set Real Plugin Name
       * \param n  Full Plugin Name
       */
       void setName ( const QString &n );
 
-      /** Plugin Name
+      /** set Generic Plugin Name für Menues
       * \param n  Plugin Name for Menu
       */
       void setGenericName ( const QString &n );
 
-      /** Plugin Name
+      /** set Plugin Version
       * \param n  Full Plugin Name
       */
       void setVersion ( const QString &v );
 
-      /** Plugin Description
+      /** set Plugin Description
       * \param d Description default: Missing
       */
       void setDescription ( const QString &d = QLatin1String ( "Missing" ) );
 
-      /** Plugin Author
+      /** set Plugin Author
       * \param a Authow default: Unknown
       */
       void setAuthor ( const QString &a = QLatin1String ( "Unknown" ) );

@@ -54,7 +54,7 @@ void ResolverPlugin::proccess ()
 
 xhtmldbg::PluginInfo::PluginType ResolverPlugin::type ()
 {
-  return xhtmldbg::PluginInfo::Dialog;
+  return xhtmldbg::PluginInfo::PopUp;
 }
 
 xhtmldbg::PluginInfo* ResolverPlugin::pluginInfo ()

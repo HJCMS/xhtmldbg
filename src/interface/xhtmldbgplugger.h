@@ -50,7 +50,7 @@ class xhtmldbgplugger : public QObject
   public:
     explicit xhtmldbgplugger ( QObject * parent = 0 );
     const QString findPlugin ( const QString &find );
-    const QList<xhtmldbg::Interface*> pluginsByType ( xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::Dialog );
+    const QList<xhtmldbg::Interface*> pluginsByType ( xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::PopUp );
     virtual ~xhtmldbgplugger();
 };
 

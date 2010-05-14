@@ -509,7 +509,7 @@ void Window::registerPlugins()
 {
   QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
   plugins.clear();
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( xhtmldbg::PluginInfo::Dialog ) )
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( xhtmldbg::PluginInfo::PopUp ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
@@ -530,6 +530,7 @@ void Window::registerPlugins()
 * @li DomTree::setDomTree
 * @li CookiesDock::cookiesFromUrl
 * @li QSettings::setValue (RecentUrl)
+* @li An alle geladenen Plugins die URL übergeben.
 * Beim setzen von @em RecentUrl werden Passwörter und Anker entfernt.
 */
 void Window::requestsFinished ( bool ok )
@@ -593,19 +594,16 @@ void Window::checkStyleSheet ( const QUrl &url )
 }
 
 /**
-* Hier wird der Quelltext in @class SourceView eingefügt.
-* Gleichzeitig @ref TidyMessanger::clearItems aufgerufen.
-* Wenn der überreichte Quelltext nicht leer ist wird
-* in den Einstellungen nachgesehen ob @em AutoFormat oder
-* @em AutoCheck aktiviert sind und entsprechend ausgeführt.
+* @li Hier wird der Quelltext in @class SourceView eingefügt.
+*  Gleichzeitig @ref TidyMessanger::clearItems aufgerufen.
+* @li Danach wird der Quelletext an die geladenen Plugins übergeben.
+* @li Wenn der überreichte Quelltext nicht leer ist wird in den
+*  Einstellungen nachgesehen ob @em AutoFormat oder @em AutoCheck
+*  aktiviert sind und entsprechend ausgeführt.
 */
 bool Window::setSource ( const QString &source )
 {
   m_tidyMessanger->clearItems();
-
-#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG_VERBOSE
-  qDebug ( "(XHTMLDBG) Window::setSource length: %d", source.length() );
-#endif
 
   if ( source.isEmpty() )
     return false;

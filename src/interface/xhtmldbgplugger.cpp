@@ -111,6 +111,9 @@ const QString xhtmldbgplugger::findPlugin ( const QString &find )
   return QString::null;
 }
 
+/**
+* Lese alle Plugin anhand der Typenangabe aus.
+*/
 const QList<xhtmldbg::Interface*> xhtmldbgplugger::pluginsByType ( xhtmldbg::PluginInfo::PluginType type )
 {
   // TODO pluginsByType
