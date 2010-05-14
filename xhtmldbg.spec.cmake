@@ -9,7 +9,7 @@
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
 Version:        @XHTMLDBG_VERSION@
-Release:        %{_release}
+Release:        0
 License:        GPLv3
 AutoReqProv:    on
 Group:          Productivity/Editors/Other
@@ -36,6 +36,7 @@ Author:
 %package -n libxhtmldbg
 Summary:     xhtmldbg Plugin Interface Library
 License:     LGPLv3
+Group:       System/Libraries
 AutoReqProv: on
 
 %description -n libxhtmldbg
@@ -48,6 +49,7 @@ Author:
 %package -n libxhtmldbg-devel
 Summary:     Development Package for the xhtmldbg Plugin Interface Library
 License:     LGPLv3
+Group:       Development/Languages/C and C++
 AutoReqProv: on
 Requires:    libxhtmldbg = %{version}
 Requires:    c++_compiler pkgconfig qt4-devel >= 4.6.0
@@ -101,6 +103,7 @@ popd
 %defattr(-,root,root,-)
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
+%{_libdir}/%{name}/lib*.so
 %{_qt_transdir}/xhtmldbg_*.qm
 %dir %{_datadir}/%{name}
 %doc %{_datadir}/%{name}/AUTHORS
@@ -146,13 +149,12 @@ popd
 
 %files -n libxhtmldbg
 %defattr(-,root,root,-)
-%doc COPYING.LIB AUTHORS README
 %{_libdir}/libxhtmldbg-1.0.so.*
 
-%post
+%post -n libxhtmldbg-devel
 ##
 
-%postun
+%postun -n libxhtmldbg-devel
 ##
 
 %files -n libxhtmldbg-devel
