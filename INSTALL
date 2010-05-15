@@ -56,18 +56,27 @@ java -classpath "$CLASSPATH" \
   --lang=de http://www.bing.com
 
 
-INSTALL_TREE:/usr
+INSTALL_TREE:
+/
+|-- etc
+|   `-- xdg
+|       `-- hjcms.de
+|           `-- xhtmldbg.conf
+`-- usr
     |-- bin
     |   `-- xhtmldbg
     |-- include
     |   `-- xhtmldbg-1.0
-    |       `-- xhtmldbginterface.h
+    |       |-- xhtmldbginterface.h
+    |       `-- xhtmldbgplugininfo.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.*
-    |   |-- libxhtmldbg-1.0.so.0.*
-    |   `-- pkgconfig
-    |       `-- xhtmldbg.pc
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.4
+    |   |-- libxhtmldbg-1.0.so.0.8.4
+    |   |-- pkgconfig
+    |   |   `-- xhtmldbg.pc
+    |   `-- xhtmldbg
+    |       `-- libHostInfo.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop

@@ -15,15 +15,16 @@ CMAKE_POLICY (VERSION 2.8)
 SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
 ##############################################################
-## Requiered "QtCore QtGui QtXml QtNetwork QtWebKit"
+## Package
 ##############################################################
 SET (QT_MIN_VERSION 4.6.0)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS)
-FIND_PACKAGE (OpenMP)
-INCLUDE (${QT_USE_FILE})
-
 FIND_PACKAGE (QTidy REQUIRED)
+FIND_PACKAGE (OpenMP)
+FIND_PACKAGE (Java)
+
+INCLUDE (${QT_USE_FILE})
 
 ##############################################################
 ## Set xhtmldbg Specific Information
@@ -174,6 +175,30 @@ SET (PLUGIN_OUTPUT_PATH
 
 CONFIGURE_FILE (version.h.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
+
+##############################################################
+## Default Configuration File
+##############################################################
+
+FIND_FILE (CA_BUNDLE_FILE
+  NAMES ca-certificates.crt ca-bundle.crt
+  PATHS /etc/ssl /etc/ssl/certs /usr/share/ssl /usr/local/share/ssl
+  DOC "Find SSL Certificate verify location (CAfile)" NO_CMAKE_PATH
+)
+
+FIND_FILE (CSS_VALIDATOR_JAR
+  NAMES css-validator.jar
+  PATHS /usr/share/java /usr/local/share/java
+  DOC "Find W3C CSS Validator File" NO_CMAKE_PATH
+)
+
+CONFIGURE_FILE (xhtmldbg.conf.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
+)
+
+INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
+  DESTINATION /etc/xdg/hjcms.de
 )
 
 ##############################################################
