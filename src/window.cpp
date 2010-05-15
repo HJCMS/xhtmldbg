@@ -69,9 +69,11 @@
 
 /* QtGui */
 #include <QtGui/QApplication>
+#include <QtGui/QColor>
 #include <QtGui/QIcon>
 #include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
+#include <QtGui/QPalette>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
@@ -88,6 +90,9 @@ Window::Window ( QSettings * settings )
   // Standard Fenster optionen
   setObjectName ( "xhtmldbgwindow" );
   setWindowIcon ( qTidyIcon );
+
+  QColor bgColor = palette().color ( QPalette::Background );
+  setStyleSheet ( QString ( "QToolTip{background-color:%1;padding:1px;}" ).arg ( bgColor.name() ) );
 
   QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
   setWindowTitle ( winTitle );

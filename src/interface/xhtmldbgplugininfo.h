@@ -52,12 +52,13 @@ namespace xhtmldbg
       };
 
     private:
-      const PluginType pluginType; /**< \short Plugin Type */
-      QString Name;                /**< \short Plugin Name */
-      QString GenericName;         /**< \short Plugin Menu Name */
-      QString Version;             /**< \short Plugin Version */
-      QString Description;         /**< \short Plugin Description */
-      QString Author;              /**< \short Plugin Author */
+      Q_DISABLE_COPY ( PluginInfo ) /**< \short Disables the use of copy constructors and assignment operators for this Class. */
+      const PluginType pluginType;  /**< \short Plugin Type */
+      QString Name;                 /**< \short Plugin Name */
+      QString GenericName;          /**< \short Plugin Menu Name */
+      QString Version;              /**< \short Plugin Version */
+      QString Description;          /**< \short Plugin Description */
+      QString Author;               /**< \short Plugin Author */
 
     public:
       /**

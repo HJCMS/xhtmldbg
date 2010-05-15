@@ -183,10 +183,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     return true;
   }
 
-#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG_VERBOSE
-  qDebug ( "(XHTMLDBG) WebPage acceptNavigationRequest Type: %d", type );
-#endif
-
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:
@@ -207,7 +203,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
     case QWebPage::NavigationTypeReload:
     {
-      if ( request.url().scheme() == "about" )
+      if ( request.url().toString().contains( "about:" ) )
         return false;
 
       reply = m_netManager->get ( request );

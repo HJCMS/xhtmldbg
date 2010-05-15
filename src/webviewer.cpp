@@ -240,6 +240,7 @@ void WebViewer::closeViewerTab ( int index )
 */
 void WebViewer::keywords ( const QStringList &words )
 {
+  activeView()->findKeyword ( QString::null );
   foreach ( QString w, words )
   {
     activeView()->findKeyword ( w );
