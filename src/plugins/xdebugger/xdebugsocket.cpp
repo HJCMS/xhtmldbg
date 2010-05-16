@@ -110,7 +110,7 @@ void XDebugSocket::steppingIn ( XDebugClient * socket )
   * an dieser stelle aufrecht zu erhalten.
   * Es würde sich nur die Komplette IDE Aufhängen :-/
   */
-  // socket->disconnectFromHost();
+  socket->disconnectFromHost();
 }
 
 void XDebugSocket::readPendingDatagrams ()

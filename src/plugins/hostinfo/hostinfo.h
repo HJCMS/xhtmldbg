@@ -24,8 +24,14 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QProcess>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+
+/* QtGui */
+#include <QtGui/QDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QListWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QHostInfo>
@@ -37,9 +43,13 @@ class HostInfo : public QObject
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    void createPopUp ( const QString &data, const QString &details = QString() );
+    QProcess* proc;
+    QDialog* dialog;
+    QLabel* infoLabel;
+    QListWidget* digText;
 
   private Q_SLOTS:
+    void readHostnameInfo ();
     void prepareHostInfo ( const QHostInfo &host );
 
   public Q_SLOTS:
