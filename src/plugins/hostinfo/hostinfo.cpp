@@ -29,8 +29,6 @@
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
-#include <QtGui/QIcon>
-#include <QtGui/QPixmap>
 #include <QtGui/QWidget>
 #include <QtGui/QVBoxLayout>
 
@@ -43,9 +41,6 @@ HostInfo::HostInfo ( QObject * parent )
   setObjectName ( QLatin1String ( "HostInfo" ) );
   proc = new QProcess ( this );
   proc->setReadChannel ( QProcess::StandardOutput );
-
-  QIcon icon = QIcon::fromTheme ( QString::fromUtf8 ( "xhtmldbg" ) );
-  QPixmap pixmap = icon.pixmap ( QSize ( 48, 48 ), QIcon::Normal, QIcon::On );
 
   dialog = new QDialog;
   dialog->setMinimumWidth ( 480 );
