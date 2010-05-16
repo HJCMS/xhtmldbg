@@ -32,6 +32,9 @@
 #include <QtCore/QPluginLoader>
 #include <QtCore/QMetaObject>
 
+/* QtGui */
+#include <QtGui/QWidget>
+
 /* xhtmldbg */
 #include <xhtmldbgplugininfo.h>
 #include <xhtmldbginterface.h>
@@ -50,7 +53,9 @@ class xhtmldbgplugger : public QObject
   public:
     explicit xhtmldbgplugger ( QObject * parent = 0 );
     const QString findPlugin ( const QString &find );
-    const QList<xhtmldbg::Interface*> pluginsByType ( xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::PopUp );
+    const QList<xhtmldbg::Interface*> pluginsByType (
+        QWidget * parent,
+        xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::PopUp );
     virtual ~xhtmldbgplugger();
 };
 

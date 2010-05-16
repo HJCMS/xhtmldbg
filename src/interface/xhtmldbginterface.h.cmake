@@ -29,6 +29,8 @@
 #include <QtCore/QMetaObject>
 
 /* QtGui */
+#include <QtGui/QDockWidget>
+#include <QtGui/QWidget>
 #include <QtPlugin>
 
 /* xhtmldbg */
@@ -60,7 +62,12 @@ namespace xhtmldbg
 
     public:
       /** Plugin Initialisation */
-      virtual bool create ( QObject * parent ) = 0;
+      virtual bool create ( QWidget * parent ) = 0;
+
+      /**
+      * This is needed for implement the DockWidget into the IDE
+      */
+      virtual QDockWidget* dockwidget () = 0;
 
       /**
       * This function set the current Document Source Content

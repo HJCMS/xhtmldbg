@@ -86,7 +86,7 @@ const QStringList xhtmldbgplugger::findPlugins ()
     p_dir.setPath ( path );
     foreach ( QString p, p_dir.entryList ( filters, QDir::Files, QDir::Name ) )
     {
-      QFileInfo info( p );
+      QFileInfo info ( p );
       if ( QLibrary::isLibrary ( p ) && ! unique.contains ( info.baseName() ) )
       {
         unique << info.baseName();
@@ -114,7 +114,9 @@ const QString xhtmldbgplugger::findPlugin ( const QString &find )
 /**
 * Lese alle Plugin anhand der Typenangabe aus.
 */
-const QList<xhtmldbg::Interface*> xhtmldbgplugger::pluginsByType ( xhtmldbg::PluginInfo::PluginType type )
+const QList<xhtmldbg::Interface*> xhtmldbgplugger::pluginsByType (
+    QWidget * parent,
+    xhtmldbg::PluginInfo::PluginType type )
 {
   // TODO pluginsByType
   QList<xhtmldbg::Interface*> list;
@@ -125,7 +127,7 @@ const QList<xhtmldbg::Interface*> xhtmldbgplugger::pluginsByType ( xhtmldbg::Plu
     if ( plug )
     {
       xhtmldbg::Interface* m_interface = qobject_cast<xhtmldbg::Interface*> ( plug );
-      if ( m_interface && m_interface->type() == type && m_interface->create ( this ) )
+      if ( m_interface && m_interface->type() == type && m_interface->create ( parent ) )
         list << m_interface;
     }
     else

@@ -1,7 +1,7 @@
 /**
-* This file is part of the xhtmldbg project
+* This file is part of the QTidy project
 *
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,46 +19,29 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HOSTINFOPLUGIN_H
-#define HOSTINFOPLUGIN_H
+#ifndef XDEBUGSPINBOX_H
+#define XDEBUGSPINBOX_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
+#include <QtGui/QSpinBox>
 #include <QtGui/QWidget>
 
-/* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
-
-class HostInfo;
-
-class HostInfoPlugin : public xhtmldbg::Interface
+class XDebugSpinBox : public QSpinBox
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_INTERFACES ( xhtmldbg::Interface )
-
-  private:
-    HostInfo* m_hostInfo;
-    QUrl p_url;
-    QString p_content;
+    Q_CLASSINFO ( "URL", "http://xhtmldbg.hjcms.de" )
 
   public Q_SLOTS:
-    void proccess ();
+    void setText ( const QString & );
 
   public:
-    bool create ( QWidget * parent );
-    QDockWidget* dockwidget();
-    void setContent ( const QString &source );
-    void setUrl ( const QUrl &url );
-    xhtmldbg::PluginInfo::PluginType type ();
-    xhtmldbg::PluginInfo* pluginInfo ();
+    XDebugSpinBox ( QWidget * parent );
+    const QString text();
 };
 
 #endif

@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HOSTINFOPLUGIN_H
-#define HOSTINFOPLUGIN_H
+#ifndef XDEBUGGERPLUGIN_H
+#define XDEBUGGERPLUGIN_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -35,9 +35,9 @@
 #include <xhtmldbgplugininfo.h>
 #include <xhtmldbginterface.h>
 
-class HostInfo;
+class XDebugger;
 
-class HostInfoPlugin : public xhtmldbg::Interface
+class XDebuggerPlugin : public xhtmldbg::Interface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -45,7 +45,7 @@ class HostInfoPlugin : public xhtmldbg::Interface
     Q_INTERFACES ( xhtmldbg::Interface )
 
   private:
-    HostInfo* m_hostInfo;
+    XDebugger* m_xdebugger;
     QUrl p_url;
     QString p_content;
 

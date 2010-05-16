@@ -19,58 +19,58 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "hostinfoplugin.h"
-#include "hostinfo.h"
+#include "xdebuggerplugin.h"
+#include "xdebugger.h"
 
 /* QtCore */
 #include <QtCore>
 
-bool HostInfoPlugin::create ( QWidget * parent )
+bool XDebuggerPlugin::create ( QWidget * parent )
 {
   if ( parent )
   {
-    m_hostInfo = new HostInfo ( parent );
-    m_hostInfo->setObjectName ( QLatin1String ( "Resolver" ) );
+    m_xdebugger = new XDebugger ( parent );
+    m_xdebugger->setObjectName ( QLatin1String ( "plugin_xdebugger_dockwidget" ) );
     return true;
   }
   return false;
 }
 
-QDockWidget* HostInfoPlugin::dockwidget()
+QDockWidget* XDebuggerPlugin::dockwidget()
 {
-  return new QDockWidget;
+  return  m_xdebugger;
 }
 
-void HostInfoPlugin::setContent ( const QString &source )
+void XDebuggerPlugin::setContent ( const QString &source )
 {
   p_content = source;
 }
 
-void HostInfoPlugin::setUrl ( const QUrl &url )
+void XDebuggerPlugin::setUrl ( const QUrl &url )
 {
   p_url = url;
 }
 
-void HostInfoPlugin::proccess ()
+void XDebuggerPlugin::proccess ()
 {
-  if ( m_hostInfo && p_url.scheme().contains ( "http" ) )
-    m_hostInfo->setDomain ( p_url );
+  if ( m_xdebugger && p_url.scheme().contains ( "http" ) )
+    m_xdebugger->openSessionWithIdKey ( p_url.toString() );
 }
 
-xhtmldbg::PluginInfo::PluginType HostInfoPlugin::type ()
+xhtmldbg::PluginInfo::PluginType XDebuggerPlugin::type ()
 {
-  return xhtmldbg::PluginInfo::PopUp;
+  return xhtmldbg::PluginInfo::Dock;
 }
 
-xhtmldbg::PluginInfo* HostInfoPlugin::pluginInfo ()
+xhtmldbg::PluginInfo* XDebuggerPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
-  inf->setName ( QLatin1String ( "Hostinfo" ) );
-  inf->setGenericName ( trUtf8 ( "Host Information" ) );
+  inf->setName ( QLatin1String ( "XDebugger" ) );
+  inf->setGenericName ( trUtf8( "XDebug" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( trUtf8 ( "Resolve IP Addresses and Host Information with given Url" ) );
+  inf->setDescription ( trUtf8 ( "XDebugger Plugin" ) );
   inf->setAuthor ( trUtf8 ( "Jürgen Heinemann (Undefined)" ) );
   return inf;
 }
 
-Q_EXPORT_PLUGIN2 ( HostInfo, HostInfoPlugin )
+Q_EXPORT_PLUGIN2 ( XDebugger, XDebuggerPlugin )
