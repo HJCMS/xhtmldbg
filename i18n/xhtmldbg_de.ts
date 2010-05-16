@@ -243,6 +243,34 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
+    <name>CSSConfigureMain</name>
+    <message>
+        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="123"/>
+        <source>Configure CSS Validation</source>
+        <translation>Konfiguriere den W3C Validierer</translation>
+    </message>
+    <message>
+        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="124"/>
+        <source>The CSS profile used for the validation.</source>
+        <translation>Das CSS-Profil für die Validierung.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="125"/>
+        <source>The language used for the response.</source>
+        <translation>Die Ausgabesprache.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="126"/>
+        <source>The warning level.</source>
+        <translation>Menge der ausgegebenen Warnungen.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="127"/>
+        <source>The medium used for the validation.</source>
+        <translation>Das Medium für die Validierung.</translation>
+    </message>
+</context>
+<context>
     <name>CSSValidator</name>
     <message>
         <location filename="../src/cssvalidator/cssvalidator.cpp" line="54"/>
@@ -522,6 +550,388 @@ Bitte starte den Konfiurations Dialog neu.</translation>
 Do you realy want to exit?</source>
         <translation>Nicht gespeicherte Änderungen gefunden.
 Möchtest du wirklich Beenden?</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDialogUi</name>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1020"/>
+        <source>Configure xhtmldbg[*]</source>
+        <translation>Konfiguriere xhtmldbg[*]</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1021"/>
+        <source>QTidy Source Parser</source>
+        <translation>QTidy Syntax Analysierer</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1022"/>
+        <source>Enable Auto Source Check</source>
+        <translation>Aktiviere Automatische Überprüfung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1023"/>
+        <source>Enable Autoformat and Check Source</source>
+        <translation>Aktiviere Automatisches Bereinigen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1024"/>
+        <source>Disable autoformat and autocheck</source>
+        <translation>Deaktiviere Automatische Überprüfung und Syntaxbereinigung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1025"/>
+        <source>Max Items in History Menu:</source>
+        <translation>Maximal Anzahl im Historien Menü:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1026"/>
+        <source>Inspector Highlighted Foreground Color</source>
+        <translation>Hervorhebungs Farbe des DOM Inspektors</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1027"/>
+        <source>Highlight Background</source>
+        <translation>Hintergrund Hervorhebung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1028"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1031"/>
+        <source>Preview</source>
+        <translation>Vorschau</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1029"/>
+        <source>pick Background Color</source>
+        <translation>wähle Hintergrundfarbe</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1030"/>
+        <source>Highlight Border</source>
+        <translation>Rahmen Hervorhebung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1032"/>
+        <source>pick Border Color</source>
+        <translation>wähle Rahmenfarbe</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1033"/>
+        <source>W3C CSS Validation</source>
+        <translation>W3C CSS Validierer</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1034"/>
+        <source>Java Application path</source>
+        <translation>Pfad zum Java Programm</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1035"/>
+        <source>java</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1036"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1039"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1042"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1109"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1116"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1117"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1118"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1122"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1124"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1126"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1137"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1141"/>
+        <source>...</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1037"/>
+        <source>Path to W3C Validator file</source>
+        <translation>Pfad zur W3C Validierer Datei</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1038"/>
+        <source>/usr/share/java/css-validator.jar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1040"/>
+        <source>W3C Validator CLASSPATH</source>
+        <translation>Klassen Pfad des W3C Validierers</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1041"/>
+        <source>/usr/share/java/css-validator</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1043"/>
+        <source>Defaults</source>
+        <translation>Standards</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1044"/>
+        <source>Start Options</source>
+        <translation>Start Optionen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1045"/>
+        <source>Load this URL as Default on start, if empty use recent Homepage.</source>
+        <translation>Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1046"/>
+        <source>&lt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1047"/>
+        <source>Header Field Definitions</source>
+        <translation>Dateikopf Definitionen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1049"/>
+        <source>Type</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1051"/>
+        <source>Value</source>
+        <translation>Wert</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1053"/>
+        <source>0</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1055"/>
+        <source>1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1057"/>
+        <source>2</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1067"/>
+        <source>HTTP Header Field Definitions</source>
+        <translation>HTTP Dateikopf Definitionen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1069"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1082"/>
+        <source>Application restart required.</source>
+        <translation>Anwendung Neustart erforderlich.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1070"/>
+        <source>Behavior</source>
+        <translation>Verhalten</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1071"/>
+        <source>Font Settings</source>
+        <translation>Schriften Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1072"/>
+        <source>Default Font Size:</source>
+        <translation>Standard Schriftgröße:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1073"/>
+        <source>Fixed Font Size:</source>
+        <translation>Standard für die feste Schriftgröße:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1074"/>
+        <source>Developer Extras Enabled</source>
+        <translation>Entwickler Extras Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1075"/>
+        <source>AutoLoad Images</source>
+        <translation>Bilder Automatisch laden</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1076"/>
+        <source>Javascript Enabled</source>
+        <translation>JavaScript Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1077"/>
+        <source>Plugins Enabled</source>
+        <translation>Plugins Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1078"/>
+        <source>Java Enabled</source>
+        <translation>Java Aktivieren</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1079"/>
+        <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
+        <translation>Speichere keine Upload Daten wenn HTTP POST verwendet wird.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1080"/>
+        <source>Allow HTTP pipelining with requests.</source>
+        <translation>Erlaube HTTP Parallelverarbeitung bei den Anfragen.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1081"/>
+        <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
+        <translation>Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1083"/>
+        <source>Browser</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1084"/>
+        <source>Arrangements</source>
+        <translation>Regelungen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1085"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1086"/>
+        <source>Clear Table</source>
+        <translation>Leere Tabelle</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1088"/>
+        <source>Domain</source>
+        <translation>Domäne</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1090"/>
+        <source>Arrangement</source>
+        <translation>Regelung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1091"/>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1100"/>
+        <source>Add</source>
+        <translation>Einfügen</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1092"/>
+        <source>Url:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1093"/>
+        <source>http://</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1096"/>
+        <source>Merely current Session</source>
+        <translation>Lediglich nur für die Sitzung</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1097"/>
+        <source>Always Blocked</source>
+        <translation>Immer verhindern</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1098"/>
+        <source>Always Allowed</source>
+        <translation>Immer erlauben</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1101"/>
+        <source>CA Certificate Database</source>
+        <translation>CA Zertifikat Datenbank</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1103"/>
+        <source>Organization (O)</source>
+        <translation>Organisation (O)</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1105"/>
+        <source>CommonName (CN)</source>
+        <translation>Gemeinsamer Name (CN)</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1107"/>
+        <source>Expires</source>
+        <translation>Erlischt</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1108"/>
+        <source>Database:</source>
+        <translation>Datenbank:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1110"/>
+        <source>Untrusted Certificate whitelist</source>
+        <translation>Weiße Liste für nicht vertrauenswürdige Zertifikate</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1119"/>
+        <source>Client Authentication and Access Control</source>
+        <translation>Klient Authentifizierung und Zugangs Kontrolle</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1120"/>
+        <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</source>
+        <translation>Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1121"/>
+        <source>Public Keyfile:</source>
+        <translation>Öffentlicher Schlüssel:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1123"/>
+        <source>Private Keyfile:</source>
+        <translation>Privater Schlüssel:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1125"/>
+        <source>Private Key Password:</source>
+        <translation>Privates Passwort:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1132"/>
+        <source>Agent:</source>
+        <translation>Kennung:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1133"/>
+        <source>Menu Title:</source>
+        <translation>Menü Titel:</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1135"/>
+        <source>Modify or Integrate User-Agent</source>
+        <translation>Bearbeite oder füge neue Benutzer Kennung ein.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1139"/>
+        <source>Remove Selected User-Agent</source>
+        <translation>Entferne gewählte Benutzer Kennung.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1142"/>
+        <source>You can sort with Drag and Drop the Items from User-Agent list. The first Item on Top is the primary User-Agent.</source>
+        <translation>Du kannst mit Maus ziehen und fallen lassen, Einträge in der Benutzer Kennung Liste sortieren. Der Oberste Eintrag ist der Primär verwendete.</translation>
+    </message>
+    <message>
+        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1143"/>
+        <source>User Agents</source>
+        <translation>Benutzer Kennungen</translation>
     </message>
 </context>
 <context>
@@ -992,17 +1402,17 @@ Gründe : </translation>
 <context>
     <name>HostInfoPlugin</name>
     <message>
-        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="64"/>
+        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="69"/>
         <source>Host Information</source>
         <translation>Host Informationen</translation>
     </message>
     <message>
-        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="66"/>
+        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="71"/>
         <source>Resolve IP Addresses and Host Information with given Url</source>
         <translation>IP Adressen und Host Informationen mit der URL auflösen.</translation>
     </message>
     <message utf8="true">
-        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="67"/>
+        <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="72"/>
         <source>Jürgen Heinemann (Undefined)</source>
         <translation></translation>
     </message>
@@ -1057,6 +1467,19 @@ Gründe : </translation>
         <location filename="../src/keywordstoolbar.cpp" line="57"/>
         <source>Clear</source>
         <translation>Leeren</translation>
+    </message>
+</context>
+<context>
+    <name>LedLabel</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/ledlabel/ledlabel.cpp" line="57"/>
+        <source>listening</source>
+        <translation>abhörend</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/ledlabel/ledlabel.cpp" line="62"/>
+        <source>not listen</source>
+        <translation>kein lauschen</translation>
     </message>
 </context>
 <context>
@@ -1496,6 +1919,12 @@ Gründe : </translation>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
+        <location filename="../src/window.cpp" line="381"/>
+        <location filename="../src/window.cpp" line="462"/>
+        <source>Extensions</source>
+        <translation>Erweiterungen</translation>
+    </message>
+    <message>
         <location filename="../src/window.cpp" line="413"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
@@ -1529,12 +1958,6 @@ Gründe : </translation>
         <location filename="../src/window.cpp" line="376"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
-    </message>
-    <message>
-        <location filename="../src/window.cpp" line="381"/>
-        <location filename="../src/window.cpp" line="462"/>
-        <source>Extensions</source>
-        <translation>Erweiterungen</translation>
     </message>
     <message>
         <location filename="../src/window.cpp" line="388"/>
@@ -1572,34 +1995,219 @@ Gründe : </translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="597"/>
+        <location filename="../src/window.cpp" line="611"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="650"/>
+        <location filename="../src/window.cpp" line="664"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="651"/>
+        <location filename="../src/window.cpp" line="665"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="652"/>
+        <location filename="../src/window.cpp" line="666"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="653"/>
+        <location filename="../src/window.cpp" line="667"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="660"/>
+        <location filename="../src/window.cpp" line="674"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugClient</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugclient.cpp" line="83"/>
+        <source>Error occurred:
+%1</source>
+        <translation>Fehler
+%1</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugProjectDialog</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojectdialog.cpp" line="54"/>
+        <source>Configure xhtmldbg XDebug Projects[*]</source>
+        <translation>Konfiguriere xhtmldbg XDebug Projekte[*]</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojectdialog.cpp" line="69"/>
+        <source>&amp;Save</source>
+        <translation>&amp;Speichern</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugProjectTable</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="87"/>
+        <source>Project %1</source>
+        <translation>Projekt %1</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="107"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="105"/>
+        <source>New</source>
+        <translation>Neu</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugProjectTableModel</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="246"/>
+        <source>Project Name</source>
+        <translation>Projektname</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="249"/>
+        <source>Port</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="252"/>
+        <source>Hostname</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="255"/>
+        <source>Session Key</source>
+        <translation>Sitzungs Schlüssel</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="258"/>
+        <source>Unknown</source>
+        <translation>Unbekannt</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugSocket</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="156"/>
+        <source>XDebugger is busy!</source>
+        <translation>XDebugger ist beschäftigt!</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="170"/>
+        <source>XDebugger startet at: %1:%2
+Waiting for debug server to connect...</source>
+        <translation>XDebugger gestartet: %1:%2
+Warte auf Verbindung vom Server...</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="179"/>
+        <source>Unable to start the XDebugger!
+%1</source>
+        <translation>Kann den XDebugger nicht starten!
+%1</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="202"/>
+        <source>XDebugger shutdown...</source>
+        <translation>XDebugger wird geschlossen...</translation>
+    </message>
+</context>
+<context>
+    <name>XDebugger</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="58"/>
+        <source>Xdebug</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="72"/>
+        <source>Project:</source>
+        <translation>Projekt:</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="78"/>
+        <source>select your generated projects</source>
+        <translation>Wähle eines deiner Projekte</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="83"/>
+        <source>Project selection</source>
+        <translation>Projekt auswählen</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="84"/>
+        <source>this button open the project editor dialog</source>
+        <translation>Diese Knopf öffnet den Projekt Editor Dialog.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="90"/>
+        <source>Port:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="98"/>
+        <source>Remote Port: (DBGP_PORT)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="99"/>
+        <source>The port to which Xdebug tries to connect on the remote host.
+Port 9000 is the default for both the client and the bundled debugclient.
+As many clients use this port number, it is best to leave this setting unchanged.</source>
+        <translation>Die Port Adresse mit der Xdebug Kommunizieren soll.
+Port 9000 ist der Standard für die meisten Klient Programme.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="113"/>
+        <source>a IDE key, which the debugger engine will also use in it&apos;s debugging init command.</source>
+        <translation>Der IDE Sitzungs Schlüssel wird für die Schnittstellen Definition vom Debugger verwendet.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="119"/>
+        <source>Host:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="106"/>
+        <source>Session:</source>
+        <translation>Sitzung:</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="126"/>
+        <source>Selects the host where the debug client is running, you can either use a host name or an IP address.</source>
+        <translation>Wähle den Host mit dem der Debugger gestartet werden soll, dies kann auch eine Ip Adresse sein.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="200"/>
+        <source>Select Project</source>
+        <translation>Wähle Projekt</translation>
+    </message>
+</context>
+<context>
+    <name>XDebuggerPlugin</name>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="69"/>
+        <source>XDebug</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="71"/>
+        <source>XDebugger Plugin</source>
+        <translation></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="72"/>
+        <source>Jürgen Heinemann (Undefined)</source>
+        <translation></translation>
     </message>
 </context>
 </TS>
