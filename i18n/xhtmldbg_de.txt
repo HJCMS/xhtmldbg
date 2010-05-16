@@ -247,6 +247,36 @@ CSSConfigure
 
   TRANSLATION  : Speichern && Beenden
 
+CSSConfigureMain
+#CSSConfigureMain
+  SOURCE       : Configure CSS Validation
+
+  TRANSLATION  : Konfiguriere den W3C Validierer
+
+
+#CSSConfigureMain
+  SOURCE       : The CSS profile used for the validation.
+
+  TRANSLATION  : Das CSS-Profil für die Validierung.
+
+
+#CSSConfigureMain
+  SOURCE       : The language used for the response.
+
+  TRANSLATION  : Die Ausgabesprache.
+
+
+#CSSConfigureMain
+  SOURCE       : The warning level.
+
+  TRANSLATION  : Menge der ausgegebenen Warnungen.
+
+
+#CSSConfigureMain
+  SOURCE       : The medium used for the validation.
+
+  TRANSLATION  : Das Medium für die Validierung.
+
 CSSValidator
 #CSSValidator
   SOURCE       : CSS Validation
@@ -568,6 +598,444 @@ Do you realy want to exit?
 
   TRANSLATION  : Nicht gespeicherte Änderungen gefunden.
 Möchtest du wirklich Beenden?
+
+ConfigDialogUi
+#ConfigDialogUi
+  SOURCE       : Configure xhtmldbg[*]
+
+  TRANSLATION  : Konfiguriere xhtmldbg[*]
+
+
+#ConfigDialogUi
+  SOURCE       : QTidy Source Parser
+
+  TRANSLATION  : QTidy Syntax Analysierer
+
+
+#ConfigDialogUi
+  SOURCE       : Enable Auto Source Check
+
+  TRANSLATION  : Aktiviere Automatische Überprüfung
+
+
+#ConfigDialogUi
+  SOURCE       : Enable Autoformat and Check Source
+
+  TRANSLATION  : Aktiviere Automatisches Bereinigen
+
+
+#ConfigDialogUi
+  SOURCE       : Disable autoformat and autocheck
+
+  TRANSLATION  : Deaktiviere Automatische Überprüfung und Syntaxbereinigung
+
+
+#ConfigDialogUi
+  SOURCE       : Max Items in History Menu:
+
+  TRANSLATION  : Maximal Anzahl im Historien Menü:
+
+
+#ConfigDialogUi
+  SOURCE       : Inspector Highlighted Foreground Color
+
+  TRANSLATION  : Hervorhebungs Farbe des DOM Inspektors
+
+
+#ConfigDialogUi
+  SOURCE       : Highlight Background
+
+  TRANSLATION  : Hintergrund Hervorhebung
+
+
+#ConfigDialogUi
+  SOURCE       : Preview
+
+  TRANSLATION  : Vorschau
+
+
+#ConfigDialogUi
+  SOURCE       : pick Background Color
+
+  TRANSLATION  : wähle Hintergrundfarbe
+
+
+#ConfigDialogUi
+  SOURCE       : Highlight Border
+
+  TRANSLATION  : Rahmen Hervorhebung
+
+
+#ConfigDialogUi
+  SOURCE       : pick Border Color
+
+  TRANSLATION  : wähle Rahmenfarbe
+
+
+#ConfigDialogUi
+  SOURCE       : W3C CSS Validation
+
+  TRANSLATION  : W3C CSS Validierer
+
+
+#ConfigDialogUi
+  SOURCE       : Java Application path
+
+  TRANSLATION  : Pfad zum Java Programm
+
+
+#ConfigDialogUi
+  SOURCE       : java
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : ...
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Path to W3C Validator file
+
+  TRANSLATION  : Pfad zur W3C Validierer Datei
+
+
+#ConfigDialogUi
+  SOURCE       : /usr/share/java/css-validator.jar
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : W3C Validator CLASSPATH
+
+  TRANSLATION  : Klassen Pfad des W3C Validierers
+
+
+#ConfigDialogUi
+  SOURCE       : /usr/share/java/css-validator
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Defaults
+
+  TRANSLATION  : Standards
+
+
+#ConfigDialogUi
+  SOURCE       : Start Options
+
+  TRANSLATION  : Start Optionen
+
+
+#ConfigDialogUi
+  SOURCE       : Load this URL as Default on start, if empty use recent Homepage.
+
+  TRANSLATION  : Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet.
+
+
+#ConfigDialogUi
+  SOURCE       : <
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Header Field Definitions
+
+  TRANSLATION  : Dateikopf Definitionen
+
+
+#ConfigDialogUi
+  SOURCE       : Type
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Value
+
+  TRANSLATION  : Wert
+
+
+#ConfigDialogUi
+  SOURCE       : 0
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : 1
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : 2
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : HTTP Header Field Definitions
+
+  TRANSLATION  : HTTP Dateikopf Definitionen
+
+
+#ConfigDialogUi
+  SOURCE       : Application restart required.
+
+  TRANSLATION  : Anwendung Neustart erforderlich.
+
+
+#ConfigDialogUi
+  SOURCE       : Behavior
+
+  TRANSLATION  : Verhalten
+
+
+#ConfigDialogUi
+  SOURCE       : Font Settings
+
+  TRANSLATION  : Schriften Einstellungen
+
+
+#ConfigDialogUi
+  SOURCE       : Default Font Size:
+
+  TRANSLATION  : Standard Schriftgröße:
+
+
+#ConfigDialogUi
+  SOURCE       : Fixed Font Size:
+
+  TRANSLATION  : Standard für die feste Schriftgröße:
+
+
+#ConfigDialogUi
+  SOURCE       : Developer Extras Enabled
+
+  TRANSLATION  : Entwickler Extras Aktivieren
+
+
+#ConfigDialogUi
+  SOURCE       : AutoLoad Images
+
+  TRANSLATION  : Bilder Automatisch laden
+
+
+#ConfigDialogUi
+  SOURCE       : Javascript Enabled
+
+  TRANSLATION  : JavaScript Aktivieren
+
+
+#ConfigDialogUi
+  SOURCE       : Plugins Enabled
+
+  TRANSLATION  : Plugins Aktivieren
+
+
+#ConfigDialogUi
+  SOURCE       : Java Enabled
+
+  TRANSLATION  : Java Aktivieren
+
+
+#ConfigDialogUi
+  SOURCE       : Do Not Buffer Upload Data when doing a HTTP POST request.
+
+  TRANSLATION  : Speichere keine Upload Daten wenn HTTP POST verwendet wird.
+
+
+#ConfigDialogUi
+  SOURCE       : Allow HTTP pipelining with requests.
+
+  TRANSLATION  : Erlaube HTTP Parallelverarbeitung bei den Anfragen.
+
+
+#ConfigDialogUi
+  SOURCE       : Indicates whether the HTTP Pipelining was used for receiving data Requests.
+
+  TRANSLATION  : Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.
+
+
+#ConfigDialogUi
+  SOURCE       : Browser
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Arrangements
+
+  TRANSLATION  : Regelungen
+
+
+#ConfigDialogUi
+  SOURCE       : Remove
+
+  TRANSLATION  : Entfernen
+
+
+#ConfigDialogUi
+  SOURCE       : Clear Table
+
+  TRANSLATION  : Leere Tabelle
+
+
+#ConfigDialogUi
+  SOURCE       : Domain
+
+  TRANSLATION  : Domäne
+
+
+#ConfigDialogUi
+  SOURCE       : Arrangement
+
+  TRANSLATION  : Regelung
+
+
+#ConfigDialogUi
+  SOURCE       : Add
+
+  TRANSLATION  : Einfügen
+
+
+#ConfigDialogUi
+  SOURCE       : Url:
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : http://
+
+  TRANSLATION  : 
+
+
+#ConfigDialogUi
+  SOURCE       : Merely current Session
+
+  TRANSLATION  : Lediglich nur für die Sitzung
+
+
+#ConfigDialogUi
+  SOURCE       : Always Blocked
+
+  TRANSLATION  : Immer verhindern
+
+
+#ConfigDialogUi
+  SOURCE       : Always Allowed
+
+  TRANSLATION  : Immer erlauben
+
+
+#ConfigDialogUi
+  SOURCE       : CA Certificate Database
+
+  TRANSLATION  : CA Zertifikat Datenbank
+
+
+#ConfigDialogUi
+  SOURCE       : Organization (O)
+
+  TRANSLATION  : Organisation (O)
+
+
+#ConfigDialogUi
+  SOURCE       : CommonName (CN)
+
+  TRANSLATION  : Gemeinsamer Name (CN)
+
+
+#ConfigDialogUi
+  SOURCE       : Expires
+
+  TRANSLATION  : Erlischt
+
+
+#ConfigDialogUi
+  SOURCE       : Database:
+
+  TRANSLATION  : Datenbank:
+
+
+#ConfigDialogUi
+  SOURCE       : Untrusted Certificate whitelist
+
+  TRANSLATION  : Weiße Liste für nicht vertrauenswürdige Zertifikate
+
+
+#ConfigDialogUi
+  SOURCE       : Client Authentication and Access Control
+
+  TRANSLATION  : Klient Authentifizierung und Zugangs Kontrolle
+
+
+#ConfigDialogUi
+  SOURCE       : This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href="http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org">I know all my clients</a>?
+
+  TRANSLATION  : Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when <a href="http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org">I know all my clients</a>?
+
+
+#ConfigDialogUi
+  SOURCE       : Public Keyfile:
+
+  TRANSLATION  : Öffentlicher Schlüssel:
+
+
+#ConfigDialogUi
+  SOURCE       : Private Keyfile:
+
+  TRANSLATION  : Privater Schlüssel:
+
+
+#ConfigDialogUi
+  SOURCE       : Private Key Password:
+
+  TRANSLATION  : Privates Passwort:
+
+
+#ConfigDialogUi
+  SOURCE       : Agent:
+
+  TRANSLATION  : Kennung:
+
+
+#ConfigDialogUi
+  SOURCE       : Menu Title:
+
+  TRANSLATION  : Menü Titel:
+
+
+#ConfigDialogUi
+  SOURCE       : Modify or Integrate User-Agent
+
+  TRANSLATION  : Bearbeite oder füge neue Benutzer Kennung ein.
+
+
+#ConfigDialogUi
+  SOURCE       : Remove Selected User-Agent
+
+  TRANSLATION  : Entferne gewählte Benutzer Kennung.
+
+
+#ConfigDialogUi
+  SOURCE       : You can sort with Drag and Drop the Items from User-Agent list. The first Item on Top is the primary User-Agent.
+
+  TRANSLATION  : Du kannst mit Maus ziehen und fallen lassen, Einträge in der Benutzer Kennung Liste sortieren. Der Oberste Eintrag ist der Primär verwendete.
+
+
+#ConfigDialogUi
+  SOURCE       : User Agents
+
+  TRANSLATION  : Benutzer Kennungen
 
 ContextMenu
 #ContextMenu
@@ -1159,6 +1627,18 @@ KeywordsToolBar
 
   TRANSLATION  : Leeren
 
+LedLabel
+#LedLabel
+  SOURCE       : listening
+
+  TRANSLATION  : abhörend
+
+
+#LedLabel
+  SOURCE       : not listen
+
+  TRANSLATION  : kein lauschen
+
 ListStyleSheet
 #ListStyleSheet
   SOURCE       : Rendered from Stylesheet Document
@@ -1623,6 +2103,12 @@ Window
 
 
 #Window
+  SOURCE       : Extensions
+
+  TRANSLATION  : Erweiterungen
+
+
+#Window
   SOURCE       : Settings
 
   TRANSLATION  : Einstellungen
@@ -1662,12 +2148,6 @@ Window
   SOURCE       : Configure
 
   TRANSLATION  : Konfigurieren
-
-
-#Window
-  SOURCE       : Extensions
-
-  TRANSLATION  : Erweiterungen
 
 
 #Window
@@ -1746,4 +2226,199 @@ Window
   SOURCE       : Open HTML File
 
   TRANSLATION  : Öffne HTML Datei
+
+XDebugClient
+#XDebugClient
+  SOURCE       : Error occurred:
+%1
+
+  TRANSLATION  : Fehler
+%1
+
+XDebugProjectDialog
+#XDebugProjectDialog
+  SOURCE       : Configure xhtmldbg XDebug Projects[*]
+
+  TRANSLATION  : Konfiguriere xhtmldbg XDebug Projekte[*]
+
+
+#XDebugProjectDialog
+  SOURCE       : &Save
+
+  TRANSLATION  : &Speichern
+
+XDebugProjectTable
+#XDebugProjectTable
+  SOURCE       : Project %1
+
+  TRANSLATION  : Projekt %1
+
+
+#XDebugProjectTable
+  SOURCE       : Remove
+
+  TRANSLATION  : Entfernen
+
+
+#XDebugProjectTable
+  SOURCE       : New
+
+  TRANSLATION  : Neu
+
+XDebugProjectTableModel
+#XDebugProjectTableModel
+  SOURCE       : Project Name
+
+  TRANSLATION  : Projektname
+
+
+#XDebugProjectTableModel
+  SOURCE       : Port
+
+  TRANSLATION  : 
+
+
+#XDebugProjectTableModel
+  SOURCE       : Hostname
+
+  TRANSLATION  : 
+
+
+#XDebugProjectTableModel
+  SOURCE       : Session Key
+
+  TRANSLATION  : Sitzungs Schlüssel
+
+
+#XDebugProjectTableModel
+  SOURCE       : Unknown
+
+  TRANSLATION  : Unbekannt
+
+XDebugSocket
+#XDebugSocket
+  SOURCE       : XDebugger is busy!
+
+  TRANSLATION  : XDebugger ist beschäftigt!
+
+
+#XDebugSocket
+  SOURCE       : XDebugger startet at: %1:%2
+Waiting for debug server to connect...
+
+  TRANSLATION  : XDebugger gestartet: %1:%2
+Warte auf Verbindung vom Server...
+
+
+#XDebugSocket
+  SOURCE       : Unable to start the XDebugger!
+%1
+
+  TRANSLATION  : Kann den XDebugger nicht starten!
+%1
+
+
+#XDebugSocket
+  SOURCE       : XDebugger shutdown...
+
+  TRANSLATION  : XDebugger wird geschlossen...
+
+XDebugger
+#XDebugger
+  SOURCE       : Xdebug
+
+  TRANSLATION  : 
+
+
+#XDebugger
+  SOURCE       : Project:
+
+  TRANSLATION  : Projekt:
+
+
+#XDebugger
+  SOURCE       : select your generated projects
+
+  TRANSLATION  : Wähle eines deiner Projekte
+
+
+#XDebugger
+  SOURCE       : Project selection
+
+  TRANSLATION  : Projekt auswählen
+
+
+#XDebugger
+  SOURCE       : this button open the project editor dialog
+
+  TRANSLATION  : Diese Knopf öffnet den Projekt Editor Dialog.
+
+
+#XDebugger
+  SOURCE       : Port:
+
+  TRANSLATION  : 
+
+
+#XDebugger
+  SOURCE       : Remote Port: (DBGP_PORT)
+
+  TRANSLATION  : 
+
+
+#XDebugger
+  SOURCE       : The port to which Xdebug tries to connect on the remote host.
+Port 9000 is the default for both the client and the bundled debugclient.
+As many clients use this port number, it is best to leave this setting unchanged.
+
+  TRANSLATION  : Die Port Adresse mit der Xdebug Kommunizieren soll.
+Port 9000 ist der Standard für die meisten Klient Programme.
+
+
+#XDebugger
+  SOURCE       : a IDE key, which the debugger engine will also use in it's debugging init command.
+
+  TRANSLATION  : Der IDE Sitzungs Schlüssel wird für die Schnittstellen Definition vom Debugger verwendet.
+
+
+#XDebugger
+  SOURCE       : Host:
+
+  TRANSLATION  : 
+
+
+#XDebugger
+  SOURCE       : Session:
+
+  TRANSLATION  : Sitzung:
+
+
+#XDebugger
+  SOURCE       : Selects the host where the debug client is running, you can either use a host name or an IP address.
+
+  TRANSLATION  : Wähle den Host mit dem der Debugger gestartet werden soll, dies kann auch eine Ip Adresse sein.
+
+
+#XDebugger
+  SOURCE       : Select Project
+
+  TRANSLATION  : Wähle Projekt
+
+XDebuggerPlugin
+#XDebuggerPlugin
+  SOURCE       : XDebug
+
+  TRANSLATION  : 
+
+
+#XDebuggerPlugin
+  SOURCE       : XDebugger Plugin
+
+  TRANSLATION  : 
+
+
+#XDebuggerPlugin
+  SOURCE       : Jürgen Heinemann (Undefined)
+
+  TRANSLATION  : 
 
