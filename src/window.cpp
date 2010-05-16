@@ -515,11 +515,12 @@ void Window::registerPlugins()
   QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
   plugins.clear();
   // PopUp Widgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( centralWidget(), xhtmldbg::PluginInfo::PopUp ) )
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
     {
+      // qDebug() << Q_FUNC_INFO << info->getName();
       plugins.push_back ( plug );
       QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
       ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
@@ -528,13 +529,13 @@ void Window::registerPlugins()
       connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
     }
   }
-  // DockWidgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( centralWidget(), xhtmldbg::PluginInfo::Dock ) )
+  // Dock Widgets
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
     {
-      qDebug() << Q_FUNC_INFO << info->getName();
+      // qDebug() << Q_FUNC_INFO << info->getName();
       plugins.push_back ( plug );
       addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
       m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
