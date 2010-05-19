@@ -231,6 +231,14 @@ SET (XHTMLDBG_LIBRARIES
 )
 
 ##############################################################
+## Extensions
+##############################################################
+
+## needed by hostinfo plugin
+FIND_PROGRAM (BIND_UTIL_DIG NAMES dig bind-dig PATHS /bin /usr/bin)
+
+
+##############################################################
 ## SUBDIRECTORIES
 ##############################################################
 ADD_SUBDIRECTORY (src)

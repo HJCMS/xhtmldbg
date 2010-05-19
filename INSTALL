@@ -11,6 +11,8 @@ General "xhtmldbg" Requirements:
   -  cmake >= 2.8.0 (required) http://cmake.org
   -  Java Binary >= 1.5.0
   -  W3C Validator from CVS 2010 http://jigsaw.w3.org/css-validator/DOWNLOAD.html
+  -  dig (Optional) from http://www.isc.org/software/bind
+
 
 For Mac OS X Cocoa, the binary package requires Mac OS X 10.5 (Leopard) or later
 and GCC 4.0.1 to develop applications.
