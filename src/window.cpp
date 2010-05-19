@@ -26,6 +26,7 @@
 #include "networkcookie.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
+#include "zoombar.h"
 #include "webviewer.h"
 #include "sourcewidget.h"
 #include "tidymessanger.h"
@@ -433,6 +434,12 @@ void Window::createToolBars()
 
   addToolBar ( m_keywordsToolBar );
 
+  // Zoom Toolbar
+  m_zoomBar = new ZoomBar( this );
+  connect ( m_zoomBar, SIGNAL ( zoomFactor ( int ) ),
+            m_webViewer, SLOT ( zoomFactor ( int ) ) );
+  addToolBar ( m_zoomBar );
+
   // Add ToolBar View Actions to Display Menu
   QIcon icon = QIcon::fromTheme ( "preferences-system-windows-actions" );
   QMenu* viewToolbarsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Toolbars" ) );
@@ -441,6 +448,7 @@ void Window::createToolBars()
   viewToolbarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_addressToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
+  viewToolbarsMenu->addAction ( m_zoomBar->toggleViewAction() );
   viewToolbarsMenu->addSeparator ();
 
   // Add TOP|BOTTOM QDockWidget View Actions to Display Menu

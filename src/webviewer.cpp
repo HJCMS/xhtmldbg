@@ -281,6 +281,30 @@ void WebViewer::setWebFocus()
 }
 
 /**
+* Webseite Zoomen siehe QWebView::zoomFactor
+* @li Zoom Faktor In=1
+* @li Zoom Faktor Out=2
+* @li Zoom Faktor Original=0
+*/
+void WebViewer::zoomFactor ( int type )
+{
+  switch ( type )
+  {
+    case 1:
+      activeView()->setZoomFactor ( activeView()->zoomFactor() + 0.1 );
+      break;
+
+    case 2:
+      activeView()->setZoomFactor ( activeView()->zoomFactor() - 0.1 );
+      break;
+
+    default:
+      activeView()->setZoomFactor ( 1.0 );
+      break;
+  }
+}
+
+/**
 * Aktuelle URL von @ref WebView::url holen.
 */
 const QUrl WebViewer::getUrl()

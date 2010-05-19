@@ -51,6 +51,7 @@ class NetworkAccessManager;
 class HistoryManager;
 class AddressToolBar;
 class KeywordsToolBar;
+class ZoomBar;
 class WebViewer;
 class SourceWidget;
 class TidyMessanger;
@@ -97,6 +98,8 @@ class Window : public QMainWindow
     AddressToolBar* m_addressToolBar;
     // SEO ToolBar
     KeywordsToolBar* m_keywordsToolBar;
+    // Webviewer Zoom Bar
+    ZoomBar* m_zoomBar;
     // Application Menu
     QMenu* m_applicationMenu;
     QAction* actionOpenUrl;

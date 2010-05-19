@@ -50,6 +50,7 @@ SET (xhtmldbg_SOURCES
   autoreloadmenu.cpp
   useragentmenu.cpp
   xhtmldbgadaptor.cpp
+  zoombar.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -73,6 +74,7 @@ SET (xhtmldbg_HEADERS
   autoreloadmenu.h
   useragentmenu.h
   xhtmldbgadaptor.h
+  zoombar.h
 )
 
 SET (xhtmldbg_NOMOC
