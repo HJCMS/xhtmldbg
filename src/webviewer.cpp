@@ -288,18 +288,19 @@ void WebViewer::setWebFocus()
 */
 void WebViewer::zoomFactor ( int type )
 {
+  Viewer* view = activeView();
   switch ( type )
   {
     case 1:
-      activeView()->setZoomFactor ( activeView()->zoomFactor() + 0.1 );
+      view->setZoomFactor ( view->zoomFactor() + 0.1 );
       break;
 
     case 2:
-      activeView()->setZoomFactor ( activeView()->zoomFactor() - 0.1 );
+      view->setZoomFactor ( view->zoomFactor() - 0.1 );
       break;
 
     default:
-      activeView()->setZoomFactor ( 1.0 );
+      view->setZoomFactor ( 1.0 );
       break;
   }
 }

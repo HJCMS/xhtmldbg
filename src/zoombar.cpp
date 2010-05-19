@@ -35,8 +35,6 @@ ZoomBar::ZoomBar ( QWidget * parent )
   setObjectName ( QLatin1String ( "zoommenu" ) );
   setWindowTitle ( trUtf8 ( "Zoom" ) );
   setStatusTip ( trUtf8 ( "Zoom Webbrowser Content" ) );
-  setOrientation ( Qt::Horizontal );
-  setAllowedAreas ( ( Qt::TopToolBarArea | Qt::BottomToolBarArea ) );
   layout()->setSpacing ( 5 );
 
   QIcon icon;
