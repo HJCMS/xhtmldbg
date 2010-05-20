@@ -223,6 +223,7 @@ SET (XHTMLDBG_INCLUDE_INTERFACE
 ##############################################################
 
 SET (XHTMLDBG_LIBRARIES
+  ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTNETWORK_LIBRARY}
   ${QT_QTWEBKIT_LIBRARY}

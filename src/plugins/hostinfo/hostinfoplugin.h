@@ -37,7 +37,7 @@
 
 class HostInfo;
 
-class HostInfoPlugin : public xhtmldbg::Interface
+class XHTMLDBG_EXPORT HostInfoPlugin : public xhtmldbg::Interface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

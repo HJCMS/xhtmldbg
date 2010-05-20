@@ -22,6 +22,34 @@
 #ifndef XHTMLDBGPLUGININFO_H
 #define XHTMLDBGPLUGININFO_H
 
+/**
+* @def XHTMLDBG_EXPORT
+* @ingroup Macros
+*
+* The XHTMLDBG_EXPORT macro marks the symbol of the given variable
+* to be visible, so it can be used from outside the resulting library.
+*
+* @code
+*   class XHTMLDBG_EXPORT foo { };
+*   int XHTMLDBG_EXPORT bar();
+* @endcode
+*
+*/
+
+#ifdef HAVE_VISIBILITY
+#define XHTMLDBG_NO_EXPORT __attribute__ ((visibility("hidden")))
+#define XHTMLDBG_EXPORT __attribute__ ((visibility("default")))
+#define XHTMLDBG_IMPORT __attribute__ ((visibility("default")))
+#elif defined(_WIN32) || defined(_WIN64)
+#define XHTMLDBG_NO_EXPORT
+#define XHTMLDBG_EXPORT __declspec(dllexport)
+#define XHTMLDBG_IMPORT __declspec(dllimport)
+#else
+#define XHTMLDBG_NO_EXPORT
+#define XHTMLDBG_EXPORT
+#define XHTMLDBG_IMPORT
+#endif
+
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -33,7 +61,7 @@ namespace xhtmldbg
   * \short The Basic xhtmldbg Plugin Description Class
   * \class PluginInfo
   */
-  class PluginInfo : virtual public QObject
+  class XHTMLDBG_EXPORT PluginInfo : virtual public QObject
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Plugin Info" )

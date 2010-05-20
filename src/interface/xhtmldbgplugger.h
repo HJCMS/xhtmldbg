@@ -39,7 +39,7 @@
 #include <xhtmldbgplugininfo.h>
 #include <xhtmldbginterface.h>
 
-class xhtmldbgplugger : public QObject
+class XHTMLDBG_EXPORT xhtmldbgplugger : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
