@@ -23,16 +23,16 @@
 #define XHTMLDBGPLUGININFO_H
 
 /**
-* @def XHTMLDBG_EXPORT
-* @ingroup Macros
+* \def XHTMLDBG_EXPORT
+* \ingroup Macros
 *
 * The XHTMLDBG_EXPORT macro marks the symbol of the given variable
 * to be visible, so it can be used from outside the resulting library.
 *
-* @code
+* \code
 *   class XHTMLDBG_EXPORT foo { };
 *   int XHTMLDBG_EXPORT bar();
-* @endcode
+* \endcode
 *
 */
 
@@ -132,7 +132,7 @@ namespace xhtmldbg
       void setDescription ( const QString &d = QLatin1String ( "Missing" ) );
 
       /** set Plugin Author
-      * \param a Authow default: Unknown
+      * \param a Author default: Unknown
       */
       void setAuthor ( const QString &a = QLatin1String ( "Unknown" ) );
 
