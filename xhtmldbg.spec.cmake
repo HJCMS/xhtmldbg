@@ -51,6 +51,7 @@ Summary:     Development Package for the xhtmldbg Plugin Interface Library
 License:     LGPLv3
 Group:       Development/Languages/C and C++
 AutoReqProv: on
+Requires:    %{name} >= %{version}
 Requires:    libxhtmldbg = %{version}
 Requires:    c++_compiler pkgconfig qt4-devel >= 4.6.0
 
@@ -163,6 +164,10 @@ popd
 %{_libdir}/pkgconfig/xhtmldbg.pc
 %dir %{_includedir}/xhtmldbg-1.0
 %{_includedir}/xhtmldbg-1.0/*.h
+%dir %{_datadir}/%{name}/plugintemplate
+%{_datadir}/%{name}/plugintemplate/*.txt
+%{_datadir}/%{name}/plugintemplate/*.h
+%{_datadir}/%{name}/plugintemplate/*.cpp
 
 %clean
 test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT

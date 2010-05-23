@@ -12,6 +12,14 @@ IF (XHTMLDBG_BETA_EXTENSION)
   ENDIF (UNIX AND NOT APPLE)
 ENDIF (XHTMLDBG_BETA_EXTENSION)
 
-ADD_SUBDIRECTORY (template)
+## Development Template Data
+INSTALL (FILES
+  template/CMakeLists.txt
+  template/helloworld.cpp
+  template/helloworld.h
+  template/helloworldplugin.cpp
+  template/helloworldplugin.h
+  DESTINATION share/xhtmldbg/plugintemplate
+)
 
 ## EOF

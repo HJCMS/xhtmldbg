@@ -73,12 +73,12 @@ INSTALL_TREE:
     |       `-- xhtmldbgplugininfo.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.4
-    |   |-- libxhtmldbg-1.0.so.0.8.4
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.*
+    |   |-- libxhtmldbg-1.0.so.0.*
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
-    |       `-- libHostInfo.so
+    |       |-- lib${Plugins}.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop
@@ -131,4 +131,10 @@ INSTALL_TREE:
             |-- ChangeLog
             |-- NEWS
             |-- README
+            |-- plugintemplate
+            |   |-- CMakeLists.txt
+            |   |-- helloworld.cpp
+            |   |-- helloworld.h
+            |   |-- helloworldplugin.cpp
+            |   `-- helloworldplugin.h
             `-- xhtmldbg_untranslated.ts
