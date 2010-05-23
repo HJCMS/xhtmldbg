@@ -65,10 +65,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
     , ssl ( QSslConfiguration::defaultConfiguration () )
 {
   setObjectName ( QLatin1String ( "configdialog" ) );
-  setWindowTitle ( trUtf8 ( "Configure xhtmldbg[*]" ) );
-  setMinimumWidth ( 550 );
-  setMinimumHeight ( 450 );
-  setSizeGripEnabled ( true );
 
   setupUi ( this );
 
@@ -101,6 +97,12 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // UserAgent Buttons
   addAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
   removeAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
+
+  // QTable::headersTable
+  // QToolButton::addHeaderTableItem
+  addHeaderTableItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
+  // QToolButton::removeHeaderTableItem
+  removeHeaderTableItem->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
 
   // Modify ButtonBox
   m_buttonCancel = buttonBox->addButton ( QDialogButtonBox::Cancel );
@@ -144,6 +146,8 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
 
   // Tables
   connect ( headersTable, SIGNAL ( itemSelectionChanged() ), this, SLOT ( setModified() ) );
+  connect ( addHeaderTableItem, SIGNAL ( clicked() ), this, SLOT ( addHeaderItem() ) );
+  connect ( removeHeaderTableItem, SIGNAL ( clicked() ), this, SLOT ( removeHeaderItem() ) );
 
   // Sub Widget's
   connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
@@ -323,6 +327,9 @@ void ConfigDialog::saveHeaderDefinitions()
     cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
     for ( int r = 0; r < rows; r++ )
     {
+      if ( !headersTable->item ( r, 0 ) || !headersTable->item ( r, 1 ) )
+        continue; // Verhindert das Leere Zeilen aufgerufen werden!
+
       QString key = headersTable->item ( r, 0 )->data ( Qt::EditRole ).toString();
       QString val = headersTable->item ( r, 1 )->data ( Qt::EditRole ).toString();
       if ( ! exclude.contains ( key.toLower() ) )
@@ -510,6 +517,31 @@ void ConfigDialog::delTrustedHost()
     }
   }
   setModified();
+}
+
+/**
+* Einen Eintrag in der Datenkopf Tabelle einfügen
+*/
+void ConfigDialog::addHeaderItem()
+{
+  headersTable->setRowCount ( ( headersTable->rowCount() + 1 ) );
+}
+
+/**
+* Den ausgewählten Eintrag aus der Datenkopf Tabelle entfernen!
+*/
+void ConfigDialog::removeHeaderItem()
+{
+  foreach ( QTableWidgetItem* item, headersTable->selectedItems() )
+  {
+    int row = item->row();
+    headersTable->selectRow ( row );
+    QTableWidgetItem* it1 = headersTable->item ( row, 0 );
+    delete it1;
+    QTableWidgetItem* it2 = headersTable->item ( row, 1 );
+    delete it2;
+    headersTable->removeRow ( row );
+  }
 }
 
 /**

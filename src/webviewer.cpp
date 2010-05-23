@@ -98,6 +98,9 @@ void WebViewer::updateWebSettings()
                       cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
 
   // Page Settings
+  wcfg->setAttribute ( QWebSettings::ZoomTextOnly,
+                       cfg->value ( QLatin1String ( "ZoomTextOnly" ), true ).toBool() );
+
   wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
                        cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
 
@@ -289,6 +292,9 @@ void WebViewer::setWebFocus()
 void WebViewer::zoomFactor ( int type )
 {
   Viewer* view = activeView();
+  if ( !view )
+    return;
+
   switch ( type )
   {
     case 1:
@@ -335,10 +341,18 @@ const QWebElement WebViewer::toWebElement()
 }
 
 /**
-* Leere Seite
+* Eine neue Leere Seite erstellen
 */
 const QString WebViewer::blank()
 {
+  QFile fp ( QString::fromUtf8 ( ":/about/html/blank.html" ) );
+  if ( fp.open ( QFile::ReadOnly ) )
+  {
+    QTextStream rc ( &fp );
+    QByteArray html = rc.device()->readAll();
+    fp.close();
+    return QString ( html );
+  }
   return QString::fromUtf8 ( "<html>\n<head>\n<title>QTidy Startpage</title>\n</head>\n<body>\n<div>New Empty Page</div>\n</body>\n</html>" );
 }
 

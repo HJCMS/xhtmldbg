@@ -76,6 +76,8 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     void delUserAgent();
     void addTrustedHost();
     void delTrustedHost();
+    void addHeaderItem();
+    void removeHeaderItem();
     void setModified();
     void loadSettings();
     void saveSettings();

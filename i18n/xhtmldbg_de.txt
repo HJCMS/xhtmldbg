@@ -2422,3 +2422,33 @@ XDebuggerPlugin
 
   TRANSLATION  : 
 
+ZoomBar
+#ZoomBar
+  SOURCE       : Zoom
+
+  TRANSLATION  : Zoomen
+
+
+#ZoomBar
+  SOURCE       : Zoom Webbrowser Content
+
+  TRANSLATION  : Zoome den Webbrowser Inhalt
+
+
+#ZoomBar
+  SOURCE       : ZoomIn
+
+  TRANSLATION  : Vergrößern
+
+
+#ZoomBar
+  SOURCE       : ZoomOut
+
+  TRANSLATION  : Verkleinern
+
+
+#ZoomBar
+  SOURCE       : Original
+
+  TRANSLATION  : Orginal
+

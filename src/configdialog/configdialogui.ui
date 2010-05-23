@@ -13,11 +13,17 @@
   <property name="minimumSize">
    <size>
     <width>600</width>
-    <height>0</height>
+    <height>450</height>
    </size>
+  </property>
+  <property name="focusPolicy">
+   <enum>Qt::TabFocus</enum>
   </property>
   <property name="windowTitle">
    <string>Configure xhtmldbg[*]</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <property name="leftMargin">
@@ -30,7 +36,7 @@
     <number>2</number>
    </property>
    <property name="bottomMargin">
-    <number>10</number>
+    <number>15</number>
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget">
@@ -379,11 +385,35 @@
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Header Field Definitions</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_9">
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Header Field Definitions</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="warning_label_header_definition">
+           <property name="text">
+            <string>Warning: Do not edit this Table if not now how it works!</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QTableWidget" name="headersTable">
@@ -433,11 +463,6 @@
            <string>1</string>
           </property>
          </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
          <column>
           <property name="text">
            <string>Type</string>
@@ -468,17 +493,63 @@
            <string notr="true">en, en-us;q=0.8, en;q=0.7</string>
           </property>
          </item>
-         <item row="2" column="0">
-          <property name="text">
-           <string notr="true">User-Agent</string>
-          </property>
-         </item>
-         <item row="2" column="1">
-          <property name="text">
-           <string notr="true">Mozilla/5.0 (compatible; QTidy/0.8.2; en, en_US) AppleWebKit (KHTML, like Gecko)</string>
-          </property>
-         </item>
         </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QLabel" name="info_header_label">
+           <property name="text">
+            <string>HTTP/1.1 Header Field Definitions &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14&quot;&gt;RFC 2616&lt;/a&gt;</string>
+           </property>
+           <property name="openExternalLinks">
+            <bool>true</bool>
+           </property>
+           <property name="textInteractionFlags">
+            <set>Qt::TextBrowserInteraction</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>70</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="addHeaderTableItem">
+           <property name="toolTip">
+            <string>Add new Header Item</string>
+           </property>
+           <property name="statusTip">
+            <string>Add new Header Item</string>
+           </property>
+           <property name="text">
+            <string>+</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="removeHeaderTableItem">
+           <property name="toolTip">
+            <string>Remove Selected Header Item</string>
+           </property>
+           <property name="statusTip">
+            <string>Remove Selected Header Item</string>
+           </property>
+           <property name="text">
+            <string>-</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <widget class="QLabel" name="label_5">
@@ -626,6 +697,19 @@
         <widget class="QCheckBox" name="HttpPipeliningWasUsedAttribute">
          <property name="text">
           <string>Indicates whether the HTTP Pipelining was used for receiving data Requests.</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ZoomTextOnly">
+         <property name="text">
+          <string>Zoom Text Only with Zoom Toolbar</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
          <property name="checked">
           <bool>true</bool>
@@ -901,7 +985,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-304</y>
             <width>709</width>
             <height>788</height>
            </rect>

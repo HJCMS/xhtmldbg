@@ -41,6 +41,7 @@ ProxySettings::ProxySettings ( QWidget * parent )
   Qt::Alignment defalignment = ( Qt::AlignRight | Qt::AlignVCenter );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
+  vLayout->setObjectName ( QLatin1String( "proxy_settings_layout" ) );
 
   enableProxy = new QGroupBox ( this );
   enableProxy->setObjectName ( QLatin1String ( "enableProxy" ) );
@@ -51,14 +52,14 @@ ProxySettings::ProxySettings ( QWidget * parent )
   QGridLayout* gLayout = new QGridLayout ( enableProxy );
 
   // Proxy Type
-  QLabel* txtProxyType = new QLabel ( trUtf8 ( "The Network Proxy Type:" ), this );
+  QLabel* txtProxyType = new QLabel ( trUtf8 ( "The Network Proxy Type:" ), enableProxy );
   txtProxyType->setAlignment ( defalignment );
   txtProxyType->setIndent ( 2 );
   txtProxyType->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyType->setWordWrap ( false );
   gLayout->addWidget ( txtProxyType, 0, 0 );
   // QNetworkProxy::DefaultProxy QNetworkProxy::NoProxy not used
-  proxyType = new QComboBox ( this );
+  proxyType = new QComboBox ( enableProxy );
   proxyType->setObjectName ( QLatin1String ( "proxyType" ) );
   proxyType->insertItem ( 0, trUtf8 ( "Socks 5 (Based on RFC 1928 and RFC 1929)" ), QNetworkProxy::Socks5Proxy );
   proxyType->setItemData ( 0, QNetworkProxy::Socks5Proxy, Qt::UserRole );
@@ -72,27 +73,27 @@ ProxySettings::ProxySettings ( QWidget * parent )
   gLayout->addWidget ( proxyType, 0, 1 );
 
   // Proxy Hostname
-  QLabel* txtProxyHost = new QLabel ( trUtf8 ( "The Hostname of the Proxy:" ), this );
+  QLabel* txtProxyHost = new QLabel ( trUtf8 ( "The Hostname of the Proxy:" ), enableProxy );
   txtProxyHost->setAlignment ( defalignment );
   txtProxyHost->setIndent ( 2 );
   txtProxyHost->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyHost->setWordWrap ( false );
   gLayout->addWidget ( txtProxyHost, 1, 0 );
 
-  proxyHostName = new QLineEdit ( this );
+  proxyHostName = new QLineEdit ( enableProxy );
   proxyHostName->setObjectName ( QLatin1String ( "proxyHostName" ) );
   proxyHostName->setText ( HostName );
   gLayout->addWidget ( proxyHostName, 1, 1 );
 
   // Proxy Port
-  QLabel* txtProxyPort = new QLabel ( trUtf8 ( "The Proxy Port Number:" ), this );
+  QLabel* txtProxyPort = new QLabel ( trUtf8 ( "The Proxy Port Number:" ), enableProxy );
   txtProxyPort->setAlignment ( defalignment );
   txtProxyPort->setIndent ( 2 );
   txtProxyPort->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPort->setWordWrap ( false );
   gLayout->addWidget ( txtProxyPort, 2, 0 );
 
-  proxyPort = new QSpinBox ( this );
+  proxyPort = new QSpinBox ( enableProxy );
   proxyPort->setObjectName ( QLatin1String ( "proxyPort" ) );
   proxyPort->setMinimum ( 80 );
   proxyPort->setMaximum ( 655351 );
@@ -100,27 +101,27 @@ ProxySettings::ProxySettings ( QWidget * parent )
   gLayout->addWidget ( proxyPort, 2, 1 );
 
   // Proxy User
-  QLabel* txtProxyUser = new QLabel ( trUtf8 ( "The Authentication username:" ), this );
+  QLabel* txtProxyUser = new QLabel ( trUtf8 ( "The Authentication username:" ), enableProxy );
   txtProxyUser->setAlignment ( defalignment );
   txtProxyUser->setIndent ( 2 );
   txtProxyUser->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyUser->setWordWrap ( false );
   gLayout->addWidget ( txtProxyUser, 3, 0 );
 
-  proxyUser = new QLineEdit ( this );
+  proxyUser = new QLineEdit ( enableProxy );
   proxyUser->setObjectName ( QLatin1String ( "proxyUser" ) );
   proxyUser->setText ( User );
   gLayout->addWidget ( proxyUser, 3, 1 );
 
   // Proxy Password
-  QLabel* txtProxyPassword = new QLabel ( trUtf8 ( "The Authentication password:" ), this );
+  QLabel* txtProxyPassword = new QLabel ( trUtf8 ( "The Authentication password:" ), enableProxy );
   txtProxyPassword->setAlignment ( defalignment );
   txtProxyPassword->setIndent ( 2 );
   txtProxyPassword->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPassword->setWordWrap ( false );
   gLayout->addWidget ( txtProxyPassword, 4, 0 );
 
-  proxyPassword = new QLineEdit ( this );
+  proxyPassword = new QLineEdit ( enableProxy );
   proxyPassword->setObjectName ( QLatin1String ( "qt_proxy_password" ) );
   proxyPassword->setEchoMode ( QLineEdit::Password );
   proxyPassword->setText ( Password );
