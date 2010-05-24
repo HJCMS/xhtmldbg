@@ -31,11 +31,16 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QHeaderView>
 #include <QtGui/QTableView>
 #include <QtGui/QWidget>
 
 class Downloader;
+class DownloadsProgressWidget;
 
+/**
+* @class DownloadsTableModel
+*/
 class DownloadsTableModel : public QAbstractTableModel
 {
     Q_OBJECT
@@ -44,6 +49,7 @@ class DownloadsTableModel : public QAbstractTableModel
 
   protected:
     QTableView* table;
+    QHeaderView* m_tableHeader;
     QList<Downloader*> downloads;
 
   Q_SIGNALS:
@@ -56,6 +62,7 @@ class DownloadsTableModel : public QAbstractTableModel
   public:
     DownloadsTableModel ( QTableView * parent = 0 );
     Downloader* rowItem ( int row );
+    Qt::ItemFlags flags ( const QModelIndex &index ) const;
     QModelIndex index ( int row, int column, const QModelIndex &parent = QModelIndex() ) const;
     int rowCount ( const QModelIndex &parent = QModelIndex() ) const;
     int columnCount ( const QModelIndex &parent = QModelIndex() ) const;

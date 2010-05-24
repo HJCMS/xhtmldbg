@@ -5,6 +5,7 @@ SET (subproject_SOURCES
   downloader.cpp
   downloadstable.cpp
   downloadstablemodel.cpp
+  downloadprogressbar.cpp
 )
 
 SET (subproject_HEADERS
@@ -12,6 +13,7 @@ SET (subproject_HEADERS
   downloader.h
   downloadstable.h
   downloadstablemodel.h
+  downloadprogressbar.h
 )
 
 SET (subproject_STATIC_HEADERS

@@ -23,22 +23,27 @@
 #include "downloader.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QAbstractItemView>
 
+/** @class DownloadsTableModel */
 DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
     : QAbstractTableModel ( parent )
     , table ( parent )
 {
   setObjectName ( QLatin1String ( "downloadstablemodel" ) );
-  table->horizontalHeader()->setResizeMode ( QHeaderView::Stretch );
   table->setAlternatingRowColors ( true );
   table->verticalHeader()->hide();
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
   table->setWordWrap ( false );
   table->setCornerButtonEnabled ( false );
+
+  /* Zellen anpassen */
+  m_tableHeader = table->horizontalHeader();
+  m_tableHeader->setCascadingSectionResizes ( true );
+  m_tableHeader->setDefaultAlignment ( Qt::AlignLeft );
 }
 
 /**
@@ -73,6 +78,19 @@ void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
 Downloader* DownloadsTableModel::rowItem ( int row )
 {
   return downloads.at ( row );
+}
+
+/**
+* Wenn mit einem TableModel gearbeitet wird müssen die
+* Editor flags neu gesetzt werden.
+*/
+Qt::ItemFlags DownloadsTableModel::flags ( const QModelIndex &index ) const
+{
+  if ( !index.isValid() )
+    return Qt::ItemIsEnabled;
+
+  Qt::ItemFlags flags  = ( Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsEditable );
+  return flags;
 }
 
 QModelIndex DownloadsTableModel::index ( int row, int column, const QModelIndex &parent ) const
@@ -132,16 +150,16 @@ QVariant DownloadsTableModel::data ( const QModelIndex &index, int role ) const
       switch ( index.column() )
       {
         case 0:
-          return item->url();
+          return item->status();
 
         case 1:
-          return QVariant ( "TODO:1" );
+          return item->url();
 
         case 2:
-          return QVariant ( "TODO:2" );
+          return item->destFile();
 
         case 3:
-          return QVariant ( "TODO:3" );
+          return item->uploadTime();
 
         default:
           return val;
@@ -168,7 +186,7 @@ bool DownloadsTableModel::setData ( const QModelIndex &index, const QVariant &va
 
   if ( downloads.size () >= index.row() )
   {
-    Downloader* item = downloads.at ( index.row() );
+    // Downloader* item = downloads.at ( index.row() );
 
     switch ( index.column() )
     {
@@ -227,24 +245,38 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 
   if ( orientation == Qt::Horizontal )
   {
+
     switch ( section )
     {
       case 0:
-        return trUtf8 ( "Url" );
+      {
+        m_tableHeader->setResizeMode ( 0, QHeaderView::ResizeToContents );
+        return trUtf8 ( "Progress" );
+      }
 
       case 1:
-        return trUtf8 ( "Progress" );
+      {
+        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
+        return trUtf8 ( "Url" );
+      }
 
       case 2:
-        return trUtf8 ( "Bytes" );
+      {
+        m_tableHeader->setResizeMode ( 2, QHeaderView::Stretch );
+        return trUtf8 ( "Destination" );
+      }
 
       case 3:
+      {
+        m_tableHeader->setResizeMode ( 3, QHeaderView::Stretch );
         return trUtf8 ( "Time" );
+      }
 
       default:
         return trUtf8 ( "Unknown" );
     }
   }
+
   // Vertikaler eintrag
   return QString ( "%1" ).arg ( section );
 }

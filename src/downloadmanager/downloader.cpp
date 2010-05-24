@@ -62,10 +62,34 @@ void Downloader::downloadReadyRead()
 
 const QUrl Downloader::url()
 {
-  if ( m_reply )
-    return m_reply->request().url();
-  else
+  if ( ! m_reply )
     return QUrl();
+
+  return m_reply->request().url();
+}
+
+const QString Downloader::status()
+{
+  if ( ! m_reply )
+    return QString ( "0%" );
+
+  return QString( "0%" );
+}
+
+const QString Downloader::uploadTime()
+{
+  if ( ! m_reply )
+    return QString( "00:00" );
+
+  return QString( "00:00" );
+}
+
+const QString Downloader::destFile()
+{
+  if ( ! m_reply )
+    return defaultLocation;
+
+  return QString( "/tmp/TODO" );
 }
 
 Downloader::~Downloader()

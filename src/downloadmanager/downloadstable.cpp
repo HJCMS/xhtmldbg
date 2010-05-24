@@ -27,7 +27,6 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
-#include <QtGui/QHeaderView>
 #include <QtGui/QAbstractItemView>
 
 DownloadsTable::DownloadsTable ( QWidget * parent )
@@ -37,12 +36,6 @@ DownloadsTable::DownloadsTable ( QWidget * parent )
 
   m_model = new DownloadsTableModel ( this );
   setModel ( m_model );
-
-  /* Zellen anpassen */
-  QHeaderView* tHeader = horizontalHeader();
-  tHeader->setCascadingSectionResizes ( true );
-  tHeader->setDefaultAlignment ( Qt::AlignLeft );
-  tHeader->setMovable ( true );
 
 //   connect ( m_model, SIGNAL ( modified ( bool ) ),
 //             this, SIGNAL ( modified ( bool ) ) );

@@ -51,6 +51,9 @@ class Downloader : public QWidget
   public:
     Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
     const QUrl url();
+    const QString status();
+    const QString uploadTime();
+    const QString destFile();
     ~Downloader();
 };
 
