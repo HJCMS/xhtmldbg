@@ -29,6 +29,7 @@
 /* QtGui */
 #include <QtGui/QDialog>
 #include <QtGui/QWidget>
+#include <QtGui/QPushButton>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
@@ -44,8 +45,13 @@ class DownloadManager : public QDialog
 
   private:
     DownloadsTable* m_table;
-    QList<Downloader*> openDownloads;
+    QPushButton* m_stopButton;
+    QList<Downloader*> openDownloadsList;
     void startDownload ( QNetworkReply *reply );
+
+  private Q_SLOTS:
+    void abortActiveDownload();
+    void closeDialog();
 
   public Q_SLOTS:
     void download ( QNetworkReply *reply );

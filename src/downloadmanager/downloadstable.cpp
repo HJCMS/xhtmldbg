@@ -20,6 +20,8 @@
 **/
 
 #include "downloadstable.h"
+#include "downloader.h"
+#include "downloadstablemodel.h"
 
 /* QtCore */
 #include <QtCore/QVariant>
@@ -32,10 +34,26 @@ DownloadsTable::DownloadsTable ( QWidget * parent )
     : QTableView ( parent )
 {
   setObjectName ( QLatin1String ( "downloadstableviewer" ) );
-  setAlternatingRowColors ( true );
-  verticalHeader()->hide();
-//   horizontalHeader()->hide();
-  horizontalHeader()->setStretchLastSection ( true );
+
+  m_model = new DownloadsTableModel ( this );
+  setModel ( m_model );
+
+  /* Zellen anpassen */
+  QHeaderView* tHeader = horizontalHeader();
+  tHeader->setCascadingSectionResizes ( true );
+  tHeader->setDefaultAlignment ( Qt::AlignLeft );
+  tHeader->setMovable ( true );
+
+//   connect ( m_model, SIGNAL ( modified ( bool ) ),
+//             this, SIGNAL ( modified ( bool ) ) );
+}
+
+void DownloadsTable::addItem ( Downloader * item )
+{
+  if ( ! item )
+    return;
+
+  m_model->addDownload ( item );
 }
 
 DownloadsTable::~DownloadsTable()

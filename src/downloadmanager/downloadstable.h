@@ -29,14 +29,21 @@
 #include <QtGui/QTableView>
 #include <QtGui/QWidget>
 
+class Downloader;
+class DownloadsTableModel;
+
 class DownloadsTable : public QTableView
 {
-  Q_OBJECT
-  Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-  Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    DownloadsTableModel* m_model;
 
   public:
-    DownloadsTable( QWidget * parent = 0 );
+    DownloadsTable ( QWidget * parent = 0 );
+    void addItem ( Downloader * item );
     ~DownloadsTable();
 };
 

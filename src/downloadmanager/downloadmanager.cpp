@@ -28,6 +28,7 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QIcon>
 #include <QtGui/QVBoxLayout>
@@ -46,19 +47,43 @@ DownloadManager::DownloadManager ( QWidget * parent )
   setWindowModality ( Qt::NonModal );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
+  verticalLayout->setObjectName ( QLatin1String ( "downloadmanagerlayout" ) );
 
   m_table = new DownloadsTable ( this );
   verticalLayout->addWidget ( m_table );
 
-  setLayout ( verticalLayout );
+  QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
+  box->setObjectName ( QLatin1String ( "downloadbuttonbox" ) );
+  box->setStandardButtons ( QDialogButtonBox::Close );
+  m_stopButton = box->addButton ( trUtf8 ( "Stop" ), QDialogButtonBox::ActionRole );
+  verticalLayout->addWidget ( box );
 
-  openDownloads.clear();
+  setLayout ( verticalLayout );
+  openDownloadsList.clear();
+
+  connect ( m_stopButton, SIGNAL ( clicked() ),
+            this, SLOT ( abortActiveDownload() ) );
+
+  connect ( box, SIGNAL ( rejected() ),
+            this, SLOT ( closeDialog() ) );
+
   show();
+}
+
+void DownloadManager::abortActiveDownload()
+{
+  qDebug() << Q_FUNC_INFO;
+}
+
+void DownloadManager::closeDialog()
+{
+  qDebug() << Q_FUNC_INFO;
+  reject();
 }
 
 void DownloadManager::startDownload ( QNetworkReply *reply )
 {
-  foreach ( Downloader *it, openDownloads )
+  foreach ( Downloader *it, openDownloadsList )
   {
     if ( it->url() == reply->request().url() )
     {
@@ -70,7 +95,8 @@ void DownloadManager::startDownload ( QNetworkReply *reply )
     }
   }
   Downloader *item = new Downloader ( reply, this );
-  openDownloads << item;
+  m_table->addItem ( item );
+  openDownloadsList << item;
 }
 
 void DownloadManager::download ( QNetworkReply *reply )
@@ -89,5 +115,5 @@ void DownloadManager::download ( QNetworkReply *reply )
 
 DownloadManager::~DownloadManager()
 {
-  openDownloads.clear();
+  openDownloadsList.clear();
 }

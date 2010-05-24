@@ -40,9 +40,13 @@ class Downloader : public QWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QNetworkReply* m_replay;
+    QNetworkReply* m_reply;
     const QString defaultLocation;
     QString destDir;
+    void openDownload();
+
+  private Q_SLOTS:
+    void downloadReadyRead();
 
   public:
     Downloader ( QNetworkReply * reply, QWidget * parent = 0 );

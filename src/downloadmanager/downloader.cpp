@@ -23,6 +23,7 @@
 
 /* QtCore */
 #include <QtCore/QDir>
+#include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 
@@ -38,16 +39,31 @@
 
 Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
     : QWidget ( parent )
-    , m_replay ( reply )
+    , m_reply ( reply )
     , defaultLocation ( QDesktopServices::storageLocation ( QDesktopServices::TempLocation ) )
 {
   setObjectName ( QLatin1String ( "downloader" ) );
 }
 
+void Downloader::openDownload()
+{
+  if ( ! m_reply )
+    return;
+
+  m_reply->setParent ( this );
+  connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
+
+}
+
+void Downloader::downloadReadyRead()
+{
+  qDebug() << Q_FUNC_INFO;
+}
+
 const QUrl Downloader::url()
 {
-  if ( m_replay )
-    return m_replay->request().url();
+  if ( m_reply )
+    return m_reply->request().url();
   else
     return QUrl();
 }
