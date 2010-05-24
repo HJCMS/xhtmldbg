@@ -23,6 +23,7 @@
 #include "historymanager.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
+#include "downloadmanager.h"
 
 #include <cstdlib>
 
@@ -35,6 +36,7 @@
 
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
+DownloadManager* Application::p_downloadManager = 0;
 
 Application::Application ( int &argc, char **argv )
     : QApplication ( argc, argv, true )
@@ -153,9 +155,17 @@ bool Application::isRunning() const
   return ( 0 != m_server );
 }
 
+DownloadManager* Application::downloadManager()
+{
+  if ( ! p_downloadManager )
+    p_downloadManager = new DownloadManager ();
+
+  return p_downloadManager;
+}
+
 HistoryManager* Application::historyManager()
 {
-  if ( !p_historyManager )
+  if ( ! p_historyManager )
   {
     p_historyManager = new HistoryManager();
     QWebHistoryInterface::setDefaultInterface ( p_historyManager );
@@ -165,7 +175,7 @@ HistoryManager* Application::historyManager()
 
 NetworkAccessManager* Application::networkAccessManager()
 {
-  if ( !p_networkAccessManager )
+  if ( ! p_networkAccessManager )
   {
     p_networkAccessManager = new NetworkAccessManager();
   }
@@ -181,4 +191,5 @@ Application::~Application()
 {
   delete p_historyManager;
   delete p_networkAccessManager;
+  delete p_downloadManager;
 }

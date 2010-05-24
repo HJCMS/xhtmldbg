@@ -19,27 +19,35 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HISTORYMANAGER_H
-#define HISTORYMANAGER_H
+#ifndef DOWNLOADER_H
+#define DOWNLOADER_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
-// #include <QtGui>
+#include <QtGui/QWidget>
 
-/* QtXml */
-// #include <QtXml>
+/* QtNetwork */
+#include <QtNetwork/QNetworkReply>
 
-class HistoryManager : public QObject
+class Downloader : public QWidget
 {
-  Q_OBJECT
-  Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-  Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    QNetworkReply* m_replay;
+    const QString defaultLocation;
+    QString destDir;
 
   public:
-    HistoryManager( QObject * parent = 0 );
-    virtual ~HistoryManager();
+    Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
+    const QUrl url();
+    ~Downloader();
 };
 
 #endif

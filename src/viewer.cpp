@@ -163,11 +163,11 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   QAction* style = menu->addAction ( trUtf8 ( "StyleSheet" ) );
   style->setObjectName ( QLatin1String ( "stylesheet" ) );
   style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
-  style->setToolTip ( trUtf8( "Start CSS Validation for this Site." ) );
+  style->setToolTip ( trUtf8 ( "Start CSS Validation for this Site." ) );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
 
   // User-Agent
-  menu->addMenu( new UserAgentMenu ( menu, cfg ) );
+  menu->addMenu ( new UserAgentMenu ( menu, cfg ) );
 
   menu->exec ( e->globalPos() );
   delete menu;

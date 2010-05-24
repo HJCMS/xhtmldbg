@@ -23,6 +23,7 @@
 #include "viewer.h"
 #include "xhtmldbgmain.h"
 #include "networkaccessmanager.h"
+#include "downloadmanager.h"
 #include "jsmessanger.h"
 
 /* QtCore */
@@ -63,7 +64,7 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
   connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
-            this, SLOT ( unsupportedContent ( const QNetworkRequest & ) ) );
+            this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
 }
 
 /**
@@ -140,15 +141,19 @@ void Page::unsupportedContent ( QNetworkReply * reply )
 }
 
 /**
-* In diesem Programm werden keine Plugins oder Donwloads
-* durchgeführt, es ist ein Quelltext Debugger.
-* Deshalb an dieser Stelle die entsprechende Meldung.
+* Download anfragen an den DonwloadManager weiter leiten.
+* Und zusätzlich eine Meldung an das Nachrichten Fenster senden.
 */
-void Page::unsupportedContent ( const QNetworkRequest &request )
+void Page::downloadContentRequest ( const QNetworkRequest &request )
 {
   QString url = request.url().toString();
-  QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url );
-  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
+  QString message = trUtf8 ( "Download Request: %1" ).arg ( url );
+  xhtmldbgmain* main = xhtmldbgmain::instance();
+  if ( main )
+  {
+    main->mainWindow()->setApplicationMessage ( message );
+    main->downloadManager()->download ( m_netManager->get ( request ) );
+  }
 }
 
 /**
@@ -203,7 +208,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
     case QWebPage::NavigationTypeReload:
     {
-      if ( request.url().toString().contains( "about:" ) )
+      if ( request.url().toString().contains ( "about:" ) )
         return false;
 
       reply = m_netManager->get ( request );

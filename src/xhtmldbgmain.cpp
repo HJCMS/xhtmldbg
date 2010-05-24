@@ -91,10 +91,16 @@ void xhtmldbgmain::setWindowFocus()
 
 #ifndef Q_OS_WIN
 
-  mainWindow()->show();
-  mainWindow()->setFocus();
-  mainWindow()->activateWindow();
-  alert ( mainWindow() );
+  Window* win = mainWindow();
+  if ( ! win->isVisible() )
+    win->setVisible ( true );
+
+  if ( ! win->isActiveWindow() )
+  {
+    win->setFocus ( Qt::ActiveWindowFocusReason );
+    win->activateWindow();
+    alert ( win );
+  }
 
 #endif
 }
@@ -172,6 +178,7 @@ Window* xhtmldbgmain::newMainWindow()
   m_windows.prepend ( debugger );
 
   debugger->show();
+  debugger->setFocus ( Qt::ActiveWindowFocusReason );
   return debugger;
 }
 

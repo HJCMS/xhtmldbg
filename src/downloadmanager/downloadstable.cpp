@@ -19,19 +19,24 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "historymanager.h"
+#include "downloadstable.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QVariant>
 
 /* QtGui */
-#include <QtGui>
+#include <QtGui/QHeaderView>
+#include <QtGui/QAbstractItemView>
 
-HistoryManager::HistoryManager ( QObject * parent )
-    : QObject ( parent )
+DownloadsTable::DownloadsTable ( QWidget * parent )
+    : QTableView ( parent )
 {
-  setObjectName ( QLatin1String ( "historymanager" ) );
+  setObjectName ( QLatin1String ( "downloadstableviewer" ) );
+  setAlternatingRowColors ( true );
+  verticalHeader()->hide();
+//   horizontalHeader()->hide();
+  horizontalHeader()->setStretchLastSection ( true );
 }
 
-HistoryManager::~HistoryManager()
+DownloadsTable::~DownloadsTable()
 {}

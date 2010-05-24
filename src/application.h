@@ -34,6 +34,7 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 
+class DownloadManager;
 class HistoryManager;
 class NetworkCookie;
 class NetworkAccessManager;
@@ -49,6 +50,7 @@ class Application : public QApplication
     QString myName() const;
     static HistoryManager* p_historyManager;
     static NetworkAccessManager* p_networkAccessManager;
+    static DownloadManager* p_downloadManager;
 
   private Q_SLOTS:
     void newConnection();
@@ -62,6 +64,7 @@ class Application : public QApplication
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
     bool isRunning() const;
     void busEventHandler ( const QString &type, const QString &str );
+    static DownloadManager* downloadManager();
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();
     static NetworkCookie* cookieManager();

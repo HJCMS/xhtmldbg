@@ -4,9 +4,9 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${XHTMLDBG_INCLUDE_INTERFACE}
+  ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
-  ${CMAKE_CURRENT_SOURCE_DIR}/historymanager
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
@@ -14,19 +14,21 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
+  ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${XHTMLDBG_INCLUDES}
 )
 
+ADD_SUBDIRECTORY (autosaver)
 ADD_SUBDIRECTORY (interface)
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
-ADD_SUBDIRECTORY (historymanager)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (configdialog)
 ADD_SUBDIRECTORY (cssvalidator)
+ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (plugins)
 
 SET (xhtmldbg_SOURCES
@@ -110,6 +112,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Networker
   ConfigDialog
   CSSValidator
+  DownloadManager
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)

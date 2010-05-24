@@ -59,7 +59,7 @@ class Page : public QWebPage
     void unsupportedContent ( QNetworkReply * );
 
   private Q_SLOTS:
-    void unsupportedContent ( const QNetworkRequest & );
+    void downloadContentRequest ( const QNetworkRequest & );
     void triggerSelections();
     void replyFinished();
 

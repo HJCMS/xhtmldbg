@@ -7,7 +7,6 @@ SET (networker_SOURCES
   authenticationdialog.cpp
   certdialog.cpp
   errorsdialog.cpp
-  autosaver.cpp
 )
 
 SET (networker_HEADERS
@@ -17,10 +16,6 @@ SET (networker_HEADERS
   authenticationdialog.h
   certdialog.h
   errorsdialog.h
-  autosaver.h
-)
-
-SET (networker_NOMOC
 )
 
 QT4_WRAP_CPP (networker_MOC ${networker_HEADERS})
@@ -32,11 +27,13 @@ INCLUDE_DIRECTORIES (
 
 ADD_LIBRARY (Networker STATIC
   ${networker_MOC}
-  ${networker_NOMOC}
   ${networker_HEADERS}
   ${networker_SOURCES}
 )
 
-TARGET_LINK_LIBRARIES (Networker ${XHTMLDBG_LIBRARIES} )
+TARGET_LINK_LIBRARIES (Networker
+  AutoSaver
+  ${XHTMLDBG_LIBRARIES}
+)
 
 ## EOF

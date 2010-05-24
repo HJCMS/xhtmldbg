@@ -1,13 +1,15 @@
 # CMakeLists.txt
 
-SET (subproject_TARGET DownloadManager)
-
 SET (subproject_SOURCES
-  historymanager.cpp
+  downloadmanager.cpp
+  downloader.cpp
+  downloadstable.cpp
 )
 
 SET (subproject_HEADERS
-  historymanager.h
+  downloadmanager.h
+  downloader.h
+  downloadstable.h
 )
 
 SET (subproject_STATIC_HEADERS
@@ -20,17 +22,18 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (${subproject_TARGET} STATIC
+ADD_LIBRARY (DownloadManager STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
   ${subproject_STATIC_HEADERS}
   ${subproject_SOURCES}
 )
 
-TARGET_LINK_LIBRARIES (${subproject_TARGET}
-  ${QT_QTMAIN_LIBRARY}
+TARGET_LINK_LIBRARIES (DownloadManager
+  AutoSaver
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  ${QT_QTNETWORK_LIBRARY}
 )
 
 ## EOF
