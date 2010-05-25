@@ -58,7 +58,6 @@ class DownloadsTableModel : public QAbstractTableModel
   public Q_SLOTS:
     void addDownload ( Downloader *item, const QModelIndex &parent = QModelIndex() );
     void removeDownload ( int row, const QModelIndex &parent = QModelIndex() );
-    void updateDownloads ();
 
   public:
     DownloadsTableModel ( QTableView * parent = 0 );
@@ -68,7 +67,6 @@ class DownloadsTableModel : public QAbstractTableModel
     int rowCount ( const QModelIndex &parent = QModelIndex() ) const;
     int columnCount ( const QModelIndex &parent = QModelIndex() ) const;
     QVariant data ( const QModelIndex &index, int role = Qt::DisplayRole ) const;
-    bool setData ( const QModelIndex &index, const QVariant &value, int role = Qt::DisplayRole );
     QVariant headerData ( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
     virtual ~DownloadsTableModel();
 };

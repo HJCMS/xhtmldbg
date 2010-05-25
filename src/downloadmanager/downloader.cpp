@@ -66,9 +66,13 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
   if ( bTotal == -1 )
     return;
 
-  inProgress = ( ( bReceived * 100.0 ) / bTotal );
-  emit dataChanged();
-  emit progress ( url(), true );
+  inProgress = ( int ) ( ( bReceived * 100.0 ) / bTotal );
+  emit progress ( progressIndex );
+}
+
+void Downloader::setProgressIndexModel ( const QModelIndex &modelIndex )
+{
+  progressIndex = modelIndex;
 }
 
 const QUrl Downloader::url()

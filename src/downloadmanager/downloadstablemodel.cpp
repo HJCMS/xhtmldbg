@@ -39,7 +39,8 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
   table->verticalHeader()->hide();
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
   table->setWordWrap ( false );
-  table->setCornerButtonEnabled ( false );
+  table->setSelectionBehavior ( QAbstractItemView::SelectRows );
+  // table->setState ( QAbstractItemView::AnimatingState );
 
   /* Zellen anpassen */
   m_tableHeader = table->horizontalHeader();
@@ -55,8 +56,9 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
   beginInsertRows ( parent, downloads.size(), downloads.size() );
   downloads << item;
   endInsertRows();
-  connect ( item, SIGNAL ( dataChanged() ), this, SLOT ( updateDownloads() ) );
-  emit modified ( true );
+  item->setProgressIndexModel ( index ( ( downloads.size() - 1 ), 0, parent ) );
+  connect ( item, SIGNAL ( progress ( const QModelIndex & ) ),
+            this, SIGNAL ( update ( const QModelIndex & ) ) );
 }
 
 void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
@@ -71,27 +73,6 @@ void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
 
   delete item;
   emit modified ( true );
-}
-
-/**
-* Einen Download Upload Status verändern!
-* @param Status Prozentangabe
-* @param Url zum Finden des Datensatzes!
-*/
-void DownloadsTableModel::updateDownloads ()
-{
-  if ( downloads.size() < 1 )
-    return;
-
-  qDebug() << Q_FUNC_INFO;
-//   beginResetModel ();
-//   reset ();
-//   endResetModel();
-
-//   foreach ( Downloader* item,  downloads )
-//   {
-//     addDownload ( item );
-//   }
 }
 
 /**
@@ -189,72 +170,6 @@ QVariant DownloadsTableModel::data ( const QModelIndex &index, int role ) const
     }
   }
   return val;
-}
-
-/**
-* Wird nach einem Editieren aufgerufen und Modifiziert unter anderem
-* auch den Datensatz von @ref downloads. Bei einem Erfogreichen Update wird
-* das Signal @ref dataChanged aufgerufen! Diese Methode wird
-* Hauptsächlich von @ref DownloadsTableModel::setModelData verwendet.
-*/
-bool DownloadsTableModel::setData ( const QModelIndex &index, const QVariant &value, int role )
-{
-  bool onUpdate = false;
-  if ( ! value.isValid() || value.toString().isEmpty() )
-    return onUpdate;
-
-  if ( role != Qt::DisplayRole )
-    return onUpdate;
-
-  if ( downloads.size () >= index.row() )
-  {
-    // Downloader* item = downloads.at ( index.row() );
-
-    switch ( index.column() )
-    {
-      case 0:
-      {
-        // Kann nicht geändert werden!
-        onUpdate = false;
-      }
-      break;
-
-      case 1:
-      {
-        // Kann nicht geändert werden!
-        onUpdate = false;
-      }
-      break;
-
-      case 2:
-      {
-        // Kann nicht geändert werden!
-        onUpdate = false;
-      }
-      break;
-
-      case 3:
-      {
-        // Kann nicht geändert werden!
-        onUpdate = false;
-      }
-      break;
-
-      default:
-        onUpdate = false;
-        break;
-    }
-  }
-
-  if ( onUpdate )
-  {
-#if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG_VERBOSE
-    qDebug() << "TableModelData:" << index.row() << index.column() << value;
-#endif
-    emit dataChanged ( index, index );
-    return true;
-  }
-  return false;
 }
 
 /**

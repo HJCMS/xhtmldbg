@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
+#include <QtCore/QModelIndex>
 
 /* QtGui */
 #include <QtGui/QWidget>
@@ -42,6 +43,7 @@ class Downloader : public QWidget
   private:
     QNetworkReply* m_reply;
     const QString defaultLocation;
+    QModelIndex progressIndex;
     qint64 m_bytesLoaded;
     int inProgress;
     QString destinationFilePath;
@@ -51,11 +53,11 @@ class Downloader : public QWidget
     void downloadProgress ( qint64 bReceived, qint64 bTotal );
 
   Q_SIGNALS:
-    void dataChanged ();
-    void progress ( const QUrl &, bool b );
+    void progress ( const QModelIndex & );
 
   public:
     Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
+    void setProgressIndexModel ( const QModelIndex & );
     void openDownload();
     const QUrl url();
     const QString status();
