@@ -3,14 +3,12 @@
 SET (subproject_SOURCES
   downloadmanager.cpp
   downloader.cpp
-  downloadstable.cpp
   downloadstablemodel.cpp
 )
 
 SET (subproject_HEADERS
   downloadmanager.h
   downloader.h
-  downloadstable.h
   downloadstablemodel.h
 )
 

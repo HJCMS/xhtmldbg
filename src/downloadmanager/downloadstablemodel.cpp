@@ -34,6 +34,7 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
     , table ( parent )
 {
   setObjectName ( QLatin1String ( "downloadstablemodel" ) );
+  table->setMinimumWidth ( 800 );
   table->setAlternatingRowColors ( true );
   table->verticalHeader()->hide();
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
@@ -54,6 +55,7 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
   beginInsertRows ( parent, downloads.size(), downloads.size() );
   downloads << item;
   endInsertRows();
+  connect ( item, SIGNAL ( dataChanged() ), this, SLOT ( updateDownloads() ) );
   emit modified ( true );
 }
 
@@ -63,7 +65,6 @@ void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
     return;
 
   Downloader* item = downloads.at ( row );
-
   beginRemoveRows ( parent, row, row );
   downloads.removeAt ( row );
   endRemoveRows();
@@ -77,9 +78,20 @@ void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
 * @param Status Prozentangabe
 * @param Url zum Finden des Datensatzes!
 */
-void DownloadsTableModel::updateStatus ( QVariant &status, const QUrl &url )
+void DownloadsTableModel::updateDownloads ()
 {
+  if ( downloads.size() < 1 )
+    return;
 
+  qDebug() << Q_FUNC_INFO;
+//   beginResetModel ();
+//   reset ();
+//   endResetModel();
+
+//   foreach ( Downloader* item,  downloads )
+//   {
+//     addDownload ( item );
+//   }
 }
 
 /**
@@ -272,7 +284,7 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 
       case 2:
       {
-        m_tableHeader->setResizeMode ( 2, QHeaderView::Stretch );
+        m_tableHeader->setResizeMode ( 2, QHeaderView::ResizeToContents );
         return trUtf8 ( "Destination" );
       }
 

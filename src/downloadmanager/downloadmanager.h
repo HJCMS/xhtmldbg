@@ -30,14 +30,15 @@
 
 /* QtGui */
 #include <QtGui/QDockWidget>
-#include <QtGui/QWidget>
 #include <QtGui/QPushButton>
+#include <QtGui/QTableView>
+#include <QtGui/QWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 
 class Downloader;
-class DownloadsTable;
+class DownloadsTableModel;
 
 class DownloadManager : public QDockWidget
 {
@@ -47,7 +48,8 @@ class DownloadManager : public QDockWidget
 
   private:
     QSettings* cfg;
-    DownloadsTable* m_table;
+    QTableView* m_table;
+    DownloadsTableModel* m_model;
     QPushButton* m_stopButton;
     QPushButton* m_removeButton;
     QPushButton* m_clearButton;

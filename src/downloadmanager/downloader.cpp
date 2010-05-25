@@ -38,6 +38,8 @@ Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
     : QWidget ( parent )
     , m_reply ( reply )
     , defaultLocation ( QDesktopServices::storageLocation ( QDesktopServices::TempLocation ) )
+    , m_bytesLoaded ( 0 )
+    , inProgress ( 0 )
 {
   setObjectName ( QLatin1String ( "downloader" ) );
 }
@@ -49,11 +51,24 @@ void Downloader::openDownload()
 
   m_reply->setParent ( this );
   connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
+  connect ( m_reply, SIGNAL ( downloadProgress ( qint64, qint64 ) ),
+            this, SLOT ( downloadProgress ( qint64, qint64 ) ) );
 }
 
 void Downloader::downloadReadyRead()
 {
   qDebug() << Q_FUNC_INFO;
+}
+
+void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
+{
+  m_bytesLoaded = bReceived;
+  if ( bTotal == -1 )
+    return;
+
+  inProgress = ( ( bReceived * 100.0 ) / bTotal );
+  emit dataChanged();
+  emit progress ( url(), true );
 }
 
 const QUrl Downloader::url()
@@ -66,10 +81,9 @@ const QUrl Downloader::url()
 
 const QString Downloader::status()
 {
-  if ( ! m_reply )
-    return QString ( "0%" );
-
-  return QString ( "0%" );
+  QString str ( QString::number ( inProgress ) );
+  str.append ( "%" );
+  return str;
 }
 
 const QString Downloader::uploadTime()

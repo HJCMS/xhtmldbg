@@ -42,14 +42,21 @@ class Downloader : public QWidget
   private:
     QNetworkReply* m_reply;
     const QString defaultLocation;
+    qint64 m_bytesLoaded;
+    int inProgress;
     QString destinationFilePath;
-    void openDownload();
 
   private Q_SLOTS:
     void downloadReadyRead();
+    void downloadProgress ( qint64 bReceived, qint64 bTotal );
+
+  Q_SIGNALS:
+    void dataChanged ();
+    void progress ( const QUrl &, bool b );
 
   public:
     Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
+    void openDownload();
     const QUrl url();
     const QString status();
     const QString uploadTime();
