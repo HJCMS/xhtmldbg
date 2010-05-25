@@ -31,9 +31,6 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QFileDialog>
 
-/* QtDBus */
-// #include <QtDBus>
-
 /* QtNetwork */
 // #include <QtNetwork>
 
@@ -52,7 +49,6 @@ void Downloader::openDownload()
 
   m_reply->setParent ( this );
   connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
-
 }
 
 void Downloader::downloadReadyRead()
@@ -73,23 +69,26 @@ const QString Downloader::status()
   if ( ! m_reply )
     return QString ( "0%" );
 
-  return QString( "0%" );
+  return QString ( "0%" );
 }
 
 const QString Downloader::uploadTime()
 {
   if ( ! m_reply )
-    return QString( "00:00" );
+    return QString ( "00:00" );
 
-  return QString( "00:00" );
+  return QString ( "00:00" );
+}
+
+void Downloader::setDestination ( const QUrl &url )
+{
+  if ( url.isValid() )
+    destinationFilePath = url.path();
 }
 
 const QString Downloader::destFile()
 {
-  if ( ! m_reply )
-    return defaultLocation;
-
-  return QString( "/tmp/TODO" );
+  return destinationFilePath;
 }
 
 Downloader::~Downloader()

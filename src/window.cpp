@@ -24,6 +24,7 @@
 #include "application.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
+#include "downloadmanager.h"
 #include "addresstoolbar.h"
 #include "keywordstoolbar.h"
 #include "zoombar.h"
@@ -37,6 +38,7 @@
 #include "historymanager.h"
 #include "historyitem.h"
 #include "historymenu.h"
+#include "settargetdialog.h"
 #include "openurldialog.h"
 #include "aboutdialog.h"
 #include "configdialog.h"
@@ -125,6 +127,11 @@ Window::Window ( QSettings * settings )
 
   // Automatische Seiten Aktualisierung
   m_autoReloader = new AutoReloader ( this );
+
+  // DownloadManager {
+  m_downloadManager = new DownloadManager ( this, m_settings );
+  addDockWidget ( Qt::RightDockWidgetArea, m_downloadManager );
+  // } DownloadManager
 
   // DockWidgets {
   // Ansicht Dokumenten Baum
@@ -435,7 +442,7 @@ void Window::createToolBars()
   addToolBar ( m_keywordsToolBar );
 
   // Zoom Toolbar
-  m_zoomBar = new ZoomBar( this );
+  m_zoomBar = new ZoomBar ( this );
   connect ( m_zoomBar, SIGNAL ( zoomFactor ( int ) ),
             m_webViewer, SLOT ( zoomFactor ( int ) ) );
   addToolBar ( m_zoomBar );
@@ -465,6 +472,7 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
   inspectorsMenu->addAction ( m_cookiesDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
+  inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
 
   // Plugin Menu
   m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );
@@ -779,6 +787,39 @@ void Window::visibleSourceChanged()
 {
   if ( m_centralWidget->currentIndex() != 1 )
     m_centralWidget->setCurrentIndex ( 1 );
+}
+
+/**
+* In dieser Methode werden die Downloads entgegen genommen.
+* Grund hierfür ist, weil der @ref DownloadManager über @ref Page nur
+* Statisch abgerufen werden kann würde dies unweigerlich beim beenden
+* zu einem Speicherzugriffsfehler führen.
+* Das hängt mit dem auslesen der windowStats zusammen.
+*/
+void Window::downloadRequest ( const QNetworkRequest &request )
+{
+  // wenn nicht sichtbar dann andocken
+  if ( ! m_downloadManager->toggleViewAction()->isChecked() )
+  {
+    m_downloadManager->toggleViewAction()->setChecked ( true );
+    m_downloadManager->show();
+  }
+
+  // wenn verdeckt nach vorne holen
+  tabifyDockedWidgetUp ( m_downloadManager );
+
+  // Nachricht an den Messanger
+  QUrl url = request.url();
+  QString message = trUtf8 ( "Download Request: %1" ).arg ( url.toString() );
+  setApplicationMessage ( message );
+
+  // Ziel Verzeichnis auswählen und bei erfolg mit für den Download übergeben!
+  SetTargetDialog dialog ( url, centralWidget() );
+  if ( dialog.exec() )
+  {
+    // Download Starten
+    m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
+  }
 }
 
 Window::~Window()

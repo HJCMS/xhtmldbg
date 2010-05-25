@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,36 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "downloadstable.h"
-#include "downloader.h"
-#include "downloadstablemodel.h"
+#ifndef SETTARGETDIALOG_H
+#define SETTARGETDIALOG_H
 
 /* QtCore */
-#include <QtCore/QDebug>
-#include <QtCore/QVariant>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QAbstractItemView>
+#include <QtGui/QFileDialog>
+#include <QtGui/QWidget>
 
-DownloadsTable::DownloadsTable ( QWidget * parent )
-    : QTableView ( parent )
+class SetTargetDialog : public QFileDialog
 {
-  setObjectName ( QLatin1String ( "downloadstableviewer" ) );
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
-  m_model = new DownloadsTableModel ( this );
-  setModel ( m_model );
+  private:
+    const QUrl fromUrl;
+    QString lastSelection;
 
-//   connect ( m_model, SIGNAL ( modified ( bool ) ),
-//             this, SIGNAL ( modified ( bool ) ) );
-}
+  private Q_SLOTS:
+    void checkPermissions ( const QString & );
 
-void DownloadsTable::addItem ( Downloader * item )
-{
-  if ( ! item )
-    return;
+  Q_SIGNALS:
+    void destinationChanged ( const QString & );
 
-  m_model->addDownload ( item );
-}
+  public:
+    SetTargetDialog ( const QUrl &url, QWidget * parent = 0 );
+    const QUrl destination();
+    virtual ~SetTargetDialog();
+};
 
-DownloadsTable::~DownloadsTable()
-{}
+#endif

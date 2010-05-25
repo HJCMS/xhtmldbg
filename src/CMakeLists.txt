@@ -7,6 +7,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
+  ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
@@ -22,6 +23,7 @@ ADD_SUBDIRECTORY (autosaver)
 ADD_SUBDIRECTORY (interface)
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
+ADD_SUBDIRECTORY (settargetdialog)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (networker)
@@ -108,6 +110,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Bookmark
   Docking
   DomInspector
+  SetTargetDialog
   OpenUrlDialog
   Networker
   ConfigDialog

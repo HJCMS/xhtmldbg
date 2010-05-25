@@ -44,10 +44,14 @@
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkRequest>
+
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
 
 class NetworkAccessManager;
+class DownloadManager;
 class HistoryManager;
 class AddressToolBar;
 class KeywordsToolBar;
@@ -69,7 +73,8 @@ class CSSValidator;
 class XHtmldbgAdaptor;
 class xhtmldbgplugger;
 
-namespace xhtmldbg {
+namespace xhtmldbg
+{
   class Interface;
 }
 
@@ -84,6 +89,8 @@ class Window : public QMainWindow
     const QIcon qTidyIcon;
     // Network Manager
     NetworkAccessManager* m_netManager;
+    // Download Manager
+    DownloadManager* m_downloadManager;
     // Address History Manager
     HistoryManager* m_historyManager;
     // Main Menu
@@ -184,6 +191,7 @@ class Window : public QMainWindow
     bool openFile ( const QUrl & );
     bool openUrl ( const QUrl & );
     void visibleSourceChanged();
+    void downloadRequest ( const QNetworkRequest & );
 
   public:
     Window ( QSettings * settings = 0 );

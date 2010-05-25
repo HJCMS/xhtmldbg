@@ -25,9 +25,11 @@
 /* QtCore */
 #include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QDialog>
+#include <QtGui/QDockWidget>
 #include <QtGui/QWidget>
 #include <QtGui/QPushButton>
 
@@ -37,27 +39,31 @@
 class Downloader;
 class DownloadsTable;
 
-class DownloadManager : public QDialog
+class DownloadManager : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    QSettings* cfg;
     DownloadsTable* m_table;
     QPushButton* m_stopButton;
+    QPushButton* m_removeButton;
+    QPushButton* m_clearButton;
     QList<Downloader*> openDownloadsList;
-    void startDownload ( QNetworkReply *reply );
+    void startDownload ( QNetworkReply *reply, const QUrl &destination );
 
   private Q_SLOTS:
     void abortActiveDownload();
-    void closeDialog();
+    void removeDownload();
+    void removeAllDownloads();
 
   public Q_SLOTS:
-    void download ( QNetworkReply *reply );
+    void download ( QNetworkReply *reply, const QUrl &destination );
 
   public:
-    DownloadManager ( QWidget * parent = 0 );
+    DownloadManager ( QWidget * parent = 0, QSettings * setting = 0 );
     virtual ~DownloadManager();
 };
 

@@ -23,6 +23,10 @@
 #include "downloadstable.h"
 #include "downloader.h"
 
+/* xhtmldbg */
+#include "xhtmldbgmain.h"
+#include "window.h"
+
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QVariant>
@@ -30,44 +34,66 @@
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
+#include <QtGui/QScrollArea>
 #include <QtGui/QVBoxLayout>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 
-DownloadManager::DownloadManager ( QWidget * parent )
-    : QDialog ( parent )
+DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
+    : QDockWidget ( parent )
+    , cfg ( settings )
 {
   setObjectName ( QLatin1String ( "downloadmanager" ) );
-  setWindowTitle ( trUtf8 ( "(xhtmldbg) Download Manager" ) );
-  setMinimumWidth ( 300 );
-  setMinimumHeight ( 150 );
-  setSizeGripEnabled ( true );
-  setWindowModality ( Qt::NonModal );
+  setWindowTitle ( trUtf8 ( "Downloads" ) );
+  setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
+  setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+  setContentsMargins ( 1, 1, 1, 1 );
 
-  QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
+  QScrollArea* m_scrollArea = new QScrollArea ( this );
+  m_scrollArea->setObjectName ( QLatin1String ( "downloadmanagerscrollarea" ) );
+  m_scrollArea->setContentsMargins ( 0, 0, 0, 0 );
+
+  QVBoxLayout* verticalLayout = new QVBoxLayout ( m_scrollArea );
   verticalLayout->setObjectName ( QLatin1String ( "downloadmanagerlayout" ) );
+  verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
 
-  m_table = new DownloadsTable ( this );
+  m_table = new DownloadsTable ( m_scrollArea );
   verticalLayout->addWidget ( m_table );
 
-  QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
-  box->setObjectName ( QLatin1String ( "downloadbuttonbox" ) );
-  box->setStandardButtons ( QDialogButtonBox::Close );
-  m_stopButton = box->addButton ( trUtf8 ( "Stop" ), QDialogButtonBox::ActionRole );
-  verticalLayout->addWidget ( box );
+  QHBoxLayout* horizontalLayout = new QHBoxLayout;
+  horizontalLayout->setObjectName ( QLatin1String ( "horizontallayout" ) );
+  horizontalLayout->setContentsMargins ( 0, 0, 0, 0 );
+  horizontalLayout->addStretch ( 1 );
 
-  setLayout ( verticalLayout );
+  m_stopButton = new QPushButton ( trUtf8 ( "Stop" ), m_scrollArea );
+  m_stopButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
+  m_stopButton->setObjectName ( QLatin1String ( "stoptdownloadbutton" ) );
+  horizontalLayout->addWidget ( m_stopButton );
+
+  m_removeButton = new QPushButton ( trUtf8 ( "Remove" ), m_scrollArea );
+  m_removeButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
+  m_removeButton->setObjectName ( QLatin1String ( "removetdownloadbutton" ) );
+  horizontalLayout->addWidget ( m_removeButton );
+
+  m_clearButton = new QPushButton ( trUtf8 ( "Clear" ), m_scrollArea );
+  m_clearButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
+  m_clearButton->setObjectName ( QLatin1String ( "cleardownloadbutton" ) );
+  horizontalLayout->addWidget ( m_clearButton );
+
+  verticalLayout->addLayout ( horizontalLayout );
+  m_scrollArea->setLayout ( verticalLayout );
+  m_scrollArea->ensureWidgetVisible ( m_table );
+
+  setWidget ( m_scrollArea );
+
+  connect ( m_stopButton, SIGNAL ( clicked() ), this, SLOT ( abortActiveDownload() ) );
+  connect ( m_removeButton, SIGNAL ( clicked() ), this, SLOT ( removeDownload() ) );
+  connect ( m_clearButton, SIGNAL ( clicked() ), this, SLOT ( removeAllDownloads() ) );
+
   openDownloadsList.clear();
-
-  connect ( m_stopButton, SIGNAL ( clicked() ),
-            this, SLOT ( abortActiveDownload() ) );
-
-  connect ( box, SIGNAL ( rejected() ),
-            this, SLOT ( closeDialog() ) );
-
-  show();
 }
 
 void DownloadManager::abortActiveDownload()
@@ -75,31 +101,34 @@ void DownloadManager::abortActiveDownload()
   qDebug() << Q_FUNC_INFO;
 }
 
-void DownloadManager::closeDialog()
+void DownloadManager::removeDownload()
 {
   qDebug() << Q_FUNC_INFO;
-  reject();
 }
 
-void DownloadManager::startDownload ( QNetworkReply *reply )
+void DownloadManager::removeAllDownloads()
 {
+  qDebug() << Q_FUNC_INFO;
+}
+
+void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destination )
+{
+qDebug() << Q_FUNC_INFO << destination;
   foreach ( Downloader *it, openDownloadsList )
   {
     if ( it->url() == reply->request().url() )
     {
-      setVisible ( true );
-      setFocus ( Qt::ActiveWindowFocusReason );
-      activateWindow();
-      raise();
+      setFocus ( Qt::TabFocusReason );
       return;
     }
   }
   Downloader *item = new Downloader ( reply, this );
+  item->setDestination ( destination );
   m_table->addItem ( item );
   openDownloadsList << item;
 }
 
-void DownloadManager::download ( QNetworkReply *reply )
+void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
 {
   if ( !reply || reply->request().url().isEmpty() )
     return;
@@ -110,7 +139,7 @@ void DownloadManager::download ( QNetworkReply *reply )
   if ( ok && size == 0 )
     return;
 
-  startDownload ( reply );
+  startDownload ( reply, destination );
 }
 
 DownloadManager::~DownloadManager()

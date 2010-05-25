@@ -42,7 +42,7 @@ class Downloader : public QWidget
   private:
     QNetworkReply* m_reply;
     const QString defaultLocation;
-    QString destDir;
+    QString destinationFilePath;
     void openDownload();
 
   private Q_SLOTS:
@@ -53,6 +53,7 @@ class Downloader : public QWidget
     const QUrl url();
     const QString status();
     const QString uploadTime();
+    void setDestination ( const QUrl & );
     const QString destFile();
     ~Downloader();
 };

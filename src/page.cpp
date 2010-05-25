@@ -146,14 +146,7 @@ void Page::unsupportedContent ( QNetworkReply * reply )
 */
 void Page::downloadContentRequest ( const QNetworkRequest &request )
 {
-  QString url = request.url().toString();
-  QString message = trUtf8 ( "Download Request: %1" ).arg ( url );
-  xhtmldbgmain* main = xhtmldbgmain::instance();
-  if ( main )
-  {
-    main->mainWindow()->setApplicationMessage ( message );
-    main->downloadManager()->download ( m_netManager->get ( request ) );
-  }
+  xhtmldbgmain::instance()->mainWindow()->downloadRequest ( request );
 }
 
 /**

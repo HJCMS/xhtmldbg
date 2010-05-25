@@ -73,6 +73,16 @@ void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
 }
 
 /**
+* Einen Download Upload Status verändern!
+* @param Status Prozentangabe
+* @param Url zum Finden des Datensatzes!
+*/
+void DownloadsTableModel::updateStatus ( QVariant &status, const QUrl &url )
+{
+
+}
+
+/**
 * Gibt den Zeiger auf einen SpaltenEintrag zurück
 */
 Downloader* DownloadsTableModel::rowItem ( int row )
