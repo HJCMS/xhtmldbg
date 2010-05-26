@@ -102,7 +102,6 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
 void Downloader::finished()
 {
   inProgress = 100;
-  // m_progressTime.stop();
   emit progress ( progressIndex );
 }
 
@@ -146,15 +145,10 @@ const QString Downloader::status()
 */
 const QString Downloader::uploadTime()
 {
-  if ( ! m_reply )
-    return QString ( "00:00" );
+  if ( ! m_reply || inProgress >= 100 )
+    return QString ( "0" );
 
-  if ( inProgress > 100 )
-    return QString ( "00:00" );
-
-  QString st;
-  st.sprintf ( "%d", m_progressTime.elapsed() );
-  return st;
+  return QString::number ( m_progressTime.elapsed() );
 }
 
 /**
