@@ -63,11 +63,19 @@ DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
   openDownloadsList.clear();
 }
 
+/**
+* TODO Offene Download in eine XML Schreiben!
+*/
 void DownloadManager::save()
 {
   qDebug() << Q_FUNC_INFO << "TODO";
 }
 
+/**
+* Erstelle ein Object von @ref Downloader und setze die Datenfelder.
+* @note Der Download startet Automatisch sobald mit @ref DownloadsTableModel \n
+*       der ModelIndex für den Progress Eintrag gesetz wurde!
+*/
 void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destination )
 {
   qDebug() << Q_FUNC_INFO << destination;
@@ -82,6 +90,12 @@ void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destinat
   openDownloadsList << item;
 }
 
+/**
+* Nehme einen Download entgegen und prüfe ob es sich bei @param destination
+* um eine Valide Url handelt. Zusätzlich wird der HTTP/1.0 ContentLength
+* Header auf seine Datengröße geprüft. Ist alles ok dann an die Methode
+* @ref startDownload übergeben!
+*/
 void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
 {
   if ( !reply || reply->request().url().isEmpty() )
@@ -96,6 +110,12 @@ void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
   startDownload ( reply, destination );
 }
 
+/**
+* Beim Beenden
+* @li Downloads Liste Leeren
+* @li Überprüfen ob ein Process noch läuft
+* @li Wenn ja offene Aufträge erst beenden
+*/
 DownloadManager::~DownloadManager()
 {
   openDownloadsList.clear();

@@ -42,6 +42,9 @@ DownloadsTable::DownloadsTable ( QWidget * parent )
   setModel ( m_model );
 }
 
+/**
+* Einen aktuellen Download abbrechen!
+*/
 void DownloadsTable::abort()
 {
   if ( currentIndex ().isValid() )
@@ -52,6 +55,9 @@ void DownloadsTable::abort()
   }
 }
 
+/**
+* Entferne Download aus der Tabelle
+*/
 void DownloadsTable::remove()
 {
   if ( currentIndex ().isValid() )
@@ -62,6 +68,9 @@ void DownloadsTable::remove()
   }
 }
 
+/**
+* Kontext Menü für die Tabelle
+*/
 void DownloadsTable::contextMenuEvent ( QContextMenuEvent *ev )
 {
   QMenu *m_menu = new QMenu ( "Actions", this );
@@ -73,6 +82,9 @@ void DownloadsTable::contextMenuEvent ( QContextMenuEvent *ev )
   delete m_menu;
 }
 
+/**
+* Übergebe den Download an das Model
+*/
 void DownloadsTable::setDownloadItem ( Downloader * item )
 {
   m_model->addDownload ( item );

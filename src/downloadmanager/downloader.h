@@ -60,7 +60,7 @@ class Downloader : public QWidget
     void progress ( const QModelIndex & );
 
   public:
-    Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
+    explicit Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
     void setStartProgressModel ( const QModelIndex & );
     const QUrl url();
     const QString status();

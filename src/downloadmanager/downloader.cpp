@@ -31,9 +31,6 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QFileDialog>
 
-/* QtNetwork */
-// #include <QtNetwork>
-
 Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
     : QWidget ( parent )
     , m_reply ( reply )
@@ -44,6 +41,9 @@ Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
   setObjectName ( QLatin1String ( "downloader" ) );
 }
 
+/**
+* Initialisiere die Signale für QNetworkRelpy und setze auf parent
+*/
 void Downloader::openDownload()
 {
   if ( ! m_reply )
@@ -56,6 +56,11 @@ void Downloader::openDownload()
   connect ( m_reply, SIGNAL ( finished() ), this, SLOT ( finished() ) );
 }
 
+/**
+* Einkommende Daten in @ref destinationFilePath schreiben.
+* Wenn @ref QFile::m_output noch nicht offen ist dann öffnen
+* und im Notfall noch einige Fehlermeldungen auspucken.
+*/
 void Downloader::downloadReadyRead()
 {
   if ( destinationFilePath.isEmpty() )
@@ -73,6 +78,10 @@ void Downloader::downloadReadyRead()
   }
 }
 
+/**
+* Nehme den aktuellen Download status engegen und schreibe
+* in @ref inProgress, danach Signal @ref progress abstoßen.
+*/
 void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
 {
   m_bytesLoaded = bReceived;
@@ -83,6 +92,10 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
   emit progress ( progressIndex );
 }
 
+/**
+* Wenn der Download Beendet ist Prozentzahl auf 100% setzen.
+* Und wieder Signal @ref progress abstoßen.
+*/
 void Downloader::finished()
 {
   inProgress = 100;
@@ -103,6 +116,9 @@ void Downloader::setStartProgressModel ( const QModelIndex &modelIndex )
   openDownload();
 }
 
+/**
+* Gibt die aktuelle Download URL zurück.
+*/
 const QUrl Downloader::url()
 {
   if ( ! m_reply )
@@ -111,6 +127,9 @@ const QUrl Downloader::url()
   return m_reply->request().url();
 }
 
+/**
+* Gibt die aktuellen Download Status als \d% zurück.
+*/
 const QString Downloader::status()
 {
   QString str ( QString::number ( inProgress ) );
@@ -118,6 +137,9 @@ const QString Downloader::status()
   return str;
 }
 
+/**
+* Gibt die Download zeit aus.
+*/
 const QString Downloader::uploadTime()
 {
   if ( ! m_reply )
@@ -126,12 +148,18 @@ const QString Downloader::uploadTime()
   return QString ( "00:00" );
 }
 
+/**
+* Das Zielverzeichnis mit Ausgabe Datei setzen
+*/
 void Downloader::setDestination ( const QUrl &url )
 {
   if ( url.isValid() )
     destinationFilePath = url.path();
 }
 
+/**
+* Gibt den aktuellen Pfad zur Zieldatei aus.
+*/
 const QString Downloader::destFile()
 {
   return destinationFilePath;
