@@ -47,10 +47,12 @@ class DownloadsTableModel : public QAbstractTableModel
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  protected:
-    QTableView* table;
+  private:
     QHeaderView* m_tableHeader;
     QList<Downloader*> downloads;
+
+  protected:
+    QTableView* table;
 
   Q_SIGNALS:
     void modified ( bool );

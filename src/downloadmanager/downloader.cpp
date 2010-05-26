@@ -54,6 +54,9 @@ void Downloader::openDownload()
   connect ( m_reply, SIGNAL ( downloadProgress ( qint64, qint64 ) ),
             this, SLOT ( downloadProgress ( qint64, qint64 ) ) );
   connect ( m_reply, SIGNAL ( finished() ), this, SLOT ( finished() ) );
+
+  // jetzt den Timer starten
+  m_progressTime.start();
 }
 
 /**
@@ -99,6 +102,7 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
 void Downloader::finished()
 {
   inProgress = 100;
+  // m_progressTime.stop();
   emit progress ( progressIndex );
 }
 
@@ -145,7 +149,12 @@ const QString Downloader::uploadTime()
   if ( ! m_reply )
     return QString ( "00:00" );
 
-  return QString ( "00:00" );
+  if ( inProgress > 100 )
+    return QString ( "00:00" );
+
+  QString st;
+  st.sprintf ( "%d", m_progressTime.elapsed() );
+  return st;
 }
 
 /**

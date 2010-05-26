@@ -26,6 +26,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QTime>
 #include <QtCore/QUrl>
 #include <QtCore/QModelIndex>
 
@@ -48,6 +49,7 @@ class Downloader : public QWidget
     qint64 m_bytesLoaded;
     int inProgress;
     QString destinationFilePath;
+    QTime m_progressTime;
     QFile m_output;
     void openDownload();
 
