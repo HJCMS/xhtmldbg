@@ -56,9 +56,9 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
   beginInsertRows ( parent, downloads.size(), downloads.size() );
   downloads << item;
   endInsertRows();
-  item->setProgressIndexModel ( index ( ( downloads.size() - 1 ), 0, parent ) );
+  item->setStartProgressModel ( index ( ( downloads.size() - 1 ), 0, parent ) );
   connect ( item, SIGNAL ( progress ( const QModelIndex & ) ),
-            this, SIGNAL ( update ( const QModelIndex & ) ) );
+            table, SLOT ( update ( const QModelIndex & ) ) );
 }
 
 void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
@@ -156,13 +156,13 @@ QVariant DownloadsTableModel::data ( const QModelIndex &index, int role ) const
           return item->status();
 
         case 1:
-          return item->url();
+          return item->uploadTime();
 
         case 2:
-          return item->destFile();
+          return item->url();
 
         case 3:
-          return item->uploadTime();
+          return item->destFile();
 
         default:
           return val;
@@ -193,20 +193,20 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 
       case 1:
       {
-        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
-        return trUtf8 ( "Url" );
+        m_tableHeader->setResizeMode ( 3, QHeaderView::ResizeToContents );
+        return trUtf8 ( "Time" );
       }
 
       case 2:
       {
-        m_tableHeader->setResizeMode ( 2, QHeaderView::ResizeToContents );
-        return trUtf8 ( "Destination" );
+        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
+        return trUtf8 ( "Url" );
       }
 
       case 3:
       {
-        m_tableHeader->setResizeMode ( 3, QHeaderView::Stretch );
-        return trUtf8 ( "Time" );
+        m_tableHeader->setResizeMode ( 2, QHeaderView::Stretch );
+        return trUtf8 ( "Destination" );
       }
 
       default:

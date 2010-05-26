@@ -48,10 +48,11 @@ SetTargetDialog::SetTargetDialog ( const QUrl &url, QWidget * parent )
   setFileMode ( QFileDialog::AnyFile );
   setFilter ( ( filter() & ~QDir::System ) );
 
-  // Ein paar Optinale erweiterungs filter setzen.
+  // Ein paar Optionale Erweiterungs Filter setzen.
   QStringList filters;
   filters << trUtf8 ( "Any files (*)" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "Image", "*.png *.xpm *.jpg *.gif" );
+  filters << trUtf8 ( "%1 files %2" ).arg ( trUtf8 ( "Compression" ), "*.tar* *.gz *.bz2 *.xz *.lzma" );
+  filters << trUtf8 ( "%1 files %2" ).arg ( trUtf8 ( "Image" ), "*.png *.xpm *.jpg *.gif" );
   filters << trUtf8 ( "%1 files %2" ).arg ( "video/mpeg", "*.mpeg *.mpg *.mpe *.m1v *.m2v *.vob" );
   filters << trUtf8 ( "%1 files %2" ).arg ( "ogg/theora", "*.ogv *.ogg *.ogm" );
   filters << trUtf8 ( "%1 files %2" ).arg ( "Quicktime", "*.qt *.mov *.moov *.qtvr" );

@@ -798,16 +798,6 @@ void Window::visibleSourceChanged()
 */
 void Window::downloadRequest ( const QNetworkRequest &request )
 {
-  // wenn nicht sichtbar dann andocken
-  if ( ! m_downloadManager->toggleViewAction()->isChecked() )
-  {
-    m_downloadManager->toggleViewAction()->setChecked ( true );
-    m_downloadManager->show();
-  }
-
-  // wenn verdeckt nach vorne holen
-  tabifyDockedWidgetUp ( m_downloadManager );
-
   // Nachricht an den Messanger
   QUrl url = request.url();
   QString message = trUtf8 ( "Download Request: %1" ).arg ( url.toString() );
@@ -817,6 +807,16 @@ void Window::downloadRequest ( const QNetworkRequest &request )
   SetTargetDialog dialog ( url, centralWidget() );
   if ( dialog.exec() )
   {
+    // wenn nicht sichtbar dann andocken
+    if ( ! m_downloadManager->toggleViewAction()->isChecked() )
+    {
+      m_downloadManager->toggleViewAction()->setChecked ( true );
+      m_downloadManager->show();
+    }
+
+    // wenn verdeckt nach vorne holen
+    tabifyDockedWidgetUp ( m_downloadManager );
+
     // Download Starten
     m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
   }

@@ -19,55 +19,40 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DOWNLOADER_H
-#define DOWNLOADER_H
+#ifndef DOWNLOADSTABLE_H
+#define DOWNLOADSTABLE_H
 
 /* QtCore */
-#include <QtCore/QFile>
 #include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
-#include <QtCore/QModelIndex>
 
 /* QtGui */
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QTableView>
 #include <QtGui/QWidget>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkReply>
+class Downloader;
+class DownloadsTableModel;
 
-class Downloader : public QWidget
+class DownloadsTable : public QTableView
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QNetworkReply* m_reply;
-    const QString defaultLocation;
-    QModelIndex progressIndex;
-    qint64 m_bytesLoaded;
-    int inProgress;
-    QString destinationFilePath;
-    QFile m_output;
-    void openDownload();
+    DownloadsTableModel* m_model;
 
   private Q_SLOTS:
-    void downloadReadyRead();
-    void downloadProgress ( qint64 bReceived, qint64 bTotal );
-    void finished();
+    void abort();
+    void remove();
 
-  Q_SIGNALS:
-    void progress ( const QModelIndex & );
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
 
   public:
-    Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
-    void setStartProgressModel ( const QModelIndex & );
-    const QUrl url();
-    const QString status();
-    const QString uploadTime();
-    void setDestination ( const QUrl & );
-    const QString destFile();
-    ~Downloader();
+    DownloadsTable ( QWidget * parent = 0 );
+    void setDownloadItem ( Downloader * );
+    virtual ~DownloadsTable();
 };
 
 #endif

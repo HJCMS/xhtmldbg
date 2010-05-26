@@ -53,11 +53,24 @@ void Downloader::openDownload()
   connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
   connect ( m_reply, SIGNAL ( downloadProgress ( qint64, qint64 ) ),
             this, SLOT ( downloadProgress ( qint64, qint64 ) ) );
+  connect ( m_reply, SIGNAL ( finished() ), this, SLOT ( finished() ) );
 }
 
 void Downloader::downloadReadyRead()
 {
-  qDebug() << Q_FUNC_INFO;
+  if ( destinationFilePath.isEmpty() )
+    return;
+
+  if ( ! m_output.isOpen () )
+  {
+    if ( ! m_output.open ( QIODevice::WriteOnly ) )
+      qWarning ( "Error opening output file: %s", qPrintable ( m_output.errorString() ) );
+  }
+
+  if ( -1 == m_output.write ( m_reply->readAll() ) )
+  {
+    qWarning ( "Error saving: %s", qPrintable ( m_output.errorString() ) );
+  }
 }
 
 void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
@@ -70,9 +83,24 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
   emit progress ( progressIndex );
 }
 
-void Downloader::setProgressIndexModel ( const QModelIndex &modelIndex )
+void Downloader::finished()
+{
+  inProgress = 100;
+  emit progress ( progressIndex );
+}
+
+/**
+* Setze den ModelIndex für die Prozentanzeige!
+* Wenn diese gesetzt ist wird der Download gestartet!
+*/
+void Downloader::setStartProgressModel ( const QModelIndex &modelIndex )
 {
   progressIndex = modelIndex;
+  if ( destinationFilePath.isEmpty() )
+    return;
+
+  m_output.setFileName ( destinationFilePath );
+  openDownload();
 }
 
 const QUrl Downloader::url()

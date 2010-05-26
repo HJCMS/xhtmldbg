@@ -20,8 +20,9 @@
 **/
 
 #include "downloadmanager.h"
-#include "downloadstablemodel.h"
+#include "downloadstable.h"
 #include "downloader.h"
+#include "autosaver.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -41,6 +42,7 @@
 DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
     : QDockWidget ( parent )
     , cfg ( settings )
+    , m_autoSaver ( new AutoSaver ( this ) )
 {
   setObjectName ( QLatin1String ( "downloadmanager" ) );
   setWindowTitle ( trUtf8 ( "Downloads" ) );
@@ -48,68 +50,22 @@ DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 1, 1, 1, 1 );
 
-  QWidget* layoutWidget = new QWidget ( this );
-
-  QVBoxLayout* verticalLayout = new QVBoxLayout ( layoutWidget );
-  verticalLayout->setContentsMargins ( 0, 0, 0, 10 );
-
-  QScrollArea* m_scrollArea = new QScrollArea ( layoutWidget );
+  QScrollArea* m_scrollArea = new QScrollArea ( this );
   m_scrollArea->setObjectName ( QLatin1String ( "downloadmanagerscrollarea" ) );
   m_scrollArea->setContentsMargins ( 0, 0, 0, 0 );
-  verticalLayout->addWidget ( m_scrollArea );
+  m_scrollArea->setWidgetResizable ( true );
 
-  m_table = new QTableView ( m_scrollArea );
-  m_table->setObjectName ( QLatin1String ( "downloadstableviewer" ) );
+  m_table = new DownloadsTable ( m_scrollArea );
   m_scrollArea->setWidget ( m_table );
 
-  m_model = new DownloadsTableModel ( m_table );
-  m_table->setModel ( m_model );
-
-  QHBoxLayout* horizontalLayout = new QHBoxLayout;
-  horizontalLayout->setObjectName ( QLatin1String ( "horizontallayout" ) );
-  horizontalLayout->setContentsMargins ( 0, 0, 0, 0 );
-  horizontalLayout->setSpacing ( 5 );
-  horizontalLayout->addStretch ( 1 );
-
-  m_stopButton = new QPushButton ( trUtf8 ( "Stop" ), layoutWidget );
-  m_stopButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
-  m_stopButton->setObjectName ( QLatin1String ( "stoptdownloadbutton" ) );
-  horizontalLayout->addWidget ( m_stopButton );
-
-  m_removeButton = new QPushButton ( trUtf8 ( "Remove" ), layoutWidget );
-  m_removeButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
-  m_removeButton->setObjectName ( QLatin1String ( "removetdownloadbutton" ) );
-  horizontalLayout->addWidget ( m_removeButton );
-
-  m_clearButton = new QPushButton ( trUtf8 ( "Clear" ), layoutWidget );
-  m_clearButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "process-stop" ) ) );
-  m_clearButton->setObjectName ( QLatin1String ( "cleardownloadbutton" ) );
-  horizontalLayout->addWidget ( m_clearButton );
-
-  verticalLayout->addLayout ( horizontalLayout );
-  layoutWidget->setLayout ( verticalLayout );
-  setWidget ( layoutWidget );
-
-  connect ( m_stopButton, SIGNAL ( clicked() ), this, SLOT ( abortActiveDownload() ) );
-  connect ( m_removeButton, SIGNAL ( clicked() ), this, SLOT ( removeDownload() ) );
-  connect ( m_clearButton, SIGNAL ( clicked() ), this, SLOT ( removeAllDownloads() ) );
+  setWidget ( m_scrollArea );
 
   openDownloadsList.clear();
 }
 
-void DownloadManager::abortActiveDownload()
+void DownloadManager::save()
 {
-  qDebug() << Q_FUNC_INFO;
-}
-
-void DownloadManager::removeDownload()
-{
-  qDebug() << Q_FUNC_INFO;
-}
-
-void DownloadManager::removeAllDownloads()
-{
-  qDebug() << Q_FUNC_INFO;
+  qDebug() << Q_FUNC_INFO << "TODO";
 }
 
 void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destination )
@@ -118,17 +74,12 @@ void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destinat
   foreach ( Downloader *it, openDownloadsList )
   {
     if ( it->url() == reply->request().url() )
-    {
-      setFocus ( Qt::TabFocusReason );
       return;
-    }
   }
   Downloader *item = new Downloader ( reply, this );
   item->setDestination ( destination );
-  m_model->addDownload ( item );
+  m_table->setDownloadItem ( item );
   openDownloadsList << item;
-
-  item->openDownload();
 }
 
 void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
@@ -148,4 +99,6 @@ void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
 DownloadManager::~DownloadManager()
 {
   openDownloadsList.clear();
+  m_autoSaver->changeOccurred();
+  m_autoSaver->saveIfNeccessary();
 }
