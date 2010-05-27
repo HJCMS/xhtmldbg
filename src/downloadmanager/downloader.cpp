@@ -59,6 +59,13 @@ void Downloader::openDownload()
   m_progressTime.start();
 }
 
+void Downloader::stop()
+{
+  m_reply->abort();
+  m_output.close();
+  
+}
+
 /**
 * Einkommende Daten in @ref destinationFilePath schreiben.
 * Wenn @ref QFile::m_output noch nicht offen ist dann öffnen
@@ -101,7 +108,6 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
 */
 void Downloader::finished()
 {
-  inProgress = 100;
   emit progress ( progressIndex );
 }
 
@@ -145,7 +151,7 @@ const QString Downloader::status()
 */
 const QString Downloader::uploadTime()
 {
-  if ( ! m_reply || inProgress >= 100 )
+  if ( ! m_reply->isRunning() || inProgress >= 100 )
     return QString ( "0" );
 
   return QString::number ( m_progressTime.elapsed() );

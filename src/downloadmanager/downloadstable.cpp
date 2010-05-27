@@ -48,11 +48,7 @@ DownloadsTable::DownloadsTable ( QWidget * parent )
 void DownloadsTable::abort()
 {
   if ( currentIndex ().isValid() )
-  {
-    QModelIndex index = currentIndex();
-    qDebug() << Q_FUNC_INFO << "TODO" << index.row();
-    // m_model->removeProject ( index.row(), index.parent() );
-  }
+    m_model->abortDownload ( currentIndex() );
 }
 
 /**
@@ -61,11 +57,7 @@ void DownloadsTable::abort()
 void DownloadsTable::remove()
 {
   if ( currentIndex ().isValid() )
-  {
-    QModelIndex index = currentIndex();
-    qDebug() << Q_FUNC_INFO << "TODO" << index.row();
-    // m_model->removeProject ( index.row(), index.parent() );
-  }
+    m_model->removeDownload ( currentIndex() );
 }
 
 /**

@@ -24,9 +24,12 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QRect>
 
 /* QtGui */
 #include <QtGui/QAbstractItemView>
+#include <QtGui/QFont>
+#include <QtGui/QFontMetrics>
 
 /** @class DownloadsTableModel */
 DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
@@ -40,11 +43,12 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
   table->setWordWrap ( false );
   table->setSelectionBehavior ( QAbstractItemView::SelectRows );
-  // table->setState ( QAbstractItemView::AnimatingState );
 
   /* Zellen anpassen */
+  QFontMetrics metrics ( table->font() );
   m_tableHeader = table->horizontalHeader();
   m_tableHeader->setCascadingSectionResizes ( true );
+  m_tableHeader->setMinimumSectionSize ( metrics.boundingRect ( "00:00:00.000" ).width() );
   m_tableHeader->setDefaultAlignment ( Qt::AlignLeft );
 }
 
@@ -61,14 +65,22 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
             table, SLOT ( update ( const QModelIndex & ) ) );
 }
 
-void DownloadsTableModel::removeDownload ( int row, const QModelIndex &parent )
+void DownloadsTableModel::abortDownload ( const QModelIndex &index )
 {
-  if ( ( row < 0 ) || ( row > downloads.size() ) )
+  if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
     return;
 
-  Downloader* item = downloads.at ( row );
-  beginRemoveRows ( parent, row, row );
-  downloads.removeAt ( row );
+  downloads.at ( index.row() )->stop();
+}
+
+void DownloadsTableModel::removeDownload ( const QModelIndex &index )
+{
+  if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
+    return;
+
+  Downloader* item = downloads.at ( index.row() );
+  beginRemoveRows ( index.parent(), index.row(), index.row() );
+  downloads.removeAt ( index.row() );
   endRemoveRows();
 
   delete item;
@@ -193,19 +205,19 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 
       case 1:
       {
-        m_tableHeader->setResizeMode ( 3, QHeaderView::ResizeToContents );
+        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
         return trUtf8 ( "Time" );
       }
 
       case 2:
       {
-        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
+        m_tableHeader->setResizeMode ( 2, QHeaderView::ResizeToContents );
         return trUtf8 ( "Url" );
       }
 
       case 3:
       {
-        m_tableHeader->setResizeMode ( 2, QHeaderView::Stretch );
+        m_tableHeader->setResizeMode ( 3, QHeaderView::Stretch );
         return trUtf8 ( "Destination" );
       }
 

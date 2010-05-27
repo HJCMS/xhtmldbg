@@ -59,7 +59,8 @@ class DownloadsTableModel : public QAbstractTableModel
 
   public Q_SLOTS:
     void addDownload ( Downloader *item, const QModelIndex &parent = QModelIndex() );
-    void removeDownload ( int row, const QModelIndex &parent = QModelIndex() );
+    void abortDownload ( const QModelIndex & );
+    void removeDownload ( const QModelIndex & );
 
   public:
     DownloadsTableModel ( QTableView * parent = 0 );

@@ -61,6 +61,9 @@ class Downloader : public QWidget
   Q_SIGNALS:
     void progress ( const QModelIndex & );
 
+  public Q_SLOTS:
+    void stop();
+
   public:
     explicit Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
     void setStartProgressModel ( const QModelIndex & );
