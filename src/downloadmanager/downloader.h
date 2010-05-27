@@ -62,7 +62,8 @@ class Downloader : public QWidget
     void progress ( const QModelIndex & );
 
   public Q_SLOTS:
-    void stop();
+    void abort();
+    void restart();
 
   public:
     explicit Downloader ( QNetworkReply * reply, QWidget * parent = 0 );

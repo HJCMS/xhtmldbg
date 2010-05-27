@@ -70,7 +70,7 @@ void DownloadsTableModel::abortDownload ( const QModelIndex &index )
   if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
     return;
 
-  downloads.at ( index.row() )->stop();
+  downloads.at ( index.row() )->abort();
 }
 
 void DownloadsTableModel::removeDownload ( const QModelIndex &index )
@@ -85,6 +85,14 @@ void DownloadsTableModel::removeDownload ( const QModelIndex &index )
 
   delete item;
   emit modified ( true );
+}
+
+void DownloadsTableModel::restartDownload ( const QModelIndex &index )
+{
+  if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
+    return;
+
+  downloads.at ( index.row() )->restart ();
 }
 
 /**

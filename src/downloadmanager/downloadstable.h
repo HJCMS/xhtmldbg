@@ -45,6 +45,7 @@ class DownloadsTable : public QTableView
   private Q_SLOTS:
     void abort();
     void remove();
+    void restart();
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );

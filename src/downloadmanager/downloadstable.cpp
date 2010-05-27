@@ -61,15 +61,26 @@ void DownloadsTable::remove()
 }
 
 /**
+* Download neu Starten
+*/
+void DownloadsTable::restart()
+{
+  if ( currentIndex ().isValid() )
+    m_model->restartDownload ( currentIndex() );
+}
+
+/**
 * Kontext Menü für die Tabelle
 */
 void DownloadsTable::contextMenuEvent ( QContextMenuEvent *ev )
 {
   QMenu *m_menu = new QMenu ( "Actions", this );
-  QAction *add = m_menu->addAction ( QIcon::fromTheme ( "process-stop" ), trUtf8 ( "Stop" ) );
+  QAction *add = m_menu->addAction ( QIcon::fromTheme ( "process-idle" ), trUtf8 ( "Stop" ) );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( abort() ) );
   QAction *del= m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
   connect ( del, SIGNAL ( triggered() ), this, SLOT ( remove() ) );
+//   QAction *start = m_menu->addAction ( QIcon::fromTheme ( "system-run" ), trUtf8 ( "Restart" ) );
+//   connect ( start, SIGNAL ( triggered() ), this, SLOT ( restart() ) );
   m_menu->exec ( ev->globalPos() );
   delete m_menu;
 }

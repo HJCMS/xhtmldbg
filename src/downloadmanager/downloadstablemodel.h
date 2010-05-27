@@ -61,6 +61,7 @@ class DownloadsTableModel : public QAbstractTableModel
     void addDownload ( Downloader *item, const QModelIndex &parent = QModelIndex() );
     void abortDownload ( const QModelIndex & );
     void removeDownload ( const QModelIndex & );
+    void restartDownload ( const QModelIndex & );
 
   public:
     DownloadsTableModel ( QTableView * parent = 0 );
