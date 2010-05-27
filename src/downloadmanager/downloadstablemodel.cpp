@@ -30,6 +30,7 @@
 #include <QtGui/QAbstractItemView>
 #include <QtGui/QFont>
 #include <QtGui/QFontMetrics>
+#include <QtGui/QIcon>
 
 /** @class DownloadsTableModel */
 DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
@@ -39,7 +40,7 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
   setObjectName ( QLatin1String ( "downloadstablemodel" ) );
   table->setMinimumWidth ( 800 );
   table->setAlternatingRowColors ( true );
-  table->verticalHeader()->hide();
+  // table->verticalHeader()->hide();
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
   table->setWordWrap ( false );
   table->setSelectionBehavior ( QAbstractItemView::SelectRows );
@@ -53,6 +54,18 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
 }
 
 /**
+* Signal Verarbeitung aktualisierungen an die Zellen weiter geben!
+* Verwende hierbei den ModelIndex von Spalte Progress
+* siehe auch @ref addDownload und @ref Downloader::setStartProgressModel
+*/
+void DownloadsTableModel::updateDownloadStatus ( const QModelIndex &m )
+{
+  emit table->update ( m ); // Zelle 0=Progress
+  emit table->update ( index ( m.row(), 1 ) ); // Zelle 1=Time
+  emit table->update ( index ( m.row(), 2 ) ); // Zelle 2=Size
+}
+
+/**
 * Einen Neuen Spalteneintrag einfügen
 */
 void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &parent )
@@ -61,8 +74,8 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
   downloads << item;
   endInsertRows();
   item->setStartProgressModel ( index ( ( downloads.size() - 1 ), 0, parent ) );
-  connect ( item, SIGNAL ( progress ( const QModelIndex & ) ),
-            table, SLOT ( update ( const QModelIndex & ) ) );
+  connect ( item, SIGNAL ( dataChanged ( const QModelIndex & ) ),
+            this, SLOT ( updateDownloadStatus ( const QModelIndex & ) ) );
 }
 
 void DownloadsTableModel::abortDownload ( const QModelIndex &index )
@@ -151,7 +164,7 @@ int DownloadsTableModel::rowCount ( const QModelIndex &parent ) const
 int DownloadsTableModel::columnCount ( const QModelIndex &parent ) const
 {
   Q_UNUSED ( parent )
-  return 4;
+  return 5;
 }
 
 /**
@@ -179,9 +192,12 @@ QVariant DownloadsTableModel::data ( const QModelIndex &index, int role ) const
           return item->uploadTime();
 
         case 2:
-          return item->url();
+          return item->fileSize();
 
         case 3:
+          return item->url();
+
+        case 4:
           return item->destFile();
 
         default:
@@ -219,11 +235,17 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 
       case 2:
       {
+        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
+        return trUtf8 ( "Size" );
+      }
+
+      case 3:
+      {
         m_tableHeader->setResizeMode ( 2, QHeaderView::ResizeToContents );
         return trUtf8 ( "Url" );
       }
 
-      case 3:
+      case 4:
       {
         m_tableHeader->setResizeMode ( 3, QHeaderView::Stretch );
         return trUtf8 ( "Destination" );
@@ -235,7 +257,7 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
   }
 
   // Vertikaler eintrag
-  return QString ( "%1" ).arg ( section );
+  return QString::number ( section );
 }
 
 DownloadsTableModel::~DownloadsTableModel()

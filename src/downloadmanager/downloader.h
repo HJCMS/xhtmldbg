@@ -49,6 +49,7 @@ class Downloader : public QWidget
     qint64 m_bytesLoaded;
     int inProgress;
     QString destinationFilePath;
+    QTime m_uploadTime;
     QTime m_progressTime;
     QFile m_output;
     void openDownload();
@@ -59,7 +60,7 @@ class Downloader : public QWidget
     void finished();
 
   Q_SIGNALS:
-    void progress ( const QModelIndex & );
+    void dataChanged ( const QModelIndex &parent );
 
   public Q_SLOTS:
     void abort();
@@ -68,10 +69,11 @@ class Downloader : public QWidget
   public:
     explicit Downloader ( QNetworkReply * reply, QWidget * parent = 0 );
     void setStartProgressModel ( const QModelIndex & );
-    const QUrl url();
+    void setDestination ( const QUrl & );
     const QString status();
     const QString uploadTime();
-    void setDestination ( const QUrl & );
+    const QString fileSize();
+    const QUrl url();
     const QString destFile();
     ~Downloader();
 };

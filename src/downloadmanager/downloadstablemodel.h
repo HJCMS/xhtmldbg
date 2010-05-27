@@ -51,6 +51,9 @@ class DownloadsTableModel : public QAbstractTableModel
     QHeaderView* m_tableHeader;
     QList<Downloader*> downloads;
 
+  private Q_SLOTS:
+    void updateDownloadStatus ( const QModelIndex & );
+
   protected:
     QTableView* table;
 

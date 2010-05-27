@@ -26,6 +26,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
+#include <QtCore/QTextStream>
 
 /* QtGui */
 #include <QtGui/QDesktopServices>
@@ -37,6 +38,8 @@ Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
     , defaultLocation ( QDesktopServices::storageLocation ( QDesktopServices::TempLocation ) )
     , m_bytesLoaded ( 0 )
     , inProgress ( 0 )
+    , m_uploadTime ( 0, 0, 0 )
+    , m_progressTime ( 0, 0, 0 )
 {
   setObjectName ( QLatin1String ( "downloader" ) );
 }
@@ -77,10 +80,7 @@ void Downloader::abort()
 void Downloader::restart()
 {
   if ( ! m_reply->isRunning() && inProgress <= 100 )
-  {
-    downloadReadyRead();
-    emit progress ( progressIndex );
-  }
+    openDownload();
 }
 
 /**
@@ -116,7 +116,7 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
     return;
 
   inProgress = ( int ) ( ( bReceived * 100.0 ) / bTotal );
-  emit progress ( progressIndex );
+  emit dataChanged ( progressIndex );
 }
 
 /**
@@ -126,7 +126,16 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
 void Downloader::finished()
 {
   if ( inProgress >= 100 )
-    emit progress ( progressIndex );
+    emit dataChanged ( progressIndex );
+}
+
+/**
+* Das Zielverzeichnis mit Ausgabe Datei setzen
+*/
+void Downloader::setDestination ( const QUrl &url )
+{
+  if ( url.isValid() )
+    destinationFilePath = url.path();
 }
 
 /**
@@ -141,17 +150,6 @@ void Downloader::setStartProgressModel ( const QModelIndex &modelIndex )
 
   m_output.setFileName ( destinationFilePath );
   openDownload();
-}
-
-/**
-* Gibt die aktuelle Download URL zurück.
-*/
-const QUrl Downloader::url()
-{
-  if ( ! m_reply )
-    return QUrl();
-
-  return m_reply->request().url();
 }
 
 /**
@@ -170,18 +168,59 @@ const QString Downloader::status()
 const QString Downloader::uploadTime()
 {
   if ( ! m_reply->isRunning() || inProgress >= 100 )
-    return QString ( "0" );
+    return m_uploadTime.toString ( "hh:mm:ss" );
 
-  return QString::number ( m_progressTime.elapsed() );
+  // Erstelle neue Leere Zeit
+  QTime t ( 0, 0, 0 );
+  // Schreibe Zeit mit Milisekunden in m_uploadTime
+  m_uploadTime = t.addMSecs ( m_progressTime.elapsed() );
+  return m_uploadTime.toString ( "hh:mm:ss" );
+}
+
+const QString Downloader::fileSize()
+{
+  QFileInfo info ( destinationFilePath );
+  if ( info.exists() )
+  {
+    QString out;
+    QTextStream stream ( &out );
+    // SI-Präfixe zur Basis 10 (Binärpräfixe)
+    qint64 bytes = info.size ();
+    if ( bytes > 1073741824 )
+    {
+      stream << ( bytes / 1073741824 ) << " GiB";
+      return stream.readAll();
+    }
+    else if ( bytes > 1048576 )
+    {
+      stream << ( bytes / 1048576 ) << " MiB";
+      return stream.readAll();
+    }
+    else if ( bytes > 1024 )
+    {
+      stream << ( bytes / 1024 ) << " KiB";
+      return stream.readAll();
+    }
+    else
+    {
+      out = QString::number ( ( bytes ) );
+      out.append ( " Bytes" );
+      return out;
+    }
+  }
+  else
+    return QString ( "0 Bytes" );
 }
 
 /**
-* Das Zielverzeichnis mit Ausgabe Datei setzen
+* Gibt die aktuelle Download URL zurück.
 */
-void Downloader::setDestination ( const QUrl &url )
+const QUrl Downloader::url()
 {
-  if ( url.isValid() )
-    destinationFilePath = url.path();
+  if ( ! m_reply )
+    return QUrl();
+
+  return m_reply->request().url();
 }
 
 /**
