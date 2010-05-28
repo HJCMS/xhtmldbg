@@ -115,7 +115,7 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
   if ( bTotal == -1 )
     return;
 
-  inProgress = ( int ) ( ( bReceived * 100.0 ) / bTotal );
+  inProgress = ( qint64 ) ( ( bReceived * 100.0 ) / bTotal );
   emit dataChanged ( progressIndex );
 }
 
@@ -177,6 +177,10 @@ const QString Downloader::uploadTime()
   return m_uploadTime.toString ( "hh:mm:ss" );
 }
 
+/**
+* Gibt die aktuelle größe der Datei zurück.
+* SI-Präfixe zur Basis 10 (Binärpräfixe)
+*/
 const QString Downloader::fileSize()
 {
   QFileInfo info ( destinationFilePath );
@@ -184,7 +188,6 @@ const QString Downloader::fileSize()
   {
     QString out;
     QTextStream stream ( &out );
-    // SI-Präfixe zur Basis 10 (Binärpräfixe)
     qint64 bytes = info.size ();
     if ( bytes > 1073741824 )
     {

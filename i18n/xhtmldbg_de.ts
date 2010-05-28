@@ -1168,12 +1168,12 @@ Möchtest du wirklich Beenden?</translation>
 <context>
     <name>DownloadsTable</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="77"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="78"/>
         <source>Stop</source>
         <translation>Anhalten</translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="79"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="80"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -1181,27 +1181,32 @@ Möchtest du wirklich Beenden?</translation>
 <context>
     <name>DownloadsTableModel</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="191"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="227"/>
         <source>Progress</source>
         <translation>Fortschritt</translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="197"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="233"/>
         <source>Time</source>
         <translation>Zeit</translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="203"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="239"/>
+        <source>Size</source>
+        <translation>Größe</translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="245"/>
         <source>Url</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="209"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="251"/>
         <source>Destination</source>
         <translation>Ziel</translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="213"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="255"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>

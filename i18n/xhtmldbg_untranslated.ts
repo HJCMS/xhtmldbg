@@ -1165,12 +1165,12 @@ Do you realy want to exit?</source>
 <context>
     <name>DownloadsTable</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="77"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="78"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="79"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="80"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1178,27 +1178,32 @@ Do you realy want to exit?</source>
 <context>
     <name>DownloadsTableModel</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="191"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="227"/>
         <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="197"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="233"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="203"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="239"/>
+        <source>Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="245"/>
         <source>Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="209"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="251"/>
         <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="213"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="255"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>

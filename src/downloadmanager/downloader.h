@@ -47,7 +47,7 @@ class Downloader : public QWidget
     const QString defaultLocation;
     QModelIndex progressIndex;
     qint64 m_bytesLoaded;
-    int inProgress;
+    qint64 inProgress;
     QString destinationFilePath;
     QTime m_uploadTime;
     QTime m_progressTime;
