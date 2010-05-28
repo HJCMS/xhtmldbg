@@ -53,7 +53,6 @@ class DownloadManager : public QDockWidget
     QPushButton* m_stopButton;
     QPushButton* m_removeButton;
     QPushButton* m_clearButton;
-    QList<Downloader*> openDownloadsList;
     void startDownload ( QNetworkReply *reply, const QUrl &destination );
 
   private Q_SLOTS:

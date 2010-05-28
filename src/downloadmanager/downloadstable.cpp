@@ -21,6 +21,7 @@
 
 #include "downloadstable.h"
 #include "downloadstablemodel.h"
+#include "downloader.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -86,11 +87,18 @@ void DownloadsTable::contextMenuEvent ( QContextMenuEvent *ev )
 }
 
 /**
-* Übergebe den Download an das Model
+* Übergebe den Download an das Model.
+* Wenn ein Eintrag bereits vorhanden ist wird hier abgebrochen!
 */
-void DownloadsTable::setDownloadItem ( Downloader * item )
+bool DownloadsTable::setDownloadItem ( Downloader * item )
 {
+  foreach ( Downloader *it, m_model->downloadItems() )
+  {
+    if ( it->destFile() == item->destFile() )
+      return false;
+  }
   m_model->addDownload ( item );
+  return true;
 }
 
 DownloadsTable::~DownloadsTable()

@@ -59,8 +59,6 @@ DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
   m_scrollArea->setWidget ( m_table );
 
   setWidget ( m_scrollArea );
-
-  openDownloadsList.clear();
 }
 
 /**
@@ -78,16 +76,13 @@ void DownloadManager::save()
 */
 void DownloadManager::startDownload ( QNetworkReply *reply, const QUrl &destination )
 {
-  qDebug() << Q_FUNC_INFO << destination;
-  foreach ( Downloader *it, openDownloadsList )
-  {
-    if ( it->url() == reply->request().url() )
-      return;
-  }
   Downloader *item = new Downloader ( reply, this );
   item->setDestination ( destination );
-  m_table->setDownloadItem ( item );
-  openDownloadsList << item;
+  if ( ! m_table->setDownloadItem ( item ) )
+  {
+    qWarning ( "Download \"%s\" already exists.", qPrintable ( destination.toString() ) );
+    delete item;
+  }
 }
 
 /**
@@ -118,7 +113,6 @@ void DownloadManager::download ( QNetworkReply *reply, const QUrl &destination )
 */
 DownloadManager::~DownloadManager()
 {
-  openDownloadsList.clear();
   m_autoSaver->changeOccurred();
   m_autoSaver->saveIfNeccessary();
 }

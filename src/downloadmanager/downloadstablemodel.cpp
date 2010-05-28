@@ -78,14 +78,22 @@ void DownloadsTableModel::addDownload ( Downloader *item, const QModelIndex &par
             this, SLOT ( updateDownloadStatus ( const QModelIndex & ) ) );
 }
 
+/**
+* Denn lade Prozess für diesen Download abbrechen
+*/
 void DownloadsTableModel::abortDownload ( const QModelIndex &index )
 {
   if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
     return;
 
   downloads.at ( index.row() )->abort();
+  emit modified ( true );
 }
 
+/**
+* Diesen Download aus der Tabelle entfernen
+* und das Objekt löschen.
+*/
 void DownloadsTableModel::removeDownload ( const QModelIndex &index )
 {
   if ( ( index.row() < 0 ) || ( index.row() > downloads.size() ) )
@@ -96,7 +104,8 @@ void DownloadsTableModel::removeDownload ( const QModelIndex &index )
   downloads.removeAt ( index.row() );
   endRemoveRows();
 
-  delete item;
+  item->abort();
+  item->deleteLater();
   emit modified ( true );
 }
 
@@ -106,6 +115,11 @@ void DownloadsTableModel::restartDownload ( const QModelIndex &index )
     return;
 
   downloads.at ( index.row() )->restart ();
+}
+
+const QList<Downloader*> DownloadsTableModel::downloadItems()
+{
+  return downloads;
 }
 
 /**
@@ -261,4 +275,6 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
 }
 
 DownloadsTableModel::~DownloadsTableModel()
-{}
+{
+  downloads.clear();
+}

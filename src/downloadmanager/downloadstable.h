@@ -52,7 +52,7 @@ class DownloadsTable : public QTableView
 
   public:
     DownloadsTable ( QWidget * parent = 0 );
-    void setDownloadItem ( Downloader * );
+    bool setDownloadItem ( Downloader * );
     virtual ~DownloadsTable();
 };
 

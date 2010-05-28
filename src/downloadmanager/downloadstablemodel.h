@@ -68,6 +68,7 @@ class DownloadsTableModel : public QAbstractTableModel
 
   public:
     DownloadsTableModel ( QTableView * parent = 0 );
+    const QList<Downloader*> downloadItems();
     Downloader* rowItem ( int row );
     Qt::ItemFlags flags ( const QModelIndex &index ) const;
     QModelIndex index ( int row, int column, const QModelIndex &parent = QModelIndex() ) const;
