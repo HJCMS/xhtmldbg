@@ -40,6 +40,7 @@ Downloader::Downloader ( QNetworkReply * reply, QWidget * parent )
     , inProgress ( 0 )
     , m_uploadTime ( 0, 0, 0 )
     , m_progressTime ( 0, 0, 0 )
+    , m_metaType ( "application/octet-stream" )
 {
   setObjectName ( QLatin1String ( "downloader" ) );
 }
@@ -54,6 +55,8 @@ void Downloader::openDownload()
 
   m_reply->setParent ( this );
   connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
+  connect ( m_reply, SIGNAL ( metaDataChanged() ),
+            this, SLOT ( getChangedMetaData() ) );
   connect ( m_reply, SIGNAL ( downloadProgress ( qint64, qint64 ) ),
             this, SLOT ( downloadProgress ( qint64, qint64 ) ) );
   connect ( m_reply, SIGNAL ( finished() ), this, SLOT ( finished() ) );
@@ -103,6 +106,15 @@ void Downloader::downloadReadyRead()
   {
     qWarning ( "Error saving: %s", qPrintable ( m_output.errorString() ) );
   }
+}
+
+/**
+* Kopfdaten aus dem Header Ziehen
+*/
+void Downloader::getChangedMetaData()
+{
+  if ( m_reply->hasRawHeader ( "Content-Type" ) )
+    m_metaType = m_reply->rawHeader ( "Content-Type" );
 }
 
 /**
@@ -232,6 +244,11 @@ const QUrl Downloader::url()
 const QString Downloader::destFile()
 {
   return destinationFilePath;
+}
+
+const QString Downloader::metaType()
+{
+  return QString ( m_metaType );
 }
 
 Downloader::~Downloader()

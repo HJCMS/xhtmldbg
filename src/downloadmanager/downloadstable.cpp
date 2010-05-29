@@ -41,6 +41,19 @@ DownloadsTable::DownloadsTable ( QWidget * parent )
   setObjectName ( QLatin1String ( "downloadstable" ) );
   m_model = new DownloadsTableModel ( this );
   setModel ( m_model );
+
+  connect ( this, SIGNAL ( clicked ( const QModelIndex & ) ),
+            this, SLOT ( downloadClicked ( const QModelIndex & ) ) );
+}
+
+/**
+* Bei einem anklicken Klasse @ref Downloader an @ref itemClicked weitergeben.
+*/
+void DownloadsTable::downloadClicked ( const QModelIndex &index )
+{
+  Downloader* item = m_model->rowItem ( index.row() );
+  if ( item )
+    emit itemClicked ( item );
 }
 
 /**

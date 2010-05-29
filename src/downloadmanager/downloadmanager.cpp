@@ -21,6 +21,7 @@
 
 #include "downloadmanager.h"
 #include "downloadstable.h"
+#include "downloadsinfo.h"
 #include "downloader.h"
 #include "autosaver.h"
 
@@ -34,6 +35,7 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QScrollArea>
+#include <QtGui/QSplitter>
 #include <QtGui/QVBoxLayout>
 
 /* QtNetwork */
@@ -55,14 +57,27 @@ DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
   m_scrollArea->setContentsMargins ( 0, 0, 0, 0 );
   m_scrollArea->setWidgetResizable ( true );
 
-  m_table = new DownloadsTable ( m_scrollArea );
-  m_scrollArea->setWidget ( m_table );
+  QSplitter* m_splitter = new QSplitter ( Qt::Vertical, m_scrollArea );
+  m_splitter->setObjectName ( QLatin1String ( "downloadmanagersplitter" ) );
+  m_splitter->setContentsMargins ( 0, 1, 0, 1 );
 
+  // Eigentliche Download Darstellung
+  m_table = new DownloadsTable ( m_splitter );
+  m_splitter->insertWidget ( 0, m_table );
+
+  // Informations Widget
+  m_info = new DownloadsInfo ( m_splitter );
+  m_splitter->insertWidget ( 1, m_info );
+
+  m_scrollArea->setWidget ( m_splitter );
   setWidget ( m_scrollArea );
+
+  connect ( m_table, SIGNAL ( itemClicked ( Downloader * ) ),
+            m_info, SLOT ( setInfoData ( Downloader * ) ) );
 }
 
 /**
-* TODO Offene Download in eine XML Schreiben!
+* TODO Offene Downloads in eine XML Schreiben!
 */
 void DownloadManager::save()
 {

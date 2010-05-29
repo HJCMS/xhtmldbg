@@ -23,6 +23,7 @@
 #define DOWNLOADER_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QFile>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -51,11 +52,13 @@ class Downloader : public QWidget
     QString destinationFilePath;
     QTime m_uploadTime;
     QTime m_progressTime;
+    QByteArray m_metaType;
     QFile m_output;
     void openDownload();
 
   private Q_SLOTS:
     void downloadReadyRead();
+    void getChangedMetaData();
     void downloadProgress ( qint64 bReceived, qint64 bTotal );
     void finished();
 
@@ -75,6 +78,7 @@ class Downloader : public QWidget
     const QString fileSize();
     const QUrl url();
     const QString destFile();
+    const QString metaType();
     ~Downloader();
 };
 

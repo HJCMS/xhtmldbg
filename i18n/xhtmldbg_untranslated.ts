@@ -1157,20 +1157,53 @@ Do you realy want to exit?</source>
 <context>
     <name>DownloadManager</name>
     <message>
-        <location filename="../src/downloadmanager/downloadmanager.cpp" line="48"/>
+        <location filename="../src/downloadmanager/downloadmanager.cpp" line="50"/>
         <source>Downloads</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DownloadsInfo</name>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="56"/>
+        <source>&lt;b&gt;Download Summary&lt;/b&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="63"/>
+        <source>Upload URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="78"/>
+        <source>Destination Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="94"/>
+        <source>Filesize</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="109"/>
+        <source>Mime-Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/downloadmanager/downloadsinfo.cpp" line="166"/>
+        <source>Open with external Application</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DownloadsTable</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="78"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="92"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstable.cpp" line="80"/>
+        <location filename="../src/downloadmanager/downloadstable.cpp" line="94"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1178,32 +1211,32 @@ Do you realy want to exit?</source>
 <context>
     <name>DownloadsTableModel</name>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="227"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="240"/>
         <source>Progress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="233"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="245"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="239"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="250"/>
         <source>Size</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="245"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="255"/>
         <source>Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="251"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="260"/>
         <source>Destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="255"/>
+        <location filename="../src/downloadmanager/downloadstablemodel.cpp" line="264"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>

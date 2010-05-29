@@ -19,45 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DOWNLOADSTABLE_H
-#define DOWNLOADSTABLE_H
+#ifndef DOWNLOADSINFO_H
+#define DOWNLOADSINFO_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QTableView>
+#include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
 class Downloader;
-class DownloadsTableModel;
 
-class DownloadsTable : public QTableView
+class DownloadsInfo : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    DownloadsTableModel* m_model;
+    inline QLabel* spacer();
+    QLabel* uploadUrl;
+    QLabel* destinationPath;
+    QLabel* fileSize;
+    QLabel* mimeType;
 
-  private Q_SLOTS:
-    void downloadClicked ( const QModelIndex & );
-    void abort();
-    void remove();
-    void restart();
-
-  protected:
-    void contextMenuEvent ( QContextMenuEvent * );
-
-  Q_SIGNALS:
-    void itemClicked ( Downloader * );
+  public Q_SLOTS:
+    void setInfoData ( Downloader * );
 
   public:
-    DownloadsTable ( QWidget * parent = 0 );
-    bool setDownloadItem ( Downloader * );
-    virtual ~DownloadsTable();
+    DownloadsInfo ( QWidget * parent = 0 );
+    ~DownloadsInfo();
 };
 
 #endif

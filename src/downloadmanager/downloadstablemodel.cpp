@@ -38,7 +38,6 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
     , table ( parent )
 {
   setObjectName ( QLatin1String ( "downloadstablemodel" ) );
-  table->setMinimumWidth ( 800 );
   table->setAlternatingRowColors ( true );
   // table->verticalHeader()->hide();
   table->setEditTriggers ( QAbstractItemView::NoEditTriggers );
@@ -51,6 +50,7 @@ DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
   m_tableHeader->setCascadingSectionResizes ( true );
   m_tableHeader->setMinimumSectionSize ( metrics.boundingRect ( "00:00:00.000" ).width() );
   m_tableHeader->setDefaultAlignment ( Qt::AlignLeft );
+  m_tableHeader->setResizeMode ( QHeaderView::ResizeToContents );
 }
 
 /**
@@ -237,31 +237,26 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
     {
       case 0:
       {
-        m_tableHeader->setResizeMode ( 0, QHeaderView::ResizeToContents );
         return trUtf8 ( "Progress" );
       }
 
       case 1:
       {
-        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
         return trUtf8 ( "Time" );
       }
 
       case 2:
       {
-        m_tableHeader->setResizeMode ( 1, QHeaderView::ResizeToContents );
         return trUtf8 ( "Size" );
       }
 
       case 3:
       {
-        m_tableHeader->setResizeMode ( 2, QHeaderView::ResizeToContents );
         return trUtf8 ( "Url" );
       }
 
       case 4:
       {
-        m_tableHeader->setResizeMode ( 3, QHeaderView::Stretch );
         return trUtf8 ( "Destination" );
       }
 

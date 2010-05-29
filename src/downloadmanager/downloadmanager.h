@@ -38,6 +38,7 @@
 
 class Downloader;
 class DownloadsTable;
+class DownloadsInfo;
 class AutoSaver;
 
 class DownloadManager : public QDockWidget
@@ -49,6 +50,7 @@ class DownloadManager : public QDockWidget
   private:
     QSettings* cfg;
     DownloadsTable* m_table;
+    DownloadsInfo* m_info;
     AutoSaver *m_autoSaver;
     QPushButton* m_stopButton;
     QPushButton* m_removeButton;
