@@ -79,6 +79,7 @@ class Downloader : public QWidget
     const QUrl url();
     const QString destFile();
     const QString metaType();
+    bool isRunning();
     ~Downloader();
 };
 

@@ -130,17 +130,6 @@ bool Page::prepareContent ( QNetworkReply * dev )
 }
 
 /**
-* Wenn eine Anfrage nicht verabeitet werden kann,
-* gebe eine Meldung an das Hauptfenster weiter.
-*/
-void Page::unsupportedContent ( QNetworkReply * reply )
-{
-  QUrl url ( reply->url() );
-  QString message = trUtf8 ( "Unsupported Request: %1" ).arg ( url.toString() );
-  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
-}
-
-/**
 * Download anfragen an den DonwloadManager weiter leiten.
 * Und zusätzlich eine Meldung an das Nachrichten Fenster senden.
 */

@@ -24,8 +24,9 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QList>
+#include <QtCore/QFileInfo>
 #include <QtCore/QMimeData>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QFontMetrics>
@@ -44,7 +45,7 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   layout->setContentsMargins ( 0, 1, 0, 1 );
   layout->setSpacing ( 2 );
 
-  int gridRow = 0;
+  int gridRow = 0; // inkrementeller Layout Zähler
   Qt::Alignment infoAlign = ( Qt::AlignRight | Qt::AlignVCenter );
   Qt::Alignment dataAlign = ( Qt::AlignLeft | Qt::AlignVCenter );
   QSizePolicy defaultSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred, QSizePolicy::Label );
@@ -124,6 +125,9 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   setLayout ( layout );
 }
 
+/**
+* Doppelpunkt Label das mehrfach verwendet wird.
+*/
 QLabel* DownloadsInfo::spacer()
 {
   QLabel* label = new QLabel ( this );
@@ -136,41 +140,33 @@ QLabel* DownloadsInfo::spacer()
 
 /**
 * Hier werden die Informationen für die Labels gesetzt.
-* Wenn @ref Downloader::metaType() nicht leer ist wird ein
-* Link bei @ref destinationPath erzeugt.
+* @li @ref uploadUrl mit @ref Downloader::url setzen
+* @li @ref fileSize mit @ref Downloader::fileSize setzen
+* @li @ref mimeType mit @ref Downloader::metaType setzen
+* @li @ref destinationPath mit @ref Downloader::destFile
+* Wenn die Zieldatei existiert wird ein Link bei @ref destinationPath erzeugt.
+* Sollte kein Meta Datentype mit "Content-Type" übergeben werden dann wird
+* der Standard Type "application/octet-stream" verwendet!
 */
 void DownloadsInfo::setInfoData ( Downloader * item )
 {
-  // Download Url Info
-  if ( item->url().isValid() )
-    uploadUrl->setText ( item->url().toString() );
-  else
-    uploadUrl->clear();
+  uploadUrl->setText ( item->url().toString() );
+  fileSize->setText ( item->fileSize() );
+  mimeType->setText ( item->metaType() );
+  // Prüfen ob die Ziel Datei existiert etc.
+  QFileInfo info ( item->destFile() );
+  if ( ! info.exists() )
+    return;
 
-  // Datei Größe
-  if ( item->fileSize().isEmpty() )
-    fileSize->clear();
-  else
-    fileSize->setText ( item->fileSize() );
-
-  // Daten Mime-Type von destFile nehmen
-  if ( item->metaType().isEmpty() )
-    mimeType->clear();
-  else
-    mimeType->setText ( item->metaType() );
-
-  // Ziel Datei
-  if ( item->destFile().isEmpty() )
-    destinationPath->clear();
-  else if ( ! item->metaType().isEmpty() )
+  // Wenn der Download noch aktiv ist nur den Pfad anzeigen!
+  if ( item->isRunning() )
   {
-    QString html = QString ( "<a href=\"%2\" type=\"%1\" target=\"_blank\" title=\"%3\">%2</a>" )
-                   .arg ( item->metaType(), item->destFile(), trUtf8 ( "Open with external Application" ) );
-    destinationPath->setText ( html );
-  }
-  else
     destinationPath->setText ( item->destFile() );
-}
+    return;
+  }
 
-DownloadsInfo::~DownloadsInfo()
-{}
+  // Download ist fertig und existiert dann einen Link erzeugen.
+  QString html = QString ( "<a href=\"%2\" type=\"%1\" target=\"_blank\" title=\"%3\">%2</a>" )
+                  .arg ( item->metaType(), item->destFile(), trUtf8 ( "Open with external Application" ) );
+  destinationPath->setText ( html );
+}

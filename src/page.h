@@ -56,7 +56,6 @@ class Page : public QWebPage
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
     bool prepareContent ( QNetworkReply * );
-    void unsupportedContent ( QNetworkReply * );
 
   private Q_SLOTS:
     void downloadContentRequest ( const QNetworkRequest & );

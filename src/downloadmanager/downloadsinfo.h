@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QLabel>
@@ -50,7 +49,6 @@ class DownloadsInfo : public QWidget
 
   public:
     DownloadsInfo ( QWidget * parent = 0 );
-    ~DownloadsInfo();
 };
 
 #endif

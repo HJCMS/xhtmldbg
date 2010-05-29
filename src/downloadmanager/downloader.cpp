@@ -251,5 +251,10 @@ const QString Downloader::metaType()
   return QString ( m_metaType );
 }
 
+bool Downloader::isRunning()
+{
+  return m_reply->isRunning();
+}
+
 Downloader::~Downloader()
 {}
