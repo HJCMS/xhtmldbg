@@ -6,10 +6,12 @@
 
 # norootforbuild
 
+%define _qt_transdir  %(qmake -query QT_INSTALL_TRANSLATIONS)
+
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
 Version:        @XHTMLDBG_VERSION@
-Release:        0
+Release:        1
 License:        GPLv3
 AutoReqProv:    on
 Group:          Productivity/Editors/Other
@@ -20,9 +22,6 @@ BuildRequires:  cmake libtidy-devel QTidy-devel >= @QTIDY_VERSION@
 BuildRequires:  update-desktop-files oxygen-icon-theme >= 4.4.0
 BuildArch:      %{_target_cpu}
 ExclusiveOs:    %{_os}
-
-%define _qt_prefix    %(qmake -query QT_INSTALL_PREFIX)
-%define _qt_transdir  %(qmake -query QT_INSTALL_TRANSLATIONS)
 
 %debug_package
 
@@ -78,7 +77,7 @@ pushd build
 cmake -Wno-dev \
   -DCMAKE_CXX_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_C_FLAGS:STRING="$RPM_OPT_FLAGS" \
-  -DCMAKE_INSTALL_PREFIX:PATH=%{_qt_prefix} \
+  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
   -DCMAKE_BUILD_TYPE:STRING=Debug \
   ../
 
@@ -173,5 +172,5 @@ popd
 test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT
 
 %changelog
-## LATEST @XHTMLDBG_VERSION_STRING@
+## LATEST @XHTMLDBG_VERSION@
 
