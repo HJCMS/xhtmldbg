@@ -1715,6 +1715,28 @@ Reasons : </source>
     </message>
 </context>
 <context>
+    <name>SelfHtmlSidebar</name>
+    <message>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="87"/>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="88"/>
+        <source>Index</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SelfHtmlSidebarPlugin</name>
+    <message>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp" line="65"/>
+        <source>SELFHTML</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp" line="67"/>
+        <source>Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SetTargetDialog</name>
     <message>
         <location filename="../src/settargetdialog/settargetdialog.cpp" line="39"/>
@@ -1968,7 +1990,7 @@ Reasons : </source>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="216"/>
+        <location filename="../src/webviewer.cpp" line="244"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2081,7 +2103,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="807"/>
+        <location filename="../src/window.cpp" line="827"/>
         <source>Download Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
