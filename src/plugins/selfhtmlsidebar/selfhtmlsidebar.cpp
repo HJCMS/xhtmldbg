@@ -24,6 +24,13 @@
 /* QtCore */
 #include <QtCore/QDebug>
 
+/* QtGui */
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QIcon>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QToolButton>
+#include <QtGui/QVBoxLayout>
+
 /* QtDBus */
 #include <QtDBus/QDBusError>
 #include <QtDBus/QDBusMessage>
@@ -40,7 +47,19 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   setObjectName ( QLatin1String ( "selfhtmlsidebar" ) );
   setWindowTitle ( QLatin1String ( "SELFTHML" ) );
 
-  m_webView = new QWebView ( this );
+  QWidget* layer = new QWidget ( this );
+  layer->setContentsMargins ( 1, 2, 1, 2 );
+
+  QVBoxLayout* vLayout = new QVBoxLayout ( layer );
+  vLayout->setObjectName ( QLatin1String ( "vLayout" ) );
+  vLayout->setContentsMargins ( 0, 0, 0, 0 );
+
+  QSizePolicy policy ( QSizePolicy::Expanding, QSizePolicy::Expanding, QSizePolicy::DefaultType );
+
+  m_webView = new QWebView ( layer );
+  m_webView->setObjectName ( QLatin1String ( "slelfhtmlviewer" ) );
+  m_webView->setSizePolicy ( policy );
+  vLayout->addWidget ( m_webView );
 
   QWebSettings* wcfg = m_webView->settings();
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
@@ -55,16 +74,42 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 
   m_webView->page()->setLinkDelegationPolicy ( QWebPage::DelegateExternalLinks );
   m_webView->page()->setForwardUnsupportedContent ( false );
+  openIndex();
 
-  setWidget ( m_webView );
+  QHBoxLayout* hLayout = new QHBoxLayout;
+  hLayout->setObjectName ( QLatin1String ( "hLayout" ) );
+  hLayout->setContentsMargins ( 0, 0, 0, 0 );
+  hLayout->setSpacing ( 5 );
+  vLayout->addLayout ( hLayout );
+
+  QToolButton* startPage = new QToolButton ( layer );
+  startPage->setObjectName ( QLatin1String ( "startpagebutton" ) );
+  startPage->setStatusTip ( trUtf8 ( "Index" ) );
+  startPage->setToolTip ( trUtf8 ( "Index" ) );
+  startPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "user-home" ) ) );
+  hLayout->addWidget ( startPage );
+
+  m_label = new QLabel ( layer );
+  m_label->setObjectName ( QLatin1String ( "infolabel" ) );
+  m_label->setScaledContents ( false );
+  m_label->setOpenExternalLinks ( false );
+  m_label->setMargin ( 1 );
+  hLayout->addWidget ( m_label );
+
+  // Layout abschliessen
+  layer->setLayout ( vLayout );
+  setWidget ( layer );
 
   connect ( m_webView, SIGNAL ( linkClicked ( const QUrl & ) ),
             this, SLOT ( openLinkClicked ( const QUrl & ) ) );
 
-  lastChanged = sideBarUrl();
-  m_webView->load ( lastChanged );
+  connect ( startPage, SIGNAL ( clicked () ), this, SLOT ( openIndex () ) );
 }
 
+/**
+* Sehe nach ob die Globale Variable SELFHTML_SIDEBAR_URL gesetzt ist.
+* Wenn ja diese als Hauptseite setzen.
+*/
 const QUrl SelfHtmlSidebar::sideBarUrl() const
 {
   QUrl fallback ( "http://de.selfhtml.org/navigation/sidebars/html.htm" );
@@ -79,15 +124,24 @@ const QUrl SelfHtmlSidebar::sideBarUrl() const
     return fallback;
 }
 
+/**
+* Startseite Öffnen
+*/
+void SelfHtmlSidebar::openIndex ()
+{
+  lastChanged = sideBarUrl();
+  m_webView->load ( lastChanged );
+}
+
 void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
 {
   // BUG Qt4 and fragment!
   QUrl stripped ( url.toString ( ( QUrl::RemoveQuery | QUrl::RemoveFragment ) ) );
   if ( stripped.host() == sideBarUrl().host() )
   {
-    m_webView->setUrl ( stripped );
-    if ( url.hasFragment() )
-      qDebug() << Q_FUNC_INFO << url.fragment();
+    m_webView->load ( url );
+    // if ( url.hasFragment() )
+    //  m_webView->setUrl ( QString ( "#%1" ).arg ( url.fragment() ) );
   }
   else if ( p_dbus.isConnected() )
   {
@@ -106,6 +160,7 @@ void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
     qWarning ( "Cannot connect to the \"xhtmldbg\" D-Bus session bus." );
     m_webView->setUrl ( url );
   }
+  m_label->setText ( url.toString() );
 }
 
 SelfHtmlSidebar::~SelfHtmlSidebar()

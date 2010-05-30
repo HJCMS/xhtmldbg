@@ -298,7 +298,7 @@ void WebViewer::forward ()
 */
 void WebViewer::setUrl ( const QUrl &u )
 {
-  qDebug() << Q_FUNC_INFO << u;
+  // qDebug() << Q_FUNC_INFO << u;
   activeView()->openUrl ( u );
   url = u;
 }

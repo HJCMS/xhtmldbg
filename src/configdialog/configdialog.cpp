@@ -288,7 +288,7 @@ void ConfigDialog::loadUserAgentList()
   if ( size < 1 )
   {
     QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
-    QString defaultAgent = QString ( "Mozilla/5.0 (compatible; XHTMLDBG/%1; %2, %3) AppleWebKit (KHTML, like Gecko)" )
+    QString defaultAgent = QString ( "Mozilla/5.0 (compatible; XHTMLDBG/%1; %2, %3; X11) AppleWebKit (KHTML, like Gecko)" )
                            .arg ( XHTMLDBG_VERSION_STRING, iso639_1, iso3166 );
     item->setText ( defaultAgent );
     item->setData ( Qt::UserRole, false ); // Muss false sein

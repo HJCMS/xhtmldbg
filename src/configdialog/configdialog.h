@@ -95,7 +95,7 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
 
   public:
     ConfigDialog ( QWidget * parent = 0, QSettings * settings = 0 );
-    ~ConfigDialog();
+    virtual ~ConfigDialog();
 };
 
 #endif

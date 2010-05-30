@@ -17,16 +17,16 @@
     <projectname>xhtmldbg</projectname>
     <projectdirectory>.</projectdirectory>
     <absoluteprojectpath>false</absoluteprojectpath>
-    <description/>
-    <defaultencoding/>
-    <versioncontrol/>
+    <description></description>
+    <defaultencoding></defaultencoding>
+    <versioncontrol></versioncontrol>
   </general>
   <kdevcustomproject>
     <run>
       <directoryradio>executable</directoryradio>
       <mainprogram>/home/heinemann/hjcms/xhtmldbg/ddd.sh</mainprogram>
       <programargs>ide</programargs>
-      <globaldebugarguments/>
+      <globaldebugarguments></globaldebugarguments>
       <globalcwd>/home/heinemann/hjcms/xhtmldbg</globalcwd>
       <useglobalprogram>false</useglobalprogram>
       <terminal>false</terminal>
@@ -45,6 +45,38 @@
       <path>build/CMakeFiles</path>
       <path>build/CMakeFiles/CompilerIdCXX</path>
       <path>build/CMakeFiles/CompilerIdCXX/CMakeCXXCompilerId.cpp</path>
+      <path>build/_CPack_Packages</path>
+      <path>build/_CPack_Packages/Linux</path>
+      <path>build/_CPack_Packages/Linux/DEB</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/include</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0/xhtmldbginterface.h</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0/xhtmldbgplugininfo.h</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/CMakeLists.txt</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworld.cpp</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworld.h</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworldplugin.cpp</path>
+      <path>build/_CPack_Packages/Linux/DEB/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworldplugin.h</path>
+      <path>build/_CPack_Packages/Linux/RPM</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/include</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0/xhtmldbginterface.h</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/include/xhtmldbg-1.0/xhtmldbgplugininfo.h</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/CMakeLists.txt</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworld.cpp</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworld.h</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworldplugin.cpp</path>
+      <path>build/_CPack_Packages/Linux/RPM/xhtmldbg-0.8.5/usr/share/xhtmldbg/plugintemplate/helloworldplugin.h</path>
       <path>build/src</path>
       <path>build/src/configdialog</path>
       <path>build/src/configdialog/ui_configdialogui.h</path>
@@ -60,9 +92,9 @@
     </build>
     <other>
       <prio>0</prio>
-      <otherbin/>
-      <defaulttarget/>
-      <otheroptions/>
+      <otherbin></otherbin>
+      <defaulttarget></defaulttarget>
+      <otheroptions></otheroptions>
       <selectedenvironment>default</selectedenvironment>
       <environments>
         <default/>
@@ -73,9 +105,9 @@
       <numberofjobs>0</numberofjobs>
       <prio>0</prio>
       <dontact>false</dontact>
-      <makebin/>
-      <defaulttarget/>
-      <makeoptions/>
+      <makebin></makebin>
+      <defaulttarget></defaulttarget>
+      <makeoptions></makeoptions>
       <selectedenvironment>default</selectedenvironment>
       <environments>
         <default/>
@@ -84,11 +116,11 @@
   </kdevcustomproject>
   <kdevdebugger>
     <general>
-      <dbgshell/>
-      <gdbpath/>
-      <configGdbScript/>
-      <runShellScript/>
-      <runGdbScript/>
+      <dbgshell></dbgshell>
+      <gdbpath></gdbpath>
+      <configGdbScript></configGdbScript>
+      <runShellScript></runShellScript>
+      <runGdbScript></runGdbScript>
       <breakonloadinglibs>true</breakonloadinglibs>
       <separatetty>false</separatetty>
       <floatingtoolbar>false</floatingtoolbar>
@@ -148,13 +180,13 @@
   </kdevdoctreeview>
   <kdevfilecreate>
     <filetypes>
-      <type icon="source_cpp" ext="cpp" name="C++ Source" create="template" >
+      <type icon="source_cpp" ext="cpp" create="template" name="C++ Source" >
         <descr>A new empty C++ file.</descr>
       </type>
-      <type icon="source_h" ext="h" name="C/C++ Header" create="template" >
+      <type icon="source_h" ext="h" create="template" name="C/C++ Header" >
         <descr>A new empty header file for C or C++.</descr>
       </type>
-      <type icon="template_source" ext="qrc" name="Qt4 Resource" create="template" >
+      <type icon="template_source" ext="qrc" create="template" name="Qt4 Resource" >
         <descr>A new Qt4 Resource file.</descr>
       </type>
     </filetypes>
@@ -197,7 +229,7 @@
       <includePaths>.;</includePaths>
     </codecompletion>
     <creategettersetter>
-      <prefixGet/>
+      <prefixGet></prefixGet>
       <prefixSet>set</prefixSet>
       <prefixVariable>m_,_</prefixVariable>
       <parameterName>theValue</parameterName>
@@ -221,9 +253,11 @@
     </filetemplates>
   </cppsupportpart>
   <ctagspart>
-    <customArguments/>
+    <customArguments></customArguments>
     <customTagfilePath>/home/heinemann/hjcms/xhtmldbg/tags</customTagfilePath>
-    <activeTagsFiles/>
+    <activeTagsFiles>
+      <file>/home/heinemann/hjcms/qtidy/kdevelop/ctags</file>
+    </activeTagsFiles>
   </ctagspart>
   <kdevfileview>
     <tree>
