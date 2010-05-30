@@ -181,15 +181,13 @@ void SelfHtmlSidebar::openConfig ()
 
 void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
 {
-  // BUG Qt4 and fragment!
+  // Lokale anfragen hier verarbeiten!
   QUrl stripped ( url.toString ( ( QUrl::RemoveQuery | QUrl::RemoveFragment ) ) );
   if ( stripped.host() == sideBarUrl().host() )
   {
     m_webView->load ( url );
-    // if ( url.hasFragment() )
-    //  m_webView->setUrl ( QString ( "#%1" ).arg ( url.fragment() ) );
   }
-  else if ( p_dbus.isConnected() )
+  else if ( p_dbus.isConnected() ) // andernfalls an XHTMLDBG senden
   {
     QList<QVariant> args;
     args << lastChanged.toString() << stripped.toString();
@@ -201,7 +199,7 @@ void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
       lastChanged = url;
     }
   }
-  else
+  else // fehler ausgeben und lokal verarbeiten
   {
     qWarning ( "Cannot connect to the \"xhtmldbg\" D-Bus session bus." );
     m_webView->setUrl ( url );
