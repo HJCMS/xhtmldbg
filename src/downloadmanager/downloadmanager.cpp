@@ -77,12 +77,10 @@ DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
 }
 
 /**
-* TODO Offene Downloads in eine XML Schreiben!
+* @todo Offene Downloads in eine Datenbank schreiben!
 */
 void DownloadManager::save()
-{
-  qDebug() << Q_FUNC_INFO << "TODO";
-}
+{}
 
 /**
 * Erstelle ein Object von @ref Downloader und setze die Datenfelder.

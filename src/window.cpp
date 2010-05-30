@@ -64,6 +64,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
 #include <QtCore/QProcess>
+#include <QtCore/QRegExp>
 #include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -89,6 +90,7 @@ Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
     , qTidyIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
+    , schemePattern ( QRegExp ( "^(http|ftp|file)" ) )
 {
   // Standard Fenster optionen
   setObjectName ( "xhtmldbgwindow" );
@@ -247,7 +249,7 @@ Window::Window ( QSettings * settings )
   }
   else if ( recentUrl.isValid() && ! recentUrl.isEmpty() )
   {
-    if ( recentUrl.scheme().contains ( "http" ) )
+    if ( recentUrl.scheme().contains ( schemePattern ) )
       openUrl ( recentUrl );
     else
       m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
@@ -431,6 +433,8 @@ void Window::createToolBars()
             m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
   connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
+  connect ( m_addressToolBar, SIGNAL ( sendMessage ( const QString & ) ),
+            this, SLOT ( setApplicationMessage ( const QString & ) ) );
 
   addToolBar ( m_addressToolBar );
 
@@ -772,7 +776,7 @@ bool Window::openUrl ( const QUrl &url )
   if ( url.scheme().contains ( "file" ) )
     return false; // Siehe openFile
 
-  if ( ! url.scheme().contains ( QRegExp ( "http[s]?" ) ) )
+  if ( ! url.scheme().contains ( schemePattern ) )
     return false;
 
   m_webViewer->setUrl ( url );

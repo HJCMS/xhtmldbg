@@ -23,7 +23,9 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QFileInfo>
 #include <QtCore/QGenericReturnArgument>
+#include <QtCore/QUrl>
 
 XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject *parent )
     : QDBusAbstractAdaptor ( parent )
@@ -45,9 +47,57 @@ bool XHtmldbgAdaptor::registerSubObject ( QObject * object )
   return m_bus->registerObject ( path, object, QDBusConnection::ExportAdaptors );
 }
 
+/**
+* Nachrichten übermittlung
+*/
 void XHtmldbgAdaptor::message ( const QString &mess )
 {
-  qDebug() << Q_FUNC_INFO << mess;
+  QMetaObject::invokeMethod ( parent(), "setApplicationMessage",
+                              Q_ARG ( QString, mess ), Q_ARG ( bool, false ) );
+}
+
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode
+* Importiert, dann weiter an die IDE (Wenn der import nicht
+* fehlgeschlagen ist.) geleitet.
+*/
+bool XHtmldbgAdaptor::setUrl ( const QString &url )
+{
+  QUrl info ( url, QUrl::StrictMode );
+  if ( info.isValid() && info.scheme().contains ( "http" ) )
+  {
+    QMetaObject::invokeMethod ( parent(), "openUrl", Q_ARG ( QUrl, info ) );
+    return true;
+  }
+  return false;
+}
+
+/**
+* Ein Datei öffnen in dem auf die existenz geprüft wird.
+* Das file:// Scheme wird immer eingefügt!
+*/
+bool XHtmldbgAdaptor::setFile ( const QString &url )
+{
+  QFileInfo file ( url );
+  if ( file.exists() && ! file.isExecutable() )
+  {
+    QUrl u ( file.absoluteFilePath() );
+    u.setScheme( "file" );
+    QMetaObject::invokeMethod ( parent(), "openFile", Q_ARG ( QUrl, u ) );
+    return true;
+  }
+  return false;
+}
+
+/**
+* XHMLT/HTML Quelltext an die Ansicht übergeben.
+*/
+bool XHtmldbgAdaptor::setSource ( const QString &xhtml )
+{
+  bool b = false;
+  QMetaObject::invokeMethod ( parent(), "setSource", Q_RETURN_ARG ( bool, b ),
+                              Q_ARG ( QString, xhtml ) );
+  return b;
 }
 
 XHtmldbgAdaptor::~XHtmldbgAdaptor()

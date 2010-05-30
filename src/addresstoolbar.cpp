@@ -53,7 +53,7 @@ AddressEdit::~AddressEdit()
 
 AddressToolBar::AddressToolBar ( QWidget * parent )
     : QToolBar ( parent )
-    , urlPattern ( QRegExp ( "^(http|file)" ) )
+    , schemePattern ( QRegExp ( "^(http|file)" ) )
 {
   setObjectName ( QLatin1String ( "addresstoolbar" ) );
   setWindowTitle ( trUtf8 ( "Address" ) );
@@ -122,7 +122,7 @@ void AddressToolBar::validatePath ( const QString &address )
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( !url.scheme().contains ( urlPattern ) )
+  if ( !url.scheme().contains ( schemePattern ) )
     return;
 
   goToIndex->setEnabled ( ( ( url.path().length() > 1 ) ? true : false ) );
@@ -139,7 +139,7 @@ void AddressToolBar::urlToHostIndex ()
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( !url.scheme().contains ( urlPattern ) )
+  if ( !url.scheme().contains ( schemePattern ) )
     return;
 
   QUrl::FormattingOptions flags = ( QUrl::RemovePath | QUrl::RemoveQuery | QUrl::RemoveFragment );
@@ -157,7 +157,10 @@ void AddressToolBar::checkInput ()
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( !url.scheme().contains ( urlPattern ) )
+  if ( url.scheme().contains ( "ftp" ) )
+    emit sendMessage ( trUtf8 ( "Sorry: the ftp protocol is currently not supported" ) );
+
+  if ( !url.scheme().contains ( schemePattern ) )
     return;
 
   emit urlChanged ( url );

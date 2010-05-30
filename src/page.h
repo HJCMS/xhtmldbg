@@ -58,6 +58,7 @@ class Page : public QWebPage
     bool prepareContent ( QNetworkReply * );
 
   private Q_SLOTS:
+    void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
     void triggerSelections();
     void replyFinished();

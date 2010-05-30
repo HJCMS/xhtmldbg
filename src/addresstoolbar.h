@@ -54,7 +54,7 @@ class AddressToolBar : public QToolBar
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    const QRegExp urlPattern;
+    const QRegExp schemePattern;
     QAction *goToIndex;
     AddressEdit* m_addressEdit;
     QStringList historylist;
@@ -66,6 +66,7 @@ class AddressToolBar : public QToolBar
 
   Q_SIGNALS:
     void urlChanged ( const QUrl & );
+    void sendMessage ( const QString & );
 
   public Q_SLOTS:
     void setUrl ( const QUrl & );

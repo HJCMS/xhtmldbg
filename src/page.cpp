@@ -50,6 +50,8 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
     , xhtml ( QString::null )
 {
   setObjectName ( "page" );
+  // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
+  setForwardUnsupportedContent ( true );
 
   setNetworkAccessManager ( m_netManager );
 
@@ -63,6 +65,8 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
+  connect ( this, SIGNAL ( unsupportedContent ( QNetworkReply * ) ),
+            this, SLOT ( unsupportedContentRequest ( QNetworkReply * ) ) );
   connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
             this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
 }
@@ -127,6 +131,18 @@ bool Page::prepareContent ( QNetworkReply * dev )
   xhtml = codec->toUnicode ( data );
   xhtmldbgmain::instance()->mainWindow()->setSource ( xhtml );
   return true;
+}
+
+/**
+* Wenn der unbekannte Datentype einen "Content-Type" enthält wird
+* die anfrage an den DonwloadManager weitergeleitet.
+* @note Diese Methode arbeitet nur wenn @ref QWebPage::setForwardUnsupportedContent true ist.
+*/
+void Page::unsupportedContentRequest ( QNetworkReply * nr )
+{
+  QUrl url ( nr->request().url().toString ( QUrl::RemovePassword ), QUrl::StrictMode );
+  if ( nr->hasRawHeader ( "Content-Type" ) && url.isValid() )
+    downloadContentRequest ( nr->request() );
 }
 
 /**

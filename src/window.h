@@ -87,6 +87,8 @@ class Window : public QMainWindow
   private:
     QSettings* m_settings;
     const QIcon qTidyIcon;
+    // URL Scheme Validate
+    const QRegExp schemePattern;
     // Network Manager
     NetworkAccessManager* m_netManager;
     // Download Manager
@@ -185,12 +187,17 @@ class Window : public QMainWindow
 
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );
+    // supported by DBus Adaptor
     void setApplicationMessage ( const QString &, bool warning = false );
+    // supported by DBus Adaptor
     bool setSource ( const QString & );
     void checkStyleSheet ( const QUrl & );
+    // supported by DBus Adaptor
     bool openFile ( const QUrl & );
+    // supported by DBus Adaptor
     bool openUrl ( const QUrl & );
     void visibleSourceChanged();
+    // used by QWebPage ...
     void downloadRequest ( const QNetworkRequest & );
 
   public:

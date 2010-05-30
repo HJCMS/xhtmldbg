@@ -1,3 +1,6 @@
+- 2010/05/25 Juergen Heinemann (Undefined)
+  Bugfix: Minor bugs were fixed in plugin interface.
+
 - 2010/05/19 Juergen Heinemann (Undefined)
   Add: cmake Option XHTMLDBG_BUILD_VERBOSE:BOOL for more Debugging Messages with -DCMAKE_BUILD_TYPE:STRING=Debug
   Add: Plugin Interface
