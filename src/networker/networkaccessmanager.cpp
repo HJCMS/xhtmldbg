@@ -288,6 +288,8 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         QIODevice * data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
+  setUrl ( QUrl( request.url().toString( QUrl::RemoveFragment ) ) );
+
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   reply->setSslConfiguration ( sslConfig );
@@ -309,7 +311,6 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 
 QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
-  setUrl ( req.url() );
   return createRequest ( QNetworkAccessManager::GetOperation, req );
 }
 
