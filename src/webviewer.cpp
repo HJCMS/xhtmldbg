@@ -181,6 +181,34 @@ void WebViewer::setFavicon()
 }
 
 /**
+* Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl
+* noch nicht geöffnet ist.
+*/
+bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
+{
+  // Wenn die Aktuelle page diese URL enthält dann setUrl und fertig.
+  if ( activeView()->url() == oldUrl )
+  {
+    setUrl ( newUrl );
+    return true;
+  }
+  // Suche nach einer Page mit @param oldUrl und setze die URL
+  for ( int i = 0; i < count(); i++ )
+  {
+    Viewer* mw = qobject_cast<Viewer*> ( widget ( i ) );
+    if ( mw && mw->url() == oldUrl )
+    {
+      mw->setUrl ( newUrl );
+      setCurrentIndex ( i );
+      return true;
+    }
+  }
+  // Wenn keine Page mit oldURL vorhanden dann abbrechen.
+  // Siehe Window::setPageUrl
+  return false;
+}
+
+/**
 * Ein neues Tab erstellen und die Signale hierfür neu Initialsieren.
 */
 void WebViewer::addViewerTab ( Viewer *view )

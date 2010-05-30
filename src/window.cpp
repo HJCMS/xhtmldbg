@@ -784,6 +784,26 @@ bool Window::openUrl ( const QUrl &url )
 }
 
 /**
+* Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl
+* noch nicht geöffnet ist.
+* http://webmast.jh/selfhtml/navigation/sidebars/html.htm 
+* http://webmast.jh/selfhtml/html/grafiken/verweis_sensitive.htm#definieren
+*/
+bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
+{
+  if ( ! oldUrl.isValid() || ! newUrl.isValid() )
+    return false;
+
+  if ( ! m_webViewer->setViewerTabByUrl ( oldUrl, newUrl ) )
+  {
+    m_webViewer->addViewerTab ();
+    return openUrl ( newUrl );
+  }
+  else
+    return true;
+}
+
+/**
 * Methode zum prüfen ob das Quelltext Fenster sichtbar ist.
 * Wenn nicht wird es nach vorne geholt.
 */

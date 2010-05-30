@@ -196,6 +196,8 @@ class Window : public QMainWindow
     bool openFile ( const QUrl & );
     // supported by DBus Adaptor
     bool openUrl ( const QUrl & );
+    // supported by DBus Adaptor
+    bool setPageUrl ( const QUrl &, const QUrl & );
     void visibleSourceChanged();
     // used by QWebPage ...
     void downloadRequest ( const QNetworkRequest & );

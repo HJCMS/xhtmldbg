@@ -27,11 +27,12 @@
 #include <QtCore/QGenericReturnArgument>
 #include <QtCore/QUrl>
 
-XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject *parent )
+XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject * parent )
     : QDBusAbstractAdaptor ( parent )
+    , service ( "de.hjcms.xhtmldbg" )
 {
   m_bus = new QDBusConnection ( QDBusConnection::sessionBus() );
-  m_bus->registerService ( "de.hjcms.xhtmldbg" );
+  m_bus->registerService ( service );
   m_bus->registerObject ( "/xhtmldbg", parent, QDBusConnection::ExportAdaptors );
   setAutoRelaySignals ( false );
 }
@@ -60,14 +61,18 @@ void XHtmldbgAdaptor::message ( const QString &mess )
 * Die übergebene Zeichenketten URL wird mit QUrl::StrictMode
 * Importiert, dann weiter an die IDE (Wenn der import nicht
 * fehlgeschlagen ist.) geleitet.
+* Diese Methode öffnet eine NeueSeite wenn die alte URL nicht Vorhanden ist!
 */
-bool XHtmldbgAdaptor::setUrl ( const QString &url )
+bool XHtmldbgAdaptor::setUrl ( const QString &oldUrl, const QString &newUrl )
 {
-  QUrl info ( url, QUrl::StrictMode );
+  bool b = false;
+  QUrl info ( newUrl, QUrl::StrictMode );
   if ( info.isValid() && info.scheme().contains ( "http" ) )
   {
-    QMetaObject::invokeMethod ( parent(), "openUrl", Q_ARG ( QUrl, info ) );
-    return true;
+    QUrl old ( oldUrl );
+    QMetaObject::invokeMethod ( parent(), "setPageUrl", Q_RETURN_ARG ( bool, b ),
+                                Q_ARG ( QUrl, old ), Q_ARG ( QUrl, info ) );
+    return b;
   }
   return false;
 }
@@ -78,13 +83,14 @@ bool XHtmldbgAdaptor::setUrl ( const QString &url )
 */
 bool XHtmldbgAdaptor::setFile ( const QString &url )
 {
+  bool b = false;
   QFileInfo file ( url );
   if ( file.exists() && ! file.isExecutable() )
   {
     QUrl u ( file.absoluteFilePath() );
-    u.setScheme( "file" );
-    QMetaObject::invokeMethod ( parent(), "openFile", Q_ARG ( QUrl, u ) );
-    return true;
+    u.setScheme ( "file" );
+    QMetaObject::invokeMethod ( parent(), "openFile", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    return b;
   }
   return false;
 }

@@ -43,7 +43,8 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 "   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"true\"/>\n"
 " </method>\n"
 " <method name=\"setUrl\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"url\" />\n"
+"   <arg direction=\"in\" type=\"s\" name=\"oldUrl\" />\n"
+"   <arg direction=\"in\" type=\"s\" name=\"newUrl\" />\n"
 "   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"false\"/>\n"
 " </method>\n"
 " <method name=\"setFile\">\n"
@@ -58,6 +59,7 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 "" )
 
   private:
+    const QString service;
     QDBusConnection* m_bus;
 
   public:
@@ -67,7 +69,7 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 
   public Q_SLOTS:
     Q_NOREPLY void message ( const QString &mess );
-    bool setUrl ( const QString &url );
+    bool setUrl ( const QString &oldUrl, const QString &newUrl );
     bool setFile ( const QString &url );
     bool setSource ( const QString &xhtml );
 

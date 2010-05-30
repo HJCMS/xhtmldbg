@@ -12,6 +12,8 @@ IF (XHTMLDBG_BETA_EXTENSION)
   ENDIF (UNIX AND NOT APPLE)
 ENDIF (XHTMLDBG_BETA_EXTENSION)
 
+ADD_SUBDIRECTORY (selfhtmlsidebar)
+
 ## Development Template Data
 INSTALL (FILES
   template/CMakeLists.txt

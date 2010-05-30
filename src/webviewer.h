@@ -80,6 +80,7 @@ class WebViewer : public QTabWidget
 
   public:
     WebViewer ( QWidget * parent = 0 );
+    bool setViewerTabByUrl ( const QUrl &, const QUrl & );
     const QUrl getUrl();
     const QString toHtml();
     const QWebElement toWebElement();
