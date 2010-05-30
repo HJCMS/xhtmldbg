@@ -1717,9 +1717,20 @@ Reasons : </source>
 <context>
     <name>SelfHtmlSidebar</name>
     <message>
-        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="87"/>
-        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="88"/>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="91"/>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="92"/>
         <source>Index</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="105"/>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="106"/>
+        <source>Configure Startpage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="147"/>
+        <source>Configure the SELFHTML Index HTML</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

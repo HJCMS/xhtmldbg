@@ -25,6 +25,7 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
+#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -46,13 +47,16 @@ class SelfHtmlSidebar : public QDockWidget
   private:
     const QString service;
     QDBusConnection p_dbus;
+    QSettings* cfg;
     QWebView* m_webView;
     const QUrl sideBarUrl() const;
     QUrl lastChanged;
     QLabel* m_label;
+    void openConfigDialog ();
 
   private Q_SLOTS:
     void openIndex ();
+    void openConfig ();
     void openLinkClicked ( const QUrl &url );
 
   public:

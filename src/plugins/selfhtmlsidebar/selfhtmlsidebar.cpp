@@ -25,8 +25,11 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
+#include <QtGui/QDialog>
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
+#include <QtGui/QLineEdit>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
@@ -43,6 +46,7 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
     : QDockWidget ( parent )
     , service ( "de.hjcms.xhtmldbg" )
     , p_dbus ( QDBusConnection::connectToBus ( QDBusConnection::SessionBus, "de.hjcms.xhtmldbg" ) )
+    , cfg ( new QSettings ( QSettings::NativeFormat, QSettings::UserScope, "hjcms.de", "xhtmldbg", this ) )
 {
   setObjectName ( QLatin1String ( "selfhtmlsidebar" ) );
   setWindowTitle ( QLatin1String ( "SELFTHML" ) );
@@ -96,6 +100,13 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   m_label->setMargin ( 1 );
   hLayout->addWidget ( m_label );
 
+  QToolButton* configPage = new QToolButton ( layer );
+  configPage->setObjectName ( QLatin1String ( "configurebutton" ) );
+  configPage->setStatusTip ( trUtf8 ( "Configure Startpage" ) );
+  configPage->setToolTip ( trUtf8 ( "Configure Startpage" ) );
+  configPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "configure" ) ) );
+  hLayout->addWidget ( configPage );
+
   // Layout abschliessen
   layer->setLayout ( vLayout );
   setWidget ( layer );
@@ -104,6 +115,7 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
             this, SLOT ( openLinkClicked ( const QUrl & ) ) );
 
   connect ( startPage, SIGNAL ( clicked () ), this, SLOT ( openIndex () ) );
+  connect ( configPage, SIGNAL ( clicked () ), this, SLOT ( openConfig () ) );
 }
 
 /**
@@ -112,16 +124,42 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 */
 const QUrl SelfHtmlSidebar::sideBarUrl() const
 {
-  QUrl fallback ( "http://de.selfhtml.org/navigation/sidebars/html.htm" );
-  QString sitebarurl ( getenv ( "SELFHTML_SIDEBAR_URL" ) );
-  if ( sitebarurl.isEmpty() )
-    return fallback;
+  QString selfhtml ( "http://de.selfhtml.org/navigation/sidebars/html.htm" );
+  QString sUrl = cfg->value ( QLatin1String ( "Plugins/SelfHtmlSidebarUrl" ), selfhtml ).toString();
+  QUrl url ( sUrl, QUrl::StrictMode );
+  return url;
+}
 
-  QUrl url ( sitebarurl, QUrl::StrictMode );
-  if ( url.isValid() )
-    return url;
-  else
-    return fallback;
+/**
+* Konfigurations Dialog Erstellen
+*/
+void SelfHtmlSidebar::openConfigDialog ()
+{
+  QString selfhtml ( "http://de.selfhtml.org/navigation/sidebars/html.htm" );
+  QString sUrl = cfg->value ( QLatin1String ( "Plugins/SelfHtmlSidebarUrl" ), selfhtml ).toString();
+  QDialog* dialog = new QDialog ( this );
+  dialog->setObjectName ( QLatin1String ( "configselfhtmldialog" ) );
+  dialog->setMinimumWidth ( 350 );
+  dialog->setSizeGripEnabled ( true );
+
+  QVBoxLayout* layout = new QVBoxLayout ( dialog );
+
+  layout->addWidget ( new QLabel ( trUtf8( "Configure the SELFHTML Index HTML" ), dialog ) );
+
+  QLineEdit* setUrl = new QLineEdit ( sUrl, dialog );
+  layout->addWidget ( setUrl );
+
+  QDialogButtonBox* box = new QDialogButtonBox ( ( QDialogButtonBox::Ok | QDialogButtonBox::Cancel ),
+          Qt::Horizontal, dialog );
+  connect ( box, SIGNAL ( accepted() ), dialog, SLOT ( accept() ) );
+  connect ( box, SIGNAL ( rejected() ), dialog, SLOT ( reject() ) );
+
+  layout->addWidget ( box );
+
+  if ( dialog->exec() == QDialog::Accepted )
+    cfg->setValue ( QLatin1String ( "Plugins/SelfHtmlSidebarUrl" ), setUrl->text() );
+
+  delete dialog;
 }
 
 /**
@@ -131,6 +169,14 @@ void SelfHtmlSidebar::openIndex ()
 {
   lastChanged = sideBarUrl();
   m_webView->load ( lastChanged );
+}
+
+/**
+* Konfiguration Öffnen
+*/
+void SelfHtmlSidebar::openConfig ()
+{
+  openConfigDialog();
 }
 
 void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )

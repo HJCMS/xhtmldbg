@@ -20,3 +20,6 @@ hjcms.de=2
 [TrustedCertsHosts]
 1\host=hjcms.de
 size=1
+
+[Plugins]
+SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
