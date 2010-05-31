@@ -23,13 +23,15 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
+#include <QtCore/QMargins>
 
 /* QtGui */
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
-#include <QtGui/QLineEdit>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
@@ -60,6 +62,16 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 
   QSizePolicy policy ( QSizePolicy::Expanding, QSizePolicy::Expanding, QSizePolicy::DefaultType );
 
+  m_titleLabel = new QLabel ( layer );
+  m_titleLabel->setObjectName ( QLatin1String ( "titlelabel" ) );
+  m_titleLabel->setScaledContents ( false );
+  m_titleLabel->setWordWrap ( true );
+  m_titleLabel->setOpenExternalLinks ( false );
+  m_titleLabel->setMargin ( 1 );
+  m_titleLabel->setTextFormat ( Qt::PlainText );
+  m_titleLabel->setTextInteractionFlags ( Qt::NoTextInteraction );
+  vLayout->addWidget ( m_titleLabel );
+
   m_webView = new QWebView ( layer );
   m_webView->setObjectName ( QLatin1String ( "slelfhtmlviewer" ) );
   m_webView->setSizePolicy ( policy );
@@ -86,6 +98,14 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   hLayout->setSpacing ( 5 );
   vLayout->addLayout ( hLayout );
 
+  QToolButton* configPage = new QToolButton ( layer );
+  configPage->setObjectName ( QLatin1String ( "configurebutton" ) );
+  configPage->setStatusTip ( trUtf8 ( "Configure Startpage" ) );
+  configPage->setToolTip ( trUtf8 ( "Configure Startpage" ) );
+  configPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "configure" ) ) );
+  hLayout->addWidget ( configPage );
+  hLayout->addStretch ( 1 );
+
   QToolButton* startPage = new QToolButton ( layer );
   startPage->setObjectName ( QLatin1String ( "startpagebutton" ) );
   startPage->setStatusTip ( trUtf8 ( "Index" ) );
@@ -93,27 +113,34 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   startPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "user-home" ) ) );
   hLayout->addWidget ( startPage );
 
-  m_label = new QLabel ( layer );
-  m_label->setObjectName ( QLatin1String ( "infolabel" ) );
-  m_label->setScaledContents ( false );
-  m_label->setOpenExternalLinks ( false );
-  m_label->setMargin ( 1 );
-  hLayout->addWidget ( m_label );
+  searchLine = new QLineEdit ( layer );
+  hLayout->addWidget ( searchLine );
 
-  QToolButton* configPage = new QToolButton ( layer );
-  configPage->setObjectName ( QLatin1String ( "configurebutton" ) );
-  configPage->setStatusTip ( trUtf8 ( "Configure Startpage" ) );
-  configPage->setToolTip ( trUtf8 ( "Configure Startpage" ) );
-  configPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "configure" ) ) );
-  hLayout->addWidget ( configPage );
+  QToolButton* searchButton = new QToolButton ( layer );
+  searchButton->setObjectName ( QLatin1String ( "searchbutton" ) );
+  searchButton->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-find" ) ) );
+  hLayout->addWidget ( searchButton );
+
+  m_urlLabel = new QLabel ( layer );
+  m_urlLabel->setObjectName ( QLatin1String ( "infolabel" ) );
+  m_urlLabel->setScaledContents ( false );
+  m_urlLabel->setWordWrap ( true );
+  m_urlLabel->setOpenExternalLinks ( false );
+  m_urlLabel->setMargin ( 1 );
+  m_urlLabel->setTextFormat ( Qt::PlainText );
+  m_urlLabel->setTextInteractionFlags ( Qt::NoTextInteraction );
+  vLayout->addWidget ( m_urlLabel );
 
   // Layout abschliessen
   layer->setLayout ( vLayout );
   setWidget ( layer );
 
+  connect ( m_webView, SIGNAL ( titleChanged ( const QString & ) ),
+            m_titleLabel, SLOT ( setText ( const QString & ) ) );
   connect ( m_webView, SIGNAL ( linkClicked ( const QUrl & ) ),
             this, SLOT ( openLinkClicked ( const QUrl & ) ) );
-
+  connect ( searchLine, SIGNAL ( returnPressed () ), this, SLOT ( findKeyword () ) );
+  connect ( searchButton, SIGNAL ( clicked () ), this, SLOT ( findKeyword () ) );
   connect ( startPage, SIGNAL ( clicked () ), this, SLOT ( openIndex () ) );
   connect ( configPage, SIGNAL ( clicked () ), this, SLOT ( openConfig () ) );
 }
@@ -144,7 +171,7 @@ void SelfHtmlSidebar::openConfigDialog ()
 
   QVBoxLayout* layout = new QVBoxLayout ( dialog );
 
-  layout->addWidget ( new QLabel ( trUtf8( "Configure the SELFHTML Index HTML" ), dialog ) );
+  layout->addWidget ( new QLabel ( trUtf8 ( "Configure the SELFHTML Index HTML" ), dialog ) );
 
   QLineEdit* setUrl = new QLineEdit ( sUrl, dialog );
   layout->addWidget ( setUrl );
@@ -179,6 +206,12 @@ void SelfHtmlSidebar::openConfig ()
   openConfigDialog();
 }
 
+/**
+* Wenn ein Link angeklickt wird nachsehen ob es sich um einen Externe
+* Url handelt, oder ob es ein Link ist der von dieser Basis Url ausgeht.
+* Wenn von der Basis Url dann im selben Viewer anzeigen andernfalls
+* via DBus an XHTMLDBG senden.
+*/
 void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
 {
   // Lokale anfragen hier verarbeiten!
@@ -201,10 +234,39 @@ void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
   }
   else // fehler ausgeben und lokal verarbeiten
   {
-    qWarning ( "Cannot connect to the \"xhtmldbg\" D-Bus session bus." );
+    qWarning ( "(XHTMLDBG:SELFHTML) Cannot connect to the \"xhtmldbg\" D-Bus session bus." );
     m_webView->setUrl ( url );
   }
-  m_label->setText ( url.toString() );
+  m_urlLabel->setText ( url.toString() );
+}
+
+/**
+* Schlüsselwort Suche
+*/
+void SelfHtmlSidebar::findKeyword ( const QString &word )
+{
+  QString words = ( word.isEmpty() ) ? searchLine->text() : word;
+  if ( words.isEmpty() )
+    return;
+
+  m_webView->findText ( QString(), QWebPage::HighlightAllOccurrences );
+  if ( m_webView->findText ( words, QWebPage::HighlightAllOccurrences ) )
+  {
+    // TODO Scroll to Keywords
+  }
+}
+
+/**
+* Verhindern das sich @ref QDockWidget::SelfHtmlSidebar bei überlangen
+* Adressen und Titel in den QLabel's Automatisch anpasst.
+* @note Das Hauptfenster darf nicht Automtatisch verändert werden!
+*/
+void SelfHtmlSidebar::resizeEvent ( QResizeEvent * ev )
+{
+  QMargins m = contentsMargins();
+  int mw = ( ev->size().width() - ( m_urlLabel->margin() * 2 ) - ( m.left() + m.right() ) );
+  m_titleLabel->setMaximumWidth ( mw );
+  m_urlLabel->setMaximumWidth ( mw );
 }
 
 SelfHtmlSidebar::~SelfHtmlSidebar()

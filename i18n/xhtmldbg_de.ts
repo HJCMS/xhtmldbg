@@ -1738,7 +1738,7 @@ Gründe : </translation>
     <message>
         <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="147"/>
         <source>Configure the SELFHTML Index HTML</source>
-        <translation>KOnfiguriere die SELFHTML Startseite</translation>
+        <translation>Konfiguriere die SELFHTML Startseite</translation>
     </message>
 </context>
 <context>

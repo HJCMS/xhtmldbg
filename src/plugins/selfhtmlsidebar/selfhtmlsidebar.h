@@ -30,6 +30,8 @@
 /* QtGui */
 #include <QtGui/QDockWidget>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QResizeEvent>
 #include <QtGui/QWidget>
 
 /* QtDBus */
@@ -51,13 +53,19 @@ class SelfHtmlSidebar : public QDockWidget
     QWebView* m_webView;
     const QUrl sideBarUrl() const;
     QUrl lastChanged;
-    QLabel* m_label;
+    QLineEdit* searchLine;
+    QLabel* m_titleLabel;
+    QLabel* m_urlLabel;
     void openConfigDialog ();
 
   private Q_SLOTS:
     void openIndex ();
     void openConfig ();
     void openLinkClicked ( const QUrl &url );
+    void findKeyword ( const QString &word = QString() );
+
+  protected:
+    void resizeEvent ( QResizeEvent * );
 
   public:
     SelfHtmlSidebar ( QWidget * parent = 0 );
