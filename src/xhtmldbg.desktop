@@ -1,11 +1,20 @@
 [Desktop Entry]
 Type=Application
-Exec=xhtmldbg %u
-Name=XHTML Debugger
-Name[de]=XHTML Debugger
-GenericName=xhtmldbg
-Comment=A HTML/XHTML Markup Parser
+Name=xhtmldbg
+GenericName=XHTML/HTML Debugger
+GenericName[br]=XHTML/HTML Dizraener
+GenericName[da]=XHTML/HTML Afluser
+GenericName[es]=XHTML/HTML Depurador
+GenericName[fi]=XHTML/HTML Debuggeri
+GenericName[fr]=XHTML/HTML Débogueur
+GenericName[is]=XHTML/HTML Aflúsun
+GenericName[no]=XHTML/HTML Avluser
+GenericName[pt]=XHTML/HTML Depurador
+GenericName[pt_BR]=XHTML/HTML Depurador
+GenericName[ro]=XHTML/HTML Depanator
+Comment=A XHTML/HTML Markup Parser
 Comment[de]=Ein HTML/XHTML Hypertext Syntaxanalysierer
+Exec=xhtmldbg %u
 MimeType=text/html;
 Icon=xhtmldbg
 Categories=Development;Debugger;
@@ -15,3 +24,4 @@ X-DBUS-ServiceName=de.hjcms.xhtmldbg
 X-KDE-StartupNotify=true
 X-KDE-InitialPreference=2
 X-KDE-AutoEmbed=false
+## EOF
