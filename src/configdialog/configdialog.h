@@ -38,6 +38,8 @@
 
 #include "ui_configdialogui.h"
 
+class UserAgentEditor;
+
 class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
 {
     Q_OBJECT
@@ -46,6 +48,7 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
 
   private:
     QSettings* cfg;
+    UserAgentEditor* m_userAgentEditor;
     QSslConfiguration ssl;
     QString highlightBackgroundColor;
     QString defaultBackgroundStyle;
@@ -62,18 +65,13 @@ class ConfigDialog : public QDialog, protected Ui::ConfigDialogUi
     // load
     void loadHeaderDefinitions();
     void loadUntrustedHostsWhiteList();
-    void loadUserAgentList();
 
     // save
     void saveHeaderDefinitions();
     void saveUntrustedHostsWhiteList();
-    void saveUserAgentList();
 
   private Q_SLOTS:
     void addCookieAccess();
-    void userAgentForEdit ( QListWidgetItem * );
-    void addUserAgent();
-    void delUserAgent();
     void addTrustedHost();
     void delTrustedHost();
     void addHeaderItem();

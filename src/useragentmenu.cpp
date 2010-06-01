@@ -64,15 +64,17 @@ void UserAgentMenu::addAgentActions()
   for ( int i = 0; i < size; ++i )
   {
     cfg->setArrayIndex ( i );
-    QString ag = cfg->value ( "agent" ).toString();
-    QString ti = cfg->value ( "title" ).toString();
-    if ( ag.isEmpty() || ti.isEmpty() )
+    QString title = cfg->value ( "name" ).toString();
+    QString tokens = cfg->value ( "agent" ).toString();
+    tokens.append ( " " );
+    tokens.append ( cfg->value ( "tokens" ).toString() );
+    if ( title.isEmpty() )
       continue;
 
-    QAction* ac = addAction ( agentIcon, ti );
-    ac->setToolTip ( ag );
+    QAction* ac = addAction ( agentIcon, title );
+    ac->setToolTip ( tokens );
     connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
-    m_signalMapper->setMapping ( ac, ag );
+    m_signalMapper->setMapping ( ac, tokens );
   }
   cfg->endArray();
 }

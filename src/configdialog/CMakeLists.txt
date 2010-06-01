@@ -1,5 +1,7 @@
 # CMakeLists.txt
 
+ADD_SUBDIRECTORY (useragenteditor)
+
 SET (configdialog_UI
   configdialogui.ui
 )
@@ -25,6 +27,7 @@ ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}/useragenteditor
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
@@ -39,7 +42,7 @@ TARGET_LINK_LIBRARIES (ConfigDialog
   ${QT_QTMAIN_LIBRARY}
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  UserAgentsEditor
 )
 
 ## EOF
- 

@@ -23,6 +23,7 @@
 #include "configdialog.h"
 #include "editcookiestable.h"
 #include "proxysettings.h"
+#include "useragenteditor.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -94,9 +95,15 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   removeFromWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
   addToWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
   clearWhiteListBtn->setIcon ( icon.fromTheme ( QLatin1String ( "archive-remove" ) ) );
-  // UserAgent Buttons
-  addAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-add" ) ) );
-  removeAgentBtn->setIcon ( icon.fromTheme ( QLatin1String ( "list-remove" ) ) );
+
+  // UserAgentEditor
+  QHBoxLayout* userAgentLayout = new QHBoxLayout ( userAgentWidget );
+  userAgentLayout->setObjectName ( QLatin1String ( "useragentlayout" ) );
+  userAgentLayout->setContentsMargins ( 0, 0, 0, 0 );
+  m_userAgentEditor = new UserAgentEditor ( userAgentWidget, cfg );
+  userAgentLayout->addWidget ( m_userAgentEditor );
+  userAgentWidget->setLayout ( userAgentLayout );
+  userAgentWidget->setContentsMargins ( 0, 0, 0, 0 );
 
   // QTable::headersTable
   // QToolButton::addHeaderTableItem
@@ -152,6 +159,7 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   // Sub Widget's
   connect ( cookiesTable, SIGNAL ( modified() ), this, SLOT ( setModified() ) );
   connect ( proxySettings, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
+  connect ( m_userAgentEditor, SIGNAL ( modified () ), this, SLOT ( setModified() ) );
 
   // Buttons
   connect ( addCookieArrangement, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
@@ -171,11 +179,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
             this, SLOT ( setDomTreeBackgroundColor() ) );
   connect ( openBorderHighlightSettings, SIGNAL ( clicked() ),
             this, SLOT ( setDomTreeBorderColor() ) );
-  // UserAgents
-  connect ( userAgentList, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
-            this, SLOT ( userAgentForEdit ( QListWidgetItem * ) ) );
-  connect ( addAgentBtn, SIGNAL ( clicked() ), this, SLOT ( addUserAgent() ) );
-  connect ( removeAgentBtn, SIGNAL ( clicked() ), this, SLOT ( delUserAgent() ) );
 
   // Dialog Buttons
   connect ( m_buttonSave, SIGNAL ( clicked() ), this, SLOT ( saveSettings() ) );
@@ -272,47 +275,6 @@ void ConfigDialog::loadUntrustedHostsWhiteList()
 }
 
 /**
-* Lade die User-Agents aus der Konfiguration. Wenn noch kein
-* Eintrag vorhanden ist setzte den System XHTMLDBG Agent
-* und nehme die Einträge aus der UI Komponente.
-*/
-void ConfigDialog::loadUserAgentList()
-{
-  QList<QListWidgetItem*> list;
-  QLocale locale = QLocale::system();
-  int size = cfg->beginReadArray ( QLatin1String ( "UserAgents" ) );
-
-  QString iso639_1 = locale.name().remove ( QRegExp ( "([_\\-].+)$" ) );
-  QString iso3166 = locale.name();
-
-  if ( size < 1 )
-  {
-    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
-    QString defaultAgent = QString ( "Mozilla/5.0 (compatible; XHTMLDBG/%1; %2, %3; X11) AppleWebKit (KHTML, like Gecko)" )
-                           .arg ( XHTMLDBG_VERSION_STRING, iso639_1, iso3166 );
-    item->setText ( defaultAgent );
-    item->setData ( Qt::UserRole, false ); // Muss false sein
-    item->setData ( Qt::ToolTipRole, trUtf8 ( "detected xhtmldbg user-agent" ) );
-    userAgentList->addItem ( item );
-    cfg->endArray(); // !!!Nicht vergessen!!!
-    return;
-  }
-
-  userAgentList->clear();
-
-  for ( int i = 0; i < size; ++i )
-  {
-    cfg->setArrayIndex ( i );
-    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
-    item->setText ( cfg->value ( "agent" ).toString() );
-    item->setData ( Qt::UserRole, false ); // Muss false sein
-    item->setData ( Qt::ToolTipRole, cfg->value ( "title" ).toString() );
-    userAgentList->addItem ( item );
-  }
-  cfg->endArray();
-}
-
-/**
 * Die vom Benutzer gesetzten Datenköpfe in die Konfiguration schreiben.
 * Mit exclude werden die Header Definitionen ausgeschlossen die,
 * wie z.B: User-Agent nicht hier hinein gehören.
@@ -355,26 +317,6 @@ void ConfigDialog::saveUntrustedHostsWhiteList()
 }
 
 /**
-* Aktuelle User-Agent Liste speichern.
-*/
-void ConfigDialog::saveUserAgentList()
-{
-  cfg->remove ( QLatin1String ( "UserAgents" ) );
-  if ( userAgentList->count() < 1 )
-    return;
-
-  cfg->beginWriteArray ( QLatin1String ( "UserAgents" ) );
-  for ( int i = 0; i < userAgentList->count(); i++ )
-  {
-    cfg->setArrayIndex ( i );
-    cfg->setValue ( QLatin1String ( "agent" ), userAgentList->item ( i )->text() );
-    cfg->setValue ( QLatin1String ( "title" ), userAgentList->item ( i )->data ( Qt::ToolTipRole ).toString() );
-    userAgentList->item ( i )->setData ( Qt::UserRole, false ); // Muss false sein
-  }
-  cfg->endArray();
-}
-
-/**
 * Eine Domäne in die Cookies Liste aufnehmen.
 */
 void ConfigDialog::addCookieAccess()
@@ -391,93 +333,6 @@ void ConfigDialog::addCookieAccess()
     else
       addCookieDomain->setFocus();
   }
-}
-
-/**
-* Bei einem anklicken den User Agent für das bearbeiten holen.
-* Setzte den ausgwählten Eintrag bei data(Qt::UserRole) auf "true"
-* Dies ist deshalb Notwendig damit bei einer Änderung der Eintrag
-* wieder gefunden werden kann!
-*/
-void ConfigDialog::userAgentForEdit ( QListWidgetItem *item )
-{
-  QString buffer = item->text();
-  if ( buffer.isEmpty() )
-    return;
-
-  /* Wenn der Benutzer mehrfach anklickt dafür sorgen dass
-  * der zuletzt gewählte Eintrag wieder auf false gesetzt wird! */
-  for ( int i = 0; i < userAgentList->count(); i++ )
-  {
-    userAgentList->item ( i )->setData ( Qt::UserRole, false );
-  }
-
-  /* Trick: Setzte auf "true" für den Update vorgang in Qt::UserRole ! */
-  item->setData ( Qt::UserRole, true );
-  qt_modifyUserAgent->setText ( buffer );
-  qt_userAgentTitle->setText ( item->data ( Qt::ToolTipRole ).toString() );
-}
-
-/**
-* Füge eine neue Benutzer Kennung in die Liste ein oder Editiere
-* einen vorhandenen User-Agent.
-*/
-void ConfigDialog::addUserAgent()
-{
-  bool addItemAction = true;
-  QString agentString = qt_modifyUserAgent->text();
-  QString agentTitle = qt_userAgentTitle->text();
-  if ( agentString.isEmpty() || agentTitle.isEmpty() )
-    return;
-
-  foreach ( QListWidgetItem* item, userAgentList->selectedItems() )
-  {
-    if ( item->data ( Qt::UserRole ).toBool() )
-    {
-      item->setText ( agentString );
-      /* wieder auf false setzen siehe @ref userAgentForEdit */
-      item->setData ( Qt::UserRole, false );
-      item->setData ( Qt::ToolTipRole, agentTitle );
-      addItemAction = false;
-      break;
-    }
-  }
-
-  if ( addItemAction )
-  {
-    QListWidgetItem* item = new QListWidgetItem ( userAgentList, QListWidgetItem::UserType );
-    item->setText ( agentString );
-    item->setData ( Qt::UserRole, false ); // Muss false sein
-    item->setData ( Qt::ToolTipRole, agentTitle );
-    userAgentList->addItem ( item );
-  }
-
-  qt_modifyUserAgent->clear();
-  qt_modifyUserAgent->setFocus();
-  qt_userAgentTitle->clear();
-  qt_userAgentTitle->setFocus();
-  setModified();
-}
-
-/**
-* Entferne den augewählten User Agent aus der Liste.
-*/
-void ConfigDialog::delUserAgent()
-{
-  foreach ( QListWidgetItem* item, userAgentList->selectedItems() )
-  {
-    if ( item->isSelected() )
-    {
-      userAgentList->removeItemWidget ( item );
-      delete item;
-      break;
-    }
-  }
-  qt_modifyUserAgent->clear();
-  qt_modifyUserAgent->setFocus();
-  qt_userAgentTitle->clear();
-  qt_userAgentTitle->setFocus();
-  setModified();
 }
 
 /**
@@ -609,7 +464,7 @@ void ConfigDialog::loadSettings()
     setCaCertDatabase ();
 
   loadUntrustedHostsWhiteList();
-  loadUserAgentList();
+  m_userAgentEditor->loadUserAgents();
 
   QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() ) );
   qt_ssl_pass_phrase->setText ( p );
@@ -663,7 +518,7 @@ void ConfigDialog::saveSettings()
 
   saveHeaderDefinitions();
   saveUntrustedHostsWhiteList();
-  saveUserAgentList();
+  m_userAgentEditor->saveUserAgents();
 
   QByteArray p = qt_ssl_pass_phrase->text().toAscii();
   cfg->setValue ( QLatin1String ( "sslPassPhrase" ), p.toBase64() );
