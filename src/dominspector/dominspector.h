@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -52,17 +53,22 @@ class DomInspector : public QDockWidget
     DomTree* m_domTree;
     ListStyleSheet* m_listStyleSheet;
     bool hasBorderStyleSheet ( const QWebElement & ) const;
+    const QStringList foundStylesheetReferences ( const QWebElement & ) const;
 
   private Q_SLOTS:
     void setElementVisible ( const QWebElement & );
 
   protected:
-    struct SelectedItem {
+    struct SelectedItem
+    {
       bool border;
       bool background;
       QWebElement element;
     };
     QList<SelectedItem> lastSelections;
+
+  Q_SIGNALS:
+    void cascadedStylesHref ( const QStringList & );
 
   public Q_SLOTS:
     void setDomTree ( const QWebElement & );
@@ -70,7 +76,7 @@ class DomInspector : public QDockWidget
 
   public:
     DomInspector ( QWidget * parent = 0, QSettings * settings = 0 );
-    ~DomInspector ();
+    virtual ~DomInspector ();
 };
 
 #endif

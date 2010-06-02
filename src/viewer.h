@@ -38,6 +38,7 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebHitTestResult>
 #include <QtWebKit/QWebView>
 #include <QtWebKit/QWebHistory>
 #include <QtWebKit/QWebPage>
@@ -57,6 +58,7 @@ class Viewer : public QWebView
     NetworkCookie* cookieManager;
     void openCookieRequestDialog ( const QUrl & );
     void findChildNode ( const QPoint & );
+    void prepareLinkInfo ( const QWebHitTestResult & );
 
   private Q_SLOTS:
     void cursorwait ();
@@ -75,6 +77,7 @@ class Viewer : public QWebView
     void totalBytes ( qint64 );
     void addBookmark ( const QUrl &, const QString & );
     void hitTestResult ( const QWebElement & );
+    void linkTriggered ( const QUrl &, const QString &, const QString & );
 
   public Q_SLOTS:
     void findKeyword ( const QString & );

@@ -23,3 +23,9 @@ size=1
 
 [Plugins]
 SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
+
+[UserAgents]
+1\name=Default
+1\agent=Mozilla/5.0
+1\tokens="(compatible; XHTMLDBG; en, en_US; X11) AppleWebKit (KHTML, like Gecko)"
+size=1

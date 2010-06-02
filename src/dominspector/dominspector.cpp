@@ -37,6 +37,7 @@
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebPage>
+#include <QtWebKit/QWebElementCollection>
 
 DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
     : QDockWidget ( parent )
@@ -109,6 +110,31 @@ bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
       return value.contains ( QRegExp ( pattern, Qt::CaseInsensitive ) );
   }
   return false;
+}
+
+/**
+* Suche im aktuellen Elementenblock HEAD nach Links zu externen StyleSheet
+* Definitionen. Wenn gefunden, dann das Prädikat "href" auflösen und
+* in die Stringliste schreiben. Die Sortierung bei mehrfachen
+* verweisen liegt bei der Klasse die alle Daten entgegen nimmt.
+*/
+const QStringList DomInspector::foundStylesheetReferences ( const QWebElement &head ) const
+{
+  QStringList list;
+  QString href ( "href" );
+  foreach ( QWebElement link, head.findAll ( "LINK[rel~=stylesheet]" ) )
+  {
+    if ( link.hasAttribute ( href ) )
+    {
+      QString cssPath = link.attribute ( "href", QString::null );
+      if ( cssPath.isEmpty() )
+        continue;
+
+      // qDebug() << Q_FUNC_INFO << cssPath;
+      list << cssPath;
+    }
+  }
+  return list;
 }
 
 /**
@@ -192,6 +218,9 @@ void DomInspector::setElementVisible ( const QWebElement &element )
 /**
 * Dieser slot ruft die Methode @ref DomTree::setDomTree auf.
 * Gleichzeitig werden Inhalte aus @class ListStyleSheet entfernt.
+* Des weiteren wird hier nach LINK Elementen gesucht welche auf
+* externe CSS Referenzen verweisen, bei erfolg werden diese mit
+* dem Signal @ref cascadedStylesHref weiter gereicht.
 */
 void DomInspector::setDomTree ( const QWebElement &element )
 {
@@ -199,6 +228,10 @@ void DomInspector::setDomTree ( const QWebElement &element )
     return;
 
   m_domTree->setDomTree ( element );
+  QStringList css = foundStylesheetReferences ( element.findFirst ( "HEAD" ) );
+  if ( css.size() >= 1 )
+    emit cascadedStylesHref ( css );
+
   m_listStyleSheet->clear();
 }
 
@@ -215,5 +248,5 @@ void DomInspector::findItem ( const QWebElement &element )
 
 DomInspector::~DomInspector()
 {
+  lastSelections.clear();
 }
-

@@ -14,6 +14,8 @@ ENDIF (XHTMLDBG_BETA_EXTENSION)
 
 ADD_SUBDIRECTORY (selfhtmlsidebar)
 
+ADD_SUBDIRECTORY (webkitinspector)
+
 ## Development Template Data
 INSTALL (FILES
   template/CMakeLists.txt

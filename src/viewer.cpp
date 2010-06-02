@@ -47,9 +47,6 @@
 #include <QtGui/QPalette>
 #include <QtGui/QToolTip>
 
-/* QtWebKit */
-#include <QtWebKit/QWebHitTestResult>
-
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkAccessManager>
@@ -109,7 +106,26 @@ void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
 void Viewer::findChildNode ( const QPoint &p )
 {
   if ( ! p.isNull() )
-    emit hitTestResult ( page()->currentFrame()->hitTestContent ( p ).element() );
+  {
+    QWebHitTestResult result = page()->currentFrame()->hitTestContent ( p );
+    emit hitTestResult ( result.element() );
+
+    if ( ! result.linkElement().isNull() )
+      prepareLinkInfo ( result );
+  }
+}
+
+/**
+* An dieser Stelle werden A Elemente übergeben die mit
+* hilfe von @ref findChildNode übermittelt werden.
+* Diese Methode Versucht die Kompletten Link Informationen
+* von @ref QWebHitTestResult zu ermitteln und sendet das
+* Signal @ref linkTriggered.
+*/
+void Viewer::prepareLinkInfo ( const QWebHitTestResult &link )
+{
+  if ( link.linkUrl().isValid() )
+    emit linkTriggered ( link.linkUrl(), link.linkText(), link.linkTitle().toString() );
 }
 
 /**
@@ -165,7 +181,6 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
   style->setToolTip ( trUtf8 ( "Start CSS Validation for this Site." ) );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
-
   // User-Agent
   menu->addMenu ( new UserAgentMenu ( menu, cfg ) );
 
