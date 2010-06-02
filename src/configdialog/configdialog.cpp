@@ -130,7 +130,6 @@ ConfigDialog::ConfigDialog ( QWidget * parent, QSettings * settings )
   connect ( HttpPipeliningWasUsedAttribute, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( enableHighlightBackground, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( enableHighlightBorder, SIGNAL ( released() ), this, SLOT ( setModified() ) );
-  connect ( DeveloperExtrasEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( AutoLoadImages, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( JavascriptEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );
   connect ( PluginsEnabled, SIGNAL ( released() ), this, SLOT ( setModified() ) );

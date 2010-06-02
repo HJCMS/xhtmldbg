@@ -42,6 +42,9 @@ class WebInspectorClient : public QWebPage
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
+  private:
+    void updateWebSettings();
+
   public:
     WebInspectorClient ( QObject * parent = 0 );
     virtual ~WebInspectorClient ();

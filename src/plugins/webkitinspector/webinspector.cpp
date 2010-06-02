@@ -23,8 +23,10 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 
 /* QtGui */
+#include <QtGui/QDesktopServices>
 #include <QtGui/QScrollArea>
 
 /* QtWebKit */
@@ -37,7 +39,31 @@ WebInspectorClient::WebInspectorClient ( QObject * parent )
     : QWebPage ( parent )
 {
   setObjectName ( QLatin1String ( "webinspectorpage" ) );
-  settings()->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
+  updateWebSettings();
+}
+
+/**
+* Das lesen aller Web Einstellungen muss
+* vor dem ersten erstellen ein tabs erfolgen.
+*/
+void WebInspectorClient::updateWebSettings()
+{
+  QWebSettings* wcfg = settings();
+  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+  QDir dir ( dbPath );
+  dir.mkpath ( QLatin1String ( "icons" ) );
+  dir.mkpath ( QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
+  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
+  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
+  wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
+  wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );
+  wcfg->setAttribute ( QWebSettings::PluginsEnabled, false );
+  wcfg->setAttribute ( QWebSettings::JavaEnabled, false );
+  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
 }
 
 WebInspectorClient::~WebInspectorClient ()

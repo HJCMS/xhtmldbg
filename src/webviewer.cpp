@@ -101,8 +101,8 @@ void WebViewer::updateWebSettings()
   wcfg->setAttribute ( QWebSettings::ZoomTextOnly,
                        cfg->value ( QLatin1String ( "ZoomTextOnly" ), true ).toBool() );
 
-  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled,
-                       cfg->value ( QLatin1String ( "DeveloperExtrasEnabled" ), false ).toBool() );
+  // Jetzt immer deaktiviert. Siehe Webinspector plugin!
+  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
 
   wcfg->setAttribute ( QWebSettings::AutoLoadImages,
                        cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );

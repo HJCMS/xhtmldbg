@@ -633,13 +633,6 @@
         </widget>
        </item>
        <item>
-        <widget class="QCheckBox" name="DeveloperExtrasEnabled">
-         <property name="text">
-          <string>Developer Extras Enabled</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QCheckBox" name="AutoLoadImages">
          <property name="text">
           <string>AutoLoad Images</string>
@@ -986,8 +979,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>709</width>
-            <height>788</height>
+            <width>315</width>
+            <height>878</height>
            </rect>
           </property>
           <property name="statusTip">
