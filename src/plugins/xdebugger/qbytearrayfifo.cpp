@@ -30,11 +30,11 @@ const QString QByteArrayFifo::retrieve( )
 {
   // See if there's a null teminator somewhere
   QString str ( m_array );
-  size_t size = str.length() + 1;
+  uint size = str.length() + 1;
 
   // Decrease size and move bytes to the beginning of the array
   m_size -= size;
-  for ( size_t cnt = 0; cnt < m_size; cnt++ )
+  for ( uint cnt = 0; cnt < m_size; cnt++ )
   {
     m_array[cnt] = m_array[cnt + size];
   }
@@ -45,13 +45,13 @@ const QString QByteArrayFifo::retrieve( )
   return str;
 }
 
-bool QByteArrayFifo::append ( const char * chars, size_t size )
+bool QByteArrayFifo::append ( const char * chars, uint size )
 {
   // Resize the array, fail if not possible
   m_array.resize ( m_size + size );
 
   // Copy the elements
-  for ( size_t cnt = 0; cnt < size; cnt++ )
+  for ( uint cnt = 0; cnt < size; cnt++ )
   {
     m_array[cnt + m_size] = chars[cnt];
   }
@@ -68,7 +68,7 @@ long QByteArrayFifo::find ( char character )
   if ( m_size == 0 )
     return -1;
 
-  return ( long ) m_array.count ( character );
+  return static_cast<long> ( m_array.count ( character ) );
 }
 
 const QByteArray QByteArrayFifo::base64Encoded()
@@ -76,7 +76,7 @@ const QByteArray QByteArrayFifo::base64Encoded()
   return  m_array.toBase64();
 }
 
-size_t QByteArrayFifo::length()
+uint QByteArrayFifo::length()
 {
   return m_size;
 }

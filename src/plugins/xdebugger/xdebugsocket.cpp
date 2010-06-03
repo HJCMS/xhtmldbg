@@ -68,7 +68,7 @@ void XDebugSocket::steppingIn ( XDebugClient * socket )
   QByteArrayFifo m_fifo;
   if ( socket->waitForReadyRead () )
   {
-    while ( socket->bytesAvailable() > 0 || m_fifo.length() >= ( unsigned long ) m_datalen )
+    while ( socket->bytesAvailable() > 0 || m_fifo.length() >= static_cast<unsigned long> ( m_datalen ) )
     {
       if ( socket->bytesAvailable() > 0 )
       {
@@ -93,7 +93,7 @@ void XDebugSocket::steppingIn ( XDebugClient * socket )
           m_datalen = data.toLong();
 
         }
-        if ( m_datalen != -1 && ( long ) m_fifo.length() >= m_datalen + 1 )
+        if ( m_datalen != -1 && static_cast<long> ( m_fifo.length() ) >= m_datalen + 1 )
         {
           data = m_fifo.retrieve();
           m_datalen = -1;

@@ -54,7 +54,7 @@ QTreeWidgetItem* Docking::rootItem ( int index )
   return widget ( index )->invisibleRootItem();
 }
 
-const QFontMetrics Docking::fontMetric( int index )
+const QFontMetrics Docking::fontMetric ( int index )
 {
   return widget ( index )->fontMetrics();
 }
@@ -74,7 +74,7 @@ void Docking::addTreeWidget ( QTreeWidget * widget )
 QTreeWidget* Docking::widget ( int index )
 {
   Q_ASSERT_X ( ( DockingSplitter->count() >= index ), "Docking::widget", "Invalid Index to find TreeWidget" );
-  return ( QTreeWidget* ) DockingSplitter->widget ( index );
+  return qobject_cast<QTreeWidget*> ( DockingSplitter->widget ( index ) );
 }
 
 void Docking::clearContent ( int index )

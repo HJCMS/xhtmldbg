@@ -104,7 +104,7 @@ class QByteArrayFifo
 {
   private:
     QByteArray m_array;
-    size_t m_size;
+    uint m_size;
 
   public:
     QByteArrayFifo();
@@ -112,7 +112,7 @@ class QByteArrayFifo
     /**
     * Resize the array and copy the elements
     */
-    bool append ( const char * chars, size_t size );
+    bool append ( const char * chars, uint size );
 
     /**
     * See if there's a null teminator somewhere and retrive the Array Data.
@@ -134,7 +134,7 @@ class QByteArrayFifo
     /**
     * Returns current Size \ref m_size
     */
-    size_t length();
+    uint length();
 
 };
 

@@ -127,7 +127,7 @@ void Downloader::downloadProgress ( qint64 bReceived, qint64 bTotal )
   if ( bTotal == -1 )
     return;
 
-  inProgress = ( qint64 ) ( ( bReceived * 100.0 ) / bTotal );
+  inProgress = static_cast<qint64> ( ( bReceived * 100.0 ) / bTotal );
   emit dataChanged ( progressIndex );
 }
 

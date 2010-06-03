@@ -11,7 +11,7 @@ debug_build_target=$HOME/hjcms/xhtmldbg/build
 # -DCMAKE_C_COMPILER:FILEPATH=$(which mpicc) \
 
 MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -Wformat -Woverloaded-virtual -pedantic"
-MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer -fexpensive-optimizations"
+MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer -fexpensive-optimizations -pipe"
 
 function runcmake()
 {

@@ -60,6 +60,7 @@ border-top-right-radius
 border-top-style
 border-top-width
 border-width
+bottom
 box-height
 box-shadow
 box-sizing
@@ -70,6 +71,8 @@ centerline
 change-bar
 clear
 clear-after
+clip
+color
 color-profile
 column-break-after
 column-break-before
@@ -136,6 +139,7 @@ font-stretch
 font-style
 font-variant
 font-weight
+height
 hyphenate
 hyphenate-after
 hyphenate-before
@@ -157,6 +161,7 @@ layout-grid-line
 layout-grid-mode
 layout-grid-type
 letter-spacing
+left
 line-break
 line-height
 line-stacking
@@ -257,6 +262,10 @@ nav-up
 -o-link-source
 -o-replace
 orphans
+outline
+outline-color
+outline-style
+outline-width
 -o-set-link-source
 -o-text-overflow
 -o-use-link-source
@@ -264,6 +273,7 @@ overflow-clip
 overflow-x
 overflow-y
 overflow
+padding
 padding-bottom
 padding-left
 padding-right
@@ -281,6 +291,7 @@ phonemes
 pitch
 pitch-range
 play-during
+position
 presentation-level
 quotes
 rendering-intent
@@ -289,12 +300,15 @@ rest
 rest-after
 rest-before
 richness
+right
 ruby-align
 ruby-overhang
 ruby-position
 ruby-span
 scrollbar-x-color
 slope
+size
+src
 speak
 speak-header
 speak-numeral
@@ -322,12 +336,14 @@ text-shadow
 text-transform
 text-underline-position
 text-wrap
+top
 topline
 unicode-bidi
 unicode-range
 units-per-em
 vertical-align
 visibility
+volume
 voice-balance
 voice-duration
 voice-family
@@ -344,6 +360,7 @@ white-space
 -o-pre-wrap
 -pre-wrap
 widows
+width
 widths
 word-break
 word-spacing

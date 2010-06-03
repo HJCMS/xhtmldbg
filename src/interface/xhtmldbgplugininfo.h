@@ -51,6 +51,7 @@
 #endif
 
 /* QtCore */
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>

@@ -78,6 +78,15 @@ const QByteArray NetworkSettings::userAgentString()
 }
 
 /**
+* ProxyType aus der Konfiguration lesen
+*/
+const QNetworkProxy::ProxyType NetworkSettings::proxyType()
+{
+  int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
+  return static_cast<QNetworkProxy::ProxyType> ( type );
+}
+
+/**
 * Diese Methode wird vor jeder Netzwerkanfrage gesetzt!
 */
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
@@ -109,7 +118,7 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   endGroup();
 
   // User-Agent
-  request.setRawHeader ( QByteArray( "User-Agent" ), userAgentString() );
+  request.setRawHeader ( QByteArray ( "User-Agent" ), userAgentString() );
 
   return request;
 }
@@ -122,8 +131,7 @@ const QString NetworkSettings::storageDirectory ()
 const QNetworkProxy NetworkSettings::getProxy()
 {
   QNetworkProxy proxy;
-  int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
-  proxy.setType ( ( QNetworkProxy::ProxyType ) type );
+  proxy.setType ( proxyType() );
   proxy.setHostName ( value ( QLatin1String ( "proxyHostName" ) ).toString() );
   proxy.setPort ( value ( QLatin1String ( "proxyPort" ), 8080 ).toUInt() );
   proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
