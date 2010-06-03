@@ -202,7 +202,7 @@ FIND_FILE (CA_BUNDLE_FILE
 
 FIND_FILE (CSS_VALIDATOR_JAR
   NAMES css-validator.jar
-  PATHS /usr/share/java /usr/local/share/java
+  PATHS /usr/share/java /usr/local/share/java /opt/w3c-css-validator /usr/local/w3c-css-validator
   DOC "Find W3C CSS Validator File" NO_CMAKE_PATH
 )
 
@@ -295,8 +295,15 @@ SET (CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${XHTMLDBG_VERSION}")
 SET (CPACK_RPM_PACKAGE_LICENSE "GPLv3 LGPLv2+")
 SET (CPACK_RPM_PACKAGE_GROUP "Development/Tools")
 
+## Package Version with git tag
+SET (XHTMLDBG_PACKAGE_VERSION "${XHTMLDBG_VERSION}.rc4")
+
 CONFIGURE_FILE (xhtmldbg.spec.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.spec
+)
+
+CONFIGURE_FILE (xhtmldbg.SlackBuild.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.SlackBuild
 )
 
 INCLUDE (CPack)
