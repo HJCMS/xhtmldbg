@@ -583,10 +583,13 @@ void Window::requestsFinished ( bool ok )
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
-    // An alle Plugins die Url übergeben
+    // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
     {
-      plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
+      if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+        plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
+      else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+        plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
     }
   }
 }
@@ -650,10 +653,13 @@ bool Window::setSource ( const QString &source )
   // Quelltext einfügen
   m_sourceWidget->setSource ( source );
 
-  // An alle Plugins den Quelltext übergeben
+  // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
   {
-    plugins.at ( i )->setContent ( source );
+    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+      plugins.at ( i )->setContent ( source );
+    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+      plugins.at ( i )->setContent ( source );
   }
 
   // Ist AutoCheck oder AutoFormat aktiviert?
@@ -786,7 +792,7 @@ bool Window::openUrl ( const QUrl &url )
 /**
 * Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl
 * noch nicht geöffnet ist.
-* http://webmast.jh/selfhtml/navigation/sidebars/html.htm 
+* http://webmast.jh/selfhtml/navigation/sidebars/html.htm
 * http://webmast.jh/selfhtml/html/grafiken/verweis_sensitive.htm#definieren
 */
 bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )

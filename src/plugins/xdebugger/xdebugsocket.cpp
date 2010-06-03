@@ -68,7 +68,7 @@ void XDebugSocket::steppingIn ( XDebugClient * socket )
   QByteArrayFifo m_fifo;
   if ( socket->waitForReadyRead () )
   {
-    while ( socket->bytesAvailable() > 0 || m_fifo.length() >= static_cast<unsigned long> ( m_datalen ) )
+    while ( socket->bytesAvailable() > 0 || m_fifo.length() >= static_cast<unsigned long> (m_datalen) )
     {
       if ( socket->bytesAvailable() > 0 )
       {
@@ -80,7 +80,7 @@ void XDebugSocket::steppingIn ( XDebugClient * socket )
 
         delete[] buffer;
       }
-
+      // qDebug() << __LINE__;
       while ( 1 )
       {
         if ( m_datalen == -1 )
