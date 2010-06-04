@@ -292,6 +292,13 @@ void Viewer::checkingStyleSheet()
 */
 void Viewer::findKeyword ( const QString &word )
 {
+  // Reset anfrage
+  if ( word.isEmpty() )
+  {
+    findText ( QString::null, QWebPage::HighlightAllOccurrences );
+    return;
+  }
+
   int summary = 0;
   QString message = trUtf8 ( "SEO Result for \"%1\" Url: " ).arg ( word );
   message.append ( url().toString ( ( QUrl::RemovePassword | QUrl::RemoveFragment ) ) );
