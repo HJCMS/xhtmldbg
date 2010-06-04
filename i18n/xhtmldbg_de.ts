@@ -1386,89 +1386,96 @@ Gründe : </translation>
 <context>
     <name>HeaderDock</name>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="41"/>
+        <location filename="../src/docking/headerdock.cpp" line="44"/>
         <source>Headers</source>
         <translation>Datenköpfe</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="44"/>
+        <location filename="../src/docking/headerdock.cpp" line="47"/>
+        <location filename="../src/docking/headerdock.cpp" line="60"/>
         <source>Header</source>
         <translation>Datenkopf</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="44"/>
-        <location filename="../src/docking/headerdock.cpp" line="62"/>
-        <location filename="../src/docking/headerdock.cpp" line="249"/>
+        <location filename="../src/docking/headerdock.cpp" line="47"/>
+        <location filename="../src/docking/headerdock.cpp" line="60"/>
+        <location filename="../src/docking/headerdock.cpp" line="70"/>
+        <location filename="../src/docking/headerdock.cpp" line="295"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="50"/>
+        <location filename="../src/docking/headerdock.cpp" line="57"/>
         <source>POST Variables</source>
         <translation>POST Variablen</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="57"/>
+        <location filename="../src/docking/headerdock.cpp" line="68"/>
         <source>Cookies</source>
         <translation>Kekse</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="62"/>
+        <location filename="../src/docking/headerdock.cpp" line="70"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="87"/>
+        <location filename="../src/docking/headerdock.cpp" line="123"/>
         <source>Hostname</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="135"/>
+        <location filename="../src/docking/headerdock.cpp" line="133"/>
+        <source>Item</source>
+        <translation>Eintrag</translation>
+    </message>
+    <message>
+        <location filename="../src/docking/headerdock.cpp" line="183"/>
         <source>Anchor</source>
         <translation>Anker</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="211"/>
+        <location filename="../src/docking/headerdock.cpp" line="257"/>
         <source>Yes</source>
         <translation>Ja</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="212"/>
+        <location filename="../src/docking/headerdock.cpp" line="258"/>
         <source>No</source>
         <translation>Nein</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="229"/>
+        <location filename="../src/docking/headerdock.cpp" line="275"/>
         <source>Cookie</source>
         <translation>Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="235"/>
+        <location filename="../src/docking/headerdock.cpp" line="281"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="242"/>
+        <location filename="../src/docking/headerdock.cpp" line="288"/>
         <source>Path</source>
         <translation>Pfad</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="256"/>
+        <location filename="../src/docking/headerdock.cpp" line="302"/>
         <source>Session Cookie</source>
         <translation>Sitzungs Keks</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="263"/>
+        <location filename="../src/docking/headerdock.cpp" line="309"/>
         <source>Only for HTTP?</source>
         <translation>Nur HTTP?</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="270"/>
+        <location filename="../src/docking/headerdock.cpp" line="316"/>
         <source>Expiration</source>
         <translation>Verfällt</translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="277"/>
+        <location filename="../src/docking/headerdock.cpp" line="323"/>
         <source>Secure</source>
         <translation>Sicher</translation>
     </message>
@@ -1611,7 +1618,7 @@ Gründe : </translation>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="189"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="220"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation>Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)</translation>
     </message>

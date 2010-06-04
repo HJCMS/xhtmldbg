@@ -85,13 +85,13 @@ void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &m
 {
   int widgetIndex = 0;
   int minWidth = 0;
-  bool highlightItem = false;
+  bool typeHtml = false;
   QString host = url.host();
   QTreeWidget* tree = widget ( widgetIndex );
   QTreeWidgetItem* parent;
 
   if ( map.contains ( "Content-Type" ) )
-    highlightItem = QString ( map["Content-Type"] ).contains ( "text/html" );
+    typeHtml = QString ( map["Content-Type"] ).contains ( "text/html" );
 
   // Oberster Eintrag mit Hostnamen
   if ( itemExists ( host, widgetIndex ) )
@@ -126,9 +126,10 @@ void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &m
 
   QTreeWidgetItem* queryItem = addTopLevelItem ( parent, widgetIndex );
   queryItem->setData ( 0, Qt::DisplayRole, url.path() );
-  queryItem->setExpanded ( highlightItem );
-  queryItem->setExpanded ( highlightItem );
-  queryItem->setForeground ( 0, ( highlightItem ? Qt::darkBlue : Qt::gray ) );
+  queryItem->setExpanded ( typeHtml );
+  if ( ! typeHtml )
+    queryItem->setForeground ( 0, Qt::lightGray );
+
   queryItem->setText ( 1, trUtf8 ( "Item" ) );
   queryItem->setForeground ( 1, Qt::lightGray );
   parent->addChild ( queryItem );
