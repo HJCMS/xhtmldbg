@@ -158,8 +158,9 @@ class Docking : public QDockWidget
     * this matches exactly
     * @param txt String to match
     * @param index The Index for used TreeWidget Default 0
+    * @param column Default value is 0
     */
-    bool itemExists ( const QString &txt, int index = 0 );
+    bool itemExists ( const QString &txt, int index = 0, int column = 0 );
 
     explicit Docking ( QWidget * parent = 0 );
     virtual ~Docking();

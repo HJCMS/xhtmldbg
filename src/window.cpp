@@ -218,8 +218,8 @@ Window::Window ( QSettings * settings )
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_appEvents, SLOT ( warningMessage ( const QString & ) ) );
 
-  connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QString &, const QMap<QString,QString> & ) ),
-            m_headerDock, SLOT ( setHeaderData ( const QString &, const QMap<QString,QString> & ) ) );
+  connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QUrl &, const QMap<QString,QString> & ) ),
+            m_headerDock, SLOT ( setHeaderData ( const QUrl &, const QMap<QString,QString> & ) ) );
 
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );

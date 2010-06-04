@@ -21,6 +21,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QList>
 
 /* QtGui */
 #include <QtGui/QFrame>
@@ -119,9 +120,9 @@ void Docking::addTopLevelChildItem ( QTreeWidgetItem * child, int index )
   rootItem ( index )->addChild ( child );
 }
 
-bool Docking::itemExists ( const QString &txt, int index )
+bool Docking::itemExists ( const QString &txt, int index, int column )
 {
-  if ( widget ( index )->findItems ( txt, Qt::MatchExactly, 0 ).size() > 0 )
+  if ( widget ( index )->findItems ( txt, Qt::MatchExactly, column ).size() > 0 )
     return true;
   else
     return false;

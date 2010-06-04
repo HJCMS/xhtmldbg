@@ -29,10 +29,12 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QAbstractItemView>
 #include <QtGui/QFrame>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QHeaderView>
 #include <QtGui/QTreeWidgetItem>
+#include <QtGui/QTreeWidgetItemIterator>
 
 HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
@@ -43,25 +45,32 @@ HeaderDock::HeaderDock ( QWidget * parent )
 
   QStringList labels;
   labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
+
+  // Header Data
   setColumnCount ( 2, 0 );
   setTreeHeaderLabels ( labels, 0 );
+  labels.clear();
 
+  // Post Data
   m_treePostVars = new QTreeWidget ( this );
   m_treePostVars->setObjectName ( QLatin1String ( "postvarstreewidget" ) );
   m_treePostVars->setToolTip ( trUtf8 ( "POST Variables" ) );
   addTreeWidget ( m_treePostVars );
+
+  labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
   setColumnCount ( 2, 1 );
   setTreeHeaderLabels ( labels, 1 );
+  labels.clear();
 
+  // Cookies Data
   m_treeCookies = new QTreeWidget ( this );
   m_treeCookies->setObjectName ( QLatin1String ( "cookiestreewidget" ) );
   m_treeCookies->setToolTip ( trUtf8 ( "Cookies" ) );
   addTreeWidget ( m_treeCookies );
+  labels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );
   setColumnCount ( 2, 2 );
-
-  QStringList cookielabels;
-  cookielabels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );
-  setTreeHeaderLabels ( cookielabels, 2 );
+  setTreeHeaderLabels ( labels, 2 );
+  labels.clear();
 
   // get CookieJar
   m_networkCookie = xhtmldbgmain::instance()->cookieManager();
@@ -72,30 +81,66 @@ void HeaderDock::setTreeHeaderLabels ( const QStringList &labels, int index )
   Docking::setTreeHeaderLabels ( labels, index );
 }
 
-void HeaderDock::setHeaderData ( const QString &host, const QMap<QString,QString> &map )
+void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &map )
 {
   int widgetIndex = 0;
   int minWidth = 0;
+  bool highlightItem = false;
+  QString host = url.host();
+  QTreeWidget* tree = widget ( widgetIndex );
+  QTreeWidgetItem* parent;
 
-  if ( itemExists ( host ) )
-    return;
+  if ( map.contains ( "Content-Type" ) )
+    highlightItem = QString ( map["Content-Type"] ).contains ( "text/html" );
 
-  clearContent ( widgetIndex );
+  // Oberster Eintrag mit Hostnamen
+  if ( itemExists ( host, widgetIndex ) )
+  {
+    parent = tree->topLevelItem ( 0 );
+    /* Doppelte Einträge bei Pfad oder Query entfernen und unten neu Schreiben */
+    QTreeWidgetItemIterator it ( tree, QTreeWidgetItemIterator::HasChildren );
+    while ( *it )
+    {
+      if ( host != ( *it )->data ( 0, Qt::DisplayRole ) )
+        ( *it )->setExpanded ( false ); // Einträge einklappen
 
-  QTreeWidgetItem* parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
-  parent->setExpanded ( true );
-  parent->setData ( 0, Qt::DisplayRole, host );
-  parent->setText ( 1, trUtf8 ( "Hostname" ) );
-  parent->setForeground ( 1, Qt::lightGray );
+      if ( url.path() == ( *it )->data ( 0, Qt::DisplayRole ) )
+      {
+        parent->removeChild ( ( *it ) );
+        tree->sortItems ( 0, Qt::AscendingOrder );
+        delete ( *it );
+        break;
+      }
+      ++it;
+    }
+  }
+  else
+  {
+    clearContent ( widgetIndex );
+    parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
+    parent->setExpanded ( true );
+    parent->setData ( 0, Qt::DisplayRole, host );
+    parent->setText ( 1, trUtf8 ( "Hostname" ) );
+    parent->setForeground ( 1, Qt::lightGray );
+  }
+
+  QTreeWidgetItem* queryItem = addTopLevelItem ( parent, widgetIndex );
+  queryItem->setData ( 0, Qt::DisplayRole, url.path() );
+  queryItem->setExpanded ( highlightItem );
+  queryItem->setExpanded ( highlightItem );
+  queryItem->setForeground ( 0, ( highlightItem ? Qt::darkBlue : Qt::gray ) );
+  queryItem->setText ( 1, trUtf8 ( "Item" ) );
+  queryItem->setForeground ( 1, Qt::lightGray );
+  parent->addChild ( queryItem );
 
   QMapIterator<QString,QString> it ( map );
   while ( it.hasNext() )
   {
     it.next();
-    QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
+    QTreeWidgetItem* item = new QTreeWidgetItem ( queryItem );
     item->setData ( 0, Qt::DisplayRole, it.key() );
     item->setData ( 1, Qt::DisplayRole, it.value() );
-    parent->addChild ( item );
+    queryItem->addChild ( item );
     int cw = ( fontMetric ( widgetIndex ).width ( it.value() ) + item->font ( 0 ).weight() );
     if ( cw > minWidth )
       minWidth = cw;
@@ -103,6 +148,7 @@ void HeaderDock::setHeaderData ( const QString &host, const QMap<QString,QString
 
   setColumnWidth ( 1, minWidth, widgetIndex );
   resizeSections ( widgetIndex );
+  tree->scrollToItem ( queryItem, QAbstractItemView::PositionAtTop );
 }
 
 void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )

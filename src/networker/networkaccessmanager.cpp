@@ -69,6 +69,10 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
             this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
 }
 
+/**
+* Suche bei der Netzwerk antwort nach dem Content-Type und ermittle
+* den Zeichensatz. Dabei ist der Standard "UTF-8" der zurück gegeben wird.
+*/
 QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
 {
   QString encoding ( "UTF-8" );
@@ -93,6 +97,10 @@ QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
   return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
+/**
+* Wenn die Netzwerk Anfrage eine Authentifizierung verlangt.
+* Dann, an dieser Setlle noch mal einen Dialog anzeigen.
+*/
 void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuthenticator * auth )
 {
   AuthenticationDialog authDialog;
@@ -104,6 +112,11 @@ void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuth
   }
 }
 
+/**
+* Wenn es ein Proxy Verbindung ist und keine Konfiguration
+* vorhanden oder die Authentifizierung fehlschlägt.
+* Dann, an dieser Setlle noch mal einen Dialog anzeigen.
+*/
 void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &proxy, QAuthenticator * auth )
 {
   AuthenticationDialog authDialog;
@@ -116,6 +129,9 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
   }
 }
 
+/**
+* Zertifizierungs Fehler Meldungen verarbeiten.
+*/
 void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
 {
   QString certHost ( reply->url().host() );
@@ -147,6 +163,9 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
   }
 }
 
+/**
+* Netzwerkfehler Meldungen verarbeiten.
+*/
 void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
 {
   if ( err == QNetworkReply::NoError )
@@ -162,6 +181,10 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   delete errdial;
 }
 
+/**
+* Server antworten vom Speicher lesen.
+* @see peekReplyProcess
+*/
 const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
 {
   QByteArray readBytes;
@@ -176,6 +199,14 @@ const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
   return readBytes;
 }
 
+/**
+* An dieser Stelle werden die Antworten abgefangen.
+* Weil QWebKit keinen Originalen Quelltext zurück gibt muss dies
+* an dieser erfolgen. Dabei ist es wichtig das die Daten vom Device
+* abgegriffen und nicht ausgelesen werden. Weil sonst die IO Device
+* den Speicher freigeben würde und nichts mehr beim WebKit ankommt.
+* Siehe auch @ref peekDeviceData
+*/
 void NetworkAccessManager::peekReplyProcess()
 {
   if ( htmlReply )
@@ -184,9 +215,9 @@ void NetworkAccessManager::peekReplyProcess()
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 
-    if( htmlReply->hasRawHeader ( QByteArray ( "location" ) ) )
+    if ( htmlReply->hasRawHeader ( QByteArray ( "location" ) ) )
     {
-      emit netNotify ( trUtf8( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
+      emit netNotify ( trUtf8 ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
       peekPostData.clear();
     }
 
@@ -206,6 +237,10 @@ void NetworkAccessManager::peekReplyProcess()
   }
 }
 
+/**
+* Wenn der Benutzer ein POST Formular absendet.
+* Werden die Daten an dieser Stelle abgefangen.
+*/
 void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevice * data )
 {
   if ( req.rawHeader ( QByteArray ( "Referer" ) ).isEmpty() )
@@ -251,44 +286,57 @@ void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevi
   }
 }
 
+/**
+* Wenn eine Antwort vom Server eingeht und dies ein text/html Type ist.
+* Wird der Content-Type ausgelesen und an das Signal @ref receivedHostHeaders
+* gesendet.
+*/
 void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 {
-  if ( reply && ( reply->url().host() == url.host() ) )
+  if ( reply && reply->url().isValid() )
   {
-    QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
-    if ( ! mimeType.contains ( "text/html" ) )
-      return;
-
     QMap<QString,QString> map;
     foreach ( QByteArray k, reply->rawHeaderList() )
     {
       map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
     }
-    emit receivedHostHeaders ( reply->url().host(), map );
+    emit receivedHostHeaders ( reply->url(), map );
   }
 }
 
+/**
+* Setzt die Virtuelle @ref url Variable
+*/
 void NetworkAccessManager::setUrl ( const QUrl &u )
 {
   url = u;
 }
 
+/**
+* Gibt die Variable @ref url der letzten Anfrage zurück.
+*/
 const QUrl NetworkAccessManager::getUrl()
 {
   return url;
 }
 
+/**
+* Gibt den Pointer auf @ref NetworkCookie zurück.
+*/
 NetworkCookie* NetworkAccessManager::cookieJar() const
 {
   return m_networkCookie;
 }
 
+/**
+* Primäre Netzwerk anfragen verarbeitung.
+*/
 QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Operation op,
         const QNetworkRequest &req,
         QIODevice * data )
 {
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
-  setUrl ( QUrl( request.url().toString( QUrl::RemoveFragment ) ) );
+  setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );
 
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
@@ -309,21 +357,33 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   return reply;
 }
 
+/**
+* Umleitung zur primären Netzwerk Anfrage @ref createRequest
+*/
 QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
   return createRequest ( QNetworkAccessManager::GetOperation, req );
 }
 
+/**
+* Umleitung zur primären Netzwerk Anfrage @ref createRequest
+*/
 QNetworkReply* NetworkAccessManager::head ( const QNetworkRequest &req )
 {
   return createRequest ( QNetworkAccessManager::HeadOperation, req );
 }
 
+/**
+* Umleitung zur primären Netzwerk Anfrage @ref createRequest
+*/
 QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, QIODevice* data )
 {
   return createRequest ( QNetworkAccessManager::PostOperation, req, data );
 }
 
+/**
+* Umleitung zur primären Netzwerk Anfrage @ref createRequest
+*/
 QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QByteArray &arr )
 {
   QBuffer* data = new QBuffer;

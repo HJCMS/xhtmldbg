@@ -61,7 +61,7 @@ class HeaderDock : public Docking
     void isXdebugCookie ( const QString & );
 
   public Q_SLOTS:
-    void setHeaderData ( const QString &, const QMap<QString,QString> & );
+    void setHeaderData ( const QUrl &, const QMap<QString,QString> & );
     void setPostedData ( const QUrl &, const QStringList & );
     void setCookieData ( const QUrl & );
 
