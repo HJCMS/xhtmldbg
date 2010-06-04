@@ -28,12 +28,40 @@
 #include <QtCore/QStringList>
 
 /* QtGui */
+#include <QtGui/QContextMenuEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QSplitter>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QWidget>
+
+/**
+* @class DockTreeWidget
+* @brief Child QTreeWidget Class for Subclassing Docking
+* @author Jürgen Heinemann (Undefined) http://www.hjcms.de
+* @version 0.0.1
+* @date 2010
+*/
+class DockTreeWidget : public QTreeWidget
+{
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
+
+  private:
+    int minWidth;
+
+  private Q_SLOTS:
+    void resizeFirstColumn ( QTreeWidgetItem *, int );
+
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
+
+  public:
+    DockTreeWidget ( QWidget * parent = 0 );
+    virtual ~DockTreeWidget();
+};
 
 /**
 * @class Docking
@@ -63,7 +91,7 @@ class Docking : public QDockWidget
     * the default TreeWidget with index 0
     * this widget is already add in constructer
     */
-    QTreeWidget* DockingTreeWidgetTop;
+    DockTreeWidget* DockingTreeWidgetTop;
 
     /**
     * @var columns

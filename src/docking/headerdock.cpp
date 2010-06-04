@@ -81,17 +81,24 @@ void HeaderDock::setTreeHeaderLabels ( const QStringList &labels, int index )
   Docking::setTreeHeaderLabels ( labels, index );
 }
 
-void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &map )
+/** Header Datenbaum Leeren */
+void HeaderDock::clearHeaderData ()
+{
+  clearContent ( 0 );
+}
+
+/** Header Datenbaum mit allen Seiten Url's erstellen */
+void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QString> &map )
 {
   int widgetIndex = 0;
   int minWidth = 0;
-  bool typeHtml = false;
-  QString host = url.host();
+  bool isHtmlContent = false;
+  QString host = replyUrl.host();
   QTreeWidget* tree = widget ( widgetIndex );
   QTreeWidgetItem* parent;
 
   if ( map.contains ( "Content-Type" ) )
-    typeHtml = QString ( map["Content-Type"] ).contains ( "text/html" );
+    isHtmlContent = QString ( map["Content-Type"] ).contains ( "text/html" );
 
   // Oberster Eintrag mit Hostnamen
   if ( itemExists ( host, widgetIndex ) )
@@ -101,10 +108,8 @@ void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &m
     QTreeWidgetItemIterator it ( tree, QTreeWidgetItemIterator::HasChildren );
     while ( *it )
     {
-      if ( host != ( *it )->data ( 0, Qt::DisplayRole ) )
-        ( *it )->setExpanded ( false ); // Einträge einklappen
-
-      if ( url.path() == ( *it )->data ( 0, Qt::DisplayRole ) )
+      ( *it )->setExpanded ( false ); // Einträge einklappen
+      if ( replyUrl.path() == ( *it )->data ( 0, Qt::DisplayRole ) )
       {
         parent->removeChild ( ( *it ) );
         tree->sortItems ( 0, Qt::AscendingOrder );
@@ -116,20 +121,18 @@ void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &m
   }
   else
   {
-    clearContent ( widgetIndex );
     parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
-    parent->setExpanded ( true );
+    parent->setExpanded ( false );
     parent->setData ( 0, Qt::DisplayRole, host );
     parent->setText ( 1, trUtf8 ( "Hostname" ) );
     parent->setForeground ( 1, Qt::lightGray );
   }
 
   QTreeWidgetItem* queryItem = addTopLevelItem ( parent, widgetIndex );
-  queryItem->setData ( 0, Qt::DisplayRole, url.path() );
-  queryItem->setExpanded ( typeHtml );
-  if ( ! typeHtml )
+  queryItem->setData ( 0, Qt::DisplayRole, replyUrl.path() );
+  queryItem->setExpanded ( false );
+  if ( ! isHtmlContent )
     queryItem->setForeground ( 0, Qt::lightGray );
-
   queryItem->setText ( 1, trUtf8 ( "Item" ) );
   queryItem->setForeground ( 1, Qt::lightGray );
   parent->addChild ( queryItem );
@@ -148,8 +151,14 @@ void HeaderDock::setHeaderData ( const QUrl &url, const QMap<QString,QString> &m
   }
 
   setColumnWidth ( 1, minWidth, widgetIndex );
-  resizeSections ( widgetIndex );
+  // resizeSections ( widgetIndex );
   tree->scrollToItem ( queryItem, QAbstractItemView::PositionAtTop );
+}
+
+/** Post Variablen Baum Leeren */
+void HeaderDock::clearPostData ()
+{
+  clearContent ( 1 );
 }
 
 void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
@@ -201,6 +210,12 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
 
   setColumnWidth ( 1, minWidth, widgetIndex );
   resizeSections ( widgetIndex );
+}
+
+/** Cookies Datenbaum Leeren */
+void HeaderDock::clearCookieData ()
+{
+  clearContent ( 2 );
 }
 
 /**

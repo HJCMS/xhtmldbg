@@ -24,9 +24,59 @@
 #include <QtCore/QList>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
+#include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
+
+DockTreeWidget::DockTreeWidget ( QWidget * parent )
+    : QTreeWidget ( parent )
+    , minWidth ( 50 )
+{
+  setObjectName ( "dockingtreewidget" );
+  header()->setResizeMode ( 0, QHeaderView::ResizeToContents );
+  header()->setStretchLastSection ( true );
+
+  connect ( this, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
+            this, SLOT ( resizeFirstColumn ( QTreeWidgetItem *, int ) ) );
+}
+
+/** Die erste Zelle immer Automatisch ändern */
+void DockTreeWidget::resizeFirstColumn ( QTreeWidgetItem *item, int i )
+{
+  if ( i != 0 )
+    return;
+
+  QString txt = item->data ( i, Qt::EditRole ).toString();
+  int w = ( fontMetrics().width ( txt ) + item->font ( i ).weight() );
+  if ( w >= minWidth )
+    minWidth = w;
+
+  setColumnWidth ( i, minWidth );
+}
+
+/** Kontext Menü für die Datenbäume */
+void DockTreeWidget::contextMenuEvent ( QContextMenuEvent *event )
+{
+  QMenu* menu = new QMenu ( this );
+  QAction* acClear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
+                                       trUtf8 ( "Clear" ) );
+  connect ( acClear, SIGNAL ( triggered() ), this, SLOT ( clear() ) );
+
+  QAction* acExpand = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-process-all-tree" ) ),
+                                        trUtf8 ( "Expand All" ) );
+  connect ( acExpand, SIGNAL ( triggered() ), this, SLOT ( expandAll() ) );
+
+  QAction* acCollapse = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-list-tree" ) ),
+                                          trUtf8 ( "Collapse All" ) );
+  connect ( acCollapse, SIGNAL ( triggered() ), this, SLOT ( collapseAll() ) );
+
+  menu->exec ( event->globalPos() );
+}
+
+DockTreeWidget::~DockTreeWidget()
+{}
 
 Docking::Docking ( QWidget * parent )
     : QDockWidget ( parent )
@@ -37,7 +87,7 @@ Docking::Docking ( QWidget * parent )
 
   DockingSplitter = new QSplitter ( Qt::Vertical, this );
 
-  DockingTreeWidgetTop = new QTreeWidget ( this );
+  DockingTreeWidgetTop = new DockTreeWidget ( this );
   DockingTreeWidgetTop->setObjectName ( QLatin1String ( "dockingtreewidgettop" ) );
   DockingTreeWidgetTop->setColumnCount ( columns );
   addTreeWidget ( DockingTreeWidgetTop );

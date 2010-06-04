@@ -240,6 +240,9 @@ void WebViewer::addViewerTab ( Viewer *view )
   connect ( view, SIGNAL ( totalBytes ( qint64 ) ),
             this, SIGNAL ( bytesLoaded ( qint64 ) ) );
 
+  connect ( view, SIGNAL ( loadStarted () ),
+            this, SIGNAL ( loadStarted () ) );
+
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
   int index = addTab ( view, title );
