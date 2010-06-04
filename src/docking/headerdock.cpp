@@ -36,6 +36,7 @@
 
 HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
+    , minColumnWidth ( 50 )
 {
   setObjectName ( "headerviews" );
   setWindowTitle ( trUtf8 ( "Headers" ) );
@@ -155,8 +156,6 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
   resizeSections ( widgetIndex );
 }
 
-// COOKIES
-
 /**
 * Ein von PHP Serialisierten Keks wieder in einen lesbaren
 * Text verwandeln.
@@ -215,7 +214,7 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   if ( minWidth > minColumnWidth )
   {
     minColumnWidth = minWidth;
-    setColumnWidth ( 1, minColumnWidth );
+    setColumnWidth ( 1, 2 ); // widgetIndex= 2
   }
 
   if ( cookie.name() == QString::fromUtf8 ( "XDEBUG_SESSION" ) && ! values.isEmpty() )
@@ -284,11 +283,10 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 * Suche anhand der URL nach einem Cookie von
 * @class NetworkCookie
 */
-void HeaderDock::setCookieData( const QUrl &url )
+void HeaderDock::setCookieData ( const QUrl &url )
 {
   int widgetIndex = 2;
-  int minColumnWidth = 50;
-  clearContent( widgetIndex );
+  clearContent ( widgetIndex );
 
   if ( ! m_networkCookie )
     return;
