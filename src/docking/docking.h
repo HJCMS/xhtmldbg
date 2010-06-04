@@ -124,13 +124,13 @@ class Docking : public QDockWidget
     * insert a new TreeWidget behind the top TreeWidget
     * the class will automatically append this TreeWidget from top
     */
-    void addTreeWidget ( QTreeWidget * widget );
+    void addTreeWidget ( DockTreeWidget * widget );
 
     /**
     * fetch TreeWidget by index
     * @param index The Index for used TreeWidget Default 0
     */
-    QTreeWidget* widget ( int index = 0 );
+    DockTreeWidget* widget ( int index = 0 );
 
   public Q_SLOTS:
     /**

@@ -52,7 +52,7 @@ HeaderDock::HeaderDock ( QWidget * parent )
   labels.clear();
 
   // Post Data
-  m_treePostVars = new QTreeWidget ( this );
+  m_treePostVars = new DockTreeWidget ( this );
   m_treePostVars->setObjectName ( QLatin1String ( "postvarstreewidget" ) );
   m_treePostVars->setToolTip ( trUtf8 ( "POST Variables" ) );
   addTreeWidget ( m_treePostVars );
@@ -63,7 +63,7 @@ HeaderDock::HeaderDock ( QWidget * parent )
   labels.clear();
 
   // Cookies Data
-  m_treeCookies = new QTreeWidget ( this );
+  m_treeCookies = new DockTreeWidget ( this );
   m_treeCookies->setObjectName ( QLatin1String ( "cookiestreewidget" ) );
   m_treeCookies->setToolTip ( trUtf8 ( "Cookies" ) );
   addTreeWidget ( m_treeCookies );
@@ -94,7 +94,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   int minWidth = 0;
   bool isHtmlContent = false;
   QString host = replyUrl.host();
-  QTreeWidget* tree = widget ( widgetIndex );
+  DockTreeWidget* tree = widget ( widgetIndex );
   QTreeWidgetItem* parent;
 
   if ( map.contains ( "Content-Type" ) )
@@ -149,10 +149,6 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
     if ( cw > minWidth )
       minWidth = cw;
   }
-
-  setColumnWidth ( 1, minWidth, widgetIndex );
-  // resizeSections ( widgetIndex );
-  tree->scrollToItem ( queryItem, QAbstractItemView::PositionAtTop );
 }
 
 /** Post Variablen Baum Leeren */
@@ -207,9 +203,6 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
     if ( cw > minWidth )
       minWidth = cw;
   }
-
-  setColumnWidth ( 1, minWidth, widgetIndex );
-  resizeSections ( widgetIndex );
 }
 
 /** Cookies Datenbaum Leeren */
@@ -348,11 +341,10 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 void HeaderDock::setCookieData ( const QUrl &url )
 {
   int widgetIndex = 2;
-  clearContent ( widgetIndex );
-
   if ( ! m_networkCookie )
     return;
 
+  clearContent ( widgetIndex );
   QList<QNetworkCookie> cookies = m_networkCookie->cookiesForUrl ( url );
   if ( cookies.size() >= 1 )
   {
@@ -367,7 +359,6 @@ void HeaderDock::setCookieData ( const QUrl &url )
     {
       setCookieData ( keks, item );
     }
-    resizeSections ( widgetIndex );
   }
 }
 

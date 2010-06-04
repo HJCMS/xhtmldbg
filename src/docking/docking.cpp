@@ -110,7 +110,7 @@ const QFontMetrics Docking::fontMetric ( int index )
   return widget ( index )->fontMetrics();
 }
 
-void Docking::addTreeWidget ( QTreeWidget * widget )
+void Docking::addTreeWidget ( DockTreeWidget * widget )
 {
   Q_ASSERT ( widget );
   widget->setAutoScroll ( true );
@@ -122,10 +122,10 @@ void Docking::addTreeWidget ( QTreeWidget * widget )
   DockingSplitter->insertWidget ( DockingSplitter->count(), widget );
 }
 
-QTreeWidget* Docking::widget ( int index )
+DockTreeWidget* Docking::widget ( int index )
 {
   Q_ASSERT_X ( ( DockingSplitter->count() >= index ), "Docking::widget", "Invalid Index to find TreeWidget" );
-  return qobject_cast<QTreeWidget*> ( DockingSplitter->widget ( index ) );
+  return qobject_cast<DockTreeWidget*> ( DockingSplitter->widget ( index ) );
 }
 
 void Docking::clearContent ( int index )

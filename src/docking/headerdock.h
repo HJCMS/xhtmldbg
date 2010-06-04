@@ -47,8 +47,8 @@ class HeaderDock : public Docking
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QTreeWidget* m_treePostVars;
-    QTreeWidget* m_treeCookies;
+    DockTreeWidget* m_treePostVars;
+    DockTreeWidget* m_treeCookies;
     NetworkCookie* m_networkCookie;
     int minColumnWidth;
     void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
