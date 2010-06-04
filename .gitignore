@@ -3,6 +3,7 @@ templates/
 tags
 commit.sh
 findicon.sh
+readelf.sh
 xhtmldbg.kdevelop.filelist
 xhtmldbg.kdevelop.pcs
 xhtmldbg.kdevses

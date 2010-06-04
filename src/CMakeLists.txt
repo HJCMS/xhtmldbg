@@ -103,6 +103,10 @@ ADD_EXECUTABLE (xhtmldbg
   ${xhtmldbg_SOURCES}
 )
 
+IF (__CHECK_GCC_FPIE)
+  SET ( "${CMAKE_CXX_FLAGS} -fPIE")
+ENDIF (__CHECK_GCC_FPIE)
+
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
   xhtmldbginterface
@@ -116,6 +120,12 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   ConfigDialog
   CSSValidator
   DownloadManager
+)
+
+SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES
+  OUTPUT_NAME xhtmldbg
+  LINKER_LANGUAGE CXX
+  LINK_FLAGS "${APP_PIE_LDFLAGS}"
 )
 
 INSTALL (TARGETS xhtmldbg DESTINATION bin)

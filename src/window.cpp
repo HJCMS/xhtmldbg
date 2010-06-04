@@ -198,7 +198,7 @@ Window::Window ( QSettings * settings )
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
 
   connect ( m_webViewer, SIGNAL ( loadStarted () ),
-            m_headerDock, SLOT ( clearHeaderData() ) );
+            m_headerDock, SLOT ( clearAllData() ) );
   // } WebViewer
   // SourceWidget {
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),

@@ -88,6 +88,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   CHECK_CXX_COMPILER_FLAG(-fPIC __CHECK_GCC_FPIC)
   SET (__CHECK_GCC_FPIC ${__CHECK_GCC_FPIC} CACHE BOOL "GCC support for -fPIC")
 
+  # gives some advantages over fPIC
+  CHECK_CXX_COMPILER_FLAG(-pie __CHECK_GCC_FPIE)
+  SET (__CHECK_GCC_FPIE ${__CHECK_GCC_FPIE} CACHE BOOL "GCC support for -pie")
+
   # Pass the flag -export-dynamic to the ELF linker, on targets that support it.
   CHECK_CXX_COMPILER_FLAG(-rdynamic __CHECK_LINK_RDYNAMIC)
   SET (__CHECK_LINK_RDYNAMIC ${__CHECK_LINK_RDYNAMIC} CACHE BOOL "compiler support for -rdynamic")
@@ -134,6 +138,14 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   ELSE (__CHECK_GCC_FPIC)
     SET (LIB_FPIC_CXXFLAGS "")
   ENDIF (__CHECK_GCC_FPIC)
+
+  IF (__CHECK_GCC_FPIE)
+    SET (APP_PIE_CXXFLAGS "-fPIE")
+    SET (APP_PIE_LDFLAGS "-pie")
+  ELSE (__CHECK_GCC_FPIE)
+    SET (APP_PIE_CXXFLAGS "")
+    SET (APP_PIE_LDFLAGS "")
+  ENDIF (__CHECK_GCC_FPIE)
 
   IF (__CHECK_LINK_RDYNAMIC)
     SET (LIB_RDYNAMIC_CXXFLAGS "-rdynamic")

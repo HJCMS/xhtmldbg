@@ -81,10 +81,11 @@ void HeaderDock::setTreeHeaderLabels ( const QStringList &labels, int index )
   Docking::setTreeHeaderLabels ( labels, index );
 }
 
-/** Header Datenbaum Leeren */
-void HeaderDock::clearHeaderData ()
+/** Alle Datenbäume Leeren */
+void HeaderDock::clearAllData ()
 {
-  clearContent ( 0 );
+  for ( int i = 0; i < 3; i++ )
+    clearContent ( i );
 }
 
 /** Header Datenbaum mit allen Seiten Url's erstellen */
@@ -151,12 +152,6 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   }
 }
 
-/** Post Variablen Baum Leeren */
-void HeaderDock::clearPostData ()
-{
-  clearContent ( 1 );
-}
-
 void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
 {
   int widgetIndex = 1;
@@ -203,12 +198,6 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
     if ( cw > minWidth )
       minWidth = cw;
   }
-}
-
-/** Cookies Datenbaum Leeren */
-void HeaderDock::clearCookieData ()
-{
-  clearContent ( 2 );
 }
 
 /**
@@ -344,16 +333,36 @@ void HeaderDock::setCookieData ( const QUrl &url )
   if ( ! m_networkCookie )
     return;
 
-  clearContent ( widgetIndex );
+  QString host = url.host();
+  // Oberster Eintrag mit Hostnamen
+  if ( itemExists ( host, widgetIndex ) )
+  {
+    DockTreeWidget* tree = widget ( widgetIndex );
+    QTreeWidgetItem* parent = tree->topLevelItem ( 0 );
+    /* Doppelte Einträge bei Pfad oder Query entfernen und unten neu Schreiben */
+    QTreeWidgetItemIterator it ( tree, QTreeWidgetItemIterator::HasChildren );
+    while ( *it )
+    {
+      ( *it )->setExpanded ( false ); // Einträge einklappen
+      if ( host == ( *it )->data ( 0, Qt::DisplayRole ) )
+      {
+        parent->removeChild ( ( *it ) );
+        tree->sortItems ( 0, Qt::AscendingOrder );
+        delete ( *it );
+        break;
+      }
+      ++it;
+    }
+  }
+
   QList<QNetworkCookie> cookies = m_networkCookie->cookiesForUrl ( url );
   if ( cookies.size() >= 1 )
   {
-    QString name = url.host().remove ( QRegExp ( "\\bwww\\." ) );
     QTreeWidgetItem* item = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
-    item->setData ( 0, Qt::UserRole, name );
-    item->setText ( 0, name );
+    item->setData ( 0, Qt::UserRole, host );
+    item->setText ( 0, host );
     item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
-    item->setToolTip ( 0, url.host() );
+    item->setToolTip ( 0, url.toString ( ( QUrl::RemoveQuery | QUrl::RemoveFragment | QUrl::RemovePath ) ) );
     // Read all Cookies
     foreach ( QNetworkCookie keks, cookies )
     {

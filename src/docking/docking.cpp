@@ -35,21 +35,30 @@ DockTreeWidget::DockTreeWidget ( QWidget * parent )
     , minWidth ( 50 )
 {
   setObjectName ( "dockingtreewidget" );
-  header()->setResizeMode ( 0, QHeaderView::ResizeToContents );
-  header()->setStretchLastSection ( true );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  setSortingEnabled ( true );
+  setAutoScroll ( true );
+  setWordWrap ( false );
+  setFrameStyle ( QFrame::Box );
+  // Header
+  header()->setResizeMode ( QHeaderView::Interactive );
+  header()->setSortIndicatorShown ( true );
 
   connect ( this, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
-            this, SLOT ( resizeFirstColumn ( QTreeWidgetItem *, int ) ) );
+            this, SLOT ( resizeColumnByItem ( QTreeWidgetItem *, int ) ) );
 }
 
 /** Die erste Zelle immer Automatisch ändern */
-void DockTreeWidget::resizeFirstColumn ( QTreeWidgetItem *item, int i )
+void DockTreeWidget::resizeColumnByItem ( QTreeWidgetItem *item, int i )
 {
-  if ( i != 0 )
-    return;
-
   QString txt = item->data ( i, Qt::EditRole ).toString();
   int w = ( fontMetrics().width ( txt ) + item->font ( i ).weight() );
+  /* Wenn die Breite der ersten Zelle die aktuelle Fensterbreite
+  * überschreitet nicht weiter machen.
+  * Dies kann der Benutzer selbst machen. */
+  if ( w < 50 || w >= ( width() - 20 ) )
+    return;
+
   if ( w >= minWidth )
     minWidth = w;
 
@@ -113,12 +122,6 @@ const QFontMetrics Docking::fontMetric ( int index )
 void Docking::addTreeWidget ( DockTreeWidget * widget )
 {
   Q_ASSERT ( widget );
-  widget->setAutoScroll ( true );
-  widget->setWordWrap ( true );
-  widget->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  widget->setSortingEnabled ( false );
-  widget->header()->setResizeMode ( QHeaderView::Interactive );
-  widget->setFrameStyle ( QFrame::Box );
   DockingSplitter->insertWidget ( DockingSplitter->count(), widget );
 }
 
