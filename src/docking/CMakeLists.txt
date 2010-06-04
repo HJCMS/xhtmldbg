@@ -2,13 +2,11 @@
 
 SET (docking_SOURCES
   docking.cpp
-  cookiesdock.cpp
   headerdock.cpp
 )
 
 SET (docking_HEADERS
   docking.h
-  cookiesdock.h
   headerdock.h
 )
 

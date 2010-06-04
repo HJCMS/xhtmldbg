@@ -44,7 +44,6 @@
 #include "configdialog.h"
 #include "statusbar.h"
 #include "dominspector.h"
-#include "cookiesdock.h"
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
@@ -65,6 +64,7 @@
 #include <QtCore/QMap>
 #include <QtCore/QProcess>
 #include <QtCore/QRegExp>
+#include <QtCore/QSignalMapper>
 #include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -155,10 +155,6 @@ Window::Window ( QSettings * settings )
   // CSS Validierer Prozess
   m_cssValidator = new CSSValidator ( this, m_settings );
   addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
-
-  // Zeige Keks Informationen
-  m_cookiesDock = new CookiesDock ( this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_cookiesDock );
 
   // Zeige Datenköpfe für CGI GET/POST und HTTP Header an.
   m_headerDock = new HeaderDock ( this );
@@ -260,10 +256,14 @@ Window::Window ( QSettings * settings )
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
+
   // zum abschluss den focus auf den Browser setzen
   m_webViewer->setWebFocus();
 }
 
+/**
+* Alle Menüeinträge einfügen und die Tastenkürzel setzen.
+*/
 void Window::createMenus()
 {
   m_menuBar = menuBar ();
@@ -277,7 +277,7 @@ void Window::createMenus()
   // Action Open URL Dialog
   actionOpenUrl = m_applicationMenu->addAction ( trUtf8 ( "Open Url" ) );
   actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
-  actionOpenUrl->setShortcut ( Qt::CTRL + Qt::Key_U );
+  actionOpenUrl->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_O );
   actionOpenUrl->setIcon ( icon.fromTheme ( QLatin1String ( "document-open-remote" ) ) );
   connect ( actionOpenUrl, SIGNAL ( triggered() ), this, SLOT ( openUrlDialog() ) );
 
@@ -313,7 +313,47 @@ void Window::createMenus()
   actionClean->setIcon ( icon.fromTheme ( QLatin1String ( "format-list-ordered" ) ) );
   connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
-  // Viewer Menu
+  // Ansicht Menu
+  m_mainViewMenu = m_menuBar->addMenu ( trUtf8 ( "&View" ) );
+  // Verwende Signal Mapper für die Signale an zoomBrowserContent
+  QSignalMapper* zoomSignalMapper = new QSignalMapper ( m_mainViewMenu );
+  // Zoom +
+  QAction* actionZoomIn = m_mainViewMenu->addAction ( trUtf8 ( "Zoom +" ) );
+  actionZoomIn->setObjectName ( QLatin1String ( "action_view_zoom_in" ) );
+  actionZoomIn->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-in" ) ) );
+  actionZoomIn->setShortcut ( QKeySequence::ZoomIn );
+  connect ( actionZoomIn, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map () ) );
+  zoomSignalMapper->setMapping ( actionZoomIn, 1 );
+
+  // Zoom -
+  QAction* actionZoomOut = m_mainViewMenu->addAction ( trUtf8 ( "Zoom -" ) );
+  actionZoomOut->setObjectName ( QLatin1String ( "action_view_zoom_out" ) );
+  actionZoomOut->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-out" ) ) );
+  actionZoomOut->setShortcut ( QKeySequence::ZoomOut );
+  connect ( actionZoomOut, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map () ) );
+  zoomSignalMapper->setMapping ( actionZoomOut, 2 );
+
+  // Zoom zurück Original Ansicht
+  QAction* actionZoomOriginal = m_mainViewMenu->addAction ( trUtf8 ( "Original" ) );
+  actionZoomOriginal->setObjectName ( QLatin1String ( "action_view_zoom_original" ) );
+  actionZoomOriginal->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-original" ) ) );
+  actionZoomOriginal->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_0 );
+  connect ( actionZoomOriginal, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map() ) );
+  zoomSignalMapper->setMapping ( actionZoomOriginal, 0 );
+
+  // Zoom Signale registrieren
+  connect ( zoomSignalMapper, SIGNAL ( mapped ( int ) ), m_webViewer, SLOT ( zoomFactor ( int ) ) );
+
+  m_mainViewMenu->addSeparator();
+
+  // Fullansciht Modus
+  QAction* actionFullScreen = m_mainViewMenu->addAction ( trUtf8 ( "Fullscreen" ) );
+  actionFullScreen->setObjectName ( QLatin1String ( "action_view_full_screen" ) );
+  actionFullScreen->setIcon ( icon.fromTheme ( QLatin1String ( "view-fullscreen" ) ) );
+  actionFullScreen->setShortcut ( Qt::Key_F11 );
+  connect ( actionFullScreen, SIGNAL ( triggered () ), this, SLOT ( toggleWindowFullScreen() ) );
+
+  // Browser Menu
   m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "&Browser" ) );
 
   // Action WebView Reload
@@ -371,7 +411,8 @@ void Window::createMenus()
   // Bookmark Manager Action
   QIcon bookEditIcon ( icon.fromTheme ( QLatin1String ( "bookmarks-organize" ) ) );
   QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, trUtf8 ( "Organize Bookmarks" ) );
-  editorAction->setShortcut ( Qt::CTRL + Qt::Key_B );
+  // NOTICE Qt::CTRL + Qt::Key_B ist von WebView Reserviert!
+  editorAction->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_B );
   connect ( editorAction, SIGNAL ( triggered() ), m_bookmarkMenu, SLOT ( openBookmarkEditor() ) );
 
   // Configuration Menu
@@ -406,6 +447,9 @@ void Window::createMenus()
   connect ( actionAboutHJCMS, SIGNAL ( triggered() ), aboutDialog, SLOT ( open() ) );
 }
 
+/**
+* Für alle Toolbalken einen Menüeintrag erstellen.
+*/
 void Window::createToolBars()
 {
   // Actions ToolBar
@@ -474,7 +518,6 @@ void Window::createToolBars()
   QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Inspectors" ) );
   inspectorsMenu->setIcon ( icon );
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
-  inspectorsMenu->addAction ( m_cookiesDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
 
@@ -489,9 +532,13 @@ void Window::createToolBars()
 */
 void Window::closeEvent ( QCloseEvent *event )
 {
+  if ( isFullScreen() ) // Keine Vollansicht Speichern!
+    setWindowState ( windowState() & ~Qt::WindowFullScreen );
+
   plugins.clear(); // Vector Leeren
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
+
   QMainWindow::closeEvent ( event );
 }
 
@@ -504,12 +551,13 @@ void Window::closeEvent ( QCloseEvent *event )
 * Ich habe hier absichtlich kein resizeEvent verwendet weil
 * das Seltsamerweise zu einem Schwarzen WebViewer führt.
 */
-void Window::paintEvent ( QPaintEvent * ev )
+void Window::paintEvent ( QPaintEvent *event )
 {
-  Q_UNUSED ( ev )
   /* WARNING Currently we can not Implementation a Secondary
   * resizeEvent over QWebView Classes */
   m_statusBar->displayBrowserWidth ( m_webViewer->size() );
+
+  QMainWindow::paintEvent ( event );
 }
 
 /**
@@ -577,7 +625,7 @@ void Window::requestsFinished ( bool ok )
   if ( ok )
   {
     m_domInspector->setDomTree ( m_webViewer->toWebElement() );
-    m_cookiesDock->cookiesFromUrl ( m_webViewer->getUrl() );
+    m_headerDock->setCookieData ( m_webViewer->getUrl() );
     m_cssValidator->addForValidation ( m_webViewer->getUrl() );
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
@@ -743,6 +791,17 @@ void Window::openConfigDialog()
 }
 
 /**
+* Zwischen Vollansicht und Normaler Ansicht wechseln.
+*/
+void Window::toggleWindowFullScreen()
+{
+  if ( isFullScreen() )
+    setWindowState ( windowState() & ~Qt::WindowFullScreen );
+  else
+    setWindowState ( windowState() ^ Qt::WindowFullScreen );
+}
+
+/**
 * Wird von @ref openFileDialog verwendet um zu prüfen ob es
 * sich um ein file Schema handelt und existiert.
 * Danach wird sie in ein QTextStream eingelesen und weiter
@@ -850,6 +909,17 @@ void Window::downloadRequest ( const QNetworkRequest &request )
     // Download Starten
     m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
   }
+}
+
+/**
+* Zwischen den Zentralen Fenstern wechseln
+**/
+void Window::setCentralTabWidget ( const QString &index )
+{
+  if ( index.contains ( "source", Qt::CaseSensitive ) )
+    m_centralWidget->setCurrentWidget ( m_sourceWidget );
+  else
+    m_centralWidget->setCurrentWidget ( m_webViewer );
 }
 
 Window::~Window()

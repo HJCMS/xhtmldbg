@@ -37,6 +37,7 @@ class AutoReloadMenu : public QMenu
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
+    bool isActive;
     QAction* disableReload;
     QAction* ac10_seconds;
     QAction* ac20_seconds;
@@ -57,6 +58,9 @@ class AutoReloadMenu : public QMenu
 
   Q_SIGNALS:
     void reloadInterval ( int msek );
+
+  public Q_SLOTS:
+    void toggle();
 
   public:
     AutoReloadMenu ( QMenu * parent = 0 );

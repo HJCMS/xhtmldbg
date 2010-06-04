@@ -10,7 +10,7 @@
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
-Version:        @XHTMLDBG_PACKAGE_VERSION@
+Version:        @XHTMLDBG_VERSION@
 Release:        1
 License:        GPLv3
 AutoReqProv:    on

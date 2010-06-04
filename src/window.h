@@ -67,7 +67,6 @@ class AutoReloadMenu;
 class StatusBar;
 class AutoReloader;
 class DomInspector;
-class CookiesDock;
 class HeaderDock;
 class CSSValidator;
 class XHtmldbgAdaptor;
@@ -118,6 +117,8 @@ class Window : public QMainWindow
     QMenu* m_debuggerMenu;
     QAction* actionParse;
     QAction* actionClean;
+    // Window View Menu
+    QMenu* m_mainViewMenu;
     // WebViewer Menu
     QMenu* m_viewMenu;
     QAction* actionPageReload;
@@ -152,9 +153,7 @@ class Window : public QMainWindow
     JSMessanger* m_jsMessanger;
     // Display Infromation from XHTMLDBG
     AppEvents* m_appEvents;
-    // Cookie
-    CookiesDock* m_cookiesDock;
-    // Received Headers
+    // Received (HTTP/1.0) Headers
     HeaderDock* m_headerDock;
     // CSS Validator
     CSSValidator* m_cssValidator;
@@ -180,6 +179,7 @@ class Window : public QMainWindow
     void openFileDialog();
     void openUrlDialog();
     void openConfigDialog();
+    void toggleWindowFullScreen();
 
   protected:
     void closeEvent ( QCloseEvent * );
@@ -201,6 +201,8 @@ class Window : public QMainWindow
     void visibleSourceChanged();
     // used by QWebPage ...
     void downloadRequest ( const QNetworkRequest & );
+    // switch to Tab (source|webview)
+    void setCentralTabWidget ( const QString &index = QString::fromUtf8 ( "webview" ) );
 
   public:
     Window ( QSettings * settings = 0 );

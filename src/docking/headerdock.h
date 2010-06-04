@@ -23,15 +23,22 @@
 #define HEADERDOCK_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QTreeWidgetItem>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkCookie>
+
 #include "docking.h"
+
+class NetworkCookie;
 
 class HeaderDock : public Docking
 {
@@ -41,13 +48,22 @@ class HeaderDock : public Docking
 
   private:
     QTreeWidget* m_treePostVars;
+    QTreeWidget* m_treeCookies;
+    NetworkCookie* m_networkCookie;
+    int minColumnWidth;
+    void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
+    QString unserialize ( const QByteArray & ) const;
 
   protected:
     void setTreeHeaderLabels ( const QStringList &, int index = 0 );
 
+  Q_SIGNALS:
+    void isXdebugCookie ( const QString & );
+
   public Q_SLOTS:
     void setHeaderData ( const QString &, const QMap<QString,QString> & );
     void setPostedData ( const QUrl &, const QStringList & );
+    void setCookieData ( const QUrl & );
 
   public:
     HeaderDock ( QWidget * parent = 0 );

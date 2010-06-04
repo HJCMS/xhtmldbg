@@ -26,9 +26,11 @@
 
 /* QtGui */
 #include <QtGui/QIcon>
+#include <QtGui/QKeySequence>
 
 AutoReloadMenu::AutoReloadMenu ( QMenu * parent )
     : QMenu ( parent )
+    , isActive ( false )
 {
   setObjectName ( QLatin1String ( "autoreloadmenu" ) );
   setTitle ( trUtf8 ( "Auto Refresh" ) );
@@ -65,6 +67,10 @@ AutoReloadMenu::AutoReloadMenu ( QMenu * parent )
   ac60_seconds->setCheckable ( true );
   connect ( ac60_seconds, SIGNAL ( triggered() ), this, SLOT ( set60_seconds() ) );
 
+  QAction* shortcut = menuAction();
+  shortcut->setShortcut ( Qt::CTRL + Qt::Key_R );
+  connect ( shortcut, SIGNAL ( triggered() ), this, SLOT ( toggle() ) );
+
   setActiveAction ( disableReload );
 }
 
@@ -81,42 +87,63 @@ void AutoReloadMenu::setTimerDisable()
 {
   swapChecked ( disableReload );
   emit reloadInterval ( 0 );
+  isActive = false;
 }
 
 void AutoReloadMenu::set10_seconds()
 {
   swapChecked ( ac10_seconds );
   emit reloadInterval ( 10 );
+  isActive = true;
 }
 
 void AutoReloadMenu::set20_seconds()
 {
   swapChecked ( ac20_seconds );
   emit reloadInterval ( 20 );
+  isActive = true;
 }
 
 void AutoReloadMenu::set30_seconds()
 {
   swapChecked ( ac30_seconds );
   emit reloadInterval ( 30 );
+  isActive = true;
 }
 
 void AutoReloadMenu::set40_seconds()
 {
   swapChecked ( ac40_seconds );
   emit reloadInterval ( 40 );
+  isActive = true;
 }
 
 void AutoReloadMenu::set50_seconds()
 {
   swapChecked ( ac50_seconds );
   emit reloadInterval ( 50 );
+  isActive = true;
 }
 
 void AutoReloadMenu::set60_seconds()
 {
   swapChecked ( ac60_seconds );
   emit reloadInterval ( 60 );
+  isActive = true;
+}
+
+void AutoReloadMenu::toggle()
+{
+  if ( isActive )
+  {
+    setTimerDisable();
+    disableReload->setChecked ( true );
+  }
+  else
+  {
+    set10_seconds();
+    ac10_seconds->setChecked ( true );
+  }
 }
 
 AutoReloadMenu::~AutoReloadMenu()

@@ -29,6 +29,7 @@
 
 /* QtGui */
 #include <QtGui/QContextMenuEvent>
+#include <QtGui/QKeyEvent>
 #include <QtGui/QMouseEvent>
 #include <QtGui/QTabWidget>
 #include <QtGui/QWidget>
@@ -65,11 +66,13 @@ class Viewer : public QWebView
     void cursorFinished ( bool );
     void bookmark();
     void cookiesRequest ( const QUrl & );
+    void showPageSource();
     void checkingStyleSheet();
     void linkInfos ( const QString &, const QString &, const QString & );
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );
+    void keyPressEvent ( QKeyEvent * );
     void contextMenuEvent ( QContextMenuEvent * );
     void mousePressEvent ( QMouseEvent * );
 

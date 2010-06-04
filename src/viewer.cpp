@@ -42,6 +42,7 @@
 #include <QtGui/QCursor>
 #include <QtGui/QHelpEvent>
 #include <QtGui/QIcon>
+#include <QtGui/QKeySequence>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
@@ -160,6 +161,25 @@ void Viewer::bookmark()
 }
 
 /**
+* Die Tastenkürzel haben im contextMenuEvent() keinen Effekt
+* weil das Menü erst später Initialisiert wird und dienen rein zur
+* Visuellen Information an den Benutzer. Das Eigentlich abfangen
+* der Tastenkürzel geschieht hier.
+*/
+void Viewer::keyPressEvent ( QKeyEvent * e )
+{
+  // WARNING Es Funktionieren nur StandardKey's
+  if ( e->matches ( QKeySequence::Bold ) )
+    bookmark();
+  else if ( e->matches ( QKeySequence::Italic ) )
+    checkingStyleSheet();
+  else if ( e->matches ( QKeySequence::Underline ) )
+    showPageSource();
+
+  QWebView::keyPressEvent ( e );
+}
+
+/**
 * Füge Aktionen für (Lesezeichen|Stylesheet|User-Agent) mit ein.
 */
 void Viewer::contextMenuEvent ( QContextMenuEvent * e )
@@ -171,16 +191,27 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   QMenu* menu = m_page->createStandardContextMenu();
   // Lesezeichen
   QAction* add = menu->addAction ( trUtf8 ( "Bookmark" ) );
-  add->setObjectName ( QLatin1String ( "addbookmarkaction" ) );
+  add->setObjectName ( QLatin1String ( "ac_context_addbookmarkaction" ) );
   add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
+  add->setShortcut ( QKeySequence::Bold );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
 
   // Stylesheet Überprüfung
   QAction* style = menu->addAction ( trUtf8 ( "StyleSheet" ) );
-  style->setObjectName ( QLatin1String ( "stylesheet" ) );
+  style->setObjectName ( QLatin1String ( "ac_context_stylesheet" ) );
   style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
   style->setToolTip ( trUtf8 ( "Start CSS Validation for this Site." ) );
+  style->setShortcut ( QKeySequence::Italic );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
+
+  // Stylesheet Überprüfung
+  QAction* source = menu->addAction ( trUtf8 ( "Source" ) );
+  source->setObjectName ( QLatin1String ( "ac_context_source" ) );
+  source->setIcon ( QIcon::fromTheme ( QLatin1String ( "text-html" ) ) );
+  source->setToolTip ( trUtf8 ( "Show Document Source" ) );
+  source->setShortcut ( QKeySequence::Underline );
+  connect ( source, SIGNAL ( triggered() ), this, SLOT ( showPageSource() ) );
+
   // User-Agent
   menu->addMenu ( new UserAgentMenu ( menu, cfg ) );
 
@@ -236,6 +267,14 @@ void Viewer::cookiesRequest ( const QUrl &u )
     cookieAlreadyAdd = true;
     openCookieRequestDialog ( u );
   }
+}
+
+/**
+* Zeige den Quelltext an
+*/
+void Viewer::showPageSource()
+{
+  xhtmldbgmain::instance()->mainWindow()->setCentralTabWidget ( QLatin1String ( "source" ) );
 }
 
 /**

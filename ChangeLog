@@ -1,3 +1,6 @@
+- 2010/06/03 Juergen Heinemann (Undefined)
+  Bugfix: This minor version contains some smaller fixes for cmake on 64bit systems
+
 - 2010/05/25 Juergen Heinemann (Undefined)
   Bugfix: Minor bugs were fixed in plugin interface.
 
