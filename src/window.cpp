@@ -627,9 +627,15 @@ void Window::requestsFinished ( bool ok )
 {
   if ( ok )
   {
-    m_domInspector->setDomTree ( m_webViewer->toWebElement() );
-    m_headerDock->setCookieData ( m_webViewer->getUrl() );
-    m_cssValidator->addForValidation ( m_webViewer->getUrl() );
+    if ( m_domInspector->toggleViewAction()->isChecked() )
+      m_domInspector->setDomTree ( m_webViewer->toWebElement() );
+
+    if ( m_headerDock->toggleViewAction()->isChecked() )
+      m_headerDock->setCookieData ( m_webViewer->getUrl() );
+
+    if ( m_cssValidator->toggleViewAction()->isChecked() )
+      m_cssValidator->addForValidation ( m_webViewer->getUrl() );
+
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( m_webViewer->getUrl().toString ( options ) );
