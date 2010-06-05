@@ -50,9 +50,12 @@ class HeaderDock : public Docking
     DockTreeWidget* m_treePostVars;
     DockTreeWidget* m_treeCookies;
     NetworkCookie* m_networkCookie;
-    int minColumnWidth;
+    inline void unscramble ( const QString &, DockTreeWidget*, QTreeWidgetItem * ) const;
     void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
     QString unserialize ( const QByteArray & ) const;
+
+  private Q_SLOTS:
+    void setCookieData ( const QUrl & );
 
   protected:
     void setTreeHeaderLabels ( const QStringList &, int index = 0 );
@@ -61,10 +64,9 @@ class HeaderDock : public Docking
     void isXdebugCookie ( const QString & );
 
   public Q_SLOTS:
-    void clearAllData ();
+    void clearAll ();
     void setHeaderData ( const QUrl &, const QMap<QString,QString> & );
     void setPostedData ( const QUrl &, const QStringList & );
-    void setCookieData ( const QUrl & );
 
   public:
     HeaderDock ( QWidget * parent = 0 );

@@ -32,6 +32,7 @@ case "$1" in
     /usr/bin/ddd -x --directory=${base} ${base}/build/app/xhtmldbg
   ;;
   *)
+    echo "ddd -x --directory=${base} ${base}/build/app/xhtmldbg"
     /usr/bin/ddd -x --directory=${base} ${base}/build/app/xhtmldbg
   ;;
 esac

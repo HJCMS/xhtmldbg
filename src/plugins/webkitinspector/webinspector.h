@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QPair>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
@@ -33,22 +32,9 @@
 #include <QtGui/QWidget>
 
 /* QtWebKit */
-#include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebInspector>
 
-class WebInspectorClient : public QWebPage
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
-  private:
-    void updateWebSettings();
-
-  public:
-    WebInspectorClient ( QObject * parent = 0 );
-    virtual ~WebInspectorClient ();
-};
+class WebInspectorClient;
 
 class WebInspector : public QDockWidget
 {

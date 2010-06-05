@@ -38,7 +38,6 @@
 
 HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
-    , minColumnWidth ( 50 )
 {
   setObjectName ( "headerviews" );
   setWindowTitle ( trUtf8 ( "Headers" ) );
@@ -57,7 +56,7 @@ HeaderDock::HeaderDock ( QWidget * parent )
   m_treePostVars->setToolTip ( trUtf8 ( "POST Variables" ) );
   addTreeWidget ( m_treePostVars );
 
-  labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
+  labels << trUtf8 ( "Parameter" ) << trUtf8 ( "Value" );
   setColumnCount ( 2, 1 );
   setTreeHeaderLabels ( labels, 1 );
   labels.clear();
@@ -76,23 +75,51 @@ HeaderDock::HeaderDock ( QWidget * parent )
   m_networkCookie = xhtmldbgmain::instance()->cookieManager();
 }
 
+/**
+* Doppelte Einträge bei Pfad oder Query entfernen und unten neu Schreiben
+*/
+void HeaderDock::unscramble ( const QString &txt, DockTreeWidget *widget, QTreeWidgetItem *item ) const
+{
+  QTreeWidgetItemIterator it ( widget, QTreeWidgetItemIterator::HasChildren );
+  while ( *it )
+  {
+    ( *it )->setExpanded ( false ); // Einträge einklappen
+    if ( txt == ( *it )->data ( 0, Qt::DisplayRole ) )
+    {
+      item->removeChild ( ( *it ) );
+      widget->sortItems ( 0, Qt::AscendingOrder );
+      delete ( *it );
+      break;
+    }
+    ++it;
+  }
+}
+
+/**
+* Setze die Beschriftung für den entsprechenden Baum
+*/
 void HeaderDock::setTreeHeaderLabels ( const QStringList &labels, int index )
 {
   Docking::setTreeHeaderLabels ( labels, index );
 }
 
-/** Alle Datenbäume Leeren */
-void HeaderDock::clearAllData ()
+/**
+* Alle vorhandenen Datenbäume leeren.
+*/
+void HeaderDock::clearAll ()
 {
-  for ( int i = 0; i < 3; i++ )
+  for ( int i = 0; i < count(); i++ )
     clearContent ( i );
 }
 
-/** Header Datenbaum mit allen Seiten Url's erstellen */
+/**
+* Header Datenbaum mit allen Seiten Url's erstellen
+* Es werden alle Datenköpfe der Seite aufgelöst die
+* der Netzwerkmanager mit request verarbeitet.
+*/
 void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QString> &map )
 {
   int widgetIndex = 0;
-  int minWidth = 0;
   bool isHtmlContent = false;
   QString host = replyUrl.host();
   DockTreeWidget* tree = widget ( widgetIndex );
@@ -101,24 +128,19 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   if ( map.contains ( "Content-Type" ) )
     isHtmlContent = QString ( map["Content-Type"] ).contains ( "text/html" );
 
+  if ( isHtmlContent )
+  {
+    QUrl cookieUrl;
+    cookieUrl.setScheme ( replyUrl.scheme() );
+    cookieUrl.setHost ( replyUrl.host() );
+    setCookieData ( cookieUrl );
+  }
+
   // Oberster Eintrag mit Hostnamen
   if ( itemExists ( host, widgetIndex ) )
   {
     parent = tree->topLevelItem ( 0 );
-    /* Doppelte Einträge bei Pfad oder Query entfernen und unten neu Schreiben */
-    QTreeWidgetItemIterator it ( tree, QTreeWidgetItemIterator::HasChildren );
-    while ( *it )
-    {
-      ( *it )->setExpanded ( false ); // Einträge einklappen
-      if ( replyUrl.path() == ( *it )->data ( 0, Qt::DisplayRole ) )
-      {
-        parent->removeChild ( ( *it ) );
-        tree->sortItems ( 0, Qt::AscendingOrder );
-        delete ( *it );
-        break;
-      }
-      ++it;
-    }
+    unscramble ( replyUrl.path(), tree, parent );
   }
   else
   {
@@ -146,16 +168,16 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
     item->setData ( 0, Qt::DisplayRole, it.key() );
     item->setData ( 1, Qt::DisplayRole, it.value() );
     queryItem->addChild ( item );
-    int cw = ( fontMetric ( widgetIndex ).width ( it.value() ) + item->font ( 0 ).weight() );
-    if ( cw > minWidth )
-      minWidth = cw;
   }
 }
 
+/**
+* Die vom Netzwerkmanager abgegriffenen POST Variablen
+* an dieser Stelle einfügen.
+*/
 void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
 {
   int widgetIndex = 1;
-  int minWidth = 0;
 
   clearContent ( widgetIndex );
 
@@ -194,9 +216,6 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
     item->setData ( 0, Qt::DisplayRole, data.first() );
     item->setData ( 1, Qt::DisplayRole, data.last() );
     parent->addChild ( item );
-    int cw = ( fontMetric ( widgetIndex ).width ( data.last() ) + item->font ( 0 ).weight() );
-    if ( cw > minWidth )
-      minWidth = cw;
   }
 }
 
@@ -247,26 +266,20 @@ QString HeaderDock::unserialize ( const QByteArray &data ) const
 
 /**
 * Durchlaufe alle nutzbaren Cookie Parameter
-* und füge diese in ein Item ein.
+* und füge diese in ein.
 */
 void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
 {
   QString yes ( trUtf8 ( "Yes" ) );
   QString no ( trUtf8 ( "No" ) );
   QString values = unserialize ( cookie.value() );
-  int minWidth = ( fontMetric().width ( values ) + parent->font ( 0 ).weight() );
-  if ( minWidth > minColumnWidth )
-  {
-    minColumnWidth = minWidth;
-    setColumnWidth ( 1, 2 ); // widgetIndex= 2
-  }
 
   if ( cookie.name() == QString::fromUtf8 ( "XDEBUG_SESSION" ) && ! values.isEmpty() )
     emit isXdebugCookie ( values );
 
   // Name
   QTreeWidgetItem* root = new QTreeWidgetItem ( parent );
-  root->setExpanded ( true );
+  root->setExpanded ( false );
   root->setData ( 0, Qt::UserRole, cookie.name() );
   root->setText ( 0, cookie.name() );
   root->setText ( 1, trUtf8 ( "Cookie" ) );
@@ -339,20 +352,7 @@ void HeaderDock::setCookieData ( const QUrl &url )
   {
     DockTreeWidget* tree = widget ( widgetIndex );
     QTreeWidgetItem* parent = tree->topLevelItem ( 0 );
-    /* Doppelte Einträge bei Pfad oder Query entfernen und unten neu Schreiben */
-    QTreeWidgetItemIterator it ( tree, QTreeWidgetItemIterator::HasChildren );
-    while ( *it )
-    {
-      ( *it )->setExpanded ( false ); // Einträge einklappen
-      if ( host == ( *it )->data ( 0, Qt::DisplayRole ) )
-      {
-        parent->removeChild ( ( *it ) );
-        tree->sortItems ( 0, Qt::AscendingOrder );
-        delete ( *it );
-        break;
-      }
-      ++it;
-    }
+    unscramble ( host, tree, parent );
   }
 
   QList<QNetworkCookie> cookies = m_networkCookie->cookiesForUrl ( url );
@@ -362,7 +362,9 @@ void HeaderDock::setCookieData ( const QUrl &url )
     item->setData ( 0, Qt::UserRole, host );
     item->setText ( 0, host );
     item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
-    item->setToolTip ( 0, url.toString ( ( QUrl::RemoveQuery | QUrl::RemoveFragment | QUrl::RemovePath ) ) );
+    item->setToolTip ( 0, url.toString () );
+    item->setText ( 1, trUtf8 ( "Cookie Domain" ) );
+    item->setForeground ( 1, Qt::lightGray );
     // Read all Cookies
     foreach ( QNetworkCookie keks, cookies )
     {

@@ -194,11 +194,11 @@ Window::Window ( QSettings * settings )
   connect ( m_webViewer, SIGNAL ( statusBarMessage ( const QString & ) ),
             m_statusBar, SLOT ( showMessage ( const QString & ) ) );
 
+  connect ( m_webViewer, SIGNAL ( loadStarted () ),
+            m_headerDock, SLOT ( clearAll() ) );
+
   connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
-
-  connect ( m_webViewer, SIGNAL ( loadStarted () ),
-            m_headerDock, SLOT ( clearAllData() ) );
   // } WebViewer
   // SourceWidget {
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
@@ -629,9 +629,6 @@ void Window::requestsFinished ( bool ok )
   {
     if ( m_domInspector->toggleViewAction()->isChecked() )
       m_domInspector->setDomTree ( m_webViewer->toWebElement() );
-
-    if ( m_headerDock->toggleViewAction()->isChecked() )
-      m_headerDock->setCookieData ( m_webViewer->getUrl() );
 
     if ( m_cssValidator->toggleViewAction()->isChecked() )
       m_cssValidator->addForValidation ( m_webViewer->getUrl() );

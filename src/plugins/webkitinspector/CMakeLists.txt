@@ -8,11 +8,13 @@ SET (LIBRARY_OUTPUT_PATH
 
 SET(xhtmldbgplugin_SOURCES
   webinspector.cpp
+  webinspectorclient.cpp
   webkitinspectorplugin.cpp
 )
 
 SET(xhtmldbgplugin_HEADERS
   webinspector.h
+  webinspectorclient.h
   webkitinspectorplugin.h
 )
 

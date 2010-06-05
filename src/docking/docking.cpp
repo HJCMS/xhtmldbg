@@ -141,6 +141,11 @@ void Docking::resizeSections ( int index )
   widget ( index )->header ()->resizeSections ( QHeaderView::ResizeToContents );
 }
 
+int Docking::count ()
+{
+  return findChildren<DockTreeWidget*>().size();
+}
+
 int Docking::columnCount ( int index )
 {
   return widget ( index )->columnCount ();

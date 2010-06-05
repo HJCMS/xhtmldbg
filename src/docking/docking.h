@@ -38,10 +38,10 @@
 
 /**
 * @class DockTreeWidget
-* @brief Child QTreeWidget Class for Subclassing Docking
+* @brief Child QTreeWidget for Docking
 * @author Jürgen Heinemann (Undefined) http://www.hjcms.de
-* @version 0.0.1
-* @date 2010
+* @version 0.0.2
+* @date 2008-2010
 */
 class DockTreeWidget : public QTreeWidget
 {
@@ -67,7 +67,7 @@ class DockTreeWidget : public QTreeWidget
 * @class Docking
 * @brief My basic QDockWidget/QTreeWidget Class for Subclassing TreeWidgets
 * @author Jürgen Heinemann (Undefined) http://www.hjcms.de
-* @version 0.2.1
+* @version 0.2.3
 * @date 2008-2010
 */
 
@@ -146,6 +146,11 @@ class Docking : public QDockWidget
     void resizeSections ( int index = 0 );
 
   public:
+    /**
+    * Current DockTreeWidget* Size
+    */
+    int count();
+
     /**
     * the current column count from indexed TreeWidget
     * @param index The Index for used TreeWidget Default 0

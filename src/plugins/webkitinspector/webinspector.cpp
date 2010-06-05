@@ -20,56 +20,13 @@
 **/
 
 #include "webinspector.h"
+#include "webinspectorclient.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QDir>
 
 /* QtGui */
-#include <QtGui/QDesktopServices>
 #include <QtGui/QScrollArea>
-
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebFrame>
-#include <QtWebKit/QWebSettings>
-#include <QtWebKit/QWebView>
-
-WebInspectorClient::WebInspectorClient ( QObject * parent )
-    : QWebPage ( parent )
-{
-  setObjectName ( QLatin1String ( "webinspectorpage" ) );
-  updateWebSettings();
-}
-
-/**
-* Das lesen aller Web Einstellungen muss
-* vor dem ersten erstellen ein tabs erfolgen.
-*/
-void WebInspectorClient::updateWebSettings()
-{
-  QWebSettings* wcfg = settings();
-  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir ( dbPath );
-  dir.mkpath ( QLatin1String ( "icons" ) );
-  dir.mkpath ( QLatin1String ( "storage" ) );
-  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
-  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
-  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
-  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
-  wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
-  wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );
-  wcfg->setAttribute ( QWebSettings::PluginsEnabled, false );
-  wcfg->setAttribute ( QWebSettings::JavaEnabled, false );
-  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
-}
-
-WebInspectorClient::~WebInspectorClient ()
-{
-  settings()->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
-}
 
 WebInspector::WebInspector ( QWidget * parent )
     : QDockWidget ( parent )
@@ -82,24 +39,24 @@ WebInspector::WebInspector ( QWidget * parent )
   area->setObjectName ( QLatin1String ( "webinspectorscrollarea" ) );
   area->setWidgetResizable ( true );
 
-  /* NOTE This dummy WebPage must initialed before init QWebInspector */
+  /* NOTE Die dummy WebPage muss vor QWebInspector initialisiert werden */
   client = new WebInspectorClient ( this );
 
-  // Now initial QWebInspector
+  // jetzt QWebInspector initialisieren
   inspector = new QWebInspector ( area );
-  inspector->setObjectName ( QLatin1String ( "webinspector" ) );
+  inspector->setObjectName ( QLatin1String ( "webkitinspector" ) );
+  // wir brauchen diese breite für eine volle darstellung :-/
   inspector->setMinimumWidth ( 800 );
   inspector->setPage ( client );
 
-  // Finalize layout
+  // Layout abschliessen
   area->setWidget ( inspector );
   setWidget ( area );
 }
 
 void WebInspector::toInspect ( const QUrl &url )
 {
-  if ( url.isValid() && url.scheme().contains ( "http" ) )
-    client->mainFrame()->load ( url );
+  client->load ( url );
 }
 
 WebInspector::~WebInspector()
