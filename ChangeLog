@@ -1,3 +1,8 @@
+- 2010/06/05 Juergen Heinemann (Undefined)
+  Remove: Unstable Plugins from this target into seperate plugin builds
+  Merge: Cookies, Post and Header TreeWidgets into HeaderDock
+  Add: -fPIE -pi support
+
 - 2010/06/03 Juergen Heinemann (Undefined)
   Bugfix: This minor version contains some smaller fixes for cmake on 64bit systems
 
