@@ -80,7 +80,7 @@ const QByteArray NetworkSettings::userAgentString()
 /**
 * ProxyType aus der Konfiguration lesen
 */
-const QNetworkProxy::ProxyType NetworkSettings::proxyType()
+QNetworkProxy::ProxyType NetworkSettings::proxyType()
 {
   int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
   return static_cast<QNetworkProxy::ProxyType> ( type );

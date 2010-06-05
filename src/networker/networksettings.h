@@ -47,7 +47,7 @@ class NetworkSettings : public QSettings
   private:
     QWebSettings* wcfg;
     const QByteArray userAgentString();
-    const QNetworkProxy::ProxyType proxyType();
+    QNetworkProxy::ProxyType proxyType();
 
   public:
     NetworkSettings ( QObject * parent = 0 );
