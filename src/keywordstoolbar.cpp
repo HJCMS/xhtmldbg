@@ -28,6 +28,7 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QCompleter>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QPushButton>
@@ -51,6 +52,7 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   addWidget ( m_label );
 
   m_lineEdit = new QLineEdit ( this );
+  m_lineEdit->setObjectName ( QLatin1String ( "edit_search_line" ) );
   m_lineEdit->setMinimumWidth ( 100 );
   addWidget ( m_lineEdit );
 
@@ -65,6 +67,13 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( treating() ) );
 }
 
+void KeywordsToolBar::modifyCompliterHistory ( const QStringList &words )
+{
+  compliterHistory << words;
+  compliterHistory.removeDuplicates();
+  m_lineEdit->setCompleter ( new QCompleter ( compliterHistory, this ) );
+}
+
 void KeywordsToolBar::treating()
 {
   QString words = m_lineEdit->text();
@@ -77,9 +86,11 @@ void KeywordsToolBar::treating()
   else
     keywords << words;
 
+  modifyCompliterHistory ( keywords );
   emit changed ( keywords );
 }
 
 KeywordsToolBar::~KeywordsToolBar()
 {
+  compliterHistory.clear();
 }
