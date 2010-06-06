@@ -63,7 +63,7 @@ Viewer::Viewer ( QWidget * parent )
   setContextMenuPolicy ( Qt::DefaultContextMenu );
 
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
-  cookieManager = xhtmldbgmain::instance()->cookieManager();
+  NetworkCookie* cookieManager = xhtmldbgmain::instance()->cookieManager();
 
   m_page = new Page ( netManager, this );
   setPage ( m_page );
@@ -88,14 +88,18 @@ Viewer::Viewer ( QWidget * parent )
 * Öffnet den Keks Dialog und sendet danach das
 * Signal @ref CookieManager::reload
 */
-void Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
+bool Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
 {
-  if ( ! cookieManager )
-    return;
-
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookie Dialog Request:" << cookieUrl;
+#endif
   CookieAcceptDialog cookiediag ( cookieUrl, this );
   if ( cookiediag.exec() )
-    cookieManager->reload();
+  {
+    xhtmldbgmain::instance()->cookieManager()->reload();
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -256,17 +260,14 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 * Dieser Slot wird vom Signal cookiesRequest aufgerufen.
 * Es wird zuerst Überprüft ob @ref cookieAlreadyAdd bereits
 * existiert oder die URL Identisch mit Seiten Url ist!
-* 3.Anbieter werden generell abgwewiesen!
+* 3.Anbieter werden generell abgewiesen!
 */
 void Viewer::cookiesRequest ( const QUrl &u )
 {
   QString pageHost ( url().host() );
   QString cookieHost ( u.host() );
   if ( pageHost.contains ( cookieHost ) && ! cookieAlreadyAdd )
-  {
-    cookieAlreadyAdd = true;
-    openCookieRequestDialog ( u );
-  }
+    cookieAlreadyAdd = openCookieRequestDialog ( u );
 }
 
 /**

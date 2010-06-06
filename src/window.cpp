@@ -618,7 +618,6 @@ void Window::registerPlugins()
 * Diese Methode wird von QWebView::loadFinished aufgerufen.
 * Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
 * @li DomTree::setDomTree
-* @li HeaderDock::setCookieData
 * @li QSettings::setValue (RecentUrl)
 * @li An alle geladenen Plugins die URL übergeben.
 * Beim setzen von @em RecentUrl werden Passwörter und Anker entfernt.

@@ -45,7 +45,6 @@
 #include <QtWebKit/QWebPage>
 
 class Page;
-class NetworkCookie;
 
 class Viewer : public QWebView
 {
@@ -56,8 +55,7 @@ class Viewer : public QWebView
   private:
     bool cookieAlreadyAdd;
     Page* m_page;
-    NetworkCookie* cookieManager;
-    void openCookieRequestDialog ( const QUrl & );
+    bool openCookieRequestDialog ( const QUrl & );
     void findChildNode ( const QPoint & );
     void prepareLinkInfo ( const QWebHitTestResult & );
 

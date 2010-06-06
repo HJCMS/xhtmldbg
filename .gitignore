@@ -1,6 +1,7 @@
 .directory
 build/
 templates/
+core
 tags
 commit.sh
 findicon.sh

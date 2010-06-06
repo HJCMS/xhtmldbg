@@ -26,6 +26,8 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QDateTime>
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
@@ -125,6 +127,8 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
+  QFileInfo cookie_ini ( m_netcfg->storageDirectory() + QLatin1String ( "/cookiejar.ini" ) );
+  iniFile = cookie_ini.absoluteFilePath();
   load();
 }
 
@@ -154,12 +158,8 @@ void NetworkCookie::load()
   }
   m_netcfg->endGroup();
 
-  QString storedir = m_netcfg->storageDirectory();
-  if ( storedir.isEmpty() )
-    return;
-
   qRegisterMetaTypeStreamOperators<QList<QNetworkCookie> > ( "QList<QNetworkCookie>" );
-  QSettings qs ( storedir + QLatin1String ( "/cookiejar.ini" ), QSettings::IniFormat );
+  QSettings qs ( iniFile, QSettings::IniFormat );
   setAllCookies ( qvariant_cast<QList<QNetworkCookie> > ( qs.value ( QLatin1String ( "cookies" ) ) ) );
 }
 
@@ -173,11 +173,7 @@ void NetworkCookie::reload()
 
 void NetworkCookie::save()
 {
-  QString storedir = m_netcfg->storageDirectory();
-  if ( storedir.isEmpty() )
-    return;
-
-  QSettings qs ( storedir + QLatin1String ( "/cookiejar.ini" ), QSettings::IniFormat );
+  QSettings qs ( iniFile, QSettings::IniFormat );
   QList<QNetworkCookie> cookies = allCookies();
   for ( int i = cookies.count() - 1; i >= 0; --i )
   {
@@ -191,8 +187,8 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 {
   QList<QNetworkCookie> empty;
   QUrl host;
-  host.setScheme ( QLatin1String ( "http" ) );
-  host.setHost ( url.host().remove ( QRegExp ( "\\bwww\\." ) ) );
+  host.setScheme ( url.scheme() );
+  host.setHost ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
   if ( host.isValid() )
     return QNetworkCookieJar::cookiesForUrl ( host );
   else
@@ -204,7 +200,8 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   bool add = false;
   bool yes = false;
   bool tmp = false;
-  QString h = url.host().remove ( QRegExp ( "\\bwww\\." ) );
+  QUrl cookieUrl ( url.toString ( QUrl::RemoveQuery | QUrl::RemoveFragment ) );
+  QString h = cookieUrl.host().remove ( QRegExp ( "\\bwww\\." ) );
 
   if ( cookiesBlocked.indexOf ( h ) != -1 )
     return false;
@@ -220,24 +217,28 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     foreach ( QNetworkCookie cookie, list )
     {
       QList<QNetworkCookie> cookies;
-      if ( !cookie.isSessionCookie() && cookie.expirationDate() > now )
+      if ( ! cookie.isSessionCookie() && cookie.expirationDate() > now )
+      {
         cookie.setExpirationDate ( now );
-
+      }
       cookies += cookie;
 
       if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
+      {
+        emit cookiesChanged ();
         add = true;
+      }
     }
   }
 
   if ( add )
-  {
-    m_autoSaver->saveIfNeccessary();
-    emit cookiesChanged ();
-  }
-  else
+    save();
+  else if ( ( ! add ) && ( ! tmp ) )
     emit cookiesRequest ( url );
 
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookies:" << cookieUrl << add;
+#endif
   return add;
 }
 

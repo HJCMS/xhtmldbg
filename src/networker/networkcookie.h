@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QList>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
@@ -45,6 +46,7 @@ class NetworkCookie : public QNetworkCookieJar
   private:
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
+    QString iniFile;
     QStringList cookiesBlocked;
     QStringList cookiesAllowed;
     QStringList cookiesSession;
