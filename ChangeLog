@@ -1,5 +1,9 @@
+- 2010/06/06 Juergen Heinemann (Undefined)
+  Bugfix: Cookies Dialog and brocken Connections
+  Add: SEO Toolbar History Completer
+
 - 2010/06/05 Juergen Heinemann (Undefined)
-  Remove: Unstable Plugins from this target into seperate plugin builds
+  Remove: Unstable Plugins from this target into separate PlugIn builds
   Merge: Cookies, Post and Header TreeWidgets into HeaderDock
   Add: -fPIE -pi support
 
