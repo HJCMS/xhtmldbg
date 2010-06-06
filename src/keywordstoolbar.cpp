@@ -79,7 +79,10 @@ void KeywordsToolBar::treating()
   QString words = m_lineEdit->text();
   QStringList keywords;
   if ( words.isEmpty() )
+  {
+    emit changed ( keywords );
     return;
+  }
 
   if ( words.contains ( QRegExp ( "[ \\s\\t]+" ) ) )
     keywords = words.split ( QRegExp ( "[ \\s\\t]+" ) );
