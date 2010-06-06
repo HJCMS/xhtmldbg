@@ -67,9 +67,9 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( treating() ) );
 }
 
-void KeywordsToolBar::modifyCompliterHistory ( const QStringList &words )
+void KeywordsToolBar::modifyCompliterHistory ()
 {
-  compliterHistory << words;
+  compliterHistory << m_lineEdit->text();
   compliterHistory.removeDuplicates();
   m_lineEdit->setCompleter ( new QCompleter ( compliterHistory, this ) );
 }
@@ -83,13 +83,13 @@ void KeywordsToolBar::treating()
     emit changed ( keywords );
     return;
   }
+  modifyCompliterHistory();
 
   if ( words.contains ( QRegExp ( "[ \\s\\t]+" ) ) )
     keywords = words.split ( QRegExp ( "[ \\s\\t]+" ) );
   else
     keywords << words;
 
-  modifyCompliterHistory ( keywords );
   emit changed ( keywords );
 }
 

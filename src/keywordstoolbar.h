@@ -43,7 +43,7 @@ class KeywordsToolBar : public QToolBar
     QLineEdit* m_lineEdit;
     QStringList compliterHistory;
     QAction* actionFind;
-    void modifyCompliterHistory ( const QStringList & );
+    void modifyCompliterHistory ();
 
   private Q_SLOTS:
     void treating();
