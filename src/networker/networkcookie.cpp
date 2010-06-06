@@ -161,6 +161,7 @@ void NetworkCookie::load()
   qRegisterMetaTypeStreamOperators<QList<QNetworkCookie> > ( "QList<QNetworkCookie>" );
   QSettings qs ( iniFile, QSettings::IniFormat );
   setAllCookies ( qvariant_cast<QList<QNetworkCookie> > ( qs.value ( QLatin1String ( "cookies" ) ) ) );
+  m_autoSaver->changeOccurred();
 }
 
 void NetworkCookie::reload()
@@ -232,7 +233,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   if ( add )
-    save();
+    m_autoSaver->saveIfNeccessary();
   else if ( ( ! add ) && ( ! tmp ) )
     emit cookiesRequest ( url );
 
