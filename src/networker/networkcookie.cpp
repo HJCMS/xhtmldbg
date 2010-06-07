@@ -132,6 +132,33 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
   load();
 }
 
+/**
+* Entfernt cName(www) vom Hostnamen und gibt die Domäne
+* mit führenden Punkt zurück.
+*/
+const QString NetworkCookie::cookieDomainFromHost ( const QUrl &url ) const
+{
+  return url.host().replace ( QRegExp ( "^www\\." ), "." );
+}
+
+/**
+* Vergleiche die im Keks enthaltene Domäne mit dem Hostnamen der Url
+* Wenn diese nicht Identisch sind wird false zurück gegeben!
+*/
+bool NetworkCookie::compareDomainAndHost ( const QString &domain, const QUrl &url )
+{
+  QString host = cookieDomainFromHost ( url );
+  if ( host.compare ( domain, Qt::CaseInsensitive ) == 0 )
+    return true;
+  else if ( host.compare ( "." + domain, Qt::CaseInsensitive ) == 0 )
+    return true;
+  else
+    return false;
+}
+
+/**
+* Gespeicherte Cookies laden und @ref AutoSaver starten.
+*/
 void NetworkCookie::load()
 {
   m_netcfg->beginGroup ( QLatin1String ( "CookieArrangement" ) );
@@ -164,6 +191,9 @@ void NetworkCookie::load()
   m_autoSaver->changeOccurred();
 }
 
+/**
+* Alle listen Neu laden.
+*/
 void NetworkCookie::reload()
 {
   cookiesSession.clear();
@@ -172,6 +202,9 @@ void NetworkCookie::reload()
   load();
 }
 
+/**
+* Aktuelle Cookies, bis auf die Session Cookies speichern!
+*/
 void NetworkCookie::save()
 {
   QSettings qs ( iniFile, QSettings::IniFormat );
@@ -184,31 +217,47 @@ void NetworkCookie::save()
   qs.setValue ( QLatin1String ( "cookies" ), qVariantFromValue<QList<QNetworkCookie> > ( cookies ) );
 }
 
+/**
+* Nehme alle Cookies von dieser URL
+* Dabei wird eine Neue Url mit Scheme/Host/Path erstellt!
+* Der Rest geht in die Mülltonne!
+*/
 QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 {
-  QList<QNetworkCookie> empty;
   QUrl host;
+  QList<QNetworkCookie> empty;
+
   host.setScheme ( url.scheme() );
-  host.setHost ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
+  host.setHost ( url.host() );
+  host.setPath ( url.path() );
+
   if ( host.isValid() )
     return QNetworkCookieJar::cookiesForUrl ( host );
   else
     return empty;
 }
 
+/**
+* Anfrage zum setzen eines Cookies.
+* @li Sucht zuerst in der Blockliste und bricht bei bedarf ab.
+* @li Nachsehen ob es sich um ein erlaubtes Setzen oder eine Session Regelunug handelt!
+* @li 
+*/
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
   bool add = false;
   bool yes = false;
   bool tmp = false;
   QUrl cookieUrl ( url.toString ( QUrl::RemoveQuery | QUrl::RemoveFragment ) );
-  QString h = cookieUrl.host().remove ( QRegExp ( "\\bwww\\." ) );
+  QString cookieHost = cookieUrl.host().remove ( QRegExp ( "\\bwww\\." ) );
 
-  if ( cookiesBlocked.indexOf ( h ) != -1 )
+  // Wenn dieser Host in der Blockliste steht sofort aussteigen.
+  if ( cookiesBlocked.indexOf ( cookieHost ) != -1 )
     return false;
 
-  yes = ( cookiesAllowed.indexOf ( h ) != -1 ) ? true : false;
-  tmp = ( cookiesSession.indexOf ( h ) != -1 ) ? true : false;
+  // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
+  yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
+  tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
 
   if ( tmp || yes )
   {
@@ -218,28 +267,37 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     foreach ( QNetworkCookie cookie, list )
     {
       QList<QNetworkCookie> cookies;
+      // Ist es ein Session Cookie und liegt die
+      // Laufzeit höher als jetzt dann auf jetzt setzen!
       if ( ! cookie.isSessionCookie() && cookie.expirationDate() > now )
-      {
         cookie.setExpirationDate ( now );
-      }
+
+      if ( ! compareDomainAndHost ( cookie.domain(), url ) && cookie.domain().isEmpty() )
+        cookie.setDomain ( cookieDomainFromHost ( url ) );
+
+      // Cookies von dieser Url zusammen packen
       cookies += cookie;
 
+      // Jetzt die Cookies an QNetworkCookieJar übergeben
       if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
       {
         emit cookiesChanged ();
         add = true;
       }
-    }
+
+// #ifdef XHTMLDBG_DEBUG_VERBOSE
+//       qDebug() << "(XHTMLDBG) Cookie Accepted:" << add << cookie.domain();
+// #endif
+
+    } // end foreach
   }
 
+  // Wenn neu erzeugt dann später speichern
   if ( add )
     m_autoSaver->saveIfNeccessary();
   else if ( ( ! add ) && ( ! tmp ) )
-    emit cookiesRequest ( url );
+    emit cookiesRequest ( url ); // Anfrage an Page Senden
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookies:" << cookieUrl << add;
-#endif
   return add;
 }
 

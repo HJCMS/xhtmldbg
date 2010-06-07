@@ -41,9 +41,9 @@ class KeywordsToolBar : public QToolBar
 
   private:
     QLineEdit* m_lineEdit;
-    QStringList compliterHistory;
+    QStringList completerHistory;
     QAction* actionFind;
-    void modifyCompliterHistory ();
+    void modifyCompleterHistory ();
 
   private Q_SLOTS:
     void treating();

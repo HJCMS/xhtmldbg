@@ -23,10 +23,8 @@
 #include "historyitem.h"
 
 /* QtCore */
-#include <QtCore>
-
-/* QtGui */
-#include <QtGui>
+#include <QtCore/QDebug>
+#include <QtCore/QRegExp>
 
 /* QtWebKit */
 #include <QtWebKit/QWebSettings>
@@ -38,14 +36,34 @@ HistoryManager::HistoryManager ( QObject * parent )
   QWebHistoryInterface::setDefaultInterface ( this );
 }
 
-const QUrl HistoryManager::toUrl ( const QString &path )
+/**
+* Konvertiert einen String zurück in eine URL.
+* Dabei wird die URL im @ref QUrl::StrictMode erstellt.
+*/
+const QUrl HistoryManager::toUrl ( const QString &path ) const
 {
   QUrl url ( path.toLower(), QUrl::StrictMode );
+  if ( ! url.isValid() )
+    return QUrl();
+
+  if ( path.contains ( QRegExp ( "^file:\\/\\/" ) ) )
+    url.setScheme ( "file" );
+  else if ( path.contains ( QRegExp ( "^https:\\/\\/" ) ) )
+    url.setScheme ( "https" );
+  else if ( path.contains ( QRegExp ( "^ftp:\\/\\/" ) ) )
+    url.setScheme ( "ftp" );
+  else
+    url.setScheme ( "http" );
+
   url.setPassword ( QString::null );
   url.setHost ( url.host() );
   return url;
 }
 
+/**
+* Einen neuen Eintrag erzeugen in dem dieser an die
+* Liste von @ref m_history angehangen wird.
+*/
 void HistoryManager::addHistoryItem ( const HistoryItem &item )
 {
   QWebSettings *cfg = QWebSettings::globalSettings();
@@ -59,13 +77,24 @@ void HistoryManager::addHistoryItem ( const HistoryItem &item )
   emit updateHistoryMenu ( m_history );
 }
 
+/**
+* Erzeugt ein Object von @ref HistoryItem und fügt diesen
+* mit @ref addHistoryItem in die Liste ein.
+*/
 void HistoryManager::addHistoryEntry ( const QString &url )
 {
   QUrl addr = toUrl ( url );
+  if ( addr.host().isEmpty() )
+    return;
+
   HistoryItem item ( addr.toString(), QDateTime::currentDateTime(), addr.host() );
   addHistoryItem ( item );
 }
 
+/**
+* Durch sucht @ref m_history nach dem @ref HistoryItem passenden
+* Eintrag und gibt bei erfolg true zurück.
+*/
 bool HistoryManager::historyContains ( const QString &url ) const
 {
   foreach ( HistoryItem i, m_history )
@@ -76,10 +105,15 @@ bool HistoryManager::historyContains ( const QString &url ) const
   return false;
 }
 
+/**
+* Leert die Historien Liste
+*/
 void HistoryManager::clear()
 {
   m_history.clear();
 }
 
 HistoryManager::~HistoryManager()
-{}
+{
+  m_history.clear();
+}

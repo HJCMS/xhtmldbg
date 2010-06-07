@@ -50,6 +50,8 @@ class NetworkCookie : public QNetworkCookieJar
     QStringList cookiesBlocked;
     QStringList cookiesAllowed;
     QStringList cookiesSession;
+    const QString cookieDomainFromHost ( const QUrl & ) const;
+    bool compareDomainAndHost ( const QString &, const QUrl & );
     void load();
 
   Q_SIGNALS:

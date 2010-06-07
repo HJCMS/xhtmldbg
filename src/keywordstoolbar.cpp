@@ -67,13 +67,26 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   connect ( actionFind, SIGNAL ( triggered() ), this, SLOT ( treating() ) );
 }
 
-void KeywordsToolBar::modifyCompliterHistory ()
+/**
+* Wenn eine Anfrage gesendet wird, an dieser Stelle
+* das Historien Autovervollständigen aktualisieren.
+*/
+void KeywordsToolBar::modifyCompleterHistory ()
 {
-  compliterHistory << m_lineEdit->text();
-  compliterHistory.removeDuplicates();
-  m_lineEdit->setCompleter ( new QCompleter ( compliterHistory, this ) );
+  completerHistory << m_lineEdit->text();
+  completerHistory.removeDuplicates();
+  m_lineEdit->setCompleter ( new QCompleter ( completerHistory, this ) );
 }
 
+/**
+* Bei einem absenden zuerst an dieser Stelle
+* den Inhalt von der Eingabe in eine Stringliste
+* konvertieren und das Signal @ref changed senden.
+* Ist der Inhalt leer wird auch gesendet weil die
+* Suchfunktion von QWebKit damit die Hervorhebung
+* wieder löscht. Gleichzeitig wird an dieser Stelle
+* die Methode @ref modifyCompleterHistory aufgerufen.
+*/
 void KeywordsToolBar::treating()
 {
   QString words = m_lineEdit->text();
@@ -83,7 +96,7 @@ void KeywordsToolBar::treating()
     emit changed ( keywords );
     return;
   }
-  modifyCompliterHistory();
+  modifyCompleterHistory();
 
   if ( words.contains ( QRegExp ( "[ \\s\\t]+" ) ) )
     keywords = words.split ( QRegExp ( "[ \\s\\t]+" ) );
@@ -95,5 +108,5 @@ void KeywordsToolBar::treating()
 
 KeywordsToolBar::~KeywordsToolBar()
 {
-  compliterHistory.clear();
+  completerHistory.clear();
 }

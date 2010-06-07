@@ -23,6 +23,7 @@
 #include "historyitem.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QString>
 
 /* QtGui */
