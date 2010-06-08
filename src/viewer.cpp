@@ -92,11 +92,13 @@ Viewer::Viewer ( QWidget * parent )
 * Öffnet den Keks Dialog und sendet danach das
 * Signal @ref CookieManager::reload
 */
-bool Viewer::openCookieRequestDialog ( const QUrl &cookieUrl )
+bool Viewer::openCookieRequestDialog ( const QUrl &url )
 {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Dialog Request:" << cookieUrl;
-#endif
+  QUrl cookieUrl;
+  cookieUrl.setScheme ( url.scheme() );
+  cookieUrl.setHost ( url.host() );
+  cookieUrl.setPath ( url.path() );
+
   CookieAcceptDialog cookiediag ( cookieUrl, this );
   if ( cookiediag.exec() )
   {
@@ -270,7 +272,7 @@ void Viewer::cookiesRequest ( const QUrl &u )
 {
   QString pageHost ( url().host() );
   QString cookieHost ( u.host() );
-  if ( pageHost.contains ( cookieHost ) && ! cookieAlreadyAdd )
+  if ( !cookieAlreadyAdd && pageHost.contains ( cookieHost ) )
     cookieAlreadyAdd = openCookieRequestDialog ( u );
 }
 

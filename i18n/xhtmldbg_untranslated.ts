@@ -1521,7 +1521,7 @@ Reasons : </source>
 <context>
     <name>HistoryMenu</name>
     <message>
-        <location filename="../src/historymenu.cpp" line="36"/>
+        <location filename="../src/historymenu.cpp" line="37"/>
         <source>History</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1583,42 +1583,29 @@ Reasons : </source>
 <context>
     <name>KeywordsToolBar</name>
     <message>
-        <location filename="../src/keywordstoolbar.cpp" line="40"/>
-        <location filename="../src/keywordstoolbar.cpp" line="60"/>
+        <location filename="../src/keywordstoolbar.cpp" line="41"/>
+        <location filename="../src/keywordstoolbar.cpp" line="62"/>
         <source>Keywords</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/keywordstoolbar.cpp" line="41"/>
+        <location filename="../src/keywordstoolbar.cpp" line="42"/>
         <source>Show Keywords for Search Engine Optimisation (SEO)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/keywordstoolbar.cpp" line="48"/>
+        <location filename="../src/keywordstoolbar.cpp" line="49"/>
         <source>SEO:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/keywordstoolbar.cpp" line="49"/>
+        <location filename="../src/keywordstoolbar.cpp" line="50"/>
         <source>Search Engine Optimisation (SEO)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/keywordstoolbar.cpp" line="57"/>
+        <location filename="../src/keywordstoolbar.cpp" line="59"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LedLabel</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/ledlabel/ledlabel.cpp" line="57"/>
-        <source>listening</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/ledlabel/ledlabel.cpp" line="62"/>
-        <source>not listen</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1640,6 +1627,34 @@ Reasons : </source>
     <message>
         <location filename="../src/networker/networkaccessmanager.cpp" line="220"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NetworkCookie</name>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="162"/>
+        <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="167"/>
+        <source>A Set-Cookie with Domain=host.tld will be rejected because the value for Domain does not begin with a dot.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="173"/>
+        <source>A Set-Cookie with attached dot Domain=host.tld., will always be rejected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="179"/>
+        <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="358"/>
+        <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2026,62 +2041,62 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="193"/>
+        <location filename="../src/viewer.cpp" line="203"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="200"/>
+        <location filename="../src/viewer.cpp" line="210"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="203"/>
+        <location filename="../src/viewer.cpp" line="213"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="208"/>
+        <location filename="../src/viewer.cpp" line="218"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="211"/>
+        <location filename="../src/viewer.cpp" line="221"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="303"/>
+        <location filename="../src/viewer.cpp" line="310"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="311"/>
+        <location filename="../src/viewer.cpp" line="318"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="316"/>
+        <location filename="../src/viewer.cpp" line="323"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="326"/>
+        <location filename="../src/viewer.cpp" line="333"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="332"/>
+        <location filename="../src/viewer.cpp" line="339"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="339"/>
+        <location filename="../src/viewer.cpp" line="346"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="344"/>
+        <location filename="../src/viewer.cpp" line="351"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2240,7 +2255,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="898"/>
+        <location filename="../src/window.cpp" line="897"/>
         <source>Download Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2316,214 +2331,33 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="688"/>
+        <location filename="../src/window.cpp" line="687"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="744"/>
+        <location filename="../src/window.cpp" line="743"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="745"/>
+        <location filename="../src/window.cpp" line="744"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="746"/>
+        <location filename="../src/window.cpp" line="745"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="747"/>
+        <location filename="../src/window.cpp" line="746"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="754"/>
+        <location filename="../src/window.cpp" line="753"/>
         <source>Open HTML File</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugClient</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugclient.cpp" line="83"/>
-        <source>Error occurred:
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugProjectDialog</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojectdialog.cpp" line="54"/>
-        <source>Configure xhtmldbg XDebug Projects[*]</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojectdialog.cpp" line="69"/>
-        <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugProjectTable</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="87"/>
-        <source>Project %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="105"/>
-        <source>New</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttable.cpp" line="107"/>
-        <source>Remove</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugProjectTableModel</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="246"/>
-        <source>Project Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="249"/>
-        <source>Port</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="252"/>
-        <source>Hostname</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="255"/>
-        <source>Session Key</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugprojecttablemodel.cpp" line="258"/>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugSocket</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="156"/>
-        <source>XDebugger is busy!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="170"/>
-        <source>XDebugger startet at: %1:%2
-Waiting for debug server to connect...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="179"/>
-        <source>Unable to start the XDebugger!
-%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugsocket.cpp" line="202"/>
-        <source>XDebugger shutdown...</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebugger</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="58"/>
-        <source>Xdebug</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="72"/>
-        <source>Project:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="78"/>
-        <source>select your generated projects</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="83"/>
-        <source>Project selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="84"/>
-        <source>this button open the project editor dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="90"/>
-        <source>Port:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="98"/>
-        <source>Remote Port: (DBGP_PORT)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="99"/>
-        <source>The port to which Xdebug tries to connect on the remote host.
-Port 9000 is the default for both the client and the bundled debugclient.
-As many clients use this port number, it is best to leave this setting unchanged.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="106"/>
-        <source>Session:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="113"/>
-        <source>a IDE key, which the debugger engine will also use in it&apos;s debugging init command.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="119"/>
-        <source>Host:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="126"/>
-        <source>Selects the host where the debug client is running, you can either use a host name or an IP address.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebugger.cpp" line="200"/>
-        <source>Select Project</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XDebuggerPlugin</name>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="69"/>
-        <source>XDebug</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="71"/>
-        <source>XDebugger Plugin</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message utf8="true">
-        <location filename="../src/plugins/xdebugger/xdebuggerplugin.cpp" line="72"/>
-        <source>Jürgen Heinemann (Undefined)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

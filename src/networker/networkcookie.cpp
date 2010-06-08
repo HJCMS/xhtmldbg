@@ -159,7 +159,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
 
   QString host1 = cookieDomainFromHost ( url );
   QString host2 = "." + cookieDomainFromHost ( url );
-  QString rejectMessage = trUtf8 ( "Cookie from \"%1\" for Domain \"%2\" rejected (RFC 2109)." ).arg ( url.host(), domain );
+  QString rejectMessage = trUtf8 ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
   if ( ! domain.contains ( QRegExp ( "^\\." ) ) )
@@ -361,11 +361,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( add )
     m_autoSaver->saveIfNeccessary();
   else if ( ( ! add ) && ( ! tmp ) && ( ! yes ) )
-  {
     emit cookiesRequest ( url ); // Anfrage an Page Senden
-    // Damit es keine mehrfach anfragen für den Dialog gibt TRUE zurück geben!
-    return true;
-  }
 
   return add;
 }
