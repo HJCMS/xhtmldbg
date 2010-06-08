@@ -24,8 +24,8 @@
 #include "autosaver.h"
 
 /* QtCore */
+#include <QtCore/QChar>
 #include <QtCore/QDebug>
-#include <QtCore/QDateTime>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QSettings>
@@ -143,17 +143,65 @@ const QString NetworkCookie::cookieDomainFromHost ( const QUrl &url ) const
 
 /**
 * Vergleiche die im Keks enthaltene Domäne mit dem Hostnamen der Url
-* Wenn diese nicht Identisch sind wird false zurück gegeben!
+* Wenn diese nicht Identisch sind wird false zurück gegeben und das
+* Signal @ref cookieRejected abgestoßen.
+* Verwende hierbei die RFC 2109 vorgaben:
+* @li A Set-Cookie from request-host x.foo.com for Domain=.foo.com would be accepted.
+* @li A Set-Cookie with Domain=.com or Domain=.com., will always be rejected, because
+*     there is no embedded dot.
+* @li A Set-Cookie with Domain=ajax.com will be rejected because the value for Domain
+*     does not begin with a dot.
 */
-bool NetworkCookie::compareDomainAndHost ( const QString &domain, const QUrl &url )
+bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &url )
 {
-  QString host = cookieDomainFromHost ( url );
-  if ( host.compare ( domain, Qt::CaseInsensitive ) == 0 )
-    return true;
-  else if ( host.compare ( "." + domain, Qt::CaseInsensitive ) == 0 )
-    return true;
-  else
+  if ( domain.isEmpty() )
     return false;
+
+  QString host1 = cookieDomainFromHost ( url );
+  QString host2 = "." + cookieDomainFromHost ( url );
+  QString rejectMessage = trUtf8 ( "Cookie from \"%1\" for Domain \"%2\" rejected (RFC 2109)." ).arg ( url.host(), domain );
+  rejectMessage.append ( QLatin1String ( " " ) );
+
+  if ( ! domain.contains ( QRegExp ( "^\\." ) ) )
+  {
+    rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=host.tld will be rejected because the value for Domain does not begin with a dot." ) );
+    emit cookieRejected ( rejectMessage );
+    return false;
+  }
+  else if ( domain.contains ( QRegExp ( "\\.$" ) ) )
+  {
+    rejectMessage.append ( trUtf8 ( "A Set-Cookie with attached dot Domain=host.tld., will always be rejected." ) );
+    emit cookieRejected ( rejectMessage );
+    return false;
+  }
+  else if ( domain.count ( QChar ( '.' ) ) < 2 )
+  {
+    rejectMessage.append ( trUtf8 ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
+    emit cookieRejected ( rejectMessage );
+    return false;
+  }
+  else if ( host1.compare ( domain, Qt::CaseInsensitive ) == 0 )
+  {
+    // Accepted: .host.tld == .domain.tld
+    return true;
+  }
+  else if ( host2.compare ( domain, Qt::CaseInsensitive ) == 0 )
+  {
+    // Accepted: host.tld == .domain.tld
+    return true;
+  }
+
+  return false;
+}
+
+/**
+* Setze die Lebenszeit mit den Einstellungen aus
+* "CookieLifeTime" der Konfiguration.
+*/
+const QDateTime NetworkCookie::cookieLifeTime()
+{
+  QDateTime now = QDateTime::currentDateTime();
+  return now.addDays ( m_netcfg->value ( QLatin1String ( "CookieLifeTime" ), 15 ).toUInt() );
 }
 
 /**
@@ -215,6 +263,9 @@ void NetworkCookie::save()
       cookies.removeAt ( i );
   }
   qs.setValue ( QLatin1String ( "cookies" ), qVariantFromValue<QList<QNetworkCookie> > ( cookies ) );
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookies Saved";
+#endif
 }
 
 /**
@@ -232,22 +283,33 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
   host.setPath ( url.path() );
 
   if ( host.isValid() )
-    return QNetworkCookieJar::cookiesForUrl ( host );
+    return QNetworkCookieJar::cookiesForUrl ( url );
   else
     return empty;
 }
 
 /**
-* Anfrage zum setzen eines Cookies.
-* @li Sucht zuerst in der Blockliste und bricht bei bedarf ab.
-* @li Nachsehen ob es sich um ein erlaubtes Setzen oder eine Session Regelunug handelt!
-* @li 
+* Anfragen Verarbeitung zum setzen eines Cookies.
+* 1) Suche zuerst in der Blockliste und bricht bei bedarf ab.
+* 2) Nachsehen ob es sich um ein erlaubtes Setzen oder eine Session Regelunug handelt!
+* 3) Hierfür werden folgende Verhaltens Regelungen festgelegt:
+* @li Ist es kein Session Cookie und wird bei den Einstellungen das Cookie
+*     nur als Session akzeptiert dann dieses Cookie modifizieren in dem die
+*     Laufzeit dieses Cookies entfernt wird.
+* @li Wenn es sich um ein erlaubtes Cookie handelt dann die Laufzeit neu setzen.
+* @li Überprüfem ob die der Wert cookie.domain nicht Leer ist.
+*     Wenn doch! Dann aus Anfrage Url die Domäne ermitteln und Cookie:Domain setzen.
+* @li Validiere die cookie.domain mit @ref validateDomainAndHost nach RFC 2109 bei
+*     fehlern wird dieses Cookie \b NICHT Akzeptiert!
+* @li Überprüfe on es sich um eine https Verbindung handelt und setze bei bedarf Secure!
+* @li
 */
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
   bool add = false;
   bool yes = false;
   bool tmp = false;
+  bool isInSecure = false;
   QUrl cookieUrl ( url.toString ( QUrl::RemoveQuery | QUrl::RemoveFragment ) );
   QString cookieHost = cookieUrl.host().remove ( QRegExp ( "\\bwww\\." ) );
 
@@ -258,22 +320,27 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
   tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
+  // Neue Cookie Laufzeit
+  QDateTime lifeTime = cookieLifeTime();
 
   if ( tmp || yes )
   {
-    QDateTime now = QDateTime::currentDateTime();
-    now = now.addDays ( m_netcfg->value ( QLatin1String ( "CookieLifeTime" ), 15 ).toUInt() );
-
     foreach ( QNetworkCookie cookie, list )
     {
       QList<QNetworkCookie> cookies;
-      // Ist es ein Session Cookie und liegt die
-      // Laufzeit höher als jetzt dann auf jetzt setzen!
-      if ( ! cookie.isSessionCookie() && cookie.expirationDate() > now )
-        cookie.setExpirationDate ( now );
+      if ( tmp && ! cookie.isSessionCookie() )
+        cookie.setExpirationDate ( QDateTime() );
+      else if ( ! cookie.isSessionCookie() && ( cookie.expirationDate() > lifeTime ) )
+        cookie.setExpirationDate ( lifeTime );
 
-      if ( ! compareDomainAndHost ( cookie.domain(), url ) && cookie.domain().isEmpty() )
+      if ( cookie.domain().isEmpty() )
         cookie.setDomain ( cookieDomainFromHost ( url ) );
+
+      if ( ! validateDomainAndHost ( cookie.domain(), url ) )
+        continue;
+
+      if ( url.scheme().contains ( "https" ) && ! cookie.isSecure() )
+        isInSecure = true; // Setze Warnung für diese Anfrage.
 
       // Cookies von dieser Url zusammen packen
       cookies += cookie;
@@ -284,18 +351,16 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         emit cookiesChanged ();
         add = true;
       }
-
-// #ifdef XHTMLDBG_DEBUG_VERBOSE
-//       qDebug() << "(XHTMLDBG) Cookie Accepted:" << add << cookie.domain();
-// #endif
-
     } // end foreach
   }
+
+  if ( isInSecure )
+    emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
   if ( add )
     m_autoSaver->saveIfNeccessary();
-  else if ( ( ! add ) && ( ! tmp ) )
+  else if ( ( ! add ) && ( ! tmp ) && ( ! yes ) )
     emit cookiesRequest ( url ); // Anfrage an Page Senden
 
   return add;

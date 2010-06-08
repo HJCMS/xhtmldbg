@@ -23,6 +23,7 @@
 #define NETWORKCOOKIE_H
 
 /* QtCore */
+#include <QtCore/QDateTime>
 #include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -51,10 +52,13 @@ class NetworkCookie : public QNetworkCookieJar
     QStringList cookiesAllowed;
     QStringList cookiesSession;
     const QString cookieDomainFromHost ( const QUrl & ) const;
-    bool compareDomainAndHost ( const QString &, const QUrl & );
+    bool validateDomainAndHost ( const QString &, const QUrl & );
+    const QDateTime cookieLifeTime();
     void load();
 
   Q_SIGNALS:
+    void cookieNotice ( const QString & );
+    void cookieRejected ( const QString & );
     void cookiesRequest ( const QUrl & );
     void cookiesChanged ();
 

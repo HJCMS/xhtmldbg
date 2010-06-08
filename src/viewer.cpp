@@ -71,6 +71,10 @@ Viewer::Viewer ( QWidget * parent )
   /* signal cookie nachfrage dialog */
   connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
+  connect ( cookieManager, SIGNAL ( cookieRejected ( const QString & ) ),
+            this, SLOT ( errorMessage ( const QString & ) ) );
+  connect ( cookieManager, SIGNAL ( cookieNotice ( const QString & ) ),
+            this, SLOT ( errorMessage ( const QString & ) ) );
   /* bei jeder verknüpfungs anfrage dem netzwerk manager
   * mitteilen welches die orignal anfrage adresse */
   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
@@ -386,6 +390,12 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
 
   QPoint point = cursor ().pos();
   QToolTip::showText ( point, title, this, QRect ( point, QSize ( 20, 20 ) ) );
+}
+
+/** Nachricht weiter an IDE geben ! */
+void Viewer::errorMessage ( const QString &error )
+{
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( error, true );
 }
 
 Viewer::~Viewer()
