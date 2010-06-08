@@ -1660,7 +1660,12 @@ Gründe : </translation>
         <translation>Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="358"/>
+        <location filename="../src/networker/networkcookie.cpp" line="194"/>
+        <source>Different Cookie/Domain for host %1. (Rejected)</source>
+        <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="371"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>

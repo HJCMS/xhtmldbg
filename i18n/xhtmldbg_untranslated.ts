@@ -1653,7 +1653,12 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="358"/>
+        <location filename="../src/networker/networkcookie.cpp" line="194"/>
+        <source>Different Cookie/Domain for host %1. (Rejected)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="371"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
