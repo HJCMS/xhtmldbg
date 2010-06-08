@@ -59,8 +59,8 @@ class NetworkCookie : public QNetworkCookieJar
   Q_SIGNALS:
     void cookieNotice ( const QString & );
     void cookieRejected ( const QString & );
-    void cookiesRequest ( const QUrl & );
-    void cookiesChanged ();
+    void cookieRequest ( const QUrl & );
+    void cookieChanged ();
 
   public Q_SLOTS:
     void save();

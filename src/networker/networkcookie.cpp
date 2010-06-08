@@ -289,20 +289,26 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 }
 
 /**
-* Anfragen Verarbeitung zum setzen eines Cookies.
-* 1) Suche zuerst in der Blockliste und bricht bei bedarf ab.
-* 2) Nachsehen ob es sich um ein erlaubtes Setzen oder eine Session Regelunug handelt!
-* 3) Hierfür werden folgende Verhaltens Regelungen festgelegt:
-* @li Ist es kein Session Cookie und wird bei den Einstellungen das Cookie
+* Alles Cookie anfragen werden in dieser Methode Verarbeitet bevor sie
+* an @ref QNetworkCookieJar::setCookiesFromUrl gesendet werden.
+* 1. Suche zuerst in der Blockliste und steige bei bedarf aus.
+* 2. Nachsehen ob es sich um ein erlaubtes Setzen oder eine Session Regelung handelt!
+*    Hierfür werden folgende Verhaltens Regelungen festgelegt:
+*    @li Ist es kein Session Cookie und wird bei den Einstellungen das Cookie
 *     nur als Session akzeptiert dann dieses Cookie modifizieren in dem die
 *     Laufzeit dieses Cookies entfernt wird.
-* @li Wenn es sich um ein erlaubtes Cookie handelt dann die Laufzeit neu setzen.
-* @li Überprüfem ob die der Wert cookie.domain nicht Leer ist.
+*    @li Wenn es sich um ein erlaubtes Cookie handelt dann die Laufzeit neu setzen.
+*    @li Überprüfen ob im Cookie der Wert cookie.domain nicht Leer ist.
 *     Wenn doch! Dann aus Anfrage Url die Domäne ermitteln und Cookie:Domain setzen.
-* @li Validiere die cookie.domain mit @ref validateDomainAndHost nach RFC 2109 bei
+*    @li Validiere die cookie.domain mit @ref validateDomainAndHost nach RFC 2109 bei
 *     fehlern wird dieses Cookie \b NICHT Akzeptiert!
-* @li Überprüfe on es sich um eine https Verbindung handelt und setze bei bedarf Secure!
-* @li
+*    @li Überprüfe ob es sich um eine https Verbindung handelt und das Secure Flag gesetzt
+*     ist, wenn nicht sende das Signal @ref cookieNotice mit einem Hinweis.
+*    @li Jetzt sende an @ref QNetworkCookieJar::setCookiesFromUrl die CookieUrl und Cookies.
+*     Bei erfolg sende das Signal @ref cookieChanged und setze den Rückgabewert auf true.
+*    @li Bei einem true an @ref AutoSaver die Mitteilung zum speichern geben.
+* 3. Wenn keine Cookie-Regelung vorhanden ist, dann das Signal @ref cookieRequest für
+*   den WebViewer abstoßen und mit false beenden.
 */
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
@@ -310,9 +316,8 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   bool yes = false;
   bool tmp = false;
   bool isInSecure = false;
-  QUrl cookieUrl ( url.toString ( QUrl::RemoveQuery | QUrl::RemoveFragment ) );
-  QString cookieHost = cookieUrl.host().remove ( QRegExp ( "\\bwww\\." ) );
 
+  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
   if ( cookiesBlocked.indexOf ( cookieHost ) != -1 )
     return false;
@@ -320,8 +325,15 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
   tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
+
   // Neue Cookie Laufzeit
   QDateTime lifeTime = cookieLifeTime();
+
+  // CookieUrl bereinigen
+  QUrl cookieUrl;
+  cookieUrl.setScheme ( url.scheme() );
+  cookieUrl.setHost ( url.host() );
+  cookieUrl.setPath ( url.path() );
 
   if ( tmp || yes )
   {
@@ -334,9 +346,9 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         cookie.setExpirationDate ( lifeTime );
 
       if ( cookie.domain().isEmpty() )
-        cookie.setDomain ( cookieDomainFromHost ( url ) );
+        cookie.setDomain ( cookieDomainFromHost ( cookieUrl ) );
 
-      if ( ! validateDomainAndHost ( cookie.domain(), url ) )
+      if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl ) )
         continue;
 
       if ( url.scheme().contains ( "https" ) && ! cookie.isSecure() )
@@ -346,9 +358,9 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
       cookies += cookie;
 
       // Jetzt die Cookies an QNetworkCookieJar übergeben
-      if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
+      if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, cookieUrl ) )
       {
-        emit cookiesChanged ();
+        emit cookieChanged ();
         add = true;
       }
     } // end foreach
@@ -361,7 +373,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( add )
     m_autoSaver->saveIfNeccessary();
   else if ( ( ! add ) && ( ! tmp ) && ( ! yes ) )
-    emit cookiesRequest ( url ); // Anfrage an Page Senden
+    emit cookieRequest ( cookieUrl ); // Anfrage an Page Senden
 
   return add;
 }

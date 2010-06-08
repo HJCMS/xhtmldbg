@@ -69,7 +69,7 @@ Viewer::Viewer ( QWidget * parent )
   setPage ( m_page );
 
   /* signal cookie nachfrage dialog */
-  connect ( cookieManager, SIGNAL ( cookiesRequest ( const QUrl & ) ),
+  connect ( cookieManager, SIGNAL ( cookieRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
   connect ( cookieManager, SIGNAL ( cookieRejected ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
