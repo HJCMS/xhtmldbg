@@ -191,6 +191,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     return true;
   }
 
+  emit cookieNotice ( trUtf8 ( "Different Cookie/Domain for host %1. (Rejected)" ).arg ( url.host() ) );
   return false;
 }
 
@@ -358,7 +359,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
       cookies += cookie;
 
       // Jetzt die Cookies an QNetworkCookieJar übergeben
-      if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, cookieUrl ) )
+      if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
       {
         emit cookieChanged ();
         add = true;
