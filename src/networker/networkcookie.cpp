@@ -361,7 +361,11 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( add )
     m_autoSaver->saveIfNeccessary();
   else if ( ( ! add ) && ( ! tmp ) && ( ! yes ) )
+  {
     emit cookiesRequest ( url ); // Anfrage an Page Senden
+    // Damit es keine mehrfach anfragen für den Dialog gibt TRUE zurück geben!
+    return true;
+  }
 
   return add;
 }
