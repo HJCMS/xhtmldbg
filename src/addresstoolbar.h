@@ -40,11 +40,16 @@ class AddressEdit : public QLineEdit
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
+    Q_ENUMS ( BGCOL )
 
   public:
+    enum BGCOL { NORMAL, WARN, DANGER };
     AddressEdit ( QToolBar * parent = 0 );
     void updateCompliter ( const QStringList & );
     ~AddressEdit();
+
+  public Q_SLOTS:
+    void setColor ( BGCOL );
 };
 
 class AddressToolBar : public QToolBar

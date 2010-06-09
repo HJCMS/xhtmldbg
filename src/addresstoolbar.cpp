@@ -48,6 +48,28 @@ void AddressEdit::updateCompliter ( const QStringList &history )
   setCompleter ( new QCompleter ( history, this ) );
 }
 
+void AddressEdit::setColor ( BGCOL mode )
+{
+  switch ( mode )
+  {
+    case NORMAL:
+      setStyleSheet ( "QLineEdit {}" );
+      break;
+
+    case WARN:
+      setStyleSheet ( "QLineEdit { color: red; }" );
+      break;
+
+    case DANGER:
+      setStyleSheet ( "QLineEdit {}" );
+      break;
+
+    default:
+      setStyleSheet ( "QLineEdit {}" );
+      break;
+  };
+}
+
 AddressEdit::~AddressEdit()
 {}
 
@@ -125,6 +147,8 @@ void AddressToolBar::validatePath ( const QString &address )
   if ( !url.scheme().contains ( schemePattern ) )
     return;
 
+  AddressEdit::BGCOL col = url.scheme().contains ( "https" ) ? AddressEdit::WARN : AddressEdit::NORMAL;
+  m_addressEdit->setColor ( col );
   goToIndex->setEnabled ( ( ( url.path().length() > 1 ) ? true : false ) );
 }
 
