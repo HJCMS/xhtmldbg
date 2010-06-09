@@ -1015,17 +1015,17 @@ Do you realy want to exit?</source>
 <context>
     <name>DockTreeWidget</name>
     <message>
-        <location filename="../src/docking/docking.cpp" line="73"/>
+        <location filename="../src/docking/docking.cpp" line="75"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/docking.cpp" line="77"/>
+        <location filename="../src/docking/docking.cpp" line="79"/>
         <source>Expand All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/docking.cpp" line="81"/>
+        <location filename="../src/docking/docking.cpp" line="83"/>
         <source>Collapse All</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1405,7 +1405,7 @@ Reasons : </source>
         <location filename="../src/docking/headerdock.cpp" line="46"/>
         <location filename="../src/docking/headerdock.cpp" line="59"/>
         <location filename="../src/docking/headerdock.cpp" line="69"/>
-        <location filename="../src/docking/headerdock.cpp" line="305"/>
+        <location filename="../src/docking/headerdock.cpp" line="311"/>
         <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1440,57 +1440,57 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="205"/>
+        <location filename="../src/docking/headerdock.cpp" line="211"/>
         <source>Anchor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="273"/>
+        <location filename="../src/docking/headerdock.cpp" line="279"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="274"/>
+        <location filename="../src/docking/headerdock.cpp" line="280"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="285"/>
+        <location filename="../src/docking/headerdock.cpp" line="291"/>
         <source>Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="291"/>
+        <location filename="../src/docking/headerdock.cpp" line="297"/>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="298"/>
+        <location filename="../src/docking/headerdock.cpp" line="304"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="312"/>
+        <location filename="../src/docking/headerdock.cpp" line="318"/>
         <source>Session Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="319"/>
+        <location filename="../src/docking/headerdock.cpp" line="325"/>
         <source>Only for HTTP?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="326"/>
+        <location filename="../src/docking/headerdock.cpp" line="332"/>
         <source>Expiration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="333"/>
+        <location filename="../src/docking/headerdock.cpp" line="339"/>
         <source>Secure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/docking/headerdock.cpp" line="366"/>
+        <location filename="../src/docking/headerdock.cpp" line="372"/>
         <source>Cookie Domain</source>
         <translation type="unfinished"></translation>
     </message>
