@@ -387,7 +387,7 @@ QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QB
   QBuffer* data = new QBuffer;
   data->setData ( arr );
   data->open ( QIODevice::ReadOnly );
-  QNetworkReply *reply = createRequest ( QNetworkAccessManager::PostOperation, req, data );
+  QNetworkReply* reply = createRequest ( QNetworkAccessManager::PostOperation, req, data );
   data->setParent ( reply );
   return reply;
 }

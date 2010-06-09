@@ -82,7 +82,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
     case QNetworkReply::ConnectionRefusedError:
     {
       setWindowTitle ( trUtf8 ( "Bad Request (400)" ) );
-      message->setText ( trUtf8 ( "the remote server refused the connection (the server is not accepting requests)" ) );
+      message->setText ( trUtf8 ( "the remote server \"%1\" refused the connection (the server is not accepting requests)" ).arg ( host ) );
       opendialog = true;
     }
     break;
@@ -90,7 +90,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
     case QNetworkReply::RemoteHostClosedError:
     {
       setWindowTitle ( trUtf8 ( "Server Gone (410)" ) );
-      reasons = trUtf8 ( "the remote server closed the connection prematurely, before the entire reply was received and processed" );
+      reasons = trUtf8 ( "the remote server \"%1\" closed the connection prematurely, before the entire reply was received and processed" ).arg ( host );
       message->setText ( reasons );
       emit errorMessage ( reasons );
       opendialog = true;
@@ -100,7 +100,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
     case QNetworkReply::HostNotFoundError:
     {
       setWindowTitle ( trUtf8 ( "Invalid Hostname or Host not Found" ) );
-      reasons = trUtf8 ( "Invalid Hostname, Server is currently down or DNS Problems." );
+      reasons = trUtf8 ( "Invalid Hostname \"%1\", Server is currently down or DNS Problems." ).arg ( host );
       message->setText ( trUtf8 ( "The Remote Hostname was not found." ) + beforeReasons + reasons );
       opendialog = true;
       emit errorMessage ( reasons );
@@ -192,7 +192,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
     case QNetworkReply::AuthenticationRequiredError:
     {
       setWindowTitle ( trUtf8 ( "Authentication Required Error" ) );
-      message->setText ( trUtf8 ( "the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)" ) );
+      message->setText ( trUtf8 ( "the remote server \"%1\" requires authentication to serve the content but the credentials provided were not accepted (if any)" ).arg ( host ) );
       opendialog = true;
     }
     break;
