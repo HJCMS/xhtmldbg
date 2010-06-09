@@ -41,8 +41,10 @@ DockTreeWidget::DockTreeWidget ( QWidget * parent )
   setWordWrap ( false );
   setFrameStyle ( QFrame::Box );
   // Header
-  header()->setResizeMode ( QHeaderView::Interactive );
-  header()->setSortIndicatorShown ( true );
+  QHeaderView* headerView = header();
+  headerView->setResizeMode ( QHeaderView::Interactive );
+  headerView->setCascadingSectionResizes ( true );
+  headerView->setSortIndicatorShown ( true );
 
   connect ( this, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
             this, SLOT ( resizeColumnByItem ( QTreeWidgetItem *, int ) ) );

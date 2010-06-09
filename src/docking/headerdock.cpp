@@ -169,6 +169,12 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
     item->setData ( 1, Qt::DisplayRole, it.value() );
     queryItem->addChild ( item );
   }
+
+  // Wenn nur ein TopLevel Eintrag, dann alles aufklappen!
+  if ( tree->topLevelItemCount() == 1 )
+    tree->expandAll ();
+
+  
 }
 
 /**
@@ -347,10 +353,10 @@ void HeaderDock::setCookieData ( const QUrl &url )
     return;
 
   QString host = url.host();
+  DockTreeWidget* tree = widget ( widgetIndex );
   // Oberster Eintrag mit Hostnamen
   if ( itemExists ( host, widgetIndex ) )
   {
-    DockTreeWidget* tree = widget ( widgetIndex );
     QTreeWidgetItem* parent = tree->topLevelItem ( 0 );
     unscramble ( host, tree, parent );
   }
@@ -371,6 +377,10 @@ void HeaderDock::setCookieData ( const QUrl &url )
       setCookieData ( keks, item );
     }
   }
+
+  // Wenn nur ein TopLevel Eintrag, dann alles aufklappen!
+  if ( tree->topLevelItemCount() == 1 )
+    tree->expandAll ();
 }
 
 HeaderDock::~HeaderDock()
