@@ -175,11 +175,11 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   if ( err == QNetworkReply::NoError )
     return;
 
-  if ( m_errorsDialog->isVisible() )
-    return;
-
   if ( m_errorsDialog->setError ( err ) )
-    m_errorsDialog->show();
+  {
+    if ( ! m_errorsDialog->isVisible() )
+      m_errorsDialog->show();
+  }
 }
 
 /**
@@ -398,4 +398,7 @@ QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QB
 }
 
 NetworkAccessManager::~NetworkAccessManager()
-{}
+{
+  m_networkCookie->deleteLater();
+  m_errorsDialog->deleteLater();
+}

@@ -98,7 +98,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     QNetworkReply* post ( const QNetworkRequest &, QIODevice * );
     QNetworkReply* post ( const QNetworkRequest &, const QByteArray & );
     QNetworkReply* get ( const QNetworkRequest &req );
-    ~NetworkAccessManager();
+    virtual ~NetworkAccessManager();
 };
 
 #endif
