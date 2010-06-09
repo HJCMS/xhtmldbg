@@ -12,22 +12,22 @@
 <context>
     <name>AddressToolBar</name>
     <message>
-        <location filename="../src/addresstoolbar.cpp" line="59"/>
+        <location filename="../src/addresstoolbar.cpp" line="86"/>
         <source>Address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/addresstoolbar.cpp" line="70"/>
+        <location filename="../src/addresstoolbar.cpp" line="97"/>
         <source>Address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/addresstoolbar.cpp" line="77"/>
+        <location filename="../src/addresstoolbar.cpp" line="104"/>
         <source>Clear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/addresstoolbar.cpp" line="161"/>
+        <location filename="../src/addresstoolbar.cpp" line="190"/>
         <source>Sorry: the ftp protocol is currently not supported</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1188,54 +1188,34 @@ Do you realy want to exit?</source>
 <context>
     <name>ErrorsDialog</name>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="36"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="37"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="43"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="44"/>
         <source>Unknown Failure Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="75"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="76"/>
         <source>
 Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="81"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="84"/>
         <source>Bad Request (400)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="82"/>
-        <source>the remote server refused the connection (the server is not accepting requests)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="90"/>
-        <source>the remote server closed the connection prematurely, before the entire reply was received and processed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="99"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="102"/>
         <source>Invalid Hostname or Host not Found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="109"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="112"/>
         <source>Request Timeout (408)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="110"/>
-        <source>the connection to the remote server timed out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="119"/>
-        <source>the operation was canceled via calls to abort() or close() before it was finished.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1246,11 +1226,6 @@ Reasons : </source>
     <message>
         <location filename="../src/networker/errorsdialog.cpp" line="132"/>
         <source>Proxy Connection Refused Error</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="133"/>
-        <source>the connection to the proxy server was refused (the proxy server is not accepting requests)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1284,17 +1259,12 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="89"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="92"/>
         <source>Server Gone (410)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="100"/>
-        <source>Invalid Hostname, Server is currently down or DNS Problems.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="101"/>
+        <location filename="../src/networker/errorsdialog.cpp" line="104"/>
         <source>The Remote Hostname was not found.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1314,28 +1284,53 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="175"/>
-        <source>the access to the remote content was denied (similar to HTTP error 401)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="182"/>
-        <source>the operation requested on the remote content is not permitted</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/networker/errorsdialog.cpp" line="188"/>
-        <source>the remote content was not found at the server (similar to HTTP error 404)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/networker/errorsdialog.cpp" line="194"/>
         <source>Authentication Required Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="85"/>
+        <source>the remote server &quot;%1&quot; refused the connection (the server is not accepting requests)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="93"/>
+        <source>the remote server &quot;%1&quot; closed the connection prematurely, before the entire reply was received and processed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="103"/>
+        <source>Invalid Hostname &quot;%1&quot;, Server is currently down or DNS Problems.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="113"/>
+        <source>the connection to the remote server &quot;%1&quot; timed out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="133"/>
+        <source>the connection to the proxy server &quot;%1&quot; was refused (the proxy server is not accepting requests)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="175"/>
+        <source>the access to the remote &quot;%1&quot; content was denied (similar to HTTP error 401)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="182"/>
+        <source>the operation requested on the remote &quot;%1&quot; content is not permitted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/errorsdialog.cpp" line="188"/>
+        <source>the remote content &quot;%1&quot; was not found at the server (similar to HTTP error 404)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/networker/errorsdialog.cpp" line="195"/>
-        <source>the remote server requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
+        <source>the remote server &quot;%1&quot; requires authentication to serve the content but the credentials provided were not accepted (if any)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1625,7 +1620,7 @@ Reasons : </source>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="220"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="221"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2046,62 +2041,62 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="203"/>
+        <location filename="../src/viewer.cpp" line="205"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="210"/>
+        <location filename="../src/viewer.cpp" line="212"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="213"/>
+        <location filename="../src/viewer.cpp" line="215"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="218"/>
+        <location filename="../src/viewer.cpp" line="220"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="221"/>
+        <location filename="../src/viewer.cpp" line="223"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="310"/>
+        <location filename="../src/viewer.cpp" line="312"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="318"/>
+        <location filename="../src/viewer.cpp" line="320"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="323"/>
+        <location filename="../src/viewer.cpp" line="325"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="333"/>
+        <location filename="../src/viewer.cpp" line="335"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="339"/>
+        <location filename="../src/viewer.cpp" line="341"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="346"/>
+        <location filename="../src/viewer.cpp" line="348"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="351"/>
+        <location filename="../src/viewer.cpp" line="353"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
