@@ -29,6 +29,7 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QColor>
 #include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 #include <QtGui/QToolBar>
@@ -41,6 +42,9 @@ class AddressEdit : public QLineEdit
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
     Q_ENUMS ( BGCOL )
+
+  private:
+    const QColor defColor;
 
   public:
     enum BGCOL { NORMAL, WARN, DANGER };

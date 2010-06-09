@@ -28,13 +28,16 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
+#include <QtGui/QBrush>
 #include <QtGui/QCompleter>
+#include <QtGui/QPalette>
 #include <QtGui/QLabel>
 #include <QtGui/QLayout>
 #include <QtGui/QIcon>
 
 AddressEdit::AddressEdit ( QToolBar * parent )
     : QLineEdit ( "http://", parent )
+    , defColor ( palette().text().color() )
 {
   setObjectName ( QLatin1String ( "addressedit" ) );
   setMinimumWidth ( 400 );
@@ -50,22 +53,24 @@ void AddressEdit::updateCompliter ( const QStringList &history )
 
 void AddressEdit::setColor ( BGCOL mode )
 {
+  QColor warnColor ( Qt::darkRed );
+
   switch ( mode )
   {
     case NORMAL:
-      setStyleSheet ( "QLineEdit {}" );
+      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( defColor.name() ) );
       break;
 
     case WARN:
-      setStyleSheet ( "QLineEdit { color: red; }" );
+      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( warnColor.name() ) );
       break;
 
     case DANGER:
-      setStyleSheet ( "QLineEdit {}" );
+      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( warnColor.name() ) );
       break;
 
     default:
-      setStyleSheet ( "QLineEdit {}" );
+      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( defColor.name() ) );
       break;
   };
 }
