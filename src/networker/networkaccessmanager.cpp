@@ -55,7 +55,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   setCookieJar ( m_networkCookie );
 
-  htmlReply = 0x00;
+  m_networkReply = 0x00;
 
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
@@ -175,7 +175,7 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   if ( err == QNetworkReply::NoError )
     return;
 
-  if ( m_errorsDialog->setError ( err ) )
+  if ( m_errorsDialog->setError ( err, requestUrl ) )
   {
     if ( ! m_errorsDialog->isVisible() )
       m_errorsDialog->show();
@@ -210,20 +210,20 @@ const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
 */
 void NetworkAccessManager::peekReplyProcess()
 {
-  if ( htmlReply )
+  if ( m_networkReply )
   {
-    QString mimeType = htmlReply->header ( QNetworkRequest::ContentTypeHeader ).toString();
+    QString mimeType = m_networkReply->header ( QNetworkRequest::ContentTypeHeader ).toString();
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 
-    if ( htmlReply->hasRawHeader ( QByteArray ( "location" ) ) )
+    if ( m_networkReply->hasRawHeader ( QByteArray ( "location" ) ) )
     {
       emit netNotify ( trUtf8 ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
       peekPostData.clear();
     }
 
-    QIODevice* copyDevice = htmlReply;
-    if ( ! copyDevice || ! htmlReply->isOpen() )
+    QIODevice* copyDevice = m_networkReply;
+    if ( ! copyDevice || ! m_networkReply->isOpen() )
       return;
 
     peekPostData.append ( peekDeviceData ( copyDevice ) );
@@ -231,7 +231,7 @@ void NetworkAccessManager::peekReplyProcess()
     // FIXME I know this is a very difficult hack :-/
     if ( peekPostData.contains ( QByteArray ( "</html>" ) ) )
     {
-      QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( htmlReply ) );
+      QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( m_networkReply ) );
       // qDebug() << codec->toUnicode ( peekPostData );
       emit postReplySource ( codec->toUnicode ( peekPostData ) );
     }
@@ -339,25 +339,20 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );
 
-  QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
-  reply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
-  reply->setSslConfiguration ( sslConfig );
-
-  if ( reply->url() == getUrl() )
-  {
-    connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
-              this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
-  }
+  m_networkReply = QNetworkAccessManager::createRequest ( op, request, data );
+  m_networkReply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
+  m_networkReply->setSslConfiguration ( sslConfig );
+  connect ( m_networkReply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
+            this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
 
   if ( op == QNetworkAccessManager::PostOperation && data )
   {
     peekPostData.clear();
-    htmlReply = reply;
-    fetchPostedData ( htmlReply->request(), data );
-    connect ( htmlReply, SIGNAL ( readyRead() ), this, SLOT ( peekReplyProcess() ) );
+    fetchPostedData ( m_networkReply->request(), data );
+    connect ( m_networkReply, SIGNAL ( readyRead() ), this, SLOT ( peekReplyProcess() ) );
   }
 
-  return reply;
+  return m_networkReply;
 }
 
 /**

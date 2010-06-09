@@ -22,6 +22,7 @@
 #include "errorsdialog.h"
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QList>
 #include <QtCore/QVariant>
 
@@ -68,11 +69,13 @@ void ErrorsDialog::setMessage ( const QString &m )
 * der es dann mit @ref NetworkAccessManager::netNotify über @class Window
 * an @ref AppEvents::insertMessage weiter gibt.
 */
-bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
+bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
 {
   bool opendialog = false;
   QString reasons;
   QString beforeReasons = trUtf8 ( "\nReasons : " );
+  QString host = url.host();
+  QString path = url.path();
 
   switch ( err )
   {
@@ -107,7 +110,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
     case QNetworkReply::TimeoutError:
     {
       setWindowTitle ( trUtf8 ( "Request Timeout (408)" ) );
-      reasons = trUtf8 ( "the connection to the remote server timed out" );
+      reasons = trUtf8 ( "the connection to the remote server \"%1\" timed out" ).arg ( host );
       message->setText ( reasons );
       emit errorMessage ( reasons );
       opendialog = true;
@@ -115,7 +118,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
     break;
 
     case QNetworkReply::OperationCanceledError:
-    break;
+      break;
 
     case QNetworkReply::SslHandshakeFailedError:
     {
@@ -127,7 +130,7 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
     case QNetworkReply::ProxyConnectionRefusedError:
     {
       setWindowTitle ( trUtf8 ( "Proxy Connection Refused Error" ) );
-      reasons = trUtf8 ( "the connection to the proxy server was refused (the proxy server is not accepting requests)" );
+      reasons = trUtf8 ( "the connection to the proxy server \"%1\" was refused (the proxy server is not accepting requests)" ).arg ( host );
       message->setText ( reasons );
       emit errorMessage ( reasons );
       opendialog = true;
@@ -169,20 +172,20 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
     case QNetworkReply::ContentAccessDenied:
     {
       setWindowTitle ( trUtf8 ( "Unauthorized (401)" ) );
-      message->setText ( trUtf8 ( "the access to the remote content was denied (similar to HTTP error 401)" ) );
+      message->setText ( trUtf8 ( "the access to the remote \"%1\" content was denied (similar to HTTP error 401)" ).arg ( path ) );
       opendialog = true;
     }
     break;
 
     case QNetworkReply::ContentOperationNotPermittedError:
     {
-      emit errorMessage ( trUtf8 ( "the operation requested on the remote content is not permitted" ) );
+      emit errorMessage ( trUtf8 ( "the operation requested on the remote \"%1\" content is not permitted" ).arg ( path ) );
     }
     break;
 
     case QNetworkReply::ContentNotFoundError:
     {
-      emit errorMessage ( trUtf8 ( "the remote content was not found at the server (similar to HTTP error 404)" ) );
+      emit errorMessage ( trUtf8 ( "the remote content \"%1\" was not found at the server (similar to HTTP error 404)" ).arg ( path ) );
     }
     break;
 
@@ -246,6 +249,10 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
       emit errorMessage ( trUtf8 ( "an unknown related error was detected" ) );
       break;
   }
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Network Error " << windowTitle() << host << path;
+#endif
 
   return opendialog;
 }

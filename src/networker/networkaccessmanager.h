@@ -59,7 +59,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkSettings* m_networkSettings;
     NetworkCookie* m_networkCookie;
     ErrorsDialog* m_errorsDialog;
-    QNetworkReply* htmlReply;
+    QNetworkReply* m_networkReply;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
     QAbstractNetworkCache* xhtmlCache;
@@ -83,7 +83,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     void postedRefererData ( const QUrl &, const QStringList & );
 
   protected:
-    QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
+    virtual QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
                                    const QNetworkRequest &req, QIODevice *data = 0 );
 
   public Q_SLOTS:

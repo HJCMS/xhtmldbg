@@ -25,6 +25,7 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QDialog>
@@ -51,7 +52,7 @@ class ErrorsDialog : public QDialog
 
   public:
     ErrorsDialog ( QWidget * parent = 0 );
-    bool setError ( QNetworkReply::NetworkError );
+    bool setError ( QNetworkReply::NetworkError, const QUrl & );
     virtual ~ErrorsDialog();
 };
 
