@@ -115,9 +115,6 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err )
     break;
 
     case QNetworkReply::OperationCanceledError:
-    {
-      emit errorMessage ( trUtf8 ( "the operation was canceled via calls to abort() or close() before it was finished." ) );
-    }
     break;
 
     case QNetworkReply::SslHandshakeFailedError:

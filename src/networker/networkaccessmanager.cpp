@@ -40,10 +40,11 @@
 
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
-    , url ( QUrl ( "http://localhost" ) )
+    , requestUrl ( QUrl ( "http://localhost" ) )
 {
   m_networkSettings = new  NetworkSettings ( this );
   m_networkCookie = new NetworkCookie ( m_networkSettings, this );
+  m_errorsDialog = new ErrorsDialog;
 
   sslConfig = m_networkSettings->sslConfiguration();
 
@@ -67,6 +68,9 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( this, SIGNAL ( sslErrors ( QNetworkReply *, const QList<QSslError> & ) ),
             this, SLOT ( certErrors ( QNetworkReply *, const QList<QSslError> & ) ) );
+
+  connect ( m_errorsDialog, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SIGNAL ( netNotify ( const QString & ) ) );
 }
 
 /**
@@ -171,14 +175,11 @@ void NetworkAccessManager::replyErrors ( QNetworkReply::NetworkError err )
   if ( err == QNetworkReply::NoError )
     return;
 
-  ErrorsDialog* errdial = new ErrorsDialog;
-  connect ( errdial, SIGNAL ( errorMessage ( const QString & ) ),
-            this, SIGNAL ( netNotify ( const QString & ) ) );
+  if ( m_errorsDialog->isVisible() )
+    return;
 
-  if ( errdial->setError ( err ) )
-    errdial->exec();
-
-  delete errdial;
+  if ( m_errorsDialog->setError ( err ) )
+    m_errorsDialog->show();
 }
 
 /**
@@ -309,7 +310,7 @@ void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 */
 void NetworkAccessManager::setUrl ( const QUrl &u )
 {
-  url = u;
+  requestUrl = u;
 }
 
 /**
@@ -317,7 +318,7 @@ void NetworkAccessManager::setUrl ( const QUrl &u )
 */
 const QUrl NetworkAccessManager::getUrl()
 {
-  return url;
+  return requestUrl;
 }
 
 /**
@@ -341,6 +342,13 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   QNetworkReply* reply = QNetworkAccessManager::createRequest ( op, request, data );
   reply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   reply->setSslConfiguration ( sslConfig );
+
+  if ( reply->url() == getUrl() )
+  {
+    connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
+              this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
+  }
+
   if ( op == QNetworkAccessManager::PostOperation && data )
   {
     peekPostData.clear();
@@ -349,11 +357,6 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
     connect ( htmlReply, SIGNAL ( readyRead() ), this, SLOT ( peekReplyProcess() ) );
   }
 
-  if ( reply->url() == url )
-  {
-    connect ( reply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
-              this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
-  }
   return reply;
 }
 

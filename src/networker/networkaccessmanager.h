@@ -28,6 +28,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QSettings>
 #include <QtCore/QTextCodec>
@@ -45,23 +46,24 @@
 
 class NetworkSettings;
 class NetworkCookie;
+class ErrorsDialog;
 
 class NetworkAccessManager : public QNetworkAccessManager
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_PROPERTY ( const QUrl url READ getUrl WRITE setUrl )
 
   private:
-    QByteArray peekPostData;
-    NetworkCookie* m_networkCookie;
-    QNetworkReply* htmlReply;
-    QList<QString> trustedCertsHostsList;
+    QUrl requestUrl;
     NetworkSettings* m_networkSettings;
+    NetworkCookie* m_networkCookie;
+    ErrorsDialog* m_errorsDialog;
+    QNetworkReply* htmlReply;
+    QByteArray peekPostData;
+    QList<QString> trustedCertsHostsList;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
-    QUrl url;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );
     void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
     const QByteArray peekDeviceData ( QIODevice * );
