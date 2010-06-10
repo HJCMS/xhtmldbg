@@ -52,10 +52,10 @@ DockTreeWidget::DockTreeWidget ( QWidget * parent )
 
   // Beim ein/ausklappen die Spaltenbreite neu setzen
   connect ( this, SIGNAL ( itemExpanded ( QTreeWidgetItem * ) ),
-            this, SLOT ( resizeIfExpanding ( QTreeWidgetItem * ) ) );
+            this, SLOT ( onExpandCollapseResize ( QTreeWidgetItem * ) ) );
 
   connect ( this, SIGNAL ( itemCollapsed ( QTreeWidgetItem * ) ),
-            this, SLOT ( resizeIfExpanding ( QTreeWidgetItem * ) ) );
+            this, SLOT ( onExpandCollapseResize ( QTreeWidgetItem * ) ) );
 }
 
 /** Die erste Zelle immer Automatisch ändern */
@@ -64,8 +64,7 @@ void DockTreeWidget::resizeColumnByItem ( QTreeWidgetItem *item, int i )
   QString txt = item->data ( i, Qt::EditRole ).toString();
   int w = ( fontMetrics().width ( txt ) + item->font ( i ).weight() );
   /* Wenn die Breite der ersten Zelle die aktuelle Fensterbreite
-  * überschreitet nicht weiter machen.
-  * Dies kann der Benutzer selbst machen. */
+  * überschreitet nicht weiter machen. */
   if ( w < 50 || w >= ( width() - 20 ) )
     return;
 
@@ -79,7 +78,7 @@ void DockTreeWidget::resizeColumnByItem ( QTreeWidgetItem *item, int i )
 * Reagiert nur bei einem einzelnen Aufklappen und nicht wenn der Baum
 * schon komplett mit @ref QTreeWidget::expandAll aufgeklappt war!
 */
-void DockTreeWidget::resizeIfExpanding ( QTreeWidgetItem *item )
+void DockTreeWidget::onExpandCollapseResize ( QTreeWidgetItem *item )
 {
   for ( int c = 0; c < item->columnCount(); c++ )
   {

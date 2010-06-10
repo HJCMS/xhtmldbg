@@ -54,7 +54,7 @@ class DockTreeWidget : public QTreeWidget
 
   private Q_SLOTS:
     void resizeColumnByItem ( QTreeWidgetItem *, int );
-    void resizeIfExpanding ( QTreeWidgetItem * );
+    void onExpandCollapseResize ( QTreeWidgetItem * );
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );
