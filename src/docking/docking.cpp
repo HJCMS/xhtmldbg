@@ -40,6 +40,7 @@ DockTreeWidget::DockTreeWidget ( QWidget * parent )
   setAutoScroll ( true );
   setWordWrap ( false );
   setFrameStyle ( QFrame::Box );
+
   // Header
   QHeaderView* headerView = header();
   headerView->setResizeMode ( QHeaderView::Interactive );
@@ -48,6 +49,13 @@ DockTreeWidget::DockTreeWidget ( QWidget * parent )
 
   connect ( this, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
             this, SLOT ( resizeColumnByItem ( QTreeWidgetItem *, int ) ) );
+
+  // Beim ein/ausklappen die Spaltenbreite neu setzen
+  connect ( this, SIGNAL ( itemExpanded ( QTreeWidgetItem * ) ),
+            this, SLOT ( resizeIfExpanding ( QTreeWidgetItem * ) ) );
+
+  connect ( this, SIGNAL ( itemCollapsed ( QTreeWidgetItem * ) ),
+            this, SLOT ( resizeIfExpanding ( QTreeWidgetItem * ) ) );
 }
 
 /** Die erste Zelle immer Automatisch ändern */
@@ -67,6 +75,18 @@ void DockTreeWidget::resizeColumnByItem ( QTreeWidgetItem *item, int i )
   setColumnWidth ( i, minWidth );
 }
 
+/**
+* Reagiert nur bei einem einzelnen Aufklappen und nicht wenn der Baum
+* schon komplett mit @ref QTreeWidget::expandAll aufgeklappt war!
+*/
+void DockTreeWidget::resizeIfExpanding ( QTreeWidgetItem *item )
+{
+  for ( int c = 0; c < item->columnCount(); c++ )
+  {
+    resizeColumnToContents ( c );
+  }
+}
+
 /** Kontext Menü für die Datenbäume */
 void DockTreeWidget::contextMenuEvent ( QContextMenuEvent *event )
 {
@@ -84,6 +104,15 @@ void DockTreeWidget::contextMenuEvent ( QContextMenuEvent *event )
   connect ( acCollapse, SIGNAL ( triggered() ), this, SLOT ( collapseAll() ) );
 
   menu->exec ( event->globalPos() );
+}
+
+/**
+* Baum leeren und die Spaltenbereite zurück setzen.
+*/
+void DockTreeWidget::restore ()
+{
+  minWidth = 50;
+  QTreeWidget::clear();
 }
 
 DockTreeWidget::~DockTreeWidget()
@@ -135,7 +164,7 @@ DockTreeWidget* Docking::widget ( int index )
 
 void Docking::clearContent ( int index )
 {
-  widget ( index )->clear ();
+  widget ( index )->restore ();
 }
 
 void Docking::resizeSections ( int index )
