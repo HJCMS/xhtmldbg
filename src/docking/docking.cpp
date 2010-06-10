@@ -18,104 +18,16 @@
 **/
 
 #include "docking.h"
+#include "docktreewidget.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QList>
 
 /* QtGui */
-#include <QtGui/QAction>
 #include <QtGui/QFrame>
 #include <QtGui/QHeaderView>
-#include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
-
-DockTreeWidget::DockTreeWidget ( QWidget * parent )
-    : QTreeWidget ( parent )
-    , minWidth ( 50 )
-{
-  setObjectName ( "dockingtreewidget" );
-  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
-  setSortingEnabled ( true );
-  setAutoScroll ( true );
-  setWordWrap ( false );
-  setFrameStyle ( QFrame::Box );
-
-  // Header
-  QHeaderView* headerView = header();
-  headerView->setResizeMode ( QHeaderView::Interactive );
-  headerView->setCascadingSectionResizes ( true );
-  headerView->setSortIndicatorShown ( true );
-
-  connect ( this, SIGNAL ( itemChanged ( QTreeWidgetItem *, int ) ),
-            this, SLOT ( resizeColumnByItem ( QTreeWidgetItem *, int ) ) );
-
-  // Beim ein/ausklappen die Spaltenbreite neu setzen
-  connect ( this, SIGNAL ( itemExpanded ( QTreeWidgetItem * ) ),
-            this, SLOT ( onExpandCollapseResize ( QTreeWidgetItem * ) ) );
-
-  connect ( this, SIGNAL ( itemCollapsed ( QTreeWidgetItem * ) ),
-            this, SLOT ( onExpandCollapseResize ( QTreeWidgetItem * ) ) );
-}
-
-/** Die erste Zelle immer Automatisch ändern */
-void DockTreeWidget::resizeColumnByItem ( QTreeWidgetItem *item, int i )
-{
-  QString txt = item->data ( i, Qt::EditRole ).toString();
-  int w = ( fontMetrics().width ( txt ) + item->font ( i ).weight() );
-  /* Wenn die Breite der ersten Zelle die aktuelle Fensterbreite
-  * überschreitet nicht weiter machen. */
-  if ( w < 50 || w >= ( width() - 20 ) )
-    return;
-
-  if ( w >= minWidth )
-    minWidth = w;
-
-  setColumnWidth ( i, minWidth );
-}
-
-/**
-* Reagiert nur bei einem einzelnen Aufklappen und nicht wenn der Baum
-* schon komplett mit @ref QTreeWidget::expandAll aufgeklappt war!
-*/
-void DockTreeWidget::onExpandCollapseResize ( QTreeWidgetItem *item )
-{
-  for ( int c = 0; c < item->columnCount(); c++ )
-  {
-    resizeColumnToContents ( c );
-  }
-}
-
-/** Kontext Menü für die Datenbäume */
-void DockTreeWidget::contextMenuEvent ( QContextMenuEvent *event )
-{
-  QMenu* menu = new QMenu ( this );
-  QAction* acClear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
-                                       trUtf8 ( "Clear" ) );
-  connect ( acClear, SIGNAL ( triggered() ), this, SLOT ( clear() ) );
-
-  QAction* acExpand = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-process-all-tree" ) ),
-                                        trUtf8 ( "Expand All" ) );
-  connect ( acExpand, SIGNAL ( triggered() ), this, SLOT ( expandAll() ) );
-
-  QAction* acCollapse = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-list-tree" ) ),
-                                          trUtf8 ( "Collapse All" ) );
-  connect ( acCollapse, SIGNAL ( triggered() ), this, SLOT ( collapseAll() ) );
-
-  menu->exec ( event->globalPos() );
-}
-
-/**
-* Baum leeren und die Spaltenbereite zurück setzen.
-*/
-void DockTreeWidget::restore ()
-{
-  minWidth = 50;
-  QTreeWidget::clear();
-}
-
-DockTreeWidget::~DockTreeWidget()
-{}
 
 Docking::Docking ( QWidget * parent )
     : QDockWidget ( parent )

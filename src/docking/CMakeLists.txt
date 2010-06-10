@@ -2,11 +2,13 @@
 
 SET (docking_SOURCES
   docking.cpp
+  docktreewidget.cpp
   headerdock.cpp
 )
 
 SET (docking_HEADERS
   docking.h
+  docktreewidget.h
   headerdock.h
 )
 

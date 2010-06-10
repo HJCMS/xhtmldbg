@@ -20,6 +20,7 @@
 **/
 
 #include "headerdock.h"
+#include "docktreewidget.h"
 #include "networkcookie.h"
 #include "xhtmldbgmain.h"
 

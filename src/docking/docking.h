@@ -36,36 +36,7 @@
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QWidget>
 
-/**
-* @class DockTreeWidget
-* @brief Child QTreeWidget for Docking
-* @author Jürgen Heinemann (Undefined) http://www.hjcms.de
-* @version 0.0.2
-* @date 2008-2010
-*/
-class DockTreeWidget : public QTreeWidget
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://hjcms.de" )
-
-  private:
-    int minWidth;
-
-  private Q_SLOTS:
-    void resizeColumnByItem ( QTreeWidgetItem *, int );
-    void onExpandCollapseResize ( QTreeWidgetItem * );
-
-  protected:
-    void contextMenuEvent ( QContextMenuEvent * );
-
-  public Q_SLOTS:
-    void restore ();
-
-  public:
-    DockTreeWidget ( QWidget * parent = 0 );
-    virtual ~DockTreeWidget();
-};
+class DockTreeWidget;
 
 /**
 * @class Docking
