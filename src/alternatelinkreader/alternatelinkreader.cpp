@@ -46,7 +46,7 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   layout->setObjectName ( QLatin1String ( "alternatelinkreaderlayout" ) );
   layout->setContentsMargins ( 0, 0, 0, 0 );
 
-
+  // ComboBox erstellen
   m_comboBox = new QComboBox ( this );
   m_comboBox->setObjectName ( QLatin1String ( "alternatelinkreadercombobox" ) );
   m_comboBox->setMinimumWidth ( 160 );
@@ -55,7 +55,9 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   m_comboBox->setSizeAdjustPolicy ( QComboBox::AdjustToMinimumContentsLengthWithIcon );
   m_comboBox->setEnabled ( false );
 
+  // Model Initialisieren
   m_model = new RSSModel ( m_comboBox );
+  // setze den Standard Eintrag für die Anzeige
   m_model->setItem ( 0, new RSSItem ( comboTitle, QUrl (), comboTitle ) );
   m_comboBox->setModel ( m_model );
 
@@ -78,7 +80,7 @@ void AlternateLinkReader::currentIndexChanged ( int index )
     QStandardItem* item = m_model->item ( index, 0 );
     QUrl url = item->data ( Qt::UserRole ).toUrl();
     if ( url.isValid() )
-      itemClicked ( url );
+      emit itemClicked ( url );
   }
 }
 

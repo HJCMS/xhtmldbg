@@ -36,6 +36,7 @@ RSSItem::RSSItem ( const QString &text, const QUrl &url, const QString &title )
   setToolTip ( text );
   setStatusTip ( title );
   setEditable ( false );
-  setEnabled ( url.isValid() );
   setFlags ( ( Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsTristate | Qt::ItemIsUserCheckable ) );
+  setEnabled ( ( url.host().isEmpty() ? false : true ) );
+  setSelectable ( ( url.host().isEmpty() ? false : true ) );
 }
