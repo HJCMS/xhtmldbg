@@ -21,7 +21,8 @@
 
 #include "bookmarktreereader.h"
 
-#include <QtCore>
+/* QtCore */
+#include <QtCore/QDebug>
 
 BookmarkTreeReader::BookmarkTreeReader ( QTreeWidget * parent )
     : m_treeWidget ( parent )

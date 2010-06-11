@@ -370,7 +370,7 @@ void HeaderDock::setCookieData ( const QUrl &url )
     item->setText ( 0, host );
     item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
     item->setToolTip ( 0, url.toString () );
-    item->setText ( 1, trUtf8 ( "Cookie Domain" ) );
+    item->setText ( 1, trUtf8 ( "Cookie Hostname" ) );
     item->setForeground ( 1, Qt::lightGray );
     // Read all Cookies
     foreach ( QNetworkCookie keks, cookies )

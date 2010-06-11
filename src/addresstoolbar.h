@@ -36,6 +36,7 @@
 
 class HistoryItem;
 
+/** @class AddressEdit */
 class AddressEdit : public QLineEdit
 {
     Q_OBJECT
@@ -56,6 +57,7 @@ class AddressEdit : public QLineEdit
     void setColor ( BGCOL );
 };
 
+/** @class AddressToolBar */
 class AddressToolBar : public QToolBar
 {
     Q_OBJECT

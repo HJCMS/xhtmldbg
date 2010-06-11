@@ -22,10 +22,7 @@
 #include "historyitem.h"
 
 /* QtCore */
-#include <QtCore>
-
-/* QtGui */
-#include <QtGui>
+#include <QtCore/QDebug>
 
 HistoryItem::HistoryItem()
 {}

@@ -23,7 +23,7 @@
 #include "hostinfo.h"
 
 /* QtCore */
-#include <QtCore>
+#include <QtCore/QDebug>
 
 bool HostInfoPlugin::create ( QWidget * parent )
 {

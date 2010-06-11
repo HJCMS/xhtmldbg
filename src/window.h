@@ -58,6 +58,7 @@ class KeywordsToolBar;
 class ZoomBar;
 class WebViewer;
 class SourceWidget;
+class AlternateLinkReader;
 class TidyMessanger;
 class JSMessanger;
 class AppEvents;
@@ -147,6 +148,8 @@ class Window : public QMainWindow
     DomInspector* m_domInspector;
     // Source Viewer
     SourceWidget* m_sourceWidget;
+    // Read link:rev Alternate Elements
+    AlternateLinkReader* m_alternateLinkReader;
     // Tidy Messages
     TidyMessanger* m_tidyMessanger;
     // JavaScript Messages

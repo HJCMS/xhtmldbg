@@ -35,6 +35,7 @@
 #include <QtGui/QLayout>
 #include <QtGui/QIcon>
 
+/** @class AddressEdit */
 AddressEdit::AddressEdit ( QToolBar * parent )
     : QLineEdit ( "http://", parent )
     , defColor ( palette().text().color() )
@@ -78,9 +79,11 @@ void AddressEdit::setColor ( BGCOL mode )
 AddressEdit::~AddressEdit()
 {}
 
+
+/** @class AddressToolBar */
 AddressToolBar::AddressToolBar ( QWidget * parent )
     : QToolBar ( parent )
-    , schemePattern ( QRegExp ( "^(http|file)" ) )
+    , schemePattern ( QRegExp ( "^(http[s]?|file)" ) )
 {
   setObjectName ( QLatin1String ( "addresstoolbar" ) );
   setWindowTitle ( trUtf8 ( "Address" ) );
@@ -187,7 +190,7 @@ void AddressToolBar::checkInput ()
     return;
 
   if ( url.scheme().contains ( "ftp" ) )
-    emit sendMessage ( trUtf8 ( "Sorry: the ftp protocol is currently not supported" ) );
+    emit sendMessage ( trUtf8 ( "Sorry: FTP protocol is currently not supported" ) );
 
   if ( !url.scheme().contains ( schemePattern ) )
     return;
@@ -196,5 +199,4 @@ void AddressToolBar::checkInput ()
 }
 
 AddressToolBar::~AddressToolBar()
-{
-}
+{}

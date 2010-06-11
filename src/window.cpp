@@ -30,6 +30,7 @@
 #include "zoombar.h"
 #include "webviewer.h"
 #include "sourcewidget.h"
+#include "alternatelinkreader.h"
 #include "tidymessanger.h"
 #include "jsmessanger.h"
 #include "appevents.h"
@@ -121,6 +122,10 @@ Window::Window ( QSettings * settings )
   m_sourceWidget = new SourceWidget ( m_centralWidget );
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
+
+  // <link rel=alternate Elemente Auflösen
+  m_alternateLinkReader = new AlternateLinkReader ( m_centralWidget );
+  m_centralWidget->setCornerWidget ( m_alternateLinkReader, Qt::BottomRightCorner );
   // } TabWidgets
 
   // StatusBar
@@ -631,6 +636,8 @@ void Window::requestsFinished ( bool ok )
 
     if ( m_cssValidator->toggleViewAction()->isChecked() )
       m_cssValidator->addForValidation ( m_webViewer->getUrl() );
+
+    m_alternateLinkReader->setDomWebElement ( m_webViewer->toWebElement() );
 
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );

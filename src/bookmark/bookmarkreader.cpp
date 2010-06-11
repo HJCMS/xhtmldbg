@@ -21,7 +21,8 @@
 
 #include "bookmarkreader.h"
 
-#include <QtCore>
+/* QtCore */
+#include <QtCore/QDebug>
 
 /* QtXml */
 #include <QtXml/QDomNode>
