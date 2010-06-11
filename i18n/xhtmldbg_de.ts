@@ -29,7 +29,15 @@
     <message>
         <location filename="../src/addresstoolbar.cpp" line="193"/>
         <source>Sorry: FTP protocol is currently not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Entschuldigung: Das FTP Protokoll wird im nicht Unterstützt</translation>
+    </message>
+</context>
+<context>
+    <name>AlternateLinkReader</name>
+    <message>
+        <location filename="../src/alternatelinkreader/alternatelinkreader.cpp" line="38"/>
+        <source>RSS Feeds</source>
+        <translation>RSS Einspeisung</translation>
     </message>
 </context>
 <context>
@@ -1497,8 +1505,8 @@ Gründe : </translation>
     </message>
     <message>
         <location filename="../src/docking/headerdock.cpp" line="373"/>
-        <source>Cookie Domain</source>
-        <translation>Cookie Domäne</translation>
+        <source>Cookie Hostname</source>
+        <translation>Cookie Hostname</translation>
     </message>
 </context>
 <context>
@@ -1608,19 +1616,6 @@ Gründe : </translation>
         <location filename="../src/keywordstoolbar.cpp" line="59"/>
         <source>Clear</source>
         <translation>Leeren</translation>
-    </message>
-</context>
-<context>
-    <name>LinkRelWidget</name>
-    <message>
-        <location filename="../src/linkrelwidget/linkrelwidget.cpp" line="42"/>
-        <source>Change existing &lt;link&gt; Elements</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/linkrelwidget/linkrelwidget.cpp" line="43"/>
-        <source>Ananlyse HTML/XHTML &lt;link&gt; Elements</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2280,7 +2275,7 @@ Gründe : </translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="902"/>
+        <location filename="../src/window.cpp" line="904"/>
         <source>Download Request: %1</source>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
@@ -2350,32 +2345,32 @@ Gründe : </translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="692"/>
+        <location filename="../src/window.cpp" line="694"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="748"/>
+        <location filename="../src/window.cpp" line="750"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="749"/>
+        <location filename="../src/window.cpp" line="751"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="750"/>
+        <location filename="../src/window.cpp" line="752"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="751"/>
+        <location filename="../src/window.cpp" line="753"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="758"/>
+        <location filename="../src/window.cpp" line="760"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

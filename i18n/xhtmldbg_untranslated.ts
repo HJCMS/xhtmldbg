@@ -33,6 +33,14 @@
     </message>
 </context>
 <context>
+    <name>AlternateLinkReader</name>
+    <message>
+        <location filename="../src/alternatelinkreader/alternatelinkreader.cpp" line="38"/>
+        <source>RSS Feeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AppEvents</name>
     <message>
         <location filename="../src/appevents.cpp" line="39"/>
@@ -1491,7 +1499,7 @@ Reasons : </source>
     </message>
     <message>
         <location filename="../src/docking/headerdock.cpp" line="373"/>
-        <source>Cookie Domain</source>
+        <source>Cookie Hostname</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1601,19 +1609,6 @@ Reasons : </source>
     <message>
         <location filename="../src/keywordstoolbar.cpp" line="59"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>LinkRelWidget</name>
-    <message>
-        <location filename="../src/linkrelwidget/linkrelwidget.cpp" line="42"/>
-        <source>Change existing &lt;link&gt; Elements</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/linkrelwidget/linkrelwidget.cpp" line="43"/>
-        <source>Ananlyse HTML/XHTML &lt;link&gt; Elements</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2268,7 +2263,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="902"/>
+        <location filename="../src/window.cpp" line="904"/>
         <source>Download Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2344,32 +2339,32 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="692"/>
+        <location filename="../src/window.cpp" line="694"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="748"/>
+        <location filename="../src/window.cpp" line="750"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="749"/>
+        <location filename="../src/window.cpp" line="751"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="750"/>
+        <location filename="../src/window.cpp" line="752"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="751"/>
+        <location filename="../src/window.cpp" line="753"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="758"/>
+        <location filename="../src/window.cpp" line="760"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>
