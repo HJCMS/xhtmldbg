@@ -90,11 +90,11 @@ void AlternateLinkReader::currentIndexChanged ( int index )
 */
 void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
 {
-  QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
-
   // ComboBox Datenkörper leeren und Aktivieren?
   m_comboBox->clear();
   m_model->setItem ( 0, new RSSItem ( comboTitle, QUrl (), comboTitle ) );
+
+  QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
   m_comboBox->setEnabled ( ( ( nodeList.count() < 1 ) ? false : true ) );
 
   // Alle application-rss+xml durchlaufen
