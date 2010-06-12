@@ -36,7 +36,9 @@
 /* QtGui */
 #include <QtGui/QColor>
 #include <QtGui/QDesktopServices>
+#include <QtGui/QIcon>
 #include <QtGui/QTabBar>
+#include <QtGui/QToolButton>
 
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
@@ -50,6 +52,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
   setFocusPolicy ( Qt::StrongFocus );
   setTabsClosable ( true );
+  setTabCornerButton();
 
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( QLatin1String ( "startpage" ) );
@@ -61,6 +64,20 @@ WebViewer::WebViewer ( QWidget * parent )
 
   connect ( this, SIGNAL ( tabCloseRequested ( int ) ),
             this, SLOT ( closeViewerTab ( int ) ) );
+}
+
+/**
+* Eckenknöpfe für neue Seite etc.
+*/
+void WebViewer::setTabCornerButton()
+{
+  QToolButton* btn = new QToolButton ( this );
+  btn->setObjectName ( QLatin1String ( "newpagecorneraction" ) );
+  btn->setText ( trUtf8 ( "New Page" ) );
+  btn->setIcon ( QIcon::fromTheme ( QLatin1String ( "tab-new" ) ) );
+  btn->setToolTip ( trUtf8 ( "Add a new empty Tab" ) );
+  connect ( btn, SIGNAL ( clicked() ), this, SLOT ( addViewerTab() ) );
+  setCornerWidget ( btn, Qt::TopRightCorner );
 }
 
 /**

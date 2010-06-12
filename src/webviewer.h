@@ -52,6 +52,7 @@ class WebViewer : public QTabWidget
     Viewer* activeView();
     QUrl url;
     void updateWebSettings();
+    void setTabCornerButton();
 
   private Q_SLOTS:
     void updateTabTitle ( const QString & );

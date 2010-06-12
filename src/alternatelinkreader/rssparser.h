@@ -19,45 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ALTERNATELINKREADER_H
-#define ALTERNATELINKREADER_H
+#ifndef RSSPARSER_H
+#define RSSPARSER_H
 
 /* QtCore */
+#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QVariant>
+#include <QtCore/QUrl>
 
-/* QtGui */
-#include <QtGui/QComboBox>
-#include <QtGui/QWidget>
+/* Raptor */
+#include <raptor.h>
 
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
+typedef struct
+{
+  QList<QString> state;
+  int id;
+} RSSParserState;
 
-class RSSModel;
-
-class AlternateLinkReader : public QWidget
+class RSSParser : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    const QIcon rssIcon;
-    const QString comboTitle;
-    RSSModel* m_model;
-    QComboBox* m_comboBox;
-    void openParserDialog ( const QUrl & );
-
-  private Q_SLOTS:
-    void currentIndexChanged ( int );
-
-  public Q_SLOTS:
-    void setDomWebElement ( const QWebElement & );
+    mutable QMutex m_mutex;
+    raptor_parser* createParser () const;
 
   public:
-    AlternateLinkReader ( QWidget * parent = 0 );
-    virtual ~AlternateLinkReader();
+    RSSParser ( QObject * parent = 0 );
+    bool parse ( const QUrl & ) const;
+    ~RSSParser();
 };
 
 #endif

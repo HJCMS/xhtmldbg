@@ -4,11 +4,15 @@ SET (subproject_SOURCES
   alternatelinkreader.cpp
   rssitem.cpp
   rssmodel.cpp
+  rssparserdialog.cpp
+  rssparser.cpp
 )
 
 SET (subproject_HEADERS
   alternatelinkreader.h
   rssmodel.h
+  rssparserdialog.h
+  rssparser.h
 )
 
 SET (subproject_NOMOCS

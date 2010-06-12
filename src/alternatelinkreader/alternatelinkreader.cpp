@@ -22,6 +22,7 @@
 #include "alternatelinkreader.h"
 #include "rssmodel.h"
 #include "rssitem.h"
+#include "rssparserdialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -70,6 +71,23 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
 }
 
 /**
+* Dialog für die Syntaxprüfung öffnen.
+*/
+void AlternateLinkReader::openParserDialog ( const QUrl &url )
+{
+  if ( ! url.isValid() )
+    return;
+
+  RSSParserDialog* dialog = new RSSParserDialog ( url, this );
+  if ( dialog->exec() == QDialog::Accepted )
+  {
+    qDebug() << Q_FUNC_INFO << "TODO";
+  }
+  m_comboBox->setCurrentIndex ( 0 );
+  delete dialog;
+}
+
+/**
 * Wenn ein Eintrag ausgewählt wird der eine Valide URL besitzt
 * dann das Signal @ref itemClicked auslösen.
 */
@@ -79,8 +97,7 @@ void AlternateLinkReader::currentIndexChanged ( int index )
   {
     QStandardItem* item = m_model->item ( index, 0 );
     QUrl url = item->data ( Qt::UserRole ).toUrl();
-    if ( url.isValid() )
-      emit itemClicked ( url );
+    openParserDialog ( url );
   }
 }
 

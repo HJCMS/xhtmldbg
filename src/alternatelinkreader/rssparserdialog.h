@@ -19,45 +19,32 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ALTERNATELINKREADER_H
-#define ALTERNATELINKREADER_H
+#ifndef RSSPARSERDIALOG_H
+#define RSSPARSERDIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QVariant>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QComboBox>
+#include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
+class RSSParser;
 
-class RSSModel;
-
-class AlternateLinkReader : public QWidget
+class RSSParserDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    const QIcon rssIcon;
-    const QString comboTitle;
-    RSSModel* m_model;
-    QComboBox* m_comboBox;
-    void openParserDialog ( const QUrl & );
-
-  private Q_SLOTS:
-    void currentIndexChanged ( int );
-
-  public Q_SLOTS:
-    void setDomWebElement ( const QWebElement & );
+    const QUrl rssUrl;
+    RSSParser* m_parser;
 
   public:
-    AlternateLinkReader ( QWidget * parent = 0 );
-    virtual ~AlternateLinkReader();
+    RSSParserDialog ( const QUrl &url, QWidget * parent = 0 );
+    ~RSSParserDialog();
 };
 
 #endif
