@@ -20,24 +20,36 @@
 **/
 
 #include "rssparserdialog.h"
+#include "rsstreeview.h"
+#include "rssviewer.h"
 #include "xhtmldbgmain.h"
 #include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QList>
+#include <QtCore/QTextCodec>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QSplitter>
 #include <QtGui/QVBoxLayout>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 
+/* QtXml */
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
+
 /* Soprano */
-#include <Soprano/Model>
-#include <Soprano/Parser>
-#include <Soprano/PluginManager>
-#include <Soprano/StatementIterator>
+#include <Soprano/Soprano>
+// #include <Soprano/Backend>
+// #include <Soprano/Model>
+// #include <Soprano/Parser>
+// #include <Soprano/PluginManager>
+// #include <Soprano/StatementIterator>
 
 RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
     : QDialog ( parent )
@@ -50,6 +62,22 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( QLatin1String ( "rssparserdialoglayout" ) );
+
+  QSplitter* splitter = new QSplitter ( Qt::Vertical, this );
+  splitter->setObjectName ( QLatin1String ( "rssparsersplitter" ) );
+  vLayout->addWidget ( splitter );
+
+  m_treeViewer = new RSSTreeView ( splitter );
+  splitter->insertWidget ( 0, m_treeViewer );
+
+  m_errorsList = new QListWidget ( splitter );
+  m_errorsList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
+  splitter->insertWidget ( 1, m_errorsList );
+  splitter->setCollapsible ( 1, true );
+
+  m_sourceViewer = new RSSViewer ( splitter );
+  splitter->insertWidget ( 2, m_sourceViewer );
+  splitter->setCollapsible ( 2, true );
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "rssparserdialogbuttonbox" ) );
@@ -68,25 +96,58 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
 
 /**
 * Starte mit Soprano die RDF Syntax Überprüfung
+* Verwende hierbei die Standard RDF/XML Serialisierung
 */
 bool RSSParserDialog::parse ( const QByteArray &data, const QUrl &url )
 {
+  Soprano::Model* model = Soprano::createModel();
+
   const Soprano::Parser* p = Soprano::PluginManager::instance()->discoverParserForSerialization (
                                  Soprano::SerializationRdfXml );
 
-  Q_CHECK_PTR ( p );
+  QStringList messages;
   QTextStream stream ( data );
   Soprano::StatementIterator it = p->parseStream ( stream, url, Soprano::SerializationRdfXml );
-  while ( it.next() )
+  foreach ( Soprano::Statement s, it.allStatements() )
   {
-    qDebug() << Q_FUNC_INFO << *it;
+    if ( model->addStatement ( s ) != Soprano::Error::ErrorNone )
+      qDebug() << "###" << model->lastError().message();
   }
+
+  if ( messages.size() > 0 )
+    m_errorsList->addItems ( messages );
+
   return true;
 }
 
 /**
+* Dokumenten Struktur in das TextEdit einfügen!
+*/
+void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &url )
+{
+  QString errorMsg;
+  int errorLine;
+  int errorColumn;
+  int indent = 1;
+
+  QTextCodec* codec = QTextCodec::codecForHtml ( data, QTextCodec::codecForName ( "UTF-8" ) );
+
+  QDomDocument dom;
+  if ( dom.setContent ( codec->toUnicode ( data ), false, &errorMsg, &errorLine, &errorColumn ) )
+  {
+    m_treeViewer->createTreeView ( dom );
+    m_sourceViewer->setText ( dom.toString ( indent ) );
+    parse ( data, url );
+  }
+  else
+  {
+    qDebug() << Q_FUNC_INFO << errorMsg << errorLine << errorColumn;
+  }
+}
+
+/**
 * Wenn die Netzwerkanfrage abgeschlossen ist lese mit readAll die
-* Daten in ein QByteArray und rufe @ref parse auf.
+* Daten in ein QByteArray und rufe @ref setDocumentSource auf.
 */
 void RSSParserDialog::requestFinished()
 {
@@ -96,7 +157,8 @@ void RSSParserDialog::requestFinished()
   if ( data.isEmpty() || !url.isValid() )
     return;
 
-  qDebug() << Q_FUNC_INFO << parse ( data, url );
+  m_errorsList->clear();
+  setDocumentSource ( data, url );
 }
 
 RSSParserDialog::~RSSParserDialog()

@@ -26,6 +26,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QRegExp>
 
 /* QtGui */
 #include <QtGui/QPixmap>
@@ -80,10 +81,8 @@ void AlternateLinkReader::openParserDialog ( const QUrl &url )
 
   RSSParserDialog* dialog = new RSSParserDialog ( url, this );
   if ( dialog->exec() == QDialog::Accepted )
-  {
-    qDebug() << Q_FUNC_INFO << "TODO";
-  }
-  m_comboBox->setCurrentIndex ( 0 );
+    m_comboBox->setCurrentIndex ( 0 );
+
   delete dialog;
 }
 
@@ -114,11 +113,11 @@ void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
   QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
   m_comboBox->setEnabled ( ( ( nodeList.count() < 1 ) ? false : true ) );
 
-  // Alle application-rss+xml durchlaufen
+  // Alle application/rss+xml und application/atom+xml durchlaufen
   foreach ( QWebElement element, nodeList )
   {
     QString type = element.attribute ( QLatin1String ( "type" ), QString::null );
-    if ( type.isEmpty() || ! type.contains ( "rss+xml", Qt::CaseInsensitive ) )
+    if ( type.isEmpty() || ! type.contains ( QRegExp ( "(atom|rss)\\+xml", Qt::CaseInsensitive ) ) )
       continue;
 
     QString source = element.attribute ( QLatin1String ( "href" ), QString::null );

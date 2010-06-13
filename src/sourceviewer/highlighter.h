@@ -22,14 +22,17 @@
 #ifndef HIGHLIGHTER_H
 #define HIGHLIGHTER_H
 
-#include <QObject>
-#include <QString>
-#include <QRegExp>
-#include <QVector>
-#include <QTextDocument>
-#include <QTextCharFormat>
-#include <QSyntaxHighlighter>
-#include <QTextBlock>
+/* QtCore */
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QRegExp>
+#include <QtCore/QVector>
+
+/* QtGui */
+#include <QtGui/QTextDocument>
+#include <QtGui/QTextCharFormat>
+#include <QtGui/QSyntaxHighlighter>
+#include <QtGui/QTextBlock>
 
 class Highlighter : public QSyntaxHighlighter
 {

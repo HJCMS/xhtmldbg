@@ -29,10 +29,15 @@
 
 /* QtGui */
 #include <QtGui/QDialog>
+#include <QtGui/QListWidget>
+#include <QtGui/QTextEdit>
 #include <QtGui/QWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
+
+class RSSTreeView;
+class RSSViewer;
 
 class RSSParserDialog : public QDialog
 {
@@ -42,8 +47,12 @@ class RSSParserDialog : public QDialog
 
   private:
     const QUrl rssUrl;
+    RSSTreeView* m_treeViewer;
+    QListWidget* m_errorsList;
+    RSSViewer* m_sourceViewer;
     QNetworkReply* reply;
     bool parse ( const QByteArray &, const QUrl & );
+    void setDocumentSource ( const QByteArray &, const QUrl & );
 
   private Q_SLOTS:
     void requestFinished();

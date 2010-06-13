@@ -21,9 +21,8 @@
 
 #include "highlighter.h"
 
-#include <QRegExp>
-#include <QString>
-#include <QDebug>
+/* QtCore */
+#include <QtCore/QDebug>
 
 Highlighter::Highlighter ( QTextDocument *parent )
     : QSyntaxHighlighter ( parent )
