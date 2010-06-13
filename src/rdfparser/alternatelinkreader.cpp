@@ -41,7 +41,7 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "alternatelinkreader" ) );
   setContentsMargins ( 0, 0, 0, 0 );
-  setMinimumWidth ( 160 );
+  setMinimumWidth ( 190 );
   setMaximumWidth ( 300 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
@@ -51,9 +51,9 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   // ComboBox erstellen
   m_comboBox = new QComboBox ( this );
   m_comboBox->setObjectName ( QLatin1String ( "alternatelinkreadercombobox" ) );
-  m_comboBox->setMinimumWidth ( 160 );
+  m_comboBox->setMinimumWidth ( 190 );
   m_comboBox->setMaximumWidth ( 300 );
-  m_comboBox->setMinimumContentsLength ( 1 ); // sizeHint 0|1
+  // m_comboBox->setMinimumContentsLength ( 1 ); // sizeHint 0|1
   m_comboBox->setSizeAdjustPolicy ( QComboBox::AdjustToMinimumContentsLengthWithIcon );
   m_comboBox->setEnabled ( false );
 

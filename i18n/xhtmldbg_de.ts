@@ -1752,6 +1752,14 @@ Gründe : </translation>
     </message>
 </context>
 <context>
+    <name>RSSParserDialog</name>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="55"/>
+        <source>RSS Parser</source>
+        <translation>RSS Syntaxanalysierer</translation>
+    </message>
+</context>
+<context>
     <name>SelfHtmlSidebar</name>
     <message>
         <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="111"/>

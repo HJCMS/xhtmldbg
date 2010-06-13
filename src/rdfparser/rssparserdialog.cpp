@@ -52,7 +52,8 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
 {
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
-  setMinimumWidth ( 350 );
+  setWindowTitle ( trUtf8 ( "RSS Parser" ) );
+  setMinimumWidth ( 500 );
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
 
