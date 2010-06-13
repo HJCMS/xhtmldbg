@@ -30,6 +30,10 @@
 #include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+
 class RSSParser;
 
 class RSSParserDialog : public QDialog
@@ -41,6 +45,10 @@ class RSSParserDialog : public QDialog
   private:
     const QUrl rssUrl;
     RSSParser* m_parser;
+    QNetworkReply* reply;
+
+  private Q_SLOTS:
+    void requestFinished();
 
   public:
     RSSParserDialog ( const QUrl &url, QWidget * parent = 0 );

@@ -23,19 +23,10 @@
 #define RSSPARSER_H
 
 /* QtCore */
-#include <QtCore/QMutex>
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
-
-/* Raptor */
-#include <raptor.h>
-
-typedef struct
-{
-  QList<QString> state;
-  int id;
-} RSSParserState;
 
 class RSSParser : public QObject
 {
@@ -44,12 +35,13 @@ class RSSParser : public QObject
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    mutable QMutex m_mutex;
-    raptor_parser* createParser () const;
+    bool parseRDF ( const QByteArray &, const QUrl & ) const;
+
+  public Q_SLOTS:
+    void parseUrl ( const QUrl & );
 
   public:
     RSSParser ( QObject * parent = 0 );
-    bool parse ( const QUrl & ) const;
     ~RSSParser();
 };
 

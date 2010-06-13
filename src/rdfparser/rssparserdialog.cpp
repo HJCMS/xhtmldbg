@@ -21,6 +21,8 @@
 
 #include "rssparserdialog.h"
 #include "rssparser.h"
+#include "xhtmldbgmain.h"
+#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -49,10 +51,17 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
   setLayout ( vLayout );
 
   m_parser = new RSSParser ( this );
-  m_parser->parse ( rssUrl );
 
+  QNetworkRequest request ( rssUrl );
+  reply = xhtmldbgmain::instance()->networkAccessManager()->get ( request );
+  connect ( reply, SIGNAL ( finished() ), this, SLOT ( requestFinished() ) );
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
   connect ( box, SIGNAL ( rejected() ), this, SLOT ( reject() ) );
+}
+
+void RSSParserDialog::requestFinished()
+{
+  qDebug() << Q_FUNC_INFO << reply->url();
 }
 
 RSSParserDialog::~RSSParserDialog()

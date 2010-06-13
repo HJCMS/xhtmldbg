@@ -19,20 +19,20 @@ SET (subproject_NOMOCS
   rssitem.h
 )
 
+INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
+
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
-ADD_LIBRARY (AlternateLinkReader STATIC
+ADD_LIBRARY (RDFParser STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
   ${subproject_NOMOCS}
   ${subproject_SOURCES}
 )
 
-TARGET_LINK_LIBRARIES (AlternateLinkReader
-  ${QT_QTCORE_LIBRARY}
-  ${QT_QTGUI_LIBRARY}
-  ${QT_QTNETWORK_LIBRARY}
-  ${QT_QTWEBKIT_LIBRARY}
+TARGET_LINK_LIBRARIES (RDFParser
+  ${XHTMLDBG_LIBRARIES}
+  Networker
 )
 
 ## EOF
