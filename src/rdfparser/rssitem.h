@@ -33,7 +33,7 @@
 class RSSItem : public QStandardItem
 {
   public:
-    explicit RSSItem ( const QString &text, const QUrl &url, const QString &title );
+    explicit RSSItem ( const QString &text, const QUrl &url, const QString &type );
 };
 
 #endif

@@ -20,6 +20,7 @@
 **/
 
 #include "rssparserdialog.h"
+#include "raptorparser.h"
 #include "rsstreeview.h"
 #include "rssviewer.h"
 #include "xhtmldbgmain.h"
@@ -33,6 +34,7 @@
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QSplitter>
 #include <QtGui/QVBoxLayout>
 
@@ -43,17 +45,11 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 
-/* Soprano */
-#include <Soprano/Soprano>
-// #include <Soprano/Backend>
-// #include <Soprano/Model>
-// #include <Soprano/Parser>
-// #include <Soprano/PluginManager>
-// #include <Soprano/StatementIterator>
-
-RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
+RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent )
     : QDialog ( parent )
     , rssUrl ( url )
+    , mimeType ( type )
+    , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
 {
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
   setMinimumWidth ( 350 );
@@ -66,6 +62,8 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
   QSplitter* splitter = new QSplitter ( Qt::Vertical, this );
   splitter->setObjectName ( QLatin1String ( "rssparsersplitter" ) );
   vLayout->addWidget ( splitter );
+
+  m_parser = new RaptorParser ( this );
 
   m_treeViewer = new RSSTreeView ( splitter );
   splitter->insertWidget ( 0, m_treeViewer );
@@ -89,35 +87,12 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, QWidget * parent )
   QNetworkRequest request ( rssUrl );
   reply = xhtmldbgmain::instance()->networkAccessManager()->get ( request );
 
+  connect ( m_parser, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SLOT ( error ( const QString & ) ) );
+
   connect ( reply, SIGNAL ( finished() ), this, SLOT ( requestFinished() ) );
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
   connect ( box, SIGNAL ( rejected() ), this, SLOT ( reject() ) );
-}
-
-/**
-* Starte mit Soprano die RDF Syntax Überprüfung
-* Verwende hierbei die Standard RDF/XML Serialisierung
-*/
-bool RSSParserDialog::parse ( const QByteArray &data, const QUrl &url )
-{
-  Soprano::Model* model = Soprano::createModel();
-
-  const Soprano::Parser* p = Soprano::PluginManager::instance()->discoverParserForSerialization (
-                                 Soprano::SerializationRdfXml );
-
-  QStringList messages;
-  QTextStream stream ( data );
-  Soprano::StatementIterator it = p->parseStream ( stream, url, Soprano::SerializationRdfXml );
-  foreach ( Soprano::Statement s, it.allStatements() )
-  {
-    if ( model->addStatement ( s ) != Soprano::Error::ErrorNone )
-      qDebug() << "###" << model->lastError().message();
-  }
-
-  if ( messages.size() > 0 )
-    m_errorsList->addItems ( messages );
-
-  return true;
 }
 
 /**
@@ -125,6 +100,7 @@ bool RSSParserDialog::parse ( const QByteArray &data, const QUrl &url )
 */
 void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &url )
 {
+  QStringList messages ( url.toString() );
   QString errorMsg;
   int errorLine;
   int errorColumn;
@@ -137,11 +113,12 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   {
     m_treeViewer->createTreeView ( dom );
     m_sourceViewer->setText ( dom.toString ( indent ) );
-    parse ( data, url );
   }
   else
   {
-    qDebug() << Q_FUNC_INFO << errorMsg << errorLine << errorColumn;
+    messages << QString ( "Error: %1, on Line: %2 Column: %3" ).arg ( errorMsg,
+            QString::number ( errorLine ), QString::number ( errorColumn ) );
+    m_errorsList->addItems ( messages );
   }
 }
 
@@ -157,9 +134,28 @@ void RSSParserDialog::requestFinished()
   if ( data.isEmpty() || !url.isValid() )
     return;
 
-  m_errorsList->clear();
+  if ( mimeType.contains ( "rss+xml", Qt::CaseInsensitive ) )
+  {
+    m_errorsList->clear();
+    m_parser->parseDocument ( data, url );
+  }
+  else
+    m_errorsList->hide();
+
   setDocumentSource ( data, url );
 }
 
+/**
+* Nachrichten von @ref RaptorParser in die Liste schreiben!
+*/
+void RSSParserDialog::error ( const QString &txt )
+{
+  QListWidgetItem* item = new QListWidgetItem ( iconWarning, txt, m_errorsList );
+  m_errorsList->addItem ( item );
+}
+
 RSSParserDialog::~RSSParserDialog()
-{}
+{
+  if ( m_parser )
+    delete m_parser;
+}

@@ -47,7 +47,7 @@ class AlternateLinkReader : public QWidget
     const QString comboTitle;
     RSSModel* m_model;
     QComboBox* m_comboBox;
-    void openParserDialog ( const QUrl & );
+    void openParserDialog ( const QUrl &, const QString & );
 
   private Q_SLOTS:
     void currentIndexChanged ( int );

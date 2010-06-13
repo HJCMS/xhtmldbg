@@ -29,6 +29,7 @@
 
 /* QtGui */
 #include <QtGui/QDialog>
+#include <QtGui/QIcon>
 #include <QtGui/QListWidget>
 #include <QtGui/QTextEdit>
 #include <QtGui/QWidget>
@@ -36,6 +37,8 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 
+
+class RaptorParser;
 class RSSTreeView;
 class RSSViewer;
 
@@ -47,19 +50,22 @@ class RSSParserDialog : public QDialog
 
   private:
     const QUrl rssUrl;
+    const QString mimeType;
+    const QIcon iconWarning;
+    RaptorParser* m_parser;
     RSSTreeView* m_treeViewer;
     QListWidget* m_errorsList;
     RSSViewer* m_sourceViewer;
     QNetworkReply* reply;
-    bool parse ( const QByteArray &, const QUrl & );
     void setDocumentSource ( const QByteArray &, const QUrl & );
 
   private Q_SLOTS:
     void requestFinished();
+    void error ( const QString & );
 
   public:
-    RSSParserDialog ( const QUrl &url, QWidget * parent = 0 );
-    ~RSSParserDialog();
+    RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent = 0 );
+    virtual ~RSSParserDialog();
 };
 
 #endif

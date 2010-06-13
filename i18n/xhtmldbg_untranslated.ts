@@ -35,8 +35,8 @@
 <context>
     <name>AlternateLinkReader</name>
     <message>
-        <location filename="../src/alternatelinkreader/alternatelinkreader.cpp" line="38"/>
-        <source>RSS Feeds</source>
+        <location filename="../src/rdfparser/alternatelinkreader.cpp" line="40"/>
+        <source>RSS Parser</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2125,7 +2125,17 @@ Reasons : </source>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="247"/>
+        <location filename="../src/webviewer.cpp" line="76"/>
+        <source>New Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/webviewer.cpp" line="78"/>
+        <source>Add a new empty Tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/webviewer.cpp" line="264"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2,6 +2,7 @@
 
 SET (subproject_SOURCES
   alternatelinkreader.cpp
+  raptorparser.cpp
   rssitem.cpp
   rssmodel.cpp
   rssparserdialog.cpp
@@ -12,6 +13,7 @@ SET (subproject_SOURCES
 
 SET (subproject_HEADERS
   alternatelinkreader.h
+  raptorparser.h
   rssmodel.h
   rssparserdialog.h
   rsstreeview.h
@@ -24,6 +26,8 @@ SET (subproject_NOMOCS
 )
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
+
+REMOVE_DEFINITIONS ( -DQT_DBUS_LIB )
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 

@@ -74,12 +74,12 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
 /**
 * Dialog für die Syntaxprüfung öffnen.
 */
-void AlternateLinkReader::openParserDialog ( const QUrl &url )
+void AlternateLinkReader::openParserDialog ( const QUrl &url, const QString &mimeType )
 {
   if ( ! url.isValid() )
     return;
 
-  RSSParserDialog* dialog = new RSSParserDialog ( url, this );
+  RSSParserDialog* dialog = new RSSParserDialog ( url, mimeType, this );
   if ( dialog->exec() == QDialog::Accepted )
     m_comboBox->setCurrentIndex ( 0 );
 
@@ -96,7 +96,8 @@ void AlternateLinkReader::currentIndexChanged ( int index )
   {
     QStandardItem* item = m_model->item ( index, 0 );
     QUrl url = item->data ( Qt::UserRole ).toUrl();
-    openParserDialog ( url );
+    QString mime = item->data ( Qt::WhatsThisRole ).toString();
+    openParserDialog ( url, mime );
   }
 }
 
@@ -125,7 +126,7 @@ void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
       continue;
 
     QString title = element.attribute ( QLatin1String ( "title" ), comboTitle );
-    m_model->appendRow ( new RSSItem ( title, QUrl ( source ), title ) );
+    m_model->appendRow ( new RSSItem ( title, QUrl ( source ), type ) );
   }
   m_comboBox->update();
 }
