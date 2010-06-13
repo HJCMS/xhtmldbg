@@ -23,6 +23,7 @@
 #define RSSPARSERDIALOG_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
 #include <QtCore/QUrl>
 
@@ -32,9 +33,6 @@
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
-
-class RSSParser;
 
 class RSSParserDialog : public QDialog
 {
@@ -44,8 +42,8 @@ class RSSParserDialog : public QDialog
 
   private:
     const QUrl rssUrl;
-    RSSParser* m_parser;
     QNetworkReply* reply;
+    bool parse ( const QByteArray &, const QUrl & );
 
   private Q_SLOTS:
     void requestFinished();

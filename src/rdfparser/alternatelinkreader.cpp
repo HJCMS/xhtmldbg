@@ -36,7 +36,7 @@
 
 AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
     : QWidget ( parent )
-    , comboTitle ( trUtf8 ( "RSS Feeds" ) )
+    , comboTitle ( trUtf8 ( "RSS Parser" ) )
 {
   setObjectName ( QLatin1String ( "alternatelinkreader" ) );
   setContentsMargins ( 0, 0, 0, 0 );
