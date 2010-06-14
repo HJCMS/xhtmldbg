@@ -1,8 +1,73 @@
 <?xml version = '1.0' encoding = 'utf-8' ?>
 <root>
   <rfc id="2109">
-    <name>RFC 2109</name>
+    <name>RFC 2109 (HTTP State Management Mechanism)</name>
     <title>HTTP State Management Mechanism</title>
     <filename>RFC_2109.txt</filename>
+  </rfc>
+  <rfc id="2318">
+    <name>RFC 2318 (The text/css Media Type)</name>
+    <title>The text/css Media Type</title>
+    <filename>RFC_2318.txt</filename>
+  </rfc>
+  <rfc id="2387">
+    <name>RFC 2387 (The MIME Multipart/Related Content-type)</name>
+    <title>The MIME Multipart/Related Content-type</title>
+    <filename>RFC_2387.txt</filename>
+  </rfc>
+  <rfc id="2616">
+    <name>RFC 2616 (Hypertext Transfer Protocol -- HTTP/1.1)</name>
+    <title>Hypertext Transfer Protocol -- HTTP/1.1</title>
+    <filename>RFC_2616.txt</filename>
+  </rfc>
+  <rfc id="2660">
+    <name>RFC 2660 (The Secure HyperText Transfer Protocol)</name>
+    <title>The Secure HyperText Transfer Protocol</title>
+    <filename>RFC_2660.txt</filename>
+  </rfc>
+  <rfc id="2913">
+    <name>RFC 2913 (MIME Content Types in Media Feature Expressions)</name>
+    <title>MIME Content Types in Media Feature Expressions</title>
+    <filename>RFC_2913.txt</filename>
+  </rfc>
+  <rfc id="2936">
+    <name>RFC 2936 (HTTP MIME Type Handler Detection)</name>
+    <title>HTTP MIME Type Handler Detection</title>
+    <filename>RFC_2936.txt</filename>
+  </rfc>
+  <rfc id="2964">
+    <name>RFC 2964 (Use of HTTP State Management)</name>
+    <title>Use of HTTP State Management</title>
+    <filename>RFC_2964.txt</filename>
+  </rfc>
+  <rfc id="2965">
+    <name>RFC 2965 (HTTP State Management Mechanism)</name>
+    <title>HTTP State Management Mechanism</title>
+    <filename>RFC_2965.txt</filename>
+  </rfc>
+  <rfc id="3864">
+    <name>RFC 3864 (Registration Procedures for Message Header Fields)</name>
+    <title>Registration Procedures for Message Header Fields</title>
+    <filename>RFC_3864.txt</filename>
+  </rfc>
+  <rfc id="4229">
+    <name>RFC 4229 (HTTP Header Field Registrations)</name>
+    <title>HTTP Header Field Registrations</title>
+    <filename>RFC_4229.txt</filename>
+  </rfc>
+  <rfc id="5334">
+    <name>RFC 5334 (Ogg Media Types)</name>
+    <title>Ogg Media Types</title>
+    <filename>RFC_5334.txt</filename>
+  </rfc>
+  <rfc id="5854">
+    <name>RFC 5854 (The Metalink Download Description Format)</name>
+    <title>The Metalink Download Description Format</title>
+    <filename>RFC_5854.txt</filename>
+  </rfc>
+  <rfc id="5861">
+    <name>RFC 5861 (HTTP Cache-Control Extensions for Stale Content)</name>
+    <title>HTTP Cache-Control Extensions for Stale Content</title>
+    <filename>RFC_5861.txt</filename>
   </rfc>
 </root>

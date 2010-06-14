@@ -1,9 +1,3 @@
-
-
-
-
-
-
 Network Working Group                                         D. Kristol
 Request for Comments: 2109        Bell Laboratories, Lucent Technologies
 Category: Standards Track                                    L. Montulli
@@ -1143,37 +1137,6 @@ RFC 2109            HTTP State Management Mechanism        February 1997
 
    Phone: (415) 528-2600
    EMail: montulli@netscape.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Kristol & Montulli          Standards Track                    [Page 21]
 

@@ -5,5 +5,18 @@
   </qresource>
   <qresource prefix="/rfc" >
     <file>RFC_2109.txt</file>
+    <file>RFC_2318.txt</file>
+    <file>RFC_2387.txt</file>
+    <file>RFC_2616.txt</file>
+    <file>RFC_2660.txt</file>
+    <file>RFC_2913.txt</file>
+    <file>RFC_2936.txt</file>
+    <file>RFC_2964.txt</file>
+    <file>RFC_2965.txt</file>
+    <file>RFC_3864.txt</file>
+    <file>RFC_4229.txt</file>
+    <file>RFC_5334.txt</file>
+    <file>RFC_5854.txt</file>
+    <file>RFC_5861.txt</file>
   </qresource>
 </RCC>
