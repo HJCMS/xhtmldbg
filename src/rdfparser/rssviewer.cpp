@@ -27,7 +27,7 @@
 
 /* QtGui */
 #include <QtGui/QFrame>
-#include <QtGui/QPalette>
+#include <QtGui/QSizePolicy>
 #include <QtGui/QTextOption>
 #include <QtGui/QTextDocument>
 #include <QtGui/QTextBlock>
@@ -48,6 +48,7 @@ RSSViewer::RSSViewer ( QWidget * parent )
   setWordWrapMode ( QTextOption::ManualWrap );
   setLineWrapMode ( QTextEdit::NoWrap );
   setTextInteractionFlags ( Qt::TextEditorInteraction );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
 
   QTextCharFormat format = currentCharFormat();
   format.setVerticalAlignment ( QTextCharFormat::AlignMiddle );

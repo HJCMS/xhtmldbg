@@ -32,8 +32,12 @@
 
 class RSSItem : public QStandardItem
 {
+  private:
+    const QString mType;
+
   public:
     explicit RSSItem ( const QString &text, const QUrl &url, const QString &type );
+    const QString mimeType();
 };
 
 #endif

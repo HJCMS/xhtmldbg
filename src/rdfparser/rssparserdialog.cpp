@@ -35,7 +35,8 @@
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QListWidgetItem>
-#include <QtGui/QSplitter>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QToolBox>
 #include <QtGui/QVBoxLayout>
 
 /* QtNetwork */
@@ -53,30 +54,31 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
 {
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
   setWindowTitle ( trUtf8 ( "RSS Parser" ) );
-  setMinimumWidth ( 500 );
+  setMinimumWidth ( 550 );
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( QLatin1String ( "rssparserdialoglayout" ) );
 
-  QSplitter* splitter = new QSplitter ( Qt::Vertical, this );
-  splitter->setObjectName ( QLatin1String ( "rssparsersplitter" ) );
-  vLayout->addWidget ( splitter );
+  QIcon boxIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
+
+  QToolBox* toolBox = new QToolBox ( this, Qt::Widget );
+  toolBox->setObjectName ( QLatin1String ( "rssparsertoolbox" ) );
+  vLayout->addWidget ( toolBox );
 
   m_parser = new RaptorParser ( this );
 
-  m_treeViewer = new RSSTreeView ( splitter );
-  splitter->insertWidget ( 0, m_treeViewer );
+  m_treeViewer = new RSSTreeView ( toolBox );
+  toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
 
-  m_errorsList = new QListWidget ( splitter );
+  m_errorsList = new QListWidget ( toolBox );
   m_errorsList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
-  splitter->insertWidget ( 1, m_errorsList );
-  splitter->setCollapsible ( 1, true );
+  m_errorsList->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
+  toolBox->addItem ( m_errorsList, boxIcon, trUtf8 ( "Parser Messages" ) );
 
-  m_sourceViewer = new RSSViewer ( splitter );
-  splitter->insertWidget ( 2, m_sourceViewer );
-  splitter->setCollapsible ( 2, true );
+  m_sourceViewer = new RSSViewer ( toolBox );
+  toolBox->addItem ( m_sourceViewer, boxIcon, trUtf8 ( "Source" ) );
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "rssparserdialogbuttonbox" ) );
@@ -106,6 +108,7 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   int errorLine;
   int errorColumn;
   int indent = 1;
+  bool useRDF = mimeType.contains ( "rss+xml", Qt::CaseInsensitive );
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, QTextCodec::codecForName ( "UTF-8" ) );
 
@@ -114,6 +117,22 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   {
     m_treeViewer->createTreeView ( dom );
     m_sourceViewer->setText ( dom.toString ( indent ) );
+    QString nodeName = dom.documentElement().tagName();
+    if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) && useRDF )
+    {
+      // Wenn es sich um ein RDF Dokument handelt dann mit Raptor prüfen
+      m_parser->parseDocument ( data, url );
+    }
+    else if ( useRDF )
+    {
+      // Falsche MimeTypen Angabe mitteilen!
+      error ( trUtf8 ( "Invalid link type=\"%1\" Attribute for this Document." ).arg ( mimeType ) );
+    }
+    else if ( nodeName.contains ( "rss", Qt::CaseInsensitive ) )
+    {
+      // Es handelt sich um eine Atom Struktur
+      m_errorsList->hide();
+    }
   }
   else
   {
@@ -135,14 +154,7 @@ void RSSParserDialog::requestFinished()
   if ( data.isEmpty() || !url.isValid() )
     return;
 
-  if ( mimeType.contains ( "rss+xml", Qt::CaseInsensitive ) )
-  {
-    m_errorsList->clear();
-    m_parser->parseDocument ( data, url );
-  }
-  else
-    m_errorsList->hide();
-
+  m_errorsList->clear();
   setDocumentSource ( data, url );
 }
 

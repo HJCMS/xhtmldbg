@@ -30,6 +30,7 @@
 
 /* QtGui */
 #include <QtGui/QPixmap>
+#include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 
 /* QtWebKit */
@@ -37,11 +38,10 @@
 
 AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
     : QWidget ( parent )
-    , comboTitle ( trUtf8 ( "RSS Parser" ) )
+    , comboTitle ( trUtf8 ( "RSS/Atom" ) )
 {
   setObjectName ( QLatin1String ( "alternatelinkreader" ) );
   setContentsMargins ( 0, 0, 0, 0 );
-  setMinimumWidth ( 190 );
   setMaximumWidth ( 300 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
@@ -51,9 +51,8 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   // ComboBox erstellen
   m_comboBox = new QComboBox ( this );
   m_comboBox->setObjectName ( QLatin1String ( "alternatelinkreadercombobox" ) );
-  m_comboBox->setMinimumWidth ( 190 );
-  m_comboBox->setMaximumWidth ( 300 );
-  // m_comboBox->setMinimumContentsLength ( 1 ); // sizeHint 0|1
+  m_comboBox->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
+  m_comboBox->setMinimumWidth ( 210 );
   m_comboBox->setSizeAdjustPolicy ( QComboBox::AdjustToMinimumContentsLengthWithIcon );
   m_comboBox->setEnabled ( false );
 
@@ -94,9 +93,9 @@ void AlternateLinkReader::currentIndexChanged ( int index )
 {
   if ( index > 0 )
   {
-    QStandardItem* item = m_model->item ( index, 0 );
+    RSSItem* item = static_cast<RSSItem*>( m_model->item ( index, 0 ) );
     QUrl url = item->data ( Qt::UserRole ).toUrl();
-    QString mime = item->data ( Qt::WhatsThisRole ).toString();
+    QString mime = item->mimeType ();
     openParserDialog ( url, mime );
   }
 }
@@ -128,7 +127,6 @@ void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
     QString title = element.attribute ( QLatin1String ( "title" ), comboTitle );
     m_model->appendRow ( new RSSItem ( title, QUrl ( source ), type ) );
   }
-  m_comboBox->update();
 }
 
 AlternateLinkReader::~AlternateLinkReader()

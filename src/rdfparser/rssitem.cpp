@@ -30,19 +30,18 @@
 
 RSSItem::RSSItem ( const QString &text, const QUrl &url, const QString &type )
     : QStandardItem ( QIcon::fromTheme ( QLatin1String ( "application-rss+xml" ) ), text )
+    , mType ( type )
 {
   setData ( QVariant ( url ), Qt::UserRole );
   setText ( text );
   setToolTip ( text );
-
-  /**
-  * Trick: Versteckte info für die Parser auswahl ;-)
-  * @see AlternateLinkReader::currentIndexChanged
-  */
-  setData ( QVariant ( type ), Qt::WhatsThisRole );
-
   setEditable ( false );
   setFlags ( ( Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsTristate | Qt::ItemIsUserCheckable ) );
   setEnabled ( ( url.host().isEmpty() ? false : true ) );
   setSelectable ( ( url.host().isEmpty() ? false : true ) );
+}
+
+const QString RSSItem::mimeType()
+{
+  return mType;
 }

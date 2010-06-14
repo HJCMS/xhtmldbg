@@ -43,7 +43,7 @@ RSSTreeView::RSSTreeView ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "rsstreeview" ) );
   QStringList labels;
-  labels << QLatin1String ( "STag" ) << QLatin1String ( "AttName " ) << QLatin1String ( "AttValue" );
+  labels << trUtf8 ( "Element" ) << trUtf8 ( "Predicate" ) << trUtf8 ( "Value" );
   setHeaderLabels ( labels );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
   setFrameStyle ( QFrame::Box );

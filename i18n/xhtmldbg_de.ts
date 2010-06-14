@@ -35,9 +35,9 @@
 <context>
     <name>AlternateLinkReader</name>
     <message>
-        <location filename="../src/rdfparser/alternatelinkreader.cpp" line="40"/>
-        <source>RSS Parser</source>
-        <translation>RSS Syntaxanalysierer</translation>
+        <location filename="../src/rdfparser/alternatelinkreader.cpp" line="41"/>
+        <source>RSS/Atom</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1754,9 +1754,47 @@ Gründe : </translation>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="55"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="56"/>
         <source>RSS Parser</source>
         <translation>RSS Syntaxanalysierer</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="73"/>
+        <source>Document Structure</source>
+        <translation>Dokumenten Struktur</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="78"/>
+        <source>Parser Messages</source>
+        <translation>Syntaxanalysierer Nachrichten</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
+        <source>Source</source>
+        <translation>Quelltext</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="129"/>
+        <source>Invalid link type=&quot;%1&quot; Attribute for this Document.</source>
+        <translation>Ungültiges link type=&quot;%1&quot; Prädikat für dieses Dokument.</translation>
+    </message>
+</context>
+<context>
+    <name>RSSTreeView</name>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Element</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Predicate</source>
+        <translation>Prädikat</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Value</source>
+        <translation>Wert</translation>
     </message>
 </context>
 <context>

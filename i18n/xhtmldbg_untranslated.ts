@@ -35,8 +35,8 @@
 <context>
     <name>AlternateLinkReader</name>
     <message>
-        <location filename="../src/rdfparser/alternatelinkreader.cpp" line="40"/>
-        <source>RSS Parser</source>
+        <location filename="../src/rdfparser/alternatelinkreader.cpp" line="41"/>
+        <source>RSS/Atom</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1748,8 +1748,46 @@ Reasons : </source>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="55"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="56"/>
         <source>RSS Parser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="73"/>
+        <source>Document Structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="78"/>
+        <source>Parser Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="129"/>
+        <source>Invalid link type=&quot;%1&quot; Attribute for this Document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RSSTreeView</name>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Predicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
+        <source>Value</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
