@@ -1,1 +1,9 @@
- 
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/" >
+    <file>rfc.xml</file>
+  </qresource>
+  <qresource prefix="/rfc" >
+    <file>RFC_2109.txt</file>
+  </qresource>
+</RCC>

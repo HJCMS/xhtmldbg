@@ -1752,6 +1752,37 @@ Gründe : </translation>
     </message>
 </context>
 <context>
+    <name>RFCBrowser</name>
+    <message>
+        <location filename="../src/plugins/rfcbrowser/rfcbrowser.cpp" line="61"/>
+        <source>RFC Document Browser</source>
+        <translation>RFC Dokumenten Browser</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/rfcbrowser/rfcbrowser.cpp" line="68"/>
+        <source>Change RFC Document</source>
+        <translation>Wähle ein RFC Dokument</translation>
+    </message>
+</context>
+<context>
+    <name>RFCBrowserPlugin</name>
+    <message>
+        <location filename="../src/plugins/rfcbrowser/rfcbrowserplugin.cpp" line="68"/>
+        <source>RFC Document Browser</source>
+        <translation>RFC Dokumenten Browser</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/rfcbrowser/rfcbrowserplugin.cpp" line="70"/>
+        <source>Browse RFC Documents</source>
+        <translation>Dursuche RFC Dokumente</translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/plugins/rfcbrowser/rfcbrowserplugin.cpp" line="71"/>
+        <source>Jürgen Heinemann (Undefined)</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
     <name>RSSParserDialog</name>
     <message>
         <location filename="../src/rdfparser/rssparserdialog.cpp" line="56"/>
