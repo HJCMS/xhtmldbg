@@ -1785,29 +1785,34 @@ Gründe : </translation>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="56"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="57"/>
         <source>RSS Parser</source>
         <translation>RSS Syntaxanalysierer</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="73"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="74"/>
         <source>Document Structure</source>
         <translation>Dokumenten Struktur</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="78"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="79"/>
         <source>Parser Messages</source>
         <translation>Syntaxanalysierer Nachrichten</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="82"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="129"/>
-        <source>Invalid link type=&quot;%1&quot; Attribute for this Document.</source>
-        <translation>Ungültiges link type=&quot;%1&quot; Prädikat für dieses Dokument.</translation>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="117"/>
+        <source>Checking: %1</source>
+        <translation>Prüfe: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="127"/>
+        <source>RSS 2.0 Scheme validation currently bot Supported.</source>
+        <translation>Die RSS 2.0 Schema Validierung wird zurzeit nicht Unterstützt.</translation>
     </message>
 </context>
 <context>

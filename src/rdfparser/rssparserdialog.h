@@ -52,15 +52,17 @@ class RSSParserDialog : public QDialog
     const QUrl rssUrl;
     const QString mimeType;
     const QIcon iconWarning;
+    const QIcon iconNotice;
     RaptorParser* m_parser;
     RSSTreeView* m_treeViewer;
-    QListWidget* m_errorsList;
+    QListWidget* m_MessagesList;
     RSSViewer* m_sourceViewer;
     QNetworkReply* reply;
     void setDocumentSource ( const QByteArray &, const QUrl & );
 
   private Q_SLOTS:
     void requestFinished();
+    void notice ( const QString & );
     void error ( const QString & );
 
   public:

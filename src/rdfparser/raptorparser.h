@@ -40,6 +40,7 @@ class RaptorParser : public QObject
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_ENUMS ( PARSER )
 
   private:
     mutable QMutex m_mutex;
@@ -48,9 +49,10 @@ class RaptorParser : public QObject
     void errorMessage ( const QString & );
 
   public:
+    enum PARSER { RDF, ATOM };
     RaptorParser ( QObject * parent = 0 );
     void setMessage ( const QString & );
-    void parseDocument ( const QByteArray &, const QUrl & );
+    void parseDocument ( const QByteArray &, const QUrl &, PARSER pType = RDF );
     ~RaptorParser();
 };
 

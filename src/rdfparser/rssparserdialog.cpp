@@ -51,6 +51,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
     , rssUrl ( url )
     , mimeType ( type )
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
+    , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
 {
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
   setWindowTitle ( trUtf8 ( "RSS Parser" ) );
@@ -72,10 +73,10 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_treeViewer = new RSSTreeView ( toolBox );
   toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
 
-  m_errorsList = new QListWidget ( toolBox );
-  m_errorsList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
-  m_errorsList->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
-  toolBox->addItem ( m_errorsList, boxIcon, trUtf8 ( "Parser Messages" ) );
+  m_MessagesList = new QListWidget ( toolBox );
+  m_MessagesList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
+  m_MessagesList->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
+  toolBox->addItem ( m_MessagesList, boxIcon, trUtf8 ( "Parser Messages" ) );
 
   m_sourceViewer = new RSSViewer ( toolBox );
   toolBox->addItem ( m_sourceViewer, boxIcon, trUtf8 ( "Source" ) );
@@ -103,42 +104,37 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
 */
 void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &url )
 {
-  QStringList messages ( url.toString() );
   QString errorMsg;
   int errorLine;
   int errorColumn;
   int indent = 1;
-  bool useRDF = mimeType.contains ( "rss+xml", Qt::CaseInsensitive );
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, QTextCodec::codecForName ( "UTF-8" ) );
 
   QDomDocument dom;
   if ( dom.setContent ( codec->toUnicode ( data ), false, &errorMsg, &errorLine, &errorColumn ) )
   {
+    notice ( trUtf8 ( "Checking: %1" ).arg ( url.toString() ) );
     m_treeViewer->createTreeView ( dom );
     m_sourceViewer->setText ( dom.toString ( indent ) );
     QString nodeName = dom.documentElement().tagName();
-    if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) && useRDF )
+    if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
-      // Wenn es sich um ein RDF Dokument handelt dann mit Raptor prüfen
-      m_parser->parseDocument ( data, url );
+      // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
+      m_parser->parseDocument ( data, url, RaptorParser::RDF );
     }
-    else if ( useRDF )
+    else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
+      notice ( trUtf8 ( "RSS 2.0 Scheme validation currently bot Supported." ) );
+    else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
-      // Falsche MimeTypen Angabe mitteilen!
-      error ( trUtf8 ( "Invalid link type=\"%1\" Attribute for this Document." ).arg ( mimeType ) );
-    }
-    else if ( nodeName.contains ( "rss", Qt::CaseInsensitive ) )
-    {
-      // Es handelt sich um eine Atom Struktur
-      m_errorsList->hide();
+      // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
+      m_parser->parseDocument ( data, url, RaptorParser::ATOM );
     }
   }
   else
   {
-    messages << QString ( "Error: %1, on Line: %2 Column: %3" ).arg ( errorMsg,
-            QString::number ( errorLine ), QString::number ( errorColumn ) );
-    m_errorsList->addItems ( messages );
+    error ( QString ( "Error: %1, on Line: %2 Column: %3" ).arg ( errorMsg,
+            QString::number ( errorLine ), QString::number ( errorColumn ) ) );
   }
 }
 
@@ -154,17 +150,26 @@ void RSSParserDialog::requestFinished()
   if ( data.isEmpty() || !url.isValid() )
     return;
 
-  m_errorsList->clear();
+  m_MessagesList->clear();
   setDocumentSource ( data, url );
 }
 
 /**
-* Nachrichten von @ref RaptorParser in die Liste schreiben!
+* Nachrichten Hinweise in die Liste schreiben!
+*/
+void RSSParserDialog::notice ( const QString &txt )
+{
+  QListWidgetItem* item = new QListWidgetItem ( iconNotice, txt, m_MessagesList );
+  m_MessagesList->addItem ( item );
+}
+
+/**
+* Nachrichten Fehler in die Liste schreiben!
 */
 void RSSParserDialog::error ( const QString &txt )
 {
-  QListWidgetItem* item = new QListWidgetItem ( iconWarning, txt, m_errorsList );
-  m_errorsList->addItem ( item );
+  QListWidgetItem* item = new QListWidgetItem ( iconWarning, txt, m_MessagesList );
+  m_MessagesList->addItem ( item );
 }
 
 RSSParserDialog::~RSSParserDialog()

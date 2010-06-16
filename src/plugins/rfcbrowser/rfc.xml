@@ -55,6 +55,11 @@
     <title>HTTP Header Field Registrations</title>
     <filename>RFC_4229.txt</filename>
   </rfc>
+  <rfc id="4287">
+    <name>RFC 4287 (The Atom Syndication Format)</name>
+    <title>The Atom Syndication Format</title>
+    <filename>RFC_4287.txt</filename>
+  </rfc>
   <rfc id="5334">
     <name>RFC 5334 (Ogg Media Types)</name>
     <title>Ogg Media Types</title>

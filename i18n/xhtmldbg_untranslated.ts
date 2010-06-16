@@ -1779,28 +1779,33 @@ Reasons : </source>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="56"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="57"/>
         <source>RSS Parser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="73"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="74"/>
         <source>Document Structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="78"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="79"/>
         <source>Parser Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="82"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="129"/>
-        <source>Invalid link type=&quot;%1&quot; Attribute for this Document.</source>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="117"/>
+        <source>Checking: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="127"/>
+        <source>RSS 2.0 Scheme validation currently bot Supported.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -54,14 +54,20 @@ void raptorMessanger ( void* ptr, raptor_locator* locator, const char* message )
   }
 }
 
+// void raptorTriplesHandler ( void* ptr, const raptor_statement* triple )
+// {
+//   qDebug() << Q_FUNC_INFO << triple->usage << triple->subject;
+// }
+
 RaptorParser::RaptorParser ( QObject * parent )
     : QObject ( parent )
 {
   setObjectName ( QLatin1String ( "raptorparser" ) );
 }
 
-void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
+void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url, PARSER pType )
 {
+  Q_UNUSED ( pType )
   if ( ! url.isValid() )
     return;
 
@@ -72,10 +78,12 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
   const char* ucUrl = url.toString().toLocal8Bit().data();
   raptor_uri* raptorUri = raptor_new_uri ( ( unsigned char* ) ( ucUrl ) );
 
+  // @see http://librdf.org/raptor/api/tutorial-parser-create.html
   raptor_parser* parser = raptor_new_parser ( "rdfxml" );
 
   // Initialisiere den Nachrichten handler
   RaptorParser* that = const_cast<RaptorParser*> ( this );
+  // raptor_set_statement_handler(parser, that, raptorTriplesHandler );
   raptor_set_fatal_error_handler ( parser, that, raptorMessanger );
   raptor_set_error_handler ( parser, that, raptorMessanger );
   raptor_set_warning_handler ( parser, that, raptorMessanger );
