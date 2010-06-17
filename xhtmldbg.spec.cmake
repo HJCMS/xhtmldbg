@@ -17,7 +17,7 @@ AutoReqProv:    on
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires:       QTidy >= @QTIDY_VERSION@ qtidyrc oxygen-icon-theme >= 4.4.0
+Requires:       QTidy >= @QTIDY_VERSION@ qtidyrc oxygen-icon-theme >= 4.4.0 dbus-1
 BuildRequires:  cmake libtidy-devel QTidy-devel >= @QTIDY_VERSION@
 BuildRequires:  update-desktop-files oxygen-icon-theme >= 4.4.0
 BuildArch:      %{_target_cpu}
@@ -140,7 +140,7 @@ popd
 %{_datadir}/icons/oxygen/*/apps/%{name}.png
 %{_datadir}/icons/oxygen/*/apps/xhtmldbg.svgz
 %{_datadir}/pixmaps/%{name}.xpm
-
+@DBUS_SESSION_BUS_SERVICES_DIR@/de.hjcms.xhtmldbg.service
 %post -n libxhtmldbg -p /sbin/ldconfig
 ##
 

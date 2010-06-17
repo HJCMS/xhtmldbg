@@ -201,6 +201,28 @@ CONFIGURE_FILE (version.h.cmake
 )
 
 ##############################################################
+## D-Bus-1
+##############################################################
+
+EXEC_PROGRAM (${PKG_CONFIG_EXECUTABLE}
+  ARGS "--variable=session_bus_services_dir dbus-1"
+  OUTPUT_VARIABLE DBUS_SESSION_BUS_SERVICES_DIR
+)
+
+CONFIGURE_FILE (de.hjcms.xhtmldbg.service.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
+)
+
+INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
+  DESTINATION ${DBUS_SESSION_BUS_SERVICES_DIR}
+)
+
+## TODO
+# INSTALL (FILES de.hjcms.xhtmldbg.xml
+#   DESTINATION share/dbus-1/interfaces/
+# )
+
+##############################################################
 ## Default Configuration File
 ##############################################################
 

@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node name="/de/hjcms/xhtmldbg">
+  <interface name="de.hjcms.xhtmldbg" >
+    <method name="message">
+      <arg direction="in" type="s" name="mess" />
+    </method>
+    <method name="setUrl">
+      <arg direction="in" type="s" name="oldUrl" />
+      <arg direction="in" type="s" name="newUrl" />
+    </method>
+    <method name="setFile">
+      <arg direction="in" type="s" name="url" />
+    </method>
+    <method name="setSource">
+      <arg direction="in" type="s" name="xhtml" />
+    </method>
+  </interface>
+</node>

@@ -74,15 +74,23 @@ INSTALL_TREE:
     |       `-- xhtmldbgplugininfo.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.*
-    |   |-- libxhtmldbg-1.0.so.0.*
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.7
+    |   |-- libxhtmldbg-1.0.so.0.8.7
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
-    |       |-- lib${Plugins}.so
+    |       |-- libHostInfo.so
+    |       |-- libRFCBrowser.so
+    |       |-- libSelfHtmlSidebar.so
+    |       `-- libWebKitInspector.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop
+        |-- dbus-1
+        |   |-- interfaces
+        |   |   `-- de.hjcms.xhtmldbg.xml
+        |   `-- services
+        |       `-- de.hjcms.xhtmldbg.service
         |-- icons
         |   `-- oxygen
         |       |-- 128x128
