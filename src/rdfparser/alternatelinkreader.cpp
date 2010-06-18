@@ -20,8 +20,6 @@
 **/
 
 #include "alternatelinkreader.h"
-#include "rssmodel.h"
-#include "rssitem.h"
 #include "rssparserdialog.h"
 
 /* QtCore */
@@ -29,7 +27,9 @@
 #include <QtCore/QRegExp>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QPixmap>
+#include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 
@@ -39,6 +39,7 @@
 AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
     : QWidget ( parent )
     , comboTitle ( trUtf8 ( "RSS/Atom" ) )
+    , rssIcon ( QIcon::fromTheme ( QLatin1String ( "application-rss+xml" ) ) )
 {
   setObjectName ( QLatin1String ( "alternatelinkreader" ) );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -48,26 +49,21 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   layout->setObjectName ( QLatin1String ( "alternatelinkreaderlayout" ) );
   layout->setContentsMargins ( 0, 0, 0, 0 );
 
-  // ComboBox erstellen
-  m_comboBox = new QComboBox ( this );
-  m_comboBox->setObjectName ( QLatin1String ( "alternatelinkreadercombobox" ) );
-  m_comboBox->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
-  m_comboBox->setMinimumWidth ( 210 );
-  m_comboBox->setSizeAdjustPolicy ( QComboBox::AdjustToMinimumContentsLengthWithIcon );
-  m_comboBox->setEnabled ( false );
+  m_signalMapper =  new QSignalMapper ( this );
+  m_signalMapper->setObjectName ( QLatin1String ( "alternatelinkreadermapper" ) );
 
-  // Model Initialisieren
-  m_model = new RSSModel ( m_comboBox );
-  // setze den Standard Eintrag für die Anzeige
-  m_model->setItem ( 0, new RSSItem ( comboTitle, QUrl (), comboTitle ) );
-  m_comboBox->setModel ( m_model );
-
-  layout->addWidget ( m_comboBox );
+  // Button erstellen
+  m_toolButton = new QToolButton ( this );
+  m_toolButton->setObjectName ( QLatin1String ( "alternatelinkreaderbutton" ) );
+  m_toolButton->setIcon ( rssIcon );
+  m_toolButton->setAutoRaise ( true );
+  m_toolButton->setPopupMode ( QToolButton::InstantPopup );
+  layout->addWidget ( m_toolButton );
 
   setLayout ( layout );
 
-  connect ( m_comboBox, SIGNAL ( currentIndexChanged ( int ) ),
-            this, SLOT ( currentIndexChanged ( int ) ) );
+  connect ( m_signalMapper, SIGNAL ( mapped ( int ) ),
+            this, SLOT ( itemClicked ( int ) ) );
 }
 
 /**
@@ -79,41 +75,35 @@ void AlternateLinkReader::openParserDialog ( const QUrl &url, const QString &mim
     return;
 
   RSSParserDialog* dialog = new RSSParserDialog ( url, mimeType, this );
-  if ( dialog->exec() == QDialog::Accepted )
-    m_comboBox->setCurrentIndex ( 0 );
-
+  dialog->exec();
   delete dialog;
 }
 
 /**
-* Wenn ein Eintrag ausgewählt wird der eine Valide URL besitzt
-* dann das Signal @ref itemClicked auslösen.
+*
 */
-void AlternateLinkReader::currentIndexChanged ( int index )
+void AlternateLinkReader::itemClicked ( int index )
 {
-  if ( index > 0 )
-  {
-    RSSItem* item = static_cast<RSSItem*>( m_model->item ( index, 0 ) );
-    QUrl url = item->data ( Qt::UserRole ).toUrl();
-    QString mime = item->mimeType ();
-    openParserDialog ( url, mime );
-  }
+  if ( index < 0 )
+    return;
+
+  LinkItem item = items.at ( index );
+
+  openParserDialog ( item.url, item.mime );
 }
 
 /**
 * Im HEAD nach LINK mit Prädikat link[rel^=alternate] suchen und
 * nachsehen ob es sich um RSS handelt.
 */
-void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
+void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement &dom )
 {
-  // ComboBox Datenkörper leeren und Aktivieren?
-  m_comboBox->clear();
-  m_model->setItem ( 0, new RSSItem ( comboTitle, QUrl (), comboTitle ) );
-
+  QMenu* menu = new QMenu ( m_toolButton );
   QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
-  m_comboBox->setEnabled ( ( ( nodeList.count() < 1 ) ? false : true ) );
 
+  items.clear(); // Liste leeren
   // Alle application/rss+xml und application/atom+xml durchlaufen
+  int index = 0;
   foreach ( QWebElement element, nodeList )
   {
     QString type = element.attribute ( QLatin1String ( "type" ), QString::null );
@@ -125,11 +115,33 @@ void AlternateLinkReader::setDomWebElement ( const QWebElement &dom )
       continue;
 
     QString title = element.attribute ( QLatin1String ( "title" ), comboTitle );
-    m_model->appendRow ( new RSSItem ( title, QUrl ( source ), type ) );
+    QAction* ac = menu->addAction ( rssIcon, title );
+    ac->setData ( source );
+    connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
+    m_signalMapper->setMapping ( ac, index );
+
+    QUrl linkUrl;
+    if ( source.contains ( QRegExp ( "^http(s)?:\\/\\/" ) ) )
+    {
+      linkUrl.setUrl ( source );
+    }
+    else
+    {
+      linkUrl.setScheme ( url.scheme() );
+      linkUrl.setHost ( url.host() );
+      linkUrl.setPath ( source );
+    }
+
+    LinkItem item;
+    item.url = linkUrl;
+    item.mime = type;
+    items << item;
+
+    index++;
   }
+  m_toolButton->setMenu ( menu );
 }
 
 AlternateLinkReader::~AlternateLinkReader()
 {
-  m_comboBox->clear();
 }

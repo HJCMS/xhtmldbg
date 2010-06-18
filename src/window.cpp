@@ -631,25 +631,28 @@ void Window::requestsFinished ( bool ok )
 {
   if ( ok )
   {
+    QUrl currentUrl = m_webViewer->getUrl();
+    QWebElement currentPage = m_webViewer->toWebElement();
+
     if ( m_domInspector->toggleViewAction()->isChecked() )
-      m_domInspector->setDomTree ( m_webViewer->toWebElement() );
+      m_domInspector->setDomTree ( currentPage );
 
     if ( m_cssValidator->toggleViewAction()->isChecked() )
-      m_cssValidator->addForValidation ( m_webViewer->getUrl() );
+      m_cssValidator->addForValidation ( currentUrl );
 
-    m_alternateLinkReader->setDomWebElement ( m_webViewer->toWebElement() );
+    m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
 
     // Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
-    QUrl recent ( m_webViewer->getUrl().toString ( options ) );
+    QUrl recent ( currentUrl.toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
     // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
     {
       if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-        plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
+        plugins.at ( i )->setUrl ( currentUrl );
       else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-        plugins.at ( i )->setUrl ( m_webViewer->getUrl() );
+        plugins.at ( i )->setUrl ( currentUrl );
     }
   }
 }

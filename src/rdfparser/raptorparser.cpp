@@ -74,7 +74,36 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url, PARS
   raptor_uri* raptorUri = raptor_new_uri ( ( unsigned char* ) ( ucUrl ) );
 
   // @see http://librdf.org/raptor/api/tutorial-parser-create.html
-  raptor_parser* parser = raptor_new_parser ( "rdfxml" );
+  // rdfxml          RDF/XML (default)
+  // ntriples        N-Triples
+  // turtle          Turtle Terse RDF Triple Language
+  // trig            TriG - Turtle with Named Graphs
+  // rss-tag-soup    RSS Tag Soup
+  // grddl           Gleaning Resource Descriptions from Dialects of Languages
+  // guess           Pick the parser to use using content type and URI
+  // rdfa            RDF/A via librdfa
+  raptor_parser* parser;
+  switch ( pType )
+  {
+    case RDF:
+    {
+      parser = raptor_new_parser ( "rdfxml" );
+    }
+    break;
+
+//     case ATOM:
+//     {
+//       parser = raptor_new_parser ( "guess" );
+//     }
+//     break;
+
+    default:
+    {
+      parser = raptor_new_parser ( "rdfxml" );
+    }
+    break;
+
+  }
 
   // Initialisiere den Nachrichten handler
   RaptorParser* that = const_cast<RaptorParser*> ( this );

@@ -3,8 +3,6 @@
 SET (subproject_SOURCES
   alternatelinkreader.cpp
   raptorparser.cpp
-  rssitem.cpp
-  rssmodel.cpp
   rssparserdialog.cpp
   rsstreeview.cpp
   rssviewer.cpp
@@ -14,7 +12,6 @@ SET (subproject_SOURCES
 SET (subproject_HEADERS
   alternatelinkreader.h
   raptorparser.h
-  rssmodel.h
   rssparserdialog.h
   rsstreeview.h
   rssviewer.h
@@ -22,7 +19,6 @@ SET (subproject_HEADERS
 )
 
 SET (subproject_NOMOCS
-  rssitem.h
 )
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})

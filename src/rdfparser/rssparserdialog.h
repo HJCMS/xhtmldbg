@@ -37,7 +37,6 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 
-
 class RaptorParser;
 class RSSTreeView;
 class RSSViewer;

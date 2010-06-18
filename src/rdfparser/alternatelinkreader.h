@@ -23,18 +23,20 @@
 #define ALTERNATELINKREADER_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QSignalMapper>
 #include <QtCore/QString>
 #include <QtCore/QVariant>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QComboBox>
+#include <QtGui/QIcon>
+#include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
-
-class RSSModel;
 
 class AlternateLinkReader : public QWidget
 {
@@ -43,17 +45,23 @@ class AlternateLinkReader : public QWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    const QIcon rssIcon;
     const QString comboTitle;
-    RSSModel* m_model;
-    QComboBox* m_comboBox;
+    const QIcon rssIcon;
+    struct LinkItem
+    {
+      QUrl url;
+      QString mime;
+    };
+    QList<LinkItem> items;
+    QSignalMapper* m_signalMapper;
+    QToolButton* m_toolButton;
     void openParserDialog ( const QUrl &, const QString & );
 
   private Q_SLOTS:
-    void currentIndexChanged ( int );
+    void itemClicked ( int );
 
   public Q_SLOTS:
-    void setDomWebElement ( const QWebElement & );
+    void setDomWebElement ( const QUrl &, const QWebElement & );
 
   public:
     AlternateLinkReader ( QWidget * parent = 0 );

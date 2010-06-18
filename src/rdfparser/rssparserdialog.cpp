@@ -43,8 +43,10 @@
 #include <QtNetwork/QNetworkRequest>
 
 /* QtXml */
+#include <QtXml/QDomNode>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
+// #include <QtXml/QDomNamedNodeMap>
 
 RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent )
     : QDialog ( parent )
@@ -115,21 +117,26 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   if ( dom.setContent ( codec->toUnicode ( data ), false, &errorMsg, &errorLine, &errorColumn ) )
   {
     notice ( trUtf8 ( "Checking: %1" ).arg ( url.toString() ) );
-    m_treeViewer->createTreeView ( dom );
-    m_sourceViewer->setText ( dom.toString ( indent ) );
-    QString nodeName = dom.documentElement().tagName();
+    QDomElement rootNode = dom.documentElement();
+    QString nodeName = rootNode.tagName();
     if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
+      notice ( trUtf8 ( "Namespace: %1" ).arg ( "http://purl.org/rss/1.0/" ) );
       m_parser->parseDocument ( data, url, RaptorParser::RDF );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
+    {
       notice ( trUtf8 ( "RSS 2.0 Scheme validation currently bot Supported." ) );
+    }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
+      notice ( trUtf8 ( "Namespace: %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
       m_parser->parseDocument ( data, url, RaptorParser::ATOM );
     }
+    m_treeViewer->createTreeView ( dom );
+    m_sourceViewer->setText ( dom.toString ( indent ) );
   }
   else
   {
