@@ -1779,32 +1779,38 @@ Reasons : </source>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="57"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="59"/>
         <source>RSS Parser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="74"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="76"/>
         <source>Document Structure</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="79"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
         <source>Parser Messages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="82"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="84"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="117"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="119"/>
         <source>Checking: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="127"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="125"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="135"/>
+        <source>Namespace: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="130"/>
         <source>RSS 2.0 Scheme validation currently bot Supported.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2355,7 +2361,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="904"/>
+        <location filename="../src/window.cpp" line="907"/>
         <source>Download Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2431,32 +2437,32 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="694"/>
+        <location filename="../src/window.cpp" line="697"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="750"/>
+        <location filename="../src/window.cpp" line="753"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="751"/>
+        <location filename="../src/window.cpp" line="754"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="752"/>
+        <location filename="../src/window.cpp" line="755"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="753"/>
+        <location filename="../src/window.cpp" line="756"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="760"/>
+        <location filename="../src/window.cpp" line="763"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

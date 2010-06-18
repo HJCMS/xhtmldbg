@@ -1785,32 +1785,38 @@ Gründe : </translation>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="57"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="59"/>
         <source>RSS Parser</source>
         <translation>RSS Syntaxanalysierer</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="74"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="76"/>
         <source>Document Structure</source>
         <translation>Dokumenten Struktur</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="79"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
         <source>Parser Messages</source>
         <translation>Syntaxanalysierer Nachrichten</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="82"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="84"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="117"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="119"/>
         <source>Checking: %1</source>
         <translation>Prüfe: %1</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="127"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="125"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="135"/>
+        <source>Namespace: %1</source>
+        <translation>Namensraum: %1</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="130"/>
         <source>RSS 2.0 Scheme validation currently bot Supported.</source>
         <translation>Die RSS 2.0 Schema Validierung wird zurzeit nicht Unterstützt.</translation>
     </message>
@@ -2367,7 +2373,7 @@ Gründe : </translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="904"/>
+        <location filename="../src/window.cpp" line="907"/>
         <source>Download Request: %1</source>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
@@ -2437,32 +2443,32 @@ Gründe : </translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="694"/>
+        <location filename="../src/window.cpp" line="697"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="750"/>
+        <location filename="../src/window.cpp" line="753"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="751"/>
+        <location filename="../src/window.cpp" line="754"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="752"/>
+        <location filename="../src/window.cpp" line="755"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="753"/>
+        <location filename="../src/window.cpp" line="756"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="760"/>
+        <location filename="../src/window.cpp" line="763"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
