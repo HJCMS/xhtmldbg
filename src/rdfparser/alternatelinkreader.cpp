@@ -28,7 +28,6 @@
 
 /* QtGui */
 #include <QtGui/QAction>
-#include <QtGui/QPixmap>
 #include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
@@ -80,11 +79,11 @@ void AlternateLinkReader::openParserDialog ( const QUrl &url, const QString &mim
 }
 
 /**
-*
+* Signal Verarbeitung für das Menü
 */
 void AlternateLinkReader::itemClicked ( int index )
 {
-  if ( index < 0 )
+  if ( ( index < 0 ) || ( index > items.size() ) )
     return;
 
   LinkItem item = items.at ( index );
@@ -99,10 +98,12 @@ void AlternateLinkReader::itemClicked ( int index )
 void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement &dom )
 {
   QMenu* menu = new QMenu ( m_toolButton );
-  QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
+  menu->setObjectName ( QLatin1String ( "rssparsermenu" ) );
 
   items.clear(); // Liste leeren
+
   // Alle application/rss+xml und application/atom+xml durchlaufen
+  QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
   int index = 0;
   foreach ( QWebElement element, nodeList )
   {
@@ -120,6 +121,9 @@ void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement 
     connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
     m_signalMapper->setMapping ( ac, index );
 
+    /* Wenn das Prädikat href von link kein Schema enhält,
+    * dann den Hostnamen von der Url nehmen und die Adresse
+    * vervollständigen. */
     QUrl linkUrl;
     if ( source.contains ( QRegExp ( "^http(s)?:\\/\\/" ) ) )
     {
@@ -132,11 +136,13 @@ void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement 
       linkUrl.setPath ( source );
     }
 
+    /* Schreibe die Informationen in das struct */
     LinkItem item;
     item.url = linkUrl;
     item.mime = type;
     items << item;
 
+    // Inkrementiere den index für die Listen eintragung.
     index++;
   }
   m_toolButton->setMenu ( menu );
@@ -144,4 +150,6 @@ void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement 
 
 AlternateLinkReader::~AlternateLinkReader()
 {
+  // Liste leeren
+  items.clear();
 }
