@@ -97,7 +97,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_parser = new RaptorParser ( this );
 
   // RSS-2.0 Parser
-  // NOTE Die Date rss-2_0.xsd ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
+  // NOTE Die Datei rss-2_0.xsd ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
   QString xsdFile;
 #ifdef MS_PL_ACCEPTED
   xsdFile = QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" );
