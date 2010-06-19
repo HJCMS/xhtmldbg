@@ -23,6 +23,7 @@
 #define XSDPARSER_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QMutex>
 #include <QtCore/QObject>

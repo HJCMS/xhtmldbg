@@ -35,17 +35,37 @@
 #include <QtGui/QToolBox>
 #include <QtGui/QWidget>
 
+/* QtXml */
+#include <QtXml/QDomDocument>
+
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 
 class RaptorParser;
-#ifdef MS_PL_ACCEPTED
 class XsdParser;
-#endif
 class RSSTreeView;
 class RSSViewer;
 
-class RSSParserDialog : public QDialog
+class RSSParserSettings
+{
+  protected:
+    int type2Parse;
+    QByteArray buffer2Parse;
+    QDomDocument doc2Parse;
+    QUrl url2Parse;
+
+  public:
+    explicit RSSParserSettings ()
+    {
+      type2Parse = 0;
+      buffer2Parse = QByteArray();
+      doc2Parse = QDomDocument();
+      url2Parse = QUrl();
+    }
+
+};
+
+class RSSParserDialog : public QDialog, private RSSParserSettings
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -57,9 +77,7 @@ class RSSParserDialog : public QDialog
     const QIcon iconWarning;
     const QIcon iconNotice;
     RaptorParser* m_parser;
-#ifdef MS_PL_ACCEPTED
     XsdParser* m_xsdParser;
-#endif
     QToolBox* toolBox;
     RSSTreeView* m_treeViewer;
     QListWidget* m_MessagesList;
@@ -69,6 +87,7 @@ class RSSParserDialog : public QDialog
 
   private Q_SLOTS:
     void requestFinished();
+    void validate();
     void notice ( const QString & );
     void error ( const QString & );
 

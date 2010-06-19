@@ -3,6 +3,7 @@
 SET (subproject_SOURCES
   alternatelinkreader.cpp
   raptorparser.cpp
+  xsdparser.cpp
   rssparserdialog.cpp
   rsstreeview.cpp
   rssviewer.cpp
@@ -12,25 +13,12 @@ SET (subproject_SOURCES
 SET (subproject_HEADERS
   alternatelinkreader.h
   raptorparser.h
+  xsdparser.h
   rssparserdialog.h
   rsstreeview.h
   rssviewer.h
   rsshighlighter.h
 )
-
-IF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
-SET (subproject_SOURCES
-  ${subproject_SOURCES}
-  xsdparser.cpp
-)
-SET (subproject_HEADERS
-  ${subproject_HEADERS}
-  xsdparser.h
-)
-SET (XML_PATTERNS_LIBRARY
-  ${QT_QTXMLPATTERNS_LIBRARY}
-)
-ENDIF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
 
@@ -53,7 +41,7 @@ ADD_LIBRARY (RDFParser STATIC
 
 TARGET_LINK_LIBRARIES (RDFParser
   ${XHTMLDBG_LIBRARIES}
-  ${XML_PATTERNS_LIBRARY}
+  ${QT_QTXMLPATTERNS_LIBRARY}
   Networker
 )
 

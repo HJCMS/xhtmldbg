@@ -22,12 +22,10 @@
 #include "xsdparser.h"
 
 /* QtCore */
-#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QMutexLocker>
 #include <QtCore/QIODevice>
-#include <QtCore/QTextStream>
 
 /* QtXmlPatterns */
 #include <QtXmlPatterns/QXmlSchemaValidator>
@@ -76,18 +74,6 @@ XsdParser::XsdParser ( const QString &xsd, QObject * parent )
     , schemeFile ( xsd )
 {
   setObjectName ( QLatin1String ( "xsdparser" ) );
-
-  QString data;
-  QFile fp ( schemeFile );
-  if ( fp.open ( QIODevice::ReadOnly ) )
-  {
-    QTextStream stream ( &fp );
-    data = stream.readAll();
-    fp.close();
-  }
-
-  if ( ! xmlSchema.load ( data.toAscii(), QUrl::fromLocalFile ( schemeFile ) ) )
-    qWarning ( "(XHTMLDBG) XSD Parser Error can not load RSS2 XSD Scheme!" );
 }
 
 /**
@@ -97,6 +83,14 @@ void XsdParser::parseDocument ( const QDomDocument &dom, const QUrl &baseUrl )
 {
   QMutexLocker lock ( &m_mutex );
   QByteArray data = dom.toString ( 1 ).toAscii();
+  QFile fp ( schemeFile );
+  if ( fp.open ( QIODevice::ReadOnly ) )
+  {
+    if ( ! xmlSchema.load ( &fp, QUrl::fromLocalFile ( schemeFile ) ) )
+      qWarning ( "(XHTMLDBG) XSD Parser Error can not load RSS2 XSD Scheme!" );
+
+    fp.close();
+  }
   QXmlSchemaValidator validator ( xmlSchema );
   XsdParserMessageHandler handler;
   connect ( &handler, SIGNAL ( message ( const QString & ) ),
