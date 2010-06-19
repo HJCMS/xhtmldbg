@@ -46,26 +46,7 @@ class XsdParser;
 class RSSTreeView;
 class RSSViewer;
 
-class RSSParserSettings
-{
-  protected:
-    int type2Parse;
-    QByteArray buffer2Parse;
-    QDomDocument doc2Parse;
-    QUrl url2Parse;
-
-  public:
-    explicit RSSParserSettings ()
-    {
-      type2Parse = 0;
-      buffer2Parse = QByteArray();
-      doc2Parse = QDomDocument();
-      url2Parse = QUrl();
-    }
-
-};
-
-class RSSParserDialog : public QDialog, private RSSParserSettings
+class RSSParserDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -87,7 +68,6 @@ class RSSParserDialog : public QDialog, private RSSParserSettings
 
   private Q_SLOTS:
     void requestFinished();
-    void validate();
     void notice ( const QString & );
     void error ( const QString & );
 

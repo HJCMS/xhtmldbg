@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--//
+  @author    Juergen Heinemann (http://www.hjcms.de)
+  @copyright GPLv2+
+  @see       http://cyber.law.harvard.edu/rss/rss.html
+//-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="unqualified"
+           version="0.8.8">
+
+  <!-- Required rss Element (rootNode) -->
+  <xs:element name="rss">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="channel" type="channelNode" minOccurs="1" maxOccurs="1" />
+      </xs:sequence>
+      <xs:attribute name="version" type="xs:decimal" use="required" fixed="2.0" />
+      <xs:anyAttribute namespace="##any"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Required Channel Element -->
+  <xs:complexType name="channelNode">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <!-- Required -->
+        <xs:element name="title" type="xs:string" minOccurs="1" />
+        <xs:element name="link" type="xs:anyURI" minOccurs="1" />
+        <xs:element name="description" type="xs:string" minOccurs="1" />
+        <!-- Optional -->
+        <xs:element name="language" type="xs:language" minOccurs="0" />
+        <xs:element name="copyright" type="xs:string" minOccurs="0" />
+        <xs:element name="managingEditor" type="xs:string" minOccurs="0" />
+        <xs:element name="webMaster" type="xs:string" minOccurs="0" />
+        <xs:element name="pubDate" type="dateNode" minOccurs="0" />
+        <xs:element name="lastBuildDate" type="dateNode" minOccurs="0" />
+        <xs:element name="category" type="categoryNode" minOccurs="0" />
+        <xs:element name="generator" type="xs:string" minOccurs="0" />
+        <xs:element name="docs" type="xs:string" minOccurs="0" />
+        <xs:element name="cloud" type="xs:string" minOccurs="0" />
+        <xs:element name="ttl" type="xs:string" minOccurs="0" />
+        <xs:element name="image" type="xs:string" minOccurs="0" />
+        <xs:element name="rating" type="xs:string" minOccurs="0" />
+        <xs:element name="textInput" type="xs:string" minOccurs="0" />
+        <xs:element name="skipHours" type="xs:string" minOccurs="0" />
+        <xs:element name="skipDays" type="xs:string" minOccurs="0" />
+        <xs:element name="item" type="itemNodes" minOccurs="1" />
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Required item Elements -->
+  <xs:complexType name="itemNodes">
+    <xs:choice maxOccurs="unbounded">
+      <!-- Required -->
+      <xs:element name="title" type="xs:string" minOccurs="1" />
+      <xs:element name="link" type="xs:anyURI" minOccurs="1" />
+      <xs:element name="description" type="xs:string" minOccurs="1" />
+      <!-- Optional -->
+      <xs:element name="author" type="xs:string" minOccurs="0" />
+      <xs:element name="category" type="categoryNode" minOccurs="0" />
+      <xs:element name="comments" type="xs:string" minOccurs="0" />
+      <xs:element name="enclosure" type="enclosureNode" minOccurs="0" />
+      <xs:element name="guid" type="guidNode" minOccurs="0" />
+      <xs:element name="pubDate" type="dateNode" minOccurs="0" />
+      <xs:element name="source" type="sourceNode" minOccurs="0" />
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- Spezial Elements Definitions -->
+  <xs:simpleType name="dateNode">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(((Mon)|(Tue)|(Wed)|(Thu)|(Fri)|(Sat)|(Sun)), *)?\d\d? +((Jan)|(Feb)|(Mar)|(Apr)|(May)|(Jun)|(Jul)|(Aug)|(Sep)|(Oct)|(Nov)|(Dec)) +\d\d(\d\d)? +\d\d:\d\d(:\d\d)? +(([+\-]?\d\d\d\d)|(UT)|(GMT)|(EST)|(EDT)|(CST)|(CDT)|(MST)|(MDT)|(PST)|(PDT)|\w)" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="sourceNode">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="url" type="xs:anyURI"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="enclosureNode">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="url" type="xs:anyURI" use="required" />
+        <xs:attribute name="length" type="xs:byte" use="required" />
+        <xs:attribute name="type" type="xs:string" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="categoryNode">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="domain" type="xs:anyURI" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="guidNode">
+    <xs:simpleContent>
+      <xs:extension base="xs:anyURI">
+        <xs:attribute name="isPermaLink" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+<!-- TODO
+  <xs:simpleType name="">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="imageNode"></xs:complexType>
+-->
+
+</xs:schema>

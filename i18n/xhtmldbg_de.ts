@@ -1785,52 +1785,42 @@ Gründe : </translation>
 <context>
     <name>RSSParserDialog</name>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="61"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="60"/>
         <source>RSS Parser</source>
         <translation>RSS Syntaxanalysierer</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="81"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="80"/>
         <source>Document Structure</source>
         <translation>Dokumenten Struktur</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="78"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="77"/>
         <source>Parser Messages</source>
         <translation>Syntaxanalysierer Nachrichten</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="84"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="83"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="89"/>
-        <source>Validate</source>
-        <translation>Validiere</translation>
-    </message>
-    <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="144"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="131"/>
         <source>Checking: %1</source>
         <translation>Prüfe: %1</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="151"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="137"/>
         <source>Namespace: RSS-1.0 %1</source>
         <translation>Namensraum: RSS-1.0 %1</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="158"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="143"/>
         <source>Namespace: ATOM-1.0 %1</source>
         <translation>Namensraum: ATOM_1.0 %1</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="215"/>
-        <source>Finished</source>
-        <translation>Abgeschlossen</translation>
-    </message>
-    <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="165"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="149"/>
         <source>Namespace: RSS-2.0 Atom %1</source>
         <translation>Namensraum: RSS-2.0 Atom %1</translation>
     </message>
@@ -2490,12 +2480,12 @@ Gründe : </translation>
 <context>
     <name>XsdParser</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="101"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="99"/>
         <source>RSS 2.0 Document is Valid</source>
         <translation>Das RSS 2.0 Dokument ist Valide.</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="103"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="101"/>
         <source>RSS 2.0 Document is NOT Valid</source>
         <translation>Das RSS 2.0 Dokument ist NICHT Valide.</translation>
     </message>
@@ -2503,9 +2493,9 @@ Gründe : </translation>
 <context>
     <name>XsdParserMessageHandler</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="67"/>
-        <source>Document Line %1 Column %2 (%3)</source>
-        <translation>Dokument Zeile %1 Spalte %2 (%3)</translation>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="66"/>
+        <source>Document at Line %1 (%2)</source>
+        <translation>Dokumenten Zeile %1 (%2)</translation>
     </message>
 </context>
 <context>

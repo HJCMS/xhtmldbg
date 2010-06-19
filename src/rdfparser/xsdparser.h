@@ -30,9 +30,6 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-
 /* QtXmlPatterns */
 #include <QtXmlPatterns/QAbstractMessageHandler>
 #include <QtXmlPatterns/QSourceLocation>
@@ -74,7 +71,7 @@ class XsdParser : public QObject
 
   public:
     XsdParser ( const QString &xsd, QObject * parent = 0 );
-    void parseDocument ( const QDomDocument &, const QUrl & );
+    void parseDocument ( const QByteArray &, const QUrl & );
     ~XsdParser();
 };
 

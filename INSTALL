@@ -18,21 +18,12 @@ General "xhtmldbg" Requirements:
 For Mac OS X Cocoa, the binary package requires Mac OS X 10.5 (Leopard) or later
 and GCC 4.0.1 to develop applications.
 
-Microsoft Public License (Ms-PL)
-  SubProject rdfparser use rss-2_0.xsd XML Schema for RSS v2.0 Validation
-  This File is under Microsoft Public License (Ms-PL)
-  It's free software licenses, but are not compatible with the GNU GPL.
-  http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
-  For Some Distribution set this Option to disaggre this License
-  NOTE If disaggre this License the RSS v2.0 Parser will not work!
-
 1) create a subdirectory build in source home directory
 2) open a terminal and change this directory
 3) run cmake
   Unix
     cmake -Wno-dev -DCMAKE_BUILD_TYPE:STRING=Release \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-      -DACCEPT_MICROSOFT_PUBLIC_LICENSE:BOOL=ON \
       -DSYSCONF_INSTALL_DIR:PATH=/etc ../
 
   Verbose Debug Build (Unix Only):

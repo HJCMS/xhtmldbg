@@ -50,7 +50,6 @@
 /** @class RSSParserDialog */
 RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent )
     : QDialog ( parent )
-    , RSSParserSettings ()
     , rssUrl ( url )
     , mimeType ( type )
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
@@ -86,8 +85,6 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "rssparserdialogbuttonbox" ) );
   box->setStandardButtons ( ( QDialogButtonBox::Close | QDialogButtonBox::Ok ) );
-  QPushButton* parse = box->addButton ( trUtf8 ( "Validate" ), QDialogButtonBox::ActionRole );
-  parse->setIcon ( QIcon::fromTheme ( "menu-debugger" ) );
 
   vLayout->addWidget ( box );
 
@@ -97,16 +94,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_parser = new RaptorParser ( this );
 
   // RSS-2.0 Parser
-  // NOTE Die Datei rss-2_0.xsd ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
-  QString xsdFile;
-#ifdef MS_PL_ACCEPTED
-  xsdFile = QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" );
-#else
-  // Wenn deaktiviert nur das XMLSchema laden!
-  xsdFile = QString::fromUtf8 ( ":/XMLSchema.xsd" );
-#endif
-
-  m_xsdParser = new XsdParser ( xsdFile, this );
+  m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/xhtmldbg_rss2.xsd" ), this );
 
   QNetworkRequest request ( rssUrl );
   reply = xhtmldbgmain::instance()->networkAccessManager()->get ( request );
@@ -123,7 +111,6 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   connect ( reply, SIGNAL ( finished() ), this, SLOT ( requestFinished() ) );
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
   connect ( box, SIGNAL ( rejected() ), this, SLOT ( reject() ) );
-  connect ( parse, SIGNAL ( clicked() ), this, SLOT ( validate() ) );
 }
 
 /**
@@ -144,34 +131,24 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     notice ( trUtf8 ( "Checking: %1" ).arg ( url.toString() ) );
     QDomElement rootNode = dom.documentElement();
     QString nodeName = rootNode.tagName();
-    int parserType = 0;
     if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
       notice ( trUtf8 ( "Namespace: RSS-1.0 %1" ).arg ( "http://purl.org/rss/1.0/" ) );
       m_parser->parseDocument ( data, url );
-      parserType = 0;
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
       notice ( trUtf8 ( "Namespace: ATOM-1.0 %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
       m_parser->parseDocument ( data, url );
-      parserType = 0;
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
       notice ( trUtf8 ( "Namespace: RSS-2.0 Atom %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      parserType = 1;
+      m_xsdParser->parseDocument ( data, url );
     }
-
-    // Parser Umgebung setzen
-    type2Parse = parserType;
-    buffer2Parse = data;
-    doc2Parse = dom;
-    url2Parse = url;
-
     // Die restlichen Fenster befüllen
     m_treeViewer->createTreeView ( dom );
     m_sourceViewer->setText ( dom.toString ( indent ) );
@@ -198,21 +175,6 @@ void RSSParserDialog::requestFinished()
 
   m_MessagesList->clear();
   setDocumentSource ( data, url );
-}
-
-/**
-* Aktuellen QuellText Validieren!
-*/
-void RSSParserDialog::validate()
-{
-  setCursor ( Qt::WaitCursor );
-  if ( type2Parse == 1 )
-    m_xsdParser->parseDocument ( doc2Parse, url2Parse );
-  else
-    m_parser->parseDocument ( buffer2Parse, url2Parse );
-
-  setCursor ( Qt::ArrowCursor );
-  notice ( trUtf8 ( "Finished" ) );
 }
 
 /**

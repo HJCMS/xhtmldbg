@@ -27,6 +27,9 @@
 #include <QtCore/QMutexLocker>
 #include <QtCore/QIODevice>
 
+/* QtXml */
+#include <QtXml/QDomDocument>
+
 /* QtXmlPatterns */
 #include <QtXmlPatterns/QXmlSchemaValidator>
 
@@ -63,8 +66,7 @@ void XsdParserMessageHandler::handleMessage ( QtMsgType type, const QString &inf
 
   QString m = toPlainText ( info );
   QString l = QString::number ( location.line () );
-  QString c = QString::number ( location.column() );
-  QString mess = trUtf8 ( "Document Line %1 Column %2 (%3)" ).arg ( l, c, m );
+  QString mess = trUtf8 ( "Document at Line %1 (%2)" ).arg ( l, m );
   emit message ( mess );
 }
 
@@ -79,10 +81,9 @@ XsdParser::XsdParser ( const QString &xsd, QObject * parent )
 /**
 * Öffne das XML Dokument und übergebe es an den QXmlSchemaValidator
 */
-void XsdParser::parseDocument ( const QDomDocument &dom, const QUrl &baseUrl )
+void XsdParser::parseDocument ( const QByteArray &data, const QUrl &baseUrl )
 {
   QMutexLocker lock ( &m_mutex );
-  QByteArray data = dom.toString ( 1 ).toAscii();
   QFile fp ( schemeFile );
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
