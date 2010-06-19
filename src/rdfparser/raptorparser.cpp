@@ -60,9 +60,8 @@ RaptorParser::RaptorParser ( QObject * parent )
   setObjectName ( QLatin1String ( "raptorparser" ) );
 }
 
-void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url, PARSER pType )
+void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
 {
-  Q_UNUSED ( pType )
   if ( ! url.isValid() )
     return;
 
@@ -74,36 +73,7 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url, PARS
   raptor_uri* raptorUri = raptor_new_uri ( ( unsigned char* ) ( ucUrl ) );
 
   // @see http://librdf.org/raptor/api/tutorial-parser-create.html
-  // rdfxml          RDF/XML (default)
-  // ntriples        N-Triples
-  // turtle          Turtle Terse RDF Triple Language
-  // trig            TriG - Turtle with Named Graphs
-  // rss-tag-soup    RSS Tag Soup
-  // grddl           Gleaning Resource Descriptions from Dialects of Languages
-  // guess           Pick the parser to use using content type and URI
-  // rdfa            RDF/A via librdfa
-  raptor_parser* parser;
-  switch ( pType )
-  {
-    case RDF:
-    {
-      parser = raptor_new_parser ( "rdfxml" );
-    }
-    break;
-
-//     case ATOM:
-//     {
-//       parser = raptor_new_parser ( "guess" );
-//     }
-//     break;
-
-    default:
-    {
-      parser = raptor_new_parser ( "rdfxml" );
-    }
-    break;
-
-  }
+  raptor_parser* parser = raptor_new_parser ( "rdfxml" );
 
   // Initialisiere den Nachrichten handler
   RaptorParser* that = const_cast<RaptorParser*> ( this );
@@ -137,7 +107,7 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url, PARS
   }
 
   // aufräumen
-  raptor_parse_chunk ( parser, 0, 0, 1 );
+  raptor_parse_chunk ( parser, NULL, 0, 1 );
   raptor_free_parser ( parser );
   if ( raptorUri )
     raptor_free_uri ( raptorUri );

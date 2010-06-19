@@ -93,19 +93,20 @@ void AlternateLinkReader::itemClicked ( int index )
 
 /**
 * Im HEAD nach LINK mit Prädikat link[rel^=alternate] suchen und
-* nachsehen ob es sich um RSS handelt.
+* nachsehen um welches RSS Format es sich handelt.
 */
 void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement &dom )
 {
   QMenu* menu = new QMenu ( m_toolButton );
   menu->setObjectName ( QLatin1String ( "rssparsermenu" ) );
 
-  items.clear(); // Liste leeren
-
-  // Alle application/rss+xml und application/atom+xml durchlaufen
-  QWebElementCollection nodeList = dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) );
+  // Liste leeren und den zeige auf 0 setzen
+  items.clear();
   int index = 0;
-  foreach ( QWebElement element, nodeList )
+
+  /* Jetzt alle Daten Typen wie application/rss+xml
+  * oder application/atom+xml durchlaufen */
+  foreach ( QWebElement element, dom.findAll ( QString::fromUtf8 ( "link[rel^=alternate]" ) ) )
   {
     QString type = element.attribute ( QLatin1String ( "type" ), QString::null );
     if ( type.isEmpty() || ! type.contains ( QRegExp ( "(atom|rss)\\+xml", Qt::CaseInsensitive ) ) )
@@ -142,7 +143,7 @@ void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement 
     item.mime = type;
     items << item;
 
-    // Inkrementiere den index für die Listen eintragung.
+    // Inkrementiere den index für die Listeneintragung.
     index++;
   }
   m_toolButton->setMenu ( menu );

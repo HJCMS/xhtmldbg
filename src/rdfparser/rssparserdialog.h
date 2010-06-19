@@ -32,12 +32,14 @@
 #include <QtGui/QIcon>
 #include <QtGui/QListWidget>
 #include <QtGui/QTextEdit>
+#include <QtGui/QToolBox>
 #include <QtGui/QWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
 
 class RaptorParser;
+class XsdParser;
 class RSSTreeView;
 class RSSViewer;
 
@@ -53,6 +55,8 @@ class RSSParserDialog : public QDialog
     const QIcon iconWarning;
     const QIcon iconNotice;
     RaptorParser* m_parser;
+    XsdParser* m_xsdParser;
+    QToolBox* toolBox;
     RSSTreeView* m_treeViewer;
     QListWidget* m_MessagesList;
     RSSViewer* m_sourceViewer;

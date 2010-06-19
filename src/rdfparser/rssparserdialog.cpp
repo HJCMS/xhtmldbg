@@ -21,6 +21,7 @@
 
 #include "rssparserdialog.h"
 #include "raptorparser.h"
+#include "xsdparser.h"
 #include "rsstreeview.h"
 #include "rssviewer.h"
 #include "xhtmldbgmain.h"
@@ -36,7 +37,6 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QSizePolicy>
-#include <QtGui/QToolBox>
 #include <QtGui/QVBoxLayout>
 
 /* QtNetwork */
@@ -55,6 +55,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
 {
+  Q_INIT_RESOURCE ( rdfparser );
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
   setWindowTitle ( trUtf8 ( "RSS Parser" ) );
   setMinimumWidth ( 550 );
@@ -66,11 +67,15 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
 
   QIcon boxIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) );
 
-  QToolBox* toolBox = new QToolBox ( this, Qt::Widget );
+  toolBox = new QToolBox ( this, Qt::Widget );
   toolBox->setObjectName ( QLatin1String ( "rssparsertoolbox" ) );
   vLayout->addWidget ( toolBox );
 
+  // RDF Parser
   m_parser = new RaptorParser ( this );
+
+  // XSD Parser
+  m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" ), this );
 
   m_treeViewer = new RSSTreeView ( toolBox );
   toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
@@ -95,6 +100,12 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
 
   connect ( m_parser, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( error ( const QString & ) ) );
+
+  connect ( m_xsdParser, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SLOT ( error ( const QString & ) ) );
+
+  connect ( m_xsdParser, SIGNAL ( noticeMessage ( const QString & ) ),
+            this, SLOT ( notice ( const QString & ) ) );
 
   connect ( reply, SIGNAL ( finished() ), this, SLOT ( requestFinished() ) );
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
@@ -123,17 +134,19 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
       notice ( trUtf8 ( "Namespace: %1" ).arg ( "http://purl.org/rss/1.0/" ) );
-      m_parser->parseDocument ( data, url, RaptorParser::RDF );
+      m_parser->parseDocument ( data, url );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
-      notice ( trUtf8 ( "RSS 2.0 Scheme validation currently bot Supported." ) );
+      // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
+      notice ( trUtf8 ( "Namespace: RSS-2.0 Atom %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
+      m_xsdParser->parseDocument ( dom, url );
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
       notice ( trUtf8 ( "Namespace: %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      m_parser->parseDocument ( data, url, RaptorParser::ATOM );
+      m_parser->parseDocument ( data, url );
     }
     m_treeViewer->createTreeView ( dom );
     m_sourceViewer->setText ( dom.toString ( indent ) );
@@ -142,6 +155,7 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   {
     error ( QString ( "Error: %1, on Line: %2 Column: %3" ).arg ( errorMsg,
             QString::number ( errorLine ), QString::number ( errorColumn ) ) );
+    toolBox->setCurrentWidget ( m_MessagesList );
   }
 }
 
