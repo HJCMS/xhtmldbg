@@ -48,7 +48,6 @@
 #include <QtXml/QDomNode>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
-// #include <QtXml/QDomNamedNodeMap>
 
 RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent )
     : QDialog ( parent )
@@ -77,7 +76,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_parser = new RaptorParser ( this );
 
 #ifdef MS_PL_ACCEPTED
-  // XSD Parser
+  // NOTE Der XSD Parser ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
   m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" ), this );
 #endif
 

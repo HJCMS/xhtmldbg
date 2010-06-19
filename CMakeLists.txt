@@ -33,8 +33,8 @@ INCLUDE (${QT_USE_FILE})
 
 SET (XHTMLDBG_VERSION_MAJOR 0)
 SET (XHTMLDBG_VERSION_MINOR 8)
-SET (XHTMLDBG_VERSION_RELEASE 7)
-SET (XHTMLDBG_PATCHLEVEL "")
+SET (XHTMLDBG_VERSION_RELEASE 8)
+SET (XHTMLDBG_PATCHLEVEL ".rc1")
 SET (XHTMLDBG_VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
 SET (XHTMLDBG_DISTRIBUTION_TEXT "compiled sources" CACHE STRING "Indicate the distribution in bug reports")
 SET (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
@@ -218,11 +218,11 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 )
 
 ##############################################################
-## The SubProject rdfparser use rss-2_0.xsd XML Schema for RSS v2.0 Validation
+## SubProject rdfparser use rss-2_0.xsd XML Schema for RSS v2.0 Validation
 ## This File is under Microsoft Public License (Ms-PL)
 ## It's free software licenses, but are not compatible with the GNU GPL.
 ## http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
-## For Some Distribution set this Option to disaggre this License
+## For Some Distribution set this Option to aggre this License
 ## NOTE If disaggre this License the RSS 2.0 Parser will not work!
 ##############################################################
 
@@ -281,7 +281,6 @@ SET (XHTMLDBG_LIBRARIES
   ${QT_QTWEBKIT_LIBRARY}
   ${QT_QTDBUS_LIBRARY}
   ${QT_QTXML_LIBRARY}
-  ${QT_QTXMLPATTERNS_LIBRARY}
   ${RAPTOR_LIBRARIES}
   ${QTIDY_LIBRARIES}
 )
@@ -319,22 +318,13 @@ INSTALL (FILES
 ##############################################################
 
 SET (CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME})
-SET (CPACK_PACKAGE_DESCRIPTION_SUMMARY "a xhtmldbg xhtml/html debugger")
+SET (CPACK_PACKAGE_DESCRIPTION_SUMMARY "a XHTML/HTML Debugger for Web Development")
 SET (CPACK_PACKAGE_VERSION_MAJOR ${XHTMLDBG_VERSION_MAJOR})
 SET (CPACK_PACKAGE_VERSION_MINOR ${XHTMLDBG_VERSION_MINOR})
-SET (CPACK_PACKAGE_VERSION_PATCH ${XHTMLDBG_VERSION_RELEASE})
+SET (CPACK_PACKAGE_VERSION_PATCH "${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
 SET (CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
-SET (CPACK_GENERATOR "DEB;RPM;TGZ")
-SET (DEBIAN_PACKAGE_DESCRIPTION ${CPACK_PACKAGE_DESCRIPTION_SUMMARY})
-SET (DEBIAN_PACKAGE_SECTION "qt4")
-SET (CPACK_SOURCE_GENERATOR "TBZ2")
 SET (CPACK_PACKAGE_CONTACT "Juergen Heinemann (Undefined) http://www.hjcms.de")
-SET (CPACK_PACKAGE_VENDOR "HJCMS Projects http://www.hjcms.de")
-SET (CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${XHTMLDBG_VERSION}")
-SET (CPACK_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${XHTMLDBG_VERSION}")
-## RPM
-SET (CPACK_RPM_PACKAGE_LICENSE "GPLv3 LGPLv2+")
-SET (CPACK_RPM_PACKAGE_GROUP "Development/Tools")
+SET (CPACK_PACKAGE_LICENSE "GPLv3 LGPLv2+")
 
 CONFIGURE_FILE (xhtmldbg.spec.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.spec
