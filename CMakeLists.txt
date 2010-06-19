@@ -228,7 +228,7 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 
 OPTION (ACCEPT_MICROSOFT_PUBLIC_LICENSE "Accept Microsoft Public License (Ms-PL) Included in XML Schema for RSS v2.0 File. (ON/OFF)" OFF)
 IF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
-  MESSAGE ( STATUS "Microsoft Public License Accepted for XML Schema for RSS v2.0 Validation Enabled")
+  MESSAGE ( STATUS "Microsoft Public License Accepted for XML Schema RSS v2.0 Validation.")
 ELSE (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
   MESSAGE ( WARNING "XML Schema for RSS v2.0 Validation Disabled. Please read INSTALL file for (Ms-PL)")
 ENDIF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
