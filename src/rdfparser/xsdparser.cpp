@@ -91,7 +91,7 @@ void XsdParser::parseDocument ( const QDomDocument &dom, const QUrl &baseUrl )
 
   validator.setMessageHandler ( &handler );
   if ( validator.validate ( data, baseUrl ) )
-    emit moticeMessage ( trUtf8 ( "RSS 2.0 Document is Valid" ) );
+    emit noticeMessage ( trUtf8 ( "RSS 2.0 Document is Valid" ) );
   else
     emit errorMessage ( trUtf8 ( "RSS 2.0 Document is NOT Valid" ) );
 }

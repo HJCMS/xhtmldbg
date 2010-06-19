@@ -39,7 +39,9 @@
 #include <QtNetwork/QNetworkReply>
 
 class RaptorParser;
+#ifdef MS_PL_ACCEPTED
 class XsdParser;
+#endif
 class RSSTreeView;
 class RSSViewer;
 
@@ -55,7 +57,9 @@ class RSSParserDialog : public QDialog
     const QIcon iconWarning;
     const QIcon iconNotice;
     RaptorParser* m_parser;
+#ifdef MS_PL_ACCEPTED
     XsdParser* m_xsdParser;
+#endif
     QToolBox* toolBox;
     RSSTreeView* m_treeViewer;
     QListWidget* m_MessagesList;

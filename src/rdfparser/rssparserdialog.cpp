@@ -21,7 +21,9 @@
 
 #include "rssparserdialog.h"
 #include "raptorparser.h"
-#include "xsdparser.h"
+#ifdef MS_PL_ACCEPTED
+# include "xsdparser.h"
+#endif
 #include "rsstreeview.h"
 #include "rssviewer.h"
 #include "xhtmldbgmain.h"
@@ -74,8 +76,10 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   // RDF Parser
   m_parser = new RaptorParser ( this );
 
+#ifdef MS_PL_ACCEPTED
   // XSD Parser
   m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" ), this );
+#endif
 
   m_treeViewer = new RSSTreeView ( toolBox );
   toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
@@ -101,11 +105,13 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   connect ( m_parser, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( error ( const QString & ) ) );
 
+#ifdef MS_PL_ACCEPTED
   connect ( m_xsdParser, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( error ( const QString & ) ) );
 
   connect ( m_xsdParser, SIGNAL ( noticeMessage ( const QString & ) ),
             this, SLOT ( notice ( const QString & ) ) );
+#endif
 
   connect ( reply, SIGNAL ( finished() ), this, SLOT ( requestFinished() ) );
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
@@ -138,9 +144,14 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
+#ifdef MS_PL_ACCEPTED
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
       notice ( trUtf8 ( "Namespace: RSS-2.0 Atom %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
       m_xsdParser->parseDocument ( dom, url );
+#else
+      qWarning ( "(XHTMLDBG) RSS 2.0 Parser NOT implemented!" );
+      notice ( trUtf8 ( "RSS 2.0 Parser NOT implemented!" ) );
+#endif
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {

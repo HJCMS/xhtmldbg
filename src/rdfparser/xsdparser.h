@@ -66,7 +66,7 @@ class XsdParser : public QObject
     QXmlSchema xmlSchema;
 
   Q_SIGNALS:
-    void moticeMessage ( const QString & );
+    void noticeMessage ( const QString & );
     void errorMessage ( const QString & );
 
   public:

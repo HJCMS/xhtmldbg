@@ -3,7 +3,6 @@
 SET (subproject_SOURCES
   alternatelinkreader.cpp
   raptorparser.cpp
-  xsdparser.cpp
   rssparserdialog.cpp
   rsstreeview.cpp
   rssviewer.cpp
@@ -13,19 +12,30 @@ SET (subproject_SOURCES
 SET (subproject_HEADERS
   alternatelinkreader.h
   raptorparser.h
-  xsdparser.h
   rssparserdialog.h
   rsstreeview.h
   rssviewer.h
   rsshighlighter.h
 )
 
-SET (subproject_NOMOCS
+IF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
+SET (subproject_SOURCES
+  ${subproject_SOURCES}
+  xsdparser.cpp
 )
+SET (subproject_HEADERS
+  ${subproject_HEADERS}
+  xsdparser.h
+)
+ENDIF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
 
-REMOVE_DEFINITIONS ( -DQT_DBUS_LIB )
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB)
+
+IF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
+  ADD_DEFINITIONS (-DMS_PL_ACCEPTED)
+ENDIF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
@@ -34,7 +44,6 @@ QT4_ADD_RESOURCES (subproject_RESRC rdfparser.qrc)
 ADD_LIBRARY (RDFParser STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
-  ${subproject_NOMOCS}
   ${subproject_RESRC}
   ${subproject_SOURCES}
 )

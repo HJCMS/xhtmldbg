@@ -217,10 +217,16 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
   DESTINATION ${DBUS_SESSION_BUS_SERVICES_DIR}
 )
 
-## TODO
-# INSTALL (FILES de.hjcms.xhtmldbg.xml
-#   DESTINATION share/dbus-1/interfaces/
-# )
+##############################################################
+## The SubProject rdfparser use rss-2_0.xsd XML Schema for RSS v2.0 Validation
+## This File is under Microsoft Public License (Ms-PL)
+## It's free software licenses, but are not compatible with the GNU GPL.
+## http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
+## For Some Distribution set this Option to disaggre this License
+## NOTE If disaggre this License the RSS 2.0 Parser will not work!
+##############################################################
+
+OPTION (ACCEPT_MICROSOFT_PUBLIC_LICENSE "Accept Microsoft Public License (Ms-PL) Included in XML Schema for RSS v2.0 File. (ON/OFF)" OFF)
 
 ##############################################################
 ## Default Configuration File
