@@ -21,6 +21,8 @@ SET (bookmark_STATIC_HEADERS
   bookmarktreereader.h
 )
 
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
 QT4_WRAP_CPP (bookmark_MOC ${bookmark_HEADERS})
 
 QT4_ADD_RESOURCES (bookmark_RESRC bookmark.qrc)

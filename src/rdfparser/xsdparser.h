@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QGlobalStatic>
+#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>
@@ -63,6 +64,7 @@ class XsdParser : public QObject
 
   private:
     const QString schemeFile;
+    mutable QMutex m_mutex;
     QXmlSchema xmlSchema;
 
   Q_SIGNALS:

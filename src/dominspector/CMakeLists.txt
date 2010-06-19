@@ -14,6 +14,8 @@ SET (dominspector_HEADERS
   domtoolbar.h
 )
 
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XMLPATTERNS_LIB)
+
 QT4_WRAP_CPP (dominspector_MOC ${dominspector_HEADERS})
 
 QT4_ADD_RESOURCES (dominspector_RESRC dominspector.qrc)

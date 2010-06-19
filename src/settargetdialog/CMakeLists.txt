@@ -8,6 +8,8 @@ SET (settargetdialog_HEADERS
   settargetdialog.h
 )
 
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
 QT4_WRAP_CPP (settargetdialog_MOC ${settargetdialog_HEADERS})
 
 INCLUDE_DIRECTORIES (

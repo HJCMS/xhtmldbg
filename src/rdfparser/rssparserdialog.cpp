@@ -72,21 +72,13 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   toolBox->setObjectName ( QLatin1String ( "rssparsertoolbox" ) );
   vLayout->addWidget ( toolBox );
 
-  // RDF Parser
-  m_parser = new RaptorParser ( this );
-
-#ifdef MS_PL_ACCEPTED
-  // NOTE Der XSD Parser ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
-  m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" ), this );
-#endif
-
-  m_treeViewer = new RSSTreeView ( toolBox );
-  toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
-
   m_MessagesList = new QListWidget ( toolBox );
   m_MessagesList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
   m_MessagesList->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
   toolBox->addItem ( m_MessagesList, boxIcon, trUtf8 ( "Parser Messages" ) );
+
+  m_treeViewer = new RSSTreeView ( toolBox );
+  toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
 
   m_sourceViewer = new RSSViewer ( toolBox );
   toolBox->addItem ( m_sourceViewer, boxIcon, trUtf8 ( "Source" ) );
@@ -97,6 +89,14 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   vLayout->addWidget ( box );
 
   setLayout ( vLayout );
+
+  // RDF Parser
+  m_parser = new RaptorParser ( this );
+
+#ifdef MS_PL_ACCEPTED
+  // NOTE Der XSD Parser ist Standardmäßig wegen der "Ms-PL" Lizenz deaktiviert!
+  m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/rss2schema/rss-2_0.xsd" ), this );
+#endif
 
   QNetworkRequest request ( rssUrl );
   reply = xhtmldbgmain::instance()->networkAccessManager()->get ( request );

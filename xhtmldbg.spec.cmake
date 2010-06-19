@@ -34,6 +34,7 @@ Author:
 
 %package -n libxhtmldbg
 Summary:     xhtmldbg Plugin Interface Library
+Version:     @XHTMLDBG_VERSION_MAJOR@.@XHTMLDBG_VERSION_MINOR@.@XHTMLDBG_VERSION_RELEASE@
 License:     LGPLv3
 Group:       System/Libraries
 AutoReqProv: on

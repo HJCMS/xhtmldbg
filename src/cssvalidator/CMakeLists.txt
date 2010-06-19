@@ -23,6 +23,8 @@ SET (cssvalidator_HEADERS
 SET (cssvalidator_NOMOC
 )
 
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XMLPATTERNS_LIB)
+
 QT4_WRAP_UI (cssvalidator_UIC ${cssvalidator_UIFILES})
 
 QT4_WRAP_CPP (cssvalidator_MOC ${cssvalidator_HEADERS})
