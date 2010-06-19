@@ -222,7 +222,7 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 ## This File is under Microsoft Public License (Ms-PL)
 ## It's free software licenses, but are not compatible with the GNU GPL.
 ## http://www.gnu.org/licenses/license-list.html#GPLIncompatibleLicenses
-## For Some Distribution set this Option to aggre this License
+## For Some Distribution set this Option to disaggre this License
 ## NOTE If disaggre this License the RSS 2.0 Parser will not work!
 ##############################################################
 
