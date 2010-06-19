@@ -227,6 +227,11 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 ##############################################################
 
 OPTION (ACCEPT_MICROSOFT_PUBLIC_LICENSE "Accept Microsoft Public License (Ms-PL) Included in XML Schema for RSS v2.0 File. (ON/OFF)" OFF)
+IF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
+  MESSAGE ( STATUS "Microsoft Public License Accepted for XML Schema for RSS v2.0 Validation Enabled")
+ELSE (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
+  MESSAGE ( WARNING "XML Schema for RSS v2.0 Validation Disabled. Please read INSTALL file for (Ms-PL)")
+ENDIF (ACCEPT_MICROSOFT_PUBLIC_LICENSE)
 
 ##############################################################
 ## Default Configuration File
@@ -325,6 +330,7 @@ SET (CPACK_PACKAGE_VERSION_PATCH "${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEV
 SET (CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
 SET (CPACK_PACKAGE_CONTACT "Juergen Heinemann (Undefined) http://www.hjcms.de")
 SET (CPACK_PACKAGE_LICENSE "GPLv3 LGPLv2+")
+SET (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/icons/qtidy.png")
 
 CONFIGURE_FILE (xhtmldbg.spec.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.spec

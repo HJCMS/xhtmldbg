@@ -15,6 +15,8 @@ MY_CFLAGS="$MY_CFLAGS -Wformat -Woverloaded-virtual -Wmissing-field-initializers
 MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer"
 MY_CFLAGS="$MY_CFLAGS -fexpensive-optimizations -pipe"
 
+INSTALL_DESTDIR="`mktemp --tmpdir=/tmp xhtmldbg.XXXXXXXXXX`"
+
 function runcmake()
 {
   cmake \
@@ -26,6 +28,7 @@ function runcmake()
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DXHTMLDBG_BETA_EXTENSION:BOOL=ON \
     -DACCEPT_MICROSOFT_PUBLIC_LICENSE:BOOL=ON \
+    -DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$INSTALL_DESTDIR" \
     ../
 }
 
