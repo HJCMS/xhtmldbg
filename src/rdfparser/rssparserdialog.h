@@ -64,6 +64,7 @@ class RSSParserDialog : public QDialog
     QListWidget* m_MessagesList;
     RSSViewer* m_sourceViewer;
     QNetworkReply* reply;
+    const QString schemePath ( const QString & ) const;
     void setDocumentSource ( const QByteArray &, const QUrl & );
 
   private Q_SLOTS:

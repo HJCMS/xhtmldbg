@@ -75,21 +75,16 @@ INSTALL_TREE:
     |       `-- xhtmldbgplugininfo.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.7
-    |   |-- libxhtmldbg-1.0.so.0.8.7
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.*
+    |   |-- libxhtmldbg-1.0.so.0.8.*
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
-    |       |-- libHostInfo.so
-    |       |-- libRFCBrowser.so
-    |       |-- libSelfHtmlSidebar.so
-    |       `-- libWebKitInspector.so
+    |       |-- lib*.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop
         |-- dbus-1
-        |   |-- interfaces
-        |   |   `-- de.hjcms.xhtmldbg.xml
         |   `-- services
         |       `-- de.hjcms.xhtmldbg.service
         |-- icons
@@ -147,4 +142,15 @@ INSTALL_TREE:
             |   |-- helloworld.h
             |   |-- helloworldplugin.cpp
             |   `-- helloworldplugin.h
+            |-- schemas
+            |   |-- XMLSchema.dtd
+            |   |-- XMLSchema.xsd
+            |   |-- atom-1.0.xsd
+            |   |-- datatypes.dtd
+            |   |-- rss-2.0.xsd
+            |   |-- xml.xsd
+            |   |-- xsd.xsl
+            |   `-- xslt10.dtd
             `-- xhtmldbg_untranslated.ts
+
+46 directories, 47 files

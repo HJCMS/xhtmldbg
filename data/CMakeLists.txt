@@ -1,6 +1,6 @@
 ## CMakeLists.txt
 
-# ADD_SUBDIRECTORY (jars)
+ADD_SUBDIRECTORY (schemas)
 
 ## Default IconTheme
 SET (icon_sizes

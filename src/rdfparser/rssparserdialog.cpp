@@ -29,6 +29,8 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QFileInfo>
 #include <QtCore/QList>
 #include <QtCore/QTextCodec>
 #include <QtCore/QVariant>
@@ -55,7 +57,6 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
 {
-  Q_INIT_RESOURCE ( rdfparser );
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
   setWindowTitle ( trUtf8 ( "RSS Parser" ) );
   setMinimumWidth ( 550 );
@@ -114,6 +115,24 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
 }
 
 /**
+* Such unter ../share/xhtmldbg/schemas/ nach XSD Schema Dateien.
+*/
+const QString RSSParserDialog::schemePath ( const QString &f ) const
+{
+  QStringList searchList;
+  searchList << qApp->applicationDirPath () + "/share/xhtmldbg/schemas";
+  searchList << QLatin1String ( "../share/xhtmldbg/schemas" );
+  QFileInfo info;
+  foreach ( QString p, searchList )
+  {
+    info.setFile ( QString ( "%1/%2.xsd" ).arg ( p, f ) );
+    if ( info.exists() )
+      return info.absoluteFilePath();
+  }
+  return QString::null;
+}
+
+/**
 * Dokumenten Struktur in das TextEdit einfügen!
 */
 void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &url )
@@ -125,6 +144,10 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, QTextCodec::codecForName ( "UTF-8" ) );
 
+  // Cursor auf warten setzen
+  setCursor ( Qt::WaitCursor );
+
+  // XML Einlesen
   QDomDocument dom;
   if ( dom.setContent ( codec->toUnicode ( data ), false, &errorMsg, &errorLine, &errorColumn ) )
   {
@@ -134,20 +157,20 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
-      notice ( trUtf8 ( "Namespace: RSS-1.0 %1" ).arg ( "http://purl.org/rss/1.0/" ) );
+      notice ( trUtf8 ( "Namespace: RSS-1.0" ) );
       m_parser->parseDocument ( data, url );
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
-      notice ( trUtf8 ( "Namespace: ATOM-1.0 %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      m_xsdParser->parseDocument ( data, QString::fromUtf8 ( ":/schemas/atom-1.0.xsd" ), url );
+      notice ( trUtf8 ( "Namespace: ATOM-1.0" ) );
+      m_xsdParser->parseDocument ( data, schemePath ( "atom-1.0" ), url );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
-      notice ( trUtf8 ( "Namespace: RSS-2.0 Atom %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      m_xsdParser->parseDocument ( data, QString::fromUtf8 ( ":/schemas/rss-2.0.xsd" ), url );
+      notice ( trUtf8 ( "Namespace: RSS-2.0" ) );
+      m_xsdParser->parseDocument ( data, schemePath ( "rss-2.0" ), url );
     }
     // Die restlichen Fenster befüllen
     m_treeViewer->createTreeView ( dom );
@@ -159,6 +182,8 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
             QString::number ( errorLine ), QString::number ( errorColumn ) ) );
     toolBox->setCurrentWidget ( m_MessagesList );
   }
+  // Cursor zurück setzen
+  setCursor ( Qt::ArrowCursor );
 }
 
 /**

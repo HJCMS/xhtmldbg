@@ -1,7 +1,5 @@
 # CMakeLists.txt
 
-ADD_SUBDIRECTORY (schemas)
-
 SET (subproject_SOURCES
   alternatelinkreader.cpp
   raptorparser.cpp
@@ -28,12 +26,9 @@ REMOVE_DEFINITIONS (-DQT_DBUS_LIB)
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
-QT4_ADD_RESOURCES (subproject_RESRC rdfparser.qrc)
-
 ADD_LIBRARY (RDFParser STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
-  ${subproject_RESRC}
   ${subproject_SOURCES}
 )
 

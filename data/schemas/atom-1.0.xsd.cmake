@@ -32,7 +32,7 @@
     <xs:documentation>MimeType: application/atom+xml</xs:documentation>
   </xs:annotation>
 
-  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="@CMAKE_INSTALL_PREFIX@/share/xhtmldbg/schemas/xml.xsd" />
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd" />
 
   <xs:element name="feed" type="atom:feedType"/>
   <xs:element name="entry" type="atom:entryType"/>

@@ -112,6 +112,9 @@ popd
 %doc %{_datadir}/%{name}/ChangeLog
 %doc %{_datadir}/%{name}/NEWS
 %doc %{_datadir}/%{name}/README
+%dir %{_datadir}/%{name}/schemas
+%{_datadir}/%{name}/schemas/*.xsd
+%{_datadir}/%{name}/schemas/*.dtd
 %{_datadir}/%{name}/xhtmldbg_untranslated.ts
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/icons/oxygen/128x128

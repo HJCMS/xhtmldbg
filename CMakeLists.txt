@@ -192,6 +192,10 @@ SET (PLUGIN_OUTPUT_PATH
   ${CMAKE_CURRENT_BINARY_DIR}/app/plugins
 )
 
+SET (PARSER_SCHEME_PATH
+  ${CMAKE_CURRENT_BINARY_DIR}/app/share/xhtmldbg/schemas
+)
+
 ##############################################################
 ## Configure files
 ##############################################################
