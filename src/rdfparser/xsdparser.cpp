@@ -89,7 +89,6 @@ XsdParser::XsdParser ( QObject * parent )
     : QObject ( parent )
 {
   setObjectName ( QLatin1String ( "xsdparser" ) );
-  // xmlSchema.setNetworkAccessManager( xhtmldbgmain::instance()->networkAccessManager() );
 }
 
 /**
@@ -107,6 +106,8 @@ void XsdParser::parseDocument ( const QByteArray &data, const QString &xsd, cons
     fp.close();
   }
   QXmlSchemaValidator validator ( xmlSchema );
+  validator.setNetworkAccessManager ( xhtmldbgmain::instance()->networkAccessManager() );
+
   XsdParserMessageHandler handler;
   connect ( &handler, SIGNAL ( message ( const QString & ) ),
             this, SIGNAL ( errorMessage ( const QString & ) ) );
