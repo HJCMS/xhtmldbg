@@ -121,7 +121,7 @@ const QString RSSParserDialog::schemePath ( const QString &f ) const
 {
   QStringList searchList;
   searchList << qApp->applicationDirPath () + "/share/xhtmldbg/schemas";
-  searchList << QLatin1String ( "../share/xhtmldbg/schemas" );
+  searchList << qApp->applicationDirPath () + QLatin1String ( "/../share/xhtmldbg/schemas" );
   QFileInfo info;
   foreach ( QString p, searchList )
   {
@@ -129,6 +129,7 @@ const QString RSSParserDialog::schemePath ( const QString &f ) const
     if ( info.exists() )
       return info.absoluteFilePath();
   }
+  qWarning ( "(XHTMLDBG) Missing scheme %s.xsd", qPrintable ( f ) );
   return QString::null;
 }
 

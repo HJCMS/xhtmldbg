@@ -20,6 +20,8 @@
 **/
 
 #include "xsdparser.h"
+#include "xhtmldbgmain.h"
+#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -61,12 +63,24 @@ const QString XsdParserMessageHandler::toPlainText ( const QString &xml ) const
 void XsdParserMessageHandler::handleMessage ( QtMsgType type, const QString &info,
         const QUrl &url, const QSourceLocation &location )
 {
-  Q_UNUSED ( type );
   Q_UNUSED ( url );
-
   QString m = toPlainText ( info );
   QString l = QString::number ( location.line () );
-  QString mess = trUtf8 ( "Document at Line %1 (%2)" ).arg ( l, m );
+  QString mess;
+  switch ( type )
+  {
+    case QtWarningMsg:
+      mess = trUtf8 ( "Line %1 (%2)" ).arg ( l, m );
+      break;
+
+    case QtFatalMsg:
+      mess = trUtf8 ( "Line %1 (%2)" ).arg ( l, m );
+      break;
+
+    default:
+      mess = trUtf8 ( "Document at Line %1 (%2)" ).arg ( l, m );
+      break;
+  }
   emit message ( mess );
 }
 
@@ -75,6 +89,7 @@ XsdParser::XsdParser ( QObject * parent )
     : QObject ( parent )
 {
   setObjectName ( QLatin1String ( "xsdparser" ) );
+  // xmlSchema.setNetworkAccessManager( xhtmldbgmain::instance()->networkAccessManager() );
 }
 
 /**
@@ -87,7 +102,7 @@ void XsdParser::parseDocument ( const QByteArray &data, const QString &xsd, cons
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
     if ( ! xmlSchema.load ( &fp, QUrl::fromLocalFile ( xsd ) ) )
-      qWarning ( "(XHTMLDBG) XSD Parser Error can not load RSS2 XSD Scheme!" );
+      qWarning ( "(XHTMLDBG) XSD Parser can not load XSD Schema!" );
 
     fp.close();
   }
@@ -98,9 +113,7 @@ void XsdParser::parseDocument ( const QByteArray &data, const QString &xsd, cons
 
   validator.setMessageHandler ( &handler );
   if ( validator.validate ( data, baseUrl ) )
-    emit noticeMessage ( trUtf8 ( "RSS 2.0 Document is Valid" ) );
-  else
-    emit errorMessage ( trUtf8 ( "RSS 2.0 Document is NOT Valid" ) );
+    emit noticeMessage ( trUtf8 ( "Document is Valid" ) );
 }
 
 XsdParser::~XsdParser()

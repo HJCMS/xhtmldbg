@@ -23,6 +23,7 @@
 #define NETWORKCOOKIE_H
 
 /* QtCore */
+#include <QtCore/QMutex>
 #include <QtCore/QDateTime>
 #include <QtCore/QList>
 #include <QtCore/QString>
@@ -47,6 +48,7 @@ class NetworkCookie : public QNetworkCookieJar
   private:
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
+    QMutex mutex;
     QString iniFile;
     QStringList cookiesBlocked;
     QStringList cookiesAllowed;

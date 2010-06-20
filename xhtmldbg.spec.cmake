@@ -114,6 +114,7 @@ popd
 %doc %{_datadir}/%{name}/README
 %dir %{_datadir}/%{name}/schemas
 %{_datadir}/%{name}/schemas/*.xsd
+%{_datadir}/%{name}/schemas/*.xsl
 %{_datadir}/%{name}/schemas/*.dtd
 %{_datadir}/%{name}/xhtmldbg_untranslated.ts
 %{_datadir}/applications/%{name}.desktop

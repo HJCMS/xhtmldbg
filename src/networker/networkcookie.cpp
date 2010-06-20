@@ -28,6 +28,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QMutexLocker>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
@@ -164,13 +165,13 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
 
   if ( ! domain.contains ( QRegExp ( "^\\." ) ) )
   {
-    rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=host.tld will be rejected because the value for Domain does not begin with a dot." ) );
+    rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
   else if ( domain.contains ( QRegExp ( "\\.$" ) ) )
   {
-    rejectMessage.append ( trUtf8 ( "A Set-Cookie with attached dot Domain=host.tld., will always be rejected." ) );
+    rejectMessage.append ( trUtf8 ( "A Set-Cookie with attached dot Domain=%1, will always be rejected." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
@@ -313,10 +314,15 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 */
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
+  QMutexLocker lock ( &mutex );
   bool add = false;
   bool yes = false;
   bool tmp = false;
   bool isInSecure = false;
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << Q_FUNC_INFO << url;
+#endif
 
   QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.

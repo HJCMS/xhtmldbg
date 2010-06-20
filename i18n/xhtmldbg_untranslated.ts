@@ -1636,32 +1636,32 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="162"/>
+        <location filename="../src/networker/networkcookie.cpp" line="163"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="167"/>
-        <source>A Set-Cookie with Domain=host.tld will be rejected because the value for Domain does not begin with a dot.</source>
+        <location filename="../src/networker/networkcookie.cpp" line="168"/>
+        <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="173"/>
-        <source>A Set-Cookie with attached dot Domain=host.tld., will always be rejected.</source>
+        <location filename="../src/networker/networkcookie.cpp" line="174"/>
+        <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="179"/>
+        <location filename="../src/networker/networkcookie.cpp" line="180"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="194"/>
+        <location filename="../src/networker/networkcookie.cpp" line="195"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="371"/>
+        <location filename="../src/networker/networkcookie.cpp" line="377"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1799,22 +1799,22 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="154"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="155"/>
         <source>Checking: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="160"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="161"/>
         <source>Namespace: RSS-1.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="166"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="167"/>
         <source>Namespace: ATOM-1.0</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="172"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="173"/>
         <source>Namespace: RSS-2.0</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2474,20 +2474,21 @@ Reasons : </source>
 <context>
     <name>XsdParser</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="101"/>
-        <source>RSS 2.0 Document is Valid</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="103"/>
-        <source>RSS 2.0 Document is NOT Valid</source>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="116"/>
+        <source>Document is Valid</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>XsdParserMessageHandler</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="69"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="73"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="77"/>
+        <source>Line %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="81"/>
         <source>Document at Line %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>

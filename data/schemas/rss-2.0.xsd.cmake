@@ -20,7 +20,7 @@
 * Boston, MA 02110-1301, USA.
 //-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:atom="http://purl.org/atom/ns#"
+           xmlns:atom="http://www.w3.org/2005/Atom"
            elementFormDefault="unqualified"
            attributeFormDefault="unqualified"
            xml:lang="en" version="0.8.8">
@@ -34,7 +34,6 @@
 
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd" />
 
-  <!-- rss -->
   <xs:element name="rss">
     <xs:complexType>
       <xs:sequence>
@@ -47,7 +46,6 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- channel -->
   <xs:complexType name="channelNode">
     <xs:sequence>
       <xs:choice maxOccurs="unbounded">
@@ -77,7 +75,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <!-- item -->
   <xs:complexType name="itemNodes">
     <xs:choice maxOccurs="unbounded">
       <!-- Required -->
@@ -95,7 +92,6 @@
     </xs:choice>
   </xs:complexType>
 
-  <!-- Definitions -->
   <xs:simpleType name="dateNode">
     <xs:restriction base="xs:string">
       <xs:pattern value="(((Mon)|(Tue)|(Wed)|(Thu)|(Fri)|(Sat)|(Sun)), *)?\d\d? +((Jan)|(Feb)|(Mar)|(Apr)|(May)|(Jun)|(Jul)|(Aug)|(Sep)|(Oct)|(Nov)|(Dec)) +\d\d(\d\d)? +\d\d:\d\d(:\d\d)? +(([+\-]?\d\d\d\d)|(UT)|(GMT)|(EST)|(EDT)|(CST)|(CDT)|(MST)|(MDT)|(PST)|(PDT)|\w)" />
@@ -103,7 +99,7 @@
   </xs:simpleType>
 
   <xs:simpleType name="personResponsibleNode">
-    <xs:restriction base="xs:string">
+    <xs:restriction base="xs:normalizedString">
       <xs:pattern value="([a-zA-Z0-9_\-])([a-zA-Z0-9_\-\.]*)@(\[((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\.){3}|((([a-zA-Z0-9\-]+)\.)+))([a-zA-Z]{2,}|(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])\])"/>
     </xs:restriction>
   </xs:simpleType>
@@ -217,7 +213,6 @@
     </xs:simpleContent>
   </xs:complexType>
 
-  <!-- Attribute Definitions -->
   <xs:simpleType name="cloudAttributeProtocol">
     <xs:restriction base="xs:string">
       <xs:enumeration value="xml-rpc"/>
