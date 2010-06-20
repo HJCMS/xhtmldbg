@@ -1,3 +1,6 @@
+- 2010/06/20 Juergen Heinemann (Undefined)
+  Add: Feed schema Validation with Qt XMLPattern
+
 - 2010/06/07 Juergen Heinemann (Undefined)
   Bugfix: Cookies and Multible Hosts and Paths
 

@@ -57,6 +57,7 @@ AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
   m_toolButton->setIcon ( rssIcon );
   m_toolButton->setAutoRaise ( true );
   m_toolButton->setPopupMode ( QToolButton::InstantPopup );
+  m_toolButton->setEnabled ( false );
   layout->addWidget ( m_toolButton );
 
   setLayout ( layout );
@@ -147,6 +148,7 @@ void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement 
     index++;
   }
   m_toolButton->setMenu ( menu );
+  m_toolButton->setEnabled ( ( ( index > 0 ) ? true : false ) );
 }
 
 AlternateLinkReader::~AlternateLinkReader()
