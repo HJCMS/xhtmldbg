@@ -1,5 +1,7 @@
 # CMakeLists.txt
 
+ADD_SUBDIRECTORY (schemas)
+
 SET (subproject_SOURCES
   alternatelinkreader.cpp
   raptorparser.cpp

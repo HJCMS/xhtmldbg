@@ -61,7 +61,6 @@ class XsdParser : public QObject
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    const QString schemeFile;
     mutable QMutex m_mutex;
     QXmlSchema xmlSchema;
 
@@ -70,8 +69,8 @@ class XsdParser : public QObject
     void errorMessage ( const QString & );
 
   public:
-    XsdParser ( const QString &xsd, QObject * parent = 0 );
-    void parseDocument ( const QByteArray &, const QUrl & );
+    XsdParser ( QObject * parent = 0 );
+    void parseDocument ( const QByteArray &, const QString &, const QUrl & );
     ~XsdParser();
 };
 

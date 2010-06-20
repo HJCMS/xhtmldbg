@@ -71,9 +71,8 @@ void XsdParserMessageHandler::handleMessage ( QtMsgType type, const QString &inf
 }
 
 /** @class XsdParser */
-XsdParser::XsdParser ( const QString &xsd, QObject * parent )
+XsdParser::XsdParser ( QObject * parent )
     : QObject ( parent )
-    , schemeFile ( xsd )
 {
   setObjectName ( QLatin1String ( "xsdparser" ) );
 }
@@ -81,13 +80,13 @@ XsdParser::XsdParser ( const QString &xsd, QObject * parent )
 /**
 * Öffne das XML Dokument und übergebe es an den QXmlSchemaValidator
 */
-void XsdParser::parseDocument ( const QByteArray &data, const QUrl &baseUrl )
+void XsdParser::parseDocument ( const QByteArray &data, const QString &xsd, const QUrl &baseUrl )
 {
   QMutexLocker lock ( &m_mutex );
-  QFile fp ( schemeFile );
+  QFile fp ( xsd );
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
-    if ( ! xmlSchema.load ( &fp, QUrl::fromLocalFile ( schemeFile ) ) )
+    if ( ! xmlSchema.load ( &fp, QUrl::fromLocalFile ( xsd ) ) )
       qWarning ( "(XHTMLDBG) XSD Parser Error can not load RSS2 XSD Scheme!" );
 
     fp.close();

@@ -6,6 +6,7 @@ tags
 commit.sh
 findicon.sh
 readelf.sh
+scheme.sh
 xhtmldbg.kdevelop.filelist
 xhtmldbg.kdevelop.pcs
 xhtmldbg.kdevses

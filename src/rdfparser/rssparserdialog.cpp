@@ -94,7 +94,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_parser = new RaptorParser ( this );
 
   // RSS-2.0 Parser
-  m_xsdParser = new XsdParser ( QString::fromUtf8 ( ":/xhtmldbg_rss2.xsd" ), this );
+  m_xsdParser = new XsdParser ( this );
 
   QNetworkRequest request ( rssUrl );
   reply = xhtmldbgmain::instance()->networkAccessManager()->get ( request );
@@ -141,13 +141,13 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
       notice ( trUtf8 ( "Namespace: ATOM-1.0 %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      m_parser->parseDocument ( data, url );
+      m_xsdParser->parseDocument ( data, QString::fromUtf8 ( ":/schemas/atom-1.0.xsd" ), url );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
       notice ( trUtf8 ( "Namespace: RSS-2.0 Atom %1" ).arg ( "http://www.w3.org/2005/Atom" ) );
-      m_xsdParser->parseDocument ( data, url );
+      m_xsdParser->parseDocument ( data, QString::fromUtf8 ( ":/schemas/rss-2.0.xsd" ), url );
     }
     // Die restlichen Fenster befüllen
     m_treeViewer->createTreeView ( dom );
@@ -199,4 +199,7 @@ RSSParserDialog::~RSSParserDialog()
 {
   if ( m_parser )
     delete m_parser;
+
+  if ( m_xsdParser )
+    delete m_xsdParser;
 }

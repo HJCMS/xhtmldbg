@@ -1,6 +1,10 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource prefix="/" >
-    <file>xhtmldbg_rss2.xsd</file>
+    <file>schemas/atom-1.0.xsd</file>
+    <file>schemas/rss-2.0.xsd</file>
+    <file>schemas/xml.xsd</file>
+    <file>schemas/XMLSchema.xsd</file>
+    <file>schemas/XMLSchema.dtd</file>
   </qresource>
 </RCC>
