@@ -322,6 +322,14 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     return false;
   }
 
+  // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
+  QString uniqueHostRequest = url.host ();
+  if ( inProgress.contains ( uniqueHostRequest ) )
+    return false;
+
+  // Setze Hostname und Pfad der Url in die Berabeiten liste!
+  inProgress << uniqueHostRequest;
+
   bool add = false;
   bool yes = false;
   bool tmp = false;
@@ -335,18 +343,13 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     return false;
   }
 
-  // befinded sich ein Teil dieser URL in der Bearbeitung dann aussteigen!
-  QString uniqueUrlString = url.toString ( ( QUrl::RemoveFragment | QUrl::RemoveQuery ) );
-  if ( inProgress.contains ( uniqueUrlString ) )
-    return false;
-
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
   tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost
-  << " Unique:" << uniqueUrlString << " Acceppted:" << yes << " Session Cookie:" << tmp
+  << " Unique:" << uniqueHostRequest << " Acceppted:" << yes << " Session Cookie:" << tmp
   << " Full Request:" << url.toString();
 #endif
 
@@ -389,17 +392,19 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
       }
     } // end foreach
   }
+  else
+  {
+    // Anfrage an Page Senden
+    emit cookieRequest ( cookieUrl );
+    return false;
+  }
 
   if ( isInSecure )
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
-  inProgress << uniqueUrlString;
-
   // Wenn neu erzeugt dann später speichern
   if ( add )
     m_autoSaver->saveIfNeccessary();
-  else if ( ( ! add ) && ( ! tmp ) && ( ! yes ) )
-    emit cookieRequest ( cookieUrl ); // Anfrage an Page Senden
 
   return add;
 }

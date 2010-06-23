@@ -54,7 +54,6 @@
 
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
-    , cookieAlreadyAdd ( false )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "viewer" );
@@ -92,20 +91,17 @@ Viewer::Viewer ( QWidget * parent )
 * Öffnet den Keks Dialog und sendet danach das
 * Signal @ref CookieManager::reload
 */
-bool Viewer::openCookieRequestDialog ( const QUrl &url )
+void Viewer::openCookiesRequestDialog ()
 {
-  QUrl cookieUrl;
-  cookieUrl.setScheme ( url.scheme() );
-  cookieUrl.setHost ( url.host() );
-  cookieUrl.setPath ( url.path() );
-
-  CookieAcceptDialog cookiediag ( cookieUrl, this );
-  if ( cookiediag.exec() )
+  int status = QDialog::Rejected;
+  foreach ( QUrl url, pendingCookieRequests )
   {
-    xhtmldbgmain::instance()->cookieManager()->reload();
-    return true;
+    CookieAcceptDialog cookiediag ( url, this );
+    status = cookiediag.exec();
   }
-  return false;
+
+  if ( status == QDialog::Accepted )
+    xhtmldbgmain::instance()->cookieManager()->reload();
 }
 
 /**
@@ -147,6 +143,8 @@ void Viewer::prepareLinkInfo ( const QWebHitTestResult &link )
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
+  if ( pendingCookieRequests.size() > 0 )
+    pendingCookieRequests.clear();
 }
 
 /**
@@ -160,6 +158,8 @@ void Viewer::cursorFinished ( bool )
   {
     setCursor ( Qt::ArrowCursor );
     emit totalBytes ( page()->bytesReceived() );
+    if ( pendingCookieRequests.size() > 0 )
+      openCookiesRequestDialog();
   }
 }
 
@@ -270,12 +270,14 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 * existiert oder die URL Identisch mit Seiten Url ist!
 * 3.Anbieter werden generell abgewiesen!
 */
-void Viewer::cookiesRequest ( const QUrl &u )
+void Viewer::cookiesRequest ( const QUrl &url )
 {
-  QString pageHost ( url().host() );
-  QString cookieHost ( u.host() );
-  if ( !cookieAlreadyAdd && pageHost.contains ( cookieHost ) )
-    cookieAlreadyAdd = openCookieRequestDialog ( u );
+  QUrl cookieUrl;
+  cookieUrl.setScheme ( url.scheme() );
+  cookieUrl.setHost ( url.host() );
+
+  if ( ! pendingCookieRequests.contains ( cookieUrl ) )
+    pendingCookieRequests << cookieUrl;
 }
 
 /**

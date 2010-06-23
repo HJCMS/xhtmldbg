@@ -7,7 +7,7 @@
 
 debug_build_target=$HOME/hjcms/xhtmldbg/build
 
-MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -mno-sse3 -ggdb3 -gstabs+ -dy"
+MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -mno-sse3 -ggdb3 -gstabs+"
 MY_CFLAGS="$MY_CFLAGS -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
 MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer"
 MY_CFLAGS="$MY_CFLAGS -fexpensive-optimizations -pipe"

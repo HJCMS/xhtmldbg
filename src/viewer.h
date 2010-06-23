@@ -23,6 +23,7 @@
 #define VIEWER_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPoint>
 #include <QtCore/QUrl>
@@ -53,11 +54,11 @@ class Viewer : public QWebView
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    bool cookieAlreadyAdd;
+    QList<QUrl> pendingCookieRequests;
     Page* m_page;
-    bool openCookieRequestDialog ( const QUrl & );
     void findChildNode ( const QPoint & );
     void prepareLinkInfo ( const QWebHitTestResult & );
+    void openCookiesRequestDialog ();
 
   private Q_SLOTS:
     void cursorwait ();
