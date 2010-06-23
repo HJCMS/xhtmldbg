@@ -88,12 +88,16 @@ Viewer::Viewer ( QWidget * parent )
 }
 
 /**
-* Öffnet den Keks Dialog und sendet danach das
-* Signal @ref CookieManager::reload
+* Öffnet den Keks Dialog mit den gesammeöten Cookie
+* Anfragen aus @ref pendingCookieRequests und arbeitet
+* sie nach und nach ab.
+* Wenn Cookies akzeptiert wurden wird das Signal
+* @ref CookieManager::reload abgegeben.
 */
 void Viewer::openCookiesRequestDialog ()
 {
   int status = QDialog::Rejected;
+  // alles verarbeiten
   foreach ( QUrl url, pendingCookieRequests )
   {
     CookieAcceptDialog cookiediag ( url, this );
@@ -102,6 +106,9 @@ void Viewer::openCookiesRequestDialog ()
 
   if ( status == QDialog::Accepted )
     xhtmldbgmain::instance()->cookieManager()->reload();
+
+  // Jetzt wieder leeren
+  pendingCookieRequests.clear();
 }
 
 /**
@@ -266,9 +273,10 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 
 /**
 * Dieser Slot wird vom Signal cookiesRequest aufgerufen.
-* Es wird zuerst Überprüft ob @ref cookieAlreadyAdd bereits
-* existiert oder die URL Identisch mit Seiten Url ist!
-* 3.Anbieter werden generell abgewiesen!
+* Es werden hierbei alle Cookies Host in die Liste von
+* @ref pendingCookieRequests geschrieben und beim Signal
+* @ref QWebView::loadFinished wird die Methode
+* @ref openCookiesRequestDialog aufgerufen.
 */
 void Viewer::cookiesRequest ( const QUrl &url )
 {

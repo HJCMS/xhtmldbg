@@ -268,6 +268,7 @@ void NetworkCookie::save()
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookies Saved";
 #endif
+  // Die Liste wieder leeren
   inProgress.clear();
 }
 
@@ -327,7 +328,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( inProgress.contains ( uniqueHostRequest ) )
     return false;
 
-  // Setze Hostname und Pfad der Url in die Berabeiten liste!
+  // Setze den Hostnamen dieser Url in die Berarbeitenliste!
   inProgress << uniqueHostRequest;
 
   bool add = false;
