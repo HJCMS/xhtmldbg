@@ -1667,7 +1667,17 @@ Gründe : </translation>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="377"/>
+        <location filename="../src/networker/networkcookie.cpp" line="321"/>
+        <source>Invalid Url for Cookie Request - rejected!</source>
+        <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="334"/>
+        <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
+        <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="394"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
@@ -2480,7 +2490,7 @@ Gründe : </translation>
 <context>
     <name>XsdParser</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="116"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="117"/>
         <source>Document is Valid</source>
         <translation>Das Dokument ist Valide</translation>
     </message>

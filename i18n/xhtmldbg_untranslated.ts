@@ -1661,7 +1661,17 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="377"/>
+        <location filename="../src/networker/networkcookie.cpp" line="321"/>
+        <source>Invalid Url for Cookie Request - rejected!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="334"/>
+        <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="394"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2474,7 +2484,7 @@ Reasons : </source>
 <context>
     <name>XsdParser</name>
     <message>
-        <location filename="../src/rdfparser/xsdparser.cpp" line="116"/>
+        <location filename="../src/rdfparser/xsdparser.cpp" line="117"/>
         <source>Document is Valid</source>
         <translation type="unfinished"></translation>
     </message>
