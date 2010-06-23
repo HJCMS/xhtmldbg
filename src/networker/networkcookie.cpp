@@ -28,7 +28,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtCore/QMutexLocker>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
 #include <QtCore/QVariant>
@@ -128,6 +127,7 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
+  inProgress.clear();
   QFileInfo cookie_ini ( m_netcfg->storageDirectory() + QLatin1String ( "/cookiejar.ini" ) );
   iniFile = cookie_ini.absoluteFilePath();
   load();
@@ -268,6 +268,7 @@ void NetworkCookie::save()
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookies Saved";
 #endif
+  inProgress.clear();
 }
 
 /**
@@ -314,24 +315,40 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 */
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
-  QMutexLocker lock ( &mutex );
+  // Fehlerhafte Url's erst gar nicht akzeptieren!
+  if ( ! url.isValid() )
+  {
+    emit cookieNotice ( trUtf8 ( "Invalid Url for Cookie Request - rejected!" ) );
+    return false;
+  }
+
   bool add = false;
   bool yes = false;
   bool tmp = false;
   bool isInSecure = false;
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << Q_FUNC_INFO << url;
-#endif
-
   QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
   if ( cookiesBlocked.indexOf ( cookieHost ) != -1 )
+  {
+    emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
+    return false;
+  }
+
+  // befinded sich ein Teil dieser URL in der Bearbeitung dann aussteigen!
+  QString uniqueUrlString = url.toString ( ( QUrl::RemoveFragment | QUrl::RemoveQuery ) );
+  if ( inProgress.contains ( uniqueUrlString ) )
     return false;
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
   tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost
+  << " Unique:" << uniqueUrlString << " Acceppted:" << yes << " Session Cookie:" << tmp
+  << " Full Request:" << url.toString();
+#endif
 
   // Neue Cookie Laufzeit
   QDateTime lifeTime = cookieLifeTime();
@@ -376,6 +393,8 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( isInSecure )
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
+  inProgress << uniqueUrlString;
+
   // Wenn neu erzeugt dann später speichern
   if ( add )
     m_autoSaver->saveIfNeccessary();
@@ -388,4 +407,5 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 NetworkCookie::~NetworkCookie()
 {
   m_autoSaver->saveIfNeccessary();
+  inProgress.clear();
 }

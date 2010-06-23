@@ -7,10 +7,7 @@
 
 debug_build_target=$HOME/hjcms/xhtmldbg/build
 
-# -DCMAKE_CXX_COMPILER:FILEPATH=$(which mpic++) \
-# -DCMAKE_C_COMPILER:FILEPATH=$(which mpicc) \
-
-MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -mno-sse3 -ggdb3 -dH "
+MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -mno-sse3 -ggdb3 -gstabs+ -dy"
 MY_CFLAGS="$MY_CFLAGS -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
 MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer"
 MY_CFLAGS="$MY_CFLAGS -fexpensive-optimizations -pipe"
@@ -20,6 +17,8 @@ INSTALL_DESTDIR="`mktemp --tmpdir=/tmp xhtmldbg.XXXXXXXXXX`"
 function runcmake()
 {
   cmake \
+    -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ \
+    -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc \
     -DCMAKE_CXX_FLAGS:STRING="$MY_CFLAGS" \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DCMAKE_BUILD_TYPE:STRING=Debug \
