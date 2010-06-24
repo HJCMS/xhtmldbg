@@ -1667,17 +1667,17 @@ Gründe : </translation>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="321"/>
+        <location filename="../src/networker/networkcookie.cpp" line="322"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="342"/>
+        <location filename="../src/networker/networkcookie.cpp" line="343"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="403"/>
+        <location filename="../src/networker/networkcookie.cpp" line="404"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
@@ -1815,24 +1815,29 @@ Gründe : </translation>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="155"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="158"/>
         <source>Checking: %1</source>
         <translation>Prüfe: %1</translation>
     </message>
     <message>
         <location filename="../src/rdfparser/rssparserdialog.cpp" line="161"/>
-        <source>Namespace: RSS-1.0</source>
-        <translation>Namensraum: RSS-1.0</translation>
+        <source>Version not Defined</source>
+        <translation>Version nicht definiert</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="167"/>
-        <source>Namespace: ATOM-1.0</source>
-        <translation>Namensraum: ATOM_1.0</translation>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="165"/>
+        <source>Parsing RDF-%1</source>
+        <translation>Syntaxanalyse RDF-%1</translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="173"/>
-        <source>Namespace: RSS-2.0</source>
-        <translation>Namensraum: RSS-2.0</translation>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="171"/>
+        <source>Parsing ATOM-%1</source>
+        <translation>Syntaxanalyse ATOM-%1</translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="177"/>
+        <source>Parsing RSS-%1</source>
+        <translation>Syntaxanalyse RSS-%1</translation>
     </message>
 </context>
 <context>
@@ -1851,6 +1856,14 @@ Gründe : </translation>
         <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
         <source>Value</source>
         <translation>Wert</translation>
+    </message>
+</context>
+<context>
+    <name>RaptorParser</name>
+    <message>
+        <location filename="../src/rdfparser/raptorparser.cpp" line="115"/>
+        <source>Ready</source>
+        <translation>Fertig</translation>
     </message>
 </context>
 <context>
@@ -2157,62 +2170,62 @@ Gründe : </translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="205"/>
+        <location filename="../src/viewer.cpp" line="212"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="212"/>
+        <location filename="../src/viewer.cpp" line="219"/>
         <source>StyleSheet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="215"/>
+        <location filename="../src/viewer.cpp" line="222"/>
         <source>Start CSS Validation for this Site.</source>
         <translation>Starte CSS Validierung für diese Seite.</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="220"/>
+        <location filename="../src/viewer.cpp" line="227"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="223"/>
+        <location filename="../src/viewer.cpp" line="230"/>
         <source>Show Document Source</source>
         <translation>Zeige Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="314"/>
+        <location filename="../src/viewer.cpp" line="322"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation>SEO Ergebnis für &quot;%1&quot; Url: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="322"/>
+        <location filename="../src/viewer.cpp" line="330"/>
         <source>Word boundary: </source>
         <translation>An Wortgrenzen: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="327"/>
+        <location filename="../src/viewer.cpp" line="335"/>
         <source>Case Sensitive: </source>
         <translation>Groß- Kleinschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="337"/>
+        <location filename="../src/viewer.cpp" line="345"/>
         <source>Meta Keywords: </source>
         <translation>Meta Schlüsselwörter: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="343"/>
+        <location filename="../src/viewer.cpp" line="351"/>
         <source>Meta Description: </source>
         <translation>Meta Beschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="350"/>
+        <location filename="../src/viewer.cpp" line="358"/>
         <source>Page Title: </source>
         <translation>Seiten Titel: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="355"/>
+        <location filename="../src/viewer.cpp" line="363"/>
         <source>Summary: </source>
         <translation>Zusammen: </translation>
     </message>

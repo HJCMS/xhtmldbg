@@ -111,6 +111,8 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
   raptor_free_parser ( parser );
   if ( raptorUri )
     raptor_free_uri ( raptorUri );
+
+  emit noticeMessage ( trUtf8 ( "Ready" ) );
 }
 
 void RaptorParser::setMessage ( const QString &m )

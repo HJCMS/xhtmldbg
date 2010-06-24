@@ -46,6 +46,7 @@ class RaptorParser : public QObject
     mutable QMutex m_mutex;
 
   Q_SIGNALS:
+    void noticeMessage ( const QString & );
     void errorMessage ( const QString & );
 
   public:

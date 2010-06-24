@@ -103,6 +103,9 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   connect ( m_parser, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( error ( const QString & ) ) );
 
+  connect ( m_parser, SIGNAL ( noticeMessage ( const QString & ) ),
+            this, SLOT ( notice ( const QString & ) ) );
+
   connect ( m_xsdParser, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( error ( const QString & ) ) );
 
@@ -155,22 +158,23 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
     notice ( trUtf8 ( "Checking: %1" ).arg ( url.toString() ) );
     QDomElement rootNode = dom.documentElement();
     QString nodeName = rootNode.tagName();
+    QString version = rootNode.attribute ( QLatin1String ( "version" ), trUtf8 ( "Version not Defined" ) );
     if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
-      notice ( trUtf8 ( "Namespace: RSS-1.0" ) );
+      notice ( trUtf8 ( "Parsing RDF-%1" ).arg ( version ) );
       m_parser->parseDocument ( data, url );
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
-      notice ( trUtf8 ( "Namespace: ATOM-1.0" ) );
+      notice ( trUtf8 ( "Parsing ATOM-%1" ).arg ( version ) );
       m_xsdParser->parseDocument ( data, schemePath ( "atom-1.0" ), url );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
-      notice ( trUtf8 ( "Namespace: RSS-2.0" ) );
+      notice ( trUtf8 ( "Parsing RSS-%1" ).arg ( version ) );
       m_xsdParser->parseDocument ( data, schemePath ( "rss-2.0" ), url );
     }
     // Die restlichen Fenster befüllen

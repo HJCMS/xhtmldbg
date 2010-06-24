@@ -1661,17 +1661,17 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="321"/>
+        <location filename="../src/networker/networkcookie.cpp" line="322"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="342"/>
+        <location filename="../src/networker/networkcookie.cpp" line="343"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="403"/>
+        <location filename="../src/networker/networkcookie.cpp" line="404"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1809,23 +1809,28 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="155"/>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="158"/>
         <source>Checking: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/rdfparser/rssparserdialog.cpp" line="161"/>
-        <source>Namespace: RSS-1.0</source>
+        <source>Version not Defined</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="167"/>
-        <source>Namespace: ATOM-1.0</source>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="165"/>
+        <source>Parsing RDF-%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/rdfparser/rssparserdialog.cpp" line="173"/>
-        <source>Namespace: RSS-2.0</source>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="171"/>
+        <source>Parsing ATOM-%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/rdfparser/rssparserdialog.cpp" line="177"/>
+        <source>Parsing RSS-%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1844,6 +1849,14 @@ Reasons : </source>
     <message>
         <location filename="../src/rdfparser/rsstreeview.cpp" line="46"/>
         <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>RaptorParser</name>
+    <message>
+        <location filename="../src/rdfparser/raptorparser.cpp" line="115"/>
+        <source>Ready</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2151,62 +2164,62 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="205"/>
+        <location filename="../src/viewer.cpp" line="212"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="212"/>
+        <location filename="../src/viewer.cpp" line="219"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="215"/>
+        <location filename="../src/viewer.cpp" line="222"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="220"/>
+        <location filename="../src/viewer.cpp" line="227"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="223"/>
+        <location filename="../src/viewer.cpp" line="230"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="314"/>
+        <location filename="../src/viewer.cpp" line="322"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="322"/>
+        <location filename="../src/viewer.cpp" line="330"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="327"/>
+        <location filename="../src/viewer.cpp" line="335"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="337"/>
+        <location filename="../src/viewer.cpp" line="345"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="343"/>
+        <location filename="../src/viewer.cpp" line="351"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="350"/>
+        <location filename="../src/viewer.cpp" line="358"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="355"/>
+        <location filename="../src/viewer.cpp" line="363"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
