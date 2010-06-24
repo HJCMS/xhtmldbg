@@ -20,10 +20,9 @@
 * Boston, MA 02110-1301, USA.
 //-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:atom="http://www.w3.org/2005/Atom"
            elementFormDefault="unqualified"
            attributeFormDefault="unqualified"
-           xml:lang="en" version="0.8.8">
+           xml:lang="en" version="0.8.8" id="rss-2.0">
 
   <xs:annotation>
     <xs:documentation>XML Schema for Validate the RSS 2.0 Markup Language with "xhtmldbg"</xs:documentation>
@@ -32,6 +31,8 @@
     <xs:documentation>MimeType: application/rss+xml</xs:documentation>
   </xs:annotation>
 
+  <!-- xs:NCName -->
+  <xs:import namespace="http://www.w3.org/2005/Atom" schemaLocation="atom-1.0.xsd" />
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd" />
 
   <xs:element name="rss">
@@ -71,6 +72,10 @@
         <xs:element name="skipHours" type="skipHoursNode" minOccurs="0" />
         <xs:element name="skipDays" type="skipDaysNode" minOccurs="0" />
         <xs:element name="item" type="itemNodes" minOccurs="1" />
+        <!-- ATOM -->
+        <xs:any namespace="http://www.w3.org/2005/Atom"
+                minOccurs="0" maxOccurs="unbounded"
+                processContents="lax" />
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
