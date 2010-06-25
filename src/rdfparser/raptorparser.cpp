@@ -23,6 +23,9 @@
 
 #include <limits.h>
 
+/* Raptor */
+#include <raptor.h>
+
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QStringList>
@@ -65,8 +68,8 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
   if ( ! url.isValid() )
     return;
 
-  static const int bufSize = 1024;
   QMutexLocker lock ( &m_mutex );
+  static const int bufSize = 1024;
   RaptorInitHelper raptorInitHelper;
 
   const char* ucUrl = url.toString().toLocal8Bit().data();

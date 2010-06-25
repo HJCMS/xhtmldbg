@@ -29,9 +29,6 @@
 #include <QtCore/QString>
 #include <QtCore/QUrl>
 
-/* Raptor */
-#include <raptor.h>
-
 /* QtXml */
 #include <QtXml/QDomDocument>
 
@@ -40,7 +37,6 @@ class RaptorParser : public QObject
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_ENUMS ( PARSER )
 
   private:
     mutable QMutex m_mutex;

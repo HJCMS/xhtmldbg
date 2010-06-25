@@ -34,7 +34,7 @@
 #include <QtGui/QTableWidgetItem>
 #include <QtGui/QVBoxLayout>
 
-CookieAcceptDialog::CookieAcceptDialog ( const QUrl &url, QWidget * parent )
+CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "cookieacceptdialog" ) );
@@ -42,9 +42,6 @@ CookieAcceptDialog::CookieAcceptDialog ( const QUrl &url, QWidget * parent )
   setMinimumWidth ( 500 );
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
-
-  QString host = url.host();
-  host.remove ( QRegExp ( "^\\bwww\\." ) );
 
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat,
@@ -56,12 +53,6 @@ CookieAcceptDialog::CookieAcceptDialog ( const QUrl &url, QWidget * parent )
 
   m_editCookiesTable = new EditCookiesTable ( this );
   m_editCookiesTable->loadCookieArrangements ( m_settings );
-  m_editCookiesTable->addCookie ( 1, host );
-
-  QList<QTableWidgetItem *> list = m_editCookiesTable->findItems ( host, Qt::MatchExactly );
-  if ( list.size() > 0 )
-    m_editCookiesTable->setCurrentItem ( list.at ( 0 ) );
-
   layout->addWidget ( m_editCookiesTable );
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
@@ -74,12 +65,39 @@ CookieAcceptDialog::CookieAcceptDialog ( const QUrl &url, QWidget * parent )
   connect ( save, SIGNAL ( clicked() ), this, SLOT ( saveAndExit() ) );
 }
 
+/**
+* Cookie Tabelle Speichern und ein Accept senden.
+*/
 void CookieAcceptDialog::saveAndExit()
 {
   m_editCookiesTable->saveCookieArrangements ( m_settings );
 
   accept();
 }
+
+/**
+* Fügt eine Cookieanfrage in die Tabelle ein und setzt die
+* Hervorhebung auf den zuletzt eingefügten Eintrag.
+*/
+void CookieAcceptDialog::setCookieUrl ( const QUrl &url )
+{
+  // Hostnamen von Url nehmen
+  QString host = url.host();
+  host.remove ( QRegExp ( "^\\bwww\\." ) );
+  // einfügen
+  m_editCookiesTable->addCookie ( 1, host );
+
+  // hervorheben
+  QList<QTableWidgetItem *> list = m_editCookiesTable->findItems ( host, Qt::MatchExactly );
+  if ( list.size() > 0 )
+    m_editCookiesTable->setCurrentItem ( list.at ( 0 ) );
+}
+
+/**
+* Zur Zeit keinen effekt
+*/
+void CookieAcceptDialog::clear ()
+{}
 
 CookieAcceptDialog::~CookieAcceptDialog()
 {}

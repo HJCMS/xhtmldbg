@@ -46,6 +46,7 @@
 #include <QtWebKit/QWebPage>
 
 class Page;
+class CookieAcceptDialog;
 
 class Viewer : public QWebView
 {
@@ -56,6 +57,7 @@ class Viewer : public QWebView
   private:
     QList<QUrl> pendingCookieRequests;
     Page* m_page;
+    CookieAcceptDialog* m_cookiesDialog;
     void findChildNode ( const QPoint & );
     void prepareLinkInfo ( const QWebHitTestResult & );
     void openCookiesRequestDialog ();
@@ -90,7 +92,7 @@ class Viewer : public QWebView
     Viewer ( QWidget * parent = 0 );
     const QString bodyContent();
     const QString source();
-    ~Viewer();
+    virtual ~Viewer();
 };
 
 #endif

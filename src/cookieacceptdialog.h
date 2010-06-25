@@ -46,8 +46,12 @@ class CookieAcceptDialog : public QDialog
   private Q_SLOTS:
     void saveAndExit();
 
+  public Q_SLOTS:
+    void setCookieUrl ( const QUrl & );
+    void clear ();
+
   public:
-    CookieAcceptDialog ( const QUrl &url, QWidget * parent = 0 );
+    CookieAcceptDialog ( QWidget * parent = 0 );
     ~CookieAcceptDialog();
 };
 

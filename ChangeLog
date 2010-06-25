@@ -1,3 +1,7 @@
+- 2010/06/25 Juergen Heinemann (Undefined)
+  Add: Namespace Support for Feed Parsers
+  Bugfix: Multible Cookies from Host
+
 - 2010/06/20 Juergen Heinemann (Undefined)
   Add: Feed schema Validation with Qt XMLPattern
 

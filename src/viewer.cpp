@@ -63,6 +63,7 @@ Viewer::Viewer ( QWidget * parent )
 
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
   NetworkCookie* cookieManager = xhtmldbgmain::instance()->cookieManager();
+  m_cookiesDialog = new CookieAcceptDialog ( this );
 
   m_page = new Page ( netManager, this );
   setPage ( m_page );
@@ -96,18 +97,20 @@ Viewer::Viewer ( QWidget * parent )
 */
 void Viewer::openCookiesRequestDialog ()
 {
-  int status = QDialog::Rejected;
-  // alles verarbeiten
+  // Wenn nicht vorhanden aussteigen
+  if ( pendingCookieRequests.size() < 1 )
+    return;
+
+  // Die gesammelten Anfragen in den Dialog einfügen
   foreach ( QUrl url, pendingCookieRequests )
   {
-    CookieAcceptDialog cookiediag ( url, this );
-    status = cookiediag.exec();
+    m_cookiesDialog->setCookieUrl ( url );
   }
 
-  if ( status == QDialog::Accepted )
+  if ( m_cookiesDialog->exec() == QDialog::Accepted )
     xhtmldbgmain::instance()->cookieManager()->reload();
 
-  // Jetzt wieder leeren
+  // Aufräumen
   pendingCookieRequests.clear();
 }
 
@@ -150,14 +153,17 @@ void Viewer::prepareLinkInfo ( const QWebHitTestResult &link )
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
+
+  // Bie neuer Seitenanfrage den Cookie Speicher freigeben
   if ( pendingCookieRequests.size() > 0 )
     pendingCookieRequests.clear();
 }
 
 /**
-* Entferne die Maus Sanduhr
-* Wird immer dann aufgerufen wenn ein
-* Signal loadFinished abgegeben wird.
+* Wird immer dann aufgerufen wenn ein signal @ref QWebView::loadFinished abgegeben wird.
+* @li Entferne die Maus Sanduhr
+* @li Sende die Seitengröße mit @ref totalBytes
+* @li Rufe @ref openCookiesRequestDialog für die Cookies anfragen Verarbeitung auf.
 */
 void Viewer::cursorFinished ( bool )
 {
@@ -165,8 +171,8 @@ void Viewer::cursorFinished ( bool )
   {
     setCursor ( Qt::ArrowCursor );
     emit totalBytes ( page()->bytesReceived() );
-    if ( pendingCookieRequests.size() > 0 )
-      openCookiesRequestDialog();
+    // Seite geladen - dann Cookie Speicher verarbeiten
+    openCookiesRequestDialog();
   }
 }
 
@@ -283,7 +289,7 @@ void Viewer::cookiesRequest ( const QUrl &url )
   QUrl cookieUrl;
   cookieUrl.setScheme ( url.scheme() );
   cookieUrl.setHost ( url.host() );
-
+  // Wenn nocht nicht vorhanden in die Liste einfügen.
   if ( ! pendingCookieRequests.contains ( cookieUrl ) )
     pendingCookieRequests << cookieUrl;
 }
@@ -414,4 +420,6 @@ void Viewer::errorMessage ( const QString &error )
 
 Viewer::~Viewer()
 {
+  if ( m_cookiesDialog )
+    delete m_cookiesDialog;
 }
