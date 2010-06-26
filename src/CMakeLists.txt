@@ -59,6 +59,7 @@ SET (xhtmldbg_SOURCES
   useragentmenu.cpp
   xhtmldbgadaptor.cpp
   zoombar.cpp
+  geolocation.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -83,6 +84,7 @@ SET (xhtmldbg_HEADERS
   useragentmenu.h
   xhtmldbgadaptor.h
   zoombar.h
+  geolocation.h
 )
 
 SET (xhtmldbg_NOMOC

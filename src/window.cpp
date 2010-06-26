@@ -48,6 +48,7 @@
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
+#include "geolocation.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
 /* Interface */
@@ -123,9 +124,25 @@ Window::Window ( QSettings * settings )
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, qTidyIcon );
 
-  // <link rel=alternate Elemente Auflösen
-  m_alternateLinkReader = new AlternateLinkReader ( m_centralWidget );
-  m_centralWidget->setCornerWidget ( m_alternateLinkReader, Qt::BottomRightCorner );
+  // Tabulatur unten Rechts
+  QWidget* tabCornerBottomWidget = new QWidget ( m_centralWidget );
+  tabCornerBottomWidget->setObjectName ( QLatin1String ( "tabcornerbottomwidget" ) );
+  tabCornerBottomWidget->setContentsMargins ( 0, 0, 0, 0 );
+
+  QHBoxLayout* tabCornerBottomWidgetLayout = new QHBoxLayout ( tabCornerBottomWidget );
+  tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
+  tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
+
+  // Gebiete mit der IP Adresse ermitteln
+  m_geoLocation = new GeoLocation ( tabCornerBottomWidget );
+  tabCornerBottomWidgetLayout->addWidget ( m_geoLocation );
+
+  // RSS/ATOM/RDF Validierer
+  m_alternateLinkReader = new AlternateLinkReader ( tabCornerBottomWidget );
+  tabCornerBottomWidgetLayout->addWidget ( m_alternateLinkReader );
+
+  tabCornerBottomWidget->setLayout ( tabCornerBottomWidgetLayout );
+  m_centralWidget->setCornerWidget ( tabCornerBottomWidget, Qt::BottomRightCorner );
   // } TabWidgets
 
   // StatusBar
@@ -640,6 +657,7 @@ void Window::requestsFinished ( bool ok )
     if ( m_cssValidator->toggleViewAction()->isChecked() )
       m_cssValidator->addForValidation ( currentUrl );
 
+    m_geoLocation->setHostName ( currentUrl.host() );
     m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
 
     // Make Secure

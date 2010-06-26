@@ -59,6 +59,7 @@ class ZoomBar;
 class WebViewer;
 class SourceWidget;
 class AlternateLinkReader;
+class GeoLocation;
 class TidyMessanger;
 class JSMessanger;
 class AppEvents;
@@ -150,6 +151,8 @@ class Window : public QMainWindow
     SourceWidget* m_sourceWidget;
     // Read link:rev Alternate Elements
     AlternateLinkReader* m_alternateLinkReader;
+    // Find Country by Hostname
+    GeoLocation* m_geoLocation;
     // Tidy Messages
     TidyMessanger* m_tidyMessanger;
     // JavaScript Messages
