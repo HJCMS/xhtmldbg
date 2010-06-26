@@ -11,6 +11,8 @@ SET (schemafiles
   xml.xsd
   xsd.xsl
   xslt10.dtd
+  metalink-3.0.xsd
+  metalink-3.0.dtd
 )
 
 FOREACH (scheme ${schemafiles})

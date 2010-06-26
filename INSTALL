@@ -138,19 +138,10 @@ INSTALL_TREE:
             |-- README
             |-- plugintemplate
             |   |-- CMakeLists.txt
-            |   |-- helloworld.cpp
-            |   |-- helloworld.h
-            |   |-- helloworldplugin.cpp
-            |   `-- helloworldplugin.h
+            |   |-- helloworld.*
+            |   |-- helloworldplugin.*
             |-- schemas
-            |   |-- XMLSchema.dtd
-            |   |-- XMLSchema.xsd
-            |   |-- atom-1.0.xsd
-            |   |-- datatypes.dtd
-            |   |-- rss-2.0.xsd
-            |   |-- xml.xsd
-            |   |-- xsd.xsl
-            |   `-- xslt10.dtd
+            |   |-- *.xsd
+            |   |-- *.xsl
+            |   `-- *.dtd
             `-- xhtmldbg_untranslated.ts
-
-46 directories, 47 files

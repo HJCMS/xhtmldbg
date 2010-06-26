@@ -5,22 +5,40 @@
   <folder folded="no">
     <title>Example</title>
     <folder folded="yes">
-      <title>HJCMS WebPages</title>
+      <title>HJCMS Pages</title>
       <bookmark href="http://www.hjcms.de">
-        <title>My Homepage :-)</title>
+        <title>Homepage from Juergen Heinemann (Undefined)</title>
       </bookmark>
-      <bookmark href="http://mxlaser.hjcms.de">
-        <title>Kernel Driver for MX-100 Laser Mice</title>
+      <bookmark href="http://xhtmldbg.hjcms.de">
+        <title>XHTMLBG Project Home</title>
       </bookmark>
-      <bookmark href="http://qtidy.hjcms">
-        <title>QTidy Project Page</title>
+      <bookmark href="http://qtidy.hjcms.de">
+        <title>libQTidy Project Home</title>
+      </bookmark>
+      <bookmark href="http://q11grab.hjcms.de">
+        <title>QX11Grab Project Home</title>
       </bookmark>
     </folder>
   </folder>
   <folder folded="no">
-    <title>Qt4</title>
-    <bookmark href="http://qt.nokia.com/">
-      <title>Qt Homepage</title>
-    </bookmark>
+    <title>W3C</title>
+    <folder folded="yes">
+      <title>W3C Pages</title>
+      <bookmark href="http://www.w3.org/">
+        <title>W3C Home</title>
+      </bookmark>
+      <bookmark href="http://www.w3.org/standards/webdesign/htmlcss">
+        <title>HTML &amp; CSS</title>
+      </bookmark>
+      <bookmark href="http://www.w3.org/standards/webdesign/script">
+        <title>Scripting and Ajax</title>
+      </bookmark>
+      <bookmark href="http://www.w3.org/standards/webdesign/accessibility">
+        <title>Accessibility</title>
+      </bookmark>
+      <bookmark href="http://www.w3.org/TR/CSS2/">
+        <title>Cascading Style Sheets Level 2 Revision 1 (CSS 2.1) Specification</title>
+      </bookmark>
+    </folder>
   </folder>
 </xbel>

@@ -89,7 +89,7 @@ Viewer::Viewer ( QWidget * parent )
 }
 
 /**
-* Öffnet den Keks Dialog mit den gesammeöten Cookie
+* Öffnet den Keks Dialog mit den gesammelten Cookies
 * Anfragen aus @ref pendingCookieRequests und arbeitet
 * sie nach und nach ab.
 * Wenn Cookies akzeptiert wurden wird das Signal
