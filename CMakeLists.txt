@@ -165,6 +165,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -W -Wno-long-long")
   ENDIF (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
+  IF (GEOIP_FOUND)
+    ADD_DEFINITIONS (${GEOIP_DEFINITIONS})
+  ENDIF (GEOIP_FOUND)
+
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 ##############################################################

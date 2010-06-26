@@ -43,12 +43,16 @@ class GeoLocation : public QWidget
   private:
     const QIcon defaultIcon;
     QToolButton* m_toolButton;
-    QHostInfo hostInfo;
+    void setFlag ( const QString & );
+    void setGeoAddress ( const QString & );
+
+  private Q_SLOTS:
+    void fetchFromHost ( const QHostInfo & );
 
   public:
     GeoLocation ( QWidget * parent = 0 );
     void setHostName ( const QString & );
-    virtual ~GeoLocation();
+    ~GeoLocation();
 };
 
 #endif

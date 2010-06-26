@@ -1,9 +1,11 @@
 # - Try to find the GeoIP C Library from (http://www.maxmind.com)
 # Once done this will define
 #
-#  GEOIP_FOUND       - system has GeoIP
-#  GEOIP_LIBRARIES   - Link these to use GeoIP
-#  GEOIP_INCLUDE_DIR - Include directory for using GeoIP
+#  GEOIP_FOUND         - system has GeoIP
+#  GEOIP_LIBRARIES     - Link these to use GeoIP
+#  GEOIP_INCLUDE_DIR   - Include directory for using GeoIP
+#  GEOIP_DEFINITIONS   - Add Simple -DHAVE_GEOIP definition
+#  GEOIP_DATABASE_PATH - Path to GeoIP Datbases Default:/usr/share/GeoIP/
 
 # $GEOIPDIR is an environment variable that would
 # correspond to the ./configure --prefix=$GEOIPDIR
@@ -47,11 +49,29 @@ FIND_LIBRARY(GEOIP_LIBRARIES
   "[HKEY_LOCAL_MACHINE\\SOFTWARE\\MaxMind\\GeoIP]"
 )
 
-SET(GEOIP_FOUND "NO")
+FIND_PATH(GEOIP_DATABASE_PATH GeoIP.dat
+  HINTS
+  $ENV{GEOIPDIR}
+  PATH_SUFFIXES share/GeoIP share/geoip share/misc
+  PATHS
+  ~/Library/Frameworks
+  /Library/Frameworks
+  /usr/local
+  /usr
+  /sw # Fink
+  /opt/local # DarwinPorts
+  /opt/csw # Blastwave
+  /opt
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\MaxMind\\GeoIP]"
+)
+
+SET (GEOIP_DEFINITIONS "")
+SET (GEOIP_FOUND "NO")
 
 IF (GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
   SET (GEOIP_FOUND "YES")
-  MESSAGE (STATUS "Found GeoIP Library - ${GEOIP_LIBRARIES}; includes - ${GEOIP_INCLUDE_DIR}")
+  SET (GEOIP_DEFINITIONS ${GEOIP_DEFINITIONS} -DHAVE_GEOIP)
+  MESSAGE (STATUS "Found GeoIP Library - ${GEOIP_LIBRARIES}; includes - ${GEOIP_INCLUDE_DIR}; databases - ${GEOIP_DATABASE_PATH}")
 ELSE (GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
   IF (GeoIP_FIND_REQUIRED)
     MESSAGE (FATAL_ERROR "Could NOT find GeoIP Development Library")
@@ -61,4 +81,6 @@ ENDIF(GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
 MARK_AS_ADVANCED (
   GEOIP_INCLUDE_DIR
   GEOIP_LIBRARIES
+  GEOIP_DATABASE_PATH
+  GEOIP_DEFINITIONS
 )
