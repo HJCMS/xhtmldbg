@@ -17,8 +17,6 @@ INSTALL_DESTDIR="`mktemp --tmpdir=/tmp xhtmldbg.XXXXXXXXXX`"
 function runcmake()
 {
   cmake \
-    -DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/g++ \
-    -DCMAKE_C_COMPILER:FILEPATH=/usr/bin/gcc \
     -DCMAKE_CXX_FLAGS:STRING="$MY_CFLAGS" \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DCMAKE_BUILD_TYPE:STRING=Debug \

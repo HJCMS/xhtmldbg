@@ -1,3 +1,6 @@
+- 2010/06/27 Juergen Heinemann (Undefined)
+  Bugfix: cmake and gcc 4.5 relocation R_X86_64_32S
+
 - 2010/06/25 Juergen Heinemann (Undefined)
   Add: Namespace Support for Feed Parsers
   Bugfix: Multible Cookies from Host

@@ -20,11 +20,13 @@ and GCC 4.0.1 to develop applications.
 
 1) create a subdirectory build in source home directory
 2) open a terminal and change this directory
-3) run cmake
+4) optional "export GEOIP_DBBASE_DIR=/var" if GEOIP_DATABASE_PATH not found
+5) run cmake
   Unix
     cmake -Wno-dev -DCMAKE_BUILD_TYPE:STRING=Release \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
-      -DSYSCONF_INSTALL_DIR:PATH=/etc ../
+      -DSYSCONF_INSTALL_DIR:PATH=/etc \
+      -DGEOIP_DATABASE_PATH:PATH=/var/lib/GeoIP ../
 
   Verbose Debug Build (Unix Only):
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr \
@@ -38,9 +40,9 @@ and GCC 4.0.1 to develop applications.
       -DACCEPT_MICROSOFT_PUBLIC_LICENSE:BOOL=ON \
       -DCMAKE_INSTALL_PREFIX:PATH=/c/qtidy ..
 
-4) make
-5) make DESTDIR=/tmp/test install
-6) Checking if W3C Validator works on your System
+6) make
+7) make DESTDIR=/tmp/test install
+8) Checking if W3C Validator works on your System
 
 #!/bin/sh
 ##
