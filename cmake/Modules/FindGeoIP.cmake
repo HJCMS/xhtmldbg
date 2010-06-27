@@ -56,8 +56,8 @@ FIND_PATH(GEOIP_DATABASE_PATH GeoIP.dat
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks
-  /usr/local
-  /usr
+  /var/lib
+  /usr/local/var/lib
   /sw # Fink
   /opt/local # DarwinPorts
   /opt/csw # Blastwave
