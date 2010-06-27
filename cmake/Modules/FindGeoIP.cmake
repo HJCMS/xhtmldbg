@@ -52,12 +52,15 @@ FIND_LIBRARY(GEOIP_LIBRARIES
 FIND_PATH(GEOIP_DATABASE_PATH GeoIP.dat
   HINTS
   $ENV{GEOIPDIR}
-  PATH_SUFFIXES share/GeoIP share/geoip share/misc
+  $ENV{GEOIP_DBBASE_DIR}
+  PATH_SUFFIXES lib/GeoIP lib/geoip share/GeoIP share/geoip share/misc
   PATHS
   ~/Library/Frameworks
   /Library/Frameworks
+  /var
   /var/lib
   /var/spool
+  /usr/local
   /usr/local/share
   /sw # Fink
   /opt/local # DarwinPorts
