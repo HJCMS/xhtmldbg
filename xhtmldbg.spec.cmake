@@ -6,24 +6,38 @@
 
 # norootforbuild
 
-%define _qt_transdir  %(qmake -query QT_INSTALL_TRANSLATIONS)
+## !!! Willst du dir den Tag versauen - mußt du auf OpenSuSE Build Service Paket bauen !!!
+
+%define devdepend  libtidy-0_99-0-devel libqt4-devel >= 4.6.0 libQtWebKit-devel >= 4.6.0 QTidy-devel >= 0.8.2 libraptor-devel >= 1.4.20 libGeoIP-devel >= 1.4.5
+
+## @set package name suffix and pkgname
+################################
+%define lt_version  -1_0-0
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
 Version:        @XHTMLDBG_VERSION@
-Release:        1
+Release:        179
 License:        GPLv3
 AutoReqProv:    on
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
+Source0:        http://gitweb.hjcms.de/cgi-bin/index.cgi/%{name}/snapshot/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
-Requires:       QTidy >= @QTIDY_VERSION@ qtidyrc oxygen-icon-theme >= 4.4.0 dbus-1
-BuildRequires:  cmake libtidy-devel QTidy-devel >= @QTIDY_VERSION@
-BuildRequires:  update-desktop-files oxygen-icon-theme >= 4.4.0
-BuildArch:      %{_target_cpu}
-ExclusiveOs:    %{_os}
+Supplements:    mimehandler(text/html)
+Requires:       qtidyrc >= 0.8.2 oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3
+BuildRequires:  cmake pkg-config %{devdepend}
+BuildRequires:  update-desktop-files brp-check-suse desktop-file-utils qtidyrc >= 0.8.2
+BuildRequires:  oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3 desktop-data-openSUSE
+Vendor:         Heinemann Juergen (Undefined) http://www.hjcms.de
+## This package ist not relocatable
+Prefix:         /usr
 
-%debug_package
+################################
+## set enviroment variables
+################################
+%define _qt_prefix    %{_prefix}
+%define _qt_transdir  %{_prefix}/share/qt4/translations
 
 %description
 Tidy HTML/XML Validator and Debugger.
@@ -32,14 +46,13 @@ Author:
 -------------
   Juergen Heinemann (Undefined)
 
-%package -n libxhtmldbg
-Summary:     xhtmldbg Plugin Interface Library
-Version:     @XHTMLDBG_VERSION_MAJOR@.@XHTMLDBG_VERSION_MINOR@.@XHTMLDBG_VERSION_RELEASE@
+%package -n libxhtmldbg%{lt_version}
+Summary:     The xhtmldbg Plugin Interface Library
 License:     LGPLv3
 Group:       System/Libraries
 AutoReqProv: on
 
-%description -n libxhtmldbg
+%description -n libxhtmldbg%{lt_version}
 This Library is used by xhtmldbg for load Plugins
 
 Author:
@@ -47,13 +60,11 @@ Author:
   Juergen Heinemann (Undefined)
 
 %package -n libxhtmldbg-devel
-Summary:     Development Package for the xhtmldbg Plugin Interface Library
+Summary:     Development Package for xhtmldbg Plugin Interface Library
 License:     LGPLv3
 Group:       Development/Languages/C and C++
 AutoReqProv: on
-Requires:    %{name} >= %{version}
-Requires:    libxhtmldbg = %{version}
-Requires:    c++_compiler pkgconfig qt4-devel >= 4.6.0
+Requires:    libxhtmldbg%{lt_version} = %{version}-%{release} %{devdepend}
 
 %description -n libxhtmldbg-devel
 This Library is used by xhtmldbg for load Plugins
@@ -64,22 +75,26 @@ Author:
 
 %prep
 
-%setup -q -T -c %{name}
-
-## Password: anonymous
-git clone http://anonymous@repository.hjcms.de/hjcms/xhtmldbg .
+%setup -q -n %{name}-%{version}
 
 %__mkdir_p build
 
 %build
+
+export GEOIP_DBBASE_DIR="/var"
 
 pushd build
 
 cmake -Wno-dev \
   -DCMAKE_CXX_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_C_FLAGS:STRING="$RPM_OPT_FLAGS" \
-  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
-  -DCMAKE_BUILD_TYPE:STRING=Debug \
+  -DCMAKE_INSTALL_PREFIX:PATH=%{_qt_prefix} \
+%if %{_lib} == lib64
+  -DLIB_SUFFIX:STRING=64 \
+%endif
+  -DCMAKE_SKIP_RPATH:BOOL=ON \
+  -DGEOIP_DATABASE_PATH:PATH=/var/lib/GeoIP \
+  -DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$RPM_BUILD_ROOT" \
   ../
 
 %__make
@@ -87,12 +102,13 @@ cmake -Wno-dev \
 popd
 
 %install
-## Reserved by Plugin Interface
-%__mkdir_p $RPM_BUILD_ROOT/%{_libdir}/%{name}
 
 pushd build
   %makeinstall
 popd
+
+## Update Desktop Files
+%suse_update_desktop_file -u -i %{name} -r Development Debugger
 
 %post
 ##
@@ -102,21 +118,22 @@ popd
 
 %files
 %defattr(-,root,root,-)
+%dir /etc/xdg/hjcms.de
+%config /etc/xdg/hjcms.de/%{name}.conf
 %{_bindir}/%{name}
+%{_qt_transdir}/xhtmldbg_*.qm
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib*.so
-%{_qt_transdir}/xhtmldbg_*.qm
-%dir %{_datadir}/%{name}
 %doc %{_datadir}/%{name}/AUTHORS
 %doc %{_datadir}/%{name}/COPYING
 %doc %{_datadir}/%{name}/ChangeLog
 %doc %{_datadir}/%{name}/NEWS
 %doc %{_datadir}/%{name}/README
+%{_datadir}/%{name}/xhtmldbg_untranslated.ts
 %dir %{_datadir}/%{name}/schemas
 %{_datadir}/%{name}/schemas/*.xsd
 %{_datadir}/%{name}/schemas/*.xsl
 %{_datadir}/%{name}/schemas/*.dtd
-%{_datadir}/%{name}/xhtmldbg_untranslated.ts
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/icons/oxygen/128x128
 %dir %{_datadir}/icons/oxygen/128x128/apps
@@ -145,14 +162,15 @@ popd
 %{_datadir}/icons/oxygen/*/apps/%{name}.png
 %{_datadir}/icons/oxygen/*/apps/xhtmldbg.svgz
 %{_datadir}/pixmaps/%{name}.xpm
-@DBUS_SESSION_BUS_SERVICES_DIR@/de.hjcms.xhtmldbg.service
-%post -n libxhtmldbg -p /sbin/ldconfig
-##
+%{_datadir}/dbus-1/services/de.hjcms.xhtmldbg.service
 
-%postun -n libxhtmldbg -p /sbin/ldconfig
-##
+%post -n libxhtmldbg%{lt_version}
+/sbin/ldconfig
 
-%files -n libxhtmldbg
+%postun -n libxhtmldbg%{lt_version}
+/sbin/ldconfig
+
+%files -n libxhtmldbg%{lt_version}
 %defattr(-,root,root,-)
 %{_libdir}/libxhtmldbg-1.0.so.*
 
@@ -169,13 +187,14 @@ popd
 %dir %{_includedir}/xhtmldbg-1.0
 %{_includedir}/xhtmldbg-1.0/*.h
 %dir %{_datadir}/%{name}/plugintemplate
-%{_datadir}/%{name}/plugintemplate/*.txt
-%{_datadir}/%{name}/plugintemplate/*.h
+%{_datadir}/%{name}/plugintemplate/CMakeLists.txt
 %{_datadir}/%{name}/plugintemplate/*.cpp
+%{_datadir}/%{name}/plugintemplate/*.h
 
 %clean
 test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT
 
 %changelog
-## LATEST @XHTMLDBG_VERSION@
+* Sun Jun 27 2010 - Heinemann Juergen (Undefined) http://www.hjcms.de
+- Rebuild 0.8.8.rc3 for new OpenSuSE Build Service
 

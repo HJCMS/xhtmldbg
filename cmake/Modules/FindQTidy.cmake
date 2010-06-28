@@ -12,15 +12,6 @@
 #   ADD_EXECUTABLE(myexe main.cpp)
 #   TARGET_LINK_LIBRARIES(myexe ${QTIDY_LIBRARIES})
 #
-#  QTIDY_DEFINITIONS  Definitions to use when compiling code that uses QTidy.
-#  QTIDY_INCLUDES     List of paths to all include directories of Qt4 and QTidy
-#                     QT_INCLUDE_DIR and QTIDY_INCLUDE_DIR are always in this variable
-#                     even if NOTFOUND, all other INCLUDE_DIRS are only added if they are found.
-#
-#  Include directories for the Qt modules are listed here.
-#  You do not need to use these variables if you include QT_USE_FILE.
-#
-#  QT_INCLUDE_DIR              Path to "include" of Qt4
 # Copyright (c) 2007-2010, Juergen Heinemann (Undefined) <nospam (AT) hjcms (DOT) de>
 #
 # See COPYING file that comes with this distribution
@@ -60,7 +51,7 @@ ENDIF (TIDY_INCLUDE OR TIDY_LIBRARY)
 IF (NOT TIDY_FOUND)
   MESSAGE (FATAL_ERROR "tidy development file from http://tidy.sourceforge.net not found.")
 ELSE (NOT TIDY_FOUND)
-  MESSAGE(STATUS "Found tidy [${TIDY_LIBRARY}][${TIDY_INCLUDE}]")
+  MESSAGE (STATUS "Found tidy [${TIDY_LIBRARY}][${TIDY_INCLUDE}]")
 ENDIF (NOT TIDY_FOUND)
 
 ##############################################################
@@ -75,6 +66,7 @@ SET (QTIDY_INC_SEARCH_PATH
   /usr/include/QTidy
   /usr/local/include/QTidy
   ${QT_INCLUDE_DIR}/QTidy
+  "$ENV{ProgramFiles}/QTidy"
 )
 FIND_PATH (QTIDY_INCLUDE QTidy.h ${QTIDY_INC_SEARCH_PATH})
 
@@ -89,7 +81,7 @@ SET (QTIDY_DEFINITIONS "-DQTIDY_VERSION_STRING=\"${QTIDY_VERSION}\"")
 
 FIND_LIBRARY (QTIDY_LIBRARY
   NAMES QTidy QTidy-1.0
-  PATHS ${QT_LIBRARY_DIR} NO_DEFAULT_PATH
+  PATHS /usr/local/lib /usr/lib /usr/local/lib64 /usr/lib64 ${QT_LIBRARY_DIR} ENV LD_LIBRARY_PATH
 )
 
 IF (QTIDY_FOUND)
