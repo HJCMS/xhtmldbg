@@ -34,15 +34,14 @@
 /**
 * Öffne einen QColorDialog und setze die Farbe.
 */
-const QString ConfigUtils::openColorDialog ( const QString &fallback,
-        const QString &current, QWidget * parent )
+const QString ConfigUtils::openColorDialog ( const QString &current, QWidget * parent )
 {
   QColorDialog* dialog = new QColorDialog ( parent );
   dialog->setCurrentColor ( QColor ( current ) );
   if ( dialog->exec() )
     return dialog->selectedColor().name();
 
-  return fallback;
+  return current;
 }
 
 /**

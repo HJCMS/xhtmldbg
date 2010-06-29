@@ -42,8 +42,6 @@
 #include "settargetdialog.h"
 #include "openurldialog.h"
 #include "aboutdialog.h"
-#include "configdialog.h"
-// TODO Configuration
 #include "configuration.h"
 #include "statusbar.h"
 #include "dominspector.h"
@@ -78,6 +76,7 @@
 /* QtGui */
 #include <QtGui/QApplication>
 #include <QtGui/QColor>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
@@ -826,7 +825,6 @@ void Window::openUrlDialog()
 void Window::openConfigDialog()
 {
   Configuration* dialog = new Configuration ( this, m_settings );
-  // ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
   if ( dialog->exec() )
   {
     m_netManager->cookieJar()->reload();

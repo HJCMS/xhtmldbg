@@ -26,6 +26,8 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QGroupBox>
+#include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
@@ -35,6 +37,18 @@ class ConfigDomTree : public PageWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    QString highlightBackgroundColor;
+    QString highlightBorderColor;
+    QGroupBox* m_backgroundColorGroup;
+    QLabel* previewBackground;
+    QGroupBox* m_borderColorGroup;
+    QLabel* previewBorder;
+
+  private Q_SLOTS:
+    void setBackgroundColor();
+    void setBorderColor();
 
   public:
     ConfigDomTree ( QWidget * parent = 0 );

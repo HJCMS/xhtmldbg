@@ -36,9 +36,7 @@ class ConfigUtils : public QObject
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   public:
-    static const QString openColorDialog ( const QString &fallback,
-                                           const QString &current,
-                                           QWidget * parent );
+    static const QString openColorDialog ( const QString &current, QWidget * parent );
 
     static const QString findBinaryDialog ( const QString &searchName,
                                             QWidget * parent,
