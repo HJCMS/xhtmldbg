@@ -48,7 +48,7 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
   verticalLayout->setObjectName ( QLatin1String ( "config_page_domtree_vertical_layout" ) );
   verticalLayout->setContentsMargins ( 0, 5, 0, 5 );
 
-  m_backgroundColorGroup = new QGroupBox ( trUtf8 ( "Highlight Background" ), centralWidget );
+  m_backgroundColorGroup = new QGroupBox ( trUtf8 ( "Enable Background Highlight" ), centralWidget );
   m_backgroundColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_background" ) );
   m_backgroundColorGroup->setContentsMargins ( 0, 5, 0, 5 );
   m_backgroundColorGroup->setFlat ( true );
@@ -70,7 +70,7 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
 
   m_backgroundColorGroup->setLayout ( hLayoutOne );
 
-  m_borderColorGroup = new QGroupBox ( trUtf8 ( "Highlight Border" ), centralWidget );
+  m_borderColorGroup = new QGroupBox ( trUtf8 ( "Enable Border Highlight" ), centralWidget );
   m_borderColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_border" ) );
   m_borderColorGroup->setContentsMargins ( 0, 5, 0, 5 );
   m_borderColorGroup->setCheckable ( true );

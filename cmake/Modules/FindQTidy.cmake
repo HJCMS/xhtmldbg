@@ -67,6 +67,7 @@ SET (QTIDY_INC_SEARCH_PATH
   /usr/local/include/QTidy
   ${QT_INCLUDE_DIR}/QTidy
   "$ENV{ProgramFiles}/QTidy"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\HJCMS.DE\\QTidy]"
 )
 FIND_PATH (QTIDY_INCLUDE QTidy.h ${QTIDY_INC_SEARCH_PATH})
 

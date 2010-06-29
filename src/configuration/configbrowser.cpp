@@ -34,7 +34,6 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   setNotice ( true );
   setCheckable ( false );
 
-  // TODO HACK QTWEBKIT_PLUGIN_PATH
 }
 
 void ConfigBrowser::load ( QSettings * )
