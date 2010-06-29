@@ -43,6 +43,8 @@
 #include "openurldialog.h"
 #include "aboutdialog.h"
 #include "configdialog.h"
+// TODO Configuration
+#include "configuration.h"
 #include "statusbar.h"
 #include "dominspector.h"
 #include "headerdock.h"
@@ -560,6 +562,14 @@ void Window::closeEvent ( QCloseEvent *event )
   if ( isFullScreen() ) // Keine Vollansicht Speichern!
     setWindowState ( windowState() & ~Qt::WindowFullScreen );
 
+  // Den DownloadManager nicht in die Stats schreiben!
+  bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
+  if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
+  {
+    m_downloadManager->toggleViewAction()->setChecked ( false );
+    m_downloadManager->hide();
+  }
+
   plugins.clear(); // Vector Leeren
   m_settings->setValue ( "MainWindowState", saveState() );
   m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
@@ -815,7 +825,8 @@ void Window::openUrlDialog()
 */
 void Window::openConfigDialog()
 {
-  ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
+  Configuration* dialog = new Configuration ( this, m_settings );
+  // ConfigDialog* dialog = new ConfigDialog ( this, m_settings );
   if ( dialog->exec() )
   {
     m_netManager->cookieJar()->reload();

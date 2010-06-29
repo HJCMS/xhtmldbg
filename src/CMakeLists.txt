@@ -17,6 +17,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
+  ${CMAKE_CURRENT_SOURCE_DIR}/configuration
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -33,6 +34,7 @@ ADD_SUBDIRECTORY (configdialog)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
+ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (plugins)
 
 SET (xhtmldbg_SOURCES
@@ -122,6 +124,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   OpenUrlDialog
   Networker
   ConfigDialog
+  Configuration
   CSSValidator
   DownloadManager
   RDFParser
