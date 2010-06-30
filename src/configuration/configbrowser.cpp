@@ -24,11 +24,16 @@
 /* QtCore */
 #include <QtCore/QMap>
 #include <QtCore/QMapIterator>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QAbstractButton>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QCheckBox>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QGroupBox>
+#include <QtGui/QLabel>
+#include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 
 /**
@@ -61,6 +66,12 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   setObjectName ( QLatin1String ( "config_page_browser" ) );
   setNotice ( true );
   setCheckable ( false );
+
+  QSizePolicy sizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
+  sizePolicy.setHorizontalStretch ( 0 );
+  sizePolicy.setVerticalStretch ( 0 );
+
+  Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
 
@@ -113,20 +124,60 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   verticalLayout->addWidget ( cb12 );
 
   /** Bitte nicht vergessen die Objektnamen in die Map ein zu tragen! */
-//   QCheckBox* cb = new QCheckBox ( trUtf8 ( "" ), centralWidget );
-//   cb->setObjectName ( QLatin1String ( "" ) );
-//   verticalLayout->addWidget ( cb );
+  // Template:
+  // QCheckBox* cb = new QCheckBox ( trUtf8 ( "" ), centralWidget );
+  // cb->setObjectName ( QLatin1String ( "" ) );
+  // verticalLayout->addWidget ( cb );
 
-  // TODO
-  // QWebSettings::DefaultFontSize => DefaultFontSize
-  // QWebSettings::DefaultFixedFontSize => DefaultFixedFontSize
+  // Registriere alle verwendeten Auswahlboxen für setWindowModified
+  registerCheckBoxes();
+
+  // Font Einstellungen
+  QGroupBox* fontGroup = new QGroupBox ( trUtf8 ( "Font Settings" ), centralWidget );
+  fontGroup->setObjectName ( QLatin1String ( "config_page_browser_font_group" ) );
+  fontGroup->setFlat ( true );
+
+  QHBoxLayout* horizontalLayout = new QHBoxLayout ( fontGroup );
+  horizontalLayout->setObjectName ( QLatin1String ( "config_page_browser_font_grid_layout" ) );
+
+  QLabel* label_df = new QLabel ( trUtf8 ( "Default Font Size:" ), fontGroup );
+  label_df->setAlignment ( labelAlign );
+  label_df->setSizePolicy ( sizePolicy );
+  horizontalLayout->addWidget ( label_df );
+
+  DefaultFontSize = new QSpinBox ( fontGroup );
+  DefaultFontSize->setObjectName ( QLatin1String ( "DefaultFontSize" ) );
+  DefaultFontSize->setMinimum ( 8 );
+  DefaultFontSize->setMaximum ( 50 );
+  horizontalLayout->addWidget ( DefaultFontSize );
+
+  QLabel* label_ff = new QLabel ( trUtf8 ( "Fixed Font Size:" ), fontGroup );
+  label_ff->setAlignment ( labelAlign );
+  label_ff->setSizePolicy ( sizePolicy );
+  horizontalLayout->addWidget ( label_ff );
+
+  DefaultFixedFontSize = new QSpinBox ( fontGroup );
+  DefaultFixedFontSize->setObjectName ( QLatin1String ( "DefaultFixedFontSize" ) );
+  DefaultFixedFontSize->setMinimum ( 8 );
+  DefaultFixedFontSize->setMaximum ( 50 );
+  horizontalLayout->addWidget ( DefaultFixedFontSize );
+
+  fontGroup->setLayout ( horizontalLayout );
+  verticalLayout->addWidget ( fontGroup );
 
   centralWidget->setLayout ( verticalLayout );
 
-  // Registriere alle Auswahlboxen für setWindowModified
-  registerCheckBoxes();
+  connect ( DefaultFontSize, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( itemClicked ( int ) ) );
+
+  connect ( DefaultFixedFontSize, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( itemClicked ( int ) ) );
 }
 
+/**
+* Registriere alle Auswahlboxen für die Signal
+* verabeitung von @ref modified
+*/
 void ConfigBrowser::registerCheckBoxes()
 {
   int id = 0;
@@ -158,6 +209,8 @@ void ConfigBrowser::load ( QSettings * cfg )
     it.next();
     findChild<QCheckBox*> ( it.key() )->setChecked ( cfg->value ( it.key(), it.value() ).toBool() );
   }
+  DefaultFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
+  DefaultFixedFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
 }
 
 void ConfigBrowser::save ( QSettings * cfg )
@@ -168,6 +221,8 @@ void ConfigBrowser::save ( QSettings * cfg )
     it.next();
     cfg->setValue ( it.key(), findChild<QCheckBox*> ( it.key() )->isChecked() );
   }
+  cfg->setValue ( QLatin1String ( "DefaultFontSize" ), DefaultFontSize->value() );
+  cfg->setValue ( QLatin1String ( "DefaultFixedFontSize" ), DefaultFixedFontSize->value() );
 }
 
 void ConfigBrowser::defaults()
@@ -178,6 +233,8 @@ void ConfigBrowser::defaults()
     it.next();
     findChild<QCheckBox*> ( it.key() )->setChecked ( it.value() );
   }
+  DefaultFontSize->setValue ( 16 );
+  DefaultFixedFontSize->setValue ( 16 );
 }
 
 ConfigBrowser::~ConfigBrowser()

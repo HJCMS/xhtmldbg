@@ -24,9 +24,10 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QtCore/QSettings>
 
 /* QtGui */
+#include <QtGui/QSpinBox>
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
@@ -38,6 +39,8 @@ class ConfigBrowser : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    QSpinBox* DefaultFontSize;
+    QSpinBox* DefaultFixedFontSize;
     void registerCheckBoxes();
 
   private Q_SLOTS:

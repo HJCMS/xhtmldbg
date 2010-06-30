@@ -24,6 +24,7 @@
 #include "stackedwidget.h"
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 
 /* QtGui */
@@ -110,6 +111,7 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   connect ( m_buttonClose, SIGNAL ( clicked() ),
             this, SLOT ( quit() ) );
 
+  m_splitter->restoreState ( cfg->value ( "ConfigDialog/SplitterState" ).toByteArray() );
   update();
 }
 
@@ -125,6 +127,7 @@ void Configuration::quit()
                                      trUtf8 ( "Found unsaved Changes.\nDo you realy want to exit?" ),
                                      ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
 
+  cfg->setValue ( "ConfigDialog/SplitterState", m_splitter->saveState() );
   if ( status == QMessageBox::Yes )
     accept();
 }
