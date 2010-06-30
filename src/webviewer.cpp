@@ -135,6 +135,18 @@ void WebViewer::updateWebSettings()
 
   wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
                        cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::DnsPrefetchEnabled,
+                       cfg->value ( QLatin1String ( "DnsPrefetchEnabled" ), true ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::JavascriptCanOpenWindows,
+                       cfg->value ( QLatin1String ( "JavascriptCanOpenWindows" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard,
+                       cfg->value ( QLatin1String ( "JavascriptCanAccessClipboard" ), false ).toBool() );
+
+  wcfg->setAttribute ( QWebSettings::PrintElementBackgrounds,
+                       cfg->value ( QLatin1String ( "PrintElementBackgrounds" ), false ).toBool() );
 }
 
 Viewer* WebViewer::activeView()

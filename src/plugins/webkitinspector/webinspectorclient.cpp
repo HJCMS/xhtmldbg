@@ -75,6 +75,9 @@ void WebInspectorClient::updateWebSettings()
   wcfg->setAttribute ( QWebSettings::PluginsEnabled, false );
   wcfg->setAttribute ( QWebSettings::JavaEnabled, false );
   wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
+  wcfg->setAttribute ( QWebSettings::DnsPrefetchEnabled, true );
+  wcfg->setAttribute ( QWebSettings::JavascriptCanOpenWindows, false );
+  wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard, false );
 }
 
 void WebInspectorClient::load ( const QUrl &url )

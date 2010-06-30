@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QWidget>
@@ -32,12 +33,18 @@
 
 class ConfigBrowser : public PageWidget
 {
-  Q_OBJECT
-  Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-  Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    void registerCheckBoxes();
+
+  private Q_SLOTS:
+    void itemClicked ( int );
 
   public:
-    ConfigBrowser( QWidget * parent = 0 );
+    ConfigBrowser ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
     void defaults();
