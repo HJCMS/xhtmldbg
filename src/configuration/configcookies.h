@@ -26,18 +26,30 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QComboBox>
+#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
+#include "editcookiestable.h"
 
 class ConfigCookies : public PageWidget
 {
-  Q_OBJECT
-  Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-  Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    EditCookiesTable *cookiesTable;
+    QLineEdit* cookieEdit;
+    QComboBox* selectedArrangementType;
+
+  private Q_SLOTS:
+    void addCookieAccess();
+    void itemModified ();
 
   public:
-    ConfigCookies( QWidget * parent = 0 );
+    ConfigCookies ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
     void defaults();

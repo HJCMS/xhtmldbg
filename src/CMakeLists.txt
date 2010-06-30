@@ -10,7 +10,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
-  ${CMAKE_CURRENT_SOURCE_DIR}/editcookiestable
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
@@ -18,6 +17,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+  ${CMAKE_CURRENT_SOURCE_DIR}/configuration/editcookiestable
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -28,7 +28,6 @@ ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (settargetdialog)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
-ADD_SUBDIRECTORY (editcookiestable)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (cssvalidator)

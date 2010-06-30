@@ -1,6 +1,7 @@
 # CMakeLists.txt
 
-# ADD_SUBDIRECTORY (useragenteditor)
+ADD_SUBDIRECTORY (editcookiestable)
+ADD_SUBDIRECTORY (useragenteditor)
 
 SET (subproject_SOURCES
   configuration.cpp
@@ -43,6 +44,8 @@ REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_CURRENT_BINARY_DIR}/useragenteditor
+  ${CMAKE_CURRENT_SOURCE_DIR}/useragenteditor
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
@@ -61,6 +64,7 @@ TARGET_LINK_LIBRARIES (Configuration
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   EditCookiesTable
+  UserAgentsEditor
 )
 
 ## EOF

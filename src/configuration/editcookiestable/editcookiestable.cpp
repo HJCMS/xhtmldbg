@@ -28,8 +28,9 @@
 
 /* QtGui */
 #include <QtGui/QHeaderView>
-#include <QtGui/QTableWidgetItem>
 #include <QtGui/QItemSelectionModel>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QTableWidgetItem>
 
 ArrangementItem::ArrangementItem ( const QString &name, int type, QWidget * parent )
     : QComboBox ( parent )
@@ -49,6 +50,24 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
+  setContextMenuPolicy ( Qt::NoContextMenu );
+  setEditTriggers ( QAbstractItemView::DoubleClicked );
+  setTabKeyNavigation ( true );
+  setProperty ( "showDropIndicator", QVariant ( false ) );
+  setDragDropOverwriteMode ( false );
+  setAlternatingRowColors ( true );
+  setSelectionMode ( QAbstractItemView::SingleSelection );
+  setSelectionBehavior ( QAbstractItemView::SelectRows );
+  setGridStyle ( Qt::DashLine );
+  setWordWrap ( false );
+  setRowCount ( 0 );
+  horizontalHeader()->setDefaultSectionSize ( 125 );
+  horizontalHeader()->setHighlightSections ( false );
+  horizontalHeader()->setMinimumSectionSize ( 125 );
+  horizontalHeader()->setProperty ( "showSortIndicator", QVariant ( true ) );
+  horizontalHeader()->setStretchLastSection ( false );
+  verticalHeader()->setVisible ( false );
+
   if ( columnCount () != 2 )
   {
     setColumnCount ( 2 );
@@ -56,6 +75,7 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
     lb << trUtf8 ( "Arrangement" );
     setHorizontalHeaderLabels ( lb );
   }
+
   connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
             this, SLOT ( cellChanged ( const QModelIndex & ) ) );
 }
