@@ -48,7 +48,7 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, QSettings * settings )
   insertItem ( 3, trUtf8 ( "Browser" ), icon.fromTheme ( QLatin1String ( "internet-web-browser" ) ) );
   insertItem ( 4, trUtf8 ( "Cookies" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
   insertItem ( 5, trUtf8 ( "Proxy" ), icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
-  insertItem ( 6, trUtf8 ( "SSL" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
+  insertItem ( 6, trUtf8 ( "Certification" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
   insertItem ( 7, trUtf8 ( "User Agent" ), icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
   insertItem ( 8, trUtf8 ( "Geological IP" ), icon.fromTheme ( QLatin1String ( "applications-education-language" ) ) );
 

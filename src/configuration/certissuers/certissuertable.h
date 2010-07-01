@@ -19,37 +19,26 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef CERTISSUERTABLE_H
+#define CERTISSUERTABLE_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
-
-class ConfigSSL : public PageWidget
+class CertIssuerTable : public QTableWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
-
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    void defaults();
-    ~ConfigSSL();
+    CertIssuerTable ( QWidget * parent = 0 );
+    ~CertIssuerTable();
 };
 
 #endif

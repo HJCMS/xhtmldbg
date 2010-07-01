@@ -19,37 +19,50 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef CERTISSUERS_H
+#define CERTISSUERS_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QGroupBox>
+#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
+/* QtNetwork */
+#include <QtNetwork/QSslCertificate>
+#include <QtNetwork/QSslConfiguration>
 
-class ConfigSSL : public PageWidget
+class CertIssuerTable;
+
+class CertIssuers : public QGroupBox
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
+    QSslConfiguration ssl;
+    CertIssuerTable* n_certIssuerTable;
+    QLineEdit* m_editCaDatabase;
+    void setCaCertIssuerTable();
+
+  private Q_SLOTS:
+    void getCaCertDatabaseDialog();
+
+  Q_SIGNALS:
+    void modified ( bool );
+
+  public Q_SLOTS:
+    void setCaCertDatabase ( const QString &p = QString() );
 
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    void defaults();
-    ~ConfigSSL();
+    CertIssuers ( QWidget * parent = 0 );
+    void setCaBundleFile ( const QString & );
+    const QString getCaBundleFile ();
+    ~CertIssuers();
 };
 
 #endif

@@ -19,37 +19,47 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef CONFIGACCESSCONTROL_H
+#define CONFIGACCESSCONTROL_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QGroupBox>
+#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
-
-class ConfigSSL : public PageWidget
+class ConfigAccessControl : public QGroupBox
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
+    QLineEdit* sslPublicKey;
+    QLineEdit* sslPrivateKey;
+    QLineEdit* sslPrivatePass;
+
+  private Q_SLOTS:
+    void getPrivKeyDialog();
+    void getPupKeyDialog();
+    void dataChanged ( const QString & );
+
+  Q_SIGNALS:
+    void modified ( bool b = true );
 
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    void defaults();
-    ~ConfigSSL();
+    ConfigAccessControl ( QWidget * parent = 0 );
+    void setPublicKeyPath ( const QString & );
+    void setPrivateKeyPath ( const QString & );
+    void setPassPhrase ( const QByteArray & );
+    const QString getPupKey();
+    const QString getPrivKey();
+    const QByteArray getPassPhrase();
+    ~ConfigAccessControl();
 };
 
 #endif

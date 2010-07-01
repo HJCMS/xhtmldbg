@@ -112,7 +112,7 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
             this, SLOT ( quit() ) );
 
   m_splitter->restoreState ( cfg->value ( "ConfigDialog/SplitterState" ).toByteArray() );
-  update();
+  // update();
 }
 
 /**

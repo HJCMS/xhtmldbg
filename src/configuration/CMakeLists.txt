@@ -2,6 +2,7 @@
 
 ADD_SUBDIRECTORY (editcookiestable)
 ADD_SUBDIRECTORY (useragenteditor)
+ADD_SUBDIRECTORY (certissuers)
 
 SET (subproject_SOURCES
   configuration.cpp
@@ -15,6 +16,8 @@ SET (subproject_SOURCES
   configcookies.cpp
   configproxy.cpp
   configssl.cpp
+  configtrustedhosts.cpp
+  configaccesscontrol.cpp
   configuseragents.cpp
   configgeo.cpp
   configutils.cpp
@@ -32,6 +35,8 @@ SET (subproject_HEADERS
   configcookies.h
   configproxy.h
   configssl.h
+  configtrustedhosts.h
+  configaccesscontrol.h
   configuseragents.h
   configgeo.h
   configutils.h
@@ -46,6 +51,8 @@ INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}/useragenteditor
   ${CMAKE_CURRENT_SOURCE_DIR}/useragenteditor
+  ${CMAKE_CURRENT_BINARY_DIR}/certissuers
+  ${CMAKE_CURRENT_SOURCE_DIR}/certissuers
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
@@ -65,6 +72,7 @@ TARGET_LINK_LIBRARIES (Configuration
   ${QT_QTGUI_LIBRARY}
   EditCookiesTable
   UserAgentsEditor
+  CertIssuers
 )
 
 ## EOF
