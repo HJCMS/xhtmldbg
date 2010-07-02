@@ -13,6 +13,7 @@ SET (subproject_SOURCES
   configtidy.cpp
   configdomtree.cpp
   configbrowser.cpp
+  configheaderdefinitions.cpp
   configcookies.cpp
   configproxy.cpp
   configssl.cpp
@@ -32,6 +33,7 @@ SET (subproject_HEADERS
   configtidy.h
   configdomtree.h
   configbrowser.h
+  configheaderdefinitions.h
   configcookies.h
   configproxy.h
   configssl.h

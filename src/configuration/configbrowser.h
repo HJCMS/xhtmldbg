@@ -31,6 +31,7 @@
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
+#include "configheaderdefinitions.h"
 
 class ConfigBrowser : public PageWidget
 {
@@ -41,6 +42,7 @@ class ConfigBrowser : public PageWidget
   private:
     QSpinBox* DefaultFontSize;
     QSpinBox* DefaultFixedFontSize;
+    ConfigHeaderDefinitions* headerDefinitions;
     void registerCheckBoxes();
 
   private Q_SLOTS:

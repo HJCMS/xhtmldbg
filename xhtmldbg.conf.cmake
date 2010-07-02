@@ -10,6 +10,7 @@ enableHighlightBackground=true
 enableHighlightBorder=false
 enableProxy=false
 sslCaCertsDatabase=@CA_BUNDLE_FILE@
+GeoIP_Database=@GEOIP_DATABASE_PATH@/GeoIP.dat
 
 [HeaderDefinitions]
 Accept-Charset="utf-8, unicode-1-1;q=0.8"

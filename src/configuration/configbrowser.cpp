@@ -165,6 +165,10 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   fontGroup->setLayout ( horizontalLayout );
   verticalLayout->addWidget ( fontGroup );
 
+  // Header Definitionen
+  headerDefinitions = new ConfigHeaderDefinitions ( centralWidget );
+  verticalLayout->addWidget ( headerDefinitions );
+
   centralWidget->setLayout ( verticalLayout );
 
   connect ( DefaultFontSize, SIGNAL ( valueChanged ( int ) ),
@@ -211,6 +215,8 @@ void ConfigBrowser::load ( QSettings * cfg )
   }
   DefaultFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
   DefaultFixedFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
+  // Header Definitions
+  headerDefinitions->loadHeaderDefinitions ( cfg );
 }
 
 void ConfigBrowser::save ( QSettings * cfg )
@@ -223,6 +229,8 @@ void ConfigBrowser::save ( QSettings * cfg )
   }
   cfg->setValue ( QLatin1String ( "DefaultFontSize" ), DefaultFontSize->value() );
   cfg->setValue ( QLatin1String ( "DefaultFixedFontSize" ), DefaultFixedFontSize->value() );
+  // Header Definitions
+  headerDefinitions->saveHeaderDefinitions ( cfg );
 }
 
 void ConfigBrowser::defaults()
