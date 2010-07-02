@@ -39,13 +39,20 @@
 /* GeoIP */
 #include <GeoIP.h>
 
-GeoLocation::GeoLocation ( QWidget * parent )
+GeoLocation::GeoLocation ( QWidget * parent, QSettings * settings )
     : QWidget ( parent )
+    , cfg ( settings )
     , defaultIcon ( QIcon ( QString::fromUtf8 ( ":/flags/icons/flags/europeanunion.png" ) ) )
 {
   setObjectName ( QLatin1String ( "geolocation" ) );
   setToolTip ( trUtf8 ( "country code from host address." ) );
   setContentsMargins ( 0, 0, 0, 0 );
+
+  QString fallbackPath ( GEOIP_DATABASE_PATH );
+  fallbackPath.append ( QDir::separator() );
+  fallbackPath.append ( "GeoIP.dat" );
+
+  databasePath = cfg->value ( QLatin1String ( "GeoIP_Database" ), fallbackPath ).toString();
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
   layout->setObjectName ( QLatin1String ( "geolocationlayout" ) );
@@ -85,9 +92,7 @@ void GeoLocation::setGeoAddress ( const QString &address )
   const char* addr = address.toAscii().data();
   GeoIP* m_geoip;
 
-  QByteArray path ( GEOIP_DATABASE_PATH );
-  path.append ( QDir::separator() );
-  path.append ( "GeoIP.dat" );
+  QByteArray path = databasePath.toAscii();
 
   /* Read from filesystem, check for updated file */
   m_geoip = GeoIP_open ( path.constData(), ( GEOIP_STANDARD | GEOIP_CHECK_CACHE ) );

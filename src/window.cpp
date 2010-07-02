@@ -135,7 +135,7 @@ Window::Window ( QSettings * settings )
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
 
   // Gebiete mit der IP Adresse ermitteln
-  m_geoLocation = new GeoLocation ( tabCornerBottomWidget );
+  m_geoLocation = new GeoLocation ( tabCornerBottomWidget, m_settings );
   tabCornerBottomWidgetLayout->addWidget ( m_geoLocation );
 
   // RSS/ATOM/RDF Validierer

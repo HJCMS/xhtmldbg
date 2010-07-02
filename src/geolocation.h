@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -41,7 +42,9 @@ class GeoLocation : public QWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    QSettings* cfg;
     const QIcon defaultIcon;
+    QString databasePath;
     QToolButton* m_toolButton;
     void setFlag ( const QString & );
     void setGeoAddress ( const QString & );
@@ -50,7 +53,7 @@ class GeoLocation : public QWidget
     void fetchFromHost ( const QHostInfo & );
 
   public:
-    GeoLocation ( QWidget * parent = 0 );
+    GeoLocation ( QWidget * parent = 0, QSettings * settings = 0 );
     void setHostName ( const QString & );
     ~GeoLocation();
 };
