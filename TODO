@@ -1,6 +1,2 @@
-* Bugs to fixed:
-  - xhtmldbg crash on cookie dialog close clicked when the remote server
-    has send a "HEADER 410 (Server Gone)" before the dialog was finished
-
-* Features that's want do in the next minor Releases:
-  - Include additional Namespaces from Feedparser
+* Bugfix
+  - Download Manager Brocken MimeTypes

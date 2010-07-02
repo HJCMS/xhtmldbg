@@ -832,8 +832,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/configuration/configproxy.cpp" line="99"/>
         <source>Authentication Username:</source>
-        <translation>Zugangs Benutzername:
-</translation>
+        <translation>Zugangs Benutzername:</translation>
     </message>
     <message>
         <location filename="../src/configuration/configproxy.cpp" line="112"/>

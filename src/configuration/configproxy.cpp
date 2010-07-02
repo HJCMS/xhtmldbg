@@ -51,7 +51,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   txtProxyType->setIndent ( 2 );
   txtProxyType->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyType->setWordWrap ( false );
-  gridLayout->addWidget ( txtProxyType, 0, 0 );
+  gridLayout->addWidget ( txtProxyType, 0, 0, 1, 1 );
 
   // QNetworkProxy::DefaultProxy QNetworkProxy::NoProxy not used
   proxyType = new QComboBox ( centralWidget );
@@ -65,7 +65,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   proxyType->insertItem ( 3, trUtf8 ( "Caching FTP (Only for FTP Requests)" ), QNetworkProxy::FtpCachingProxy );
   proxyType->setItemData ( 3, QNetworkProxy::FtpCachingProxy, Qt::UserRole );
   proxyType->setCurrentIndex ( 1 );
-  gridLayout->addWidget ( proxyType, 0, 1 );
+  gridLayout->addWidget ( proxyType, 0, 1, 1, 1 );
 
   // Proxy Hostname
   QLabel* txtProxyHost = new QLabel ( trUtf8 ( "Hostname of the Proxy:" ), centralWidget );
@@ -73,12 +73,12 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   txtProxyHost->setIndent ( 2 );
   txtProxyHost->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyHost->setWordWrap ( false );
-  gridLayout->addWidget ( txtProxyHost, 1, 0 );
+  gridLayout->addWidget ( txtProxyHost, 1, 0, 1, 1 );
 
   proxyHostName = new QLineEdit ( centralWidget );
   proxyHostName->setObjectName ( QLatin1String ( "proxyHostName" ) );
   proxyHostName->setText ( HostName );
-  gridLayout->addWidget ( proxyHostName, 1, 1 );
+  gridLayout->addWidget ( proxyHostName, 1, 1, 1, 1 );
 
   // Proxy Port
   QLabel* txtProxyPort = new QLabel ( trUtf8 ( "Proxy Port Number:" ), centralWidget );
@@ -86,14 +86,14 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   txtProxyPort->setIndent ( 2 );
   txtProxyPort->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPort->setWordWrap ( false );
-  gridLayout->addWidget ( txtProxyPort, 2, 0 );
+  gridLayout->addWidget ( txtProxyPort, 2, 0, 1, 1 );
 
   proxyPort = new QSpinBox ( centralWidget );
   proxyPort->setObjectName ( QLatin1String ( "proxyPort" ) );
   proxyPort->setMinimum ( 80 );
   proxyPort->setMaximum ( 655351 );
   proxyPort->setValue ( Port );
-  gridLayout->addWidget ( proxyPort, 2, 1 );
+  gridLayout->addWidget ( proxyPort, 2, 1, 1, 1 );
 
   // Proxy User
   QLabel* txtProxyUser = new QLabel ( trUtf8 ( "Authentication Username:" ), centralWidget );
@@ -101,12 +101,12 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   txtProxyUser->setIndent ( 2 );
   txtProxyUser->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyUser->setWordWrap ( false );
-  gridLayout->addWidget ( txtProxyUser, 3, 0 );
+  gridLayout->addWidget ( txtProxyUser, 3, 0, 1, 1 );
 
   proxyUser = new QLineEdit ( centralWidget );
   proxyUser->setObjectName ( QLatin1String ( "proxyUser" ) );
   proxyUser->setText ( User );
-  gridLayout->addWidget ( proxyUser, 3, 1 );
+  gridLayout->addWidget ( proxyUser, 3, 1, 1, 1 );
 
   // Proxy Password
   QLabel* txtProxyPassword = new QLabel ( trUtf8 ( "Authentication Password:" ), centralWidget );
@@ -114,13 +114,13 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   txtProxyPassword->setIndent ( 2 );
   txtProxyPassword->setTextInteractionFlags ( Qt::NoTextInteraction );
   txtProxyPassword->setWordWrap ( false );
-  gridLayout->addWidget ( txtProxyPassword, 4, 0 );
+  gridLayout->addWidget ( txtProxyPassword, 4, 0, 1, 1 );
 
   proxyPassword = new QLineEdit ( centralWidget );
   proxyPassword->setObjectName ( QLatin1String ( "qt_proxy_password" ) );
   proxyPassword->setEchoMode ( QLineEdit::Password );
   proxyPassword->setText ( Password );
-  gridLayout->addWidget ( proxyPassword, 4, 1 );
+  gridLayout->addWidget ( proxyPassword, 4, 1, 1, 1 );
 
   centralWidget->setLayout ( gridLayout );
 
