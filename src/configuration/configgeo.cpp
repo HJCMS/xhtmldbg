@@ -20,29 +20,100 @@
 **/
 
 #include "configgeo.h"
+#include "configutils.h"
+#ifndef GEOIP_DATABASE_PATH
+# include "version.h"
+#endif
 
 /* QtCore */
+#include <QtCore/QFileInfo>
+#include <QtCore/QDir>
 #include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 /* QtGui */
-// #include <QtGui/QVBoxLayout>
+#include <QtGui/QGridLayout>
+#include <QtGui/QLabel>
+#include <QtGui/QToolButton>
 
 ConfigGeo::ConfigGeo ( QWidget * parent )
-    : PageWidget ( trUtf8( "Geological Addresses" ), parent )
+    : PageWidget ( trUtf8 ( "Geological IP Resolver" ), parent )
+    , databasePath ( QString ( GEOIP_DATABASE_PATH ) )
 {
   setObjectName ( QLatin1String ( "config_page_geo" ) );
   setNotice ( true );
   setCheckable ( false );
+
+  QGridLayout* gridLayout = new QGridLayout ( centralWidget );
+  gridLayout->setObjectName ( QLatin1String ( "config_page_geo_main_layout" ) );
+  gridLayout->setContentsMargins ( 0, 5, 0, 5 );
+
+  QLabel* infoEdit = new QLabel ( centralWidget );
+  infoEdit->setText ( trUtf8 ( "Database" ) );
+  gridLayout->addWidget ( infoEdit, 0, 0, 1, 1 );
+
+  dbEdit = new QLineEdit ( centralWidget );
+  gridLayout->addWidget ( dbEdit, 0, 1, 1, 1 );
+
+  QToolButton* btn = new QToolButton ( centralWidget );
+  btn->setIcon ( ConfigUtils::folderIcon() );
+  gridLayout->addWidget ( btn, 0, 2, 1, 1 );
+
+  centralWidget->setLayout ( gridLayout );
+
+  connect ( btn, SIGNAL ( clicked() ),
+            this, SLOT ( openDatabaseDialog() ) );
+
+  connect ( dbEdit, SIGNAL ( textChanged ( const QString & ) ),
+            this, SLOT ( dataChanged ( const QString & ) ) );
 }
 
-void ConfigGeo::load ( QSettings * )
-{}
+const QString ConfigGeo::absoluteDatabasePath()
+{
+  QDir d ( databasePath );
+  QFileInfo info;
+  info.setFile ( d, "GeoIP.dat" );
+  if ( info.exists() )
+    return info.absoluteFilePath();
+  else
+    return d.absolutePath();
+}
 
-void ConfigGeo::save ( QSettings * )
-{}
+void ConfigGeo::openDatabaseDialog()
+{
+  QStringList dat;
+  dat << trUtf8 ( "GeoIP Database %1" ).arg ( "*.dat *.DAT" );
+  QString p = ConfigUtils::findFileDialog ( dbEdit->text(), dat, this );
+  if ( p.isEmpty() )
+    return;
+
+  dbEdit->setText ( p );
+}
+
+void ConfigGeo::dataChanged ( const QString & )
+{
+  emit modified ( true );
+}
+
+void ConfigGeo::setDatabasePath ( const QString &p )
+{
+  dbEdit->setText ( p );
+}
+
+void ConfigGeo::load ( QSettings * cfg )
+{
+  dbEdit->setText ( cfg->value ( QLatin1String ( "GeoIP_Database" ), absoluteDatabasePath() ).toString() );
+}
+
+void ConfigGeo::save ( QSettings * cfg )
+{
+  cfg->setValue ( QLatin1String ( "GeoIP_Database" ), dbEdit->text() );
+}
 
 void ConfigGeo::defaults()
-{}
+{
+  dbEdit->setText ( absoluteDatabasePath() );
+}
 
 ConfigGeo::~ConfigGeo()
 {}

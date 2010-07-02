@@ -88,6 +88,9 @@ StackedWidget::StackedWidget ( QWidget * parent, QSettings * settings )
 
   connect ( m_configUserAgents, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
+
+  connect ( m_configGeo, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( settingsChanged ( bool ) ) );
 }
 
 /**

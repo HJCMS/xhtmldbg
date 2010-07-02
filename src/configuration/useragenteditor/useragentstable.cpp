@@ -92,12 +92,14 @@ void UserAgentsTable::moveRow ( int t )
     m_model->moveRowTo ( row, ( row + 1 ) );
     clearSelection();
     clearFocus();
+    emit agentChanged ( true );
   }
   else if ( ( t == -1 ) && ( row - 1 ) >= 0 )
   {
     m_model->moveRowTo ( row, ( row - 1 ) );
     clearSelection();
     clearFocus();
+    emit agentChanged ( true );
   }
 }
 

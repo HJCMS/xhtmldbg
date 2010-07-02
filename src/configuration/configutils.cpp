@@ -24,7 +24,6 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QColor>
@@ -64,42 +63,23 @@ const QString ConfigUtils::findBinaryDialog ( const QString &searchName,
   return searchName;
 }
 
-/**
-* Dialog zum finden der css-validator.jar Datei.
-*/
-// const QString ConfigUtils::openCSSValidatorDialog ( const QString &fallback,
-//         QWidget * parent, const QString &path )
-// {
-//   QStringList filt;
-//   filt << trUtf8 ( "Java-Archive %1" ).arg ( "*.jar" );
-//   filt << trUtf8 ( "All %1" ).arg ( "*" );
-// 
-//   QString p = QFileDialog::getOpenFileName ( parent,
-//               trUtf8 ( "Find W3C CSS Validator" ),
-//               path, filt.join ( ";;" ) );
-// 
-//   QFileInfo db ( p );
-//   if ( db.exists() )
-//     return db.absoluteFilePath();
-// 
-//   return fallback;
-// }
+/** Sucht nach einer Datei */
+const QString ConfigUtils::findFileDialog ( const QString &path,
+        const QStringList &mimeTypes, QWidget * parent )
+{
+  QStringList filt;
+  filt << mimeTypes;
+  filt << trUtf8 ( "All %1" ).arg ( "*" );
+  QString p = QFileDialog::getOpenFileName ( parent,
+              trUtf8 ( "Find File" ),
+              path, filt.join ( ";;" ) );
 
-/**
-* Dialog zum finden der css-validator Archive.
-*/
-// const QString ConfigUtils::openCSSValidatorClassPathDialog ( const QString &fallback,
-//         QWidget * parent, const QString &path )
-// {
-//   QString p = QFileDialog::getExistingDirectory ( parent,
-//               trUtf8 ( "Find W3C CSS Validator Java-Archive" ), path );
-// 
-//   QFileInfo db ( p );
-//   if ( db.exists() )
-//     return db.absoluteFilePath();
-// 
-//   return fallback;
-// }
+  QFileInfo db ( p );
+  if ( db.exists() )
+    return db.absoluteFilePath();
+
+  return path;
+}
 
 /**
 * Dialog für die Suche nach dem Privaten Schlüssel.
@@ -141,4 +121,9 @@ const QString ConfigUtils::openPuplicKeyDialog ( const QString &fallback,
     return db.absoluteFilePath();
 
   return fallback;
+}
+
+const QIcon ConfigUtils::folderIcon()
+{
+  return QIcon::fromTheme ( QLatin1String ( "document-open" ) );
 }

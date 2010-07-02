@@ -25,8 +25,8 @@ Url:            http://xhtmldbg.hjcms.de
 Source0:        http://gitweb.hjcms.de/cgi-bin/index.cgi/%{name}/snapshot/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 Supplements:    mimehandler(text/html)
-Requires:       qtidyrc >= 0.8.2 oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3
-BuildRequires:  cmake pkg-config %{devdepend}
+Requires:       qtidyrc >= 0.8.2 oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3 bind-utils
+BuildRequires:  cmake pkg-config %{devdepend} bind-utils
 BuildRequires:  update-desktop-files brp-check-suse desktop-file-utils qtidyrc >= 0.8.2
 BuildRequires:  oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3 desktop-data-openSUSE
 Vendor:         Heinemann Juergen (Undefined) http://www.hjcms.de

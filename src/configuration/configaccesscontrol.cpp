@@ -20,6 +20,7 @@
 **/
 
 #include "configaccesscontrol.h"
+#include "configutils.h"
 
 /* QtCore */
 #include <QtCore/QFileInfo>
@@ -48,7 +49,6 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   sizePolicy.setVerticalStretch ( 0 );
   setSizePolicy ( sizePolicy );
 
-  QIcon openFolderIcon = QIcon::fromTheme ( QLatin1String ( "document-open" ) );
   Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
   QGridLayout* gridLayout = new QGridLayout ( this );
@@ -78,7 +78,7 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 
   QToolButton* btn1 = new QToolButton ( this );
   btn1->setObjectName ( QLatin1String ( "openPupKeyButton" ) );
-  btn1->setIcon ( openFolderIcon );
+  btn1->setIcon ( ConfigUtils::folderIcon() );
   gridLayout->addWidget ( btn1, 1, 2, 1, 1 );
 
   QLabel* lr2 = new QLabel ( this );
@@ -92,7 +92,7 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 
   QToolButton* btn2 = new QToolButton ( this );
   btn2->setObjectName ( QLatin1String ( "openPrivKeyButton" ) );
-  btn2->setIcon ( openFolderIcon );
+  btn2->setIcon ( ConfigUtils::folderIcon() );
   gridLayout->addWidget ( btn2, 2, 2, 1, 1 );
 
   QLabel* lr3 = new QLabel ( this );

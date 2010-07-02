@@ -32,9 +32,8 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
-UserAgentEditor::UserAgentEditor ( QWidget * parent, QSettings * settings )
+UserAgentEditor::UserAgentEditor ( QWidget * parent )
     : QWidget ( parent )
-    , cfg ( settings )
 {
   setObjectName ( QLatin1String ( "UserAgentEditor" ) );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -71,7 +70,7 @@ UserAgentEditor::UserAgentEditor ( QWidget * parent, QSettings * settings )
   setLayout ( hLayout );
 
   connect ( table, SIGNAL ( agentChanged ( bool ) ),
-            this, SLOT ( hasModified ( bool ) ) );
+            this, SIGNAL ( modified ( bool ) ) );
 
   connect ( up, SIGNAL ( clicked() ), this, SLOT ( moveUp() ) );
   connect ( down, SIGNAL ( clicked() ), this, SLOT ( moveDown() ) );
@@ -87,18 +86,12 @@ void UserAgentEditor::moveDown()
   table->moveRow ( 1 );
 }
 
-void UserAgentEditor::hasModified ( bool b )
-{
-  if ( b )
-    emit modified ();
-}
-
-void UserAgentEditor::loadUserAgents ()
+void UserAgentEditor::loadUserAgents ( QSettings * cfg )
 {
   table->loadUserAgents ( cfg );
 }
 
-void UserAgentEditor::saveUserAgents ()
+void UserAgentEditor::saveUserAgents ( QSettings * cfg )
 {
   table->saveUserAgents ( cfg );
 }

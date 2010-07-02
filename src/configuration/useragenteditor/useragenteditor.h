@@ -38,23 +38,21 @@ class UserAgentEditor : public QWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* cfg;
     UserAgentsTable* table;
 
   private Q_SLOTS:
     void moveUp();
     void moveDown();
-    void hasModified ( bool );
 
   Q_SIGNALS:
-    void modified ();
+    void modified ( bool b = true );
 
   public Q_SLOTS:
-    void loadUserAgents ();
-    void saveUserAgents ();
+    void loadUserAgents ( QSettings * );
+    void saveUserAgents ( QSettings * );
 
   public:
-    UserAgentEditor ( QWidget * parent = 0, QSettings * settings = 0 );
+    UserAgentEditor ( QWidget * parent = 0 );
     ~UserAgentEditor ();
 };
 

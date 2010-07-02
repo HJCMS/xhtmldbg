@@ -40,7 +40,6 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
   setNotice ( true );
   setCheckable ( false );
 
-  QIcon openFolderIcon = QIcon::fromTheme ( QLatin1String ( "document-open" ) );
   Qt::Alignment laAlignRight = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
@@ -111,7 +110,7 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   QToolButton* w3c_btn_appl = new QToolButton ( validatorGroup );
   w3c_btn_appl->setObjectName ( QLatin1String ( "w3c_btn_appl" ) );
-  w3c_btn_appl->setIcon ( openFolderIcon );
+  w3c_btn_appl->setIcon ( ConfigUtils::folderIcon() );
   gridLayoutCSS->addWidget ( w3c_btn_appl, 0, 2, 1, 1 );
 
   // W3C Validator Jar Zeile
@@ -128,7 +127,7 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   QToolButton* w3c_btn_jar = new QToolButton ( validatorGroup );
   w3c_btn_jar->setObjectName ( QLatin1String ( "w3c_btn_jar" ) );
-  w3c_btn_jar->setIcon ( openFolderIcon );
+  w3c_btn_jar->setIcon ( ConfigUtils::folderIcon() );
   gridLayoutCSS->addWidget ( w3c_btn_jar, 1, 2, 1, 1 );
 
   // W3C Validator Klassenpfad Zeile
@@ -145,7 +144,7 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   QToolButton* w3c_btn_class = new QToolButton ( validatorGroup );
   w3c_btn_class->setObjectName ( QLatin1String ( "w3c_btn_class" ) );
-  w3c_btn_class->setIcon ( openFolderIcon );
+  w3c_btn_class->setIcon ( ConfigUtils::folderIcon() );
   gridLayoutCSS->addWidget ( w3c_btn_class, 2, 2, 1, 1 );
 
   validatorGroup->setLayout ( gridLayoutCSS );

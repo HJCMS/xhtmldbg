@@ -28,9 +28,10 @@
 
 /* QtGui */
 #include <QtGui/QFont>
-#include <QtGui/QWidget>
 #include <QtGui/QListWidget>
 #include <QtGui/QListWidgetItem>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QWidget>
 
 class ListLines : public QWidget
 {
@@ -40,6 +41,10 @@ class ListLines : public QWidget
 
   private:
     QListWidget* m_listWidget;
+    void setRowsWidth ( int );
+
+  protected:
+    void paintEvent ( QPaintEvent * );
 
   Q_SIGNALS:
     void valueChanged ( int );

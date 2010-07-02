@@ -25,8 +25,10 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
+#include <QtGui/QIcon>
 #include <QtGui/QWidget>
 
 class ConfigUtils : public QObject
@@ -42,11 +44,16 @@ class ConfigUtils : public QObject
                                             QWidget * parent,
                                             const QString &path = QString::fromUtf8 ( "/usr/bin" ) );
 
+    static const QString findFileDialog ( const QString &path,
+                                          const QStringList &mimeTypes, QWidget * parent );
+
     static const QString openPrivateKeyDialog ( const QString &fallback,
             QWidget * parent, const QString &path );
 
     static const QString openPuplicKeyDialog ( const QString &fallback,
             QWidget * parent, const QString &path );
+
+    static const QIcon folderIcon();
 };
 
 #endif

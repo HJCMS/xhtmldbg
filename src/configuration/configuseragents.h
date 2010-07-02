@@ -23,18 +23,23 @@
 #define CONFIGUSERAGENTS_H
 
 /* QtCore */
+#include <QtCore/QSettings>
 #include <QtCore/QObject>
 
 /* QtGui */
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
+#include "useragenteditor.h"
 
 class ConfigUserAgents : public PageWidget
 {
   Q_OBJECT
   Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
   Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    UserAgentEditor* m_userAgentEditor;
 
   public:
     ConfigUserAgents( QWidget * parent = 0 );

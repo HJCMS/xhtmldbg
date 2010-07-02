@@ -40,16 +40,20 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
   setObjectName ( "listlines" );
   setContentsMargins ( 0, 0, 0, 0 );
   setLayoutDirection ( Qt::RightToLeft );
-  setMinimumWidth ( 20 );
-  setMaximumWidth ( 250 );
+
+  QSizePolicy sizePolicy ( QSizePolicy::Minimum, QSizePolicy::Expanding );
+  sizePolicy.setHorizontalStretch ( 0 );
+  sizePolicy.setVerticalStretch ( 0 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
+  // Zeilenstart Korrigieren
   layout->setContentsMargins ( 0, 4, 0, 0 );
 
   m_listWidget = new QListWidget ( this );
+  m_listWidget->setContentsMargins ( 0, 0, 0, 0 );
   layout->addWidget ( m_listWidget );
 
-  m_listWidget->setSizePolicy ( QSizePolicy::Minimum, QSizePolicy::Expanding );
+  m_listWidget->setSizePolicy ( sizePolicy );
   m_listWidget->setFrameStyle ( QFrame::NoFrame );
   m_listWidget->setAutoScroll ( false );
   m_listWidget->setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff );
@@ -68,11 +72,42 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
 
   setLayout ( layout );
 
+  setMinimumWidth ( m_listWidget->fontMetrics().width ( "00" ) );
+  setMaximumWidth ( m_listWidget->fontMetrics().width ( "0000" ) );
+
   connect ( m_listWidget->verticalScrollBar (), SIGNAL ( valueChanged ( int ) ),
             this, SIGNAL ( valueChanged ( int ) ) );
 
   connect ( m_listWidget, SIGNAL ( currentRowChanged ( int ) ),
             this, SIGNAL ( currentRowChanged ( int ) ) );
+}
+
+/**
+* Setzt mit @ref QListWidget::fontMetrics die Maximal
+* sichtbare Zeilenbreite für die Darstellung neu.
+* FIXME KDE4 mit Oxgen stellt die Zeilenbreite von @class ListLines nicht korrekt dar!
+*/
+void ListLines::setRowsWidth ( int rows )
+{
+  // Füge eine Zeile wegen dem Scrollbalken hinzu.
+  QString lastItem = QString::number ( ( rows + 1 ) );
+  m_listWidget->addItem ( lastItem );
+  int fwidth = m_listWidget->fontMetrics().width ( lastItem + "0" );
+  if ( fwidth >= minimumWidth() )
+    setMaximumWidth ( fwidth );
+
+  // qDebug() << Q_FUNC_INFO << minimumWidth() << maximumWidth() << rows;
+}
+
+/**
+* Wenn sich die Zeilenanzahl geändert hat wird in @ref setItems
+* Der SLOT @ref QWidget::update aufgerufen.
+* Setze an dieser Stelle mit @ref setRowsWidth die maximale Breite.
+*/
+void ListLines::paintEvent ( QPaintEvent * event )
+{
+  setRowsWidth ( m_listWidget->count() );
+  QWidget::paintEvent ( event );
 }
 
 /**
@@ -84,7 +119,7 @@ ListLines::ListLines ( const QFont &font, QWidget * parent )
 */
 void ListLines::setCurrentRow ( int r )
 {
-  /* NOTE Block Signals an didn't send currentRowChanged 
+  /* NOTE Block Signals an didn't send currentRowChanged
   * if User hase selected by TextEdit */
   blockSignals ( true );
   m_listWidget->setCurrentRow ( r );
@@ -94,24 +129,21 @@ void ListLines::setCurrentRow ( int r )
 /**
 * Befülle die Liste mit den aus @ref SourceView::createListWidgetItems()
 * erstellten Inhalten. Wenn das neu einfügen der Zeilen fertig ist nehme
-* mit fontMetrics die aktuelle Schriftengröße und hänge als Margin Platzhalter 
+* mit fontMetrics die aktuelle Schriftengröße und hänge als Margin Platzhalter
 * zwei 0. an damit es nicht zu Fehldarstellungen bei mehr als 13000 Zeilen kommt.
 */
 void ListLines::setItems ( const QList<QListWidgetItem*> &list )
 {
-  int c = 0;
   if ( list.size() >= 1 )
   {
+    int c = 0;
     m_listWidget->clear();
     foreach ( QListWidgetItem* i, list )
     {
       m_listWidget->addItem ( i );
       c++;
     }
-    QString lastItem = QString::number( list.size() );
-    m_listWidget->addItem ( lastItem );
-    int fwidth = fontMetrics().width( lastItem + "00" );
-    setMaximumWidth ( fwidth );
+    update();
   }
 }
 

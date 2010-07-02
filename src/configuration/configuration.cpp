@@ -22,10 +22,13 @@
 #include "configuration.h"
 #include "configurationmenu.h"
 #include "stackedwidget.h"
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 
 /* QtCore */
 #include <QtCore/QByteArray>
-#include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
@@ -33,6 +36,20 @@
 #include <QtGui/QScrollArea>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
+
+/**
+* Enthält eine Liste veralteter Konfigurationen
+* die entfernt werden können!
+*/
+static inline const QStringList deprecatedList()
+{
+  QStringList list;
+  list << "trustedEdit";
+  list << "HeaderDefinitions/Accept-Language";
+  list << "bootsplash";
+  list << "addCookieDomain";
+  return list;
+}
 
 Configuration::Configuration ( QWidget * parent, QSettings * settings )
     : QDialog ( parent )
@@ -44,6 +61,16 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   setSizeGripEnabled ( true );
   setMinimumHeight ( 280 );
   setMinimumWidth ( 550 );
+
+  /** Alte Konfigurationen entfernen */
+  if ( cfg->value ( QLatin1String ( "Version" ) ).toString() != XHTMLDBG_VERSION_STRING )
+  {
+    foreach ( QString param, deprecatedList() )
+    {
+      cfg->remove ( param );
+    }
+    cfg->setValue ( QLatin1String ( "Version" ), XHTMLDBG_VERSION_STRING );
+  }
 
   // Vertikales Design
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );

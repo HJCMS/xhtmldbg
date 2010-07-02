@@ -26,18 +26,31 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
 
 class ConfigGeo : public PageWidget
 {
-  Q_OBJECT
-  Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-  Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    QString databasePath;
+    QLineEdit* dbEdit;
+    const QString absoluteDatabasePath();
+
+  private Q_SLOTS:
+    void openDatabaseDialog();
+    void dataChanged ( const QString & );
+
+  public Q_SLOTS:
+    void setDatabasePath ( const QString & );
 
   public:
-    ConfigGeo( QWidget * parent = 0 );
+    ConfigGeo ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
     void defaults();

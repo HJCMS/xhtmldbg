@@ -25,21 +25,38 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
-// #include <QtGui/QVBoxLayout>
+#include <QtGui/QVBoxLayout>
 
 ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
-    : PageWidget ( trUtf8( "User-Agent" ), parent )
+    : PageWidget ( trUtf8 ( "User-Agent" ), parent )
 {
   setObjectName ( QLatin1String ( "config_page_user_agents" ) );
   setNotice ( false );
   setCheckable ( false );
+
+  QHBoxLayout* verticalLayout = new QHBoxLayout ( centralWidget );
+  verticalLayout->setObjectName ( QLatin1String ( "config_page_user_agents_main_layout" ) );
+  verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
+
+  m_userAgentEditor = new UserAgentEditor ( centralWidget );
+  m_userAgentEditor->setMinimumHeight ( 250 );
+  verticalLayout->addWidget ( m_userAgentEditor );
+
+  centralWidget->setLayout ( verticalLayout );
+
+  connect ( m_userAgentEditor, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( modified ( bool ) ) );
 }
 
-void ConfigUserAgents::load ( QSettings * )
-{}
+void ConfigUserAgents::load ( QSettings * cfg )
+{
+  m_userAgentEditor->loadUserAgents ( cfg );
+}
 
-void ConfigUserAgents::save ( QSettings * )
-{}
+void ConfigUserAgents::save ( QSettings * cfg )
+{
+  m_userAgentEditor->saveUserAgents ( cfg );
+}
 
 void ConfigUserAgents::defaults()
 {}
