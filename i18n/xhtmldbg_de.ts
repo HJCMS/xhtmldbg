@@ -66,17 +66,17 @@
 <context>
     <name>ArrangementItem</name>
     <message>
-        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
         <source>Session</source>
         <translation>Sitzung</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
         <source>Blocked</source>
         <translation>Verhindert</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/editcookiestable.cpp" line="40"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
         <source>Allowed</source>
         <translation>Erlaubt</translation>
     </message>
@@ -465,90 +465,485 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
-    <name>ConfigDialog</name>
+    <name>CertIssuerTable</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="582"/>
-        <source>Notice</source>
-        <translation>Hinweis</translation>
+        <location filename="../src/configuration/certissuers/certissuertable.cpp" line="41"/>
+        <source>Organization (O)</source>
+        <translation>Organisation (O)</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="583"/>
-        <source>Settings Restored.
-Please restart the Configuration Dialog.</source>
-        <translation>Einstellungen wurden Zurück gesetzt.
-Bitte starte den Konfiurations Dialog neu.</translation>
+        <location filename="../src/configuration/certissuers/certissuertable.cpp" line="42"/>
+        <source>CommonName (CN)</source>
+        <translation>Gemeinsamer Name (CN)</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="646"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="667"/>
-        <source>PKCS#12 Format %1</source>
-        <translation></translation>
+        <location filename="../src/configuration/certissuers/certissuertable.cpp" line="43"/>
+        <source>Expires</source>
+        <translation>Erlischt</translation>
+    </message>
+</context>
+<context>
+    <name>CertIssuers</name>
+    <message>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="42"/>
+        <source>Issuers</source>
+        <translation>Unterzeichner</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="647"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="666"/>
-        <source>PEM or DER Encoding X.509 Format %1</source>
-        <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="66"/>
+        <source>Database:</source>
+        <translation>Datenbank:</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="649"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="669"/>
-        <source>Open Certificate</source>
-        <translation>Öffne Zertifikat</translation>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="72"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="164"/>
+        <source>CA Bundle Database</source>
+        <translation>CA Bündel Datenbank</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="686"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="161"/>
         <source>CA Bundle %1</source>
         <translation>CA Bündle %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="687"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="162"/>
         <source>Certificate %1</source>
         <translation>Zertifikat %1</translation>
     </message>
+</context>
+<context>
+    <name>ConfigAccessControl</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="689"/>
-        <source>Open CA Database</source>
-        <translation>Öffne CA Datenbank</translation>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="40"/>
+        <source>Client Authentication and Access Control</source>
+        <translation>Klient Authentifizierung und Zugangs Kontrolle</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="706"/>
-        <source>Java %1</source>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="66"/>
+        <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;%1&quot;&gt;I know all my clients&lt;/a&gt;?</source>
+        <translation>Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when &lt;a href=&quot;%1&quot;&gt;I know all my clients&lt;/a&gt;?</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="71"/>
+        <source>Public Keyfile:</source>
+        <translation>Öffentlicher Schlüssel:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="85"/>
+        <source>Private Keyfile:</source>
+        <translation>Privater Schlüssel:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="99"/>
+        <source>Private Key Password:</source>
+        <translation>Privates Passwort:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="133"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="151"/>
+        <source>PKCS#12 Format %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="707"/>
-        <location filename="../src/configdialog/configdialog.cpp" line="726"/>
-        <source>All %1</source>
-        <translation>Alles %1</translation>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="134"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="150"/>
+        <source>PEM or DER Encoding X.509 Format %1</source>
+        <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="708"/>
-        <source>Find Java Application</source>
-        <translation>Find die Java Anwendung</translation>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="136"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="153"/>
+        <source>Open Certificate</source>
+        <translation>Öffne Zertifikat</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigBrowser</name>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="64"/>
+        <source>Browser Settings</source>
+        <translation>Browser Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="725"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="78"/>
+        <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
+        <translation>Speichere keine Upload Daten wenn HTTP POST verwendet wird.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="82"/>
+        <source>Allow HTTP pipelining with requests.</source>
+        <translation>Erlaube HTTP Parallelverarbeitung bei den Anfragen.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="86"/>
+        <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
+        <translation>Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="90"/>
+        <source>Enable AutoLoad Images</source>
+        <translation>Bilder Automatisch laden.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="94"/>
+        <source>Enable Javascript</source>
+        <translation>Aktiviere JavaScript</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="98"/>
+        <source>Enable Plugins</source>
+        <translation>Aktiviere Plugins</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="102"/>
+        <source>Enable Java</source>
+        <translation>Aktiviere Java</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="106"/>
+        <source>Zoom only text</source>
+        <translation>Nur Text Zoomen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="110"/>
+        <source>Fetch DNS entries to speed up browsing.</source>
+        <translation>Hole DNS Einträge für ein schnelleres Browsen.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="114"/>
+        <source>JavaScript programs can open new windows.</source>
+        <translation>JavaScript Programme dürfen neue Fenster öffnen.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="118"/>
+        <source>JavaScript programs can read or write to the clipboard.</source>
+        <translation>Erlaube JavaScript Programmen den zugriff auf das Clipboard.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="122"/>
+        <source>The background color and images are also drawn when the page is printed.</source>
+        <translation>Beim Drucken von Seiten den Hintergund mit übertragen.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="136"/>
+        <source>Font Settings</source>
+        <translation>Schriften Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="143"/>
+        <source>Default Font Size:</source>
+        <translation>Standard Schriftgröße:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="154"/>
+        <source>Fixed Font Size:</source>
+        <translation>Standard für die feste Schriftgröße:</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigCookies</name>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="41"/>
+        <source>Cookie Management</source>
+        <translation>Keks Verwaltung</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="70"/>
+        <source>Remove</source>
+        <translation>Entfernen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="76"/>
+        <source>Clear Table</source>
+        <translation>Leere Tabelle</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="80"/>
+        <source>Add Cookie</source>
+        <translation>Cookie einfügen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="90"/>
+        <source>Hostname</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="101"/>
+        <source>Merely current Session</source>
+        <translation>Lediglich nur für die Sitzung</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="102"/>
+        <source>Always Blocked</source>
+        <translation>Immer verhindern</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="103"/>
+        <source>Always Allowed</source>
+        <translation>Immer erlauben</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="111"/>
+        <source>Add</source>
+        <translation>Einfügen</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigDomTree</name>
+    <message>
+        <location filename="../src/configuration/configdomtree.cpp" line="37"/>
+        <source>DOM Inspector</source>
+        <translation>DOM Kontrolleure</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configdomtree.cpp" line="51"/>
+        <source>Enable Background Highlight</source>
+        <translation>Aktiviere die Hintergrund Hervorhebung</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configdomtree.cpp" line="73"/>
+        <source>Enable Border Highlight</source>
+        <translation>Aktiviere die Rahmen Hervorhebung</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigGeo</name>
+    <message>
+        <location filename="../src/configuration/configgeo.cpp" line="40"/>
+        <source>Geological IP Resolver</source>
+        <translation>Geologischer IP Koordinatenwandler</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configgeo.cpp" line="52"/>
+        <source>Database</source>
+        <translation>Datenbank</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configgeo.cpp" line="85"/>
+        <source>GeoIP Database %1</source>
+        <translation>GeoIP Datenbank %1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigIDE</name>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="37"/>
+        <source>Defaults</source>
+        <translation>Standards</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="54"/>
+        <source>Load this URL as default on start, if empty xhtmldbg will use recently viewed Url.</source>
+        <translation>Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="83"/>
+        <source>Do not open Downloadmanager on Application start.</source>
+        <translation>Öffne nicht die Download Verwaltung beim Programmstart.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="90"/>
+        <source>W3C CSS Validator Settings</source>
+        <translation>W3C Validierer Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="103"/>
+        <source>Java Application</source>
+        <translation>Java Programm</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="120"/>
+        <source>Path to W3C Validator file</source>
+        <translation>Pfad zur W3C Validierer Datei</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="137"/>
+        <source>W3C Validator CLASSPATH</source>
+        <translation>Klassen Pfad des W3C Validierers</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="194"/>
+        <source>&lt;div style=&quot;color:red;&quot;&gt;W3C CSS Validator not found!&lt;/div&gt;&lt;div&gt;You can download it from &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Homepage.&lt;/div&gt;</source>
+        <translation>&lt;div style=&quot;color:red;&quot;&gt;Der W3C CSS Validierer wurde nicht gefunden!&lt;/div&gt;&lt;div&gt;Du kannst ihn von der &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Seite herunterladen.&lt;/div&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="227"/>
         <source>Java-Archive %1</source>
         <translation>Java-Archiv %1</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="727"/>
+        <location filename="../src/configuration/configide.cpp" line="228"/>
+        <source>All %1</source>
+        <translation>Alles %1</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="230"/>
         <source>Find W3C CSS Validator</source>
         <translation>Finde den W3C CSS Validierer</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="743"/>
+        <location filename="../src/configuration/configide.cpp" line="246"/>
         <source>Find W3C CSS Validator Java-Archive</source>
         <translation>Finde das W3C CSS Validierer Java-Archiv</translation>
     </message>
+</context>
+<context>
+    <name>ConfigProxy</name>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="761"/>
+        <location filename="../src/configuration/configproxy.cpp" line="33"/>
+        <source>Proxy</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="49"/>
+        <source>The Network Proxy Type:</source>
+        <translation>Type des Netzwerk Proxies:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="59"/>
+        <source>Socks 5 (Based on RFC 1928 and RFC 1929)</source>
+        <translation>Socks 5 (Basierend auf RFC 1928 und RFC 1329)</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="61"/>
+        <source>HTTP Transparent Proxying (Default)</source>
+        <translation>HTTP Transparenter Proxy (Standard)</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="63"/>
+        <source>Caching-only HTTP (Only for HTTP Requests)</source>
+        <translation>Caching-only HTTP (Nur für HTTP Anfragen)</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="65"/>
+        <source>Caching FTP (Only for FTP Requests)</source>
+        <translation>Caching FTP (Nur für FTP Anfragen)</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="71"/>
+        <source>Hostname of the Proxy:</source>
+        <translation>Proxy Hostname:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="84"/>
+        <source>Proxy Port Number:</source>
+        <translation>Proxy Port Adresse:</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="99"/>
+        <source>Authentication Username:</source>
+        <translation>Zugangs Benutzername:
+</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configproxy.cpp" line="112"/>
+        <source>Authentication Password:</source>
+        <translation>Zugangs Passwort:</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigSSL</name>
+    <message>
+        <location filename="../src/configuration/configssl.cpp" line="31"/>
+        <source>SSL Certification</source>
+        <translation>SSL Zertifizierung</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigTidy</name>
+    <message>
+        <location filename="../src/configuration/configtidy.cpp" line="32"/>
+        <source>QTidy Source Parser</source>
+        <translation>QTidy Syntax Analysierer</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configtidy.cpp" line="40"/>
+        <source>Enable Auto Source Check</source>
+        <translation>Aktiviere Automatische Überprüfung</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configtidy.cpp" line="44"/>
+        <source>Enable Autoformat and Check Source</source>
+        <translation>Aktiviere Automatisches Bereinigen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configtidy.cpp" line="48"/>
+        <source>Disable autoformat and autocheck</source>
+        <translation>Deaktiviere Automatische Überprüfung und Syntaxbereinigung</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigTrustedHosts</name>
+    <message>
+        <location filename="../src/configuration/configtrustedhosts.cpp" line="38"/>
+        <source>Whitelist for Untrusted Certificates</source>
+        <translation>Weiße Liste für nicht vertrauenswürdig Zertifikate</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigUserAgents</name>
+    <message>
+        <location filename="../src/configuration/configuseragents.cpp" line="31"/>
+        <source>User-Agent</source>
+        <translation>Benutzer Kennung</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigUtils</name>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="53"/>
+        <source>Binary *%1*</source>
+        <translation>Programm *%1*</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="54"/>
+        <location filename="../src/configuration/configutils.cpp" line="72"/>
+        <source>All %1</source>
+        <translation>Alles %1</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="56"/>
+        <source>Find Application</source>
+        <translation>Annwendung finden</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="74"/>
+        <source>Find File</source>
+        <translation>Dateisuche</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="91"/>
+        <location filename="../src/configuration/configutils.cpp" line="113"/>
+        <source>PKCS#12 Format %1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="92"/>
+        <location filename="../src/configuration/configutils.cpp" line="112"/>
+        <source>PEM or DER Encoding X.509 Format %1</source>
+        <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configutils.cpp" line="95"/>
+        <location filename="../src/configuration/configutils.cpp" line="116"/>
+        <source>Open Certificate</source>
+        <translation>Öffne Zertifikat</translation>
+    </message>
+</context>
+<context>
+    <name>Configuration</name>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="59"/>
+        <source>Configure xhtmldbg[*]</source>
+        <translation>Konfiguriere xhtmldbg[*]</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="153"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/configdialog.cpp" line="762"/>
+        <location filename="../src/configuration/configuration.cpp" line="154"/>
         <source>Found unsaved Changes.
 Do you realy want to exit?</source>
         <translation>Nicht gespeicherte Änderungen gefunden.
@@ -556,385 +951,56 @@ Möchtest du wirklich Beenden?</translation>
     </message>
 </context>
 <context>
-    <name>ConfigDialogUi</name>
+    <name>ConfigurationMenu</name>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="947"/>
-        <source>Configure xhtmldbg[*]</source>
-        <translation>Konfiguriere xhtmldbg[*]</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="948"/>
-        <source>QTidy Source Parser</source>
-        <translation>QTidy Syntax Analysierer</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="949"/>
-        <source>Enable Auto Source Check</source>
-        <translation>Aktiviere Automatische Überprüfung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="950"/>
-        <source>Enable Autoformat and Check Source</source>
-        <translation>Aktiviere Automatisches Bereinigen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="951"/>
-        <source>Disable autoformat and autocheck</source>
-        <translation>Deaktiviere Automatische Überprüfung und Syntaxbereinigung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="952"/>
-        <source>Max Items in History Menu:</source>
-        <translation>Maximal Anzahl im Historien Menü:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="953"/>
-        <source>Inspector Highlighted Foreground Color</source>
-        <translation>Hervorhebungs Farbe des DOM Inspektors</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="954"/>
-        <source>Highlight Background</source>
-        <translation>Hintergrund Hervorhebung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="955"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="958"/>
-        <source>Preview</source>
-        <translation>Vorschau</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="956"/>
-        <source>pick Background Color</source>
-        <translation>wähle Hintergrundfarbe</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="957"/>
-        <source>Highlight Border</source>
-        <translation>Rahmen Hervorhebung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="959"/>
-        <source>pick Border Color</source>
-        <translation>wähle Rahmenfarbe</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="960"/>
-        <source>W3C CSS Validation</source>
-        <translation>W3C CSS Validierer</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="961"/>
-        <source>Java Application path</source>
-        <translation>Pfad zum Java Programm</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="962"/>
-        <source>java</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="963"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="966"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="969"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1050"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1057"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1058"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1059"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1063"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1065"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1067"/>
-        <source>...</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="964"/>
-        <source>Path to W3C Validator file</source>
-        <translation>Pfad zur W3C Validierer Datei</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="965"/>
-        <source>/usr/share/java/css-validator.jar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="967"/>
-        <source>W3C Validator CLASSPATH</source>
-        <translation>Klassen Pfad des W3C Validierers</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="968"/>
-        <source>/usr/share/java/css-validator</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="970"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="45"/>
         <source>Defaults</source>
         <translation>Standards</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="971"/>
-        <source>Start Options</source>
-        <translation>Start Optionen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="972"/>
-        <source>Load this URL as Default on start, if empty use recent Homepage.</source>
-        <translation>Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="973"/>
-        <source>&lt;</source>
+        <location filename="../src/configuration/configurationmenu.cpp" line="46"/>
+        <source>Tidy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="974"/>
-        <source>Header Field Definitions</source>
-        <translation>Dateikopf Definitionen</translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
+        <source>Dom Inspector</source>
+        <translation>DOM Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="975"/>
-        <source>Warning: Do not edit this Table if not now how it works!</source>
-        <translation>Warnung: Wenn du nicht weist wie diese Tabelle arbeitet editiere sie nicht!</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="977"/>
-        <source>Type</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="979"/>
-        <source>Value</source>
-        <translation>Wert</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="981"/>
-        <source>0</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="983"/>
-        <source>1</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="993"/>
-        <source>HTTP Header Field Definitions</source>
-        <translation>HTTP Dateikopf Definitionen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="995"/>
-        <source>HTTP/1.1 Header Field Definitions &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14&quot;&gt;RFC 2616&lt;/a&gt;</source>
-        <translation>HTTP/1.1 Datenkopf Definitionen &lt;a href=&quot;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14&quot;&gt;RFC 2616&lt;/a&gt;</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="997"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1000"/>
-        <source>Add new Header Item</source>
-        <translation>Eine neuen Eintrag einfügen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1002"/>
-        <source>+</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1004"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1007"/>
-        <source>Remove Selected Header Item</source>
-        <translation>Ausgewählten Eintrag entfernen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1009"/>
-        <source>-</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1010"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1023"/>
-        <source>Application restart required.</source>
-        <translation>Anwendung Neustart erforderlich.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1011"/>
-        <source>Behavior</source>
-        <translation>Verhalten</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1012"/>
-        <source>Font Settings</source>
-        <translation>Schriften Einstellungen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1013"/>
-        <source>Default Font Size:</source>
-        <translation>Standard Schriftgröße:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1014"/>
-        <source>Fixed Font Size:</source>
-        <translation>Standard für die feste Schriftgröße:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1015"/>
-        <source>AutoLoad Images</source>
-        <translation>Bilder Automatisch laden</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1016"/>
-        <source>Javascript Enabled</source>
-        <translation>JavaScript Aktivieren</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1017"/>
-        <source>Plugins Enabled</source>
-        <translation>Plugins Aktivieren</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1018"/>
-        <source>Java Enabled</source>
-        <translation>Java Aktivieren</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1019"/>
-        <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
-        <translation>Speichere keine Upload Daten wenn HTTP POST verwendet wird.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1020"/>
-        <source>Allow HTTP pipelining with requests.</source>
-        <translation>Erlaube HTTP Parallelverarbeitung bei den Anfragen.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1021"/>
-        <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
-        <translation>Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1022"/>
-        <source>Zoom Text Only with Zoom Toolbar</source>
-        <translation>Nur den Text mit der Zoom Funktion verändern.</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1024"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1025"/>
-        <source>Arrangements</source>
-        <translation>Regelungen</translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="49"/>
+        <source>Cookies</source>
+        <translation>Kekse</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1026"/>
-        <source>Remove</source>
-        <translation>Entfernen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1027"/>
-        <source>Clear Table</source>
-        <translation>Leere Tabelle</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1029"/>
-        <source>Domain</source>
-        <translation>Domäne</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1031"/>
-        <source>Arrangement</source>
-        <translation>Regelung</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1032"/>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1041"/>
-        <source>Add</source>
-        <translation>Einfügen</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1033"/>
-        <source>Url:</source>
+        <location filename="../src/configuration/configurationmenu.cpp" line="50"/>
+        <source>Proxy</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1034"/>
-        <source>http://</source>
-        <translation></translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="51"/>
+        <source>Certification</source>
+        <translation>Zertifizierung</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1037"/>
-        <source>Merely current Session</source>
-        <translation>Lediglich nur für die Sitzung</translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="52"/>
+        <source>User Agent</source>
+        <translation>Benutzer Kennung</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1038"/>
-        <source>Always Blocked</source>
-        <translation>Immer verhindern</translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="53"/>
+        <source>Geological IP</source>
+        <translation>Geologische IP</translation>
     </message>
     <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1039"/>
-        <source>Always Allowed</source>
-        <translation>Immer erlauben</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1042"/>
-        <source>CA Certificate Database</source>
-        <translation>CA Zertifikat Datenbank</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1044"/>
-        <source>Organization (O)</source>
-        <translation>Organisation (O)</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1046"/>
-        <source>CommonName (CN)</source>
-        <translation>Gemeinsamer Name (CN)</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1048"/>
-        <source>Expires</source>
-        <translation>Erlischt</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1049"/>
-        <source>Database:</source>
-        <translation>Datenbank:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1051"/>
-        <source>Untrusted Certificate whitelist</source>
-        <translation>Weiße Liste für nicht vertrauenswürdige Zertifikate</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1060"/>
-        <source>Client Authentication and Access Control</source>
-        <translation>Klient Authentifizierung und Zugangs Kontrolle</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1061"/>
-        <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</source>
-        <translation>Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when &lt;a href=&quot;http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org&quot;&gt;I know all my clients&lt;/a&gt;?</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1062"/>
-        <source>Public Keyfile:</source>
-        <translation>Öffentlicher Schlüssel:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1064"/>
-        <source>Private Keyfile:</source>
-        <translation>Privater Schlüssel:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1066"/>
-        <source>Private Key Password:</source>
-        <translation>Privates Passwort:</translation>
-    </message>
-    <message>
-        <location filename="../build/src/configdialog/ui_configdialogui.h" line="1068"/>
-        <source>User Agents</source>
-        <translation>Benutzer Kennungen</translation>
+        <location filename="../src/configuration/configurationmenu.cpp" line="67"/>
+        <source>%1 Configuration options.</source>
+        <translation>%1 Konfigurations Optionen.</translation>
     </message>
 </context>
 <context>
@@ -1177,8 +1243,8 @@ Möchtest du wirklich Beenden?</translation>
 <context>
     <name>DropToClipBoard</name>
     <message>
-        <location filename="../src/configdialog/useragenteditor/droptoclipboard.cpp" line="50"/>
-        <location filename="../src/configdialog/useragenteditor/droptoclipboard.cpp" line="51"/>
+        <location filename="../src/configuration/useragenteditor/droptoclipboard.cpp" line="50"/>
+        <location filename="../src/configuration/useragenteditor/droptoclipboard.cpp" line="51"/>
         <source>Copy to Clipboard Drop Area</source>
         <translation>Kopiere Inhalt mit Maus fallen lassen in den Clipper</translation>
     </message>
@@ -1186,12 +1252,12 @@ Möchtest du wirklich Beenden?</translation>
 <context>
     <name>EditCookiesTable</name>
     <message>
-        <location filename="../src/configdialog/editcookiestable.cpp" line="55"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="74"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/editcookiestable.cpp" line="56"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="75"/>
         <source>Arrangement</source>
         <translation>Regelung</translation>
     </message>
@@ -1406,7 +1472,7 @@ Gründe : </translation>
 <context>
     <name>GeoLocation</name>
     <message>
-        <location filename="../src/geolocation.cpp" line="47"/>
+        <location filename="../src/geolocation.cpp" line="48"/>
         <source>country code from host address.</source>
         <translation>Ländercode von der Host Adresse.</translation>
     </message>
@@ -1699,59 +1765,9 @@ Gründe : </translation>
     </message>
 </context>
 <context>
-    <name>ProxySettings</name>
+    <name>PageWidget</name>
     <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="48"/>
-        <source>Configuring Network Proxy</source>
-        <translation>Konfiguriere Netzwerk Proxy</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="55"/>
-        <source>The Network Proxy Type:</source>
-        <translation>Type des Netzwerk Proxies:</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="64"/>
-        <source>Socks 5 (Based on RFC 1928 and RFC 1929)</source>
-        <translation>Socks 5 (Basierend auf RFC 1928 und RFC 1329)</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="66"/>
-        <source>HTTP Transparent Proxying (Default)</source>
-        <translation>HTTP Transparenter Proxy (Standard)</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="68"/>
-        <source>Caching-only HTTP (Only for HTTP Requests)</source>
-        <translation>Caching-only HTTP (Nur für HTTP Anfragen)</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="70"/>
-        <source>Caching FTP (Only for FTP Requests)</source>
-        <translation>Caching FTP (Nur für FTP Anfragen)</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="76"/>
-        <source>The Hostname of the Proxy:</source>
-        <translation>Hostname des Proxies:</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="89"/>
-        <source>The Proxy Port Number:</source>
-        <translation>Die Port Adresse des Proxies:</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="104"/>
-        <source>The Authentication username:</source>
-        <translation>Authentifizierung&apos;s Benutzername:</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="117"/>
-        <source>The Authentication password:</source>
-        <translation>Authentifizierung&apos;s Passwort:</translation>
-    </message>
-    <message>
-        <location filename="../src/configdialog/proxysettings.cpp" line="134"/>
+        <location filename="../src/configuration/pagewidget.cpp" line="76"/>
         <source>Application restart required.</source>
         <translation>Anwendung Neustart erforderlich.</translation>
     </message>
@@ -2049,7 +2065,7 @@ Gründe : </translation>
 <context>
     <name>UserAgent</name>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragent.cpp" line="36"/>
+        <location filename="../src/configuration/useragenteditor/useragent.cpp" line="36"/>
         <source>XHTMLDBG (Default)</source>
         <translation>XHTMLDBG (Standard)</translation>
     </message>
@@ -2057,14 +2073,14 @@ Gründe : </translation>
 <context>
     <name>UserAgentEditor</name>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragenteditor.cpp" line="55"/>
-        <location filename="../src/configdialog/useragenteditor/useragenteditor.cpp" line="56"/>
+        <location filename="../src/configuration/useragenteditor/useragenteditor.cpp" line="54"/>
+        <location filename="../src/configuration/useragenteditor/useragenteditor.cpp" line="55"/>
         <source>Move Selected row Up</source>
         <translation>Verschiebe die ausgewählte Zeile nach Oben</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragenteditor.cpp" line="62"/>
-        <location filename="../src/configdialog/useragenteditor/useragenteditor.cpp" line="63"/>
+        <location filename="../src/configuration/useragenteditor/useragenteditor.cpp" line="61"/>
+        <location filename="../src/configuration/useragenteditor/useragenteditor.cpp" line="62"/>
         <source>Move Selected row Down</source>
         <translation>Verschiebe die ausgewählte Zeile nach Unten</translation>
     </message>
@@ -2080,12 +2096,12 @@ Gründe : </translation>
 <context>
     <name>UserAgentsTable</name>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstable.cpp" line="72"/>
+        <location filename="../src/configuration/useragenteditor/useragentstable.cpp" line="72"/>
         <source>Add</source>
         <translation>Einfügen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstable.cpp" line="75"/>
+        <location filename="../src/configuration/useragenteditor/useragentstable.cpp" line="75"/>
         <source>Remove</source>
         <translation>Entfernen</translation>
     </message>
@@ -2093,33 +2109,33 @@ Gründe : </translation>
 <context>
     <name>UserAgentsTableModel</name>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="57"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="57"/>
         <source>Bookmark Entry for Context Menue</source>
         <translation>Leszeichen Eintrag für das Kontext Menü</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="63"/>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="201"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="63"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="201"/>
         <source>User-Agent</source>
         <translation>Benutzer Kennung</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="69"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="69"/>
         <source>Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="198"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="198"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="204"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="204"/>
         <source>Product Tokens</source>
         <translation>Produkt Umschreibung</translation>
     </message>
     <message>
-        <location filename="../src/configdialog/useragenteditor/useragentstablemodel.cpp" line="207"/>
+        <location filename="../src/configuration/useragenteditor/useragentstablemodel.cpp" line="207"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -2264,7 +2280,7 @@ Gründe : </translation>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="264"/>
+        <location filename="../src/webviewer.cpp" line="276"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>
@@ -2272,238 +2288,238 @@ Gründe : </translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="118"/>
+        <location filename="../src/window.cpp" line="119"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="124"/>
+        <location filename="../src/window.cpp" line="125"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="303"/>
+        <location filename="../src/window.cpp" line="304"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="304"/>
+        <location filename="../src/window.cpp" line="305"/>
         <source>Load Document from Url</source>
         <translation>Lade Dokument von Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="310"/>
+        <location filename="../src/window.cpp" line="311"/>
         <source>Open Html File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="311"/>
+        <location filename="../src/window.cpp" line="312"/>
         <source>Open Html from System</source>
         <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="317"/>
+        <location filename="../src/window.cpp" line="318"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="318"/>
+        <location filename="../src/window.cpp" line="319"/>
         <source>Close Debugger</source>
         <translation>Schliesse den Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="328"/>
+        <location filename="../src/window.cpp" line="329"/>
         <source>Parse</source>
         <translation>Analysieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="329"/>
+        <location filename="../src/window.cpp" line="330"/>
         <source>Parse current Document Source</source>
         <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="335"/>
+        <location filename="../src/window.cpp" line="336"/>
         <source>Format</source>
         <translation>Formatiere</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="336"/>
+        <location filename="../src/window.cpp" line="337"/>
         <source>Prepare and Format Document Source</source>
         <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="342"/>
+        <location filename="../src/window.cpp" line="343"/>
         <source>&amp;View</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="346"/>
+        <location filename="../src/window.cpp" line="347"/>
         <source>Zoom +</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="354"/>
+        <location filename="../src/window.cpp" line="355"/>
         <source>Zoom -</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="362"/>
+        <location filename="../src/window.cpp" line="363"/>
         <source>Original</source>
         <translation>Orginal</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="375"/>
+        <location filename="../src/window.cpp" line="376"/>
         <source>Fullscreen</source>
         <translation>Vollansicht</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="385"/>
+        <location filename="../src/window.cpp" line="386"/>
         <source>Refresh</source>
         <translation>Auffrischen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="391"/>
+        <location filename="../src/window.cpp" line="392"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="397"/>
+        <location filename="../src/window.cpp" line="398"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="403"/>
+        <location filename="../src/window.cpp" line="404"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="404"/>
+        <location filename="../src/window.cpp" line="405"/>
         <source>Add a new empty Tab</source>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="415"/>
+        <location filename="../src/window.cpp" line="416"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="438"/>
+        <location filename="../src/window.cpp" line="439"/>
         <source>Organize Bookmarks</source>
         <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="446"/>
+        <location filename="../src/window.cpp" line="447"/>
         <source>Configure Tidyrc</source>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="457"/>
-        <location filename="../src/window.cpp" line="550"/>
+        <location filename="../src/window.cpp" line="458"/>
+        <location filename="../src/window.cpp" line="551"/>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="492"/>
+        <location filename="../src/window.cpp" line="493"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="925"/>
+        <location filename="../src/window.cpp" line="934"/>
         <source>Download Request: %1</source>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="460"/>
+        <location filename="../src/window.cpp" line="461"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="299"/>
+        <location filename="../src/window.cpp" line="300"/>
         <source>&amp;Application</source>
         <translation>&amp;Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="325"/>
+        <location filename="../src/window.cpp" line="326"/>
         <source>&amp;Debugger</source>
         <translation>&amp;Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="382"/>
+        <location filename="../src/window.cpp" line="383"/>
         <source>&amp;Browser</source>
         <translation>&amp;Browser</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="444"/>
+        <location filename="../src/window.cpp" line="445"/>
         <source>S&amp;ettings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="452"/>
+        <location filename="../src/window.cpp" line="453"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="464"/>
+        <location filename="../src/window.cpp" line="465"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="465"/>
+        <location filename="../src/window.cpp" line="466"/>
         <source>about Qt</source>
         <translation>über Qt</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="470"/>
+        <location filename="../src/window.cpp" line="471"/>
         <source>about hjcms</source>
         <translation>über HJCMS</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="481"/>
+        <location filename="../src/window.cpp" line="482"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="525"/>
+        <location filename="../src/window.cpp" line="526"/>
         <source>Toolbars</source>
         <translation>Werkzeugleisten</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="535"/>
+        <location filename="../src/window.cpp" line="536"/>
         <source>Impartations</source>
         <translation>Mitteilungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="543"/>
+        <location filename="../src/window.cpp" line="544"/>
         <source>Inspectors</source>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="715"/>
+        <location filename="../src/window.cpp" line="724"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="771"/>
+        <location filename="../src/window.cpp" line="780"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="772"/>
+        <location filename="../src/window.cpp" line="781"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="773"/>
+        <location filename="../src/window.cpp" line="782"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="774"/>
+        <location filename="../src/window.cpp" line="783"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="781"/>
+        <location filename="../src/window.cpp" line="790"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
