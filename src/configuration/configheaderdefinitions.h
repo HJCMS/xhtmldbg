@@ -30,6 +30,7 @@
 /* QtGui */
 #include <QtGui/QGroupBox>
 #include <QtGui/QTableWidget>
+#include <QtGui/QTableWidgetItem>
 #include <QtGui/QWidget>
 
 class ConfigHeaderDefinitions : public QGroupBox
@@ -41,9 +42,13 @@ class ConfigHeaderDefinitions : public QGroupBox
   private:
     QTableWidget* headersTable;
 
-  public Q_SLOTS:
+  private Q_SLOTS:
+    void itemChanged ( QTableWidgetItem * );
     void addHeaderItem();
     void removeHeaderItem();
+
+  Q_SIGNALS:
+    void modified ( bool );
 
   public:
     ConfigHeaderDefinitions ( QWidget * parent = 0 );

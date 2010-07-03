@@ -176,6 +176,9 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
 
   connect ( DefaultFixedFontSize, SIGNAL ( valueChanged ( int ) ),
             this, SLOT ( itemClicked ( int ) ) );
+
+  connect ( headerDefinitions, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( modified ( bool ) ) );
 }
 
 /**

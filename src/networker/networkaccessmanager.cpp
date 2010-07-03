@@ -212,7 +212,17 @@ void NetworkAccessManager::peekReplyProcess()
 {
   if ( m_networkReply )
   {
-    QString mimeType = m_networkReply->header ( QNetworkRequest::ContentTypeHeader ).toString();
+    /**
+    * @short BUGFIX 2010/07/02 Crash with large page Size
+    * Wenn eine Seitengröße sehr groß ist produziert WebKit
+    * zwichendurch einen unuzulässigen Haeder,
+    * das wird jetzt an dieser Stelle abgefangen.
+    */
+    QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );
+    if ( ! contentTypeHeader.isValid() )
+      return;
+
+    QString mimeType = contentTypeHeader.toString();
     if ( ! mimeType.contains ( "text/html" ) )
       return;
 

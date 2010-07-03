@@ -135,11 +135,28 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
 
 /**
 * Entfernt cName(www) vom Hostnamen und gibt die Domäne
+* ohne führenden Punkt zurück.
+*/
+const QString NetworkCookie::cookieHostnameFromUrl ( const QUrl &url ) const
+{
+  QString domain = url.host().replace ( QRegExp ( "^www\\." ), "" );
+  if ( domain.contains ( QRegExp ( "^\\." ) ) )
+    return domain.replace ( QRegExp ( "^\\." ), "" );
+  else
+    return domain;
+}
+
+/**
+* Entfernt cName(www) vom Hostnamen und gibt die Domäne
 * mit führenden Punkt zurück.
 */
-const QString NetworkCookie::cookieDomainFromHost ( const QUrl &url ) const
+const QString NetworkCookie::cookieDomainFromUrl ( const QUrl &url ) const
 {
-  return url.host().replace ( QRegExp ( "^www\\." ), "." );
+  QString domain = url.host().replace ( QRegExp ( "^www\\." ), "." );
+  if ( domain.contains ( QRegExp ( "^\\." ) ) )
+    return domain;
+  else
+    return "." + domain;
 }
 
 /**
@@ -158,8 +175,8 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   if ( domain.isEmpty() )
     return false;
 
-  QString host1 = cookieDomainFromHost ( url );
-  QString host2 = "." + cookieDomainFromHost ( url );
+  QString host1 = cookieDomainFromUrl ( url );
+  QString host2 = cookieHostnameFromUrl ( url );
   QString rejectMessage = trUtf8 ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
@@ -374,7 +391,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         cookie.setExpirationDate ( lifeTime );
 
       if ( cookie.domain().isEmpty() )
-        cookie.setDomain ( cookieDomainFromHost ( cookieUrl ) );
+        cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
 
       if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl ) )
         continue;

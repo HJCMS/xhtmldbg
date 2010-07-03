@@ -724,6 +724,29 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
+    <name>ConfigHeaderDefinitions</name>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="37"/>
+        <source>Header Field Definitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="49"/>
+        <source>Warning: Do not edit this Table if you not now how it works! For more information see &lt;a href=&quot;%1&quot;&gt;rfc2616&lt;/a&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="60"/>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="61"/>
+        <source>Values</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConfigIDE</name>
     <message>
         <location filename="../src/configuration/configide.cpp" line="37"/>
@@ -1702,7 +1725,7 @@ Reasons : </source>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="221"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="231"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1710,42 +1733,42 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="163"/>
+        <location filename="../src/networker/networkcookie.cpp" line="180"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="168"/>
+        <location filename="../src/networker/networkcookie.cpp" line="185"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="174"/>
+        <location filename="../src/networker/networkcookie.cpp" line="191"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="180"/>
+        <location filename="../src/networker/networkcookie.cpp" line="197"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="195"/>
+        <location filename="../src/networker/networkcookie.cpp" line="212"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="322"/>
+        <location filename="../src/networker/networkcookie.cpp" line="339"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="343"/>
+        <location filename="../src/networker/networkcookie.cpp" line="360"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="404"/>
+        <location filename="../src/networker/networkcookie.cpp" line="421"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>

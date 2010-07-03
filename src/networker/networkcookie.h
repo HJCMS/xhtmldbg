@@ -52,7 +52,8 @@ class NetworkCookie : public QNetworkCookieJar
     QStringList cookiesAllowed;
     QStringList cookiesSession;
     QStringList inProgress;
-    const QString cookieDomainFromHost ( const QUrl & ) const;
+    const QString cookieHostnameFromUrl ( const QUrl & ) const;
+    const QString cookieDomainFromUrl ( const QUrl & ) const;
     bool validateDomainAndHost ( const QString &, const QUrl & );
     const QDateTime cookieLifeTime();
     void load();

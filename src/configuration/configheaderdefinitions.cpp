@@ -25,9 +25,12 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
+#include <QtGui/QIcon>
 #include <QtGui/QLabel>
-#include <QtGui/QTableWidgetItem>
+#include <QtGui/QSpacerItem>
+#include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
 ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
@@ -38,12 +41,12 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
   setFlat ( true );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
-  verticalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_layout" ) );
+  verticalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_vertical_layout" ) );
   verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
   verticalLayout->setSpacing ( 5 );
 
   QLabel* lr0 = new QLabel ( this );
-  lr0->setText ( trUtf8 ( "Warning: Do not edit this Table if you not now how it works! For more info see <a href=\"%1\">RFC 2616</a>" )
+  lr0->setText ( trUtf8 ( "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>" )
                  .arg ( "http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14" ) );
   lr0->setAlignment ( ( Qt::AlignJustify | Qt::AlignTop ) );
   lr0->setWordWrap ( true );
@@ -64,7 +67,45 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
   headersTable->verticalHeader()->setVisible ( false );
   verticalLayout->addWidget ( headersTable );
 
+  QHBoxLayout* horizontalLayout = new QHBoxLayout;
+  horizontalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_horizontal_layout" ) );
+  horizontalLayout->setContentsMargins ( 0, 0, 0, 0 );
+  horizontalLayout->setSpacing ( 5 );
+
+  QSpacerItem* spacer = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  horizontalLayout->addItem ( spacer );
+
+  QToolButton* btn1 = new QToolButton ( this );
+  btn1->setObjectName ( QLatin1String ( "add_header_definition_button" ) );
+  btn1->setIcon ( QIcon::fromTheme ( QLatin1String ( "list-add" ) ) );
+  horizontalLayout->addWidget ( btn1 );
+
+  QToolButton* btn2 = new QToolButton ( this );
+  btn2->setObjectName ( QLatin1String ( "remove_header_definition_button" ) );
+  btn2->setIcon ( QIcon::fromTheme ( QLatin1String ( "list-remove" ) ) );
+  horizontalLayout->addWidget ( btn2 );
+
+  verticalLayout->addLayout ( horizontalLayout );
+
   setLayout ( verticalLayout );
+
+  // Tables
+  connect ( headersTable, SIGNAL ( itemChanged ( QTableWidgetItem * ) ),
+            this, SLOT ( itemChanged ( QTableWidgetItem * ) ) );
+  connect ( btn1, SIGNAL ( clicked() ), this, SLOT ( addHeaderItem() ) );
+  connect ( btn2, SIGNAL ( clicked() ), this, SLOT ( removeHeaderItem() ) );
+}
+
+/**
+* Wenn ein Eintrag verändert wurde das signal @ref modified abstoßen.
+*/
+void ConfigHeaderDefinitions::itemChanged ( QTableWidgetItem * item )
+{
+  // keine Änderungen
+  if ( ! item->isSelected() )
+    return;
+
+  emit modified ( true );
 }
 
 /**
@@ -125,6 +166,7 @@ void ConfigHeaderDefinitions::saveHeaderDefinitions ( QSettings * cfg )
 void ConfigHeaderDefinitions::addHeaderItem()
 {
   headersTable->setRowCount ( ( headersTable->rowCount() + 1 ) );
+  emit modified ( true );
 }
 
 /**
@@ -141,6 +183,7 @@ void ConfigHeaderDefinitions::removeHeaderItem()
     QTableWidgetItem* it2 = headersTable->item ( row, 1 );
     delete it2;
     headersTable->removeRow ( row );
+    emit modified ( true );
   }
 }
 

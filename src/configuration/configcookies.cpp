@@ -103,7 +103,7 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   selectedArrangementType->insertItem ( 2, trUtf8 ( "Always Allowed" ) );
   editLayout->addWidget ( selectedArrangementType, 1, 0, 1, 1 );
 
-  QSpacerItem* spacer2 = new QSpacerItem ( 445, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  QSpacerItem* spacer2 = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
   editLayout->addItem ( spacer2, 1, 1, 1, 1 );
 
   QPushButton* addCookie = new QPushButton ( editGroup );

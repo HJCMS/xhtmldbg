@@ -693,7 +693,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/configuration/configdomtree.cpp" line="37"/>
         <source>DOM Inspector</source>
-        <translation>DOM Kontrolleure</translation>
+        <translation>DOM Kontrolleur</translation>
     </message>
     <message>
         <location filename="../src/configuration/configdomtree.cpp" line="51"/>
@@ -722,6 +722,29 @@ Do you realy wan to exit?</source>
         <location filename="../src/configuration/configgeo.cpp" line="85"/>
         <source>GeoIP Database %1</source>
         <translation>GeoIP Datenbank %1</translation>
+    </message>
+</context>
+<context>
+    <name>ConfigHeaderDefinitions</name>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="37"/>
+        <source>Header Field Definitions</source>
+        <translation>Datenkopf Definitionen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="49"/>
+        <source>Warning: Do not edit this Table if you not now how it works! For more information see &lt;a href=&quot;%1&quot;&gt;rfc2616&lt;/a&gt;</source>
+        <translation>Warnung: Editiere diese Tabelle nicht, wenn du nicht weist wie sie Arbeitet. Für mehr Informationen siehe &lt;a href=&quot;%1&quot;&gt;rfc2616&lt;/a&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="60"/>
+        <source>Parameter</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="61"/>
+        <source>Values</source>
+        <translation>Werte</translation>
     </message>
 </context>
 <context>
@@ -964,7 +987,7 @@ Möchtest du wirklich Beenden?</translation>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
         <source>Dom Inspector</source>
-        <translation>DOM Kontrolleure</translation>
+        <translation>DOM Kontrolleur</translation>
     </message>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
@@ -1707,7 +1730,7 @@ Gründe : </translation>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="221"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="231"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation>Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)</translation>
     </message>
@@ -1715,42 +1738,42 @@ Gründe : </translation>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="163"/>
+        <location filename="../src/networker/networkcookie.cpp" line="180"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation>Unzulässiges Cookie Format für &quot;%1&quot; und Keks Domäne &quot;%2&quot;, zurückgewiesen wegen RFC 2109.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="168"/>
+        <location filename="../src/networker/networkcookie.cpp" line="185"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation>Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die Domäne nicht mit einem Punkt beginnt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="174"/>
+        <location filename="../src/networker/networkcookie.cpp" line="191"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation>Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="180"/>
+        <location filename="../src/networker/networkcookie.cpp" line="197"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation>Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="195"/>
+        <location filename="../src/networker/networkcookie.cpp" line="212"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="322"/>
+        <location filename="../src/networker/networkcookie.cpp" line="339"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="343"/>
+        <location filename="../src/networker/networkcookie.cpp" line="360"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="404"/>
+        <location filename="../src/networker/networkcookie.cpp" line="421"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
