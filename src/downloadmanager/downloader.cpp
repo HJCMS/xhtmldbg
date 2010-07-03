@@ -54,12 +54,17 @@ void Downloader::openDownload()
     return;
 
   m_reply->setParent ( this );
-  connect ( m_reply, SIGNAL ( readyRead() ), this, SLOT ( downloadReadyRead() ) );
   connect ( m_reply, SIGNAL ( metaDataChanged() ),
             this, SLOT ( getChangedMetaData() ) );
+
+  connect ( m_reply, SIGNAL ( readyRead() ),
+            this, SLOT ( downloadReadyRead() ) );
+
   connect ( m_reply, SIGNAL ( downloadProgress ( qint64, qint64 ) ),
             this, SLOT ( downloadProgress ( qint64, qint64 ) ) );
-  connect ( m_reply, SIGNAL ( finished() ), this, SLOT ( finished() ) );
+
+  connect ( m_reply, SIGNAL ( finished() ),
+            this, SLOT ( finished() ) );
 
   // jetzt den Timer starten
   m_progressTime.start();
@@ -96,16 +101,14 @@ void Downloader::downloadReadyRead()
   if ( destinationFilePath.isEmpty() )
     return;
 
-  if ( ! m_output.isOpen () )
-  {
-    if ( ! m_output.open ( QIODevice::WriteOnly ) )
-      qWarning ( "Error opening output file: %s", qPrintable ( m_output.errorString() ) );
-  }
+  if ( ( ! m_output.isOpen () ) && ( ! m_output.open ( QIODevice::WriteOnly ) ) )
+    qWarning ( "(XHTMLDBG) Error opening output file: %s", qPrintable ( m_output.errorString() ) );
 
-  if ( -1 == m_output.write ( m_reply->readAll() ) )
-  {
-    qWarning ( "Error saving: %s", qPrintable ( m_output.errorString() ) );
-  }
+  if ( m_reply->rawHeader ( "Content-Type" ).isEmpty() )
+    qWarning ( "(XHTMLDBG) Corrupted Mime-Type" );
+
+  if ( m_output.write ( m_reply->readAll() ) == -1 )
+    qWarning ( "(XHTMLDBG) Error saving: %s", qPrintable ( m_output.errorString() ) );
 }
 
 /**
