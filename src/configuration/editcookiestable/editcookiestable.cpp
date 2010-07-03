@@ -80,12 +80,35 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
             this, SLOT ( cellChanged ( const QModelIndex & ) ) );
 }
 
+/**
+* Wenn eine Tabellen Zelle geändert wurde das
+* signal @ref modified senden!
+*/
 void EditCookiesTable::cellChanged ( const QModelIndex &m )
 {
   Q_UNUSED ( m )
   emit modified();
 }
 
+/**
+* Sucht ab dem 3 zeichen in der Tabelle nach übereinstimmungen
+* und Markiert den erst besten Eintrag der gefunden wird.
+*/
+void EditCookiesTable::markCookie ( const QString &txt )
+{
+  if ( txt.length() < 4 )
+    return;
+
+  foreach ( QTableWidgetItem* item, findItems ( txt, Qt::MatchContains ) )
+  {
+    setCurrentItem ( item );
+    break;
+  }
+}
+
+/**
+* Lädt die Cookie Regelungen aus der xhtmldbg.conf
+*/
 void EditCookiesTable::loadCookieArrangements ( QSettings * cfg )
 {
   Q_ASSERT ( cfg );
@@ -115,6 +138,9 @@ void EditCookiesTable::loadCookieArrangements ( QSettings * cfg )
   cfg->endGroup();
 }
 
+/**
+* Alle Cookies Speichern
+*/
 void EditCookiesTable::saveCookieArrangements ( QSettings * cfg )
 {
   Q_ASSERT ( cfg );
@@ -135,6 +161,9 @@ void EditCookiesTable::saveCookieArrangements ( QSettings * cfg )
 
 }
 
+/**
+* Die Ausgewählten einträge entfernen!
+*/
 void EditCookiesTable::removeItem()
 {
   QList<QTableWidgetItem*> items = selectedItems();
@@ -150,6 +179,9 @@ void EditCookiesTable::removeItem()
   }
 }
 
+/**
+* Tabelle Leeren
+*/
 void EditCookiesTable::removeAll()
 {
   clearContents();
@@ -157,6 +189,9 @@ void EditCookiesTable::removeAll()
   emit modified();
 }
 
+/**
+* Einen Neuen Eintrag einfügen
+*/
 bool EditCookiesTable::addCookie ( int t, const QString &h )
 {
   if ( h.isEmpty() || t < 0 )

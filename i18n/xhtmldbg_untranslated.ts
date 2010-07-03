@@ -642,47 +642,57 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigCookies</name>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="41"/>
+        <location filename="../src/configuration/configcookies.cpp" line="42"/>
         <source>Cookie Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="70"/>
+        <location filename="../src/configuration/configcookies.cpp" line="68"/>
+        <source>Search for existing Cookies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="78"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="76"/>
-        <source>Clear Table</source>
+        <location filename="../src/configuration/configcookies.cpp" line="79"/>
+        <source>Remove Selected Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="80"/>
-        <source>Add Cookie</source>
+        <location filename="../src/configuration/configcookies.cpp" line="85"/>
+        <source>Clear Cookies Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="90"/>
+        <location filename="../src/configuration/configcookies.cpp" line="89"/>
+        <source>Create a new Cookie provision</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configcookies.cpp" line="99"/>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="101"/>
+        <location filename="../src/configuration/configcookies.cpp" line="110"/>
         <source>Merely current Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="102"/>
+        <location filename="../src/configuration/configcookies.cpp" line="111"/>
         <source>Always Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="103"/>
+        <location filename="../src/configuration/configcookies.cpp" line="112"/>
         <source>Always Allowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="111"/>
+        <location filename="../src/configuration/configcookies.cpp" line="120"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>

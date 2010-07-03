@@ -59,6 +59,7 @@ class EditCookiesTable : public QTableWidget
     void modified();
 
   public Q_SLOTS:
+    void markCookie ( const QString & );
     void loadCookieArrangements ( QSettings * cfg );
     void saveCookieArrangements ( QSettings * cfg );
     void removeItem();

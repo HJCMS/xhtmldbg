@@ -35,6 +35,7 @@
 #include <QtGui/QIcon>
 #include <QtGui/QPushButton>
 #include <QtGui/QSizePolicy>
+#include <QtGui/QToolButton>
 #include <QtGui/QSpacerItem>
 
 ConfigCookies::ConfigCookies ( QWidget * parent )
@@ -60,24 +61,32 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   cookiesTable->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
   mainLayout->addWidget ( cookiesTable, 0, 0, 1, 4 );
 
+  // sucht nach einem Keks in der Tabelle
+  QLineEdit* searchCookie = new QLineEdit ( centralWidget );
+  searchCookie->setObjectName ( QLatin1String ( "config_cookies_search_cookie" ) );
+  searchCookie->setMinimumWidth ( 150 );
+  searchCookie->setToolTip ( trUtf8 ( "Search for existing Cookies" ) );
+  mainLayout->addWidget ( searchCookie, 1, 0, 1, 1 );
+
   // Zweite Zeile Tabellen Aktionen
-  QSpacerItem* spacer1 = new QSpacerItem ( 445, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-  mainLayout->addItem ( spacer1, 1, 0, 1, 2 );
+  QSpacerItem* spacer1 = new QSpacerItem ( 50, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  mainLayout->addItem ( spacer1, 1, 1, 1, 1 );
 
   QPushButton* removeCookieItem = new QPushButton ( centralWidget );
   removeCookieItem->setObjectName ( QLatin1String ( "removeCookieItem" ) );
   removeCookieItem->setIcon ( QIcon::fromTheme ( QLatin1String ( "list-remove" ) ) );
   removeCookieItem->setText ( trUtf8 ( "Remove" ) );
+  removeCookieItem->setToolTip ( trUtf8 ( "Remove Selected Cookie" ) );
   mainLayout->addWidget ( removeCookieItem, 1, 2, 1, 1 );
 
-  QPushButton* removeAllCookies = new QPushButton ( centralWidget );
+  QToolButton* removeAllCookies = new QToolButton ( centralWidget );
   removeAllCookies->setObjectName ( QLatin1String ( "removeAllCookies" ) );
   removeAllCookies->setIcon ( QIcon::fromTheme ( QLatin1String ( "archive-remove" ) ) );
-  removeAllCookies->setText ( trUtf8 ( "Clear Table" ) );
+  removeAllCookies->setToolTip ( trUtf8 ( "Clear Cookies Table" ) );
   mainLayout->addWidget ( removeAllCookies, 1, 3, 1, 1 );
 
   // Dritte Zeile Keks einfügen
-  QGroupBox* editGroup = new QGroupBox ( trUtf8 ( "Add Cookie" ), centralWidget );
+  QGroupBox* editGroup = new QGroupBox ( trUtf8 ( "Create a new Cookie provision" ), centralWidget );
   editGroup->setObjectName ( QLatin1String ( "config_cookies_add_group" ) );
 
   QGridLayout* editLayout = new QGridLayout ( editGroup );
@@ -119,6 +128,8 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   centralWidget->setLayout ( mainLayout );
 
   // Signale
+  connect ( searchCookie, SIGNAL ( textChanged ( const QString & ) ),
+            cookiesTable, SLOT ( markCookie ( const QString & ) ) );
   connect ( addCookie, SIGNAL ( clicked() ), this, SLOT ( addCookieAccess() ) );
   connect ( removeCookieItem, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeItem() ) );
   connect ( removeAllCookies, SIGNAL ( clicked() ), cookiesTable, SLOT ( removeAll() ) );
