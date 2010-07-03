@@ -7,6 +7,7 @@ test -x ${base}/build/app/xhtmldbg || exit 1
 export QT_DEBUG_PLUGINS=0
 export PHONON_GST_DEBUG=0
 export QT_CRASH_OUTPUT=${base}/build/app/crash.log
+export KDE_COLOR_DEBUG=1
 
 if test -n "$LD_LIBRARY_PATH" ; then
   case ":$LD_LIBRARY_PATH:" in
@@ -24,6 +25,11 @@ fi
 case "$1" in
   ide)
     export QT_LAYOUT_DEBUG=1
+    ${base}/build/app/xhtmldbg
+  ;;
+  gltest)
+    export KDE_SESSION_VERSION=4
+    export QT_USE_X11GL_PIXMAPS=1
     ${base}/build/app/xhtmldbg
   ;;
   full)

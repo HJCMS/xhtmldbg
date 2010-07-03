@@ -19,7 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "version.h"
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "xhtmldbgmain.h"
 
 #include <cstdlib>
@@ -54,29 +56,6 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
                                organizationDomain(),
                                objectName(), this );
 
-  /**
-  * HACK QTWEBKIT_PLUGIN_PATH
-  * XHTMLDBG stürtz des öffteren ab wenn ein QWebKit versuch Plugins zu laden fehlschlägt!
-  * Leider bringen die Optionen mit @ref QWebSettings nicht viel :-/
-  * Hier ein Hack zum absoluten abschalten in dem die Globalen Variablen
-  * von Mozilla und WebKit gelöscht werden!
-  * @link http://doc.qt.nokia.com/4.6/webintegration.html
-  */
-  if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
-  {
-    QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
-    env.remove ( QLatin1String ( "MOZILLA_HOME" ) );
-    env.remove ( QLatin1String ( "MOZ_PLUGIN_PATH" ) );
-    env.remove ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ) );
-  }
-
-  // Setting Default Application Properties
-  setGraphicsSystem ( QLatin1String ( "native" ) );
-  QStringList iconSearchPaths ( "/usr/share/icons" );
-  iconSearchPaths << "/opt/kde4/share/icons";
-  QIcon::setThemeSearchPaths ( m_settings->value ( "iconthemepath", iconSearchPaths ).toStringList() );
-  QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
-
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
 
@@ -91,7 +70,7 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   if ( sendMessage ( message.toUtf8(), 500 ) )
     return;
 
-  if ( !startUniqueServer() )
+  if ( ! startUniqueServer() )
     return;
 
 #if defined(Q_WS_MAC)

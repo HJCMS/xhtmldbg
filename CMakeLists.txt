@@ -8,6 +8,7 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0 FATAL_ERROR)
 # CMP0002: we have multiple targets with the same name for the unit tests
 ##############################################################
 CMAKE_POLICY (VERSION 2.8)
+ENABLE_LANGUAGE (CXX)
 
 ##############################################################
 # where to look first for cmake modules, before ${CMAKE_ROOT}/cmake/Modules/ is checked
@@ -202,14 +203,6 @@ SET (PARSER_SCHEME_PATH
 )
 
 ##############################################################
-## Configure files
-##############################################################
-
-CONFIGURE_FILE (version.h.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/version.h
-)
-
-##############################################################
 ## D-Bus-1
 ##############################################################
 
@@ -291,6 +284,35 @@ SET (XHTMLDBG_LIBRARIES
 ## needed by hostinfo plugin
 FIND_PROGRAM (BIND_UTIL_DIG NAMES dig bind-dig PATHS /bin /usr/bin)
 
+##############################################################
+## Oxygen Icon Theme
+##############################################################
+
+FIND_PATH (OXYGEN_THEME_PATH
+  NAMES index.theme
+  PATHS
+  /usr/share
+  /usr/local/share
+  $ENV{KDEDIRS}"/share"
+  ${CMAKE_GENERIC_PROGRAM_FILES}"/kde/share"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share"
+  PATH_SUFFIXES icons/oxygen
+  DOC "path location of oxygen icon theme"
+)
+
+IF (NOT OXYGEN_THEME_PATH)
+  MESSAGE (FATAL_ERROR  "xhtmldbg: Oxygen Theme Path not found!\nFix it with: -DOXYGEN_THEME_PATH:PATH=<path>")
+ELSE (NOT OXYGEN_THEME_PATH)
+  MESSAGE (STATUS  "Oxygen Theme Path found: \"${OXYGEN_THEME_PATH}\"")
+ENDIF (NOT OXYGEN_THEME_PATH)
+
+##############################################################
+## Configure Versions Header
+##############################################################
+
+CONFIGURE_FILE (version.h.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
 
 ##############################################################
 ## SUBDIRECTORIES
