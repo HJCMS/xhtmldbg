@@ -27,8 +27,6 @@ FIND_PACKAGE (Raptor REQUIRED)
 FIND_PACKAGE (GeoIP REQUIRED)
 FIND_PACKAGE (Java)
 
-INCLUDE (${QT_USE_FILE})
-
 ##############################################################
 ## Set xhtmldbg Specific Information
 ##############################################################
@@ -166,15 +164,15 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
     SET (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -W -Wno-long-long")
   ENDIF (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
-  IF (GEOIP_FOUND)
-    ADD_DEFINITIONS (${GEOIP_DEFINITIONS})
-  ENDIF (GEOIP_FOUND)
-
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 ##############################################################
 ## APPEND|REMOVE DEFINITIONS
 ##############################################################
+
+IF (GEOIP_FOUND)
+  ADD_DEFINITIONS (${GEOIP_DEFINITIONS})
+ENDIF (GEOIP_FOUND)
 
 REMOVE_DEFINITIONS (-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
 
@@ -247,9 +245,13 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
 ## INCLUDES
 ##############################################################
 
-SET (XHTMLDBG_INCLUDES
-  ${QT_QTMAIN_INCLUDE_DIR}
+INCLUDE_DIRECTORIES (
+  ${QT_INCLUDE_DIR}
+  ${QTIDY_INCLUDE_DIR}
   ${RAPTOR_INCLUDE_DIR}
+)
+
+SET (XHTMLDBG_INCLUDES
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}/src
@@ -262,7 +264,7 @@ SET (XHTMLDBG_INCLUDE_INTERFACE
 )
 
 ##############################################################
-## LINKER PATHS
+## LINKER
 ##############################################################
 
 SET (XHTMLDBG_LIBRARIES

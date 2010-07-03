@@ -19,8 +19,7 @@
 #######################################################################
 
 
-FIND_PACKAGE ( Qt4 4.5.6 COMPONENTS QtCore QtGui QtXml REQUIRED )
-INCLUDE (${QT_USE_FILE})
+FIND_PACKAGE (Qt4 4.6.0 COMPONENTS QtCore QtGui QtXml REQUIRED)
 
 ##############################################################
 ## FATAL ERRORS
@@ -85,6 +84,10 @@ FIND_LIBRARY (QTIDY_LIBRARY
   PATHS /usr/local/lib /usr/lib /usr/local/lib64 /usr/lib64 ${QT_LIBRARY_DIR} ENV LD_LIBRARY_PATH
 )
 
+IF (NOT QTIDY_LIBRARY)
+  SET (QTIDY_FOUND 0)
+ENDIF (NOT QTIDY_LIBRARY)
+
 IF (QTIDY_FOUND)
   MESSAGE (STATUS " Found version ${QTIDY_VERSION}")
   MESSAGE (STATUS " Found includedir ${QTIDY_INCLUDE}")
@@ -93,21 +96,26 @@ ELSE (QTIDY_FOUND)
   MESSAGE (FATAL_ERROR "Could NOT find QTidy. Check ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log for more details.")
 ENDIF (QTIDY_FOUND)
 
-INCLUDE_DIRECTORIES (
-  ${QTIDY_INCLUDE}
-  ${QT_QTCORE_INCLUDE_DIR}
-  ${QT_QTGUI_INCLUDE_DIR}
-  ${QT_QTXML_INCLUDE_DIR}
-  ${TIDY_INCLUDE}
-)
-
 ##############################################################
 ## QTIDY_DEFINITIONS
 ##############################################################
 
 ADD_DEFINITIONS (
-  ${QTIDY_DEFINITIONS}
+  -DHAVE_QTIDY
   ${QT_DEFINITIONS}
+  ${QTIDY_DEFINITIONS}
+)
+
+##############################################################
+## QTIDY_INCLUDE_DIR
+##############################################################
+
+SET (QTIDY_INCLUDE_DIR
+  ${QT_QTCORE_INCLUDE_DIR}
+  ${QT_QTGUI_INCLUDE_DIR}
+  ${QT_QTXML_INCLUDE_DIR}
+  ${QTIDY_INCLUDE}
+  ${TIDY_INCLUDE}
 )
 
 ##############################################################
@@ -115,15 +123,14 @@ ADD_DEFINITIONS (
 ##############################################################
 
 SET(QTIDY_LIBRARIES
-  ${QT_QTMAIN_LIBRARY}
-  ${QT_QTGUI_LIBRARY}
   ${QT_QTCORE_LIBRARY}
+  ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QTIDY_LIBRARY}
   ${TIDY_LIBRARY}
 )
 
-MARK_AS_ADVANCED (QTIDY_LIBRARY QTIDY_INCLUDE)
+MARK_AS_ADVANCED (QTIDY_LIBRARIES QTIDY_INCLUDE_DIR)
 
 #eof
 

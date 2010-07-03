@@ -56,6 +56,29 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
                                organizationDomain(),
                                objectName(), this );
 
+  // Setze das Grafiksystem immer auf Native bei KDE 3!
+  QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
+  /**
+  * HACK QTWEBKIT_PLUGIN_PATH
+  * QWebKit kackt des öffteren ab wenn ein versuch Plugins zu laden fehlschlägt!
+  * Leider bringen die Optionen mit @ref QWebSettings nicht viel :-/
+  * Hier ein Hack zum absoluten abschalten in dem die Globalen Variablen
+  * von Mozilla und WebKit gelöscht werden!
+  * @link http://doc.qt.nokia.com/4.6/webintegration.html
+  */
+  if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
+  {
+    env.insert ( QLatin1String ( "MOZILLA_HOME" ), QLatin1String ( "/tmp/faked" ) );
+    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), QLatin1String ( "/tmp/faked" ) );
+    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), QLatin1String ( "/tmp/faked" ) );
+  }
+
+  // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
+  QStringList iconSearchPaths;
+  iconSearchPaths << QString ( OXYGEN_THEME_PATH ) << "/opt/kde4/share/icons";
+  QIcon::setThemeSearchPaths ( m_settings->value ( "iconthemepath", iconSearchPaths ).toStringList() );
+  QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
+
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
 

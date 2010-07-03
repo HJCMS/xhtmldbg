@@ -7,7 +7,6 @@ test -x ${base}/build/app/xhtmldbg || exit 1
 export QT_DEBUG_PLUGINS=0
 export PHONON_GST_DEBUG=0
 export QT_CRASH_OUTPUT=${base}/build/app/crash.log
-export KDE_COLOR_DEBUG=1
 
 if test -n "$LD_LIBRARY_PATH" ; then
   case ":$LD_LIBRARY_PATH:" in
@@ -27,10 +26,16 @@ case "$1" in
     export QT_LAYOUT_DEBUG=1
     ${base}/build/app/xhtmldbg
   ;;
-  gltest)
+  gl)
+    export DISPLAYMANAGER_XGL_OPTS="-accel glx:pbuffer -accel xv:fbo"
     export KDE_SESSION_VERSION=4
+    export KDE_COLOR_DEBUG=1
     export QT_USE_X11GL_PIXMAPS=1
-    ${base}/build/app/xhtmldbg
+    unset LIBGL_ALWAYS_INDIRECT
+    ${base}/build/app/xhtmldbg -graphicssystem opengl
+  ;;
+  raster)
+    ${base}/build/app/xhtmldbg -graphicssystem raster
   ;;
   full)
     export QDBUS_DEBUG=1
