@@ -56,8 +56,6 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
                                organizationDomain(),
                                objectName(), this );
 
-  // Setze das Grafiksystem immer auf Native bei KDE 3!
-  QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
   /**
   * HACK QTWEBKIT_PLUGIN_PATH
   * QWebKit kackt des öffteren ab wenn ein versuch Plugins zu laden fehlschlägt!
@@ -68,9 +66,10 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   */
   if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
   {
-    env.insert ( QLatin1String ( "MOZILLA_HOME" ), QLatin1String ( "/tmp/faked" ) );
-    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), QLatin1String ( "/tmp/faked" ) );
-    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), QLatin1String ( "/tmp/faked" ) );
+    QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
+    env.insert ( QLatin1String ( "MOZILLA_HOME" ), QLatin1String ( "/tmp/fake" ) );
+    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), QLatin1String ( "/tmp/fake/plugins" ) );
+    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), QLatin1String ( "/tmp/fake/plugins" ) );
   }
 
   // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
