@@ -233,14 +233,6 @@ FIND_FILE (CSS_VALIDATOR_JAR
   DOC "Find W3C CSS Validator File" NO_CMAKE_PATH
 )
 
-CONFIGURE_FILE (xhtmldbg.conf.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
-)
-
-INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
-  DESTINATION /etc/xdg/hjcms.de
-)
-
 ##############################################################
 ## INCLUDES
 ##############################################################
@@ -290,22 +282,22 @@ FIND_PROGRAM (BIND_UTIL_DIG NAMES dig bind-dig PATHS /bin /usr/bin)
 ## Oxygen Icon Theme
 ##############################################################
 
-FIND_PATH (OXYGEN_THEME_PATH
-  NAMES index.theme
+FIND_PATH (ICON_THEME_PATH
+  NAMES oxygen/index.theme
   PATHS
-  /usr/share/icons/oxygen
-  /usr/local/share/icons/oxygen
-  $ENV{KDEDIRS}"/share/icons/oxygen"
-  ${CMAKE_GENERIC_PROGRAM_FILES}"/kde/share/icons/oxygen"
-  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share/icons/oxygen"
+  /usr/share/icons
+  /usr/local/share/icons
+  $ENV{KDEDIRS}"/share/icons"
+  ${CMAKE_GENERIC_PROGRAM_FILES}"/kde/share/icons"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share/icons"
   DOC "path location of oxygen icon theme"
 )
 
-IF (NOT OXYGEN_THEME_PATH)
-  MESSAGE (FATAL_ERROR  "xhtmldbg: Oxygen Theme Path not found!\nFix it with: -DOXYGEN_THEME_PATH:PATH=<path>")
-ELSE (NOT OXYGEN_THEME_PATH)
-  MESSAGE (STATUS  "Oxygen Theme Path found: \"${OXYGEN_THEME_PATH}\"")
-ENDIF (NOT OXYGEN_THEME_PATH)
+IF (NOT ICON_THEME_PATH)
+  MESSAGE (FATAL_ERROR  "xhtmldbg: Oxygen Theme Path not found!\nFix it with: -DICON_THEME_PATH:PATH=<path>")
+ELSE (NOT ICON_THEME_PATH)
+  MESSAGE (STATUS  "Found Oxygen Icon Theme in: \"${ICON_THEME_PATH}\"")
+ENDIF (NOT ICON_THEME_PATH)
 
 ##############################################################
 ## Configure Versions Header
@@ -313,6 +305,14 @@ ENDIF (NOT OXYGEN_THEME_PATH)
 
 CONFIGURE_FILE (version.h.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/version.h
+)
+
+CONFIGURE_FILE (xhtmldbg.conf.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
+)
+
+INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
+  DESTINATION /etc/xdg/hjcms.de
 )
 
 ##############################################################
