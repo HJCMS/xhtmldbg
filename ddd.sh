@@ -42,6 +42,10 @@ case "$1" in
     export QT_LAYOUT_DEBUG=1
     /usr/bin/ddd -x --directory=${base} ${base}/build/app/xhtmldbg
   ;;
+  trace)
+    echo "strace ${base}/build/app/xhtmldbg 2> /tmp/xhtmldbg.log"
+    strace ${base}/build/app/xhtmldbg 2> /tmp/xhtmldbg.log
+  ;;
   *)
     echo "ddd -x --directory=${base} ${base}/build/app/xhtmldbg"
     /usr/bin/ddd -x --directory=${base} ${base}/build/app/xhtmldbg

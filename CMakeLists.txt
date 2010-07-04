@@ -293,12 +293,11 @@ FIND_PROGRAM (BIND_UTIL_DIG NAMES dig bind-dig PATHS /bin /usr/bin)
 FIND_PATH (OXYGEN_THEME_PATH
   NAMES index.theme
   PATHS
-  /usr/share
-  /usr/local/share
-  $ENV{KDEDIRS}"/share"
-  ${CMAKE_GENERIC_PROGRAM_FILES}"/kde/share"
-  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share"
-  PATH_SUFFIXES icons/oxygen
+  /usr/share/icons/oxygen
+  /usr/local/share/icons/oxygen
+  $ENV{KDEDIRS}"/share/icons/oxygen"
+  ${CMAKE_GENERIC_PROGRAM_FILES}"/kde/share/icons/oxygen"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share/icons/oxygen"
   DOC "path location of oxygen icon theme"
 )
 
