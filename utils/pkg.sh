@@ -3,6 +3,8 @@
 ##  example script for distributed package building
 #################################################################
 
+set +x
+
 LC_ALL=C
 
 test -x $(which xsltproc) || exit 1
@@ -23,12 +25,17 @@ released="$(xsltproc `dirname $0`/released.xslt ${xmlurl})"
 formated="`date -u -d "$(echo ${released} | cut -d: -f1,2)" +"%c"`"
 
 ## print summary
+echo -e '\E[1;37;44mCurrent XHTMLDBG Version\033[0m'
 cat <<EOF
   Name:     xhtmldbg
   Version:  ${version}
   Date:     ${released}
   Formated: ${formated}
   Download: ${baseurl}/xhtmldbg-${version}.tar.gz
+EOF
 
-  git archive --format=tar --output=xhtmldbg-${version}.tar --remote=http://anonymouse@repository.hjcms.de/xhtmldbg xhtmldbg-${version}
+echo -e '\E[1;37;44mGIT Example:\033[0m'
+cat <<EOF
+  git archive --format=tar --verbose --output=xhtmldbg-${version}.tar --remote=git://xhtmldbg.hjcms.de/xhtmldbg xhtmldbg-${version}
+  lzma --compress -9 xhtmldbg-${version}.tar
 EOF
