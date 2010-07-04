@@ -29,4 +29,6 @@ cat <<EOF
   Date:     ${released}
   Formated: ${formated}
   Download: ${baseurl}/xhtmldbg-${version}.tar.gz
+
+  git archive --format=tar --output=xhtmldbg-${version}.tar --remote=http://anonymouse@repository.hjcms.de/xhtmldbg xhtmldbg-${version}
 EOF
