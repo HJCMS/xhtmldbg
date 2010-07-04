@@ -10,6 +10,7 @@ enableHighlightBackground=true
 enableHighlightBorder=false
 enableProxy=false
 sslCaCertsDatabase=@CA_BUNDLE_FILE@
+iconthemepath=@OXYGEN_THEME_PATH@
 GeoIP_Database=@GEOIP_DATABASE_PATH@/GeoIP.dat
 
 [HeaderDefinitions]
