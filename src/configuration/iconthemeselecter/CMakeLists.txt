@@ -8,10 +8,13 @@ SET (subproject_SOURCES
 )
 
 SET (subproject_HEADERS
-  iconthemeitem.h
   iconthememodel.h
   iconthemeselecter.h
   iconthemeslist.h
+)
+
+SET (subproject_NOMOC_HEADERS
+  iconthemeitem.h
 )
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
@@ -27,6 +30,7 @@ INCLUDE_DIRECTORIES (
 ADD_LIBRARY (IconThemeSelecter STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
+  ${subproject_NOMOC_HEADERS}
   ${subproject_SOURCES}
 )
 
