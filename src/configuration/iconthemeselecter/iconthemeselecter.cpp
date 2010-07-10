@@ -33,18 +33,26 @@ IconThemeSelecter::IconThemeSelecter ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "iconthemeselecter" ) );
   m_model = new IconThemeModel ( this );
-  findThemeIndexes ();
   setModel ( m_model );
+
+  connect ( this, SIGNAL ( currentIndexChanged ( const QString & ) ),
+            this, SLOT ( indexChanged ( const QString & ) ) );
+}
+
+void IconThemeSelecter::indexChanged ( const QString &txt )
+{
+  Q_UNUSED ( txt )
+  emit modified ( true );
 }
 
 /**
 * Suche in @ref QIcon::themeSearchPaths nach den Themes
 */
-void IconThemeSelecter::findThemeIndexes ()
+void IconThemeSelecter::findThemeIndexes ( const QStringList &list )
 {
   QDir dir;
   QStringList filter ( "*" );
-  QStringList themeDirs = QIcon::themeSearchPaths();
+  QStringList themeDirs = list;
   themeDirs.removeDuplicates();
   foreach ( QString p, themeDirs )
   {

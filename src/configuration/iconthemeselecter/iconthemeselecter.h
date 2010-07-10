@@ -41,8 +41,14 @@ class IconThemeSelecter : public QComboBox
   private:
     IconThemeModel* m_model;
 
+  private Q_SLOTS:
+    void indexChanged ( const QString & );
+
+  Q_SIGNALS:
+    void modified ( bool );
+
   public Q_SLOTS:
-    void findThemeIndexes();
+    void findThemeIndexes ( const QStringList & );
     void setTheme ( const QString & );
 
   public:

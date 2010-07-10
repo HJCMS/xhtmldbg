@@ -759,63 +759,88 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigIDE</name>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="37"/>
+        <location filename="../src/configuration/configide.cpp" line="44"/>
         <source>Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="54"/>
+        <location filename="../src/configuration/configide.cpp" line="61"/>
         <source>Load this URL as default on start, if empty xhtmldbg will use recently viewed Url.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="83"/>
+        <location filename="../src/configuration/configide.cpp" line="90"/>
         <source>Do not open Downloadmanager on Application start.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="90"/>
+        <location filename="../src/configuration/configide.cpp" line="97"/>
         <source>W3C CSS Validator Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="103"/>
+        <location filename="../src/configuration/configide.cpp" line="110"/>
         <source>Java Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="120"/>
+        <location filename="../src/configuration/configide.cpp" line="127"/>
         <source>Path to W3C Validator file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="137"/>
+        <location filename="../src/configuration/configide.cpp" line="144"/>
         <source>W3C Validator CLASSPATH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/configuration/configide.cpp" line="171"/>
+        <source>Application Icon Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="183"/>
+        <source>Primary Icon Theme path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/configuration/configide.cpp" line="194"/>
+        <source>Default Icon Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="204"/>
+        <source>Add Icon Theme Search path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="319"/>
+        <source>Icon Theme path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="253"/>
         <source>&lt;div style=&quot;color:red;&quot;&gt;W3C CSS Validator not found!&lt;/div&gt;&lt;div&gt;You can download it from &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Homepage.&lt;/div&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="227"/>
+        <location filename="../src/configuration/configide.cpp" line="286"/>
         <source>Java-Archive %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="228"/>
+        <location filename="../src/configuration/configide.cpp" line="287"/>
         <source>All %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="230"/>
-        <source>Find W3C CSS Validator</source>
+        <location filename="../src/configuration/configide.cpp" line="289"/>
+        <source>W3C CSS Validator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="246"/>
-        <source>Find W3C CSS Validator Java-Archive</source>
+        <location filename="../src/configuration/configide.cpp" line="305"/>
+        <source>W3C CSS Validator Java-Archive</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -922,41 +947,41 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigUtils</name>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="53"/>
+        <location filename="../src/configuration/configutils.cpp" line="54"/>
         <source>Binary *%1*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="54"/>
-        <location filename="../src/configuration/configutils.cpp" line="72"/>
+        <location filename="../src/configuration/configutils.cpp" line="55"/>
+        <location filename="../src/configuration/configutils.cpp" line="73"/>
         <source>All %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="56"/>
+        <location filename="../src/configuration/configutils.cpp" line="57"/>
         <source>Find Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="74"/>
+        <location filename="../src/configuration/configutils.cpp" line="75"/>
         <source>Find File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="91"/>
-        <location filename="../src/configuration/configutils.cpp" line="113"/>
+        <location filename="../src/configuration/configutils.cpp" line="127"/>
+        <location filename="../src/configuration/configutils.cpp" line="149"/>
         <source>PKCS#12 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="92"/>
-        <location filename="../src/configuration/configutils.cpp" line="112"/>
+        <location filename="../src/configuration/configutils.cpp" line="128"/>
+        <location filename="../src/configuration/configutils.cpp" line="148"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configutils.cpp" line="95"/>
-        <location filename="../src/configuration/configutils.cpp" line="116"/>
+        <location filename="../src/configuration/configutils.cpp" line="131"/>
+        <location filename="../src/configuration/configutils.cpp" line="152"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -964,17 +989,17 @@ Do you realy wan to exit?</source>
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="59"/>
+        <location filename="../src/configuration/configuration.cpp" line="62"/>
         <source>Configure xhtmldbg[*]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="153"/>
+        <location filename="../src/configuration/configuration.cpp" line="157"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="154"/>
+        <location filename="../src/configuration/configuration.cpp" line="158"/>
         <source>Found unsaved Changes.
 Do you realy want to exit?</source>
         <translation type="unfinished"></translation>
@@ -1664,6 +1689,19 @@ Reasons : </source>
     <message utf8="true">
         <location filename="../src/plugins/hostinfo/hostinfoplugin.cpp" line="72"/>
         <source>Jürgen Heinemann (Undefined)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>IconThemesList</name>
+    <message>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="36"/>
+        <source>descending order for icon theme search paths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="65"/>
+        <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -50,6 +50,7 @@ static inline const QStringList deprecatedList()
   list << "addCookieDomain";
   list << "MainWindowState";
   list << "MainWindowGeometry";
+  list << "iconthemepath";
   return list;
 }
 

@@ -19,53 +19,46 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGIDE_H
-#define CONFIGIDE_H
+#ifndef ICONTHEMESLIST_H
+#define ICONTHEMESLIST_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QCheckBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QListWidget>
+#include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-
-class IconThemeSelecter;
-class IconThemesList;
-
-class ConfigIDE : public PageWidget
+class IconThemesList : public QListWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QLineEdit* m_editStartUpUrl;
-    QCheckBox* m_hideDownloadWidget;
-    QLineEdit* m_javaApplication;
-    QLineEdit* m_w3cJarFile;
-    QLineEdit* m_w3cClasspath;
-    QLabel* m_missingW3CMissing;
-    IconThemeSelecter* m_iconThemeSelecter;
-    IconThemesList* m_iconThemesList;
-    void checkCSSValidator();
+    bool itemExists ( const QString & );
 
   private Q_SLOTS:
-    void editingFinished ( const QString &txt = QString() );
-    void openJavaApplicationDialog ();
-    void openCSSValidatorDialog ();
-    void openCSSValidatorClassPathDialog ();
-    void openThemePathDialog ();
+    void removeSelectedPath ();
+
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
+
+  Q_SIGNALS:
+    void modified ( bool );
+
+  public Q_SLOTS:
+    void addPath ( const QString & );
 
   public:
-    ConfigIDE ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    void defaults();
-    ~ConfigIDE();
+    IconThemesList ( QWidget * parent = 0 );
+    const QStringList paths();
+    void insertPaths ( const QStringList & );
+    virtual ~IconThemesList();
 };
 
 #endif

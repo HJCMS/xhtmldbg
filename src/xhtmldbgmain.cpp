@@ -73,10 +73,8 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   }
 
   // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
-  QStringList iconSearchPaths;
-  iconSearchPaths << m_settings->value ( "iconthemepath", "/usr/share/icons" ).toString();
-  iconSearchPaths << "/usr/share/icons";
-  QIcon::setThemeSearchPaths ( iconSearchPaths );
+  QStringList searchPaths = m_settings->value ( "iconthemepaths", QIcon::themeSearchPaths() ).toStringList();
+  QIcon::setThemeSearchPaths ( searchPaths );
   QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),

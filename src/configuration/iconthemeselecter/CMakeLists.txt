@@ -4,12 +4,14 @@ SET (subproject_SOURCES
   iconthemeitem.cpp
   iconthememodel.cpp
   iconthemeselecter.cpp
+  iconthemeslist.cpp
 )
 
 SET (subproject_HEADERS
   iconthemeitem.h
   iconthememodel.h
   iconthemeselecter.h
+  iconthemeslist.h
 )
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
