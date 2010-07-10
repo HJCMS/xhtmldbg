@@ -128,6 +128,16 @@ void StackedWidget::saveSettings()
   m_configUserAgents->save ( cfg );
   m_configGeo->save ( cfg );
   blockSignals ( false );
+
+  /**
+  * Qt >= 4.6.* hat einen bug beim Speichern und
+  * wieder herstellen der Fenster Dimensionen.
+  * Deshalb werden hier die Variable gelöscht
+  * damit sie bei @ref Window::closeEvent neu
+  * geschrieben werden.
+  */
+  cfg->remove ( "Window/MainWindowGeometry" );
+
   emit settingsChanged ( false );
 }
 
@@ -147,6 +157,7 @@ void StackedWidget::restoreSettings()
   m_configUserAgents->defaults();
   m_configGeo->defaults();
   blockSignals ( false );
+
   emit settingsChanged ( true );
 }
 

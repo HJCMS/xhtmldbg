@@ -58,10 +58,10 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
 
   /**
   * HACK QTWEBKIT_PLUGIN_PATH
-  * QWebKit kackt des öffteren ab wenn ein versuch Plugins zu laden fehlschlägt!
+  * QWebKit kackt des öfteren ab wenn ein versuch, Plugins zu laden fehlschlägt!
   * Leider bringen die Optionen mit @ref QWebSettings nicht viel :-/
   * Hier ein Hack zum absoluten abschalten in dem die Globalen Variablen
-  * von Mozilla und WebKit gelöscht werden!
+  * von Mozilla und WebKit überschrieben werden!
   * @link http://doc.qt.nokia.com/4.6/webintegration.html
   */
   if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )

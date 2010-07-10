@@ -3,6 +3,7 @@
 ADD_SUBDIRECTORY (editcookiestable)
 ADD_SUBDIRECTORY (useragenteditor)
 ADD_SUBDIRECTORY (certissuers)
+ADD_SUBDIRECTORY (iconthemeselecter)
 
 SET (subproject_SOURCES
   configuration.cpp
@@ -55,6 +56,8 @@ INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_SOURCE_DIR}/useragenteditor
   ${CMAKE_CURRENT_BINARY_DIR}/certissuers
   ${CMAKE_CURRENT_SOURCE_DIR}/certissuers
+  ${CMAKE_CURRENT_BINARY_DIR}/iconthemeselecter
+  ${CMAKE_CURRENT_SOURCE_DIR}/iconthemeselecter
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
@@ -75,6 +78,7 @@ TARGET_LINK_LIBRARIES (Configuration
   EditCookiesTable
   UserAgentsEditor
   CertIssuers
+  IconThemeSelecter
 )
 
 ## EOF

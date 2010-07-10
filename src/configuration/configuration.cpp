@@ -48,6 +48,8 @@ static inline const QStringList deprecatedList()
   list << "HeaderDefinitions/Accept-Language";
   list << "bootsplash";
   list << "addCookieDomain";
+  list << "MainWindowState";
+  list << "MainWindowGeometry";
   return list;
 }
 
@@ -63,13 +65,14 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   setMinimumWidth ( 550 );
 
   /** Alte Konfigurationen entfernen */
-  if ( cfg->value ( QLatin1String ( "Version" ) ).toString() != XHTMLDBG_VERSION_STRING )
+  QString xhtmldbgVersion ( XHTMLDBG_VERSION_STRING );
+  if ( cfg->value ( QLatin1String ( "Version" ) ).toString() !=  xhtmldbgVersion )
   {
     foreach ( QString param, deprecatedList() )
     {
       cfg->remove ( param );
     }
-    cfg->setValue ( QLatin1String ( "Version" ), XHTMLDBG_VERSION_STRING );
+    cfg->setValue ( QLatin1String ( "Version" ), xhtmldbgVersion );
   }
 
   // Vertikales Design
@@ -113,7 +116,7 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
   verticalLayout->addWidget ( buttonBox );
 
-  // Vertikales abschließen
+  // Vertikales Design abschließen
   setLayout ( verticalLayout );
 
   // Signale

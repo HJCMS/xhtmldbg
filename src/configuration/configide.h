@@ -33,6 +33,8 @@
 
 #include "pagewidget.h"
 
+class IconThemeSelecter;
+
 class ConfigIDE : public PageWidget
 {
     Q_OBJECT
@@ -46,6 +48,8 @@ class ConfigIDE : public PageWidget
     QLineEdit* m_w3cJarFile;
     QLineEdit* m_w3cClasspath;
     QLabel* m_missingW3CMissing;
+    QLineEdit* m_iconThemePath;
+    IconThemeSelecter* m_iconTheme;
     void checkCSSValidator();
 
   private Q_SLOTS:
@@ -53,6 +57,7 @@ class ConfigIDE : public PageWidget
     void openJavaApplicationDialog ();
     void openCSSValidatorDialog ();
     void openCSSValidatorClassPathDialog ();
+    void openThemePathDialog ();
 
   public:
     ConfigIDE ( QWidget * parent = 0 );

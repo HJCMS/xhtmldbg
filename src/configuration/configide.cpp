@@ -19,11 +19,16 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "configide.h"
 #include "configutils.h"
+#include "iconthemeselecter.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QStringList>
 
@@ -159,6 +164,50 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   // } @end::row4
 
+  /** Programm Design Optionen */
+  //  @begin::row5 {
+  QGroupBox* iconThemeGroup = new QGroupBox ( trUtf8 ( "Application Icon Theme" ), centralWidget );
+  iconThemeGroup->setObjectName ( QLatin1String ( "config_page_ide_icon_theme" ) );
+  iconThemeGroup->setFlat ( true );
+  iconThemeGroup->setContentsMargins ( 0, 5, 0, 5 );
+
+  QGridLayout* iconThemeLayout = new QGridLayout ( iconThemeGroup );
+  iconThemeLayout->setObjectName ( QLatin1String ( "config_page_ide_icon_theme_layout" ) );
+  iconThemeLayout->setContentsMargins ( 0, 5, 0, 5 );
+
+  // Icon Thema Pfad Zeile
+  QLabel* theme_path_txt = new QLabel ( iconThemeGroup );
+  theme_path_txt->setObjectName ( QLatin1String ( "config_page_ide_theme_path_txt" ) );
+  theme_path_txt->setAlignment ( laAlignRight );
+  theme_path_txt->setText ( trUtf8 ( "Icon Theme path" ) );
+  theme_path_txt->setIndent ( 2 );
+  iconThemeLayout->addWidget ( theme_path_txt, 0, 0, 1, 1 );
+
+  m_iconThemePath = new QLineEdit ( iconThemeGroup );
+  m_iconThemePath->setObjectName ( QLatin1String ( "config_page_ide_icon_theme_path" ) );
+  iconThemeLayout->addWidget ( m_iconThemePath, 0, 1, 1, 1 );
+
+  QToolButton* theme_btn = new QToolButton ( iconThemeGroup );
+  theme_btn->setObjectName ( QLatin1String ( "config_page_ide_open_theme_button" ) );
+  theme_btn->setIcon ( ConfigUtils::folderIcon() );
+  iconThemeLayout->addWidget ( theme_btn, 0, 2, 1, 1 );
+
+  // Icon Thema Zeile Standard Oxygen
+  QLabel* theme_name_txt = new QLabel ( iconThemeGroup );
+  theme_name_txt->setObjectName ( QLatin1String ( "config_page_ide_theme_name_txt" ) );
+  theme_name_txt->setAlignment ( laAlignRight );
+  theme_name_txt->setText ( trUtf8 ( "Icon Theme" ) );
+  theme_name_txt->setIndent ( 2 );
+  iconThemeLayout->addWidget ( theme_name_txt, 1, 0, 1, 1 );
+
+  m_iconTheme = new IconThemeSelecter ( iconThemeGroup );
+  m_iconTheme->setObjectName ( QLatin1String ( "config_page_ide_icon_theme_path" ) );
+  iconThemeLayout->addWidget ( m_iconTheme, 1, 1, 1, 2 );
+
+  iconThemeGroup->setLayout ( iconThemeLayout );
+  verticalLayout->addWidget ( iconThemeGroup );
+  // } @end::row5
+
   // finalize layout
   centralWidget->setLayout ( verticalLayout );
 
@@ -185,6 +234,12 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   connect ( w3c_btn_class, SIGNAL ( clicked() ),
             this, SLOT ( openCSSValidatorClassPathDialog() ) );
+
+  connect ( m_iconThemePath, SIGNAL ( textChanged ( const QString & ) ),
+            this, SLOT ( editingFinished ( const QString & ) ) );
+
+  connect ( theme_btn, SIGNAL ( clicked() ),
+            this, SLOT ( openThemePathDialog() ) );
 }
 
 void ConfigIDE::checkCSSValidator()
@@ -227,7 +282,7 @@ void ConfigIDE::openCSSValidatorDialog ()
   fl << trUtf8 ( "Java-Archive %1" ).arg ( "*.jar" );
   fl << trUtf8 ( "All %1" ).arg ( "*" );
 
-  pn = QFileDialog::getOpenFileName ( this, trUtf8 ( "Find W3C CSS Validator" ), po, fl.join ( ";;" ) );
+  pn = QFileDialog::getOpenFileName ( this, trUtf8 ( "W3C CSS Validator" ), po, fl.join ( ";;" ) );
 
   QFileInfo db ( pn );
   if ( db.exists() )
@@ -241,13 +296,29 @@ void ConfigIDE::openCSSValidatorDialog ()
 */
 void ConfigIDE::openCSSValidatorClassPathDialog ()
 {
-  QString pn;
+  QString p;
   QString po = m_w3cClasspath->text().isEmpty() ? QString ( "/usr/share/java" ) : m_w3cClasspath->text();
-  pn = QFileDialog::getExistingDirectory ( this, trUtf8 ( "Find W3C CSS Validator Java-Archive" ), po );
+  p = ConfigUtils::findDirectoryDialog ( this, trUtf8 ( "W3C CSS Validator Java-Archive" ), po );
 
-  QFileInfo db ( pn );
-  if ( db.exists() )
-    m_w3cClasspath->setText ( db.absoluteFilePath() );
+  if ( p.isEmpty() )
+    return;
+
+  m_w3cClasspath->setText ( p );
+}
+
+/**
+* Dialog zum finden eines Icon Thema Pfades.
+*/
+void ConfigIDE::openThemePathDialog ()
+{
+  QString p;
+  QString po = m_iconThemePath->text().isEmpty() ? QString ( "/usr/share/icons" ) : m_iconThemePath->text();
+  p = ConfigUtils::findDirectoryDialog ( this, trUtf8 ( "Icon Theme path" ), po );
+
+  if ( p.isEmpty() )
+    return;
+
+  m_iconThemePath->setText ( p );
 }
 
 void ConfigIDE::load ( QSettings * cfg )
@@ -257,6 +328,8 @@ void ConfigIDE::load ( QSettings * cfg )
   m_javaApplication->setText ( cfg->value ( QLatin1String ( "css_appl" ), QLatin1String ( "java" ) ).toString() );
   m_w3cJarFile->setText ( cfg->value ( QLatin1String ( "css_validator" ) ).toString() );
   m_w3cClasspath->setText ( cfg->value ( QLatin1String ( "css_classpath" ) ).toString() );
+  m_iconTheme->setTheme ( cfg->value ( QLatin1String ( "icontheme" ), QLatin1String ( "oxygen" ) ).toString() );
+  m_iconThemePath->setText ( cfg->value ( QLatin1String ( "iconthemepath" ), QLatin1String ( "/usr/share/icons" ) ).toString() );
   checkCSSValidator();
 }
 
@@ -267,6 +340,17 @@ void ConfigIDE::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "css_appl" ), m_javaApplication->text() );
   cfg->setValue ( QLatin1String ( "css_validator" ), m_w3cJarFile->text() );
   cfg->setValue ( QLatin1String ( "css_classpath" ), m_w3cClasspath->text() );
+
+  // Thema Einstellungen
+  QString theme = m_iconTheme->selectedTheme();
+  cfg->setValue ( QLatin1String ( "icontheme" ), theme );
+
+  theme.append ( QLatin1String ( "/index.theme" ) );
+  QFileInfo themePath ( QDir ( m_iconThemePath->text() ), theme );
+  if ( themePath.exists() )
+    cfg->setValue ( QLatin1String ( "iconthemepath" ), m_iconThemePath->text() );
+  else
+    cfg->remove ( QLatin1String ( "iconthemepath" ) );
 }
 
 void ConfigIDE::defaults()
@@ -276,6 +360,8 @@ void ConfigIDE::defaults()
   m_javaApplication->setText ( QLatin1String ( "java" ) );
   m_w3cJarFile->clear();
   m_w3cClasspath->clear();
+  m_iconTheme->setTheme ( QLatin1String ( "oxygen" ) );
+  m_iconThemePath->setText ( QLatin1String ( "/usr/share/icons" ) );
 }
 
 ConfigIDE::~ConfigIDE()

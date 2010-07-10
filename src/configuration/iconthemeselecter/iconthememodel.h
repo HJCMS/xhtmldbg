@@ -19,44 +19,36 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGUTILS_H
-#define CONFIGUTILS_H
+#ifndef ICONTHEMEMODEL_H
+#define ICONTHEMEMODEL_H
 
 /* QtCore */
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QList>
+#include <QtCore/QModelIndex>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
-/* QtGui */
-#include <QtGui/QIcon>
-#include <QtGui/QWidget>
+#include "iconthemeitem.h"
 
-class ConfigUtils : public QObject
+class IconThemeModel : public QAbstractItemModel
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
+  private:
+    QList<IconThemeItem> itemDataset;
+
   public:
-    static const QString openColorDialog ( const QString &current, QWidget * parent );
-
-    static const QString findBinaryDialog ( const QString &searchName,
-                                            QWidget * parent,
-                                            const QString &path = QString::fromUtf8 ( "/usr/bin" ) );
-
-    static const QString findFileDialog ( const QString &path,
-                                          const QStringList &mimeTypes, QWidget * parent );
-
-    static const QString findDirectoryDialog ( QWidget * parent,
-            const QString &info, const QString &path );
-
-    static const QString openPrivateKeyDialog ( const QString &fallback,
-            QWidget * parent, const QString &path );
-
-    static const QString openPuplicKeyDialog ( const QString &fallback,
-            QWidget * parent, const QString &path );
-
-    static const QIcon folderIcon();
+    IconThemeModel ( QObject * parent = 0 );
+    QModelIndex index ( int, int, const QModelIndex & ) const;
+    QModelIndex parent ( const QModelIndex & ) const;
+    int rowCount ( const QModelIndex & ) const;
+    int columnCount ( const QModelIndex & ) const;
+    QVariant data ( const QModelIndex &, int ) const;
+    void insertThemePath ( const QString & );
 };
 
 #endif

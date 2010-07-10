@@ -23,6 +23,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 
 /* QtGui */
@@ -77,6 +78,41 @@ const QString ConfigUtils::findFileDialog ( const QString &path,
   QFileInfo db ( p );
   if ( db.exists() )
     return db.absoluteFilePath();
+
+  return path;
+}
+
+/**
+* Dialog zum öffnen eines Verzeichnisses
+*/
+const QString ConfigUtils::findDirectoryDialog ( QWidget * parent,
+        const QString &info, const QString &path )
+{
+  QFileDialog dialog ( parent );
+  dialog.setObjectName ( QLatin1String ( "configutils_finddirectorydialog" ) );
+  dialog.setWindowTitle ( info );
+  dialog.setFileMode ( QFileDialog::Directory );
+  dialog.setOptions ( QFileDialog::ReadOnly );
+  dialog.setViewMode ( QFileDialog::Detail );
+  dialog.setOption ( QFileDialog::ShowDirsOnly, true );
+
+  QDir d ( path );
+  if ( d.exists() )
+  {
+    dialog.selectFile ( d.path() );
+    d.cdUp();
+    dialog.setDirectory ( d.path() );
+  }
+
+  if ( dialog.exec() == QDialog::Accepted )
+  {
+    if ( dialog.directory().exists() )
+    {
+      QFileInfo info ( dialog.directory(), dialog.selectedFiles().first() );
+      if ( info.exists() )
+        return info.absoluteFilePath();
+    }
+  }
 
   return path;
 }

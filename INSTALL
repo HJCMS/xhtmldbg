@@ -26,7 +26,7 @@ and GCC 4.0.1 to develop applications.
     cmake -Wno-dev -DCMAKE_BUILD_TYPE:STRING=Release \
       -DCMAKE_INSTALL_PREFIX:PATH=/usr \
       -DSYSCONF_INSTALL_DIR:PATH=/etc \
-      -DOXYGEN_THEME_PATH:PATH=/usr/share/icons/oxygen \
+      -DICON_THEME_PATH:PATH=/usr/share/icons \
       -DGEOIP_DATABASE_PATH:PATH=/var/lib/GeoIP ../
 
   Verbose Debug Build (Unix Only):

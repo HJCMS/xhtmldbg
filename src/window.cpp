@@ -280,8 +280,8 @@ Window::Window ( QSettings * settings )
     m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
 
   // lade Fenster Einstellungen
-  restoreState ( m_settings->value ( "MainWindowState" ).toByteArray() );
-  restoreGeometry ( m_settings->value ( "MainWindowGeometry" ).toByteArray() );
+  restoreState ( m_settings->value ( "Window/MainWindowState" ).toByteArray() );
+  restoreGeometry ( m_settings->value ( "Window/MainWindowGeometry" ).toByteArray() );
 
   // zum abschluss den focus auf den Browser setzen
   m_webViewer->setWebFocus();
@@ -570,8 +570,8 @@ void Window::closeEvent ( QCloseEvent *event )
   }
 
   plugins.clear(); // Vector Leeren
-  m_settings->setValue ( "MainWindowState", saveState() );
-  m_settings->setValue ( "MainWindowGeometry", saveGeometry() );
+  m_settings->setValue ( "Window/MainWindowState", saveState() );
+  m_settings->setValue ( "Window/MainWindowGeometry", saveGeometry() );
 
   QMainWindow::closeEvent ( event );
 }
