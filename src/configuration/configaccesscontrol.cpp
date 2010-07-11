@@ -41,20 +41,11 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "configaccesscontrol" ) );
   setFlat ( true );
-  setContentsMargins ( 0, 5, 0, 5 );
-  setMinimumHeight ( 200 );
-
-  QSizePolicy sizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
-  sizePolicy.setHorizontalStretch ( 0 );
-  sizePolicy.setVerticalStretch ( 0 );
-  setSizePolicy ( sizePolicy );
 
   Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
   QGridLayout* gridLayout = new QGridLayout ( this );
   gridLayout->setObjectName ( QLatin1String ( "configaccesscontrol_main_layout" ) );
-  gridLayout->setContentsMargins ( 0, 5, 0, 5 );
-  gridLayout->setSpacing ( 5 );
 
   QLabel* lr0 = new  QLabel ( this );
   lr0->setObjectName ( QLatin1String ( "configaccesscontrol_info_label" ) );

@@ -50,7 +50,7 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, QSettings * settings )
   insertItem ( 5, trUtf8 ( "Proxy" ), icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
   insertItem ( 6, trUtf8 ( "Certification" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
   insertItem ( 7, trUtf8 ( "User Agent" ), icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
-  insertItem ( 8, trUtf8 ( "Geological IP" ), icon.fromTheme ( QLatin1String ( "applications-education-language" ) ) );
+  insertItem ( 8, trUtf8 ( "Extensions" ), icon.fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
 
   connect ( this, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
             this, SLOT ( findPage ( QListWidgetItem * ) ) );

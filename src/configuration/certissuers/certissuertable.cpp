@@ -34,7 +34,7 @@ CertIssuerTable::CertIssuerTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
   setObjectName ( QLatin1String ( "certissuertable" ) );
-  setMinimumHeight ( 200 );
+  setMinimumHeight ( 250 );
 
   setRowCount(0);
   setColumnCount ( 3 );

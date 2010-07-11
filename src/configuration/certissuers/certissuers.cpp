@@ -43,23 +43,18 @@ CertIssuers::CertIssuers ( QWidget * parent )
     , ssl ( QSslConfiguration::defaultConfiguration () )
 {
   setObjectName ( QLatin1String ( "certissuers" ) );
-  setContentsMargins ( 0, 5, 0, 5 );
   setFlat ( true );
 
   QIcon openFolderIcon = QIcon::fromTheme ( QLatin1String ( "document-open" ) );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
   verticalLayout->setObjectName ( QLatin1String ( "certissuers_main_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 5, 0, 5 );
-  verticalLayout->setSpacing ( 10 );
 
   n_certIssuerTable = new CertIssuerTable ( this );
   verticalLayout->addWidget ( n_certIssuerTable );
 
   QHBoxLayout* horizontalLayout = new QHBoxLayout;
   horizontalLayout->setObjectName ( QLatin1String ( "certissuers_db_find_layout" ) );
-  horizontalLayout->setContentsMargins ( 0, 0, 0, 0 );
-  horizontalLayout->setSpacing ( 5 );
 
   QLabel* label_1 = new QLabel ( this );
   label_1->setObjectName ( QLatin1String ( "label_1" ) );

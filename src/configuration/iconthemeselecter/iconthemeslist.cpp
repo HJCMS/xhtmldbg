@@ -28,12 +28,14 @@
 #include <QtGui/QAction>
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
+#include <QtGui/QSizePolicy>
 
 IconThemesList::IconThemesList ( QWidget * parent )
     : QListWidget ( parent )
 {
   setObjectName ( QLatin1String ( "iconthemeslist" ) );
   setToolTip ( trUtf8 ( "descending order for icon theme search paths" ) );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
 }
 
 /**
@@ -49,8 +51,14 @@ bool IconThemesList::itemExists ( const QString &p )
   return false;
 }
 
+/**
+* Ausgewählte Einträge aus der Liste entfernen.
+*/
 void IconThemesList::removeSelectedPath()
 {
+  if ( count() <= 1 )
+    return; // Keine Leere List erlauben!
+
   foreach ( QListWidgetItem* item, selectedItems() )
   {
     delete item;
@@ -59,10 +67,16 @@ void IconThemesList::removeSelectedPath()
   emit modified ( true );
 }
 
+/**
+* Kontext Menü aktionen für das Editieren
+*/
 void IconThemesList::contextMenuEvent ( QContextMenuEvent * ev )
 {
   QMenu* m_menu = new QMenu ( "Actions", this );
-  QAction* del= m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
+  QAction* add = m_menu->addAction ( QIcon::fromTheme ( "list-add" ), trUtf8 ( "Adding" ) );
+  connect ( add, SIGNAL ( triggered() ), this, SIGNAL ( setPathClicked() ) );
+
+  QAction* del = m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
   connect ( del, SIGNAL ( triggered() ), this, SLOT ( removeSelectedPath() ) );
   m_menu->exec ( ev->globalPos() );
   delete m_menu;
@@ -83,7 +97,7 @@ void IconThemesList::addPath ( const QString &p )
 /**
 * Alle Suchpfade zurück geben.
 */
-const QStringList IconThemesList::paths()
+const QStringList IconThemesList::iconPaths()
 {
   QStringList list;
   for ( int i = 0 ; i < count(); i++ )

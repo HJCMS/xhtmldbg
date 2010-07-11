@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGGEO_H
-#define CONFIGGEO_H
+#ifndef CONFIGEXTRAS_H
+#define CONFIGEXTRAS_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -31,7 +31,7 @@
 
 #include "pagewidget.h"
 
-class ConfigGeo : public PageWidget
+class ConfigExtras : public PageWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -39,7 +39,7 @@ class ConfigGeo : public PageWidget
 
   private:
     QString databasePath;
-    QLineEdit* dbEdit;
+    QLineEdit* m_lineEditGeoIP;
     const QString absoluteDatabasePath();
 
   private Q_SLOTS:
@@ -50,11 +50,11 @@ class ConfigGeo : public PageWidget
     void setDatabasePath ( const QString & );
 
   public:
-    ConfigGeo ( QWidget * parent = 0 );
+    ConfigExtras ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
     void defaults();
-    ~ConfigGeo();
+    ~ConfigExtras();
 };
 
 #endif

@@ -795,24 +795,9 @@ Do you realy wan to exit?</source>
         <translation>Klassen Pfad des W3C Validierers</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="171"/>
-        <source>Application Icon Theme</source>
-        <translation>Annwendungs Icon Thema</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/configide.cpp" line="183"/>
-        <source>Primary Icon Theme path</source>
-        <translation>Primäre Icon Thema Pfade</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/configide.cpp" line="194"/>
+        <location filename="../src/configuration/configide.cpp" line="195"/>
         <source>Default Icon Theme</source>
         <translation>Standard Icon Thema</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/configide.cpp" line="204"/>
-        <source>Add Icon Theme Search path</source>
-        <translation>Icon Thema Pfad einfügen</translation>
     </message>
     <message>
         <location filename="../src/configuration/configide.cpp" line="319"/>
@@ -823,6 +808,21 @@ Do you realy wan to exit?</source>
         <location filename="../src/configuration/configide.cpp" line="253"/>
         <source>&lt;div style=&quot;color:red;&quot;&gt;W3C CSS Validator not found!&lt;/div&gt;&lt;div&gt;You can download it from &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Homepage.&lt;/div&gt;</source>
         <translation>&lt;div style=&quot;color:red;&quot;&gt;Der W3C CSS Validierer wurde nicht gefunden!&lt;/div&gt;&lt;div&gt;Du kannst ihn von der &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Seite herunterladen.&lt;/div&gt;</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="171"/>
+        <source>Application Theme Settings</source>
+        <translation>Programm Themen EInstellungen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="183"/>
+        <source>On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path&apos;s to make sure where your Selected Icon Theme located.</source>
+        <translation>Beim Programmstart, versucht Qt alle Icon Thema Pfade ein zu lesen und sucht in ihnen rekursiv nach den von xhtmldbg verwendeten Icons. Das macht den Programmstart auf ix86 Systemen langsamer. Mit dieser Liste kannst du die Performance dieser Operation steigern. Achtung! Wenn Sie diese Pfade setzen, stellen Sie bitte sicher das Ihr ausgewähltes Icon Thema in einem dieser Pfade liegt.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configide.cpp" line="201"/>
+        <source>The Default Icon Theme is (Oxygen)</source>
+        <translation>Das Standard Icon Thema ist (Oxygen)</translation>
     </message>
     <message>
         <location filename="../src/configuration/configide.cpp" line="286"/>
@@ -1705,8 +1705,13 @@ Gründe : </translation>
         <translation>Absteigende Reihenfolge für die Icon Thema Suchpfade</translation>
     </message>
     <message>
-        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="65"/>
-        <source>Remove</source>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="66"/>
+        <source>adding</source>
+        <translation>Einfügen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="69"/>
+        <source>remove</source>
         <translation>Entfernen</translation>
     </message>
 </context>

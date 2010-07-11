@@ -59,6 +59,7 @@ class ConfigIDE : public PageWidget
     void openCSSValidatorDialog ();
     void openCSSValidatorClassPathDialog ();
     void openThemePathDialog ();
+    void clearingThemePaths ( bool );
 
   public:
     ConfigIDE ( QWidget * parent = 0 );

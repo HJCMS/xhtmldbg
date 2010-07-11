@@ -53,12 +53,9 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
 
   QGridLayout* mainLayout = new QGridLayout ( centralWidget );
   mainLayout->setObjectName ( QLatin1String ( "config_cookies_main_layout" ) );
-  mainLayout->setContentsMargins ( 0, 5, 0, 5 );
 
   // Erste Zeile Keks Tabelle
   cookiesTable = new EditCookiesTable ( centralWidget );
-  cookiesTable->setMinimumHeight ( 200 );
-  cookiesTable->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
   mainLayout->addWidget ( cookiesTable, 0, 0, 1, 4 );
 
   // sucht nach einem Keks in der Tabelle
@@ -112,7 +109,7 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   selectedArrangementType->insertItem ( 2, trUtf8 ( "Always Allowed" ) );
   editLayout->addWidget ( selectedArrangementType, 1, 0, 1, 1 );
 
-  QSpacerItem* spacer2 = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  QSpacerItem* spacer2 = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Preferred );
   editLayout->addItem ( spacer2, 1, 1, 1, 1 );
 
   QPushButton* addCookie = new QPushButton ( editGroup );
@@ -126,6 +123,9 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   mainLayout->addWidget ( editGroup, 2, 0, 1, 4 );
 
   centralWidget->setLayout ( mainLayout );
+
+  // Bei diesem Layout den Spacer nicht gedehnt setzen!
+  polishVerticalSpacer ( QSizePolicy::Preferred );
 
   // Signale
   connect ( searchCookie, SIGNAL ( textChanged ( const QString & ) ),

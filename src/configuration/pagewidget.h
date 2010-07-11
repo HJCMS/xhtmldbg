@@ -30,9 +30,12 @@
 /* QtGui */
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
+#include <QtGui/QScrollArea>
+#include <QtGui/QSizePolicy>
+#include <QtGui/QSpacerItem>
 #include <QtGui/QWidget>
 
-class PageWidget : public QWidget
+class PageWidget : public QScrollArea
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -41,6 +44,7 @@ class PageWidget : public QWidget
   private:
     QGroupBox* m_groupBox;
     QLabel* m_labelBottom;
+    QSpacerItem* verticalBottomSpacer;
 
   protected:
     QWidget* centralWidget;
@@ -56,6 +60,9 @@ class PageWidget : public QWidget
 
   Q_SIGNALS:
     void modified ( bool );
+
+  public Q_SLOTS:
+    void polishVerticalSpacer ( QSizePolicy::Policy );
 
   public:
     PageWidget ( const QString &title, QWidget * parent = 0 );

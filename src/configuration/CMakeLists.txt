@@ -21,7 +21,7 @@ SET (subproject_SOURCES
   configtrustedhosts.cpp
   configaccesscontrol.cpp
   configuseragents.cpp
-  configgeo.cpp
+  configextras.cpp
   configutils.cpp
 )
 
@@ -41,7 +41,7 @@ SET (subproject_HEADERS
   configtrustedhosts.h
   configaccesscontrol.h
   configuseragents.h
-  configgeo.h
+  configextras.h
   configutils.h
 )
 

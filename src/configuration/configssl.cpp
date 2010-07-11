@@ -36,8 +36,6 @@ ConfigSSL::ConfigSSL ( QWidget * parent )
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_ssl_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
-  verticalLayout->setSpacing ( 5 );
 
   // Issuer Tabelle
   m_certIssuers = new CertIssuers ( centralWidget );
@@ -52,6 +50,9 @@ ConfigSSL::ConfigSSL ( QWidget * parent )
   verticalLayout->addWidget ( m_configAccessControl );
 
   centralWidget->setLayout ( verticalLayout );
+
+  // Bei diesem Layout den Spacer nicht gedehnt setzen!
+  polishVerticalSpacer ( QSizePolicy::Preferred );
 
   connect ( m_certIssuers, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( modified ( bool ) ) );

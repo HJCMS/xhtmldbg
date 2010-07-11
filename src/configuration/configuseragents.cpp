@@ -36,10 +36,8 @@ ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
 
   QHBoxLayout* verticalLayout = new QHBoxLayout ( centralWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_user_agents_main_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
 
   m_userAgentEditor = new UserAgentEditor ( centralWidget );
-  m_userAgentEditor->setMinimumHeight ( 250 );
   verticalLayout->addWidget ( m_userAgentEditor );
 
   centralWidget->setLayout ( verticalLayout );

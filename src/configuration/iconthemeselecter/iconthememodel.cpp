@@ -34,6 +34,9 @@ IconThemeModel::IconThemeModel ( QObject * parent )
     : QAbstractItemModel ( parent )
 {}
 
+/**
+*
+*/
 QModelIndex IconThemeModel::index ( int row, int column, const QModelIndex &parent ) const
 {
   if ( parent.isValid() )
@@ -48,23 +51,35 @@ QModelIndex IconThemeModel::index ( int row, int column, const QModelIndex &pare
   return createIndex ( row, column, itemDataset.size() );
 }
 
+/**
+*
+*/
 QModelIndex IconThemeModel::parent ( const QModelIndex & ) const
 {
   return QModelIndex();
 }
 
+/**
+*
+*/
 int IconThemeModel::rowCount ( const QModelIndex &parent ) const
 {
   Q_UNUSED ( parent )
   return itemDataset.size();
 }
 
+/**
+*
+*/
 int IconThemeModel::columnCount ( const QModelIndex &parent ) const
 {
   Q_UNUSED ( parent )
   return MODEL_COLUMNS;
 }
 
+/**
+*
+*/
 QVariant IconThemeModel::data ( const QModelIndex &index, int role ) const
 {
   const QVariant val;
@@ -78,7 +93,10 @@ QVariant IconThemeModel::data ( const QModelIndex &index, int role ) const
   return val;
 }
 
-void IconThemeModel::insertThemePath ( const QString &index )
+/**
+* Einen neuen Pfad einfügen
+*/
+void IconThemeModel::insert ( const QString &index )
 {
   QSettings settings ( index, QSettings::IniFormat );
   if ( settings.contains ( QString::fromUtf8 ( "16x16/actions/Size" ) ) )
@@ -89,3 +107,20 @@ void IconThemeModel::insertThemePath ( const QString &index )
     endInsertRows();
   }
 }
+
+/**
+* Leert das Model und setzt alle zeiger zurück.
+*/
+void IconThemeModel::clear()
+{
+  int size = itemDataset.size();
+  if ( size < 1 )
+    return;
+
+  beginRemoveRows ( QModelIndex(), 0, size );
+  itemDataset.clear();
+  endRemoveRows();
+}
+
+IconThemeModel::~IconThemeModel()
+{}

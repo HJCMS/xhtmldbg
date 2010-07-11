@@ -33,7 +33,6 @@ StackedWidget::StackedWidget ( QWidget * parent, QSettings * settings )
 {
   setObjectName ( QLatin1String ( "configure_stacked_widget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
-  setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
 
   m_configIDE = new  ConfigIDE ( this );
   insertWidget ( 0, m_configIDE );
@@ -59,10 +58,12 @@ StackedWidget::StackedWidget ( QWidget * parent, QSettings * settings )
   m_configUserAgents = new ConfigUserAgents ( this );
   insertWidget ( 7, m_configUserAgents );
 
-  m_configGeo = new ConfigGeo ( this );
-  insertWidget ( 8, m_configGeo );
+  m_configExtras = new ConfigExtras ( this );
+  insertWidget ( 8, m_configExtras );
 
   setCurrentIndex ( 0 );
+  update();
+
   loadSettings();
 
   connect ( m_configIDE, SIGNAL ( modified ( bool ) ),
@@ -89,7 +90,7 @@ StackedWidget::StackedWidget ( QWidget * parent, QSettings * settings )
   connect ( m_configUserAgents, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
-  connect ( m_configGeo, SIGNAL ( modified ( bool ) ),
+  connect ( m_configExtras, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
 }
 
@@ -107,7 +108,7 @@ void StackedWidget::loadSettings()
   m_configProxy->load ( cfg );
   m_configSSL->load ( cfg );
   m_configUserAgents->load ( cfg );
-  m_configGeo->load ( cfg );
+  m_configExtras->load ( cfg );
   blockSignals ( false );
   emit settingsChanged ( false );
 }
@@ -126,7 +127,7 @@ void StackedWidget::saveSettings()
   m_configProxy->save ( cfg );
   m_configSSL->save ( cfg );
   m_configUserAgents->save ( cfg );
-  m_configGeo->save ( cfg );
+  m_configExtras->save ( cfg );
   blockSignals ( false );
 
   /**
@@ -155,7 +156,7 @@ void StackedWidget::restoreSettings()
   m_configProxy->defaults();
   m_configSSL->defaults();
   m_configUserAgents->defaults();
-  m_configGeo->defaults();
+  m_configExtras->defaults();
   blockSignals ( false );
 
   emit settingsChanged ( true );

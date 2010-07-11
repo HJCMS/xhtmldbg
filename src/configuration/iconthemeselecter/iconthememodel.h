@@ -41,6 +41,10 @@ class IconThemeModel : public QAbstractItemModel
   private:
     QList<IconThemeItem> itemDataset;
 
+  public Q_SLOTS:
+    void insert ( const QString & );
+    void clear();
+
   public:
     IconThemeModel ( QObject * parent = 0 );
     QModelIndex index ( int, int, const QModelIndex & ) const;
@@ -48,7 +52,7 @@ class IconThemeModel : public QAbstractItemModel
     int rowCount ( const QModelIndex & ) const;
     int columnCount ( const QModelIndex & ) const;
     QVariant data ( const QModelIndex &, int ) const;
-    void insertThemePath ( const QString & );
+    virtual ~IconThemeModel();
 };
 
 #endif

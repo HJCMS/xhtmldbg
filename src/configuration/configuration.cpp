@@ -28,12 +28,12 @@
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QRect>
 #include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QMessageBox>
-#include <QtGui/QScrollArea>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 
@@ -88,23 +88,13 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   m_splitter->setChildrenCollapsible ( false );
   verticalLayout->addWidget ( m_splitter );
 
-  // Scroolbereich festlegen
-  QScrollArea* scrollArea = new QScrollArea ( m_splitter );
-  scrollArea->setObjectName ( QLatin1String ( "config_scroll_area" ) );
-  scrollArea->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
-  scrollArea->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
-  scrollArea->setContentsMargins ( 2, 0, 2, 0 );
-  scrollArea->setFrameStyle ( QFrame::NoFrame );
-  scrollArea->setWidgetResizable ( true );
-  m_splitter->insertWidget ( 0, scrollArea );
-
-  // Menü Einträge
-  menuWidget = new ConfigurationMenu ( this, cfg );
-  m_splitter->insertWidget ( 1, menuWidget );
-
   // Konfigurations Seiten
   m_stackedWidget = new StackedWidget ( m_splitter, cfg );
-  scrollArea->setWidget ( m_stackedWidget );
+  m_splitter->insertWidget ( 0, m_stackedWidget );
+
+  // Menü Einträge
+  menuWidget = new ConfigurationMenu ( m_splitter, cfg );
+  m_splitter->insertWidget ( 1, menuWidget );
 
   // Dialog Knöpfe
   QDialogButtonBox* buttonBox = new QDialogButtonBox ( Qt::Horizontal, this );
@@ -120,13 +110,14 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   // Vertikales Design abschließen
   setLayout ( verticalLayout );
 
-  // Signale
+  // Widget Signale
   connect ( menuWidget, SIGNAL ( itemClicked ( int ) ),
             m_stackedWidget, SLOT ( setCurrentIndex ( int ) ) );
 
   connect ( m_stackedWidget, SIGNAL ( settingsChanged ( bool ) ),
             this, SLOT ( setWindowModified ( bool ) ) );
 
+  // Knopf Signale
   connect ( m_buttonSave, SIGNAL ( clicked() ),
             m_stackedWidget, SLOT ( saveSettings() ) );
 

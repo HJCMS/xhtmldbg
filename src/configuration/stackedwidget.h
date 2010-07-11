@@ -40,7 +40,7 @@
 #include "configproxy.h"
 #include "configssl.h"
 #include "configuseragents.h"
-#include "configgeo.h"
+#include "configextras.h"
 
 class StackedWidget : public QStackedWidget
 {
@@ -58,7 +58,7 @@ class StackedWidget : public QStackedWidget
     ConfigProxy* m_configProxy;
     ConfigSSL* m_configSSL;
     ConfigUserAgents* m_configUserAgents;
-    ConfigGeo* m_configGeo;
+    ConfigExtras* m_configExtras;
 
   Q_SIGNALS:
     void settingsChanged ( bool );

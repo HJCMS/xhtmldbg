@@ -39,10 +39,22 @@ IconThemeSelecter::IconThemeSelecter ( QWidget * parent )
             this, SLOT ( indexChanged ( const QString & ) ) );
 }
 
+/**
+* Wenn eine Auswahl getroffen wurde das Signal
+* @ref modified abstoßen.
+*/
 void IconThemeSelecter::indexChanged ( const QString &txt )
 {
   Q_UNUSED ( txt )
   emit modified ( true );
+}
+
+/**
+* Alle Inhalte aus dem Model entfernen!
+*/
+void IconThemeSelecter::clearContent ()
+{
+  m_model->clear();
 }
 
 /**
@@ -54,6 +66,10 @@ void IconThemeSelecter::findThemeIndexes ( const QStringList &list )
   QStringList filter ( "*" );
   QStringList themeDirs = list;
   themeDirs.removeDuplicates();
+
+  // erst Bereinigen
+  clearContent();
+
   foreach ( QString p, themeDirs )
   {
     dir.setPath ( p );
@@ -66,7 +82,7 @@ void IconThemeSelecter::findThemeIndexes ( const QStringList &list )
       {
         QFileInfo info ( dir, QString ( "%1/index.theme" ).arg ( f ) );
         if ( info.exists() )
-          m_model->insertThemePath ( info.absoluteFilePath() );
+          m_model->insert ( info.absoluteFilePath() );
       }
     }
   }

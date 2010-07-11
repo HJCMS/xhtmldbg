@@ -38,13 +38,10 @@ ConfigTrustedHosts::ConfigTrustedHosts ( QWidget * parent )
     : QGroupBox ( trUtf8 ( "Whitelist for Untrusted Certificates" ), parent )
 {
   setObjectName ( QLatin1String ( "configtrustedhosts" ) );
-  setContentsMargins ( 0, 5, 0, 5 );
   setFlat ( true );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
   verticalLayout->setObjectName ( QLatin1String ( "configtrustedhosts_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 5, 0, 5 );
-  verticalLayout->setSpacing ( 10 );
 
   m_listWidget = new QListWidget ( this );
   m_listWidget->setObjectName ( QLatin1String ( "configtrustedhosts_list" ) );
@@ -56,7 +53,7 @@ ConfigTrustedHosts::ConfigTrustedHosts ( QWidget * parent )
   QHBoxLayout* editLayout = new QHBoxLayout;
   editLayout->setObjectName ( QLatin1String ( "configtrustedhosts_edit_trust_host_layout" ) );
 
-  editLayout->addItem ( new QSpacerItem ( 10, 10, QSizePolicy::Expanding, QSizePolicy::Minimum ) );
+  editLayout->addItem ( new QSpacerItem ( 10, 5, QSizePolicy::MinimumExpanding, QSizePolicy::Preferred ) );
 
   trustedEdit = new QLineEdit ( this );
   trustedEdit->setObjectName ( QLatin1String ( "configtrustedhosts_add_trust_host" ) );

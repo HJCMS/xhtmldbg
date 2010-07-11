@@ -51,8 +51,6 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_ide_vertical_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 5, 0, 5 );
-  verticalLayout->setSpacing ( 5 );
 
   //  Welche URL beim Start Info
   //  @begin::row1 {
@@ -67,7 +65,6 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
   //  @begin::row2 {
   QHBoxLayout* horizontalLayoutOne = new QHBoxLayout;
   horizontalLayoutOne->setObjectName ( QLatin1String ( "config_page_ide_hlayout_one" ) );
-  horizontalLayoutOne->setContentsMargins ( 0, 0, 0, 0 );
 
   m_editStartUpUrl = new QLineEdit ( centralWidget );
   m_editStartUpUrl->setObjectName ( QLatin1String ( "config_page_ide_start_url_edit" ) );
@@ -97,11 +94,9 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
   QGroupBox* validatorGroup = new QGroupBox ( trUtf8 ( "W3C CSS Validator Settings" ), centralWidget );
   validatorGroup->setObjectName ( QLatin1String ( "config_page_ide_info_css" ) );
   validatorGroup->setFlat ( true );
-  validatorGroup->setContentsMargins ( 0, 5, 0, 5 );
 
   QGridLayout* gridLayoutCSS = new QGridLayout ( validatorGroup );
   gridLayoutCSS->setObjectName ( QLatin1String ( "config_page_ide_layout_css" ) );
-  gridLayoutCSS->setContentsMargins ( 0, 5, 0, 5 );
 
   // Java Programm Zeile
   QLabel* w3c_txt_one = new QLabel ( validatorGroup );
@@ -166,26 +161,25 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   // } @end::row4
 
-  /** Programm Design Optionen */
+  /** Programm Icon Thema Optionen */
   //  @begin::row5 {
-  QGroupBox* iconThemeGroup = new QGroupBox ( trUtf8 ( "Application Icon Theme" ), centralWidget );
+  QGroupBox* iconThemeGroup = new QGroupBox ( trUtf8 ( "Application Theme Settings" ), centralWidget );
   iconThemeGroup->setObjectName ( QLatin1String ( "config_page_ide_icon_theme" ) );
   iconThemeGroup->setFlat ( true );
-  iconThemeGroup->setContentsMargins ( 0, 5, 0, 5 );
 
   QGridLayout* iconThemeLayout = new QGridLayout ( iconThemeGroup );
   iconThemeLayout->setObjectName ( QLatin1String ( "config_page_ide_icon_theme_layout" ) );
-  iconThemeLayout->setContentsMargins ( 0, 5, 0, 5 );
 
   // Icon Thema Pfad Zeile
   QLabel* theme_path_txt = new QLabel ( iconThemeGroup );
   theme_path_txt->setObjectName ( QLatin1String ( "config_page_ide_theme_path_txt" ) );
-  theme_path_txt->setText ( trUtf8 ( "Primary Icon Theme path" ) );
+  theme_path_txt->setText ( trUtf8 ( "On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path's to make sure where your Selected Icon Theme located." ) );
   theme_path_txt->setIndent ( 2 );
-  iconThemeLayout->addWidget ( theme_path_txt, 0, 0, 1, 3 );
+  theme_path_txt->setWordWrap ( true );
+  iconThemeLayout->addWidget ( theme_path_txt, 0, 0, 1, 2 );
 
   m_iconThemesList = new IconThemesList ( iconThemeGroup );
-  iconThemeLayout->addWidget ( m_iconThemesList, 1, 0, 1, 3 );
+  iconThemeLayout->addWidget ( m_iconThemesList, 1, 0, 1, 2 );
 
   // Icon Thema Zeile Standard Oxygen
   QLabel* theme_name_txt = new QLabel ( iconThemeGroup );
@@ -197,13 +191,8 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
 
   m_iconThemeSelecter = new IconThemeSelecter ( iconThemeGroup );
   m_iconThemeSelecter->setObjectName ( QLatin1String ( "config_page_ide_icon_theme_path" ) );
+  m_iconThemeSelecter->setToolTip ( trUtf8 ( "The Default Icon Theme is (Oxygen)" ) );
   iconThemeLayout->addWidget ( m_iconThemeSelecter, 2, 1, 1, 1 );
-
-  QToolButton* theme_btn = new QToolButton ( iconThemeGroup );
-  theme_btn->setObjectName ( QLatin1String ( "config_page_ide_open_theme_button" ) );
-  theme_btn->setToolTip ( trUtf8 ( "Add Icon Theme Search path" ) );
-  theme_btn->setIcon ( ConfigUtils::folderIcon() );
-  iconThemeLayout->addWidget ( theme_btn, 2, 2, 1, 1 );
 
   iconThemeGroup->setLayout ( iconThemeLayout );
   verticalLayout->addWidget ( iconThemeGroup );
@@ -237,15 +226,19 @@ ConfigIDE::ConfigIDE ( QWidget * parent )
             this, SLOT ( openCSSValidatorClassPathDialog() ) );
 
   connect ( m_iconThemesList, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( modified ( bool ) ) );
+            this, SLOT ( clearingThemePaths ( bool ) ) );
+
+  connect ( m_iconThemesList, SIGNAL ( setPathClicked() ),
+            this, SLOT ( openThemePathDialog() ) );
 
   connect ( m_iconThemeSelecter, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( modified ( bool ) ) );
-
-  connect ( theme_btn, SIGNAL ( clicked() ),
-            this, SLOT ( openThemePathDialog() ) );
 }
 
+/**
+* Wenn der Validierer nicht gefunden wird dann hier
+* ein QLabel mit der Meldung erzeugen und unten anhängen.
+*/
 void ConfigIDE::checkCSSValidator()
 {
   QFileInfo db ( m_w3cJarFile->text() );
@@ -324,6 +317,17 @@ void ConfigIDE::openThemePathDialog ()
   m_iconThemesList->addPath ( p );
 }
 
+/**
+* Wenn ein Update auf die Pfade ausgeführt wird
+* die Themen Auswahl neu einlesen.
+*/
+void ConfigIDE::clearingThemePaths ( bool )
+{
+  QString currentTheme = m_iconThemeSelecter->selectedTheme();
+  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->iconPaths() );
+  m_iconThemeSelecter->setTheme ( currentTheme );
+}
+
 void ConfigIDE::load ( QSettings * cfg )
 {
   m_editStartUpUrl->setText ( cfg->value ( QLatin1String ( "StartUpUrl" ) ).toString() );
@@ -332,7 +336,7 @@ void ConfigIDE::load ( QSettings * cfg )
   m_w3cJarFile->setText ( cfg->value ( QLatin1String ( "css_validator" ) ).toString() );
   m_w3cClasspath->setText ( cfg->value ( QLatin1String ( "css_classpath" ) ).toString() );
   m_iconThemesList->insertPaths ( cfg->value ( QLatin1String ( "iconthemepaths" ), QIcon::themeSearchPaths() ).toStringList() );
-  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->paths() );
+  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->iconPaths() );
   m_iconThemeSelecter->setTheme ( cfg->value ( QLatin1String ( "icontheme" ), QLatin1String ( "oxygen" ) ).toString() );
   checkCSSValidator();
 }
@@ -348,7 +352,7 @@ void ConfigIDE::save ( QSettings * cfg )
   // Thema Einstellungen
   QString theme = m_iconThemeSelecter->selectedTheme();
   cfg->setValue ( QLatin1String ( "icontheme" ), theme );
-  cfg->setValue ( QLatin1String ( "iconthemepaths" ), m_iconThemesList->paths() );
+  cfg->setValue ( QLatin1String ( "iconthemepaths" ), m_iconThemesList->iconPaths() );
 }
 
 void ConfigIDE::defaults()
@@ -359,7 +363,7 @@ void ConfigIDE::defaults()
   m_w3cJarFile->clear();
   m_w3cClasspath->clear();
   m_iconThemesList->insertPaths ( QIcon::themeSearchPaths() );
-  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->paths() );;
+  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->iconPaths() );;
   m_iconThemeSelecter->setTheme ( QLatin1String ( "oxygen" ) );
 }
 

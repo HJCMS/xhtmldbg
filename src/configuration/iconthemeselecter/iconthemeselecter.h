@@ -40,6 +40,7 @@ class IconThemeSelecter : public QComboBox
 
   private:
     IconThemeModel* m_model;
+    void clearContent();
 
   private Q_SLOTS:
     void indexChanged ( const QString & );

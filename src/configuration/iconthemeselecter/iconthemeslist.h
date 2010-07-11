@@ -49,6 +49,7 @@ class IconThemesList : public QListWidget
     void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
+    void setPathClicked ();
     void modified ( bool );
 
   public Q_SLOTS:
@@ -56,7 +57,7 @@ class IconThemesList : public QListWidget
 
   public:
     IconThemesList ( QWidget * parent = 0 );
-    const QStringList paths();
+    const QStringList iconPaths();
     void insertPaths ( const QStringList & );
     virtual ~IconThemesList();
 };

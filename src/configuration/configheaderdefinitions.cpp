@@ -37,13 +37,10 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
     : QGroupBox ( trUtf8 ( "Header Field Definitions" ), parent )
 {
   setObjectName ( QLatin1String ( "configheaderdefinitions" ) );
-  setContentsMargins ( 0, 0, 0, 0 );
   setFlat ( true );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
   verticalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_vertical_layout" ) );
-  verticalLayout->setContentsMargins ( 0, 0, 0, 0 );
-  verticalLayout->setSpacing ( 5 );
 
   QLabel* lr0 = new QLabel ( this );
   lr0->setText ( trUtf8 ( "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>" )
@@ -69,8 +66,6 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
 
   QHBoxLayout* horizontalLayout = new QHBoxLayout;
   horizontalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_horizontal_layout" ) );
-  horizontalLayout->setContentsMargins ( 0, 0, 0, 0 );
-  horizontalLayout->setSpacing ( 5 );
 
   QSpacerItem* spacer = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
   horizontalLayout->addItem ( spacer );

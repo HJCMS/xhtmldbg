@@ -50,6 +50,8 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
+  setMinimumHeight ( 250 );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::MinimumExpanding );
   setContextMenuPolicy ( Qt::NoContextMenu );
   setEditTriggers ( QAbstractItemView::DoubleClicked );
   setTabKeyNavigation ( true );
@@ -61,6 +63,7 @@ EditCookiesTable::EditCookiesTable ( QWidget * parent )
   setGridStyle ( Qt::DashLine );
   setWordWrap ( false );
   setRowCount ( 0 );
+
   horizontalHeader()->setDefaultSectionSize ( 125 );
   horizontalHeader()->setHighlightSections ( false );
   horizontalHeader()->setMinimumSectionSize ( 125 );
