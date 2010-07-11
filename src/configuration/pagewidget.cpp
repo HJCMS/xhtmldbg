@@ -27,6 +27,7 @@
 /* QtGui */
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QScrollBar>
+#include <QtGui/QStyle>
 
 PageWidget::PageWidget ( const QString &title, QWidget * parent )
     : QScrollArea ( parent )
@@ -36,7 +37,7 @@ PageWidget::PageWidget ( const QString &title, QWidget * parent )
   setFrameStyle ( QFrame::NoFrame );
   setWidgetResizable ( true );
   setContentsMargins ( 0, 0, 0, 0 );
-  // DEBUG: setStyleSheet ( "border: 1px dotted black;" );
+  setStyleSheet ( QLatin1String ( "QLayout{padding: 0px 5px 0px 5px;}" ) );
 
   QWidget* layerWidget = new QWidget ( this );
   layerWidget->setObjectName ( QLatin1String ( "config_page_scroll_layer_widget" ) );
@@ -45,7 +46,7 @@ PageWidget::PageWidget ( const QString &title, QWidget * parent )
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( layerWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_widget_layout" ) );
-  verticalLayout->setContentsMargins ( 2, 5, 2, 5 );
+  verticalLayout->setContentsMargins ( 0, 5, 0, 5 );
   verticalLayout->setSpacing ( 5 );
 
   m_groupBox = new QGroupBox ( title, layerWidget );
