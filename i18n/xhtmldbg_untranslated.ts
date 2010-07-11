@@ -489,23 +489,23 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/certissuers/certissuers.cpp" line="66"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="61"/>
         <source>Database:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/certissuers/certissuers.cpp" line="72"/>
-        <location filename="../src/configuration/certissuers/certissuers.cpp" line="164"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="67"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="159"/>
         <source>CA Bundle Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/certissuers/certissuers.cpp" line="161"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="156"/>
         <source>CA Bundle %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/certissuers/certissuers.cpp" line="162"/>
+        <location filename="../src/configuration/certissuers/certissuers.cpp" line="157"/>
         <source>Certificate %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -518,40 +518,40 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="66"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="57"/>
         <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;%1&quot;&gt;I know all my clients&lt;/a&gt;?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="71"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="62"/>
         <source>Public Keyfile:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="85"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="76"/>
         <source>Private Keyfile:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="99"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="90"/>
         <source>Private Key Password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="133"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="151"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="124"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="142"/>
         <source>PKCS#12 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="134"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="150"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="125"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="141"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="136"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="153"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="127"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="144"/>
         <source>Open Certificate</source>
         <translation type="unfinished"></translation>
     </message>
@@ -647,52 +647,52 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="68"/>
+        <location filename="../src/configuration/configcookies.cpp" line="65"/>
         <source>Search for existing Cookies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="78"/>
+        <location filename="../src/configuration/configcookies.cpp" line="75"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="79"/>
+        <location filename="../src/configuration/configcookies.cpp" line="76"/>
         <source>Remove Selected Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="85"/>
+        <location filename="../src/configuration/configcookies.cpp" line="82"/>
         <source>Clear Cookies Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="89"/>
+        <location filename="../src/configuration/configcookies.cpp" line="86"/>
         <source>Create a new Cookie provision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="99"/>
+        <location filename="../src/configuration/configcookies.cpp" line="96"/>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="110"/>
+        <location filename="../src/configuration/configcookies.cpp" line="107"/>
         <source>Merely current Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="111"/>
+        <location filename="../src/configuration/configcookies.cpp" line="108"/>
         <source>Always Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="112"/>
+        <location filename="../src/configuration/configcookies.cpp" line="109"/>
         <source>Always Allowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="120"/>
+        <location filename="../src/configuration/configcookies.cpp" line="117"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -705,30 +705,35 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configdomtree.cpp" line="51"/>
+        <location filename="../src/configuration/configdomtree.cpp" line="50"/>
         <source>Enable Background Highlight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configdomtree.cpp" line="73"/>
+        <location filename="../src/configuration/configdomtree.cpp" line="70"/>
         <source>Enable Border Highlight</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>ConfigGeo</name>
+    <name>ConfigExtras</name>
     <message>
-        <location filename="../src/configuration/configgeo.cpp" line="40"/>
+        <location filename="../src/configuration/configextras.cpp" line="41"/>
+        <source>Extensions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configextras.cpp" line="52"/>
         <source>Geological IP Resolver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configgeo.cpp" line="52"/>
+        <location filename="../src/configuration/configextras.cpp" line="60"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configgeo.cpp" line="85"/>
+        <location filename="../src/configuration/configextras.cpp" line="101"/>
         <source>GeoIP Database %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -741,17 +746,17 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configheaderdefinitions.cpp" line="49"/>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="46"/>
         <source>Warning: Do not edit this Table if you not now how it works! For more information see &lt;a href=&quot;%1&quot;&gt;rfc2616&lt;/a&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configheaderdefinitions.cpp" line="60"/>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="57"/>
         <source>Parameter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configheaderdefinitions.cpp" line="61"/>
+        <location filename="../src/configuration/configheaderdefinitions.cpp" line="58"/>
         <source>Values</source>
         <translation type="unfinished"></translation>
     </message>
@@ -764,82 +769,82 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="61"/>
+        <location filename="../src/configuration/configide.cpp" line="59"/>
         <source>Load this URL as default on start, if empty xhtmldbg will use recently viewed Url.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="90"/>
+        <location filename="../src/configuration/configide.cpp" line="87"/>
         <source>Do not open Downloadmanager on Application start.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="97"/>
+        <location filename="../src/configuration/configide.cpp" line="94"/>
         <source>W3C CSS Validator Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="110"/>
+        <location filename="../src/configuration/configide.cpp" line="105"/>
         <source>Java Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="127"/>
+        <location filename="../src/configuration/configide.cpp" line="122"/>
         <source>Path to W3C Validator file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="144"/>
+        <location filename="../src/configuration/configide.cpp" line="139"/>
         <source>W3C Validator CLASSPATH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="195"/>
+        <location filename="../src/configuration/configide.cpp" line="188"/>
         <source>Default Icon Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="319"/>
+        <location filename="../src/configuration/configide.cpp" line="312"/>
         <source>Icon Theme path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="253"/>
+        <location filename="../src/configuration/configide.cpp" line="246"/>
         <source>&lt;div style=&quot;color:red;&quot;&gt;W3C CSS Validator not found!&lt;/div&gt;&lt;div&gt;You can download it from &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Homepage.&lt;/div&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="171"/>
+        <location filename="../src/configuration/configide.cpp" line="166"/>
         <source>Application Theme Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="183"/>
+        <location filename="../src/configuration/configide.cpp" line="176"/>
         <source>On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path&apos;s to make sure where your Selected Icon Theme located.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="201"/>
+        <location filename="../src/configuration/configide.cpp" line="194"/>
         <source>The Default Icon Theme is (Oxygen)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="286"/>
+        <location filename="../src/configuration/configide.cpp" line="279"/>
         <source>Java-Archive %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="287"/>
+        <location filename="../src/configuration/configide.cpp" line="280"/>
         <source>All %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="289"/>
+        <location filename="../src/configuration/configide.cpp" line="282"/>
         <source>W3C CSS Validator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="305"/>
+        <location filename="../src/configuration/configide.cpp" line="298"/>
         <source>W3C CSS Validator Java-Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -994,12 +999,12 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="157"/>
+        <location filename="../src/configuration/configuration.cpp" line="148"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="158"/>
+        <location filename="../src/configuration/configuration.cpp" line="149"/>
         <source>Found unsaved Changes.
 Do you realy want to exit?</source>
         <translation type="unfinished"></translation>
@@ -1049,7 +1054,7 @@ Do you realy want to exit?</source>
     </message>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="53"/>
-        <source>Geological IP</source>
+        <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1307,12 +1312,12 @@ Do you realy want to exit?</source>
 <context>
     <name>EditCookiesTable</name>
     <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="74"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="77"/>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="75"/>
+        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="78"/>
         <source>Arrangement</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1695,18 +1700,18 @@ Reasons : </source>
 <context>
     <name>IconThemesList</name>
     <message>
-        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="36"/>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="37"/>
         <source>descending order for icon theme search paths</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="66"/>
-        <source>adding</source>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="76"/>
+        <source>Adding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="69"/>
-        <source>remove</source>
+        <location filename="../src/configuration/iconthemeselecter/iconthemeslist.cpp" line="79"/>
+        <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1837,7 +1842,7 @@ Reasons : </source>
 <context>
     <name>PageWidget</name>
     <message>
-        <location filename="../src/configuration/pagewidget.cpp" line="76"/>
+        <location filename="../src/configuration/pagewidget.cpp" line="87"/>
         <source>Application restart required.</source>
         <translation type="unfinished"></translation>
     </message>
