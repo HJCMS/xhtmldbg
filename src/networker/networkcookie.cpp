@@ -22,6 +22,7 @@
 #include "networkcookie.h"
 #include "networksettings.h"
 #include "autosaver.h"
+#include "cookiesdatabase.h"
 
 /* QtCore */
 #include <QtCore/QChar>
@@ -35,91 +36,11 @@
 /* QtWebKit */
 #include <QtWebKit/QWebSettings>
 
-/****************************************************************************
-** @begin Codes from demonstration applications of the Qt Toolkit.
-*****************************************************************************
-**
-** Copyright (C) 2007-2008 Trolltech ASA. All rights reserved.
-**
-** This Code is part of the demonstration applications of the Qt Toolkit.
-**
-** This file may be used under the terms of the GNU General Public
-** License versions 2.0 or 3.0 as published by the Free Software
-** Foundation and appearing in the files LICENSE.GPL2 and LICENSE.GPL3
-** included in the packaging of this file.  Alternatively you may (at
-** your option) use any later version of the GNU General Public
-** License if such license has been publicly approved by Trolltech ASA
-** (or its successors, if any) and the KDE Free Qt Foundation. In
-** addition, as a special exception, Trolltech gives you certain
-** additional rights. These rights are described in the Trolltech GPL
-** Exception version 1.2, which can be found at
-** http://www.trolltech.com/products/qt/gplexception/ and in the file
-** GPL_EXCEPTION.txt in this package.
-**
-** Please review the following information to ensure GNU General
-** Public Licensing requirements will be met:
-** http://trolltech.com/products/qt/licenses/licensing/opensource/. If
-** you are unsure which license is appropriate for your use, please
-** review the following information:
-** http://trolltech.com/products/qt/licenses/licensing/licensingoverview
-** or contact the sales department at sales@trolltech.com.
-**
-** In addition, as a special exception, Trolltech, as the sole
-** copyright holder for Qt Designer, grants users of the Qt/Eclipse
-** Integration plug-in the right for the Qt/Eclipse Integration to
-** link to functionality provided by Qt Designer and its related
-** libraries.
-**
-*****************************************************************************/
-
-static const unsigned int JAR_VERSION = 23;
-
-QDataStream &operator<< ( QDataStream &stream, const QList<QNetworkCookie> &list )
-{
-  stream << JAR_VERSION;
-  stream << quint32 ( list.size() );
-  for ( int i = 0; i < list.size(); ++i )
-    stream << list.at ( i ).toRawForm();
-  return stream;
-}
-
-QDataStream &operator>> ( QDataStream &stream, QList<QNetworkCookie> &list )
-{
-  list.clear();
-
-  quint32 version;
-  stream >> version;
-
-  if ( version != JAR_VERSION )
-    return stream;
-
-  quint32 count;
-  stream >> count;
-  for ( quint32 i = 0; i < count; ++i )
-  {
-    QByteArray value;
-    stream >> value;
-    QList<QNetworkCookie> newCookies = QNetworkCookie::parseCookies ( value );
-    if ( newCookies.count() == 0 && value.length() != 0 )
-    {
-      qWarning() << "CookieJar: Unable to parse saved cookie:" << value;
-    }
-    for ( int j = 0; j < newCookies.count(); ++j )
-      list.append ( newCookies.at ( j ) );
-    if ( stream.atEnd() )
-      break;
-  }
-  return stream;
-}
-
-/****************************************************************************
-* @end Codes from demonstration applications of the Qt Toolkit.
-****************************************************************************/
-
 NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
+    , m_cookiesDatabase ( new CookiesDatabase ( this ) )
     , cookiesBlocked ( 0 )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
@@ -128,8 +49,6 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     m_netcfg = new NetworkSettings ( this );
 
   inProgress.clear();
-  QFileInfo cookie_ini ( m_netcfg->storageDirectory() + QLatin1String ( "/cookiejar.ini" ) );
-  iniFile = cookie_ini.absoluteFilePath();
   load();
 }
 
@@ -252,9 +171,7 @@ void NetworkCookie::load()
   }
   m_netcfg->endGroup();
 
-  qRegisterMetaTypeStreamOperators<QList<QNetworkCookie> > ( "QList<QNetworkCookie>" );
-  QSettings qs ( iniFile, QSettings::IniFormat );
-  setAllCookies ( qvariant_cast<QList<QNetworkCookie> > ( qs.value ( QLatin1String ( "cookies" ) ) ) );
+  setAllCookies ( m_cookiesDatabase->loadCookies() );
   m_autoSaver->changeOccurred();
 }
 
@@ -274,14 +191,9 @@ void NetworkCookie::reload()
 */
 void NetworkCookie::save()
 {
-  QSettings qs ( iniFile, QSettings::IniFormat );
   QList<QNetworkCookie> cookies = allCookies();
-  for ( int i = cookies.count() - 1; i >= 0; --i )
-  {
-    if ( cookies.at ( i ).isSessionCookie() )
-      cookies.removeAt ( i );
-  }
-  qs.setValue ( QLatin1String ( "cookies" ), qVariantFromValue<QList<QNetworkCookie> > ( cookies ) );
+  // Speicher die Cookies in die Datenbank
+  m_cookiesDatabase->saveCookies ( cookies );
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookies Saved";
 #endif
@@ -421,7 +333,9 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
-  if ( add )
+  if ( add && yes )
+    save();
+  else if ( add )
     m_autoSaver->saveIfNeccessary();
 
   return add;

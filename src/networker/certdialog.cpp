@@ -46,8 +46,10 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
   QTabWidget* tabWidget = new QTabWidget ( this );
+  tabWidget->setObjectName ( QLatin1String ( "cert_tab_widget" ) );
 
   QWidget* infoWidget = new QWidget ( tabWidget );
+  infoWidget->setObjectName ( QLatin1String ( "cert_info_widget" ) );
   tabWidget->addTab ( infoWidget, trUtf8 ( "Notice" ) );
 
   QVBoxLayout* t1Layout = new QVBoxLayout ( infoWidget );
@@ -58,8 +60,8 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   t1Layout->addWidget ( notify );
   infoWidget->setLayout ( t1Layout );
 
-  treeWidget = new QTreeWidget ( infoWidget );
-  treeWidget->setObjectName ( QLatin1String ( "certtable" ) );
+  treeWidget = new QTreeWidget ( tabWidget );
+  treeWidget->setObjectName ( QLatin1String ( "cert_tree_widget" ) );
   treeWidget->setWordWrap ( false );
   treeWidget->setColumnCount ( 2 );
   QStringList treeHeaders;

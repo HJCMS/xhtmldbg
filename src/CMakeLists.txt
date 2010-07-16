@@ -11,6 +11,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
@@ -28,6 +29,7 @@ ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (settargetdialog)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
+ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (cssvalidator)
