@@ -185,8 +185,5 @@ void ConfigCookies::save ( QSettings * cfg )
   cookiesTable->saveCookieArrangements ( cfg );
 }
 
-void ConfigCookies::defaults()
-{}
-
 ConfigCookies::~ConfigCookies()
 {}

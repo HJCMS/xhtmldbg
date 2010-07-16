@@ -142,25 +142,5 @@ void StackedWidget::saveSettings()
   emit settingsChanged ( false );
 }
 
-/**
-* Alle Einstellungen Zurücksetzen
-**/
-void StackedWidget::restoreSettings()
-{
-  blockSignals ( true );
-  m_configIDE->defaults();
-  m_configTidy->defaults();
-  m_configDomTree->defaults();
-  m_configBrowser->defaults();
-  m_configCookies->defaults();
-  m_configProxy->defaults();
-  m_configSSL->defaults();
-  m_configUserAgents->defaults();
-  m_configExtras->defaults();
-  blockSignals ( false );
-
-  emit settingsChanged ( true );
-}
-
 StackedWidget::~StackedWidget()
 {}

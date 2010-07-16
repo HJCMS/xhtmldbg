@@ -236,17 +236,5 @@ void ConfigBrowser::save ( QSettings * cfg )
   headerDefinitions->saveHeaderDefinitions ( cfg );
 }
 
-void ConfigBrowser::defaults()
-{
-  QMapIterator<QString,bool> it ( settingsMap() );
-  while ( it.hasNext() )
-  {
-    it.next();
-    findChild<QCheckBox*> ( it.key() )->setChecked ( it.value() );
-  }
-  DefaultFontSize->setValue ( 16 );
-  DefaultFixedFontSize->setValue ( 16 );
-}
-
 ConfigBrowser::~ConfigBrowser()
 {}

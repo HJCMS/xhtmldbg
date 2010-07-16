@@ -132,10 +132,5 @@ void ConfigExtras::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "GeoIP_Database" ), m_lineEditGeoIP->text() );
 }
 
-void ConfigExtras::defaults()
-{
-  m_lineEditGeoIP->setText ( absoluteDatabasePath() );
-}
-
 ConfigExtras::~ConfigExtras()
 {}

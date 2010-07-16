@@ -56,8 +56,5 @@ void ConfigUserAgents::save ( QSettings * cfg )
   m_userAgentEditor->saveUserAgents ( cfg );
 }
 
-void ConfigUserAgents::defaults()
-{}
-
 ConfigUserAgents::~ConfigUserAgents()
 {}

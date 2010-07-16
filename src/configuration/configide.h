@@ -65,7 +65,6 @@ class ConfigIDE : public PageWidget
     ConfigIDE ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
-    void defaults();
     ~ConfigIDE();
 };
 

@@ -66,7 +66,6 @@ class StackedWidget : public QStackedWidget
   public Q_SLOTS:
     void loadSettings();
     void saveSettings();
-    void restoreSettings();
 
   public:
     StackedWidget ( QWidget * parent = 0, QSettings * settings = 0 );

@@ -994,19 +994,32 @@ Do you realy wan to exit?</source>
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="62"/>
+        <location filename="../src/configuration/configuration.cpp" line="66"/>
         <source>Configure xhtmldbg[*]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="148"/>
+        <location filename="../src/configuration/configuration.cpp" line="153"/>
+        <source>Restore Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="154"/>
+        <source>All configuration options will be restored.
+After this operation, the configuration dialog will be closed automatically and you must restart the Application.
+
+Do you really want to do this?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="173"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="149"/>
+        <location filename="../src/configuration/configuration.cpp" line="174"/>
         <source>Found unsaved Changes.
-Do you realy want to exit?</source>
+Do you really want to exit?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

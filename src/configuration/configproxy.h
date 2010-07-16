@@ -74,7 +74,6 @@ class ConfigProxy : public PageWidget
     const QString  getPassword ();
     void load ( QSettings * );
     void save ( QSettings * );
-    void defaults();
     ~ConfigProxy();
 };
 

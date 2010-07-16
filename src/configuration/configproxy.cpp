@@ -199,14 +199,6 @@ void ConfigProxy::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "proxyPassword" ), p.toBase64() );
 }
 
-void ConfigProxy::defaults()
-{
-  setChecked ( false );
-  proxyHostName->clear();
-  proxyUser->clear();
-  proxyPassword->clear();
-}
-
 void ConfigProxy::setHostName ( const QString &str )
 {
   proxyHostName->setText ( str );

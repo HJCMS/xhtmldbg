@@ -355,17 +355,5 @@ void ConfigIDE::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "iconthemepaths" ), m_iconThemesList->iconPaths() );
 }
 
-void ConfigIDE::defaults()
-{
-  m_editStartUpUrl->clear();
-  m_hideDownloadWidget->setChecked ( true );
-  m_javaApplication->setText ( QLatin1String ( "java" ) );
-  m_w3cJarFile->clear();
-  m_w3cClasspath->clear();
-  m_iconThemesList->insertPaths ( QIcon::themeSearchPaths() );
-  m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->iconPaths() );;
-  m_iconThemeSelecter->setTheme ( QLatin1String ( "oxygen" ) );
-}
-
 ConfigIDE::~ConfigIDE()
 {}

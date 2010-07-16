@@ -48,7 +48,6 @@ class ConfigSSL : public PageWidget
     ConfigSSL ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
-    void defaults();
     ~ConfigSSL();
 };
 

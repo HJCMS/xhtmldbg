@@ -58,6 +58,7 @@ class Configuration : public QDialog
     QPushButton* m_buttonSave;
 
   private Q_SLOTS:
+    void restoreSettings();
     void quit();
 
   public:

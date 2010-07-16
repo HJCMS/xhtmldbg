@@ -995,21 +995,37 @@ Do you realy wan to exit?</source>
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="62"/>
+        <location filename="../src/configuration/configuration.cpp" line="66"/>
         <source>Configure xhtmldbg[*]</source>
         <translation>Konfiguriere xhtmldbg[*]</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="148"/>
+        <location filename="../src/configuration/configuration.cpp" line="153"/>
+        <source>Restore Settings</source>
+        <translation>Einstellungen Zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="154"/>
+        <source>All configuration options will be restored.
+After this operation, the configuration dialog will be closed automatically and you must restart the Application.
+
+Do you really want to do this?</source>
+        <translation>Alle Konfigurations Optionen werden zurück gesetzt und gehen verloren.
+Nach dieser Aktion wird sich der Konfigurations Dialog Automatisch schließen und du must das Programm neu starten.
+
+Willst du das wirklich machen?</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configuration.cpp" line="173"/>
         <source>Unsaved Changes</source>
         <translation>Ungespeicherte Änderungen</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="149"/>
+        <location filename="../src/configuration/configuration.cpp" line="174"/>
         <source>Found unsaved Changes.
-Do you realy want to exit?</source>
-        <translation>Nicht gespeicherte Änderungen gefunden.
-Möchtest du wirklich Beenden?</translation>
+Do you really want to exit?</source>
+        <translation>Nicht gespeicherte Einstellungen.
+Willst du wirklich beenden?</translation>
     </message>
 </context>
 <context>

@@ -52,7 +52,6 @@ class ConfigBrowser : public PageWidget
     ConfigBrowser ( QWidget * parent = 0 );
     void load ( QSettings * );
     void save ( QSettings * );
-    void defaults();
     ~ConfigBrowser();
 };
 

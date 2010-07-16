@@ -13,7 +13,7 @@
   <qresource prefix="/about" >
     <file>html/blank.html</file>
     <file>html/welcome.html</file>
-    <file>html/xdebug.html</file>
+    <file>html/colors.html</file>
   </qresource>
   <qresource prefix="/flags" >
     <file>icons/flags/ad.png</file>

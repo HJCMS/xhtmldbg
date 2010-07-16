@@ -84,12 +84,5 @@ void ConfigTidy::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "AutoDisabled" ), m_radioDisabled->isChecked() );
 }
 
-void ConfigTidy::defaults()
-{
-  m_radioCheck->setChecked ( false );
-  m_radioFormat->setChecked ( false );
-  m_radioDisabled->setChecked ( true );
-}
-
 ConfigTidy::~ConfigTidy()
 {}

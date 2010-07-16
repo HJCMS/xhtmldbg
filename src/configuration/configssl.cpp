@@ -110,10 +110,5 @@ void ConfigSSL::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "sslPassPhrase" ), m_configAccessControl->getPassPhrase() );
 }
 
-void ConfigSSL::defaults()
-{
-  m_certIssuers->setCaCertDatabase ( QLatin1String ( "/etc/ssl/certs/ca-certificates.crt" ) );
-}
-
 ConfigSSL::~ConfigSSL()
 {}

@@ -27,12 +27,16 @@
 #endif
 
 /* QtCore */
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+# include <QtCore/QDebug>
+#endif
 #include <QtCore/QByteArray>
 #include <QtCore/QRect>
 #include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
+#include <QtGui/QIcon>
 #include <QtGui/QMessageBox>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
@@ -105,6 +109,7 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
   m_buttonSave = buttonBox->addButton ( QDialogButtonBox::Save );
   m_buttonReset = buttonBox->addButton ( QDialogButtonBox::Reset );
   m_buttonRestore = buttonBox->addButton ( QDialogButtonBox::RestoreDefaults );
+  m_buttonRestore->setIcon ( QIcon::fromTheme ( QString::fromUtf8 ( "edit-clear-history" ) ) );
   verticalLayout->addWidget ( buttonBox );
 
   // Vertikales Design abschließen
@@ -125,7 +130,7 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
             m_stackedWidget, SLOT ( loadSettings() ) );
 
   connect ( m_buttonRestore, SIGNAL ( clicked() ),
-            m_stackedWidget, SLOT ( restoreSettings() ) );
+            this, SLOT ( restoreSettings() ) );
 
   connect ( m_buttonCancel, SIGNAL ( clicked() ),
             this, SLOT ( reject() ) );
@@ -138,6 +143,25 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
 }
 
 /**
+* Alle Einstellungen zurück setzen.
+* Zuerst an den Benutzer einen Hinweis ausgeben.
+* Bei einer positiven Antwort alles entfernen.
+*/
+void Configuration::restoreSettings()
+{
+  QMessageBox::StandardButton status;
+  status = QMessageBox::warning ( this, trUtf8 ( "Restore Settings" ),
+                                  trUtf8 ( "All configuration options will be restored.\nAfter this operation, the configuration dialog will be closed automatically and you must restart the Application.\n\nDo you really want to do this?" ),
+                                  ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
+
+  if ( status == QMessageBox::Yes )
+  {
+    cfg->clear ();
+    reject();
+  }
+}
+
+/**
 * Vor dem Beenden nach ungespeicherten Einträgen suchen
 * und bei bedarf zuvor eine Warnmeldung ausgeben.
 */
@@ -145,9 +169,11 @@ void Configuration::quit()
 {
   QMessageBox::StandardButton status = QMessageBox::Yes;
   if ( isWindowModified() )
+  {
     status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
-                                     trUtf8 ( "Found unsaved Changes.\nDo you realy want to exit?" ),
+                                     trUtf8 ( "Found unsaved Changes.\nDo you really want to exit?" ),
                                      ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
+  }
 
   cfg->setValue ( "ConfigDialog/SplitterState", m_splitter->saveState() );
   if ( status == QMessageBox::Yes )

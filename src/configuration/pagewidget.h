@@ -53,7 +53,6 @@ class PageWidget : public QScrollArea
     bool isChecked ();
     virtual void load ( QSettings * ) = 0;
     virtual void save ( QSettings * ) = 0;
-    virtual void defaults () = 0;
 
   protected Q_SLOTS:
     void setChecked ( bool );
