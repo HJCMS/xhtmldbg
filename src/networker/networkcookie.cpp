@@ -22,7 +22,8 @@
 #include "networkcookie.h"
 #include "networksettings.h"
 #include "autosaver.h"
-#include "cookiesdatabase.h"
+#include "cookiesstorage.h"
+#include "cookieshandle.h"
 
 /* QtCore */
 #include <QtCore/QChar>
@@ -40,7 +41,8 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
-    , m_cookiesDatabase ( new CookiesDatabase ( this ) )
+    , m_cookiesStorage ( new CookiesStorage ( this ) )
+    , m_cookiesHandle ( new CookiesHandle ( this ) )
     , cookiesBlocked ( 0 )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
@@ -171,7 +173,7 @@ void NetworkCookie::load()
   }
   m_netcfg->endGroup();
 
-  setAllCookies ( m_cookiesDatabase->loadCookies() );
+  setAllCookies ( m_cookiesStorage->loadCookies() );
   m_autoSaver->changeOccurred();
 }
 
@@ -192,11 +194,12 @@ void NetworkCookie::reload()
 void NetworkCookie::save()
 {
   QList<QNetworkCookie> cookies = allCookies();
-  // Speicher die Cookies in die Datenbank
-  m_cookiesDatabase->saveCookies ( cookies );
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookies Saved";
+  qDebug() << "(XHTMLDBG) Cookies Saved:" << cookies.size();
 #endif
+  // Speichere die Cookies in die Datenbank
+  m_cookiesStorage->saveCookies ( cookies );
+
   // Die Liste wieder leeren
   inProgress.clear();
 }
@@ -267,7 +270,12 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-  if ( cookiesBlocked.indexOf ( cookieHost ) != -1 )
+  if ( m_cookiesHandle->isBlocked ( cookieHost ) )
+  {
+    emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
+    return false;
+  }
+  else if ( cookiesBlocked.indexOf ( cookieHost ) != -1 ) // TODO to removed
   {
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;

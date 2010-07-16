@@ -1,12 +1,14 @@
 # CMakeLists.txt
 
 SET (subproject_SOURCES
-  cookiesdatabase.cpp
+  cookiesstorage.cpp
+  cookieshandle.cpp
   cookiesdatabaselocation.cpp
 )
 
 SET (subproject_HEADERS
-  cookiesdatabase.h
+  cookiesstorage.h
+  cookieshandle.h
   cookiesdatabaselocation.h
 )
 
