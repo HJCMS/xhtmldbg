@@ -1,18 +1,29 @@
 # CMakeLists.txt
 
 SET (subproject_SOURCES
+  cookiesdatabaselocation.cpp
   cookiesstorage.cpp
   cookieshandle.cpp
-  cookiesdatabaselocation.cpp
+  cookieseditormodel.cpp
+  cookieaccesscombobox.cpp
+  cookieseditortable.cpp
+  cookiesboolcombobox.cpp
+  cookieseditortabledelegation.cpp
 )
 
 SET (subproject_HEADERS
+  cookiesdatabaselocation.h
   cookiesstorage.h
   cookieshandle.h
-  cookiesdatabaselocation.h
+  cookieseditormodel.h
+  cookieaccesscombobox.h
+  cookieseditortable.h
+  cookiesboolcombobox.h
+  cookieseditortabledelegation.h
 )
 
 SET (subproject_STATIC_HEADERS
+  cookieaccessitem.h
 )
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})

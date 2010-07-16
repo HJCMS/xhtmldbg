@@ -19,42 +19,34 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGCOOKIES_H
-#define CONFIGCOOKIES_H
+#include "cookieaccesscombobox.h"
 
 /* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
-/* QtGui */
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidget>
-
-#include "pagewidget.h"
-// #include "editcookiestable.h"
-#include "cookieseditortable.h"
-
-class ConfigCookies : public PageWidget
+CookieAccessComboBox::CookieAccessComboBox ( QWidget * parent, int type )
+    : QComboBox ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  QStringList items;
+  items << trUtf8 ( "Session" ) << trUtf8 ( "Blocked" ) << trUtf8 ( "Allowed" );
+  addItems ( items );
+  setCurrentIndex ( type );
 
-  private:
-//     EditCookiesTable *cookiesTable;
-    CookiesEditorTable *cookiesTable;
-    QLineEdit* cookieEdit;
-    QComboBox* selectedArrangementType;
+  connect ( this, SIGNAL ( currentIndexChanged ( int ) ),
+            this, SIGNAL ( itemChanged() ) );
+}
 
-  private Q_SLOTS:
-    void addCookieAccess();
-    void itemModified ();
+void CookieAccessComboBox::setValue( int index )
+{
+  setCurrentIndex ( index );
+}
 
-  public:
-    ConfigCookies ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigCookies();
-};
+int CookieAccessComboBox::value()
+{
+  return currentIndex();
+}
 
-#endif
+const QString CookieAccessComboBox::text()
+{
+  return currentText();
+}

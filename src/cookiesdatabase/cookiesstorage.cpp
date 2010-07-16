@@ -48,7 +48,7 @@ CookiesStorage::CookiesStorage ( QObject * parent )
   {
     sql.setDatabaseName ( locator->databasePath ( objectName() ) );
     if ( ! sql.open() )
-      qWarning ( "(XHTMLDBG) %s", qPrintable ( sql.lastError().text() ) );
+      qWarning ( "(XHTMLDBG) Database: %s", qPrintable ( sql.lastError().text() ) );
   }
   delete locator;
 }
@@ -112,7 +112,7 @@ const QList<QNetworkCookie> CookiesStorage::getCookiesByDomain ( const QString &
   if ( result.lastError().type() != QSqlError::NoError )
   {
 #ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) %s", qPrintable ( result.lastError().text() ) );
+    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
 #endif
     return cookies;
   }
@@ -141,7 +141,7 @@ const QList<QNetworkCookie> CookiesStorage::loadCookies ()
   if ( result.lastError().type() != QSqlError::NoError )
   {
 #ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) %s", qPrintable ( result.lastError().text() ) );
+    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
 #endif
     return cookies;
   }

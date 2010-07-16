@@ -19,42 +19,17 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGCOOKIES_H
-#define CONFIGCOOKIES_H
+#ifndef COOKIEACCESSITEM_H
+#define COOKIEACCESSITEM_H
 
-/* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QString>
 
-/* QtGui */
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidget>
-
-#include "pagewidget.h"
-// #include "editcookiestable.h"
-#include "cookieseditortable.h"
-
-class ConfigCookies : public PageWidget
+struct CookiesAccessItem
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
-  private:
-//     EditCookiesTable *cookiesTable;
-    CookiesEditorTable *cookiesTable;
-    QLineEdit* cookieEdit;
-    QComboBox* selectedArrangementType;
-
-  private Q_SLOTS:
-    void addCookieAccess();
-    void itemModified ();
-
-  public:
-    ConfigCookies ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigCookies();
+  int Access;
+  QString Hostname;
+  int AllowThirdParty;
+  int RFC2109;
 };
 
 #endif

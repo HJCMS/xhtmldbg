@@ -19,42 +19,49 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGCOOKIES_H
-#define CONFIGCOOKIES_H
+#ifndef COOKIESEDITORTABLE_H
+#define COOKIESEDITORTABLE_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QModelIndex>
 
 /* QtGui */
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
+#include <QtGui/QTableView>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-// #include "editcookiestable.h"
-#include "cookieseditortable.h"
+/* QtSql */
+#include <QtSql/QSqlDatabase>
 
-class ConfigCookies : public PageWidget
+class CookiesEditorModel;
+
+class CookiesEditorTable : public QTableView
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-//     EditCookiesTable *cookiesTable;
-    CookiesEditorTable *cookiesTable;
-    QLineEdit* cookieEdit;
-    QComboBox* selectedArrangementType;
+    QSqlDatabase sql;
+    CookiesEditorModel* m_model;
 
   private Q_SLOTS:
-    void addCookieAccess();
-    void itemModified ();
+    void cellChanged ( const QModelIndex & );
+
+  Q_SIGNALS:
+    void modified();
+
+  public Q_SLOTS:
+    void markCookie ( const QString & );
+    void loadCookieAccess ();
+    void saveCookieAccess ();
+    void removeItem();
+    void removeAll();
 
   public:
-    ConfigCookies ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigCookies();
+    CookiesEditorTable ( QWidget * parent = 0 );
+    bool addCookie ( int, const QString & );
+    virtual ~CookiesEditorTable();
 };
 
 #endif

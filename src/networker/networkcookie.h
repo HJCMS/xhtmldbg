@@ -37,7 +37,7 @@
 class NetworkSettings;
 class AutoSaver;
 class CookiesStorage;
-class CookiesHandle;
+// class CookiesHandle;
 
 class NetworkCookie : public QNetworkCookieJar
 {
@@ -50,7 +50,7 @@ class NetworkCookie : public QNetworkCookieJar
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
     CookiesStorage* m_cookiesStorage;
-    CookiesHandle* m_cookiesHandle;
+    // CookiesHandle* m_cookiesHandle;
     QStringList cookiesBlocked;
     QStringList cookiesAllowed;
     QStringList cookiesSession;

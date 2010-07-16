@@ -23,7 +23,7 @@
 #include "networksettings.h"
 #include "autosaver.h"
 #include "cookiesstorage.h"
-#include "cookieshandle.h"
+// #include "cookieshandle.h"
 
 /* QtCore */
 #include <QtCore/QChar>
@@ -42,7 +42,6 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
     , m_cookiesStorage ( new CookiesStorage ( this ) )
-    , m_cookiesHandle ( new CookiesHandle ( this ) )
     , cookiesBlocked ( 0 )
     , cookiesAllowed ( 0 )
     , cookiesSession ( 0 )
@@ -270,12 +269,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-  if ( m_cookiesHandle->isBlocked ( cookieHost ) )
-  {
-    emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
-    return false;
-  }
-  else if ( cookiesBlocked.indexOf ( cookieHost ) != -1 ) // TODO to removed
+  if ( cookiesBlocked.indexOf ( cookieHost ) != -1 ) // TODO to removed
   {
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;

@@ -56,13 +56,13 @@ CookiesHandle::CookiesHandle ( QObject * parent )
   {
     sql.setDatabaseName ( locator->databasePath ( objectName() ) );
     if ( ! sql.open() )
-      qWarning ( "(XHTMLDBG) %s", qPrintable ( sql.lastError().text() ) );
+      qWarning ( "(XHTMLDBG) Database: %s", qPrintable ( sql.lastError().text() ) );
   }
   delete locator;
 }
 
 /**
-* Nachsehen ob dieser Hostname einen SESSION oder ALLOWED Eintrag besitzt.
+* Nachsehen ob dieser Hostname ein Session oder erlaubt enthält.
 */
 bool CookiesHandle::isAccepted ( const QString &hostname )
 {

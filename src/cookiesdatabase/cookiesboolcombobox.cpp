@@ -19,42 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGCOOKIES_H
-#define CONFIGCOOKIES_H
+#include "cookiesboolcombobox.h"
 
 /* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QComboBox>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidget>
+// #include <QtGui/QVBoxLayout>
 
-#include "pagewidget.h"
-// #include "editcookiestable.h"
-#include "cookieseditortable.h"
-
-class ConfigCookies : public PageWidget
+CookiesBoolComboBox::CookiesBoolComboBox ( QWidget * parent, int state )
+    : QComboBox ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  QStringList items;
+  items << trUtf8 ( "Disabled" ) << trUtf8 ( "Enabled" );
+  addItems ( items );
 
-  private:
-//     EditCookiesTable *cookiesTable;
-    CookiesEditorTable *cookiesTable;
-    QLineEdit* cookieEdit;
-    QComboBox* selectedArrangementType;
+  setCurrentIndex ( state );
 
-  private Q_SLOTS:
-    void addCookieAccess();
-    void itemModified ();
+  connect ( this, SIGNAL ( currentIndexChanged ( int ) ),
+            this, SIGNAL ( itemChanged() ) );
+}
 
-  public:
-    ConfigCookies ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigCookies();
-};
+void CookiesBoolComboBox::setValue ( int state )
+{
+  setCurrentIndex ( state );
+}
 
-#endif
+int CookiesBoolComboBox::value()
+{
+  return currentIndex ();
+}
+
+const QString CookiesBoolComboBox::text()
+{
+  return currentText();
+}

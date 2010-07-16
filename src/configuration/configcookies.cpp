@@ -55,7 +55,8 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   mainLayout->setObjectName ( QLatin1String ( "config_cookies_main_layout" ) );
 
   // Erste Zeile Keks Tabelle
-  cookiesTable = new EditCookiesTable ( centralWidget );
+//   cookiesTable = new EditCookiesTable ( centralWidget );
+  cookiesTable = new CookiesEditorTable ( centralWidget );
   mainLayout->addWidget ( cookiesTable, 0, 0, 1, 4 );
 
   // sucht nach einem Keks in der Tabelle
@@ -177,13 +178,16 @@ void ConfigCookies::addCookieAccess()
 
 void ConfigCookies::load ( QSettings * cfg )
 {
-  cookiesTable->loadCookieArrangements ( cfg );
+  Q_UNUSED ( cfg )
+  cookiesTable->loadCookieAccess ();
 }
 
 void ConfigCookies::save ( QSettings * cfg )
 {
-  cookiesTable->saveCookieArrangements ( cfg );
+  Q_UNUSED ( cfg )
+  cookiesTable->saveCookieAccess ();
 }
 
 ConfigCookies::~ConfigCookies()
-{}
+{
+}
