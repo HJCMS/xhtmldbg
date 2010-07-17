@@ -45,6 +45,8 @@ class CookiesEditorTable : public QTableWidget
 
   private:
     QSqlDatabase sql;
+    const QString connectionName;
+    bool initialDatabase();
 
   private Q_SLOTS:
     void cellChanged ( const QModelIndex & );

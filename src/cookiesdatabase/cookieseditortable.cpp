@@ -46,6 +46,7 @@
 CookiesEditorTable::CookiesEditorTable ( QWidget * parent, const QString &dbName )
     : QTableWidget ( parent )
     , sql ( QSqlDatabase::addDatabase ( "QSQLITE", dbName ) )
+    , connectionName ( dbName )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
   setMinimumHeight ( 250 );
@@ -75,20 +76,41 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent, const QString &dbName
   horizontalHeader()->setStretchLastSection ( false );
   verticalHeader()->setVisible ( false );
 
-  // SQL
+  connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
+            this, SLOT ( cellChanged ( const QModelIndex & ) ) );
+}
+
+/**
+* Die Datenbank Initialisieren
+*/
+bool CookiesEditorTable::initialDatabase()
+{
+  if ( sql.isOpen() )
+    return true; // wenn offen nichts machen
+
+  QString dbConnectionName;
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
   QString lc = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
   CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
   if ( locator->initDatabase ( sql, "cookieshandle" ) )
-  {
-    sql.setDatabaseName ( locator->databasePath ( "cookieshandle" ) );
-    if ( ! sql.open() )
-      qWarning ( "(XHTMLDBG) Database: %s", qPrintable ( sql.lastError().text() ) );
-  }
+    dbConnectionName = locator->databasePath ( "cookieshandle" );
+
   delete locator;
 
-  connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
-            this, SLOT ( cellChanged ( const QModelIndex & ) ) );
+  if ( dbConnectionName.isEmpty() )
+  {
+    qWarning ( "(XHTMLDBG) Cannot find SQLite Database" );
+    return false;
+  }
+
+  sql.setDatabaseName ( dbConnectionName );
+  if ( ! sql.open() )
+  {
+    qWarning ( "(XHTMLDBG) SQLite:Error - %s", qPrintable ( sql.lastError().text() ) );
+    return false;
+  }
+  else
+    return true;
 }
 
 /**
@@ -122,41 +144,41 @@ void CookiesEditorTable::markCookie ( const QString &txt )
 */
 void CookiesEditorTable::loadCookieAccess ()
 {
-  if ( sql.isOpen() )
-  {
-    QString queryString ( "SELECT Hostname,AccessType,AllowThirdParty,RFC2109 " );
-    queryString.append ( "FROM cookieshandle WHERE ( Hostname != '' ) ORDER BY Hostname ASC;" );
-    QSqlQuery query = sql.exec ( queryString );
-    if ( query.lastError().type() == QSqlError::NoError )
-    {
-      QSqlRecord rec = query.record();
-      if ( rec.count() > 0 )
-      {
-        clearContents();
-        int row = 0;
+  if ( ! initialDatabase() )
+    return;
 
-        while ( query.next() )
-        {
-          setRowCount ( ( row + 1 ) );
-          // Hostname
-          setItem ( row, 0, new QTableWidgetItem ( query.value ( rec.indexOf ( "Hostname" ) ).toString() ) );
-          // AccessType
-          CookieAccessComboBox* item0 = new CookieAccessComboBox ( this, query.value ( rec.indexOf ( "AccessType" ) ).toUInt() );
-          connect ( item0, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
-          setCellWidget ( row, 1, item0 );
-          // AllowThirdParty
-          CookiesBoolComboBox* item2 = new CookiesBoolComboBox ( this, query.value ( rec.indexOf ( "AllowThirdParty" ) ).toUInt() );
-          connect ( item2, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
-          setCellWidget ( row, 2, item2 );
-          // RFC2109
-          CookiesBoolComboBox* item3 = new CookiesBoolComboBox ( this, query.value ( rec.indexOf ( "RFC2109" ) ).toUInt() );
-          connect ( item3, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
-          setCellWidget ( row, 3, item3 );
-          row++;
-        }
+  QString queryString ( "SELECT Hostname,AccessType,AllowThirdParty,RFC2109 " );
+  queryString.append ( "FROM cookieshandle WHERE ( Hostname != '' ) ORDER BY Hostname ASC;" );
+  QSqlQuery query = sql.exec ( queryString );
+  if ( query.lastError().type() == QSqlError::NoError )
+  {
+    QSqlRecord rec = query.record();
+    if ( rec.count() > 0 )
+    {
+      clearContents();
+      int row = 0;
+
+      while ( query.next() )
+      {
+        setRowCount ( ( row + 1 ) );
+        // Hostname
+        setItem ( row, 0, new QTableWidgetItem ( query.value ( rec.indexOf ( "Hostname" ) ).toString() ) );
+        // AccessType
+        CookieAccessComboBox* item0 = new CookieAccessComboBox ( this, query.value ( rec.indexOf ( "AccessType" ) ).toUInt() );
+        connect ( item0, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
+        setCellWidget ( row, 1, item0 );
+        // AllowThirdParty
+        CookiesBoolComboBox* item2 = new CookiesBoolComboBox ( this, query.value ( rec.indexOf ( "AllowThirdParty" ) ).toUInt() );
+        connect ( item2, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
+        setCellWidget ( row, 2, item2 );
+        // RFC2109
+        CookiesBoolComboBox* item3 = new CookiesBoolComboBox ( this, query.value ( rec.indexOf ( "RFC2109" ) ).toUInt() );
+        connect ( item3, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
+        setCellWidget ( row, 3, item3 );
+        row++;
       }
-      query.finish();
     }
+    query.finish();
   }
   horizontalHeader()->resizeSections ( QHeaderView::ResizeToContents );
 }
@@ -179,11 +201,8 @@ void CookiesEditorTable::loadCookieAccess ()
 */
 void CookiesEditorTable::saveCookieAccess ()
 {
-  if ( ! sql.isOpen() )
-  {
-    qWarning ( "(XHTMLDBG) SQL - %s", qPrintable ( sql.lastError().text() ) );
+  if ( ! initialDatabase() )
     return;
-  }
 
   QString sqlPragma ( "INSERT INTO cookieshandle (Hostname,AccessType,AllowThirdParty,RFC2109) VALUES ('" );
   QStringList queryStrings;
@@ -340,7 +359,11 @@ void CookiesEditorTable::addCookiesFromOldConfig ( QSettings * cfg )
 
 CookiesEditorTable::~CookiesEditorTable()
 {
-  if ( sql.isOpen() )
-    sql.close();
+  {
+    // REENTRANT
+    if ( sql.isOpen() )
+      sql.close();
+  }
+  QSqlDatabase::removeDatabase ( connectionName );
 }
 
