@@ -55,6 +55,7 @@ class CookiesHandle : public QObject
     } CookiesAccessItem;
     CookiesHandle ( QObject * parent = 0, const QString &dbName = QString::fromUtf8 ( "CookiesHandle" ) );
     const CookiesAccessItem getCookieAccess ( const QString & );
+    bool open();
     virtual ~CookiesHandle();
 };
 

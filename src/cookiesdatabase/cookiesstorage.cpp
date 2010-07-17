@@ -37,7 +37,7 @@
 #include <QtSql/QSqlQuery>
 
 CookiesStorage::CookiesStorage ( QObject * parent )
-    : QObject ( parent )
+    : QThread ( parent )
     , sql ( QSqlDatabase::addDatabase ( "QSQLITE", QString::fromUtf8 ( "CookiesStorage" ) ) )
 {
   setObjectName ( QLatin1String ( "cookiesstorage" ) );
@@ -54,11 +54,39 @@ CookiesStorage::CookiesStorage ( QObject * parent )
 }
 
 /**
-* Alle Cookies Speichern!
-* Zuerst wir die Tabelle geleert und dann Neu geschrieben!
+* Alle Cookies aus der Datenbank einlesen!
 */
-void CookiesStorage::saveCookies ( const QList<QNetworkCookie> &cookiesList )
+void CookiesStorage::loadCookies ()
 {
+  cookies.clear();
+  QString query ( "SELECT data FROM cookiesstorage WHERE (domain!='');" );
+  QSqlQuery result = sql.exec ( query );
+  if ( result.lastError().type() != QSqlError::NoError )
+  {
+#ifdef XHTMLDBG_DEBUG
+    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
+#endif
+    return;
+  }
+
+  QSqlRecord sqlrec = result.record();
+  if ( sqlrec.count() >= 1 )
+  {
+    while ( result.next() )
+    {
+      int data = sqlrec.indexOf ( "data" );
+      cookies << QNetworkCookie::parseCookies ( result.value ( data ).toByteArray() );
+    }
+    result.finish();
+  }
+}
+
+/**
+* Cookies in die Datenbank Speichern
+*/
+void CookiesStorage::saveCookies()
+{
+  mutex.lock();
   QSqlQuery result;
   result = sql.exec ( "DELETE FROM cookiesstorage WHERE (domain!='');" );
   if ( result.lastError().type() != QSqlError::NoError )
@@ -69,7 +97,7 @@ void CookiesStorage::saveCookies ( const QList<QNetworkCookie> &cookiesList )
     return;
   }
 
-  foreach ( QNetworkCookie cookie, cookiesList )
+  foreach ( QNetworkCookie cookie, cookies )
   {
     if ( cookie.isSessionCookie() )
       continue;
@@ -95,68 +123,48 @@ void CookiesStorage::saveCookies ( const QList<QNetworkCookie> &cookiesList )
     }
     result.finish();
   }
+  mutex.unlock();
+}
+
+/**
+* Alle Cookies Speichern!
+* Zuerst wir die Tabelle geleert und dann Neu geschrieben!
+*/
+void CookiesStorage::setCookiesList ( const QList<QNetworkCookie> &cookiesList )
+{
+  cookies.clear();
+  cookies << cookiesList;
 }
 
 /**
 * Ein einzelnes Cookie mit der Domäne abfragen!
 */
-const QList<QNetworkCookie> CookiesStorage::getCookiesByDomain ( const QString &domain )
+const QList<QNetworkCookie> CookiesStorage::getCookieByDomain ( const QString &domain )
 {
   QList<QNetworkCookie> cookies;
-
-  QString query ( "SELECT data FROM cookiesstorage WHERE (domain='" );
-  query.append ( domain );
-  query.append ( "') LIMIT 1;" );
-
-  QSqlQuery result = sql.exec ( query );
-  if ( result.lastError().type() != QSqlError::NoError )
+  foreach ( QNetworkCookie cookie, cookies )
   {
-#ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
-#endif
-    return cookies;
+    if ( cookie.domain() == domain )
+      return QNetworkCookie::parseCookies ( cookie.value () );
   }
-
-  QSqlRecord sqlrec = result.record();
-  if ( sqlrec.count() >= 1 )
-  {
-    int data = sqlrec.indexOf ( "data" );
-    cookies << QNetworkCookie::parseCookies ( result.value ( data ).toByteArray() );
-  }
-  result.finish();
-
   return cookies;
 }
 
 /**
 * Alle Cookies aus der Datenbank einlesen!
 */
-const QList<QNetworkCookie> CookiesStorage::loadCookies ()
+const QList<QNetworkCookie> CookiesStorage::getCookies ()
 {
-  QList<QNetworkCookie> cookies;
+  if ( cookies.size() < 1 )
+    loadCookies();
 
-  QString query ( "SELECT data FROM cookiesstorage WHERE (domain!='');" );
-
-  QSqlQuery result = sql.exec ( query );
-  if ( result.lastError().type() != QSqlError::NoError )
-  {
-#ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
-#endif
-    return cookies;
-  }
-
-  QSqlRecord sqlrec = result.record();
-  if ( sqlrec.count() >= 1 )
-  {
-    while ( result.next() )
-    {
-      int data = sqlrec.indexOf ( "data" );
-      cookies << QNetworkCookie::parseCookies ( result.value ( data ).toByteArray() );
-    }
-    result.finish();
-  }
   return cookies;
+}
+
+void CookiesStorage::run()
+{
+  if ( cookies.size() >= 1 )
+    saveCookies();
 }
 
 CookiesStorage::~CookiesStorage()

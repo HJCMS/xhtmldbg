@@ -32,6 +32,7 @@
 #include <QtCore/QFileInfo>
 #include <QtCore/QSettings>
 #include <QtCore/QStringList>
+#include <QtCore/QThread>
 #include <QtCore/QVariant>
 
 /* QtWebKit */
@@ -48,7 +49,9 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     m_netcfg = new NetworkSettings ( this );
 
   inProgress.clear();
+  m_cookiesStorage->start ( QThread::LowPriority );
   load();
+  m_autoSaver->changeOccurred();
 }
 
 /**
@@ -101,7 +104,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   if ( rfc && !domain.contains ( QRegExp ( "^\\." ) ) )
   {
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
+    qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
 #endif
     rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
@@ -129,6 +132,11 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     // Accepted: host.tld == .domain.tld
     return true;
   }
+  else if ( !rfc )
+  {
+    // Accepted: NONE RFC2109
+    return true;
+  }
 
   emit cookieNotice ( trUtf8 ( "Different Cookie/Domain for host %1. (Rejected)" ).arg ( url.host() ) );
   return false;
@@ -149,8 +157,7 @@ const QDateTime NetworkCookie::cookieLifeTime()
 */
 void NetworkCookie::load()
 {
-  setAllCookies ( m_cookiesStorage->loadCookies() );
-  m_autoSaver->changeOccurred();
+  setAllCookies ( m_cookiesStorage->getCookies() );
 }
 
 /**
@@ -171,7 +178,8 @@ void NetworkCookie::save()
   qDebug() << "(XHTMLDBG) Cookies Saved:" << cookies.size();
 #endif
   // Speichere die Cookies in die Datenbank
-  m_cookiesStorage->saveCookies ( cookies );
+  m_cookiesStorage->setCookiesList ( cookies );
+  m_cookiesStorage->run();
 
   // Die Liste wieder leeren
   inProgress.clear();
@@ -236,16 +244,18 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Setze den Hostnamen dieser Url in die Berarbeitenliste!
   inProgress << uniqueHostRequest;
 
-  CookiesHandle::CookiesAccessItem cookieAcces = m_cookiesHandle->getCookieAccess ( uniqueHostRequest );
+  if ( ! m_cookiesHandle->open() )
+    return false;
+
+  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
+  CookiesHandle::CookiesAccessItem cookieAcces = m_cookiesHandle->getCookieAccess ( cookieHost );
 
   bool add = false;
   bool yes = false;
   bool tmp = false;
   bool isInSecure = false;
 
-  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-  qDebug() << "(XHTMLDBG) Cookie BLOCKED:" << uniqueHostRequest << cookieHost << cookieAcces.Access;
   if ( cookieAcces.Access == CookiesHandle::BLOCKED )
   {
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );

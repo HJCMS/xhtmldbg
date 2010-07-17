@@ -41,15 +41,26 @@ CookiesHandle::CookiesHandle ( QObject * parent, const QString &dbName )
 {
   setObjectName ( QLatin1String ( "cookieshandle" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
+}
+
+bool CookiesHandle::open()
+{
+  if ( sql.isOpen() )
+    return true;
+
   QString lc = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
   CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
   if ( locator->initDatabase ( sql, objectName() ) )
   {
     sql.setDatabaseName ( locator->databasePath ( objectName() ) );
     if ( ! sql.open() )
+    {
       qWarning ( "(XHTMLDBG) Database: %s", qPrintable ( sql.lastError().text() ) );
+      return false;
+    }
   }
   delete locator;
+  return true;
 }
 
 /**

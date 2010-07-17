@@ -1866,42 +1866,42 @@ Gründe : </translation>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="98"/>
+        <location filename="../src/networker/networkcookie.cpp" line="101"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation>Unzulässiges Cookie Format für &quot;%1&quot; und Keks Domäne &quot;%2&quot;, zurückgewiesen wegen RFC 2109.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="106"/>
+        <location filename="../src/networker/networkcookie.cpp" line="109"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation>Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die Domäne nicht mit einem Punkt beginnt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="112"/>
+        <location filename="../src/networker/networkcookie.cpp" line="115"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation>Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="118"/>
+        <location filename="../src/networker/networkcookie.cpp" line="121"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation>Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="133"/>
+        <location filename="../src/networker/networkcookie.cpp" line="141"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="227"/>
+        <location filename="../src/networker/networkcookie.cpp" line="235"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="251"/>
+        <location filename="../src/networker/networkcookie.cpp" line="261"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="312"/>
+        <location filename="../src/networker/networkcookie.cpp" line="322"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>

@@ -1858,42 +1858,42 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="98"/>
+        <location filename="../src/networker/networkcookie.cpp" line="101"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="106"/>
+        <location filename="../src/networker/networkcookie.cpp" line="109"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="112"/>
+        <location filename="../src/networker/networkcookie.cpp" line="115"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="118"/>
+        <location filename="../src/networker/networkcookie.cpp" line="121"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="133"/>
+        <location filename="../src/networker/networkcookie.cpp" line="141"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="227"/>
+        <location filename="../src/networker/networkcookie.cpp" line="235"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="251"/>
+        <location filename="../src/networker/networkcookie.cpp" line="261"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="312"/>
+        <location filename="../src/networker/networkcookie.cpp" line="322"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
