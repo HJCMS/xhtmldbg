@@ -18,7 +18,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
-  ${CMAKE_CURRENT_SOURCE_DIR}/configuration/editcookiestable
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -123,8 +122,8 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   DomInspector
   SetTargetDialog
   OpenUrlDialog
+  CookiesDatabase
   Networker
-  EditCookiesTable
   Configuration
   CSSValidator
   DownloadManager

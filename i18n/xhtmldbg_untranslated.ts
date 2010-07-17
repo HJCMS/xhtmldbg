@@ -353,112 +353,112 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="51"/>
+        <location filename="../src/networker/certdialog.cpp" line="53"/>
         <source>Notice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="54"/>
+        <location filename="../src/networker/certdialog.cpp" line="56"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="66"/>
+        <location filename="../src/networker/certdialog.cpp" line="68"/>
         <source>Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="66"/>
+        <location filename="../src/networker/certdialog.cpp" line="68"/>
         <source>Values</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="70"/>
+        <location filename="../src/networker/certdialog.cpp" line="72"/>
         <source>Subject</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="75"/>
+        <location filename="../src/networker/certdialog.cpp" line="77"/>
         <source>Issuer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="87"/>
+        <location filename="../src/networker/certdialog.cpp" line="89"/>
         <source>Organization (O)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="88"/>
+        <location filename="../src/networker/certdialog.cpp" line="90"/>
         <source>The name of the organization. (O)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="93"/>
+        <location filename="../src/networker/certdialog.cpp" line="95"/>
         <source>Common Name (CN)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="94"/>
+        <location filename="../src/networker/certdialog.cpp" line="96"/>
         <source>The common name; most often this is used to store the host name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="99"/>
+        <location filename="../src/networker/certdialog.cpp" line="101"/>
         <source>Locality (L)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="100"/>
+        <location filename="../src/networker/certdialog.cpp" line="102"/>
         <source>The locality. (L)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="105"/>
+        <location filename="../src/networker/certdialog.cpp" line="107"/>
         <source>Organizational UnitName (OU)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="106"/>
+        <location filename="../src/networker/certdialog.cpp" line="108"/>
         <source>The organizational unit name. (OU)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="111"/>
+        <location filename="../src/networker/certdialog.cpp" line="113"/>
         <source>CountryName (C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="112"/>
+        <location filename="../src/networker/certdialog.cpp" line="114"/>
         <source>The country. (C)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="117"/>
+        <location filename="../src/networker/certdialog.cpp" line="119"/>
         <source>State or Province (ST)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="118"/>
+        <location filename="../src/networker/certdialog.cpp" line="120"/>
         <source>The state or province name. (ST)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="137"/>
+        <location filename="../src/networker/certdialog.cpp" line="139"/>
         <source>Certificate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="145"/>
+        <location filename="../src/networker/certdialog.cpp" line="147"/>
         <source>Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="197"/>
+        <location filename="../src/networker/certdialog.cpp" line="199"/>
         <source>Serial Nr.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/certdialog.cpp" line="204"/>
+        <location filename="../src/networker/certdialog.cpp" line="206"/>
         <source>Expires</source>
         <translation type="unfinished"></translation>
     </message>
@@ -647,52 +647,52 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="65"/>
+        <location filename="../src/configuration/configcookies.cpp" line="66"/>
         <source>Search for existing Cookies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="75"/>
+        <location filename="../src/configuration/configcookies.cpp" line="76"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="76"/>
+        <location filename="../src/configuration/configcookies.cpp" line="77"/>
         <source>Remove Selected Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="82"/>
+        <location filename="../src/configuration/configcookies.cpp" line="83"/>
         <source>Clear Cookies Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="86"/>
+        <location filename="../src/configuration/configcookies.cpp" line="87"/>
         <source>Create a new Cookie provision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="96"/>
+        <location filename="../src/configuration/configcookies.cpp" line="97"/>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="107"/>
+        <location filename="../src/configuration/configcookies.cpp" line="108"/>
         <source>Merely current Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="108"/>
+        <location filename="../src/configuration/configcookies.cpp" line="109"/>
         <source>Always Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="109"/>
+        <location filename="../src/configuration/configcookies.cpp" line="110"/>
         <source>Always Allowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="117"/>
+        <location filename="../src/configuration/configcookies.cpp" line="118"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1159,6 +1159,60 @@ Do you really want to exit?</source>
     <message>
         <location filename="../src/cookieacceptdialog.cpp" line="60"/>
         <source>Ready</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CookieAccessComboBox</name>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <source>Session</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <source>Blocked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <source>Allowed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CookiesBoolComboBox</name>
+    <message>
+        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="34"/>
+        <source>Disabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="34"/>
+        <source>Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CookiesEditorTable</name>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <source>Domain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <source>Arrangement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="67"/>
+        <source>Allow third party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="67"/>
+        <source>rfc2109</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1804,42 +1858,42 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="180"/>
+        <location filename="../src/networker/networkcookie.cpp" line="98"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="185"/>
+        <location filename="../src/networker/networkcookie.cpp" line="106"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="191"/>
+        <location filename="../src/networker/networkcookie.cpp" line="112"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="197"/>
+        <location filename="../src/networker/networkcookie.cpp" line="118"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="212"/>
+        <location filename="../src/networker/networkcookie.cpp" line="133"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="339"/>
+        <location filename="../src/networker/networkcookie.cpp" line="227"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="360"/>
+        <location filename="../src/networker/networkcookie.cpp" line="251"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="421"/>
+        <location filename="../src/networker/networkcookie.cpp" line="312"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>

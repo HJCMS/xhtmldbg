@@ -31,7 +31,7 @@
 #include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
-class EditCookiesTable;
+class CookiesEditorTable;
 
 class CookieAcceptDialog : public QDialog
 {
@@ -40,7 +40,7 @@ class CookieAcceptDialog : public QDialog
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    EditCookiesTable* m_editCookiesTable;
+    CookiesEditorTable* m_editCookiesTable;
     QSettings* m_settings;
 
   private Q_SLOTS:

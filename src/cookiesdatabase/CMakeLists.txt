@@ -4,26 +4,18 @@ SET (subproject_SOURCES
   cookiesdatabaselocation.cpp
   cookiesstorage.cpp
   cookieshandle.cpp
-  cookieseditormodel.cpp
   cookieaccesscombobox.cpp
   cookieseditortable.cpp
   cookiesboolcombobox.cpp
-  cookieseditortabledelegation.cpp
 )
 
 SET (subproject_HEADERS
   cookiesdatabaselocation.h
   cookiesstorage.h
   cookieshandle.h
-  cookieseditormodel.h
   cookieaccesscombobox.h
   cookieseditortable.h
   cookiesboolcombobox.h
-  cookieseditortabledelegation.h
-)
-
-SET (subproject_STATIC_HEADERS
-  cookieaccessitem.h
 )
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})

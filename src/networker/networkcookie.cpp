@@ -23,7 +23,7 @@
 #include "networksettings.h"
 #include "autosaver.h"
 #include "cookiesstorage.h"
-// #include "cookieshandle.h"
+#include "cookieshandle.h"
 
 /* QtCore */
 #include <QtCore/QChar>
@@ -42,9 +42,7 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
     , m_cookiesStorage ( new CookiesStorage ( this ) )
-    , cookiesBlocked ( 0 )
-    , cookiesAllowed ( 0 )
-    , cookiesSession ( 0 )
+    , m_cookiesHandle ( new CookiesHandle ( this ) )
 {
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
@@ -90,7 +88,7 @@ const QString NetworkCookie::cookieDomainFromUrl ( const QUrl &url ) const
 * @li A Set-Cookie with Domain=ajax.com will be rejected because the value for Domain
 *     does not begin with a dot.
 */
-bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &url )
+bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &url, bool rfc )
 {
   if ( domain.isEmpty() )
     return false;
@@ -100,8 +98,11 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   QString rejectMessage = trUtf8 ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
-  if ( ! domain.contains ( QRegExp ( "^\\." ) ) )
+  if ( rfc && !domain.contains ( QRegExp ( "^\\." ) ) )
   {
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
+#endif
     rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
@@ -112,7 +113,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     emit cookieRejected ( rejectMessage );
     return false;
   }
-  else if ( domain.count ( QChar ( '.' ) ) < 2 )
+  else if ( !domain.contains ( QRegExp ( "([\\w\\d]+)\\.(\\w{2,})$" ) ) )
   {
     rejectMessage.append ( trUtf8 ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
     emit cookieRejected ( rejectMessage );
@@ -148,30 +149,6 @@ const QDateTime NetworkCookie::cookieLifeTime()
 */
 void NetworkCookie::load()
 {
-  m_netcfg->beginGroup ( QLatin1String ( "CookieArrangement" ) );
-  QStringList keys = m_netcfg->allKeys();
-  if ( keys.size() >= 1 )
-  {
-    foreach ( QString key, keys )
-    {
-      switch ( m_netcfg->value ( key ).toUInt() )
-      {
-        case Session:
-          cookiesSession << key;
-          break;
-
-        case Allowed:
-          cookiesAllowed << key;
-          break;
-
-        default:
-          cookiesBlocked << key;
-          break;
-      };
-    }
-  }
-  m_netcfg->endGroup();
-
   setAllCookies ( m_cookiesStorage->loadCookies() );
   m_autoSaver->changeOccurred();
 }
@@ -181,9 +158,6 @@ void NetworkCookie::load()
 */
 void NetworkCookie::reload()
 {
-  cookiesSession.clear();
-  cookiesAllowed.clear();
-  cookiesBlocked.clear();
   load();
 }
 
@@ -262,6 +236,8 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Setze den Hostnamen dieser Url in die Berarbeitenliste!
   inProgress << uniqueHostRequest;
 
+  CookiesHandle::CookiesAccessItem cookieAcces = m_cookiesHandle->getCookieAccess ( uniqueHostRequest );
+
   bool add = false;
   bool yes = false;
   bool tmp = false;
@@ -269,20 +245,21 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-  if ( cookiesBlocked.indexOf ( cookieHost ) != -1 ) // TODO to removed
+  qDebug() << "(XHTMLDBG) Cookie BLOCKED:" << uniqueHostRequest << cookieHost << cookieAcces.Access;
+  if ( cookieAcces.Access == CookiesHandle::BLOCKED )
   {
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
   }
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
-  yes = ( cookiesAllowed.indexOf ( cookieHost ) != -1 ) ? true : false;
-  tmp = ( cookiesSession.indexOf ( cookieHost ) != -1 ) ? true : false;
+  yes = ( cookieAcces.Access == CookiesHandle::ALLOWED ) ? true : false;
+  tmp = ( cookieAcces.Access == CookiesHandle::SESSION ) ? true : false;
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost
   << " Unique:" << uniqueHostRequest << " Acceppted:" << yes << " Session Cookie:" << tmp
-  << " Full Request:" << url.toString();
+  << " Full Request:" << url.toString() << "RFC2109:" << cookieAcces.RFC2109;
 #endif
 
   // Neue Cookie Laufzeit
@@ -307,7 +284,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
       if ( cookie.domain().isEmpty() )
         cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
 
-      if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl ) )
+      if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl, cookieAcces.RFC2109 ) )
         continue;
 
       if ( url.scheme().contains ( "https" ) && ! cookie.isSecure() )

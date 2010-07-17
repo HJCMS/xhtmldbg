@@ -1,6 +1,5 @@
 # CMakeLists.txt
 
-ADD_SUBDIRECTORY (editcookiestable)
 ADD_SUBDIRECTORY (useragenteditor)
 ADD_SUBDIRECTORY (certissuers)
 ADD_SUBDIRECTORY (iconthemeselecter)

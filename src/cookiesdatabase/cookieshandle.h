@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -38,15 +39,25 @@ class CookiesHandle : public QObject
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_ENUMS ( AccessType )
 
   private:
     QSqlDatabase sql;
 
   public:
-    CookiesHandle ( QObject * parent = 0 );
-    bool isAccepted ( const QString & );
-    bool isBlocked ( const QString & );
+    enum AccessType { SESSION, BLOCKED, ALLOWED };
+    typedef struct Q_DECL_EXPORT
+    {
+      AccessType Access;
+      QString Hostname;
+      bool AllowThirdParty;
+      bool RFC2109;
+    } CookiesAccessItem;
+    CookiesHandle ( QObject * parent = 0, const QString &dbName = QString::fromUtf8 ( "CookiesHandle" ) );
+    const CookiesAccessItem getCookieAccess ( const QString & );
     virtual ~CookiesHandle();
 };
+
+Q_DECLARE_METATYPE ( CookiesHandle::CookiesAccessItem )
 
 #endif

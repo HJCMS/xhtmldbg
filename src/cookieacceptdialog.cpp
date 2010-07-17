@@ -20,7 +20,7 @@
 **/
 
 #include "cookieacceptdialog.h"
-#include "editcookiestable.h"
+#include "cookieseditortable.h"
 
 /* QtCore */
 #include <QtCore/QList>
@@ -51,8 +51,8 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
   QString info = trUtf8 ( "The Host have sent a Cookie request, add here the Arrangement." );
   layout->addWidget ( new QLabel ( info, this ) );
 
-  m_editCookiesTable = new EditCookiesTable ( this );
-  m_editCookiesTable->loadCookieArrangements ( m_settings );
+  m_editCookiesTable = new CookiesEditorTable ( this, QString::fromUtf8 ( "CookiesAccpetDialog" ) );
+  m_editCookiesTable->loadCookieAccess ();
   layout->addWidget ( m_editCookiesTable );
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
@@ -70,7 +70,7 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
 */
 void CookieAcceptDialog::saveAndExit()
 {
-  m_editCookiesTable->saveCookieArrangements ( m_settings );
+  m_editCookiesTable->saveCookieAccess ();
 
   accept();
 }

@@ -37,7 +37,7 @@
 class NetworkSettings;
 class AutoSaver;
 class CookiesStorage;
-// class CookiesHandle;
+class CookiesHandle;
 
 class NetworkCookie : public QNetworkCookieJar
 {
@@ -50,14 +50,11 @@ class NetworkCookie : public QNetworkCookieJar
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
     CookiesStorage* m_cookiesStorage;
-    // CookiesHandle* m_cookiesHandle;
-    QStringList cookiesBlocked;
-    QStringList cookiesAllowed;
-    QStringList cookiesSession;
+    CookiesHandle* m_cookiesHandle;
     QStringList inProgress;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;
-    bool validateDomainAndHost ( const QString &, const QUrl & );
+    bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
     const QDateTime cookieLifeTime();
     void load();
 

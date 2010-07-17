@@ -35,18 +35,9 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlQuery>
 
-// trUtf8 ( "Session" ) << trUtf8 ( "Blocked" ) << trUtf8 ( "Allowed" )
-/*
-CREATE TABLE "cookieshandle" (
-  "Hostname" TEXT PRIMARY KEY ASC,
-  "AccessType" INTEGER default 0,
-  "AllowThirdParty" INTEGER default 0,
-  "RFC2109" INTEGER default 0
-);
-*/
-CookiesHandle::CookiesHandle ( QObject * parent )
+CookiesHandle::CookiesHandle ( QObject * parent, const QString &dbName )
     : QObject ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", QString::fromUtf8 ( "CookiesHandle" ) ) )
+    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", dbName ) )
 {
   setObjectName ( QLatin1String ( "cookieshandle" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
@@ -62,64 +53,66 @@ CookiesHandle::CookiesHandle ( QObject * parent )
 }
 
 /**
-* Nachsehen ob dieser Hostname ein Session oder erlaubt enthält.
+* Informationen für ein Cookie abfragen!
 */
-bool CookiesHandle::isAccepted ( const QString &hostname )
+const CookiesHandle::CookiesAccessItem CookiesHandle::getCookieAccess ( const QString &hostname )
 {
-  QString query ( "SELECT AccessType FROM cookieshandle WHERE (Hostname='" );
-  query.append ( hostname );
-  query.append ( "' AND (AccessType=0 OR AccessType=2) ) LIMIT 1;" );
+  CookiesAccessItem item;
+  item.Access = BLOCKED;
+  item.Hostname = hostname;
+  item.AllowThirdParty = false;
+  item.RFC2109 = true;
 
-  QSqlQuery result;
-  result = sql.exec ( query );
-  if ( result.lastError().type() != QSqlError::NoError )
+  QString queryString ( "SELECT AccessType,AllowThirdParty,RFC2109 FROM cookieshandle WHERE (Hostname='" );
+  queryString.append ( hostname );
+  queryString.append ( "') LIMIT 1;" );
+
+  QSqlQuery query = sql.exec ( queryString );
+  if ( query.lastError().type() != QSqlError::NoError )
   {
 #ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
+    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( query.lastError().text() ) );
 #endif
-    return false;
+    return item;
   }
 
-  QSqlRecord sqlrec = result.record();
-  if ( sqlrec.count() == 1 )
+  QSqlRecord rec = query.record();
+  if ( rec.count() > 0 )
   {
-    if ( result.value ( sqlrec.indexOf ( "AccessType" ) ).toUInt() != 1 )
-      return true;
-  }
-  result.finish();
-
-  return false;
-}
-
-/**
-* Nachsehen ob dieser Hostname geblockt ist
-*/
-bool CookiesHandle::isBlocked ( const QString &hostname )
-{
-  QString query ( "SELECT AccessType FROM cookieshandle WHERE (Hostname='" );
-  query.append ( hostname );
-  query.append ( "' AND AccessType=1) LIMIT 1;" );
-
-  QSqlQuery result;
-  result = sql.exec ( query );
-  if ( result.lastError().type() != QSqlError::NoError )
-  {
-#ifdef XHTMLDBG_DEBUG
-    qWarning ( "(XHTMLDBG) SQL:SELECT - %s", qPrintable ( result.lastError().text() ) );
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug ( "(XHTMLDBG) SQL:QUERIES - %s", qPrintable ( queryString ) );
 #endif
-    return true;
-  }
+    while ( query.next() )
+    {
+      // AccessType
+      switch ( query.value ( rec.indexOf ( "AccessType" ) ).toUInt() )
+      {
+        case 0:
+          item.Access = SESSION;
+          break;
 
-  // INSERT INTO "cookieshandle" VALUES(0,'klettern-ettringen.jh',0,1);
-  QSqlRecord sqlrec = result.record();
-  if ( sqlrec.count() == 1 )
-  {
-    if ( result.value ( sqlrec.indexOf ( "AccessType" ) ).toUInt() == 1 )
-      return true;
-  }
-  result.finish();
+        case 1:
+          item.Access = BLOCKED;
+          break;
 
-  return false;
+        case 2:
+          item.Access = ALLOWED;
+          break;
+
+        default:
+          item.Access = BLOCKED;
+          break;
+      }
+      // AllowThirdParty
+      item.AllowThirdParty = query.value ( rec.indexOf ( "AllowThirdParty" ) ).toBool();
+
+      // RFC2109
+      item.RFC2109 = query.value ( rec.indexOf ( "RFC2109" ) ).toBool();
+    }
+  }
+  query.finish();
+
+  return item;
 }
 
 CookiesHandle::~CookiesHandle()

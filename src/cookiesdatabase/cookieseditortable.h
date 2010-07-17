@@ -23,19 +23,21 @@
 #define COOKIESEDITORTABLE_H
 
 /* QtCore */
+#include <QtCore/QGlobalStatic>
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QModelIndex>
+#include <QtCore/QSettings>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QTableView>
+#include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
-class CookiesEditorModel;
-
-class CookiesEditorTable : public QTableView
+class CookiesEditorTable : public QTableWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -43,7 +45,6 @@ class CookiesEditorTable : public QTableView
 
   private:
     QSqlDatabase sql;
-    CookiesEditorModel* m_model;
 
   private Q_SLOTS:
     void cellChanged ( const QModelIndex & );
@@ -59,8 +60,9 @@ class CookiesEditorTable : public QTableView
     void removeAll();
 
   public:
-    CookiesEditorTable ( QWidget * parent = 0 );
-    bool addCookie ( int, const QString & );
+    CookiesEditorTable ( QWidget * parent = 0, const QString &dbName = QString::fromUtf8 ( "CookiesEditorTable" ) );
+    bool addCookie ( int, const QString &, int rfc = 1 );
+    Q_DECL_DEPRECATED void addCookiesFromOldConfig ( QSettings * cfg );
     virtual ~CookiesEditorTable();
 };
 

@@ -40,7 +40,6 @@ class CookieAccessComboBox : public QComboBox
     void itemChanged();
 
   public:
-    // enum AccessType { SESSION = 0, BLOCKED = 1, ALLOWED = 2 };
     CookieAccessComboBox ( QWidget * parent = 0, int type = 0 );
     void setValue ( int );
     int value();
