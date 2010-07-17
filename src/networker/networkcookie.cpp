@@ -225,7 +225,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
-  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
+  QString cookieHost = url.host().remove ( QRegExp ( "^www\\." ) );
   if ( inProgress.contains ( cookieHost ) )
     return false;
 
@@ -242,19 +242,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   bool tmp = false;
   bool isInSecure = false;
 
-  // CookieUrl bereinigen
-  QUrl cookieUrl;
-  cookieUrl.setScheme ( url.scheme() );
-  cookieUrl.setHost ( url.host() );
-  cookieUrl.setPath ( url.path() );
-
-  if ( cookieAcces.Access == CookiesHandle::UNKNOWN )
-  {
-    // Wenn noch nicht in der Datenbank dann anfrage senden.
-    emit cookieRequest ( cookieUrl );
-    return false;
-  }
-  else if ( cookieAcces.Access == CookiesHandle::BLOCKED )
+  if ( cookieAcces.Access == CookiesHandle::BLOCKED )
   {
     // Wenn dieser Host in der Blockliste steht sofort aussteigen.
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
@@ -266,8 +254,14 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   tmp = ( cookieAcces.Access == CookiesHandle::SESSION ) ? true : false;
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost << " Access:" << yes << " Session:" << tmp << " Full:" << url.toString();
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp;
 #endif
+
+  // CookieUrl bereinigen
+  QUrl cookieUrl;
+  cookieUrl.setScheme ( url.scheme() );
+  cookieUrl.setHost ( url.host() );
+  cookieUrl.setPath ( url.path() );
 
   // Neue Cookie Laufzeit
   QDateTime lifeTime = cookieLifeTime();

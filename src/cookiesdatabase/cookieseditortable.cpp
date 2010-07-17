@@ -110,7 +110,7 @@ void CookiesEditorTable::markCookie ( const QString &txt )
   if ( txt.length() < 4 )
     return;
 
-  foreach ( QTableWidgetItem* item, findItems ( txt, Qt::MatchContains ) )
+  foreach ( QTableWidgetItem* item, findItems ( txt, Qt::MatchStartsWith ) )
   {
     setCurrentItem ( item );
     break;
