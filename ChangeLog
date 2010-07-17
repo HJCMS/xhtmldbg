@@ -1,3 +1,9 @@
+- 2010/07/17 Juergen Heinemann (Undefined)
+  Add: Cookies SQLite3 Database and more Configure Options
+  Bugfix: Cookies - save allowed domains
+  Bugfix: Configuration Dialog setModified()
+  TODO: rewrite SSH Engine
+
 - 2010/06/27 Juergen Heinemann (Undefined)
   Bugfix: cmake and gcc 4.5 relocation R_X86_64_32S
 
