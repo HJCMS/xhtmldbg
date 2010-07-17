@@ -825,10 +825,7 @@ void Window::openUrlDialog()
 void Window::openConfigDialog()
 {
   Configuration* dialog = new Configuration ( this, m_settings );
-  if ( dialog->exec() )
-  {
-    m_netManager->cookieJar()->reload();
-  }
+  dialog->exec();
   delete dialog;
 }
 

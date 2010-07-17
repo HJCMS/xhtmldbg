@@ -250,10 +250,6 @@ bool ErrorsDialog::setError ( QNetworkReply::NetworkError err, const QUrl &url )
       break;
   }
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Network Error " << windowTitle() << host << path;
-#endif
-
   return opendialog;
 }
 

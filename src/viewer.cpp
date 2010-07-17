@@ -108,10 +108,7 @@ void Viewer::openCookiesRequestDialog ()
   }
 
   if ( m_cookiesDialog->exec() == QDialog::Accepted )
-    xhtmldbgmain::instance()->cookieManager()->reload();
-
-  // Aufräumen
-  pendingCookieRequests.clear();
+    pendingCookieRequests.clear(); // Aufräumen
 }
 
 /**

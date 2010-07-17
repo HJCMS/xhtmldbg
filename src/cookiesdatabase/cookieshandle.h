@@ -45,7 +45,7 @@ class CookiesHandle : public QObject
     QSqlDatabase sql;
 
   public:
-    enum AccessType { SESSION, BLOCKED, ALLOWED };
+    enum AccessType { SESSION, BLOCKED, ALLOWED, UNKNOWN };
     typedef struct Q_DECL_EXPORT
     {
       AccessType Access;

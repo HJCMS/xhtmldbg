@@ -161,26 +161,14 @@ void NetworkCookie::load()
 }
 
 /**
-* Alle listen Neu laden.
-*/
-void NetworkCookie::reload()
-{
-  load();
-}
-
-/**
 * Aktuelle Cookies, bis auf die Session Cookies speichern!
 */
 void NetworkCookie::save()
 {
   QList<QNetworkCookie> cookies = allCookies();
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookies Saved:" << cookies.size();
-#endif
   // Speichere die Cookies in die Datenbank
   m_cookiesStorage->setCookiesList ( cookies );
   m_cookiesStorage->run();
-
   // Die Liste wieder leeren
   inProgress.clear();
 }
@@ -237,27 +225,38 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
-  QString uniqueHostRequest = url.host ();
-  if ( inProgress.contains ( uniqueHostRequest ) )
+  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
+  if ( inProgress.contains ( cookieHost ) )
     return false;
-
-  // Setze den Hostnamen dieser Url in die Berarbeitenliste!
-  inProgress << uniqueHostRequest;
 
   if ( ! m_cookiesHandle->open() )
     return false;
 
-  QString cookieHost = url.host().remove ( QRegExp ( "\\bwww\\." ) );
   CookiesHandle::CookiesAccessItem cookieAcces = m_cookiesHandle->getCookieAccess ( cookieHost );
+
+  // Setze den Hostnamen dieser Url in die Berarbeitenliste!
+  inProgress << cookieHost;
 
   bool add = false;
   bool yes = false;
   bool tmp = false;
   bool isInSecure = false;
 
-  // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-  if ( cookieAcces.Access == CookiesHandle::BLOCKED )
+  // CookieUrl bereinigen
+  QUrl cookieUrl;
+  cookieUrl.setScheme ( url.scheme() );
+  cookieUrl.setHost ( url.host() );
+  cookieUrl.setPath ( url.path() );
+
+  if ( cookieAcces.Access == CookiesHandle::UNKNOWN )
   {
+    // Wenn noch nicht in der Datenbank dann anfrage senden.
+    emit cookieRequest ( cookieUrl );
+    return false;
+  }
+  else if ( cookieAcces.Access == CookiesHandle::BLOCKED )
+  {
+    // Wenn dieser Host in der Blockliste steht sofort aussteigen.
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
   }
@@ -267,19 +266,11 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   tmp = ( cookieAcces.Access == CookiesHandle::SESSION ) ? true : false;
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost
-  << " Unique:" << uniqueHostRequest << " Acceppted:" << yes << " Session Cookie:" << tmp
-  << " Full Request:" << url.toString() << "RFC2109:" << cookieAcces.RFC2109;
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << cookieHost << " Access:" << yes << " Session:" << tmp << " Full:" << url.toString();
 #endif
 
   // Neue Cookie Laufzeit
   QDateTime lifeTime = cookieLifeTime();
-
-  // CookieUrl bereinigen
-  QUrl cookieUrl;
-  cookieUrl.setScheme ( url.scheme() );
-  cookieUrl.setHost ( url.host() );
-  cookieUrl.setPath ( url.path() );
 
   if ( tmp || yes )
   {
@@ -322,7 +313,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
-  if ( add && yes )
+  if ( cookieAcces.Access == CookiesHandle::ALLOWED )
     save();
   else if ( add )
     m_autoSaver->saveIfNeccessary();

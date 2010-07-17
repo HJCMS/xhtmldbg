@@ -137,9 +137,6 @@ const QNetworkProxy NetworkSettings::getProxy()
   proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
   QString pass ( QByteArray::fromBase64 ( value ( QLatin1String ( "proxyPassword" ) ).toByteArray() ) );
   proxy.setPassword ( pass );
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-    qDebug() << Q_FUNC_INFO << "Proxy:" << 8080 << pass;
-#endif
   return proxy;
 }
 

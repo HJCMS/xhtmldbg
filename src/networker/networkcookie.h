@@ -66,7 +66,6 @@ class NetworkCookie : public QNetworkCookieJar
 
   public Q_SLOTS:
     void save();
-    void reload();
 
   public:
     enum CookieArrangement { Session = 0, Blocked = 1, Allowed = 2 };

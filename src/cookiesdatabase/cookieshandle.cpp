@@ -65,11 +65,13 @@ bool CookiesHandle::open()
 
 /**
 * Informationen für ein Cookie abfragen!
+* Wenn kein Eintrag gefunden werden konnet wird @ref AccessType::UNKNOWN
+* zurück gegeben!
 */
 const CookiesHandle::CookiesAccessItem CookiesHandle::getCookieAccess ( const QString &hostname )
 {
   CookiesAccessItem item;
-  item.Access = BLOCKED;
+  item.Access = UNKNOWN;
   item.Hostname = hostname;
   item.AllowThirdParty = false;
   item.RFC2109 = true;
