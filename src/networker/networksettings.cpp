@@ -133,10 +133,13 @@ const QNetworkProxy NetworkSettings::getProxy()
   QNetworkProxy proxy;
   proxy.setType ( proxyType() );
   proxy.setHostName ( value ( QLatin1String ( "proxyHostName" ) ).toString() );
-  proxy.setPort ( value ( QLatin1String ( "proxyPort" ), 8080 ).toUInt() );
+  proxy.setPort ( value ( QLatin1String ( "proxyPort" ), 3128 ).toUInt() );
   proxy.setUser ( value ( QLatin1String ( "proxyUser" ) ).toString() );
   QString pass ( QByteArray::fromBase64 ( value ( QLatin1String ( "proxyPassword" ) ).toByteArray() ) );
   proxy.setPassword ( pass );
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug() << Q_FUNC_INFO << "Proxy:" << 8080 << pass;
+#endif
   return proxy;
 }
 

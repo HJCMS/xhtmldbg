@@ -37,7 +37,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
     , Port ( 3128 )
 {
   setObjectName ( QLatin1String ( "config_page_proxy" ) );
-  setNotice ( false );
+  setNotice ( true );
   setCheckable ( true );
   setChecked ( false );
   Qt::Alignment defalignment = ( Qt::AlignRight | Qt::AlignVCenter );
@@ -182,6 +182,7 @@ void ConfigProxy::load ( QSettings * cfg )
 
   proxyHostName->setText ( cfg->value ( QLatin1String ( "proxyHostName" ) ).toString() );
   proxyUser->setText ( cfg->value ( QLatin1String ( "proxyUser" ) ).toString() );
+  proxyPort->setValue ( cfg->value ( QLatin1String ( "proxyPort" ), 3128 ).toUInt() );
 
   QString p ( QByteArray::fromBase64 ( cfg->value ( QLatin1String ( "proxyPassword" ) ).toByteArray() ) );
   proxyPassword->setText ( p );
@@ -194,6 +195,7 @@ void ConfigProxy::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "proxyType" ), getType() );
   cfg->setValue ( QLatin1String ( "enableProxy" ), isChecked() );
   cfg->setValue ( QLatin1String ( "proxyHostName" ), proxyHostName->text() );
+  cfg->setValue ( QLatin1String ( "proxyPort" ), proxyPort->value() );
   cfg->setValue ( QLatin1String ( "proxyUser" ), proxyUser->text() );
   QByteArray p = proxyPassword->text().toAscii();
   cfg->setValue ( QLatin1String ( "proxyPassword" ), p.toBase64() );
