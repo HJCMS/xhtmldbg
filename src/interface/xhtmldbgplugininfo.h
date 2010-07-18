@@ -92,8 +92,8 @@ namespace xhtmldbg
     public:
       /**
       * Plugin constructer
-      * @param parent Object
-      * @param type   Plugin Type to use default: Popup
+      * \param parent Object
+      * \param type   Plugin Type to use default: Popup
       */
       explicit PluginInfo ( QObject * parent = 0, PluginType type = PluginInfo::PopUp );
 

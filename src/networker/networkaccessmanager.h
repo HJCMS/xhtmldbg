@@ -30,6 +30,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QSettings>
 #include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
@@ -62,6 +63,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     QNetworkReply* m_networkReply;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
+    QStringList certCustodyPending;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );

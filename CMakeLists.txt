@@ -13,7 +13,7 @@ ENABLE_LANGUAGE (CXX)
 ##############################################################
 # where to look first for cmake modules, before ${CMAKE_ROOT}/cmake/Modules/ is checked
 ##############################################################
-SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
+SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
 
 ##############################################################
 ## Package
@@ -23,6 +23,7 @@ FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS QTXMLPATTERNS QTSQL)
 FIND_PACKAGE (QTidy REQUIRED)
+FIND_PACKAGE (OpenSSL REQUIRED)
 FIND_PACKAGE (Raptor REQUIRED)
 FIND_PACKAGE (GeoIP REQUIRED)
 FIND_PACKAGE (Java)
@@ -218,23 +219,39 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 )
 
 ##############################################################
-## Default Configuration File
+## OpenSSL Certification Bundle
 ##############################################################
 
 FIND_FILE (CA_BUNDLE_FILE
-  NAMES ca-certificates.crt ca-bundle.crt
-  PATHS /etc/ssl /etc/ssl/certs /usr/share/ssl /usr/local/share/ssl
+  NAMES ca-bundle.pem ca-certificates.crt
+  PATHS
+    /var/lib/ca-certificates
+    /etc/ssl/certs
+    /etc/ca-certificates
+    /usr/lib/ca-certificates
+    /usr/share/ca-certificates
+    /usr/local/share/ca-certificates
   DOC "Find SSL Certificate verify location (CAfile)" NO_CMAKE_PATH
 )
 
+##############################################################
+## W3C CSS Validator Runtime Files
+##############################################################
+
 FIND_FILE (CSS_VALIDATOR_JAR
-  NAMES css-validator.jar
-  PATHS /usr/share/java /usr/local/share/java /opt/w3c-css-validator /usr/local/w3c-css-validator
+  NAMES css-validator.jar w3c-css-validator.jar
+  PATHS
+    /usr/share/java
+    /usr/local/share/java
+    /usr/lib/java
+    /var/lib/java
+    /opt/w3c-css-validator
+    /usr/local/w3c-css-validator
   DOC "Find W3C CSS Validator File" NO_CMAKE_PATH
 )
 
 ##############################################################
-## INCLUDES
+## INCLUDEDIRS
 ##############################################################
 
 INCLUDE_DIRECTORIES (
@@ -256,7 +273,7 @@ SET (XHTMLDBG_INCLUDE_INTERFACE
 )
 
 ##############################################################
-## LINKER
+## Library Dependeces
 ##############################################################
 
 SET (XHTMLDBG_LIBRARIES
@@ -266,13 +283,15 @@ SET (XHTMLDBG_LIBRARIES
   ${QT_QTWEBKIT_LIBRARY}
   ${QT_QTDBUS_LIBRARY}
   ${QT_QTXML_LIBRARY}
+  ${QT_QTSQL_LIBRARY}
   ${RAPTOR_LIBRARIES}
   ${QTIDY_LIBRARIES}
   ${GEOIP_LIBRARIES}
+  ${OPENSSL_LIBRARIES}
 )
 
 ##############################################################
-## Extensions
+## Extension Extras
 ##############################################################
 
 ## needed by hostinfo plugin
@@ -323,7 +342,7 @@ ADD_SUBDIRECTORY (data)
 ADD_SUBDIRECTORY (i18n)
 
 ##############################################################
-## LGPL/GPL3 Exceptions
+## LGPLv2+/GPLv3 Exceptions
 ##############################################################
 
 INSTALL (FILES

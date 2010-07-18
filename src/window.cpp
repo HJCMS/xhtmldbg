@@ -89,6 +89,9 @@
 /* QTidy */
 #include <QTidy/QTidy>
 
+/* QtSql */
+#include <QtSql/QSqlDatabase>
+
 Window::Window ( QSettings * settings )
     : QMainWindow()
     , m_settings ( settings )
@@ -553,6 +556,25 @@ void Window::createToolBars()
 }
 
 /**
+* Wird von @ref closeEvent aufgerufen.
+* Sucht nach offenen Datenbank Verbindungen und
+* versucht diese sauber zu beenden!
+* @li CookiesAccpetDialog von @class CookieAcceptDialog
+* @li NetworkCookieHandle von @class NetworkCookie
+* @li CookiesStorage von @class CookiesStorage
+*/
+void Window::unregisterDatabases ()
+{
+  QStringList connections;
+  connections << "CookiesAccpetDialog" << "NetworkCookieHandle" << "CookiesStorage";
+  foreach ( QString con, connections )
+  {
+    if ( QSqlDatabase::database ( con, false ).isOpen() )
+      QSqlDatabase::database ( con, false ).close();
+  }
+}
+
+/**
 * Standard closeEvent für das Speichern von
 * Fenster- Geometrie und Status.
 */
@@ -560,6 +582,8 @@ void Window::closeEvent ( QCloseEvent *event )
 {
   if ( isFullScreen() ) // Keine Vollansicht Speichern!
     setWindowState ( windowState() & ~Qt::WindowFullScreen );
+
+  unregisterDatabases ();
 
   // Den DownloadManager nicht in die Stats schreiben!
   bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();

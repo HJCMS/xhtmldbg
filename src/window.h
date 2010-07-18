@@ -178,6 +178,7 @@ class Window : public QMainWindow
     void createToolBars();
     void tabifyDockedWidgetUp ( QDockWidget * );
     void registerPlugins();
+    void unregisterDatabases();
 
   private Q_SLOTS:
     void requestsFinished ( bool );

@@ -33,6 +33,7 @@ SET(JAVA_BIN_PATH
   $ENV{JAVA_HOME}/bin
   /usr/bin
   /usr/lib/java/bin
+  /usr/lib/java/jre/bin
   /usr/share/java/bin
   /usr/local/bin
   /usr/local/java/bin
@@ -42,6 +43,7 @@ SET(JAVA_BIN_PATH
   /usr/java/j2sdk1.4.2_09/bin
   /usr/lib/j2sdk1.5-sun/bin
   /opt/sun-jdk-1.5.0.04/bin
+  /opt/sun-jdk-1.6.0_20/bin
   )
 FIND_PROGRAM(JAVA_RUNTIME
   NAMES java

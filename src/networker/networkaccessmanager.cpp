@@ -150,6 +150,12 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
   }
   else
   {
+    // FIXME Zurückhalte Speicher wegen mehrfacher angfragen!
+    if ( certCustodyPending.contains ( certHost ) )
+      return;
+
+    certCustodyPending.append( certHost );
+
     QStringList messages;
     QSslCertificate cert = errors.at ( 0 ).certificate ();
     foreach ( QSslError err, errors )
@@ -161,8 +167,9 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
     certDialog.setMessages ( messages );
     if ( certDialog.exec() == QDialog::Accepted )
     {
-      reply->ignoreSslErrors();
       trustedCertsHostsList.append ( certHost );
+      reply->ignoreSslErrors();
+      certCustodyPending.clear();
     }
   }
 }

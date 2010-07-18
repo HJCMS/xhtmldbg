@@ -1218,7 +1218,7 @@ Willst du wirklich beenden?</translation>
     <message>
         <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="67"/>
         <source>rfc2109</source>
-        <translation>RFC-2019</translation>
+        <translation>RFC-2109</translation>
     </message>
 </context>
 <context>

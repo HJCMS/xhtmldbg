@@ -43,7 +43,7 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
     , m_cookiesStorage ( new CookiesStorage ( this ) )
-    , m_cookiesHandle ( new CookiesHandle ( this ) )
+    , m_cookiesHandle ( new CookiesHandle ( this, QString::fromUtf8( "NetworkCookieHandle" ) ) )
 {
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );

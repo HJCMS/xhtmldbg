@@ -100,4 +100,6 @@ void CookieAcceptDialog::clear ()
 {}
 
 CookieAcceptDialog::~CookieAcceptDialog()
-{}
+{
+  delete m_editCookiesTable;
+}

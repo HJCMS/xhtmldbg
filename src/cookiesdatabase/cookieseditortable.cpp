@@ -359,11 +359,6 @@ void CookiesEditorTable::addCookiesFromOldConfig ( QSettings * cfg )
 
 CookiesEditorTable::~CookiesEditorTable()
 {
-  {
-    // REENTRANT
-    if ( sql.isOpen() )
-      sql.close();
-  }
-  QSqlDatabase::removeDatabase ( connectionName );
+  if ( QSqlDatabase::database ( connectionName, false ).isOpen() )
+    QSqlDatabase::database ( connectionName, false ).close();
 }
-

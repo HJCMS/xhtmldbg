@@ -52,7 +52,7 @@ class CookieAcceptDialog : public QDialog
 
   public:
     CookieAcceptDialog ( QWidget * parent = 0 );
-    ~CookieAcceptDialog();
+    virtual ~CookieAcceptDialog();
 };
 
 #endif
