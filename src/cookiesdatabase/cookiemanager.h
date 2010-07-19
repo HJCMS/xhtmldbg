@@ -19,17 +19,16 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COOKIESSTORAGE_H
-#define COOKIESSTORAGE_H
+#ifndef COOKIEMANAGER_H
+#define COOKIEMANAGER_H
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QList>
 #include <QtCore/QObject>
-#include <QtCore/QMutex>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QThread>
 #include <QtCore/QVariant>
 
 /* QtSql */
@@ -39,26 +38,48 @@
 #include <QtNetwork/QNetworkCookie>
 #include <QtNetwork/QNetworkCookieJar>
 
-class CookiesStorage : public QThread
+class CookieManager : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_ENUMS ( AccessType )
 
   private:
+    enum QueryType { OPEN, CREATE, SELECT, DELETE, UPDATE, QUERY, INSERT };
     QSqlDatabase sql;
-    QMutex mutex;
     QList<QNetworkCookie> cookies;
+    void sqlMessage ( QueryType t, int l, const QString &m );
+    bool open();
     void loadCookies ();
     void saveCookies();
 
   public:
-    CookiesStorage ( QObject * parent = 0 );
-    void setCookiesList ( const QList<QNetworkCookie> & );
+    enum AccessType { SESSION, BLOCKED, ALLOWED, UNKNOWN };
+
+    typedef struct Q_DECL_EXPORT
+    {
+      AccessType Access;
+      QString Hostname;
+      bool AllowThirdParty;
+      bool RFC2109;
+    } CookiesAccessItem;
+
+    CookieManager ( QObject * parent = 0 );
+
+    bool isOpen();
+
+    const CookiesAccessItem getCookieAccess ( const QString & );
+
+    void saveCookiesList ( const QList<QNetworkCookie> & );
+
     const QList<QNetworkCookie> getCookieByDomain ( const QString & );
+
     const QList<QNetworkCookie> getCookies ();
-    void run();
-    virtual ~CookiesStorage();
+
+    virtual ~CookieManager();
 };
+
+Q_DECLARE_METATYPE ( CookieManager::CookiesAccessItem )
 
 #endif

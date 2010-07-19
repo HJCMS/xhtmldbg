@@ -63,6 +63,11 @@ Viewer::Viewer ( QWidget * parent )
 
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
   NetworkCookie* cookieManager = xhtmldbgmain::instance()->cookieManager();
+
+  /** WARNING Die initalisierung von CookieAcceptDialog muss,
+  * Wegen @ref CookiesEditorTable nach @class NetworkCookie Initialisiert werden.
+  * Grund hier für ist das öffnen der SQL Datenbank!
+  */
   m_cookiesDialog = new CookieAcceptDialog ( this );
 
   m_page = new Page ( netManager, this );

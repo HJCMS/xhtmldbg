@@ -88,30 +88,40 @@ const QString CookiesDatabaseLocation::databasePath ( const QString &dbName )
 * Öffnet eine Datenbank mit @param dbName, wenn nicht vorhanden
 * wird versucht eine Neue Leere Datenbank mit @param driver an zulegen.
 */
-bool CookiesDatabaseLocation::initDatabase ( const QSqlDatabase &driver, const QString &dbName )
+bool CookiesDatabaseLocation::initCookieDatabase ( const QSqlDatabase &driver )
 {
+  QStringList tables;
+  tables << "cookiesstorage" << "cookieshandle";
+
   QSqlDatabase db = driver.database ( driver.connectionName(), false );
-  db.setDatabaseName ( databasePath ( dbName ) );
+
+  if ( db.isOpen() )
+    return true;
+
+  db.setDatabaseName ( databasePath ( driver.connectionName() ) );
   if ( db.open() )
   {
     db.transaction();
-    QSqlQuery query = db.exec ( sqlTableStatement ( dbName ) );
-    if ( query.lastError().type() == QSqlError::NoError )
+    QSqlQuery query;
+    foreach ( QString table, tables )
     {
-      // alles OK dann austeigen
-      db.commit();
-      query.finish();
-      db.close();
-      return true;
-    }
-    else if ( query.lastError().type() == QSqlError::StatementError )
-    {
-      // Wenn die Tabelle schon angelegt ist - ist alles OK!
+      query = db.exec ( sqlTableStatement ( table ) );
+      if ( query.lastError().type() == QSqlError::NoError )
+      {
+        // alles OK dann austeigen
+      }
+      else if ( query.lastError().type() == QSqlError::StatementError )
+      {
+        // Wenn die Tabelle schon angelegt ist - ist alles OK!
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-      qWarning ( "(XHTMLDBG) %s", qPrintable ( query.lastError().text() ) );
+        qWarning ( "(XHTMLDBG) SQL DB CREATE %s", qPrintable ( query.lastError().text() ) );
 #endif
-      return true;
+      }
+      db.commit();
     }
+    query.finish();
+    db.close();
+    return true;
   }
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE

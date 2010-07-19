@@ -51,7 +51,7 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
   QString info = trUtf8 ( "The Host have sent a Cookie request, add here the Arrangement." );
   layout->addWidget ( new QLabel ( info, this ) );
 
-  m_editCookiesTable = new CookiesEditorTable ( this, QString::fromUtf8 ( "CookiesAccpetDialog" ) );
+  m_editCookiesTable = new CookiesEditorTable ( this );
   m_editCookiesTable->loadCookieAccess ();
   layout->addWidget ( m_editCookiesTable );
 

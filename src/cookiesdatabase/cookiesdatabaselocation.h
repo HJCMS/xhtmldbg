@@ -43,7 +43,7 @@ class CookiesDatabaseLocation : public QObject
   public:
     CookiesDatabaseLocation ( const QString &storageDirectory, QObject * parent = 0 );
     const QString databasePath ( const QString & );
-    bool initDatabase ( const QSqlDatabase &, const QString & );
+    bool initCookieDatabase ( const QSqlDatabase & );
     ~CookiesDatabaseLocation();
 };
 

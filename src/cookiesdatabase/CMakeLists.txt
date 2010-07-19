@@ -1,18 +1,16 @@
 # CMakeLists.txt
 
 SET (subproject_SOURCES
+  cookiemanager.cpp
   cookiesdatabaselocation.cpp
-  cookiesstorage.cpp
-  cookieshandle.cpp
   cookieaccesscombobox.cpp
   cookieseditortable.cpp
   cookiesboolcombobox.cpp
 )
 
 SET (subproject_HEADERS
+  cookiemanager.h
   cookiesdatabaselocation.h
-  cookiesstorage.h
-  cookieshandle.h
   cookieaccesscombobox.h
   cookieseditortable.h
   cookiesboolcombobox.h

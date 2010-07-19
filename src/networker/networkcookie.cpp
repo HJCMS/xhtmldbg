@@ -22,8 +22,7 @@
 #include "networkcookie.h"
 #include "networksettings.h"
 #include "autosaver.h"
-#include "cookiesstorage.h"
-#include "cookieshandle.h"
+#include "cookiemanager.h"
 
 /* QtCore */
 #include <QtCore/QChar>
@@ -42,15 +41,16 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
-    , m_cookiesStorage ( new CookiesStorage ( this ) )
-    , m_cookiesHandle ( new CookiesHandle ( this, QString::fromUtf8( "NetworkCookieHandle" ) ) )
+    , m_cookieManager ( new CookieManager ( this ) )
 {
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
   inProgress.clear();
-  m_cookiesStorage->start ( QThread::LowPriority );
-  load();
+
+  if ( m_cookieManager->isOpen() )
+    load();
+
   m_autoSaver->changeOccurred();
 }
 
@@ -157,7 +157,7 @@ const QDateTime NetworkCookie::cookieLifeTime()
 */
 void NetworkCookie::load()
 {
-  setAllCookies ( m_cookiesStorage->getCookies() );
+  setAllCookies ( m_cookieManager->getCookies() );
 }
 
 /**
@@ -167,8 +167,7 @@ void NetworkCookie::save()
 {
   QList<QNetworkCookie> cookies = allCookies();
   // Speichere die Cookies in die Datenbank
-  m_cookiesStorage->setCookiesList ( cookies );
-  m_cookiesStorage->run();
+  m_cookieManager->saveCookiesList ( cookies );
   // Die Liste wieder leeren
   inProgress.clear();
 }
@@ -229,10 +228,10 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( inProgress.contains ( cookieHost ) )
     return false;
 
-  if ( ! m_cookiesHandle->open() )
+  if ( ! m_cookieManager->isOpen() )
     return false;
 
-  CookiesHandle::CookiesAccessItem cookieAcces = m_cookiesHandle->getCookieAccess ( cookieHost );
+  CookieManager::CookiesAccessItem cookieAcces = m_cookieManager->getCookieAccess ( cookieHost );
 
   // Setze den Hostnamen dieser Url in die Berarbeitenliste!
   inProgress << cookieHost;
@@ -242,7 +241,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   bool tmp = false;
   bool isInSecure = false;
 
-  if ( cookieAcces.Access == CookiesHandle::BLOCKED )
+  if ( cookieAcces.Access == CookieManager::BLOCKED )
   {
     // Wenn dieser Host in der Blockliste steht sofort aussteigen.
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
@@ -250,8 +249,8 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
-  yes = ( cookieAcces.Access == CookiesHandle::ALLOWED ) ? true : false;
-  tmp = ( cookieAcces.Access == CookiesHandle::SESSION ) ? true : false;
+  yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
+  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
   qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp;
@@ -307,7 +306,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
-  if ( cookieAcces.Access == CookiesHandle::ALLOWED )
+  if ( cookieAcces.Access == CookieManager::ALLOWED )
     save();
   else if ( add )
     m_autoSaver->saveIfNeccessary();

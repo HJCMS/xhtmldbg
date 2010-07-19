@@ -559,19 +559,11 @@ void Window::createToolBars()
 * Wird von @ref closeEvent aufgerufen.
 * Sucht nach offenen Datenbank Verbindungen und
 * versucht diese sauber zu beenden!
-* @li CookiesAccpetDialog von @class CookieAcceptDialog
-* @li NetworkCookieHandle von @class NetworkCookie
-* @li CookiesStorage von @class CookiesStorage
 */
 void Window::unregisterDatabases ()
 {
-  QStringList connections;
-  connections << "CookiesAccpetDialog" << "NetworkCookieHandle" << "CookiesStorage";
-  foreach ( QString con, connections )
-  {
-    if ( QSqlDatabase::database ( con, false ).isOpen() )
-      QSqlDatabase::database ( con, false ).close();
-  }
+  if ( QSqlDatabase::database ( QString::fromUtf8( "cookies" ), false ).isOpen() )
+    QSqlDatabase::database ( QString::fromUtf8( "cookies" ), false ).close();
 }
 
 /**
@@ -585,7 +577,7 @@ void Window::closeEvent ( QCloseEvent *event )
 
   unregisterDatabases ();
 
-  // Den DownloadManager nicht in die Stats schreiben!
+  // Den Download Manager nicht in die Stats schreiben!
   bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
   if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
   {

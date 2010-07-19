@@ -45,8 +45,7 @@ class CookiesEditorTable : public QTableWidget
 
   private:
     QSqlDatabase sql;
-    const QString connectionName;
-    bool initialDatabase();
+    bool initialDatabase ();
 
   private Q_SLOTS:
     void cellChanged ( const QModelIndex & );
@@ -62,7 +61,7 @@ class CookiesEditorTable : public QTableWidget
     void removeAll();
 
   public:
-    CookiesEditorTable ( QWidget * parent = 0, const QString &dbName = QString::fromUtf8 ( "CookiesEditorTable" ) );
+    CookiesEditorTable ( QWidget * parent = 0 );
     bool addCookie ( int, const QString &, int rfc = 1 );
     Q_DECL_DEPRECATED void addCookiesFromOldConfig ( QSettings * cfg );
     virtual ~CookiesEditorTable();

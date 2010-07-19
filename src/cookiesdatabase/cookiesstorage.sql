@@ -1,5 +1,5 @@
 CREATE TABLE "cookiesstorage" (
-  "domain" TEXT PRIMARY KEY ASC,
+  "domain" TEXT UNIQUE PRIMARY KEY ASC,
   "name" TEXT,
   "expirationDate" TEXT,
   "data" TEXT

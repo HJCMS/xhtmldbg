@@ -36,8 +36,7 @@
 
 class NetworkSettings;
 class AutoSaver;
-class CookiesStorage;
-class CookiesHandle;
+class CookieManager;
 
 class NetworkCookie : public QNetworkCookieJar
 {
@@ -49,8 +48,7 @@ class NetworkCookie : public QNetworkCookieJar
   private:
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
-    CookiesStorage* m_cookiesStorage;
-    CookiesHandle* m_cookiesHandle;
+    CookieManager* m_cookieManager;
     QStringList inProgress;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;

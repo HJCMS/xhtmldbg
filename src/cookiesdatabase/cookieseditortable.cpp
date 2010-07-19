@@ -43,10 +43,8 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlQuery>
 
-CookiesEditorTable::CookiesEditorTable ( QWidget * parent, const QString &dbName )
+CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
     : QTableWidget ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", dbName ) )
-    , connectionName ( dbName )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
   setMinimumHeight ( 250 );
@@ -83,18 +81,19 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent, const QString &dbName
 /**
 * Die Datenbank Initialisieren
 */
-bool CookiesEditorTable::initialDatabase()
+bool CookiesEditorTable::initialDatabase ()
 {
+  sql = QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false );
   if ( sql.isOpen() )
     return true; // wenn offen nichts machen
 
   QString dbConnectionName;
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
   QString lc = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
-  CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
-  if ( locator->initDatabase ( sql, "cookieshandle" ) )
-    dbConnectionName = locator->databasePath ( "cookieshandle" );
 
+  /* Die SQL Tabelle wird von NetworkCookie erstellt! */
+  CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
+  dbConnectionName = locator->databasePath ( "cookies" );
   delete locator;
 
   if ( dbConnectionName.isEmpty() )
@@ -358,7 +357,4 @@ void CookiesEditorTable::addCookiesFromOldConfig ( QSettings * cfg )
 }
 
 CookiesEditorTable::~CookiesEditorTable()
-{
-  if ( QSqlDatabase::database ( connectionName, false ).isOpen() )
-    QSqlDatabase::database ( connectionName, false ).close();
-}
+{}
