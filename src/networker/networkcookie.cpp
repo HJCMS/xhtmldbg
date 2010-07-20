@@ -46,6 +46,7 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
+  primaryPageUrl.clear();
   inProgress.clear();
 
   if ( m_cookieManager->isOpen() )
@@ -194,6 +195,29 @@ void NetworkCookie::setUrl ( const QUrl &url )
 }
 
 /**
+* Versucht an hand der aktuellen Anfrage URL und
+* der Seiten Url zu ermitteln, ob es sich um eine
+* Drittanbieter Domäne handelt! Wenn dies der fall
+* ist wird true zurück gegeben!
+* @see setUrl
+* @see setCookiesFromUrl
+*/
+bool NetworkCookie::isThirdPartyDomain ( const QUrl &url )
+{
+  // Wenn Leer dann true zurück geben ;-/
+  if ( primaryPageUrl.isEmpty() )
+    return true;
+
+  // Ermittle domäne und tld von
+  QStringList pageHostname = primaryPageUrl.host().split ( "." );
+  QString domain ( pageHostname.takeLast() );
+  domain.prepend ( "." );
+  domain.prepend ( pageHostname.takeLast() );
+
+  return ( url.host().contains ( domain ) ? true : false );
+}
+
+/**
 * Nehme alle Cookies von dieser URL
 * Dabei wird eine Neue Url mit Scheme/Host/Path erstellt!
 * Der Rest geht in die Mülltonne!
@@ -268,24 +292,16 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
   }
-  else if ( ! primaryPageUrl.isEmpty() && ! cookieAcces.AllowThirdParty )
+  else if ( ! cookieAcces.AllowThirdParty && ! isThirdPartyDomain ( url ) )
   {
-    // Drittanbieter keks anfragen verwerfen?
-    QString pageHostname = primaryPageUrl.host().remove ( QRegExp ( "^www\\b" ) );
-    if ( ! pageHostname.contains ( cookieHost ) )
-    {
-      emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" ).arg ( cookieHost, pageHostname ) );
-      return false;
-    }
+    // Drittanbieter keks Anfrage verwerfen.
+    emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" ).arg ( url.host(), primaryPageUrl.host() ) );
+    return false;
   }
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
   tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
-
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp;
-#endif
 
   // CookieUrl bereinigen
   QUrl cookieUrl;
@@ -333,6 +349,10 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     return false;
   }
 
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp;
+#endif
+
   if ( isInSecure )
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
@@ -349,4 +369,5 @@ NetworkCookie::~NetworkCookie()
 {
   m_autoSaver->saveIfNeccessary();
   inProgress.clear();
+  primaryPageUrl.clear();
 }

@@ -1827,47 +1827,47 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="101"/>
+        <location filename="../src/networker/networkcookie.cpp" line="102"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="109"/>
+        <location filename="../src/networker/networkcookie.cpp" line="110"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="115"/>
+        <location filename="../src/networker/networkcookie.cpp" line="116"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="121"/>
+        <location filename="../src/networker/networkcookie.cpp" line="122"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="141"/>
+        <location filename="../src/networker/networkcookie.cpp" line="142"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="243"/>
+        <location filename="../src/networker/networkcookie.cpp" line="267"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="268"/>
+        <location filename="../src/networker/networkcookie.cpp" line="292"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="277"/>
+        <location filename="../src/networker/networkcookie.cpp" line="298"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="337"/>
+        <location filename="../src/networker/networkcookie.cpp" line="357"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2310,62 +2310,62 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="227"/>
+        <location filename="../src/viewer.cpp" line="228"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="234"/>
+        <location filename="../src/viewer.cpp" line="235"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="237"/>
+        <location filename="../src/viewer.cpp" line="238"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="242"/>
+        <location filename="../src/viewer.cpp" line="243"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="245"/>
+        <location filename="../src/viewer.cpp" line="246"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="337"/>
+        <location filename="../src/viewer.cpp" line="338"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="345"/>
+        <location filename="../src/viewer.cpp" line="346"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="350"/>
+        <location filename="../src/viewer.cpp" line="351"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="360"/>
+        <location filename="../src/viewer.cpp" line="361"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="366"/>
+        <location filename="../src/viewer.cpp" line="367"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="373"/>
+        <location filename="../src/viewer.cpp" line="374"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="378"/>
+        <location filename="../src/viewer.cpp" line="379"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>

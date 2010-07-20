@@ -64,12 +64,6 @@ Viewer::Viewer ( QWidget * parent )
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
   NetworkCookie* networkCookieManager = xhtmldbgmain::instance()->cookieManager();
 
-  /** WARNING Die initalisierung von CookieAcceptDialog muss,
-  * Wegen @ref CookiesEditorTable nach @class NetworkCookie Initialisiert werden.
-  * Grund hier für ist das öffnen der SQL Datenbank!
-  */
-  m_cookiesDialog = new CookieAcceptDialog ( this );
-
   m_page = new Page ( netManager, this );
   setPage ( m_page );
 
@@ -85,6 +79,9 @@ Viewer::Viewer ( QWidget * parent )
   * dem Cookie Manager Mitteilen welches die Orignalanfrage Adresse */
   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
             netManager, SLOT ( setUrl ( const QUrl & ) ) );
+
+  connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
+            networkCookieManager, SLOT ( setUrl ( const QUrl & ) ) );
 
   /* start maus-sanduhr */
   connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
@@ -110,6 +107,11 @@ void Viewer::openCookiesRequestDialog ()
   if ( pendingCookieRequests.size() < 1 )
     return;
 
+  /** WARNING Die initalisierung von CookieAcceptDialog muss,
+  * Wegen @ref CookiesEditorTable nach @class NetworkCookie Initialisiert werden.
+  * Grund hier für ist das öffnen der SQL Datenbank!
+  */
+  CookieAcceptDialog* m_cookiesDialog = new CookieAcceptDialog ( this );
   // Die gesammelten Anfragen in den Dialog einfügen
   foreach ( QUrl url, pendingCookieRequests )
   {
@@ -118,6 +120,8 @@ void Viewer::openCookiesRequestDialog ()
 
   if ( m_cookiesDialog->exec() == QDialog::Accepted )
     pendingCookieRequests.clear(); // Aufräumen
+
+  delete m_cookiesDialog;
 }
 
 /**
@@ -160,12 +164,9 @@ void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
 
-  // Sende die Seiten Url an den Cookie Manager
-  xhtmldbgmain::instance()->cookieManager()->setUrl ( url() );
-
   // Bie neuer Seitenanfrage den Cookie Speicher freigeben
-  if ( pendingCookieRequests.size() > 0 )
-    pendingCookieRequests.clear();
+//   if ( pendingCookieRequests.size() > 0 )
+//     pendingCookieRequests.clear();
 }
 
 /**
@@ -386,6 +387,9 @@ void Viewer::findKeyword ( const QString &word )
 */
 void Viewer::openUrl ( const QUrl &url )
 {
+  // Sende die Seiten Url an den Cookie Manager
+  xhtmldbgmain::instance()->cookieManager()->setUrl ( url );
+
   setUrl ( url );
 }
 
@@ -428,7 +432,4 @@ void Viewer::errorMessage ( const QString &error )
 }
 
 Viewer::~Viewer()
-{
-  if ( m_cookiesDialog )
-    delete m_cookiesDialog;
-}
+{}

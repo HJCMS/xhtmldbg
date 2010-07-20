@@ -56,6 +56,7 @@ class NetworkCookie : public QNetworkCookieJar
     bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
     const QDateTime cookieLifeTime();
     void load();
+    bool isThirdPartyDomain ( const QUrl & );
 
   Q_SIGNALS:
     void cookieNotice ( const QString & );

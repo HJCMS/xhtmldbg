@@ -1835,47 +1835,47 @@ Gründe : </translation>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="101"/>
+        <location filename="../src/networker/networkcookie.cpp" line="102"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation>Unzulässiges Cookie Format für &quot;%1&quot; und Keks Domäne &quot;%2&quot;, zurückgewiesen wegen RFC 2109.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="109"/>
+        <location filename="../src/networker/networkcookie.cpp" line="110"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation>Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die Domäne nicht mit einem Punkt beginnt.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="115"/>
+        <location filename="../src/networker/networkcookie.cpp" line="116"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation>Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="121"/>
+        <location filename="../src/networker/networkcookie.cpp" line="122"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation>Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="141"/>
+        <location filename="../src/networker/networkcookie.cpp" line="142"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="243"/>
+        <location filename="../src/networker/networkcookie.cpp" line="267"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="268"/>
+        <location filename="../src/networker/networkcookie.cpp" line="292"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="277"/>
+        <location filename="../src/networker/networkcookie.cpp" line="298"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation>Drittanbieter Keks &quot;%1&quot; für den Host &quot;%2&quot; zurück gewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="337"/>
+        <location filename="../src/networker/networkcookie.cpp" line="357"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
@@ -2318,62 +2318,62 @@ Gründe : </translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="227"/>
+        <location filename="../src/viewer.cpp" line="228"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="234"/>
+        <location filename="../src/viewer.cpp" line="235"/>
         <source>StyleSheet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="237"/>
+        <location filename="../src/viewer.cpp" line="238"/>
         <source>Start CSS Validation for this Site.</source>
         <translation>Starte CSS Validierung für diese Seite.</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="242"/>
+        <location filename="../src/viewer.cpp" line="243"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="245"/>
+        <location filename="../src/viewer.cpp" line="246"/>
         <source>Show Document Source</source>
         <translation>Zeige Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="337"/>
+        <location filename="../src/viewer.cpp" line="338"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation>SEO Ergebnis für &quot;%1&quot; Url: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="345"/>
+        <location filename="../src/viewer.cpp" line="346"/>
         <source>Word boundary: </source>
         <translation>An Wortgrenzen: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="350"/>
+        <location filename="../src/viewer.cpp" line="351"/>
         <source>Case Sensitive: </source>
         <translation>Groß- Kleinschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="360"/>
+        <location filename="../src/viewer.cpp" line="361"/>
         <source>Meta Keywords: </source>
         <translation>Meta Schlüsselwörter: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="366"/>
+        <location filename="../src/viewer.cpp" line="367"/>
         <source>Meta Description: </source>
         <translation>Meta Beschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="373"/>
+        <location filename="../src/viewer.cpp" line="374"/>
         <source>Page Title: </source>
         <translation>Seiten Titel: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="378"/>
+        <location filename="../src/viewer.cpp" line="379"/>
         <source>Summary: </source>
         <translation>Zusammen: </translation>
     </message>
