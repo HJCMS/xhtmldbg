@@ -188,8 +188,8 @@ void CookieManager::loadCookies ()
 {
   cookies.clear();
 
+  // Veraltet Cookies werden Später überschrieben!
   QString queryString ( "SELECT data FROM cookiesstorage WHERE (expiration>=strftime('%Y%m%d','now'));" );
-
   QSqlQuery query = sql.exec ( queryString );
   if ( query.lastError().isValid() )
   {
