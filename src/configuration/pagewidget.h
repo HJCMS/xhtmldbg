@@ -40,6 +40,7 @@ class PageWidget : public QScrollArea
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_PROPERTY ( bool activ READ isActiv WRITE setActiv )
 
   private:
     QGroupBox* m_groupBox;
@@ -50,7 +51,9 @@ class PageWidget : public QScrollArea
     QWidget* centralWidget;
     void setNotice ( bool b = false );
     void setCheckable ( bool b = true );
+    bool isActiv ();
     bool isChecked ();
+    void setActiv ( bool b = true );
     virtual void load ( QSettings * ) = 0;
     virtual void save ( QSettings * ) = 0;
 

@@ -73,9 +73,12 @@ class CookieManager : public QObject
 
     void saveCookiesList ( const QList<QNetworkCookie> & );
 
-    const QList<QNetworkCookie> getCookieByDomain ( const QString & );
-
     const QList<QNetworkCookie> getCookies ();
+
+    bool saveCookiesForDomain ( const QList<QNetworkCookie> &, const QString & );
+
+    const QList<QNetworkCookie> getCookiesForDomain ( const QString &,
+            const QString &path = QString ( "/" ) );
 
     virtual ~CookieManager();
 };

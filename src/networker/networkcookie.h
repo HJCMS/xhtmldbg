@@ -50,6 +50,7 @@ class NetworkCookie : public QNetworkCookieJar
     AutoSaver* m_autoSaver;
     CookieManager* m_cookieManager;
     QStringList inProgress;
+    QUrl primaryPageUrl;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;
     bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
@@ -64,6 +65,7 @@ class NetworkCookie : public QNetworkCookieJar
 
   public Q_SLOTS:
     void save();
+    void setUrl ( const QUrl & );
 
   public:
     enum CookieArrangement { Session = 0, Blocked = 1, Allowed = 2 };

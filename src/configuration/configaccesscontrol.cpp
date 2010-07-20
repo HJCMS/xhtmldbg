@@ -41,6 +41,9 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "configaccesscontrol" ) );
   setFlat ( true );
+  /** TODO Im Moment noch nicht Integriert,
+  * siehe @class NetworkSettings::sslConfiguration */
+  setEnabled ( false );
 
   Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
@@ -103,11 +106,11 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 
   setLayout ( gridLayout );
 
-  connect ( sslPublicKey, SIGNAL ( textChanged ( const QString &) ),
+  connect ( sslPublicKey, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( dataChanged ( const QString & ) ) );
-  connect ( sslPrivateKey, SIGNAL ( textChanged ( const QString &) ),
+  connect ( sslPrivateKey, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( dataChanged ( const QString & ) ) );
-  connect ( sslPrivatePass, SIGNAL ( textChanged ( const QString &) ),
+  connect ( sslPrivatePass, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( dataChanged ( const QString & ) ) );
   connect ( btn1, SIGNAL ( clicked() ), this, SLOT ( getPupKeyDialog() ) );
   connect ( btn2, SIGNAL ( clicked() ), this, SLOT ( getPrivKeyDialog() ) );

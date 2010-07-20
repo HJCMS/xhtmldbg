@@ -173,23 +173,44 @@ void NetworkCookie::save()
 }
 
 /**
+* Schreibe @ref primaryPageUrl Neu!
+* Dieser SLOT wird von @ref Viewer::cursorwait aufgerufen und
+* setzt die aktuell angefragte URL!
+* Dass ist deshalb nötig damit bei der Cookie Anfrage
+* verabeitung ermittelt werden kann ob es sich um eine
+* Cookie anfrage eines Drittanbieters handelt!
+*/
+void NetworkCookie::setUrl ( const QUrl &url )
+{
+  primaryPageUrl.clear();
+  if ( url.isValid() )
+  {
+    QUrl host;
+    host.setScheme ( url.scheme() );
+    host.setHost ( url.host() );
+    host.setPath ( url.path() );
+    primaryPageUrl = host;
+  }
+}
+
+/**
 * Nehme alle Cookies von dieser URL
 * Dabei wird eine Neue Url mit Scheme/Host/Path erstellt!
 * Der Rest geht in die Mülltonne!
 */
 QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 {
-  QUrl host;
-  QList<QNetworkCookie> empty;
-
-  host.setScheme ( url.scheme() );
-  host.setHost ( url.host() );
-  host.setPath ( url.path() );
-
-  if ( host.isValid() )
+  if ( url.isValid() )
+  {
+    QUrl host;
+    host.setScheme ( url.scheme() );
+    host.setHost ( url.host() );
+    host.setPath ( url.path() );
     return QNetworkCookieJar::cookiesForUrl ( url );
-  else
-    return empty;
+  }
+  // Versuche es nur mit der Domäne
+  QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
+  return m_cookieManager->getCookiesForDomain ( domain, url.path() );
 }
 
 /**
@@ -246,6 +267,16 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     // Wenn dieser Host in der Blockliste steht sofort aussteigen.
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
+  }
+  else if ( ! primaryPageUrl.isEmpty() && ! cookieAcces.AllowThirdParty )
+  {
+    // Drittanbieter keks anfragen verwerfen?
+    QString pageHostname = primaryPageUrl.host().remove ( QRegExp ( "^www\\b" ) );
+    if ( ! pageHostname.contains ( cookieHost ) )
+    {
+      emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" ).arg ( cookieHost, pageHostname ) );
+      return false;
+    }
   }
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.

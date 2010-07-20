@@ -64,24 +64,6 @@
     </message>
 </context>
 <context>
-    <name>ArrangementItem</name>
-    <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
-        <source>Session</source>
-        <translation>Sitzung</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
-        <source>Blocked</source>
-        <translation>Verhindert</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="41"/>
-        <source>Allowed</source>
-        <translation>Erlaubt</translation>
-    </message>
-</context>
-<context>
     <name>AuthenticationDialog</name>
     <message>
         <location filename="../src/networker/authenticationdialog.cpp" line="35"/>
@@ -519,40 +501,40 @@ Do you realy wan to exit?</source>
         <translation>Klient Authentifizierung und Zugangs Kontrolle</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="57"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="60"/>
         <source>This Certificate is used by the remote end to verify the local user&apos;s identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when &lt;a href=&quot;%1&quot;&gt;I know all my clients&lt;/a&gt;?</source>
         <translation>Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when &lt;a href=&quot;%1&quot;&gt;I know all my clients&lt;/a&gt;?</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="62"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="65"/>
         <source>Public Keyfile:</source>
         <translation>Öffentlicher Schlüssel:</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="76"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="79"/>
         <source>Private Keyfile:</source>
         <translation>Privater Schlüssel:</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="90"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="93"/>
         <source>Private Key Password:</source>
         <translation>Privates Passwort:</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="124"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="142"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="127"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="145"/>
         <source>PKCS#12 Format %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="125"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="141"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="128"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="144"/>
         <source>PEM or DER Encoding X.509 Format %1</source>
         <translation>PEM oder DER Encodiertes X.509 Format %1</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="127"/>
-        <location filename="../src/configuration/configaccesscontrol.cpp" line="144"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="130"/>
+        <location filename="../src/configuration/configaccesscontrol.cpp" line="147"/>
         <source>Open Certificate</source>
         <translation>Öffne Zertifikat</translation>
     </message>
@@ -1201,22 +1183,22 @@ Willst du wirklich beenden?</translation>
 <context>
     <name>CookiesEditorTable</name>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
         <source>Domain</source>
         <translation>Domäne</translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
         <source>Arrangement</source>
         <translation>Regelung</translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="67"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
         <source>Allow third party</source>
         <translation>Erlaube Dritte</translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="67"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
         <source>rfc2109</source>
         <translation>RFC-2109</translation>
     </message>
@@ -1379,19 +1361,6 @@ Willst du wirklich beenden?</translation>
         <location filename="../src/configuration/useragenteditor/droptoclipboard.cpp" line="51"/>
         <source>Copy to Clipboard Drop Area</source>
         <translation>Kopiere Inhalt mit Maus fallen lassen in den Clipper</translation>
-    </message>
-</context>
-<context>
-    <name>EditCookiesTable</name>
-    <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="77"/>
-        <source>Domain</source>
-        <translation>Domäne</translation>
-    </message>
-    <message>
-        <location filename="../src/configuration/editcookiestable/editcookiestable.cpp" line="78"/>
-        <source>Arrangement</source>
-        <translation>Regelung</translation>
     </message>
 </context>
 <context>
@@ -1858,7 +1827,7 @@ Gründe : </translation>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="231"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="238"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation>Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)</translation>
     </message>
@@ -1891,17 +1860,22 @@ Gründe : </translation>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="235"/>
+        <location filename="../src/networker/networkcookie.cpp" line="243"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="261"/>
+        <location filename="../src/networker/networkcookie.cpp" line="268"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="322"/>
+        <location filename="../src/networker/networkcookie.cpp" line="277"/>
+        <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
+        <translation>Drittanbieter Keks &quot;%1&quot; für den Host &quot;%2&quot; zurück gewiesen!</translation>
+    </message>
+    <message>
+        <location filename="../src/networker/networkcookie.cpp" line="337"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
@@ -2344,62 +2318,62 @@ Gründe : </translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="218"/>
+        <location filename="../src/viewer.cpp" line="227"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="225"/>
+        <location filename="../src/viewer.cpp" line="234"/>
         <source>StyleSheet</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="228"/>
+        <location filename="../src/viewer.cpp" line="237"/>
         <source>Start CSS Validation for this Site.</source>
         <translation>Starte CSS Validierung für diese Seite.</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="233"/>
+        <location filename="../src/viewer.cpp" line="242"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="236"/>
+        <location filename="../src/viewer.cpp" line="245"/>
         <source>Show Document Source</source>
         <translation>Zeige Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="328"/>
+        <location filename="../src/viewer.cpp" line="337"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation>SEO Ergebnis für &quot;%1&quot; Url: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="336"/>
+        <location filename="../src/viewer.cpp" line="345"/>
         <source>Word boundary: </source>
         <translation>An Wortgrenzen: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="341"/>
+        <location filename="../src/viewer.cpp" line="350"/>
         <source>Case Sensitive: </source>
         <translation>Groß- Kleinschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="351"/>
+        <location filename="../src/viewer.cpp" line="360"/>
         <source>Meta Keywords: </source>
         <translation>Meta Schlüsselwörter: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="357"/>
+        <location filename="../src/viewer.cpp" line="366"/>
         <source>Meta Description: </source>
         <translation>Meta Beschreibung: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="364"/>
+        <location filename="../src/viewer.cpp" line="373"/>
         <source>Page Title: </source>
         <translation>Seiten Titel: </translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="369"/>
+        <location filename="../src/viewer.cpp" line="378"/>
         <source>Summary: </source>
         <translation>Zusammen: </translation>
     </message>
@@ -2438,238 +2412,238 @@ Gründe : </translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="119"/>
+        <location filename="../src/window.cpp" line="122"/>
         <source>Browser</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="125"/>
+        <location filename="../src/window.cpp" line="128"/>
         <source>Source</source>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="304"/>
+        <location filename="../src/window.cpp" line="307"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="305"/>
+        <location filename="../src/window.cpp" line="308"/>
         <source>Load Document from Url</source>
         <translation>Lade Dokument von Url</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="311"/>
+        <location filename="../src/window.cpp" line="314"/>
         <source>Open Html File</source>
         <translation>Öffne HTML Datei</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="312"/>
+        <location filename="../src/window.cpp" line="315"/>
         <source>Open Html from System</source>
         <translation>Öffne HTML Datei vom System</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="318"/>
+        <location filename="../src/window.cpp" line="321"/>
         <source>Quit</source>
         <translation>Beenden</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="319"/>
+        <location filename="../src/window.cpp" line="322"/>
         <source>Close Debugger</source>
         <translation>Schliesse den Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="329"/>
+        <location filename="../src/window.cpp" line="332"/>
         <source>Parse</source>
         <translation>Analysieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="330"/>
+        <location filename="../src/window.cpp" line="333"/>
         <source>Parse current Document Source</source>
         <translation>Analysiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="336"/>
+        <location filename="../src/window.cpp" line="339"/>
         <source>Format</source>
         <translation>Formatiere</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="337"/>
+        <location filename="../src/window.cpp" line="340"/>
         <source>Prepare and Format Document Source</source>
         <translation>Formatiere den Dokumenten Quelltext</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="343"/>
+        <location filename="../src/window.cpp" line="346"/>
         <source>&amp;View</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="347"/>
+        <location filename="../src/window.cpp" line="350"/>
         <source>Zoom +</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="355"/>
+        <location filename="../src/window.cpp" line="358"/>
         <source>Zoom -</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="363"/>
+        <location filename="../src/window.cpp" line="366"/>
         <source>Original</source>
         <translation>Orginal</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="376"/>
+        <location filename="../src/window.cpp" line="379"/>
         <source>Fullscreen</source>
         <translation>Vollansicht</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="386"/>
+        <location filename="../src/window.cpp" line="389"/>
         <source>Refresh</source>
         <translation>Auffrischen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="392"/>
+        <location filename="../src/window.cpp" line="395"/>
         <source>Back</source>
         <translation>Zurück</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="398"/>
+        <location filename="../src/window.cpp" line="401"/>
         <source>Forward</source>
         <translation>Vorwärts</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="404"/>
+        <location filename="../src/window.cpp" line="407"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="405"/>
+        <location filename="../src/window.cpp" line="408"/>
         <source>Add a new empty Tab</source>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="416"/>
+        <location filename="../src/window.cpp" line="419"/>
         <source>Bookmarks</source>
         <translation>Lesezeichen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="439"/>
+        <location filename="../src/window.cpp" line="442"/>
         <source>Organize Bookmarks</source>
         <translation>Lesezeichen Organisieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="447"/>
+        <location filename="../src/window.cpp" line="450"/>
         <source>Configure Tidyrc</source>
         <translation>Konfiguriere die titdyrc</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="458"/>
-        <location filename="../src/window.cpp" line="551"/>
+        <location filename="../src/window.cpp" line="461"/>
+        <location filename="../src/window.cpp" line="554"/>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="493"/>
+        <location filename="../src/window.cpp" line="496"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="934"/>
+        <location filename="../src/window.cpp" line="947"/>
         <source>Download Request: %1</source>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="461"/>
+        <location filename="../src/window.cpp" line="464"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="300"/>
+        <location filename="../src/window.cpp" line="303"/>
         <source>&amp;Application</source>
         <translation>&amp;Anwendung</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="326"/>
+        <location filename="../src/window.cpp" line="329"/>
         <source>&amp;Debugger</source>
         <translation>&amp;Debugger</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="383"/>
+        <location filename="../src/window.cpp" line="386"/>
         <source>&amp;Browser</source>
         <translation>&amp;Browser</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="445"/>
+        <location filename="../src/window.cpp" line="448"/>
         <source>S&amp;ettings</source>
         <translation>&amp;Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="453"/>
+        <location filename="../src/window.cpp" line="456"/>
         <source>Configure</source>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="465"/>
+        <location filename="../src/window.cpp" line="468"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="466"/>
+        <location filename="../src/window.cpp" line="469"/>
         <source>about Qt</source>
         <translation>über Qt</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="471"/>
+        <location filename="../src/window.cpp" line="474"/>
         <source>about hjcms</source>
         <translation>über HJCMS</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="482"/>
+        <location filename="../src/window.cpp" line="485"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="526"/>
+        <location filename="../src/window.cpp" line="529"/>
         <source>Toolbars</source>
         <translation>Werkzeugleisten</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="536"/>
+        <location filename="../src/window.cpp" line="539"/>
         <source>Impartations</source>
         <translation>Mitteilungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="544"/>
+        <location filename="../src/window.cpp" line="547"/>
         <source>Inspectors</source>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="724"/>
+        <location filename="../src/window.cpp" line="740"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="780"/>
+        <location filename="../src/window.cpp" line="796"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="781"/>
+        <location filename="../src/window.cpp" line="797"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="782"/>
+        <location filename="../src/window.cpp" line="798"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="783"/>
+        <location filename="../src/window.cpp" line="799"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="790"/>
+        <location filename="../src/window.cpp" line="806"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

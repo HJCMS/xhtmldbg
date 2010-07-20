@@ -62,7 +62,7 @@ Viewer::Viewer ( QWidget * parent )
   setContextMenuPolicy ( Qt::DefaultContextMenu );
 
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
-  NetworkCookie* cookieManager = xhtmldbgmain::instance()->cookieManager();
+  NetworkCookie* networkCookieManager = xhtmldbgmain::instance()->cookieManager();
 
   /** WARNING Die initalisierung von CookieAcceptDialog muss,
   * Wegen @ref CookiesEditorTable nach @class NetworkCookie Initialisiert werden.
@@ -74,20 +74,24 @@ Viewer::Viewer ( QWidget * parent )
   setPage ( m_page );
 
   /* signal cookie nachfrage dialog */
-  connect ( cookieManager, SIGNAL ( cookieRequest ( const QUrl & ) ),
+  connect ( networkCookieManager, SIGNAL ( cookieRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
-  connect ( cookieManager, SIGNAL ( cookieRejected ( const QString & ) ),
+  connect ( networkCookieManager, SIGNAL ( cookieRejected ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
-  connect ( cookieManager, SIGNAL ( cookieNotice ( const QString & ) ),
+  connect ( networkCookieManager, SIGNAL ( cookieNotice ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
-  /* bei jeder verknüpfungs anfrage dem netzwerk manager
-  * mitteilen welches die orignal anfrage adresse */
+
+  /* Bei jeder Verknüpfungs Anfrage dem Netzwerk Manager als auch
+  * dem Cookie Manager Mitteilen welches die Orignalanfrage Adresse */
   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
             netManager, SLOT ( setUrl ( const QUrl & ) ) );
+
   /* start maus-sanduhr */
   connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
+
   /* stop maus-sanduhr */
   connect ( this, SIGNAL ( loadFinished ( bool ) ), this, SLOT ( cursorFinished ( bool ) ) );
+
   /* bei überfahren mir der maus informationen der verknüpfung ausgeben. */
   connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
             this, SLOT ( linkInfos ( const QString &, const QString &, const QString & ) ) );
@@ -155,6 +159,9 @@ void Viewer::prepareLinkInfo ( const QWebHitTestResult &link )
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
+
+  // Sende die Seiten Url an den Cookie Manager
+  xhtmldbgmain::instance()->cookieManager()->setUrl ( url() );
 
   // Bie neuer Seitenanfrage den Cookie Speicher freigeben
   if ( pendingCookieRequests.size() > 0 )

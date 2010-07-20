@@ -186,23 +186,25 @@ const CookieManager::CookiesAccessItem CookieManager::getCookieAccess ( const QS
 void CookieManager::loadCookies ()
 {
   cookies.clear();
-  QString query ( "SELECT data FROM cookiesstorage WHERE (domain!='');" );
-  QSqlQuery result = sql.exec ( query );
-  if ( result.lastError().isValid() )
+  QString queryString ( "SELECT data FROM cookiesstorage WHERE (domain!='');" );
+  QSqlQuery query = sql.exec ( queryString );
+  if ( query.lastError().isValid() )
   {
     sqlMessage ( SELECT, __LINE__, sql.lastError().text() );
     return;
   }
 
-  QSqlRecord sqlrec = result.record();
-  if ( sqlrec.count() >= 1 )
+  QSqlRecord rec = query.record();
+  if ( rec.count() >= 1 )
   {
-    while ( result.next() )
+    int index = rec.indexOf ( "data" );
+    while ( query.next() )
     {
-      int data = sqlrec.indexOf ( "data" );
-      cookies << QNetworkCookie::parseCookies ( result.value ( data ).toByteArray() );
+      QList<QNetworkCookie> dc = QNetworkCookie::parseCookies ( query.value ( index ).toByteArray () );
+      if ( dc.size() > 0 )
+        cookies.append ( dc );
     }
-    result.finish();
+    query.finish();
   }
 }
 
@@ -224,9 +226,11 @@ void CookieManager::saveCookies()
     if ( cookie.isSessionCookie() )
       continue;
 
-    QString query ( "INSERT INTO cookiesstorage (domain,name,expirationDate,data) " );
+    QString query ( "INSERT INTO cookiesstorage (domain,path,name,expirationDate,data) " );
     query.append ( "VALUES('" );
     query.append ( cookie.domain() );
+    query.append ( "','" );
+    query.append ( cookie.path() );
     query.append ( "','" );
     query.append ( cookie.name() );
     query.append ( "','" );
@@ -247,7 +251,7 @@ void CookieManager::saveCookies()
 
 /**
 * Alle Cookies Speichern!
-* Zuerst wir die Tabelle geleert und dann Neu geschrieben!
+* Zuerst wir die Tabelle gelehrt und dann neu geschrieben!
 */
 void CookieManager::saveCookiesList ( const QList<QNetworkCookie> &cookiesList )
 {
@@ -262,20 +266,6 @@ void CookieManager::saveCookiesList ( const QList<QNetworkCookie> &cookiesList )
 }
 
 /**
-* Ein einzelnes Cookie mit der Domäne abfragen!
-*/
-const QList<QNetworkCookie> CookieManager::getCookieByDomain ( const QString &domain )
-{
-  QList<QNetworkCookie> cookies;
-  foreach ( QNetworkCookie cookie, cookies )
-  {
-    if ( cookie.domain() == domain )
-      return QNetworkCookie::parseCookies ( cookie.value () );
-  }
-  return cookies;
-}
-
-/**
 * Alle Cookies aus der Datenbank einlesen!
 */
 const QList<QNetworkCookie> CookieManager::getCookies ()
@@ -286,6 +276,98 @@ const QList<QNetworkCookie> CookieManager::getCookies ()
   return cookies;
 }
 
-CookieManager::~CookieManager()
+/**
+* Keksliste von einer Domäne in die Datenbank schreiben!
+*/
+bool CookieManager::saveCookiesForDomain ( const QList<QNetworkCookie> &cookies, const QString &hostname )
 {
+  bool ok = false;
+  QSqlQuery query;
+  QString queryDeleteString ( "DELETE FROM cookiesstorage WHERE (domain='" );
+  queryDeleteString.append ( hostname );
+  queryDeleteString.append ( "' OR domain='." );
+  queryDeleteString.append ( hostname );
+  queryDeleteString.append ( "');" );
+
+  query = sql.exec ( queryDeleteString );
+  if ( query.lastError().isValid() )
+  {
+    sqlMessage ( DELETE, __LINE__, sql.lastError().text() );
+    sqlMessage ( INSERT, __LINE__, queryDeleteString );
+    return ok;
+  }
+
+  foreach ( QNetworkCookie cookie, cookies )
+  {
+    if ( cookie.isSessionCookie() )
+      continue;
+
+    QString queryString ( "INSERT INTO cookiesstorage (domain,path,name,expirationDate,data) " );
+    queryString.append ( "VALUES('" );
+    queryString.append ( cookie.domain() );
+    queryString.append ( "','" );
+    queryString.append ( cookie.path() );
+    queryString.append ( "','" );
+    queryString.append ( cookie.name() );
+    queryString.append ( "','" );
+    queryString.append ( cookie.expirationDate().toString() );
+    queryString.append ( "','" );
+    queryString.append ( cookie.toRawForm ( QNetworkCookie::Full ) );
+    queryString.append ( "');" );
+
+    query = sql.exec ( queryString );
+    if ( query.lastError().isValid() )
+    {
+      sqlMessage ( INSERT, __LINE__, sql.lastError().text() );
+      sqlMessage ( INSERT, __LINE__, queryString );
+    }
+    else
+      ok = true;
+
+    query.finish();
+  }
+
+  return ok;
 }
+
+/**
+* Abfrage der Keksliste von einer Domäne!
+* Wenn der Hostnamen
+*/
+const QList<QNetworkCookie> CookieManager::getCookiesForDomain ( const QString &domain,
+        const QString &path )
+{
+  QList<QNetworkCookie> domainCookies;
+  QString queryString ( "SELECT data FROM cookiesstorage WHERE ( (domain = '" );
+  queryString.append ( domain );
+  queryString.append ( "' OR domain = '." );
+  queryString.append ( domain );
+  queryString.append ( "') AND path = '" );
+  queryString.append ( path );
+  queryString.append ( "');" );
+
+  QSqlQuery query = sql.exec ( queryString );
+  if ( query.lastError().isValid() )
+  {
+    sqlMessage ( SELECT, __LINE__, sql.lastError().text() );
+    return domainCookies;
+  }
+
+  QSqlRecord rec = query.record();
+  if ( rec.count() >= 1 )
+  {
+    int index = rec.indexOf ( "data" );
+    while ( query.next() )
+    {
+      QList<QNetworkCookie> dc = QNetworkCookie::parseCookies ( query.value ( index ).toByteArray () );
+      if ( dc.size() > 0 )
+        domainCookies.append ( dc );
+    }
+    query.finish();
+  }
+
+  return domainCookies;
+}
+
+CookieManager::~CookieManager()
+{}

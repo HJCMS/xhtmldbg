@@ -96,6 +96,14 @@ void PageWidget::setCheckable ( bool b )
 }
 
 /**
+* Ist die Gruppe Aktiviert?
+*/
+bool PageWidget::isActiv()
+{
+  return m_groupBox->isEnabled();
+}
+
+/**
 * Ist die Gruppe Auswählbar?
 */
 bool PageWidget::isChecked ()
@@ -104,6 +112,14 @@ bool PageWidget::isChecked ()
     return m_groupBox->isChecked();
   else
     return false;
+}
+
+/**
+* Die Auswahl der Gruppe aktivieren
+*/
+void PageWidget::setActiv ( bool b )
+{
+  m_groupBox->setEnabled ( b );
 }
 
 /**
