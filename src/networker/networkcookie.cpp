@@ -197,8 +197,16 @@ void NetworkCookie::setUrl ( const QUrl &url )
 /**
 * Versucht an hand der aktuellen Anfrage URL und
 * der Seiten Url zu ermitteln, ob es sich um eine
-* Drittanbieter Domäne handelt! Wenn dies der fall
-* ist wird true zurück gegeben!
+* Drittanbieter Domäne handelt!
+*
+* @li Wenn dies der fall ist wird true zurück gegeben!
+* @li Wenn es sich um eine "localhost" Adresse handelt
+*   oder die Adresse nicht die bestanteile von DOMAIN.TLD
+*   enthält wird ebenfalls true zurück gegeben!
+*   Eine Reguläre Adresse muss mindestens ein Root
+*   Zeichen und Hostname vor der TLD enthalten.
+*   Andernfalls ist die Adresse nicht RFC Konform!
+*
 * @see setUrl
 * @see setCookiesFromUrl
 */
@@ -208,13 +216,16 @@ bool NetworkCookie::isThirdPartyDomain ( const QUrl &url )
   if ( primaryPageUrl.isEmpty() )
     return true;
 
-  // Ermittle domäne und tld von
+  // Ermittle "Domain" und "Top Level Domain"
   QStringList pageHostname = primaryPageUrl.host().split ( "." );
-  QString domain ( pageHostname.takeLast() );
-  domain.prepend ( "." );
-  domain.prepend ( pageHostname.takeLast() );
-
-  return ( url.host().contains ( domain ) ? true : false );
+  if ( pageHostname.size() >= 2 )
+  {
+    QString domain ( pageHostname.takeLast() );
+    domain.prepend ( "." );
+    domain.prepend ( pageHostname.takeLast() );
+    return ( url.host().contains ( domain ) ? true : false );
+  }
+  return false;
 }
 
 /**
