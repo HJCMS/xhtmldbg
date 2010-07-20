@@ -24,19 +24,27 @@
 /* QtCore */
 #include <QtCore/QStringList>
 
+/* QtGui */
+#include <QtGui/QStandardItemModel>
+#include <QtGui/QIcon>
+#include <QtGui/QStandardItem>
+
 CookieAccessComboBox::CookieAccessComboBox ( QWidget * parent, int type )
     : QComboBox ( parent )
 {
-  QStringList items;
-  items << trUtf8 ( "Session" ) << trUtf8 ( "Blocked" ) << trUtf8 ( "Allowed" );
-  addItems ( items );
-  setCurrentIndex ( type );
+  QIcon icon;
+  QStandardItemModel* model = new QStandardItemModel ( this );
+  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "view-history" ) ), trUtf8 ( "Session" ) ) );
+  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), trUtf8 ( "Blocked" ) ) );
+  model->setItem ( 2, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), trUtf8 ( "Allowed" ) ) );
+  setModel ( model );
 
+  setCurrentIndex ( type );
   connect ( this, SIGNAL ( currentIndexChanged ( int ) ),
             this, SIGNAL ( itemChanged() ) );
 }
 
-void CookieAccessComboBox::setValue( int index )
+void CookieAccessComboBox::setValue ( int index )
 {
   setCurrentIndex ( index );
 }

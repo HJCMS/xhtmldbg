@@ -25,14 +25,18 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
-// #include <QtGui/QVBoxLayout>
+#include <QtGui/QStandardItemModel>
+#include <QtGui/QIcon>
+#include <QtGui/QStandardItem>
 
 CookiesBoolComboBox::CookiesBoolComboBox ( QWidget * parent, int state )
     : QComboBox ( parent )
 {
-  QStringList items;
-  items << trUtf8 ( "Disabled" ) << trUtf8 ( "Enabled" );
-  addItems ( items );
+  QIcon icon;
+  QStandardItemModel* model = new QStandardItemModel ( this );
+  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), trUtf8 ( "Disabled" ) ) );
+  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), trUtf8 ( "Enabled" ) ) );
+  setModel ( model );
 
   setCurrentIndex ( state );
 

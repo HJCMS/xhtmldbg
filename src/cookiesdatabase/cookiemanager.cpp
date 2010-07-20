@@ -187,7 +187,9 @@ const CookieManager::CookiesAccessItem CookieManager::getCookieAccess ( const QS
 void CookieManager::loadCookies ()
 {
   cookies.clear();
-  QString queryString ( "SELECT data FROM cookiesstorage WHERE (domain!='');" );
+
+  QString queryString ( "SELECT data FROM cookiesstorage WHERE (expiration>=strftime('%Y%m%d','now'));" );
+
   QSqlQuery query = sql.exec ( queryString );
   if ( query.lastError().isValid() )
   {
@@ -227,7 +229,7 @@ void CookieManager::saveCookies()
     if ( cookie.isSessionCookie() )
       continue;
 
-    QString query ( "INSERT INTO cookiesstorage (domain,path,name,expirationDate,data) " );
+    QString query ( "INSERT INTO cookiesstorage (domain,path,name,expiration,data) " );
     query.append ( "VALUES('" );
     query.append ( cookie.domain() );
     query.append ( "','" );
@@ -235,7 +237,7 @@ void CookieManager::saveCookies()
     query.append ( "','" );
     query.append ( cookie.name() );
     query.append ( "','" );
-    query.append ( cookie.expirationDate().toString() );
+    query.append ( cookie.expirationDate().toString ( "yyyymmdd" ) );
     query.append ( "','" );
     query.append ( cookie.toRawForm ( QNetworkCookie::Full ) );
     query.append ( "');" );
@@ -303,7 +305,7 @@ bool CookieManager::saveCookiesForDomain ( const QList<QNetworkCookie> &cookies,
     if ( cookie.isSessionCookie() )
       continue;
 
-    QString queryString ( "INSERT INTO cookiesstorage (domain,path,name,expirationDate,data) " );
+    QString queryString ( "INSERT INTO cookiesstorage (domain,path,name,expiration,data) " );
     queryString.append ( "VALUES('" );
     queryString.append ( cookie.domain() );
     queryString.append ( "','" );
@@ -311,7 +313,7 @@ bool CookieManager::saveCookiesForDomain ( const QList<QNetworkCookie> &cookies,
     queryString.append ( "','" );
     queryString.append ( cookie.name() );
     queryString.append ( "','" );
-    queryString.append ( cookie.expirationDate().toString() );
+    queryString.append ( cookie.expirationDate().toString ( "yyyymmdd" ) );
     queryString.append ( "','" );
     queryString.append ( cookie.toRawForm ( QNetworkCookie::Full ) );
     queryString.append ( "');" );
