@@ -50,6 +50,7 @@ void CookieManager::sqlMessage ( QueryType t, int l, const QString &m )
 {
 #ifndef XHTMLDBG_DEBUG
   Q_UNUSED ( t )
+  Q_UNUSED ( l )
   Q_UNUSED ( m )
 #else
   switch ( t )
