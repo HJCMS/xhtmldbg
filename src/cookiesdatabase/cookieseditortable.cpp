@@ -201,7 +201,12 @@ void CookiesEditorTable::loadCookieAccess ()
 void CookiesEditorTable::saveCookieAccess ()
 {
   if ( ! initialDatabase() )
+  {
+#ifdef HTMLDBG_DEBUG_VERBOSE
+    qWarning ( "(XHTMLDBG) saveCookieAccess - Missing Connection" );
+#endif
     return;
+  }
 
   QString sqlPragma ( "INSERT INTO cookieshandle (Hostname,AccessType,AllowThirdParty,RFC2109) VALUES ('" );
   QStringList queryStrings;

@@ -71,7 +71,6 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
 void CookieAcceptDialog::saveAndExit()
 {
   m_editCookiesTable->saveCookieAccess ();
-
   accept();
 }
 

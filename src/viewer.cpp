@@ -119,8 +119,12 @@ void Viewer::openCookiesRequestDialog ()
   }
 
   if ( m_cookiesDialog->exec() == QDialog::Accepted )
+  {
     pendingCookieRequests.clear(); // Aufräumen
-
+#ifdef HTMLDBG_DEBUG_VERBOSE
+    qDebug ( "(XHTMLDBG) Cookie for \"%s\" Accepted", url().host() );
+#endif
+  }
   delete m_cookiesDialog;
 }
 

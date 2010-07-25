@@ -42,6 +42,7 @@
 
 /* QtGui */
 #include <QtGui/QIcon>
+#include <QtGui/QDesktopServices>
 
 xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv )
 {
@@ -55,6 +56,16 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
                                QSettings::UserScope,
                                organizationDomain(),
                                objectName(), this );
+
+  /**
+  * BUG KDE4 >= 4.4*
+  * KDE 4 erstellt beim neu Initialisieren der Programmpfade nicht die
+  * oberen fehlenden Verzeichnisse z.B: ~/.local/share/data/xhtmldbg fehlt!
+  */
+  QString dataPath = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  QDir homeDir ( QDesktopServices::storageLocation ( QDesktopServices::HomeLocation ) );
+  if ( homeDir.mkpath ( dataPath ) )
+    QFile ( dataPath ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 
   /**
   * HACK QTWEBKIT_PLUGIN_PATH

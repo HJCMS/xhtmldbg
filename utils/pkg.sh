@@ -39,3 +39,8 @@ cat <<EOF
   git archive --format=tar --verbose --output=xhtmldbg-${version}.tar --remote=git://xhtmldbg.hjcms.de/xhtmldbg xhtmldbg-${version}
   lzma --compress -9 xhtmldbg-${version}.tar
 EOF
+
+echo -e '\E[1;37;44mFTP Example:\033[0m'
+cat <<EOF
+  wget --no-glob --server-response ftp://ftp.hjcms.de/xhtmldbg/${version}/xhtmldbg-${version}.tar.lzma
+EOF
