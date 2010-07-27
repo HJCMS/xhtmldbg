@@ -139,7 +139,8 @@ Configuration::Configuration ( QWidget * parent, QSettings * settings )
             this, SLOT ( quit() ) );
 
   m_splitter->restoreState ( cfg->value ( "ConfigDialog/SplitterState" ).toByteArray() );
-  // update();
+  if ( cfg->contains ( "ConfigDialog/Geometry" ) )
+    restoreGeometry ( cfg->value ( "ConfigDialog/Geometry" ).toByteArray() );
 }
 
 /**
@@ -176,6 +177,7 @@ void Configuration::quit()
   }
 
   cfg->setValue ( "ConfigDialog/SplitterState", m_splitter->saveState() );
+  cfg->setValue ( "ConfigDialog/Geometry", saveGeometry() );
   if ( status == QMessageBox::Yes )
     accept();
 }
