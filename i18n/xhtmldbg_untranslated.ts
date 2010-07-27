@@ -620,6 +620,11 @@ Do you realy wan to exit?</source>
         <source>Fixed Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="173"/>
+        <source>Plugins Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConfigCookies</name>
@@ -981,12 +986,12 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="153"/>
+        <location filename="../src/configuration/configuration.cpp" line="154"/>
         <source>Restore Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="154"/>
+        <location filename="../src/configuration/configuration.cpp" line="155"/>
         <source>All configuration options will be restored.
 After this operation, the configuration dialog will be closed automatically and you must restart the Application.
 
@@ -994,12 +999,12 @@ Do you really want to do this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="173"/>
+        <location filename="../src/configuration/configuration.cpp" line="174"/>
         <source>Unsaved Changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configuration.cpp" line="174"/>
+        <location filename="../src/configuration/configuration.cpp" line="175"/>
         <source>Found unsaved Changes.
 Do you really want to exit?</source>
         <translation type="unfinished"></translation>
@@ -1147,17 +1152,17 @@ Do you really want to exit?</source>
 <context>
     <name>CookieAccessComboBox</name>
     <message>
-        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="37"/>
         <source>Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="38"/>
         <source>Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="31"/>
+        <location filename="../src/cookiesdatabase/cookieaccesscombobox.cpp" line="39"/>
         <source>Allowed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1165,12 +1170,12 @@ Do you really want to exit?</source>
 <context>
     <name>CookiesBoolComboBox</name>
     <message>
-        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="34"/>
+        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="37"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="34"/>
+        <location filename="../src/cookiesdatabase/cookiesboolcombobox.cpp" line="38"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1195,6 +1200,14 @@ Do you really want to exit?</source>
     <message>
         <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
         <source>rfc2109</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DirectoryDialog</name>
+    <message>
+        <location filename="../src/configuration/directorychooser/directorydialog.cpp" line="42"/>
+        <source>Directory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1852,22 +1865,22 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="267"/>
+        <location filename="../src/networker/networkcookie.cpp" line="278"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="292"/>
+        <location filename="../src/networker/networkcookie.cpp" line="303"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="298"/>
+        <location filename="../src/networker/networkcookie.cpp" line="309"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="357"/>
+        <location filename="../src/networker/networkcookie.cpp" line="368"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2310,62 +2323,62 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="228"/>
+        <location filename="../src/viewer.cpp" line="232"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="235"/>
+        <location filename="../src/viewer.cpp" line="239"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="238"/>
+        <location filename="../src/viewer.cpp" line="242"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="243"/>
+        <location filename="../src/viewer.cpp" line="247"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="246"/>
+        <location filename="../src/viewer.cpp" line="250"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="338"/>
+        <location filename="../src/viewer.cpp" line="342"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="346"/>
+        <location filename="../src/viewer.cpp" line="350"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="351"/>
+        <location filename="../src/viewer.cpp" line="355"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="361"/>
+        <location filename="../src/viewer.cpp" line="365"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="367"/>
+        <location filename="../src/viewer.cpp" line="371"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="374"/>
+        <location filename="../src/viewer.cpp" line="378"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="379"/>
+        <location filename="../src/viewer.cpp" line="383"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
