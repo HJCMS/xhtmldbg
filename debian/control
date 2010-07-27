@@ -1,0 +1,13 @@
+Source: xhtmldbg
+Section: web
+Priority: extra
+Maintainer: Juergen Heinemann (Undefined) <no-spam@hjcms.de>
+Build-Depends: debhelper (>= 5), libqt4-dev (>= 4.6) libraptor1-dev (>= 1.4.21) libgeoip-dev (>= 1.4.6) libtidy-dev (>= 0.99) libqtidy-dev (>= 0.8.4)
+Standards-Version: 3.7.3
+
+Package: xhtmldbg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: www-browser
+Description: xhtmldbg is an open-source xhtml/html debugger project that aims to build a debugger
+ with a WebKit browser that integrates a tidy debugger an many more features.

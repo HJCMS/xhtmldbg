@@ -19,42 +19,49 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGBROWSER_H
-#define CONFIGBROWSER_H
+#ifndef DIRECTORYCHOOSER_H
+#define DIRECTORYCHOOSER_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QSpinBox>
+#include <QtGui/QGroupBox>
+#include <QtGui/QLineEdit>
+#include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "configheaderdefinitions.h"
-#include "directorychooser.h"
-
-class ConfigBrowser : public PageWidget
+class DirectoryChooser : public QGroupBox
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_PROPERTY ( QString directory READ getDirectory WRITE setDirectory )
 
   private:
-    QSpinBox* DefaultFontSize;
-    QSpinBox* DefaultFixedFontSize;
-    ConfigHeaderDefinitions* headerDefinitions;
-    DirectoryChooser* pluginPathChooser;
-    void registerCheckBoxes();
+    const QString configKey;
+    QLineEdit* m_lineEdit;
+    QToolButton* m_toolButton;
+    QString directory;
+    void openDialog ();
 
   private Q_SLOTS:
-    void itemClicked ( int );
+    void updateDirectory ( const QString & );
+    void openDialogClicked ();
+
+  protected:
+    bool isDirectory ( const QString & ) const;
+
+  Q_SIGNALS:
+    void modified ( bool );
+    void directoryChanged ( const QString & );
 
   public:
-    ConfigBrowser ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigBrowser();
+    DirectoryChooser ( const QString &title, const QString &key, QWidget * parent = 0 );
+    const QString getDirectory();
+    void setDirectory ( const QString & );
+    ~DirectoryChooser();
 };
 
 #endif

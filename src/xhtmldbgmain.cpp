@@ -52,10 +52,8 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   setObjectName ( "xhtmldbg" );
 
   // Settings
-  m_settings = new QSettings ( QSettings::NativeFormat,
-                               QSettings::UserScope,
-                               organizationDomain(),
-                               objectName(), this );
+  m_settings = new QSettings ( QSettings::NativeFormat, QSettings::UserScope,
+                               organizationDomain(), objectName(), this );
 
   /**
   * BUG KDE4 >= 4.4*
@@ -67,6 +65,7 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   if ( homeDir.mkpath ( dataPath ) )
     QFile ( dataPath ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 
+  QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
   /**
   * HACK QTWEBKIT_PLUGIN_PATH
   * QWebKit kackt des öfteren ab wenn ein versuch, Plugins zu laden fehlschlägt!
@@ -77,16 +76,24 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   */
   if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
   {
-    QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
-    env.insert ( QLatin1String ( "MOZILLA_HOME" ), QLatin1String ( "/tmp/fake" ) );
-    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), QLatin1String ( "/tmp/fake/plugins" ) );
-    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), QLatin1String ( "/tmp/fake/plugins" ) );
+    env.insert ( QLatin1String ( "MOZILLA_HOME" ), dataPath );
+    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), dataPath );
+    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), dataPath );
+  }
+  else
+  {
+    QString plugPath = m_settings->value ( QLatin1String ( "webkit_plugin_path" ) ).toString();
+    if ( ! plugPath.isEmpty() )
+      env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), plugPath );
   }
 
   // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
   QStringList searchPaths = m_settings->value ( "iconthemepaths", QIcon::themeSearchPaths() ).toStringList();
   QIcon::setThemeSearchPaths ( searchPaths );
   QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
+
+  // TODO Zur Zeit wird FTP nicht Unterstützt!
+  // QDesktopServices::unsetUrlHandler ( QString::fromUtf8( "ftp" ) );
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

@@ -169,6 +169,11 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   headerDefinitions = new ConfigHeaderDefinitions ( centralWidget );
   verticalLayout->addWidget ( headerDefinitions );
 
+  // Pluginpfad auswählen
+  pluginPathChooser = new DirectoryChooser ( trUtf8 ( "Plugins Directory" ),
+          QString::fromUtf8 ( "webkit_plugin_path" ), centralWidget );
+  verticalLayout->addWidget ( pluginPathChooser );
+
   centralWidget->setLayout ( verticalLayout );
 
   connect ( DefaultFontSize, SIGNAL ( valueChanged ( int ) ),
@@ -178,6 +183,9 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
             this, SLOT ( itemClicked ( int ) ) );
 
   connect ( headerDefinitions, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( modified ( bool ) ) );
+
+  connect ( pluginPathChooser, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( modified ( bool ) ) );
 }
 
@@ -220,6 +228,8 @@ void ConfigBrowser::load ( QSettings * cfg )
   DefaultFixedFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
   // Header Definitions
   headerDefinitions->loadHeaderDefinitions ( cfg );
+  // Plugin Pfad
+  pluginPathChooser->setDirectory ( cfg->value ( QLatin1String ( "webkit_plugin_path" ) ).toString() );
 }
 
 void ConfigBrowser::save ( QSettings * cfg )
@@ -234,6 +244,8 @@ void ConfigBrowser::save ( QSettings * cfg )
   cfg->setValue ( QLatin1String ( "DefaultFixedFontSize" ), DefaultFixedFontSize->value() );
   // Header Definitions
   headerDefinitions->saveHeaderDefinitions ( cfg );
+  // Plugin Pfad
+  cfg->setValue ( QLatin1String ( "webkit_plugin_path" ), pluginPathChooser->getDirectory() );
 }
 
 ConfigBrowser::~ConfigBrowser()

@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,42 +19,37 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGBROWSER_H
-#define CONFIGBROWSER_H
+#ifndef DIRECTORYDIALOG_H
+#define DIRECTORYDIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QSpinBox>
+#include <QtGui/QFileDialog>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "configheaderdefinitions.h"
-#include "directorychooser.h"
-
-class ConfigBrowser : public PageWidget
+class DirectoryDialog : public QFileDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSpinBox* DefaultFontSize;
-    QSpinBox* DefaultFixedFontSize;
-    ConfigHeaderDefinitions* headerDefinitions;
-    DirectoryChooser* pluginPathChooser;
-    void registerCheckBoxes();
+    const QString fromPath;
+    QString lastSelection;
 
   private Q_SLOTS:
-    void itemClicked ( int );
+    void checkPermissions ( const QString & );
+
+  Q_SIGNALS:
+    void destinationChanged ( const QString & );
 
   public:
-    ConfigBrowser ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigBrowser();
+    DirectoryDialog ( const QString &path, QWidget * parent = 0 );
+    const QString destination();
+    virtual ~DirectoryDialog();
 };
 
 #endif

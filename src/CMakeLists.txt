@@ -13,6 +13,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
+  ${CMAKE_CURRENT_SOURCE_DIR}/pluginfactory
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
@@ -30,6 +31,7 @@ ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (networker)
+ADD_SUBDIRECTORY (pluginfactory)
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (downloadmanager)
@@ -124,6 +126,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   OpenUrlDialog
   CookiesDatabase
   Networker
+  PluginFactory
   Configuration
   CSSValidator
   DownloadManager

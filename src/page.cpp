@@ -25,6 +25,7 @@
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
 #include "jsmessanger.h"
+#include "pluginfactory.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -54,6 +55,9 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setForwardUnsupportedContent ( true );
 
   setNetworkAccessManager ( m_netManager );
+
+  // Plugin Factory
+  setPluginFactory ( new PluginFactory ( this ) );
 
   reply = 0x00;
 

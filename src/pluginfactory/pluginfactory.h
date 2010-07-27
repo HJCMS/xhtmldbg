@@ -19,42 +19,30 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGBROWSER_H
-#define CONFIGBROWSER_H
+#ifndef PluginFactory_H
+#define PluginFactory_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
-/* QtGui */
-#include <QtGui/QSpinBox>
-#include <QtGui/QWidget>
+/* QtWebKit */
+#include <QtWebKit/QWebPluginFactory>
 
-#include "pagewidget.h"
-#include "configheaderdefinitions.h"
-#include "directorychooser.h"
-
-class ConfigBrowser : public PageWidget
+class PluginFactory : public QWebPluginFactory
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    QSpinBox* DefaultFontSize;
-    QSpinBox* DefaultFixedFontSize;
-    ConfigHeaderDefinitions* headerDefinitions;
-    DirectoryChooser* pluginPathChooser;
-    void registerCheckBoxes();
-
-  private Q_SLOTS:
-    void itemClicked ( int );
-
   public:
-    ConfigBrowser ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
-    ~ConfigBrowser();
+    PluginFactory ( QObject * parent = 0 );
+    QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
+    QList<QWebPluginFactory::Plugin> plugins () const;
+    virtual ~PluginFactory();
 };
 
 #endif

@@ -154,7 +154,7 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
     if ( certCustodyPending.contains ( certHost ) )
       return;
 
-    certCustodyPending.append( certHost );
+    certCustodyPending.append ( certHost );
 
     QStringList messages;
     QSslCertificate cert = errors.at ( 0 ).certificate ();
