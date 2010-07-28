@@ -19,36 +19,30 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PluginFactory_H
-#define PluginFactory_H
+#ifndef PLUGINSFINDER_H
+#define PLUGINSFINDER_H
 
 /* QtCore */
+#include <QtCore/QDir>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
 /* QtWebKit */
 #include <QtWebKit/QWebPluginFactory>
 
-class PluginFactory : public QWebPluginFactory
+class PluginsFinder : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QString pluginPath;
-    mutable QList<QWebPluginFactory::Plugin> pluginsList;
-    void registerPlugins();
+    const QDir pluginDirectory;
 
   public:
-    PluginFactory ( QObject * parent = 0 );
-    QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
-    QList<QWebPluginFactory::Plugin> plugins () const;
-    void refreshPlugins();
-    virtual ~PluginFactory();
+    PluginsFinder ( const QString &path, QObject * parent = 0 );
+    QList<QWebPluginFactory::Plugin> plugins();
 };
 
 #endif

@@ -19,36 +19,33 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PluginFactory_H
-#define PluginFactory_H
+#include "pluginsfinder.h"
+#include "plugin.h"
 
 /* QtCore */
-#include <QtCore/QList>
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QtCore/QDebug>
 
-/* QtWebKit */
-#include <QtWebKit/QWebPluginFactory>
-
-class PluginFactory : public QWebPluginFactory
+PluginsFinder::PluginsFinder ( const QString &path, QObject * parent )
+    : QObject ( parent )
+    , pluginDirectory ( path, QString::fromUtf8 ( "*.so" ), QDir::Name, QDir::Files )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  setObjectName ( QLatin1String ( "pluginsfinder" ) );
+  if ( ! pluginDirectory.exists() )
+    qWarning ( "(XHTMLDBG) Can not open Plugin \"%s\" Directory", qPrintable ( path ) );
+}
 
-  private:
-    QString pluginPath;
-    mutable QList<QWebPluginFactory::Plugin> pluginsList;
-    void registerPlugins();
-
-  public:
-    PluginFactory ( QObject * parent = 0 );
-    QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
-    QList<QWebPluginFactory::Plugin> plugins () const;
-    void refreshPlugins();
-    virtual ~PluginFactory();
-};
-
-#endif
+QList<QWebPluginFactory::Plugin> PluginsFinder::plugins()
+{
+  QList<QWebPluginFactory::Plugin> list;
+  if ( pluginDirectory.exists() )
+  {
+    foreach ( QString lib, pluginDirectory.entryList () )
+    {
+      Plugin plugin ( ( pluginDirectory.path() + pluginDirectory.separator() + lib ) );
+      QWebPluginFactory::Plugin pl = plugin.fetchInfo();
+      if ( ! pl.name.isEmpty() )
+        list << pl;
+    }
+  }
+  return list;
+}

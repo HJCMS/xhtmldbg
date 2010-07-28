@@ -33,7 +33,6 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
-#include <QtCore/QProcessEnvironment>
 #include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
@@ -65,35 +64,10 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   if ( homeDir.mkpath ( dataPath ) )
     QFile ( dataPath ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 
-  QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
-  /**
-  * HACK QTWEBKIT_PLUGIN_PATH
-  * QWebKit kackt des öfteren ab wenn ein versuch, Plugins zu laden fehlschlägt!
-  * Leider bringen die Optionen mit @ref QWebSettings nicht viel :-/
-  * Hier ein Hack zum absoluten abschalten in dem die Globalen Variablen
-  * von Mozilla und WebKit überschrieben werden!
-  * @link http://doc.qt.nokia.com/4.6/webintegration.html
-  */
-  if ( ! m_settings->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
-  {
-    env.insert ( QLatin1String ( "MOZILLA_HOME" ), dataPath );
-    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), dataPath );
-    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), dataPath );
-  }
-  else
-  {
-    QString plugPath = m_settings->value ( QLatin1String ( "webkit_plugin_path" ) ).toString();
-    if ( ! plugPath.isEmpty() )
-      env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), plugPath );
-  }
-
   // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
   QStringList searchPaths = m_settings->value ( "iconthemepaths", QIcon::themeSearchPaths() ).toStringList();
   QIcon::setThemeSearchPaths ( searchPaths );
   QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
-
-  // TODO Zur Zeit wird FTP nicht Unterstützt!
-  // QDesktopServices::unsetUrlHandler ( QString::fromUtf8( "ftp" ) );
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

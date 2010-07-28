@@ -19,36 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PluginFactory_H
-#define PluginFactory_H
+#ifndef PLUGIN_H
+#define PLUGIN_H
 
 /* QtCore */
-#include <QtCore/QList>
-#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
 /* QtWebKit */
 #include <QtWebKit/QWebPluginFactory>
 
-class PluginFactory : public QWebPluginFactory
+/* NSPR */
+extern "C"
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+#include <npapi.h>
+#include <npupp.h>
+}
 
+class Plugin
+{
   private:
-    QString pluginPath;
-    mutable QList<QWebPluginFactory::Plugin> pluginsList;
-    void registerPlugins();
+    const QString pluginFilePath;
+    NPPluginFuncs m_funcs;
+    NPP_t m_npInstance;
+
+    typedef NPError ( *_NP_ShutdownPtr ) ();
+    _NP_ShutdownPtr NP_ShutdownPtr;
+
+    typedef char* ( *_NP_GetMIMEDescriptionPtr ) ( void );
+    _NP_GetMIMEDescriptionPtr NP_GetMIMEDescriptionPtr;
+
+    typedef NPError ( *_NP_GetValuePtr ) ( void* future, NPPVariable variable, void* value );
+    _NP_GetValuePtr NP_GetValuePtr;
 
   public:
-    PluginFactory ( QObject * parent = 0 );
-    QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
-    QList<QWebPluginFactory::Plugin> plugins () const;
-    void refreshPlugins();
-    virtual ~PluginFactory();
+    QWebPluginFactory::Plugin fetchInfo();
+    Plugin ( const QString &path );
 };
 
 #endif

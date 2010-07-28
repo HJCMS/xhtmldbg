@@ -25,7 +25,10 @@
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
 #include "jsmessanger.h"
-#include "pluginfactory.h"
+
+#ifdef HAVE_MOZILLA_PLUGIN_API
+# include "pluginfactory.h"
+#endif
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -56,8 +59,10 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 
   setNetworkAccessManager ( m_netManager );
 
+#ifdef HAVE_MOZILLA_PLUGIN_API
   // Plugin Factory
   setPluginFactory ( new PluginFactory ( this ) );
+#endif
 
   reply = 0x00;
 

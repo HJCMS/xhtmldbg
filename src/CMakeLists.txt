@@ -1,5 +1,7 @@
 # CMakeLists.txt
 
+SET (OPTIONAL_LIBRARIES "")
+
 SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
@@ -13,7 +15,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}/configdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
-  ${CMAKE_CURRENT_SOURCE_DIR}/pluginfactory
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
@@ -31,7 +32,16 @@ ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (networker)
-ADD_SUBDIRECTORY (pluginfactory)
+
+IF (MOZILLA_PLUGIN_API_FOUND)
+  SET (XHTMLDBG_BINARY_PROJECT_INCULDE
+    ${XHTMLDBG_BINARY_PROJECT_INCULDE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/pluginfactory
+  )
+  ADD_SUBDIRECTORY (pluginfactory)
+  SET (OPTIONAL_LIBRARIES ${OPTIONAL_LIBRARIES} PluginFactory)
+ENDIF (MOZILLA_PLUGIN_API_FOUND)
+
 ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (downloadmanager)
@@ -111,10 +121,6 @@ ADD_EXECUTABLE (xhtmldbg
   ${xhtmldbg_SOURCES}
 )
 
-# IF (__CHECK_GCC_FPIE)
-#   SET ( "${CMAKE_CXX_FLAGS} -fPIE")
-# ENDIF (__CHECK_GCC_FPIE)
-
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
   xhtmldbginterface
@@ -126,11 +132,11 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   OpenUrlDialog
   CookiesDatabase
   Networker
-  PluginFactory
   Configuration
   CSSValidator
   DownloadManager
   RDFParser
+  ${OPTIONAL_LIBRARIES}
 )
 
 SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES
