@@ -39,7 +39,6 @@ class Plugin
 {
   private:
     const QString pluginFilePath;
-    NPPluginFuncs m_funcs;
     NPP_t m_npInstance;
 
     typedef NPError ( *_NP_ShutdownPtr ) ();
@@ -52,8 +51,8 @@ class Plugin
     _NP_GetValuePtr NP_GetValuePtr;
 
   public:
-    QWebPluginFactory::Plugin fetchInfo();
     Plugin ( const QString &path );
+    QWebPluginFactory::Plugin fetchInfo();
 };
 
 #endif

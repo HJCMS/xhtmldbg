@@ -29,17 +29,23 @@
 
 Plugin::Plugin ( const QString &path )
     : pluginFilePath ( path )
+    , NP_ShutdownPtr ( 0 )
     , NP_GetMIMEDescriptionPtr ( 0 )
+    , NP_GetValuePtr ( 0 )
 {
   memset ( &m_npInstance, 0, sizeof ( NPP_t ) );
   m_npInstance.ndata = this;
 }
 
+/**
+* Lese Plugin Informationen und schließe danach wieder!
+*/
 QWebPluginFactory::Plugin Plugin::fetchInfo()
 {
   char* pluginName = 0;
   char* pluginDesc = 0;
   QWebPluginFactory::Plugin info;
+  QList<QWebPluginFactory::MimeType> p_mimeTypes;
 
   QLibrary nsplugin ( pluginFilePath );
   NP_GetMIMEDescriptionPtr = ( _NP_GetMIMEDescriptionPtr ) nsplugin.resolve ( "NP_GetMIMEDescription" );
@@ -58,7 +64,6 @@ QWebPluginFactory::Plugin Plugin::fetchInfo()
   info.description = QString ( pluginDesc );
 
   QString pluginInfo ( NP_GetMIMEDescriptionPtr() );
-  QList<QWebPluginFactory::MimeType> p_mimeTypes;
   foreach ( QString desc, pluginInfo.split ( ";" ) )
   {
     QStringList array = desc.split ( QRegExp ( ":" ) );

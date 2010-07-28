@@ -61,15 +61,12 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
                                  const QStringList &argumentNames,
                                  const QStringList &argumentValues ) const
 {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "TODO" << Q_FUNC_INFO << mimeType << url << argumentNames << argumentValues;
-#else
+  // qDebug() << "TODO" << Q_FUNC_INFO << mimeType << url << argumentNames << argumentValues;
   Q_UNUSED ( url )
   Q_UNUSED ( argumentNames )
   Q_UNUSED ( argumentValues )
   qWarning ( "(XHTMLDBG) Currently no plugin support for \"%s\"", qPrintable ( mimeType ) );
-#endif
-  return 0x00;
+  return new QObject();
 }
 
 /**
@@ -84,6 +81,7 @@ void PluginFactory::refreshPlugins()
 {
   pluginsList.clear();
   registerPlugins();
+  QWebPluginFactory::refreshPlugins();
 }
 
 PluginFactory::~PluginFactory()
