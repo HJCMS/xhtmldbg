@@ -53,7 +53,7 @@ QWebPluginFactory::Plugin Plugin::fetchInfo()
   NP_ShutdownPtr = ( _NP_ShutdownPtr ) nsplugin.resolve ( "NP_Shutdown" );
   if ( ! NP_GetMIMEDescriptionPtr || ! NP_GetValuePtr || ! NP_ShutdownPtr )
   {
-    qWarning ( "(XHTMLDBG) probably not a netscape plugin: %s", qPrintable ( pluginFilePath ) );
+    qWarning ( "(XHTMLDBG) probably \"%s\" not a netscape plugin", qPrintable ( pluginFilePath ) );
     return info;
   }
 
