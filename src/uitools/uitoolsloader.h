@@ -30,9 +30,13 @@
 /* QtGui */
 #include <QtGui/QWidget>
 
+/* QtScript */
+#include <QtScript/QScriptable>
+
+/* QtUiTools */
 #include <QtUiTools/QUiLoader>
 
-class UiToolsLoader : public QUiLoader
+class UiToolsLoader : public QUiLoader, protected QScriptable
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

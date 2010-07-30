@@ -28,7 +28,7 @@
 #include <QtGui/QLabel>
 
 UiToolsLoader::UiToolsLoader ( const QString &cid, QObject * parent )
-    : QUiLoader ( parent )
+    : QUiLoader ( parent ), QScriptable()
     , classID ( cid )
 {
   setObjectName ( QLatin1String ( "uitoolsloader" ) );
