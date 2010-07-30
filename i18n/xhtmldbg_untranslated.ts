@@ -1894,6 +1894,14 @@ Reasons : </source>
     </message>
 </context>
 <context>
+    <name>Page</name>
+    <message>
+        <location filename="../src/page.cpp" line="261"/>
+        <source>(x-qt-plugin) request: %1 = %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PageWidget</name>
     <message>
         <location filename="../src/configuration/pagewidget.cpp" line="87"/>

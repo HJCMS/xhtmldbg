@@ -26,6 +26,11 @@
 #include "downloadmanager.h"
 #include "jsmessanger.h"
 
+/* QtUiTools */
+#ifdef HAVE_QTUITOOLS
+# include "uitoolsloader.h"
+#endif
+
 #ifdef HAVE_MOZILLA_PLUGIN_API
 # include "pluginfactory.h"
 #endif
@@ -37,6 +42,7 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QVariant>
+
 
 /* QtGui */
 #include <QtGui/QApplication>
@@ -242,6 +248,22 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   }
   return b;
 }
+
+#ifdef HAVE_QTUITOOLS
+/**
+* QT's Internes Blugin Interface!
+*/
+QObject* Page::createPlugin ( const QString &id, const QUrl &url,
+                              const QStringList &params, const QStringList &values )
+{
+  Q_UNUSED ( url )
+  Q_UNUSED ( values )
+  UiToolsLoader loader ( id, view() );
+  QString message = trUtf8 ( "(x-qt-plugin) request: %1 = %2" ).arg ( id, params.join ( ";" ) );
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
+  return loader.createWidget ( id, view() );
+}
+#endif
 
 /**
 * Alle ausgewählten Texte an das Unix Clipboard weiter geben.

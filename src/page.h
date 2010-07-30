@@ -66,6 +66,9 @@ class Page : public QWebPage
   protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
     bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
+#ifdef HAVE_QTUITOOLS
+    QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
+#endif
 
   Q_SIGNALS:
     void getUrl ( const QUrl & );
