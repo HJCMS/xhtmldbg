@@ -257,11 +257,16 @@ QObject* Page::createPlugin ( const QString &id, const QUrl &url,
                               const QStringList &params, const QStringList &values )
 {
   Q_UNUSED ( url )
-  Q_UNUSED ( values )
   UiToolsLoader loader ( id, view() );
-  QString message = trUtf8 ( "(x-qt-plugin) request: %1 = %2" ).arg ( id, params.join ( ";" ) );
-  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
-  return loader.createWidget ( id, view() );
+  if ( loader.isLoadable() )
+  {
+    QString message = trUtf8 ( "(x-qt-plugin) request: %1 = %2" ).arg ( id, params.join ( ";" ) );
+    xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
+    loader.setConfig ( params, values );
+    return loader.createWidget ( id, view() );
+  }
+  else
+    return new QObject();
 }
 #endif
 

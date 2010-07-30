@@ -24,10 +24,27 @@
 /* QtCore */
 #include <QtCore/QDebug>
 
-UiToolsLoader::UiToolsLoader( const QString &classID, QObject * parent )
-  : QUiLoader ( parent )
+/* QtGui */
+#include <QtGui/QLabel>
+
+UiToolsLoader::UiToolsLoader ( const QString &cid, QObject * parent )
+    : QUiLoader ( parent )
+    , classID ( cid )
 {
-  setObjectName ( QLatin1String( "uitoolsloader" ) );
+  setObjectName ( QLatin1String ( "uitoolsloader" ) );
+}
+
+void UiToolsLoader::setConfig ( const QStringList &params, const QStringList &values )
+{
+  qDebug() << Q_FUNC_INFO << params << values;
+}
+
+bool UiToolsLoader::isLoadable()
+{
+  if ( ! classID.contains ( QRegExp ( "^Q\\w+" ) ) )
+    return false;
+
+  return availableWidgets().contains ( classID );
 }
 
 UiToolsLoader::~UiToolsLoader()

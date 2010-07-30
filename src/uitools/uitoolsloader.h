@@ -25,6 +25,10 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
+
+/* QtGui */
+#include <QtGui/QWidget>
 
 #include <QtUiTools/QUiLoader>
 
@@ -34,8 +38,13 @@ class UiToolsLoader : public QUiLoader
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
+  private:
+    const QString classID;
+
   public:
-    UiToolsLoader ( const QString &classID, QObject * parent = 0 );
+    UiToolsLoader ( const QString &cid, QObject * parent = 0 );
+    void setConfig ( const QStringList &, const QStringList & );
+    bool isLoadable();
     virtual ~UiToolsLoader();
 };
 
