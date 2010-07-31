@@ -1896,8 +1896,8 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="261"/>
-        <source>(x-qt-plugin) request: %1 = %2</source>
+        <location filename="../src/page.cpp" line="266"/>
+        <source>(x-qt-plugin) ClassID: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2196,6 +2196,14 @@ Reasons : </source>
     <message>
         <location filename="../src/tidymessanger.cpp" line="96"/>
         <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UiToolsLoader</name>
+    <message>
+        <location filename="../src/uitools/uitoolsloader.cpp" line="87"/>
+        <source>Sorry: I can&apos;t do it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

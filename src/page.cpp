@@ -256,17 +256,19 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 QObject* Page::createPlugin ( const QString &id, const QUrl &url,
                               const QStringList &params, const QStringList &values )
 {
-  Q_UNUSED ( url )
   UiToolsLoader loader ( id, view() );
-  if ( loader.isLoadable() )
+  // TODO  URL Validierung
+  if ( url.isValid() && url.scheme().contains ( QRegExp ( "^(http|file)$" ) ) )
+  {}
+
+  // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
+  // und Gültigkeit der Parameter und ihrer Werte geprüft!
+  if ( loader.setConfiguration ( params, values ) )
   {
-    QString message = trUtf8 ( "(x-qt-plugin) request: %1 = %2" ).arg ( id, params.join ( ";" ) );
+    QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1" ).arg ( id );
     xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
-    loader.setConfig ( params, values );
-    return loader.createWidget ( id, view() );
   }
-  else
-    return new QObject();
+  return loader.getUiComponent ( view() );
 }
 #endif
 

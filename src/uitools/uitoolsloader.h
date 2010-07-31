@@ -23,6 +23,7 @@
 #define UITOOLSLOADER_H
 
 /* QtCore */
+#include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -36,19 +37,51 @@
 /* QtUiTools */
 #include <QtUiTools/QUiLoader>
 
-class UiToolsLoader : public QUiLoader, protected QScriptable
+class UiToolsLoader : protected QUiLoader, protected QScriptable
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    /**
+    * identical with qt's class name
+    */
     const QString classID;
 
+    /**
+    * is this component a valid qt class and loadable
+    */
+    bool isValid;
+
+    /**
+    * Inherit all valid predicates and values from xhtml:object and
+    * xhtml:param elements.
+    */
+    QMap<QString,QString> uiConfig;
+
+  protected:
+    /**
+    * Return a static Widget with failure message!
+    */
+    QWidget* displayFailWidget ( QWidget * parent );
+
   public:
-    UiToolsLoader ( const QString &cid, QObject * parent = 0 );
-    void setConfig ( const QStringList &, const QStringList & );
-    bool isLoadable();
+    explicit UiToolsLoader ( const QString &cid, QObject * parent = 0 );
+
+    /**
+    * first we set all params and values to the loader.
+    * @note if size of @param params and @param values not equal it will fail!
+    * @param params  xhtml:object properties
+    * @param values  xhtml:object values from param Elements and object predicates
+    */
+    bool setConfiguration ( const QStringList &params, const QStringList &values );
+
+    /**
+    * Loading UI 
+    */
+    QWidget* getUiComponent ( QWidget * parent );
+
     virtual ~UiToolsLoader();
 };
 

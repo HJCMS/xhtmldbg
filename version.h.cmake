@@ -19,6 +19,17 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+/**
+* XHTMLDBG Version String
+*/
 #define XHTMLDBG_VERSION_STRING "@XHTMLDBG_VERSION@"
 
+/**
+* Plugin Directory for Extensions and UI Designer Components
+*/
+#define XHTMLDBG_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg"
+
+/**
+* GeoIP Database Location
+*/
 #define GEOIP_DATABASE_PATH "@GEOIP_DATABASE_PATH@"

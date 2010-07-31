@@ -34,9 +34,10 @@ if test "$PWD" = "${debug_build_target}" ; then
   if test -f cmake_install.cmake ; then
     rm -rf ${debug_build_target}/*
   fi
+  mkdir -p ${debug_build_target}/app/{designer,plugins}
   runcmake
 else
-  mkdir -p build
+  mkdir -p build/app/{designer,plugins}
   pushd build
     runcmake
   popd
