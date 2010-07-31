@@ -9,9 +9,11 @@ version="$2"
 test -n "${version}" || \
   version="$(awk -f `dirname $0`/version.awk CMakeLists.txt)"
 
-rm -f /tmp/xhtmldbg-${version}_list.tar
+echo "make Package xhtmldbg-${version}"
+rm -f /tmp/xhtmldbg-${version}*.tar.*
 git archive --format=tar --output=/tmp/xhtmldbg-${version}_list.tar $branch
 
+rm -rf /tmp/xhtmldbg-${version}
 mkdir /tmp/xhtmldbg-${version}
 pushd /tmp/xhtmldbg-${version}
   tar -xf /tmp/xhtmldbg-${version}_list.tar
