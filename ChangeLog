@@ -1,3 +1,8 @@
+- 2010/07/31 Juergen Heinemann (Undefined)
+  Add: Add x-qt-plugin Support
+  Add: Plugin Factory for Netscape Pluin
+  Bugfix: Cookie Management
+
 - 2010/07/17 Juergen Heinemann (Undefined)
   Add: Cookies SQLite3 Database and more Configure Options
   Bugfix: Cookies - save allowed domains

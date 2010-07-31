@@ -25,7 +25,6 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
-#include <QtCore/QProcessEnvironment>
 
 PluginFactory::PluginFactory ( QObject * parent )
     : QWebPluginFactory ( parent )
@@ -34,17 +33,6 @@ PluginFactory::PluginFactory ( QObject * parent )
 
   QSettings cfg ( QSettings::NativeFormat, QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
   pluginPath = cfg.value ( "webkit_plugin_path" ).toString();
-
-  /*
-  * QTWEBKIT_PLUGIN_PATH
-  * @link http://doc.qt.nokia.com/4.6/webintegration.html
-  */
-  if ( ! cfg.value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() )
-  {
-    QProcessEnvironment env ( QProcessEnvironment::systemEnvironment () );
-    env.insert ( QLatin1String ( "MOZ_PLUGIN_PATH" ), pluginPath );
-    env.insert ( QLatin1String ( "QTWEBKIT_PLUGIN_PATH" ), pluginPath );
-  }
 
   if ( ! pluginPath.isEmpty() )
     registerPlugins();
