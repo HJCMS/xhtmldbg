@@ -32,7 +32,11 @@
 extern "C"
 {
 #include <npapi.h>
-#include <npupp.h>
+#ifdef HAVE_OLD_NPUPP
+# include <npupp.h>
+#else
+# include <npfunctions.h>
+#endif
 }
 
 class Plugin
