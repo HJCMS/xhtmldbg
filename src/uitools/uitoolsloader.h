@@ -27,6 +27,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QWidget>
@@ -58,7 +59,12 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     * Inherit all valid predicates and values from xhtml:object and
     * xhtml:param elements.
     */
-    QMap<QString,QString> uiConfig;
+    QMap<QString,QVariant> uiConfig;
+
+    /**
+    * a list with all writeable properties
+    */
+    const QStringList findProperties ( const QString &classID, QWidget * parent ) const;
 
   protected:
     /**
@@ -78,7 +84,7 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     bool setConfiguration ( const QStringList &params, const QStringList &values );
 
     /**
-    * Loading UI 
+    * Loading UI
     */
     QWidget* getUiComponent ( QWidget * parent );
 

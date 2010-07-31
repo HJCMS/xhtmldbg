@@ -259,18 +259,26 @@ QObject* Page::createPlugin ( const QString &id, const QUrl &url,
   UiToolsLoader loader ( id, view() );
   // TODO  URL Validierung
   if ( url.isValid() && url.scheme().contains ( QRegExp ( "^(http|file)$" ) ) )
-  {}
+    {}
 
   // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
   // und Gültigkeit der Parameter und ihrer Werte geprüft!
   if ( loader.setConfiguration ( params, values ) )
   {
     QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1" ).arg ( id );
-    xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
+    internalMessanger ( message );
   }
   return loader.getUiComponent ( view() );
 }
 #endif
+
+/**
+* Nachrichten Übermittler an das Hauptfenster
+*/
+void Page::internalMessanger ( const QString &m )
+{
+  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( m );
+}
 
 /**
 * Alle ausgewählten Texte an das Unix Clipboard weiter geben.

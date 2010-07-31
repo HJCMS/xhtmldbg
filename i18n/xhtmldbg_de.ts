@@ -1904,7 +1904,7 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="266"/>
+        <location filename="../src/page.cpp" line="268"/>
         <source>(x-qt-plugin) ClassID: %1</source>
         <translation></translation>
     </message>
@@ -2210,9 +2210,14 @@ Gründe : </translation>
 <context>
     <name>UiToolsLoader</name>
     <message>
-        <location filename="../src/uitools/uitoolsloader.cpp" line="87"/>
+        <location filename="../src/uitools/uitoolsloader.cpp" line="137"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation>Ich kann das leider nicht machen.</translation>
+    </message>
+    <message>
+        <location filename="../src/uitools/uitoolsloader.cpp" line="139"/>
+        <source>Invalid Element initialization.</source>
+        <translation>Fehler bei der Element Initialisierung.</translation>
     </message>
 </context>
 <context>

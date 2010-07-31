@@ -25,9 +25,15 @@
 #endif
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QList>
+#include <QtCore/QMapIterator>
+#include <QtCore/QMetaProperty>
+#include <QtCore/QMetaMethod>
+#include <QtCore/QMetaObject>
+#include <QtCore/QMetaType>
 
 /* QtGui */
 #include <QtGui/QDesktopServices>
@@ -86,15 +92,37 @@ bool UiToolsLoader::setConfiguration ( const QStringList &params, const QStringL
 
   if ( isValid )
   {
+    // Map bereiningen
     uiConfig.clear();
     QStringListIterator it ( values );
     foreach ( QString p, params )
     {
       if ( ! p.isEmpty() && it.hasNext() )
-        uiConfig[ p ] = it.next();
+        uiConfig[ p ] = QVariant ( it.next() );
     }
   }
   return isValid;
+}
+
+/**
+* Liest alle \b nich Schreibgeschütze Optionen in eine Liste.
+* @see QMetaProperty::isWritable
+*/
+const QStringList UiToolsLoader::findProperties ( const QString &classID, QWidget * parent ) const
+{
+  QStringList list;
+  int type = QMetaType::type ( classID.toAscii() );
+  if ( QMetaType::isRegistered ( type ) )
+  {
+    const QMetaObject* mobj = parent->metaObject();
+    for ( int i = mobj->propertyOffset(); i < mobj->propertyCount(); ++i )
+    {
+      const QMetaProperty prop = mobj->property ( i );
+      if ( prop.isWritable() )
+        list.append ( prop.name() );
+    }
+  }
+  return list;
 }
 
 /**
@@ -108,7 +136,7 @@ QWidget* UiToolsLoader::displayFailWidget ( QWidget * parent )
 
   QString message ( trUtf8 ( "Sorry: I can't do it." ) );
   message.append ( "\n" );
-  message.append ( trUtf8 ( "Mistrial Element initialization." ) );
+  message.append ( trUtf8 ( "Invalid Element initialization." ) );
 
   QLabel* label = new QLabel ( message, widget );
   label->setWordWrap ( true );
@@ -128,10 +156,36 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
     QString objName;
     // Wenn das Prädikat name existiert dann mit einfügen!
     if ( uiConfig.contains ( QLatin1String ( "name" ) ) )
-      objName = uiConfig["name"];
+      objName = uiConfig["name"].toString();
 
-    // TODO an dieser Stelle muss noch das setzen der Parameter erfolgen!
-    return createWidget ( classID, parent, objName );
+    QWidget* widget = createWidget ( classID, parent, objName );
+    // !!! Kein Klassen-Name keine Prädikate !!!
+    if ( ! objName.isEmpty() )
+    {
+      QStringList props = findProperties ( objName, widget );
+      // wenn keine Optionen zu verfügung stehen aussteigen
+      if ( props.size() < 1 )
+        return widget;
+
+      QMapIterator<QString,QVariant> it ( uiConfig );
+      while ( it.hasNext() )
+      {
+        it.next();
+        if ( props.contains ( it.key() ) )
+        {
+          const QMetaObject* meta = widget->metaObject();
+          int index = meta->indexOfProperty ( it.key().toAscii() );
+          QMetaProperty prop = meta->property ( index );
+          QVariant val = it.value();
+          if ( val.convert ( prop.type() ) )
+            widget->setProperty ( prop.name(), val );
+          else
+            qWarning ( "(XHTMLDBG) Invalid value for property: %s", prop.name() );
+        }
+      }
+    }
+
+    return widget;
   }
   return displayFailWidget ( parent );
 }

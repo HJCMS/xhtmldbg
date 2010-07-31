@@ -60,6 +60,7 @@ class Page : public QWebPage
   private Q_SLOTS:
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
+    void internalMessanger ( const QString & );
     void triggerSelections();
     void replyFinished();
 
