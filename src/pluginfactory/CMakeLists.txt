@@ -4,6 +4,7 @@ SET (subproject_SOURCES
   pluginfactory.cpp
   pluginsfinder.cpp
   plugin.cpp
+  webplugin.cpp
 )
 
 SET (subproject_HEADERS
@@ -13,6 +14,7 @@ SET (subproject_HEADERS
 
 SET (subproject_NOMOC_HEADERS
   plugin.h
+  webplugin.h
 )
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)

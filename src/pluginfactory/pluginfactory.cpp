@@ -21,10 +21,17 @@
 
 #include "pluginfactory.h"
 #include "pluginsfinder.h"
+#include "webplugin.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QSettings>
+#include <QtCore/QStringListIterator>
+
+/* QtGui */
+#include <QtGui/QLabel>
+#include <QtGui/QWidget>
+#include <QtGui/QVBoxLayout>
 
 PluginFactory::PluginFactory ( QObject * parent )
     : QWebPluginFactory ( parent )
@@ -32,7 +39,7 @@ PluginFactory::PluginFactory ( QObject * parent )
   setObjectName ( QLatin1String ( "pluginfactory" ) );
 
   QSettings cfg ( QSettings::NativeFormat, QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
-  pluginPath = cfg.value ( "webkit_plugin_path" ).toString();
+  pluginPath = cfg.value ( "webkit_plugin_path", "/usr/lib/browser-plugins" ).toString();
 
   if ( ! pluginPath.isEmpty() )
     registerPlugins();
@@ -40,8 +47,9 @@ PluginFactory::PluginFactory ( QObject * parent )
 
 void PluginFactory::registerPlugins()
 {
+  pluginsList.clear();
   PluginsFinder* m_pluginsFinder = new PluginsFinder ( pluginPath, this );
-  pluginsList << m_pluginsFinder->plugins();
+  pluginsList.append ( m_pluginsFinder->plugins() );
   delete m_pluginsFinder;
 }
 
@@ -49,12 +57,54 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
                                  const QStringList &argumentNames,
                                  const QStringList &argumentValues ) const
 {
-  // qDebug() << "TODO" << Q_FUNC_INFO << mimeType << url << argumentNames << argumentValues;
-  Q_UNUSED ( url )
-  Q_UNUSED ( argumentNames )
-  Q_UNUSED ( argumentValues )
-  qWarning ( "(XHTMLDBG) Currently no plugin support for \"%s\"", qPrintable ( mimeType ) );
-  return new QObject();
+  if ( mimeType.isEmpty() )
+    return new QObject();
+
+  QUrl::FormattingOptions urlformat ( QUrl::RemoveAuthority | QUrl::RemoveScheme
+                                      | QUrl::RemoveFragment | QUrl::RemoveQuery );
+
+  QString items ( "<p>Plugin</p>" );
+  items.append ( QString ( "type = %1<br />" ).arg ( mimeType ) );
+  items.append ( QString ( "source = %1<br />" ).arg ( url.toString ( urlformat ) ) );
+
+  QStringListIterator it ( argumentValues );
+  foreach ( QString p, argumentNames )
+  {
+    if ( ! p.isEmpty() && it.hasNext() )
+      items.append ( QString ( "%1 = %2<br />" ).arg ( p, it.next() ) );
+  }
+
+  QWidget* widget = new QWidget();
+  widget->setStyleSheet ( "background-color:#FFFFFF;" );
+  QVBoxLayout* layout = new QVBoxLayout ( widget );
+  QLabel* label = new QLabel ( widget );
+  label->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
+  label->setTextFormat ( Qt::RichText );
+  label->setText ( items );
+  layout->addWidget ( label );
+  widget->setLayout ( layout );
+  return widget;
+
+//   foreach ( QWebPluginFactory::Plugin plugin, plugins() )
+//   {
+//     int size = plugin.mimeTypes.size();
+//     if ( size >= 1 )
+//     {
+//       for ( int i = 0; i < size; i++ )
+//       {
+//         QString extension = url.toString( urlformat ).split( ".").last();
+//         qDebug() << Q_FUNC_INFO << mimeType << url << argumentNames << argumentValues;
+//         qDebug() << Q_FUNC_INFO << plugin.name  << extension << plugin.mimeTypes.at ( i ).fileExtensions;
+//         if ( plugin.mimeTypes.at ( i ).fileExtensions.contains ( extension ) )
+//         {
+//           QWidget* widget = new QWidget();
+//           widget->setStyleSheet( "background-color:yellow;" );
+//           return widget;
+//         }
+//       }
+//     }
+//   }
+//   return new QObject();
 }
 
 /**
@@ -67,10 +117,11 @@ QList<QWebPluginFactory::Plugin> PluginFactory::plugins () const
 
 void PluginFactory::refreshPlugins()
 {
-  pluginsList.clear();
   registerPlugins();
   QWebPluginFactory::refreshPlugins();
 }
 
 PluginFactory::~PluginFactory()
-{}
+{
+  pluginsList.clear();
+}

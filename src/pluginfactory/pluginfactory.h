@@ -23,6 +23,7 @@
 #define PluginFactory_H
 
 /* QtCore */
+#include <QtCore/QHash>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QString>

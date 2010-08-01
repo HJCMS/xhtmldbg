@@ -5,10 +5,21 @@
 # Copyright: See COPYING file that comes with this distribution
 #################################################################
 
-debug_build_target=$HOME/hjcms/xhtmldbg/build
+base=$HOME/hjcms/xhtmldbg
 
-MY_CFLAGS="-O3 -mtune=athlon-xp -march=i686 -mno-sse3 -ggdb3 -gstabs+"
-MY_CFLAGS="$MY_CFLAGS -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
+test -d "${base}" || {
+  base="`dirname $0`/"
+}
+
+debug_build_target=${base}/build
+
+if test "`hostname`" = "webmast" ; then
+TUNE="-O3 -mtune=athlon-xp -march=i686 -mno-sse3"
+else
+TUNE="-O2 -mtune=generic -march=`uname -i`"
+fi
+
+MY_CFLAGS="${TUNE} -ggdb3 -gstabs+ -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
 MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer"
 MY_CFLAGS="$MY_CFLAGS -funwind-tables -fasynchronous-unwind-tables -fexpensive-optimizations -pipe"
 
