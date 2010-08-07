@@ -72,6 +72,7 @@ class DomInspector;
 class HeaderDock;
 class CSSValidator;
 class XHtmldbgAdaptor;
+class XHtmldbgDbusInterface;
 class xhtmldbgplugger;
 
 namespace xhtmldbg
@@ -165,6 +166,8 @@ class Window : public QMainWindow
     CSSValidator* m_cssValidator;
     // Dbus Adaptor
     XHtmldbgAdaptor* m_xhtmldbgAdaptor;
+    // Dbus Interface
+    XHtmldbgDbusInterface* m_dbusInterface;
     // Plugin Interface
     xhtmldbgplugger* plugger;
     // Plugin Menu
@@ -205,6 +208,9 @@ class Window : public QMainWindow
     bool openUrl ( const QUrl & );
     // supported by DBus Adaptor
     bool setPageUrl ( const QUrl &, const QUrl & );
+    // supported by DBus Adaptor
+    bool urlRequest ( const QUrl & );
+
     void visibleSourceChanged();
     // used by QWebPage ...
     void downloadRequest ( const QNetworkRequest & );

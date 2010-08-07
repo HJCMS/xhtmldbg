@@ -25,6 +25,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
 #include <QtCore/QGenericReturnArgument>
+#include <QtCore/QRegExp>
 #include <QtCore/QUrl>
 
 XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject * parent )
@@ -48,6 +49,16 @@ bool XHtmldbgAdaptor::registerSubObject ( QObject * object )
   return m_bus->registerObject ( path, object, QDBusConnection::ExportAdaptors );
 }
 
+const QString XHtmldbgAdaptor::busService()
+{
+  return service;
+}
+
+const QDBusConnection XHtmldbgAdaptor::busConnection()
+{
+  return m_bus->sessionBus();
+}
+
 /**
 * Nachrichten übermittlung
 */
@@ -55,6 +66,22 @@ void XHtmldbgAdaptor::message ( const QString &mess )
 {
   QMetaObject::invokeMethod ( parent(), "setApplicationMessage",
                               Q_ARG ( QString, mess ), Q_ARG ( bool, false ) );
+}
+
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode Importiert.
+* Diese Methode öffnet sendet einen Dialog an die IDE und fragt zuerst!
+*/
+bool XHtmldbgAdaptor::open ( const QString &url )
+{
+  bool b = false;
+  QUrl u ( url, QUrl::StrictMode );
+  if ( u.isValid() && u.scheme().contains ( QRegExp ( "http|file" ) ) )
+  {
+    QMetaObject::invokeMethod ( parent(), "urlRequest", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    return b;
+  }
+  return false;
 }
 
 /**

@@ -51,6 +51,7 @@
 #include "geolocation.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
+#include "xhtmldbgdbusinterface.h"
 /* Interface */
 #include "xhtmldbgplugger.h"
 #include "xhtmldbgplugininfo.h"
@@ -80,6 +81,7 @@
 #include <QtGui/QIcon>
 #include <QtGui/QFileDialog>
 #include <QtGui/QKeySequence>
+#include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
 
 /* QtWebKit */
@@ -201,9 +203,17 @@ Window::Window ( QSettings * settings )
   // Design abschliessen
   setCentralWidget ( m_centralWidget );
 
-  // bei DBus anmelden
+  // bei DBus Adaptor anmelden
   m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
   m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
+
+  // DBus Interface Registrieren
+  QString busPath ( QLatin1String ( "/" ) );
+  QString busService = m_xhtmldbgAdaptor->busService();
+  QDBusConnection dbus = m_xhtmldbgAdaptor->busConnection();
+  m_dbusInterface = new XHtmldbgDbusInterface ( busService, busPath, dbus, this );
+  if ( ! dbus.isConnected () )
+    dbus.connect ( busService, busPath, busService, objectName(), this, "message" );
 
   // jetzt die Plugins laden
   // xhtmldbgplugger {
@@ -263,6 +273,10 @@ Window::Window ( QSettings * settings )
             m_statusBar, SLOT ( timerStatus ( int, int ) ) );
   connect ( m_autoReloader, SIGNAL ( reload () ),
             m_webViewer, SLOT ( refresh() ) );
+  // } AutoReload
+  // DBusInterface {
+  connect ( m_dbusInterface, SIGNAL ( message ( const QString & ) ),
+            this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } AutoReload
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome
@@ -562,8 +576,8 @@ void Window::createToolBars()
 */
 void Window::unregisterDatabases ()
 {
-  if ( QSqlDatabase::database ( QString::fromUtf8( "cookies" ), false ).isOpen() )
-    QSqlDatabase::database ( QString::fromUtf8( "cookies" ), false ).close();
+  if ( QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).isOpen() )
+    QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).close();
 }
 
 /**
@@ -921,6 +935,27 @@ bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
   }
   else
     return true;
+}
+
+/**
+* Öffne eine Seite mit @param url aber stelle zuerst eine Frage an den Nutzer.
+*/
+bool Window::urlRequest ( const QUrl &url )
+{
+  if ( ! url.isValid() )
+    return false;
+
+  QString text = trUtf8 ( "a Url Request from outsite.\nWould you like to load this \"%1\" Url?" )
+                 .arg ( url.toString() );
+  QMessageBox::StandardButton st;
+  st = QMessageBox::information ( this, trUtf8 ( "Url Request from Outsite" )
+                                  , text, ( QMessageBox::Ok | QMessageBox::Cancel )
+                                  , QMessageBox::Cancel );
+
+  if ( st == QMessageBox::Ok )
+    return openUrl ( url );
+
+  return false;
 }
 
 /**
