@@ -163,6 +163,7 @@ popd
 %{_datadir}/icons/oxygen/*/apps/xhtmldbg.svgz
 %{_datadir}/pixmaps/%{name}.xpm
 %{_datadir}/dbus-1/services/de.hjcms.xhtmldbg.service
+%{_datadir}/dbus-1/interfaces/de.hjcms.xhtmldbg.xml
 
 %post -n libxhtmldbg%{lt_version}
 /sbin/ldconfig

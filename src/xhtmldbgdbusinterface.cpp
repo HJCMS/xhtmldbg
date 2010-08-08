@@ -21,11 +21,16 @@
 
 #include "xhtmldbgdbusinterface.h"
 
+static inline const char* staticInterfaceName()
+{
+  return "de.hjcms.xhtmldbg";
+}
+
 XHtmldbgDbusInterface::XHtmldbgDbusInterface ( const QString &service,
         const QString &path, const QDBusConnection &connection, QObject* parent )
     : QDBusAbstractInterface ( service, path, staticInterfaceName(), connection, parent )
 {
-  setObjectName ( QLatin1String ( "de.hjcms.xhtmldbg" ) );
+  setObjectName ( staticInterfaceName() );
 }
 
 XHtmldbgDbusInterface::~XHtmldbgDbusInterface()

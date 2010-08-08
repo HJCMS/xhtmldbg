@@ -36,31 +36,6 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
     Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
-    Q_CLASSINFO ( "D-Bus Introspection", ""
-"<interface name=\"de.hjcms.xhtmldbg\" >\n"
-" <method name=\"message\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"mess\" />\n"
-"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"true\"/>\n"
-" </method>\n"
-" <method name=\"open\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"url\" />\n"
-"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"false\"/>\n"
-" </method>\n"
-" <method name=\"setUrl\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"oldUrl\" />\n"
-"   <arg direction=\"in\" type=\"s\" name=\"newUrl\" />\n"
-"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"false\"/>\n"
-" </method>\n"
-" <method name=\"setFile\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"url\" />\n"
-"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"false\"/>\n"
-" </method>\n"
-" <method name=\"setSource\">\n"
-"   <arg direction=\"in\" type=\"s\" name=\"xhtml\" />\n"
-"   <annotation name=\"org.freedesktop.DBus.Method.NoReply\" value=\"false\"/>\n"
-" </method>\n"
-"</interface>\n"
-"" )
 
   private:
     const QString service;

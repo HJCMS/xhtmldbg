@@ -1,9 +1,26 @@
 <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
 <node name="/de/hjcms/xhtmldbg">
-  <interface name="de.hjcms.xhtmldbg" >
-    <signal name="message">
-      <arg name="mess" direction="in" type="s" />
+  <interface name="de.hjcms.xhtmldbg">
+    <method name="message">
       <annotation name="org.freedesktop.DBus.Method.NoReply" value="true"/>
-    </signal>
+      <arg direction="in" type="s" name="mess" />
+    </method>
+    <method name="open">
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="false"/>
+      <arg direction="in" type="s" name="url" />
+    </method>
+    <method name="setUrl">
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="false"/>
+      <arg direction="in" type="s" name="oldUrl" />
+      <arg direction="in" type="s" name="newUrl" />
+    </method>
+    <method name="setFile">
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="false"/>
+      <arg direction="in" type="s" name="url" />
+    </method>
+    <method name="setSource">
+      <annotation name="org.freedesktop.DBus.Method.NoReply" value="false"/>
+      <arg direction="in" type="s" name="xhtml" />
+    </method>
   </interface>
 </node>

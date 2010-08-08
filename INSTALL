@@ -89,6 +89,8 @@ INSTALL_TREE:
         |-- applications
         |   `-- xhtmldbg.desktop
         |-- dbus-1
+        |   |-- interfaces
+        |   |   `-- de.hjcms.xhtmldbg.xml
         |   `-- services
         |       `-- de.hjcms.xhtmldbg.service
         |-- icons
@@ -142,10 +144,19 @@ INSTALL_TREE:
             |-- README
             |-- plugintemplate
             |   |-- CMakeLists.txt
-            |   |-- helloworld.*
-            |   |-- helloworldplugin.*
+            |   |-- helloworld.cpp
+            |   |-- helloworld.h
+            |   |-- helloworldplugin.cpp
+            |   `-- helloworldplugin.h
             |-- schemas
-            |   |-- *.xsd
-            |   |-- *.xsl
-            |   `-- *.dtd
+            |   |-- XMLSchema.dtd
+            |   |-- XMLSchema.xsd
+            |   |-- atom-1.0.xsd
+            |   |-- datatypes.dtd
+            |   |-- metalink-3.0.dtd
+            |   |-- metalink-3.0.xsd
+            |   |-- rss-2.0.xsd
+            |   |-- xml.xsd
+            |   |-- xsd.xsl
+            |   `-- xslt10.dtd
             `-- xhtmldbg_untranslated.ts

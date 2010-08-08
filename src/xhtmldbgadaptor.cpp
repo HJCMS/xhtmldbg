@@ -49,11 +49,17 @@ bool XHtmldbgAdaptor::registerSubObject ( QObject * object )
   return m_bus->registerObject ( path, object, QDBusConnection::ExportAdaptors );
 }
 
+/**
+* Den Aktuellen D-Bus Service zurück geben!
+*/
 const QString XHtmldbgAdaptor::busService()
 {
   return service;
 }
 
+/**
+* Aktuelle D-Bus Verbindung zurück geben!
+*/
 const QDBusConnection XHtmldbgAdaptor::busConnection()
 {
   return m_bus->sessionBus();

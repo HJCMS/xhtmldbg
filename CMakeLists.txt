@@ -101,13 +101,15 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   SET (__CHECK_LINK_RDYNAMIC ${__CHECK_LINK_RDYNAMIC} CACHE BOOL "compiler support for -rdynamic")
 
   # get the gcc version
-  EXEC_PROGRAM (${CMAKE_C_COMPILER} ARGS --version OUTPUT_VARIABLE _gcc_version_info)
+  EXECUTE_PROCESS (COMMAND ${CMAKE_C_COMPILER} --version OUTPUT_VARIABLE _gcc_version_info)
 
   STRING (REGEX MATCH "[345]\\.[0-9]\\.[0-9]" _gcc_version "${_gcc_version_info}")
   # gcc on mac just reports: "gcc (GCC) 3.3 20030304 ..." without the patch level, handle this here:
   IF (NOT _gcc_version)
     STRING (REGEX REPLACE ".*\\(GCC\\).* ([34]\\.[0-9]) .*" "\\1.0" _gcc_version "${_gcc_version_info}")
   ENDIF (NOT _gcc_version)
+
+  MESSAGE (STATUS "Found GCC : ${_gcc_version}")
 
   MACRO_ENSURE_VERSION ("4.1.0" "${_gcc_version}" GCC_IS_NEWER_THAN_4_1)
   MACRO_ENSURE_VERSION ("4.2.0" "${_gcc_version}" GCC_IS_NEWER_THAN_4_2)
@@ -211,20 +213,39 @@ SET (PARSER_SCHEME_PATH
 )
 
 ##############################################################
-## D-Bus-1
+## D-Bus-1 Service Directory
 ##############################################################
 
-EXEC_PROGRAM (${PKG_CONFIG_EXECUTABLE}
-  ARGS "--variable=session_bus_services_dir dbus-1"
-  OUTPUT_VARIABLE DBUS_SESSION_BUS_SERVICES_DIR
+EXECUTE_PROCESS (
+  COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=session_bus_services_dir dbus-1
+  OUTPUT_VARIABLE _dbus_services_dir
+  RESULT_VARIABLE _dbus_services_dir_failed
 )
+
+FIND_PATH (DBUS_DATA_INSTALL_DIR services interfaces
+  PATHS
+  /usr/share/dbus-1
+  /usr/local/share/dbus-1
+  ${_dbus_services_dir}
+  $ENV{KDEDIRS}"/share/dbus-1"
+  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share/dbus-1"
+  DOC "Find D-Bus Services Directory"
+)
+
+IF (NOT DBUS_DATA_INSTALL_DIR)
+  MESSAGE (FATAL_ERROR "Can not find D-Bus data Directory for interface and service files")
+ENDIF(NOT DBUS_DATA_INSTALL_DIR)
 
 CONFIGURE_FILE (de.hjcms.xhtmldbg.service.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 )
 
 INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
-  DESTINATION ${DBUS_SESSION_BUS_SERVICES_DIR}
+  DESTINATION ${DBUS_DATA_INSTALL_DIR}/services
+)
+
+INSTALL (FILES de.hjcms.xhtmldbg.xml
+  DESTINATION ${DBUS_DATA_INSTALL_DIR}/interfaces
 )
 
 ##############################################################
@@ -251,7 +272,9 @@ FIND_FILE (CSS_VALIDATOR_JAR
   NAMES css-validator.jar w3c-css-validator.jar
   PATHS
     /usr/share/java
-    /usr/local/share/java
+    /usr/share/java/w3c-css-validator
+    /usr/local/share
+    /usr/local/share/w3c-css-validator
     /usr/lib/java
     /var/lib/java
     /opt/w3c-css-validator
