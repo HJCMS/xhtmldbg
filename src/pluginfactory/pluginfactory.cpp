@@ -60,22 +60,21 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
   if ( mimeType.isEmpty() )
     return new QObject();
 
-  QUrl::FormattingOptions urlformat ( QUrl::RemoveAuthority | QUrl::RemoveScheme
-                                      | QUrl::RemoveFragment | QUrl::RemoveQuery );
-
-  QString items ( "<p>Plugin</p>" );
-  items.append ( QString ( "type = %1<br />" ).arg ( mimeType ) );
-  items.append ( QString ( "source = %1<br />" ).arg ( url.toString ( urlformat ) ) );
+  QString items = QString ( "<dl style=\"overflow:auto;\"><dt>(XHTMLDBG) %1</dt>" )
+                  .arg ( trUtf8 ( "Plugin found and initiated with predicates:" ) );
+  items.append ( QString ( "<dd>type = %1</dd>" ).arg ( mimeType ) );
+  items.append ( QString ( "<dd>source = %1</dd>" ).arg ( url.toString () ) );
 
   QStringListIterator it ( argumentValues );
   foreach ( QString p, argumentNames )
   {
     if ( ! p.isEmpty() && it.hasNext() )
-      items.append ( QString ( "%1 = %2<br />" ).arg ( p, it.next() ) );
+      items.append ( QString ( "<dd>%1 = %2</dd>" ).arg ( p, it.next() ) );
   }
+  items.append ( "</dl>" );
 
   QWidget* widget = new QWidget();
-  widget->setStyleSheet ( "background-color:#FFFFFF;" );
+  widget->setStyleSheet ( "background-color:#FFFFCC;" );
   QVBoxLayout* layout = new QVBoxLayout ( widget );
   QLabel* label = new QLabel ( widget );
   label->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
