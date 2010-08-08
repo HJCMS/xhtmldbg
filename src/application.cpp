@@ -118,7 +118,7 @@ bool Application::startUniqueServer()
   }
 
   QString open = arguments().last();
-  if ( open.contains ( QRegExp ( "^(http|file)://" ) ) )
+  if ( open.contains ( QRegExp ( "^(http[s]?|file)://" ) ) )
     sendMessage ( open.toUtf8(), 500 );
 
   return b;

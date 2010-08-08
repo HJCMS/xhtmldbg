@@ -45,6 +45,9 @@ PluginFactory::PluginFactory ( QObject * parent )
     registerPlugins();
 }
 
+/**
+* Schreibe alle gefundenen Plugins NEU in die Liste.
+*/
 void PluginFactory::registerPlugins()
 {
   pluginsList.clear();
@@ -53,6 +56,14 @@ void PluginFactory::registerPlugins()
   delete m_pluginsFinder;
 }
 
+/**
+* @note Im Moment werden keine Plugins Initialsiert!
+* Der Grund liegt beim WebKit Plugin Interface und das
+* Probelm das wenn ein Plugin einen Fehler ausgibt das
+* ganze Programm abstürzt :-/
+* Deshalb wird im Moment nur ein QWidget mit den Prädikat
+* Informationen ausgegeben!
+*/
 QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
                                  const QStringList &argumentNames,
                                  const QStringList &argumentValues ) const
@@ -114,6 +125,9 @@ QList<QWebPluginFactory::Plugin> PluginFactory::plugins () const
   return pluginsList;
 }
 
+/**
+* Abgeleitete Methode von QWebKit zum neu einlesen der Plugins.
+*/
 void PluginFactory::refreshPlugins()
 {
   registerPlugins();

@@ -1918,6 +1918,14 @@ Gründe : </translation>
     </message>
 </context>
 <context>
+    <name>PluginFactory</name>
+    <message>
+        <location filename="../src/pluginfactory/pluginfactory.cpp" line="75"/>
+        <source>Plugin found and initiated with predicates:</source>
+        <translation>Plugin mit den folgenden Prädikaten Initialisiert:</translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../src/bookmark/bookmarktreereader.cpp" line="94"/>
@@ -2692,6 +2700,14 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <location filename="../src/window.cpp" line="820"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
+    </message>
+</context>
+<context>
+    <name>XHtmldbgAdaptor</name>
+    <message>
+        <location filename="../src/xhtmldbgadaptor.cpp" line="90"/>
+        <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
+        <translation>(XHTMLDBG) FTP Anfrage &quot;%1&quot; Zurückgewiesen!</translation>
     </message>
 </context>
 <context>

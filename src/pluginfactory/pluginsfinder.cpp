@@ -34,6 +34,9 @@ PluginsFinder::PluginsFinder ( const QString &path, QObject * parent )
     qWarning ( "(XHTMLDBG) Can not open Plugin \"%s\" Directory", qPrintable ( path ) );
 }
 
+/**
+* Erstellt eine List mit allen auffindbaren Netscape Plugins
+*/
 QList<QWebPluginFactory::Plugin> PluginsFinder::plugins()
 {
   QList<QWebPluginFactory::Plugin> list;

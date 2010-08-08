@@ -1910,6 +1910,14 @@ Reasons : </source>
     </message>
 </context>
 <context>
+    <name>PluginFactory</name>
+    <message>
+        <location filename="../src/pluginfactory/pluginfactory.cpp" line="75"/>
+        <source>Plugin found and initiated with predicates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>QObject</name>
     <message>
         <location filename="../src/bookmark/bookmarktreereader.cpp" line="94"/>
@@ -2682,6 +2690,14 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location filename="../src/window.cpp" line="820"/>
         <source>Open HTML File</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XHtmldbgAdaptor</name>
+    <message>
+        <location filename="../src/xhtmldbgadaptor.cpp" line="90"/>
+        <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

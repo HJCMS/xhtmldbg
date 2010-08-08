@@ -76,10 +76,19 @@ bool XHtmldbgAdaptor::open ( const QString &url )
 {
   bool b = false;
   QUrl u ( url, QUrl::StrictMode );
-  if ( u.isValid() && u.scheme().contains ( QRegExp ( "http|file" ) ) )
+  if ( u.isValid() && u.scheme().contains ( "http" ) )
   {
     QMetaObject::invokeMethod ( parent(), "urlRequest", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
     return b;
+  }
+  else if ( u.isValid() && u.scheme().contains ( "file" ) )
+  {
+    return setFile ( u.toString ( QUrl::RemoveScheme ) );
+  }
+  else if ( u.isValid() && u.scheme().contains ( "ftp" ) )
+  {
+    message ( trUtf8 ( "(XHTMLDBG) Reject \"%1\" FTP request!" ).arg ( u.toString() ) );
+    return false;
   }
   return false;
 }
@@ -100,6 +109,10 @@ bool XHtmldbgAdaptor::setUrl ( const QString &oldUrl, const QString &newUrl )
     QMetaObject::invokeMethod ( parent(), "setPageUrl", Q_RETURN_ARG ( bool, b ),
                                 Q_ARG ( QUrl, old ), Q_ARG ( QUrl, info ) );
     return b;
+  }
+  else if ( info.isValid() && info.scheme().contains ( "file" ) )
+  {
+    return setFile ( info.toString ( QUrl::RemoveScheme ) );
   }
   return false;
 }
