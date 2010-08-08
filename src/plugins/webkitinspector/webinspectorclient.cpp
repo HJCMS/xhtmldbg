@@ -68,7 +68,7 @@ void WebInspectorClient::updateWebSettings()
   wcfg->setLocalStoragePath ( storagePath );
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
   wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, true );
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
   wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
   wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
   wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );

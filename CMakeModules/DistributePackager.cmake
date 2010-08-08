@@ -1,0 +1,20 @@
+##############################################################
+## Packager Section
+##############################################################
+SET (CPACK_PACKAGE_NAME ${CMAKE_PROJECT_NAME})
+SET (CPACK_PACKAGE_DESCRIPTION_SUMMARY "a XHTML/HTML Debugger for Web Development")
+SET (CPACK_PACKAGE_VERSION_MAJOR ${XHTMLDBG_VERSION_MAJOR})
+SET (CPACK_PACKAGE_VERSION_MINOR ${XHTMLDBG_VERSION_MINOR})
+SET (CPACK_PACKAGE_VERSION_PATCH "${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
+SET (CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
+SET (CPACK_PACKAGE_CONTACT "Juergen Heinemann (Undefined) http://www.hjcms.de")
+SET (CPACK_PACKAGE_LICENSE "GPLv3 LGPLv2+")
+SET (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/src/icons/qtidy.png")
+
+CONFIGURE_FILE (xhtmldbg.spec.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.spec
+)
+
+INCLUDE (CPack)
+
+##EOF

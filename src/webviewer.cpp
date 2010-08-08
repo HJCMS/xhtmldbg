@@ -101,11 +101,8 @@ void WebViewer::updateWebSettings()
 
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
 
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled,
-                       cfg->value ( QLatin1String ( "OfflineStorageDatabaseEnabled" ), false ).toBool() );
-
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled,
-                       cfg->value ( QLatin1String ( "OfflineWebApplicationCacheEnabled" ), false ).toBool() );
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
 
   // Until QtWebkit defaults to 16
   wcfg->setFontSize ( QWebSettings::DefaultFontSize,
