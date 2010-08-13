@@ -181,7 +181,7 @@ void Viewer::cursorwait ()
 */
 void Viewer::cursorFinished ( bool )
 {
-  if ( page()->bytesReceived() >= ( page()->totalBytes() - 10 ) )
+  if ( page()->bytesReceived() >= 1000 )
   {
     setCursor ( Qt::ArrowCursor );
     emit totalBytes ( page()->bytesReceived() );

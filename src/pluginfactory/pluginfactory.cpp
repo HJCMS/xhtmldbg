@@ -29,7 +29,7 @@
 #include <QtCore/QStringListIterator>
 
 /* QtGui */
-#include <QtGui/QLabel>
+#include <QtGui/QTextEdit>
 #include <QtGui/QWidget>
 #include <QtGui/QVBoxLayout>
 
@@ -71,7 +71,7 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
   if ( mimeType.isEmpty() )
     return new QObject();
 
-  QString items = QString ( "<dl style=\"overflow:auto;\"><dt>(XHTMLDBG) %1</dt>" )
+  QString items = QString ( "<dl><dt>(XHTMLDBG) %1</dt>" )
                   .arg ( trUtf8 ( "Plugin found and initiated with predicates:" ) );
   items.append ( QString ( "<dd>type = %1</dd>" ).arg ( mimeType ) );
   items.append ( QString ( "<dd>source = %1</dd>" ).arg ( url.toString () ) );
@@ -85,13 +85,11 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
   items.append ( "</dl>" );
 
   QWidget* widget = new QWidget();
-  widget->setStyleSheet ( "background-color:#FFFFCC;" );
   QVBoxLayout* layout = new QVBoxLayout ( widget );
-  QLabel* label = new QLabel ( widget );
-  label->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
-  label->setTextFormat ( Qt::RichText );
-  label->setText ( items );
-  layout->addWidget ( label );
+  QTextEdit* textedit = new QTextEdit ( widget );
+  textedit->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
+  textedit->insertHtml ( items );
+  layout->addWidget ( textedit );
   widget->setLayout ( layout );
   return widget;
 
