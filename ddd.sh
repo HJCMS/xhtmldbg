@@ -53,6 +53,7 @@ case "$1" in
 
   ## full debug with ddd
   full)
+    export FC_DEBUG=1
     export QDBUS_DEBUG=1
     export QT_LAYOUT_DEBUG=1
     /usr/bin/ddd -x --directory=${base} ${base}/build/app/xhtmldbg

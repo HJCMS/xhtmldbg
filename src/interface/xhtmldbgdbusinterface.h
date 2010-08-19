@@ -19,19 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "xhtmldbgdbusinterface.h"
+#ifndef XHTMLDBGDBUSINTERFACE_H
+#define XHTMLDBGDBUSINTERFACE_H
 
-static inline const char* staticInterfaceName()
+/* QtCore */
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
+/* QtDBus */
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusConnection>
+
+class XHtmldbgDbusInterface: public QDBusInterface
 {
-  return "de.hjcms.xhtmldbg";
-}
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
-XHtmldbgDbusInterface::XHtmldbgDbusInterface ( const QString &service,
-        const QString &path, const QDBusConnection &connection, QObject* parent )
-    : QDBusAbstractInterface ( service, path, staticInterfaceName(), connection, parent )
-{
-  setObjectName ( staticInterfaceName() );
-}
+  protected:
+    const QString interface;
+    const QDBusConnection bus;
 
-XHtmldbgDbusInterface::~XHtmldbgDbusInterface()
-{}
+  Q_SIGNALS:
+    void message ( const QString &mess );
+
+  public:
+    XHtmldbgDbusInterface ( const QString &iface,
+                            const QDBusConnection &dbus,
+                            QObject *parent = 0 );
+
+    virtual ~XHtmldbgDbusInterface();
+};
+
+#endif
+

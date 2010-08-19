@@ -56,6 +56,10 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+#include <QtDBus/QDBusInterface>
+
 namespace xhtmldbg
 {
   /**
@@ -136,6 +140,15 @@ namespace xhtmldbg
       * \param a Author default: Unknown
       */
       void setAuthor ( const QString &a = QLatin1String ( "Unknown" ) );
+
+      /** DBus Interface
+      * \param interface Interface Name
+      * \param dbus      your QDBus Connection
+      * \param parent    Object Referense
+      */
+      QDBusInterface* dbusInterface ( const QString &interface,
+                                      const QDBusConnection &dbus,
+                                      QObject * parent );
 
   }; /* eof plugininfo */
 

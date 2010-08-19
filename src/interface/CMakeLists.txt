@@ -18,11 +18,13 @@ SET (xhtmldbginterface_HEADERS
 SET (interface_SOURCES
   xhtmldbgplugininfo.cpp
   xhtmldbgplugger.cpp
+  xhtmldbgdbusinterface.cpp
 )
 
 SET (interface_HEADERS
   xhtmldbgplugininfo.h
   xhtmldbgplugger.h
+  xhtmldbgdbusinterface.h
   ${xhtmldbginterface_HEADERS}
 )
 
@@ -52,6 +54,7 @@ TARGET_LINK_LIBRARIES (xhtmldbginterface
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
+  ${QT_QTDBUS_LIBRARY}
 )
 
 INSTALL (TARGETS xhtmldbginterface

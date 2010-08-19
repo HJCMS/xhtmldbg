@@ -51,7 +51,6 @@
 #include "geolocation.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
-#include "xhtmldbgdbusinterface.h"
 /* Interface */
 #include "xhtmldbgplugger.h"
 #include "xhtmldbgplugininfo.h"
@@ -207,14 +206,6 @@ Window::Window ( QSettings * settings )
   m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
   m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
 
-  // DBus Interface Registrieren
-  QString busPath ( QLatin1String ( "/" ) );
-  QString busService = m_xhtmldbgAdaptor->busService();
-  QDBusConnection dbus = m_xhtmldbgAdaptor->busConnection();
-  m_dbusInterface = new XHtmldbgDbusInterface ( busService, busPath, dbus, this );
-  if ( ! dbus.isConnected () )
-    dbus.connect ( busService, busPath, busService, objectName(), this, "message" );
-
   // jetzt die Plugins laden
   // xhtmldbgplugger {
   registerPlugins();
@@ -273,10 +264,6 @@ Window::Window ( QSettings * settings )
             m_statusBar, SLOT ( timerStatus ( int, int ) ) );
   connect ( m_autoReloader, SIGNAL ( reload () ),
             m_webViewer, SLOT ( refresh() ) );
-  // } AutoReload
-  // DBusInterface {
-  connect ( m_dbusInterface, SIGNAL ( message ( const QString & ) ),
-            this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } AutoReload
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome

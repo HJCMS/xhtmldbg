@@ -72,7 +72,6 @@ class DomInspector;
 class HeaderDock;
 class CSSValidator;
 class XHtmldbgAdaptor;
-class XHtmldbgDbusInterface;
 class xhtmldbgplugger;
 
 namespace xhtmldbg
@@ -166,8 +165,6 @@ class Window : public QMainWindow
     CSSValidator* m_cssValidator;
     // Dbus Adaptor
     XHtmldbgAdaptor* m_xhtmldbgAdaptor;
-    // Dbus Interface
-    XHtmldbgDbusInterface* m_dbusInterface;
     // Plugin Interface
     xhtmldbgplugger* plugger;
     // Plugin Menu

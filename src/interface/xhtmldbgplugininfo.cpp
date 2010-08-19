@@ -20,6 +20,7 @@
 **/
 
 #include "xhtmldbgplugininfo.h"
+#include "xhtmldbgdbusinterface.h"
 
 namespace xhtmldbg
 {
@@ -106,6 +107,15 @@ namespace xhtmldbg
   void PluginInfo::setAuthor ( const QString &a )
   {
     Author = a;
+  }
+
+  /**
+  * Gibt die DBus Interface Schnittstelle zurück
+  */
+  QDBusInterface* PluginInfo::dbusInterface ( const QString &interface,
+          const QDBusConnection &dbus, QObject * parent )
+  {
+    return new XHtmldbgDbusInterface ( interface, dbus, parent );
   }
 
 } /* eof namespace xhtmldbg */

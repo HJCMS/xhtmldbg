@@ -83,7 +83,6 @@ SET (xhtmldbg_SOURCES
   xhtmldbgadaptor.cpp
   zoombar.cpp
   geolocation.cpp
-  xhtmldbgdbusinterface.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -109,7 +108,6 @@ SET (xhtmldbg_HEADERS
   xhtmldbgadaptor.h
   zoombar.h
   geolocation.h
-  xhtmldbgdbusinterface.h
 )
 
 SET (xhtmldbg_NOMOC
