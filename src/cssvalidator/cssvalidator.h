@@ -76,7 +76,8 @@ class CSSValidator : public QDockWidget
     void criticalItem ( const QString & );
     void errors ( QProcess::ProcessError );
     void exited ( int, QProcess::ExitStatus );
-    void readStandardReply ();
+    void readStandardReply();
+    void shutdownProcess();
 
   protected:
     void contextMenuEvent ( QContextMenuEvent * );

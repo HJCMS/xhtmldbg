@@ -111,7 +111,7 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
 
   // Kontext Menü Aktionen
   connect ( m_menu, SIGNAL ( check() ), m_validator, SLOT ( validate() ) );
-  connect ( m_menu, SIGNAL ( dropout() ), m_validator, SLOT ( kill() ) );
+  connect ( m_menu, SIGNAL ( dropout() ), this, SLOT ( shutdownProcess() ) );
   connect ( m_menu, SIGNAL ( ascending() ), this, SLOT ( sortAscending() ) );
   connect ( m_menu, SIGNAL ( descending() ), this, SLOT ( sortDescending() ) );
   connect ( m_menu, SIGNAL ( clearlist() ), this, SLOT ( clearItems() ) );
@@ -207,6 +207,7 @@ void CSSValidator::processTriggered()
   clearItems();
   QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( usedUrl );
   placeUrlItem ( message, QUrl ( usedUrl ) );
+  m_menu->enableKillProcessAction ( m_validator->isRunning() );
 }
 
 /**
@@ -402,13 +403,13 @@ void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
 
     case QProcess::CrashExit:
       criticalItem ( trUtf8 ( "Crashed see logfiles" ) );
-      m_validator->close();
+      shutdownProcess();
       break;
 
     default:
       return;
   }
-  m_validator->close();
+  shutdownProcess();
 }
 
 /**
@@ -453,7 +454,22 @@ void CSSValidator::readStandardReply ()
       m_validator->closeReadChannel ( QProcess::StandardOutput );
 
     setCursor ( Qt::ArrowCursor );
+    m_menu->enableKillProcessAction ( false );
   }
+}
+
+/**
+* Einen laufenden Prozess beenden und die Liste leeren.
+* Danach das Abbrechen Menü deaktivieren.
+*/
+void CSSValidator::shutdownProcess()
+{
+  if ( m_validator->isRunning() )
+  {
+    m_validator->closeReadChannel ( QProcess::StandardOutput );
+    clearItems();
+  }
+  m_menu->enableKillProcessAction ( false );
 }
 
 CSSValidator::~CSSValidator()

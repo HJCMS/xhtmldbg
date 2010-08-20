@@ -54,6 +54,7 @@ class ValidatorMenu : public QMenu
 
   public Q_SLOTS:
     void enableCheckUrlAction ( bool b = false );
+    void enableKillProcessAction ( bool b = false );
 
   public:
     ValidatorMenu ( QWidget * parent = 0 );

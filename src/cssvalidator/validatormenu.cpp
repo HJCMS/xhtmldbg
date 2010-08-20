@@ -41,6 +41,7 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   // Sofort Abbrechen (killen)
   aDropout = addAction ( QIcon::fromTheme ( QLatin1String ( "run-build-prune" ) ), trUtf8 ( "Dropout" ) );
   aDropout->setToolTip ( trUtf8 ( "Dropout current request" ) );
+  aDropout->setEnabled ( false );
   connect ( aDropout, SIGNAL ( triggered() ), this, SIGNAL ( dropout() ) );
 
   // Aufsteigend sortieren
@@ -60,9 +61,20 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   connect ( aClearItem, SIGNAL ( triggered() ), this, SIGNAL ( clearlist() ) );
 }
 
+/**
+* Aktiviere das Menü nur wenn die URL Valide ist.
+*/
 void ValidatorMenu::enableCheckUrlAction ( bool b )
 {
   aCheck->setEnabled ( b );
+}
+
+/**
+* Aktiviere das Menü nur wenn ein Prozess am laufen ist.
+*/
+void ValidatorMenu::enableKillProcessAction ( bool b )
+{
+  aDropout->setEnabled ( b );
 }
 
 ValidatorMenu::~ValidatorMenu()

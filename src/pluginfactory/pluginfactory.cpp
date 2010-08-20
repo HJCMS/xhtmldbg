@@ -89,6 +89,7 @@ QObject* PluginFactory::create ( const QString &mimeType, const QUrl &url,
   QTextEdit* textedit = new QTextEdit ( widget );
   textedit->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
   textedit->insertHtml ( items );
+  textedit->setReadOnly ( true );
   layout->addWidget ( textedit );
   widget->setLayout ( layout );
   return widget;
