@@ -231,7 +231,8 @@ void xhtmldbgmain::printOptionsHelp() const
   txt << trUtf8 ( " Examples:" );
   txt << QString::fromUtf8 ( "  xhtmldbg http://www.hjcms.de" );
   txt << QString::fromUtf8 ( "  xhtmldbg --savemode" );
-  std::cout << txt.join ( "\n" ).toStdString() << std::endl;
+  std::string info = txt.join ( "\n" ).toStdString();
+  std::cout << info << std::endl;
 }
 
 /**
