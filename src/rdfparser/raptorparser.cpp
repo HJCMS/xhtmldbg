@@ -21,6 +21,7 @@
 
 #include "raptorparser.h"
 
+#include <cstring>
 #include <limits.h>
 
 /* Raptor */
@@ -45,7 +46,7 @@ class RaptorInitHelper
     }
 };
 
-void raptorMessanger ( void* ptr, raptor_locator* locator, const char* message )
+inline void raptorMessanger ( void* ptr, raptor_locator* locator, const char* message )
 {
   RaptorParser* p = static_cast<RaptorParser*> ( ptr );
   if ( locator )

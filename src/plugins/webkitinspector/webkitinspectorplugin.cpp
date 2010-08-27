@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QtPlugin>
 
 bool WebKitInspectorPlugin::create ( QWidget * parent )
 {

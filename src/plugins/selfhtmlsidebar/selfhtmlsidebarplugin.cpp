@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QtPlugin>
 
 bool SelfHtmlSidebarPlugin::create ( QWidget * parent )
 {

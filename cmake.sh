@@ -4,38 +4,6 @@
 #
 # Copyright: See COPYING file that comes with this distribution
 #################################################################
-# -pipe
-# -Wall
-# -W
-# -Wextra
-# -Wno-inline
-# -Wvla
-# -Wundef
-# -Wformat=2
-# -Wlogical-op
-# -Wsign-compare
-# -Wformat-security
-# -Wmissing-include-dirs
-# -Wformat-nonliteral
-# -Wold-style-definition
-# -Wpointer-arith
-# -Winit-self
-# -Wdeclaration-after-statement
-# -Wfloat-equal
-# -Wmissing-prototypes
-# -Wstrict-prototypes
-# -Wredundant-decls
-# -Wmissing-declarations
-# -Wmissing-noreturn
-# -Wshadow
-# -Wendif-labels
-# -Wcast-align
-# -Wstrict-aliasing=2
-# -Wwrite-strings
-# -Wp,-D_FORTIFY_SOURCE=2
-# -ffast-math
-# -fno-common
-# -fdiagnostics-show-option
 
 base=$HOME/hjcms/xhtmldbg
 
@@ -53,10 +21,8 @@ fi
 
 ##-Wfloat-equal
 MY_CFLAGS="${TUNE} -ggdb3 -gstabs+ -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
-MY_CFLAGS="$MY_CFLAGS -Wwrite-strings -Wlogical-op -Wmissing-include-dirs -Wwrite-strings -Wp,-D_FORTIFY_SOURCE=2"
-MY_CFLAGS="$MY_CFLAGS -Wmissing-declarations -Wshadow"
-MY_CFLAGS="$MY_CFLAGS -ffast-math -fstrict-aliasing -finline-functions -fomit-frame-pointer"
-MY_CFLAGS="$MY_CFLAGS -funwind-tables -fasynchronous-unwind-tables -fexpensive-optimizations -pipe"
+MY_CFLAGS="$MY_CFLAGS -Wlogical-op -Wmissing-declarations -ffast-math -fstrict-aliasing -finline-functions"
+MY_CFLAGS="$MY_CFLAGS -fomit-frame-pointer -funwind-tables -fasynchronous-unwind-tables -fexpensive-optimizations -pipe"
 
 INSTALL_DESTDIR="`mktemp --tmpdir=/tmp xhtmldbg.XXXXXXXXXX`"
 
