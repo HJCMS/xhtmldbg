@@ -40,6 +40,13 @@ int main ( int argc, char *argv[] )
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
 
+  if ( app.arguments().contains ( QLatin1String ( "--help" ) )
+          || app.arguments().contains ( QLatin1String ( "-h" ) ) )
+  {
+    app.printOptionsHelp();
+    return EXIT_SUCCESS;
+  }
+
   QStringList trPaths ( QCoreApplication::applicationDirPath() );
   trPaths << QLibraryInfo::location ( QLibraryInfo::TranslationsPath );
 

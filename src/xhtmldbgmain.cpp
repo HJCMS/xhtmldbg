@@ -24,6 +24,7 @@
 #endif
 #include "xhtmldbgmain.h"
 
+#include <iostream>
 #include <cstdlib>
 
 #include <QtCore/QCoreApplication>
@@ -43,7 +44,9 @@
 #include <QtGui/QIcon>
 #include <QtGui/QDesktopServices>
 
-xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv )
+xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
+    : Application ( argc, argv )
+    , activeWindow ( 0 )
 {
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( "xhtmldbg" );
@@ -53,6 +56,14 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv ) : Application ( argc, argv
   // Settings
   m_settings = new QSettings ( QSettings::NativeFormat, QSettings::UserScope,
                                organizationDomain(), objectName(), this );
+
+  if ( arguments().contains ( QLatin1String ( "--savemode" ), Qt::CaseInsensitive ) )
+  {
+    qWarning ( "(XHTMLDBG) Starting in savemode" );
+    m_settings->setValue ( QLatin1String ( "RecentUrl" ), QVariant ( "http://www.hjcms.de" ) );
+    m_settings->setValue ( QLatin1String ( "PluginsEnabled" ), false );
+    m_settings->remove ( QLatin1String ( "webkit_plugin_path" ) );
+  }
 
   /**
   * BUG KDE4 >= 4.4*
@@ -167,7 +178,7 @@ void xhtmldbgmain::sMessageReceived ( QLocalSocket* socket )
     winid = QString ( QLatin1String ( "%1" ) ).arg ( ( qlonglong ) mainWindow()->winId() );
 #endif
     setWindowFocus();
-    QString message = QLatin1String ( "xhtmldbg://winid/" ) + winid;
+    message = QLatin1String ( "xhtmldbg://winid/" ) + winid;
     socket->write ( message.toUtf8() );
     socket->waitForBytesWritten();
     return;
@@ -195,8 +206,6 @@ Window* xhtmldbgmain::mainWindow()
 {
   cleanWindows();
 
-  Window *activeWindow = 0;
-
   if ( m_windows.isEmpty() )
   {
     activeWindow = newMainWindow();
@@ -211,7 +220,24 @@ Window* xhtmldbgmain::mainWindow()
   return activeWindow;
 }
 
-const QString xhtmldbgmain::getArgumentUrl ( const QString &str )
+/**
+* Komandozeilen Hilfe ausdrucken!
+*/
+void xhtmldbgmain::printOptionsHelp() const
+{
+  QStringList txt;
+  txt << QString::fromUtf8 ( " %1: xhtmldbg {--savemode} <url>" ).arg ( trUtf8 ( "Usage" ) );
+  txt << QString::fromUtf8 ( "  --savemode\t(%1)" ).arg ( trUtf8 ( "Disable Plugins and loading the Default Url" ) );
+  txt << trUtf8 ( " Examples:" );
+  txt << QString::fromUtf8 ( "  xhtmldbg http://www.hjcms.de" );
+  txt << QString::fromUtf8 ( "  xhtmldbg --savemode" );
+  std::cout << txt.join ( "\n" ).toStdString() << std::endl;
+}
+
+/**
+* Sucht nach der existens einer file:// URL Datei
+*/
+const QString xhtmldbgmain::getArgumentUrl ( const QString &str ) const
 {
   if ( QFile::exists ( str ) )
   {

@@ -96,10 +96,13 @@ CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
   connect ( m_validator, SIGNAL ( criticalError ( const QString & ) ),
             this, SLOT ( criticalItem ( const QString & ) ) );
 
-  connect ( m_validator, SIGNAL ( started() ), this, SLOT ( processTriggered() ) );
+  connect ( m_validator, SIGNAL ( started() ),
+            this, SLOT ( processTriggered() ) );
 
   // Signale der XML Analyse
-  connect ( m_soupReader, SIGNAL ( beginParsed () ), this, SLOT ( clearItems () ) );
+  connect ( m_soupReader, SIGNAL ( beginParsed () ),
+            this, SLOT ( clearItems () ) );
+
   connect ( m_soupReader, SIGNAL ( parserError ( const QString & ) ),
             this, SLOT ( criticalItem ( const QString & ) ) );
 

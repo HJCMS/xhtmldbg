@@ -46,11 +46,12 @@ class xhtmldbgmain : public Application
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
+    Window* activeWindow;
     QSettings* m_settings;
     QList<QPointer<Window> > m_windows;
     void setWindowFocus();
     void cleanWindows();
-    const QString getArgumentUrl ( const QString & );
+    const QString getArgumentUrl ( const QString & ) const;
 
   private Q_SLOTS:
     void sMessageReceived ( QLocalSocket* socket );
@@ -59,6 +60,7 @@ class xhtmldbgmain : public Application
     xhtmldbgmain ( int &argc, char **argv );
     static xhtmldbgmain* instance();
     Window* mainWindow();
+    void printOptionsHelp() const;
     virtual ~xhtmldbgmain();
 
   public Q_SLOTS:
