@@ -7,6 +7,8 @@
     <file>style.css</file>
     <file>gplv3.png</file>
     <file>xhtmldbg.png</file>
+    <file>bg.png</file>
+    <file>undefined.jpg</file>
   </qresource>
   <qresource lang="de" >
     <file alias="about.html">about_de.html</file>

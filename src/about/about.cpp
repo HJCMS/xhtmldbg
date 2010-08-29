@@ -53,6 +53,10 @@ About::About ( QWidget * parent )
   htmlChanged ( 0 );
 }
 
+/**
+* Lese die Resoursen Datei und konvertiere den Datenstrom
+* nach UTF-8 bevor er in den TextBrowser eingefügt wird.
+*/
 void About::loadHtml ( const QUrl &index )
 {
   QTextCodec* codec = QTextCodec::codecForName ( QByteArray ( "UTF-8" ) );
@@ -64,6 +68,9 @@ void About::loadHtml ( const QUrl &index )
   }
 }
 
+/**
+* Wird von QComboBox aufgerufen um die HTML Seitenzu laden.
+*/
 void About::htmlChanged ( int index )
 {
   switch ( index )
