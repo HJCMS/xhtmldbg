@@ -1,0 +1,5 @@
+body { font: normal 1em Serif; }
+p { padding: 5px 5px 5px 5px; }
+strong { font-size: larger; }
+a,img { text-decoration: none; }
+ul { list-style-type: square; }
