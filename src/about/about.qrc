@@ -3,11 +3,14 @@
   <qresource>
     <file>about.html</file>
     <file>author.html</file>
+    <file>contact.html</file>
+    <file>style.css</file>
     <file>gplv3.png</file>
     <file>xhtmldbg.png</file>
   </qresource>
   <qresource lang="de" >
     <file alias="about.html">about_de.html</file>
     <file alias="author.html">author_de.html</file>
+    <file alias="contact.html">contact_de.html</file>
   </qresource>
 </RCC>

@@ -24,7 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QDialog>
@@ -39,7 +39,7 @@ class About : public QDialog, protected Ui::AboutDialog
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    void loadHtml ( const QString & );
+    void loadHtml ( const QUrl & );
 
   private Q_SLOTS:
     void htmlChanged ( int );

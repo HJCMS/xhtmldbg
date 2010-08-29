@@ -22,11 +22,12 @@
 #include "about.h"
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QResource>
-#include <QtCore/QFile>
-#include <QtCore/QIODevice>
-#include <QtCore/QTextStream>
+#include <QtCore/QString>
+#include <QtCore/QTextCodec>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
@@ -52,13 +53,14 @@ About::About ( QWidget * parent )
   htmlChanged ( 0 );
 }
 
-void About::loadHtml ( const QString &index )
+void About::loadHtml ( const QUrl &index )
 {
-  QVariant data;
-  data = textBrowser->loadResource ( QTextDocument::HtmlResource, index );
-  if ( data.isValid() )
+  QTextCodec* codec = QTextCodec::codecForName ( QByteArray ( "UTF-8" ) );
+  QVariant buf = textBrowser->loadResource ( QTextDocument::HtmlResource, index );
+  if ( buf.isValid() )
   {
-    textBrowser->setHtml ( data.toString() );
+    QString xhtml = codec->toUnicode ( buf.toByteArray() );
+    textBrowser->setHtml ( xhtml );
   }
 }
 
@@ -67,15 +69,19 @@ void About::htmlChanged ( int index )
   switch ( index )
   {
     case 0:
-      loadHtml ( QLatin1String( "qrc:/about.html" ) );
+      loadHtml ( QUrl ( "qrc:/about.html" ) );
       break;
 
     case 1:
-      loadHtml ( QLatin1String( "qrc:/author.html" ) );
+      loadHtml ( QUrl ( "qrc:/contact.html" ) );
+      break;
+
+    case 2:
+      loadHtml ( QUrl ( "qrc:/author.html" ) );
       break;
 
     default:
-      loadHtml ( QLatin1String( "qrc:/about.html" ) );
+      loadHtml ( QUrl ( "qrc:/about.html" ) );
       break;
   }
 }

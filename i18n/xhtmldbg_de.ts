@@ -4,9 +4,24 @@
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../src/aboutdialog.cpp" line="39"/>
-        <source>About xhtmldbg (v%1) &amp; HJCMS</source>
-        <translation>Über xhtmldbg (v%1) &amp; HJCMS</translation>
+        <location filename="../build/src/about/ui_aboutdialog.h" line="81"/>
+        <source>About XHTMLDBG</source>
+        <translation>Über XHTMLDBG</translation>
+    </message>
+    <message>
+        <location filename="../build/src/about/ui_aboutdialog.h" line="84"/>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <location filename="../build/src/about/ui_aboutdialog.h" line="85"/>
+        <source>Contact</source>
+        <translation>Kontakt</translation>
+    </message>
+    <message>
+        <location filename="../build/src/about/ui_aboutdialog.h" line="86"/>
+        <source>Authors</source>
+        <translation>Autoren</translation>
     </message>
 </context>
 <context>
