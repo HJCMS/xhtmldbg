@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2010
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2010
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,26 +19,34 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ABOUTDIALOG_H
-#define ABOUTDIALOG_H
+#ifndef ABOUT_H
+#define ABOUT_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
-class AboutDialog : public QDialog
+#include "ui_aboutdialog.h"
+
+class About : public QDialog, protected Ui::AboutDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://hjcms.de" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    void loadHtml ( const QString & );
+
+  private Q_SLOTS:
+    void htmlChanged ( int );
 
   public:
-    AboutDialog ( QWidget * parent = 0 );
-    const QString aboutText();
-    virtual ~AboutDialog();
+    About ( QWidget * parent = 0 );
+    virtual ~About();
 };
 
 #endif

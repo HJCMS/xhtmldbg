@@ -41,7 +41,7 @@
 #include "historymenu.h"
 #include "settargetdialog.h"
 #include "openurldialog.h"
-#include "aboutdialog.h"
+#include "about.h"
 #include "configuration.h"
 #include "statusbar.h"
 #include "dominspector.h"
@@ -466,12 +466,12 @@ void Window::createMenus()
 
   // Help and About Menu
   QIcon infoIcon = icon.fromTheme ( QLatin1String ( "documentinfo" ) );
-  QMenu *m_aboutMenu = m_menuBar->addMenu ( infoIcon, trUtf8 ( "About" ) );
+  QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
   QAction* actionAboutQt = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about Qt" ) );
   actionAboutQt->setMenuRole ( QAction::AboutQtRole );
   connect ( actionAboutQt, SIGNAL ( triggered() ), qApp, SLOT ( aboutQt() ) );
 
-  AboutDialog* aboutDialog = new AboutDialog ( this );
+  About* aboutDialog = new About ( this );
   QAction* actionAboutHJCMS = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about hjcms" ) );
   actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
   connect ( actionAboutHJCMS, SIGNAL ( triggered() ), aboutDialog, SLOT ( open() ) );

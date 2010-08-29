@@ -18,6 +18,8 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
+  ${CMAKE_CURRENT_BINARY_DIR}/about
+  ${CMAKE_CURRENT_SOURCE_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
   ${XHTMLDBG_INCLUDES}
 )
@@ -54,6 +56,7 @@ ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
+ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (plugins)
 
@@ -66,7 +69,6 @@ SET (xhtmldbg_SOURCES
   keywordstoolbar.cpp
   tidymessanger.cpp
   jsmessanger.cpp
-  aboutdialog.cpp
   webviewer.cpp
   viewer.cpp
   page.cpp
@@ -92,7 +94,6 @@ SET (xhtmldbg_HEADERS
   keywordstoolbar.h
   tidymessanger.h
   jsmessanger.h
-  aboutdialog.h
   webviewer.h
   viewer.h
   page.h
@@ -144,6 +145,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   CSSValidator
   DownloadManager
   RDFParser
+  About
   ${OPTIONAL_LIBRARIES}
 )
 
