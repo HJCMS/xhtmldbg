@@ -48,11 +48,12 @@ ColorTable::ColorTable ( QWidget * parent )
   setColumnCount ( fixedColumns );
 
   horizontalHeader()->setVisible ( false );
-  horizontalHeader()->setDefaultSectionSize ( 30 );
+  horizontalHeader()->setDefaultSectionSize ( 20 );
   horizontalHeader()->setHighlightSections ( false );
   horizontalHeader()->setMinimumSectionSize ( 20 );
 
   verticalHeader()->setVisible ( false );
+  verticalHeader()->setDefaultSectionSize ( 20 );
   verticalHeader()->setHighlightSections ( false );
   verticalHeader()->setMinimumSectionSize ( 20 );
 }
@@ -62,12 +63,28 @@ void ColorTable::insertColorCell ( int row, int column, const QColor &color )
   // qDebug() << Q_FUNC_INFO << row << column << color;
   QTableWidgetItem* item = new QTableWidgetItem ( QTableWidgetItem::UserType );
   item->setBackground ( QBrush ( color, Qt::SolidPattern ) );
-  item->setForeground ( QBrush ( color, Qt::SolidPattern ) );
+  item->setData ( Qt::BackgroundRole , QBrush ( color, Qt::SolidPattern ) );
+  item->setData ( Qt::BackgroundColorRole , QBrush ( color, Qt::SolidPattern ) );
   item->setData ( Qt::UserRole, color );
-  item->setData ( Qt::ToolTipRole, color.name() );
+  item->setData ( Qt::DisplayRole, color.name() );
+  QString tip = QString ( "rgb(%1,%2,%3)" ).arg (
+                    QString::number ( color.red() ),
+                    QString::number ( color.green() ),
+                    QString::number ( color.blue() )
+                );
+  item->setData ( Qt::ToolTipRole, tip );
+  item->setData ( Qt::TextAlignmentRole, Qt::AlignCenter );
+
+  // TODO Farben Unterschiede erkennen
+//   if ( qMin( color.green(), color.blue() ) == 0 )
+//     item->setData ( Qt::TextColorRole, QBrush( QColor(255,255,255), Qt::SolidPattern ) );
+
   setItem ( row, column, item );
 }
 
+/**
+* Farbtabelle neu befüllen
+*/
 void ColorTable::insertColors ( const QVector<QColor> &vector )
 {
   int row = 0;
@@ -79,7 +96,7 @@ void ColorTable::insertColors ( const QVector<QColor> &vector )
   setRowCount ( 1 );
   for ( int i = 0; i < vector.size(); ++i )
   {
-    if ( i % fixedColumns == 0 )
+    if ( ( column >= fixedColumns ) && ( i % fixedColumns == 0 ) )
     {
       ++row;
       column = 0;
@@ -87,6 +104,8 @@ void ColorTable::insertColors ( const QVector<QColor> &vector )
     }
     insertColorCell ( row, column++, vector[i] );
   }
+  resizeRowsToContents();
+  resizeColumnsToContents();
 }
 
 ColorTable::~ColorTable()

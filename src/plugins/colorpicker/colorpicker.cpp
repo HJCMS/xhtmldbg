@@ -35,7 +35,7 @@ ColorPicker::ColorPicker ( QWidget * parent )
     : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "colorpicker" ) );
-  setWindowTitle ( QLatin1String ( "Color picker Plugin" ) );
+  setWindowTitle ( trUtf8 ( "Colors" ) );
 
   QWidget* layer = new QWidget ( this );
   layer->setObjectName ( QLatin1String ( "colorpicker.layer" ) );
@@ -46,9 +46,9 @@ ColorPicker::ColorPicker ( QWidget * parent )
   // Farbpaletten Auswahl
   m_colorComboBox = new QComboBox ( layer );
   m_colorComboBox->setObjectName ( "colorpicker.layer.layout.combobox" );
-  m_colorComboBox->addItem ( trUtf8 ( "WebColors" ), 1 );
-  m_colorComboBox->addItem ( trUtf8 ( "Royal Colors" ), 2 );
-  m_colorComboBox->addItem ( trUtf8 ( "Rainbow Colors" ), 3 );
+  m_colorComboBox->insertItem ( 0, trUtf8 ( "Web Colors" ) );
+  m_colorComboBox->insertItem ( 1, trUtf8 ( "Royal Colors" ) );
+  m_colorComboBox->insertItem ( 2, trUtf8 ( "Rainbow Colors" ) );
   layout->addWidget ( m_colorComboBox, 0, 0, 1, 2, Qt::AlignRight );
 
   // Farbpaletten Ausgeben
@@ -82,15 +82,15 @@ void ColorPicker::colorMapChanged ( int index )
 {
   switch ( index )
   {
-    case 1:
+    case 0:
       m_colorTable->insertColors ( Colors::webColors() );
       break;
 
-    case 2:
+    case 1:
       m_colorTable->insertColors ( Colors::royalColors() );
       break;
 
-    case 3:
+    case 2:
       m_colorTable->insertColors ( Colors::rainbowColors() );
       break;
 
