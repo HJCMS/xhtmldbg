@@ -76,6 +76,9 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   connect ( m_colorComboBox, SIGNAL ( currentIndexChanged ( int ) ),
             this, SLOT ( colorMapChanged ( int ) ) );
+
+  connect ( m_colorTable, SIGNAL ( colorChanged ( const QColor & ) ),
+            this, SLOT ( colorChanged ( const QColor & ) ) );
 }
 
 void ColorPicker::colorMapChanged ( int index )
@@ -98,6 +101,17 @@ void ColorPicker::colorMapChanged ( int index )
       m_colorTable->insertColors ( Colors::webColors() );
       break;
   }
+}
+
+void ColorPicker::colorChanged ( const QColor &c )
+{
+  m_hexEdit->setText( c.name() );
+  QString rgb = QString ( "rgb(%1,%2,%3)" ).arg (
+                    QString::number ( c.red() ),
+                    QString::number ( c.green() ),
+                    QString::number ( c.blue() )
+                );
+  m_rgbEdit->setText( rgb );
 }
 
 ColorPicker::~ColorPicker()

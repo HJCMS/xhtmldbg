@@ -27,6 +27,7 @@
 #include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QColor>
 #include <QtGui/QComboBox>
 #include <QtGui/QDockWidget>
 #include <QtGui/QLineEdit>
@@ -46,6 +47,7 @@ class ColorPicker : public QDockWidget
 
   private Q_SLOTS:
     void colorMapChanged ( int );
+    void colorChanged ( const QColor & );
 
   public:
     ColorPicker ( QWidget * parent = 0 );

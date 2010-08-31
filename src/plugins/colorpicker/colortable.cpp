@@ -48,36 +48,44 @@ ColorTable::ColorTable ( QWidget * parent )
   setColumnCount ( fixedColumns );
 
   horizontalHeader()->setVisible ( false );
-  horizontalHeader()->setDefaultSectionSize ( 20 );
+  horizontalHeader()->setDefaultSectionSize ( 25 );
   horizontalHeader()->setHighlightSections ( false );
-  horizontalHeader()->setMinimumSectionSize ( 20 );
+  horizontalHeader()->setMinimumSectionSize ( 25 );
 
   verticalHeader()->setVisible ( false );
-  verticalHeader()->setDefaultSectionSize ( 20 );
+  verticalHeader()->setDefaultSectionSize ( 25 );
   verticalHeader()->setHighlightSections ( false );
-  verticalHeader()->setMinimumSectionSize ( 20 );
+  verticalHeader()->setMinimumSectionSize ( 25 );
+
+  connect ( this, SIGNAL ( itemClicked ( QTableWidgetItem * ) ),
+            this, SLOT ( selectedItem ( QTableWidgetItem * ) ) );
+}
+
+void ColorTable::selectedItem ( QTableWidgetItem * item )
+{
+  QColor col = item->data ( Qt::UserRole ).value<QColor>();
+  if ( col.isValid() )
+    emit colorChanged ( col );
 }
 
 void ColorTable::insertColorCell ( int row, int column, const QColor &color )
 {
-  // qDebug() << Q_FUNC_INFO << row << column << color;
+  QVariant val ( QVariant::Color );
+  val.setValue ( color );
+
   QTableWidgetItem* item = new QTableWidgetItem ( QTableWidgetItem::UserType );
   item->setBackground ( QBrush ( color, Qt::SolidPattern ) );
   item->setData ( Qt::BackgroundRole , QBrush ( color, Qt::SolidPattern ) );
   item->setData ( Qt::BackgroundColorRole , QBrush ( color, Qt::SolidPattern ) );
-  item->setData ( Qt::UserRole, color );
-  item->setData ( Qt::DisplayRole, color.name() );
-  QString tip = QString ( "rgb(%1,%2,%3)" ).arg (
+  item->setData ( Qt::UserRole, val );
+  QString tip = QString ( "rgb(%1,%2,%3)\n%4" ).arg (
                     QString::number ( color.red() ),
                     QString::number ( color.green() ),
-                    QString::number ( color.blue() )
+                    QString::number ( color.blue() ),
+                    color.name()
                 );
   item->setData ( Qt::ToolTipRole, tip );
   item->setData ( Qt::TextAlignmentRole, Qt::AlignCenter );
-
-  // TODO Farben Unterschiede erkennen
-//   if ( qMin( color.green(), color.blue() ) == 0 )
-//     item->setData ( Qt::TextColorRole, QBrush( QColor(255,255,255), Qt::SolidPattern ) );
 
   setItem ( row, column, item );
 }
@@ -104,8 +112,6 @@ void ColorTable::insertColors ( const QVector<QColor> &vector )
     }
     insertColorCell ( row, column++, vector[i] );
   }
-  resizeRowsToContents();
-  resizeColumnsToContents();
 }
 
 ColorTable::~ColorTable()

@@ -42,6 +42,12 @@ class ColorTable : public QTableWidget
     int fixedColumns;
     void insertColorCell ( int row, int column, const QColor &color );
 
+  private Q_SLOTS:
+    void selectedItem ( QTableWidgetItem * );
+
+  Q_SIGNALS:
+    void colorChanged ( const QColor & );
+
   public:
     ColorTable ( QWidget * parent = 0 );
     void insertColors ( const QVector<QColor> &vector );
