@@ -39,7 +39,8 @@ class ColorTable : public QTableWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    int fixedColumns;
+    int fixedColumnCount;
+    int fixedSizeFactor;
     void insertColorCell ( int row, int column, const QColor &color );
 
   private Q_SLOTS:

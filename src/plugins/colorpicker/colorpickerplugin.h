@@ -40,6 +40,8 @@ class ColorPicker;
 class XHTMLDBG_EXPORT ColorPickerPlugin : public xhtmldbg::Interface
 {
     Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
     Q_INTERFACES ( xhtmldbg::Interface )
 
   public:

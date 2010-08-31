@@ -39,6 +39,8 @@ class ColorTable;
 class ColorPicker : public QDockWidget
 {
     Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
     QComboBox* m_colorComboBox;
