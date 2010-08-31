@@ -49,26 +49,32 @@ ColorPicker::ColorPicker ( QWidget * parent )
   m_colorComboBox->insertItem ( 0, trUtf8 ( "Web Colors" ) );
   m_colorComboBox->insertItem ( 1, trUtf8 ( "Royal Colors" ) );
   m_colorComboBox->insertItem ( 2, trUtf8 ( "Rainbow Colors" ) );
-  layout->addWidget ( m_colorComboBox, 0, 0, 1, 2, Qt::AlignRight );
+  layout->addWidget ( m_colorComboBox, 0, 0, 1, 3, Qt::AlignRight );
 
   // Farbpaletten Ausgeben
   m_colorTable = new ColorTable ( layer );
   m_colorTable->setObjectName ( "colorpicker.layer.layout.colortable" );
   m_colorTable->insertColors ( Colors::webColors() );
-  layout->addWidget ( m_colorTable, 1, 0, 1, 2 );
+  layout->addWidget ( m_colorTable, 1, 0, 1, 3 );
 
   // Ausgabe Hex
   m_hexEdit = new QLineEdit ( layer );
   m_hexEdit->setObjectName ( "colorpicker.layer.layout.hexedit" );
   layout->addWidget ( m_hexEdit, 2, 0, 1, 1, Qt::AlignLeft );
 
+  // Farb-Vorschau
+  m_preview = new QLabel ( layer );
+  m_preview->setObjectName ( "colorpicker.layer.layout.preview" );
+  m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
+  layout->addWidget ( m_preview, 2, 1, 1, 1 );
+
   // Ausgabe RGB
   m_rgbEdit = new QLineEdit ( layer );
   m_rgbEdit->setObjectName ( "colorpicker.layer.rgbedit" );
-  layout->addWidget ( m_rgbEdit, 2, 1, 1, 1, Qt::AlignRight );
+  layout->addWidget ( m_rgbEdit, 2, 2, 1, 1, Qt::AlignRight );
 
-  QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Preferred );
-  layout->addItem ( spacer, 3, 0, 1, 2 );
+  QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
+  layout->addItem ( spacer, 3, 0, 1, 3 );
 
   // Layout abschliessen
   layer->setLayout ( layout );
@@ -81,6 +87,9 @@ ColorPicker::ColorPicker ( QWidget * parent )
             this, SLOT ( colorChanged ( const QColor & ) ) );
 }
 
+/**
+* Farb-Palette aufrufen
+*/
 void ColorPicker::colorMapChanged ( int index )
 {
   switch ( index )
@@ -103,15 +112,24 @@ void ColorPicker::colorMapChanged ( int index )
   }
 }
 
+/**
+* gewählte Farbe ausgeben
+*/
 void ColorPicker::colorChanged ( const QColor &c )
 {
-  m_hexEdit->setText( c.name() );
+  // Hex Text einfügen
+  m_hexEdit->setText ( c.name() );
+
+  // RGB Text einfügen
   QString rgb = QString ( "rgb(%1,%2,%3)" ).arg (
                     QString::number ( c.red() ),
                     QString::number ( c.green() ),
                     QString::number ( c.blue() )
                 );
-  m_rgbEdit->setText( rgb );
+  m_rgbEdit->setText ( rgb );
+
+  // Vorschau erzeugen
+  m_preview->setStyleSheet ( QString ( "*{background:%1; border:1px ridge black;}" ).arg ( c.name() ) );
 }
 
 ColorPicker::~ColorPicker()

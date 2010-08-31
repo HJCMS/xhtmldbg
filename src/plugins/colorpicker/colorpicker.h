@@ -30,6 +30,7 @@
 #include <QtGui/QColor>
 #include <QtGui/QComboBox>
 #include <QtGui/QDockWidget>
+#include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
@@ -43,6 +44,7 @@ class ColorPicker : public QDockWidget
     QComboBox* m_colorComboBox;
     ColorTable* m_colorTable;
     QLineEdit* m_hexEdit;
+    QLabel* m_preview;
     QLineEdit* m_rgbEdit;
 
   private Q_SLOTS:

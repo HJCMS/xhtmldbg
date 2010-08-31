@@ -40,9 +40,11 @@ ColorTable::ColorTable ( QWidget * parent )
   setFrameShape ( QFrame::NoFrame );
   setAutoScroll ( false );
   setEditTriggers ( QAbstractItemView::NoEditTriggers );
+  setSelectionMode( QAbstractItemView::SingleSelection );
+  setSelectionBehavior ( QAbstractItemView::SelectItems );
+  setDragDropMode ( QAbstractItemView::NoDragDrop );
   setTabKeyNavigation ( false );
   setProperty ( "showDropIndicator", QVariant ( false ) );
-  setDragDropOverwriteMode ( false );
   setWordWrap ( false );
   setCornerButtonEnabled ( false );
   setColumnCount ( fixedColumns );
@@ -57,6 +59,8 @@ ColorTable::ColorTable ( QWidget * parent )
   verticalHeader()->setHighlightSections ( false );
   verticalHeader()->setMinimumSectionSize ( 25 );
 
+  setMaximumWidth ( ( 25 * fixedColumns ) );
+
   connect ( this, SIGNAL ( itemClicked ( QTableWidgetItem * ) ),
             this, SLOT ( selectedItem ( QTableWidgetItem * ) ) );
 }
@@ -65,14 +69,15 @@ void ColorTable::selectedItem ( QTableWidgetItem * item )
 {
   QColor col = item->data ( Qt::UserRole ).value<QColor>();
   if ( col.isValid() )
-    emit colorChanged ( col );
+    emit colorChanged( col );
 }
 
 void ColorTable::insertColorCell ( int row, int column, const QColor &color )
 {
   QVariant val ( QVariant::Color );
-  val.setValue ( color );
+  val.setValue( color );
 
+  // qDebug() << Q_FUNC_INFO << row << column << color;
   QTableWidgetItem* item = new QTableWidgetItem ( QTableWidgetItem::UserType );
   item->setBackground ( QBrush ( color, Qt::SolidPattern ) );
   item->setData ( Qt::BackgroundRole , QBrush ( color, Qt::SolidPattern ) );
@@ -112,6 +117,9 @@ void ColorTable::insertColors ( const QVector<QColor> &vector )
     }
     insertColorCell ( row, column++, vector[i] );
   }
+  setMinimumHeight ( ( 25 * rowCount() ) );
+  setMaximumHeight ( ( 25 * rowCount() ) );
+  updateGeometries();
 }
 
 ColorTable::~ColorTable()
