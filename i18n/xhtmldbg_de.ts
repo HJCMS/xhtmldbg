@@ -509,6 +509,52 @@ Do you realy wan to exit?</source>
     </message>
 </context>
 <context>
+    <name>ColorPicker</name>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpicker.cpp" line="41"/>
+        <source>Colors</source>
+        <translation>Farben</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpicker.cpp" line="52"/>
+        <source>Web Colors</source>
+        <translation>Web Farben</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpicker.cpp" line="53"/>
+        <source>Royal Colors</source>
+        <translation>Royal Farben</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpicker.cpp" line="54"/>
+        <source>Rainbow Colors</source>
+        <translation>Regenbogen Farben</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpicker.cpp" line="64"/>
+        <source>Color preview</source>
+        <translation>Farben-Vorschau</translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerPlugin</name>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpickerplugin.cpp" line="66"/>
+        <source>Color picker</source>
+        <translation>Farbe abgreifen</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpickerplugin.cpp" line="68"/>
+        <source>This color picker will help you fine tune the hex color codes for your sites.</source>
+        <translation>Dieser Farbenabgreifer Hilft bei der feinstellung von Hexadezimal Farbangaben auf der Seite.</translation>
+    </message>
+    <message>
+        <location filename="../src/plugins/colorpicker/colorpickerplugin.cpp" line="69"/>
+        <source>Juergen Heinemann (Undefined)</source>
+        <translation>Jürgen Heinemann (Undefined)</translation>
+    </message>
+</context>
+<context>
     <name>ConfigAccessControl</name>
     <message>
         <location filename="../src/configuration/configaccesscontrol.cpp" line="40"/>
