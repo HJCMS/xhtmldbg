@@ -22,14 +22,17 @@
 #include "colorpicker.h"
 #include "colors.h"
 #include "colortable.h"
+#include "watcher.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QGridLayout>
+#include <QtGui/QGroupBox>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
+#include <QtGui/QVBoxLayout>
 
 ColorPicker::ColorPicker ( QWidget * parent )
     : QDockWidget ( parent )
@@ -40,44 +43,58 @@ ColorPicker::ColorPicker ( QWidget * parent )
   QWidget* layer = new QWidget ( this );
   layer->setObjectName ( QLatin1String ( "colorpicker.layer" ) );
 
-  QGridLayout* layout = new QGridLayout ( layer );
-  layout->setObjectName ( QLatin1String ( "colorpicker.layer.layout" ) );
+  QVBoxLayout* verticalLayout = new QVBoxLayout ( layer );
+  verticalLayout->setObjectName ( QLatin1String ( "colorpicker.layer.vlayout" ) );
 
   // Farbpaletten Auswahl
   m_colorComboBox = new QComboBox ( layer );
-  m_colorComboBox->setObjectName ( "colorpicker.layer.layout.combobox" );
+  m_colorComboBox->setObjectName ( "colorpicker.layer.vlayout.combobox" );
   m_colorComboBox->insertItem ( 0, trUtf8 ( "Web Colors" ) );
   m_colorComboBox->insertItem ( 1, trUtf8 ( "Royal Colors" ) );
   m_colorComboBox->insertItem ( 2, trUtf8 ( "Rainbow Colors" ) );
-  layout->addWidget ( m_colorComboBox, 0, 0, 1, 3, Qt::AlignRight );
+  verticalLayout->addWidget ( m_colorComboBox, 0, Qt::AlignRight );
 
   // Farbpaletten Ausgeben
   m_colorTable = new ColorTable ( layer );
-  m_colorTable->setObjectName ( "colorpicker.layer.layout.colortable" );
+  m_colorTable->setObjectName ( "colorpicker.layer.vlayout.colortable" );
   m_colorTable->insertColors ( Colors::webColors() );
-  layout->addWidget ( m_colorTable, 1, 0, 1, 3 );
+  verticalLayout->addWidget ( m_colorTable );
+
+  // Vorschau Gruppe
+  QGroupBox* groupBox = new QGroupBox ( trUtf8( "Color preview" ), layer );
+  groupBox->setObjectName ( "colorpicker.layer.vlayout.groupbox" );
+  verticalLayout->addWidget ( groupBox );
+
+  QHBoxLayout* horizontalLayout = new QHBoxLayout ( groupBox );
+  horizontalLayout->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout" );
+  groupBox->setLayout ( horizontalLayout );
 
   // Ausgabe Hex
-  m_hexEdit = new QLineEdit ( layer );
-  m_hexEdit->setObjectName ( "colorpicker.layer.layout.hexedit" );
-  layout->addWidget ( m_hexEdit, 2, 0, 1, 1, Qt::AlignLeft );
+  m_hexEdit = new QLineEdit ( groupBox );
+  m_hexEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.hexedit" );
+  horizontalLayout->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
 
   // Farb-Vorschau
-  m_preview = new QLabel ( layer );
-  m_preview->setObjectName ( "colorpicker.layer.layout.preview" );
+  m_preview = new QLabel ( groupBox );
+  m_preview->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.preview" );
   m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
-  layout->addWidget ( m_preview, 2, 1, 1, 1 );
+  horizontalLayout->addWidget ( m_preview );
 
   // Ausgabe RGB
-  m_rgbEdit = new QLineEdit ( layer );
-  m_rgbEdit->setObjectName ( "colorpicker.layer.rgbedit" );
-  layout->addWidget ( m_rgbEdit, 2, 2, 1, 1, Qt::AlignRight );
+  m_rgbEdit = new QLineEdit ( groupBox );
+  m_rgbEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.rgbedit" );
+  horizontalLayout->addWidget ( m_rgbEdit, 0, Qt::AlignRight );
+
+  // Abgreifen von Farben aus dem QWebView Fenster
+  m_watcher = new Watcher ( layer );
+  m_watcher->setObjectName ( "colorpicker.layer.vlayout.watcher" );
+  verticalLayout->addWidget ( m_watcher );
 
   QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
-  layout->addItem ( spacer, 3, 0, 1, 3 );
+  verticalLayout->addItem ( spacer );
 
   // Layout abschliessen
-  layer->setLayout ( layout );
+  layer->setLayout ( verticalLayout );
   setWidget ( layer );
 
   connect ( m_colorComboBox, SIGNAL ( currentIndexChanged ( int ) ),

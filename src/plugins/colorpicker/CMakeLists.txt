@@ -11,12 +11,16 @@ SET(pluginproject_SOURCES
   colorpickerplugin.cpp
   colors.cpp
   colortable.cpp
+  watcher.cpp
+  grabberwindow.cpp
 )
 
 SET(pluginproject_HEADERS
   colorpicker.h
   colorpickerplugin.h
   colortable.h
+  watcher.h
+  grabberwindow.h
 )
 
 SET(pluginproject_NOMOC_HEADERS

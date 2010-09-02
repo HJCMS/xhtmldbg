@@ -19,45 +19,33 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COLORPICKER_H
-#define COLORPICKER_H
+#ifndef WATCHER_H
+#define WATCHER_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QColor>
-#include <QtGui/QComboBox>
-#include <QtGui/QDockWidget>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
+#include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
-class ColorTable;
-class Watcher;
+class GrabberWindow;
 
-class ColorPicker : public QDockWidget
+class Watcher : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QComboBox* m_colorComboBox;
-    ColorTable* m_colorTable;
-    QLineEdit* m_hexEdit;
-    QLabel* m_preview;
-    QLineEdit* m_rgbEdit;
-    Watcher* m_watcher;
-
-  private Q_SLOTS:
-    void colorMapChanged ( int );
-    void colorChanged ( const QColor & );
+    bool startRecording;
+    GrabberWindow* m_grabberWindow;
+    QToolButton* m_recordButton;
 
   public:
-    ColorPicker ( QWidget * parent = 0 );
-    virtual ~ColorPicker();
+    Watcher ( QWidget * parent = 0 );
+    ~Watcher();
 };
 
 #endif

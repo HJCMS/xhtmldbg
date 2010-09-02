@@ -19,45 +19,50 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COLORPICKER_H
-#define COLORPICKER_H
+#ifndef GRABBERWINDOW_H
+#define GRABBERWINDOW_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QPoint>
 #include <QtCore/QString>
+#include <QtCore/QTimerEvent>
 
 /* QtGui */
-#include <QtGui/QColor>
-#include <QtGui/QComboBox>
-#include <QtGui/QDockWidget>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
+#include <QtGui/QPaintEvent>
+#include <QtGui/QPen>
+#include <QtGui/QPixmap>
 #include <QtGui/QWidget>
 
-class ColorTable;
-class Watcher;
-
-class ColorPicker : public QDockWidget
+class GrabberWindow : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QComboBox* m_colorComboBox;
-    ColorTable* m_colorTable;
-    QLineEdit* m_hexEdit;
-    QLabel* m_preview;
-    QLineEdit* m_rgbEdit;
-    Watcher* m_watcher;
+    int intervalId;
+    int fixedSize;
+    int penSize;
+    int zoomFactor;
+    QPen crossPen;
+    QPen framePen;
+    QPixmap m_bufferPixmap;
+    void listener();
 
-  private Q_SLOTS:
-    void colorMapChanged ( int );
-    void colorChanged ( const QColor & );
+  protected:
+    void timerEvent ( QTimerEvent * );
+    void paintEvent ( QPaintEvent * );
+
+  Q_SIGNALS:
+    void recording ( bool );
+
+  public Q_SLOTS:
+    void startRecording ( bool );
 
   public:
-    ColorPicker ( QWidget * parent = 0 );
-    virtual ~ColorPicker();
+    GrabberWindow ( QWidget * parent = 0 );
+    virtual ~GrabberWindow();
 };
 
 #endif
