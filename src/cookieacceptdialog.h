@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -41,7 +40,6 @@ class CookieAcceptDialog : public QDialog
 
   private:
     CookiesEditorTable* m_editCookiesTable;
-    QSettings* m_settings;
 
   private Q_SLOTS:
     void saveAndExit();

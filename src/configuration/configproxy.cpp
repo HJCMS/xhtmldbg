@@ -174,7 +174,7 @@ void ConfigProxy::setType ( QNetworkProxy::ProxyType type )
   }
 }
 
-void ConfigProxy::load ( QSettings * cfg )
+void ConfigProxy::load ( Settings * cfg )
 {
   int index = proxyType->findData ( cfg->value ( QLatin1String ( "proxyType" ), QNetworkProxy::NoProxy ), Qt::UserRole );
   if ( index >= 0 )
@@ -190,7 +190,7 @@ void ConfigProxy::load ( QSettings * cfg )
   setChecked ( cfg->value ( QLatin1String ( "enableProxy" ), false ).toBool() );
 }
 
-void ConfigProxy::save ( QSettings * cfg )
+void ConfigProxy::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "proxyType" ), getType() );
   cfg->setValue ( QLatin1String ( "enableProxy" ), isChecked() );

@@ -27,7 +27,7 @@
 /* QtGui */
 #include <QtGui/QSizePolicy>
 
-StackedWidget::StackedWidget ( QWidget * parent, QSettings * settings )
+StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
     : QStackedWidget ( parent )
     , cfg ( settings )
 {

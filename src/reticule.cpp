@@ -20,6 +20,7 @@
 **/
 
 #include "reticule.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -46,8 +47,8 @@ Reticule::Reticule ( QWidget * parent )
   setAttribute ( Qt::WA_SetStyle, false );
   setAttribute ( Qt::WA_PaintOnScreen, true );
 
-  m_settings = new QSettings ( QSettings::NativeFormat, QSettings::UserScope,
-                               "hjcms.de", "xhtmldbg", this );
+  m_settings = new Settings ( this );
+
   /*
   enableHighlightBackground=true
   enableHighlightBorder=false

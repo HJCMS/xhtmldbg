@@ -23,13 +23,13 @@
 #include "viewer.h"
 #include "historymanager.h"
 #include "historyitem.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
-#include <QtCore/QSettings>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 
@@ -87,17 +87,11 @@ void WebViewer::setTabCornerButton()
 void WebViewer::updateWebSettings()
 {
   // Settings
-  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
-                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+  Settings* m_settings = new Settings ( this );
 
   QWebSettings* wcfg = QWebSettings::globalSettings();
-
-  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir ( dbPath );
-  dir.mkpath ( QLatin1String ( "icons" ) );
-  dir.mkpath ( QLatin1String ( "storage" ) );
-  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
-  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( m_settings->webIconDatabasePath() );
+  wcfg->setLocalStoragePath ( m_settings->webLocalStoragePath() );
 
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
 
@@ -106,44 +100,46 @@ void WebViewer::updateWebSettings()
 
   // Until QtWebkit defaults to 16
   wcfg->setFontSize ( QWebSettings::DefaultFontSize,
-                      cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
+                      m_settings->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
 
   wcfg->setFontSize ( QWebSettings::DefaultFixedFontSize,
-                      cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
+                      m_settings->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
 
   // Page Settings
   wcfg->setAttribute ( QWebSettings::ZoomTextOnly,
-                       cfg->value ( QLatin1String ( "ZoomTextOnly" ), true ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "ZoomTextOnly" ), true ) );
 
   // Jetzt immer deaktiviert. Siehe Webinspector plugin!
   wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
 
   wcfg->setAttribute ( QWebSettings::AutoLoadImages,
-                       cfg->value ( QLatin1String ( "AutoLoadImages" ), true ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "AutoLoadImages" ) ) );
 
   wcfg->setAttribute ( QWebSettings::JavascriptEnabled,
-                       cfg->value ( QLatin1String ( "JavascriptEnabled" ), true ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "JavascriptEnabled" ) ) );
 
   wcfg->setAttribute ( QWebSettings::PluginsEnabled,
-                       cfg->value ( QLatin1String ( "PluginsEnabled" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "PluginsEnabled" ) ) );
 
   wcfg->setAttribute ( QWebSettings::JavaEnabled,
-                       cfg->value ( QLatin1String ( "JavaEnabled" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "JavaEnabled" ) ) );
 
   wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
-                       cfg->value ( QLatin1String ( "PrivateBrowsingEnabled" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "PrivateBrowsingEnabled" ) ) );
 
   wcfg->setAttribute ( QWebSettings::DnsPrefetchEnabled,
-                       cfg->value ( QLatin1String ( "DnsPrefetchEnabled" ), true ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "DnsPrefetchEnabled" ), true ) );
 
   wcfg->setAttribute ( QWebSettings::JavascriptCanOpenWindows,
-                       cfg->value ( QLatin1String ( "JavascriptCanOpenWindows" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "JavascriptCanOpenWindows" ) ) );
 
   wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard,
-                       cfg->value ( QLatin1String ( "JavascriptCanAccessClipboard" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "JavascriptCanAccessClipboard" ) ) );
 
   wcfg->setAttribute ( QWebSettings::PrintElementBackgrounds,
-                       cfg->value ( QLatin1String ( "PrintElementBackgrounds" ), false ).toBool() );
+                       m_settings->boolValue ( QLatin1String ( "PrintElementBackgrounds" ) ) );
+
+  delete m_settings;
 }
 
 Viewer* WebViewer::activeView()

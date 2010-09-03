@@ -29,7 +29,7 @@
 #include <QtGui/QAbstractItemView>
 #include <QtGui/QSizePolicy>
 
-ConfigurationMenu::ConfigurationMenu ( QWidget * parent, QSettings * settings )
+ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
     : QListWidget ( parent )
     , cfg ( settings )
 {

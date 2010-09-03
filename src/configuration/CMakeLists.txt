@@ -82,6 +82,7 @@ TARGET_LINK_LIBRARIES (Configuration
   CertIssuers
   IconThemeSelecter
   DirectoryChooser
+  Settings
 )
 
 ## EOF

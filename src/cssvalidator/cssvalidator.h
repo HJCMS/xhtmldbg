@@ -25,7 +25,6 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QProcess>
-#include <QtCore/QSettings>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -36,6 +35,9 @@
 #include <QtGui/QMouseEvent>
 #include <QtGui/QWidget>
 #include <QtGui/QIcon>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class ValidatorMenu;
 class Validator;
@@ -48,7 +50,7 @@ class CSSValidator : public QDockWidget
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     const QIcon iconNotice;
     const QIcon iconWarning;
     const QIcon iconCritical;
@@ -92,7 +94,7 @@ class CSSValidator : public QDockWidget
     void clearItems();
 
   public:
-    CSSValidator ( QWidget * parent = 0, QSettings * settings = 0 );
+    CSSValidator ( QWidget * parent = 0, Settings * settings = 0 );
     ~CSSValidator();
 };
 

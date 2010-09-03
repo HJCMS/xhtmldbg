@@ -28,10 +28,8 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QSettings>
 #include <QtCore/QTextCodec>
 #include <QtCore/QUrl>
 

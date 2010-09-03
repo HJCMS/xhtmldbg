@@ -31,7 +31,7 @@
 #include <QtGui/QIcon>
 #include <QtGui/QPushButton>
 
-CSSConfigure::CSSConfigure ( QWidget * parent, QSettings  * settings )
+CSSConfigure::CSSConfigure ( QWidget * parent, Settings  * settings )
     : QDialog ( parent )
     , cfg ( settings )
 {

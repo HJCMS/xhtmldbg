@@ -19,36 +19,37 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
+#include <QtCore/QSettings>
+#include <QtCore/QSize>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
-/* QtGui */
-#include <QtGui/QWidget>
-
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
-
-class ConfigSSL : public PageWidget
+class Settings : public QSettings
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
+    const QString cacheLocation;
 
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( Settings * );
-    void save ( Settings * );
-    ~ConfigSSL();
+    Settings ( QObject * parent = 0 );
+    void setIconTheme();
+    void setDataPaths();
+    void setSaveMode();
+    const QString webIconDatabasePath();
+    const QString webLocalStoragePath();
+    bool boolValue ( const QString &p, bool b = false );
+    const QString strValue ( const QString &p, const QString &d = QString() );
+    virtual ~Settings();
 };
 
 #endif

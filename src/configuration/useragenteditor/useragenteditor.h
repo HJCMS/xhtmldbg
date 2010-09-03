@@ -24,10 +24,12 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class UserAgentsTable;
 
@@ -48,8 +50,8 @@ class UserAgentEditor : public QWidget
     void modified ( bool b = true );
 
   public Q_SLOTS:
-    void loadUserAgents ( QSettings * );
-    void saveUserAgents ( QSettings * );
+    void loadUserAgents ( Settings * );
+    void saveUserAgents ( Settings * );
 
   public:
     UserAgentEditor ( QWidget * parent = 0 );

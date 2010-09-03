@@ -67,7 +67,7 @@ void ConfigTidy::itemClicked ( int )
   emit modified ( true );
 }
 
-void ConfigTidy::load ( QSettings * cfg )
+void ConfigTidy::load ( Settings * cfg )
 {
   if ( cfg->value ( QLatin1String ( "AutoCheck" ), false ).toBool() )
     m_radioCheck->setChecked ( true );
@@ -77,7 +77,7 @@ void ConfigTidy::load ( QSettings * cfg )
     m_radioDisabled->setChecked ( true );
 }
 
-void ConfigTidy::save ( QSettings * cfg )
+void ConfigTidy::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "AutoCheck" ), m_radioCheck->isChecked() );
   cfg->setValue ( QLatin1String ( "AutoFormat" ), m_radioFormat->isChecked() );

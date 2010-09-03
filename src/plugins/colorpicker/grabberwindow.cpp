@@ -100,7 +100,7 @@ void GrabberWindow::startRecording ( bool b )
 {
   if ( b )
     intervalId = startTimer ( 30 );
-  else
+  else if ( intervalId != -1 )
     killTimer ( intervalId );
 }
 

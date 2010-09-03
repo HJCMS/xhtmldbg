@@ -47,8 +47,8 @@ class ConfigTidy : public PageWidget
 
   public:
     ConfigTidy ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigTidy();
 };
 

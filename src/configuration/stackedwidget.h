@@ -24,12 +24,14 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QStackedWidget>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 /* Configuration */
 #include "configide.h"
@@ -49,7 +51,7 @@ class StackedWidget : public QStackedWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     ConfigIDE* m_configIDE;
     ConfigTidy* m_configTidy;
     ConfigDomTree* m_configDomTree;
@@ -68,7 +70,7 @@ class StackedWidget : public QStackedWidget
     void saveSettings();
 
   public:
-    StackedWidget ( QWidget * parent = 0, QSettings * settings = 0 );
+    StackedWidget ( QWidget * parent = 0, Settings * settings = 0 );
     ~StackedWidget();
 };
 

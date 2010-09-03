@@ -30,7 +30,7 @@
 #include <QtGui/QColor>
 #include <QtGui/QListWidgetItem>
 
-ListStyleSheet::ListStyleSheet ( QWidget * parent, QSettings * settings )
+ListStyleSheet::ListStyleSheet ( QWidget * parent, Settings * settings )
     : QListWidget ( parent )
     , cfg ( settings )
     , cascadedStyle ( QIcon::fromTheme ( QLatin1String ( "code-class" ) ) )

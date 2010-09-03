@@ -21,12 +21,12 @@
 
 #include "directorychooser.h"
 #include "directorydialog.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
-#include <QtCore/QSettings>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -44,8 +44,7 @@ DirectoryChooser::DirectoryChooser ( const QString &title, const QString &key, Q
   setContentsMargins ( 0, 15, 0, 10 );
   setFlat ( true );
 
-  QSettings cfg ( QSettings::NativeFormat, QSettings::UserScope,
-                  qApp->organizationDomain(), QLatin1String ( "xhtmldbg" ), this );
+  Settings cfg ( this );
 
   QHBoxLayout* layout = new QHBoxLayout ( this );
   layout->setObjectName ( QLatin1String ( "directorychooser.layout" ) );

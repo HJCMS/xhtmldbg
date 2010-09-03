@@ -66,7 +66,7 @@ Validator::Validator ( QObject * parent )
 * Lese Konfigurations Parameter und falle bei bedarf
 * in die Grundeinstellungen zurück.
 */
-const QString Validator::param ( const QString &key, QSettings * cfg ) const
+const QString Validator::param ( const QString &key, Settings * cfg ) const
 {
   QMap<QString,QString> map;
   map["css_appl"] = "java";
@@ -94,7 +94,7 @@ void Validator::cleaning()
 * und komplett neu setzen. Wird unter anderem auch
 * dem schließen des Konfigurations Dialoges aufgerufen.
 */
-void Validator::setEnviromentVariable ( QSettings * cfg )
+void Validator::setEnviromentVariable ( Settings * cfg )
 {
   if ( !cfg )
     return;

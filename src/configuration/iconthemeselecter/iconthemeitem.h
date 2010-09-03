@@ -24,8 +24,8 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
 #include <QtCore/QSettings>
+#include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QStandardItem>

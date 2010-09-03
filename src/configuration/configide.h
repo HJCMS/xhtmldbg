@@ -63,8 +63,8 @@ class ConfigIDE : public PageWidget
 
   public:
     ConfigIDE ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigIDE();
 };
 

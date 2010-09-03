@@ -26,7 +26,6 @@
 #include <QtCore/QEvent>
 #include <QtCore/QList>
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QVariant>
 #include <QtCore/QVector>
 
@@ -49,6 +48,9 @@
 
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
+
+/* XHTMLBG */
+#include "settings.h"
 
 class NetworkAccessManager;
 class DownloadManager;
@@ -86,7 +88,7 @@ class Window : public QMainWindow
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* m_settings;
+    Settings* m_settings;
     const QIcon qTidyIcon;
     // URL Scheme Validate
     const QRegExp schemePattern;
@@ -215,7 +217,7 @@ class Window : public QMainWindow
     void setCentralTabWidget ( const QString &index = QString::fromUtf8 ( "webview" ) );
 
   public:
-    Window ( QSettings * settings = 0 );
+    Window ( Settings * settings = 0 );
     ~Window();
 };
 

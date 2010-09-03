@@ -27,12 +27,16 @@
 
 #include <cstdlib>
 
+/* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QProcessEnvironment>
+
+/* QtGui */
+#include <QtGui/QX11Info>
 
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
@@ -66,11 +70,11 @@ QString Application::myName () const
   Q_ASSERT ( ! name.isEmpty() );
   QProcessEnvironment pe ( QProcessEnvironment::systemEnvironment () );
   QString uid = QString::number ( getuid() );
-  /* Achtung: @ref xdebugger/xdebugserver.h localSocketDescriptor()
-  * Der XDebugServer verwendet auch das Format (applicationName()_$USER)
-  * Wenn das Format hier geändert wird dann auch dort ebenfalls ändern!
-  */
-  return QString ( "%1_%2" ).arg ( name , pe.value ( QLatin1String ( "USER" ), uid ) );
+  name.append ( "_" );
+  name.append ( pe.value ( QLatin1String ( "USER" ), uid ) );
+  name.append ( "_" );
+  name.append ( QString::number ( QX11Info::appScreen() ) );
+  return name;
 }
 
 bool Application::startUniqueServer()

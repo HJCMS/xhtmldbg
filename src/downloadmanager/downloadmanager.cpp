@@ -41,7 +41,7 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 
-DownloadManager::DownloadManager ( QWidget * parent, QSettings * settings )
+DownloadManager::DownloadManager ( QWidget * parent, Settings * settings )
     : QDockWidget ( parent )
     , cfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )

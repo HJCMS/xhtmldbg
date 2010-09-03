@@ -27,7 +27,6 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QModelIndex>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -63,7 +62,6 @@ class CookiesEditorTable : public QTableWidget
   public:
     CookiesEditorTable ( QWidget * parent = 0 );
     bool addCookie ( int, const QString &, int rfc = 1 );
-    Q_DECL_DEPRECATED void addCookiesFromOldConfig ( QSettings * cfg );
     virtual ~CookiesEditorTable();
 };
 

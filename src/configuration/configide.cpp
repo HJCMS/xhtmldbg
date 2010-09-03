@@ -328,7 +328,7 @@ void ConfigIDE::clearingThemePaths ( bool )
   m_iconThemeSelecter->setTheme ( currentTheme );
 }
 
-void ConfigIDE::load ( QSettings * cfg )
+void ConfigIDE::load ( Settings * cfg )
 {
   m_editStartUpUrl->setText ( cfg->value ( QLatin1String ( "StartUpUrl" ) ).toString() );
   m_hideDownloadWidget->setChecked ( cfg->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool() );
@@ -341,7 +341,7 @@ void ConfigIDE::load ( QSettings * cfg )
   checkCSSValidator();
 }
 
-void ConfigIDE::save ( QSettings * cfg )
+void ConfigIDE::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "StartUpUrl" ), m_editStartUpUrl->text() );
   cfg->setValue ( QLatin1String ( "HideDownloadManager" ), m_hideDownloadWidget->isChecked() );

@@ -104,7 +104,7 @@ void UserAgentsTable::moveRow ( int t )
 }
 
 /** Tabelle befüllen */
-void UserAgentsTable::loadUserAgents ( QSettings * cfg )
+void UserAgentsTable::loadUserAgents ( Settings * cfg )
 {
   int size = cfg->beginReadArray ( QLatin1String ( "UserAgents" ) );
   QList<UserAgent*> list;
@@ -122,7 +122,7 @@ void UserAgentsTable::loadUserAgents ( QSettings * cfg )
 }
 
 /** Tabelle Speichern */
-void UserAgentsTable::saveUserAgents ( QSettings * cfg )
+void UserAgentsTable::saveUserAgents ( Settings * cfg )
 {
   cfg->remove ( QLatin1String ( "UserAgents" ) );
   if ( m_model->rowCount ( QModelIndex() ) < 1 )

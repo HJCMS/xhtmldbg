@@ -24,12 +24,14 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QDialog>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 #include "ui_cssconfiguremain.h"
 
@@ -40,7 +42,7 @@ class CSSConfigure : public QDialog , protected Ui::CSSConfigureMain
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     QStringList profileList;
     QStringList langList;
     QStringList warningList;
@@ -53,7 +55,7 @@ class CSSConfigure : public QDialog , protected Ui::CSSConfigureMain
     void saveAndExit();
 
   public:
-    CSSConfigure ( QWidget * parent = 0, QSettings * settings = 0 );
+    CSSConfigure ( QWidget * parent = 0, Settings * settings = 0 );
     ~CSSConfigure();
 };
 

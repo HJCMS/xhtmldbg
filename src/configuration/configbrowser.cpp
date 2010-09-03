@@ -216,7 +216,7 @@ void ConfigBrowser::itemClicked ( int )
   emit modified ( true );
 }
 
-void ConfigBrowser::load ( QSettings * cfg )
+void ConfigBrowser::load ( Settings * cfg )
 {
   QMapIterator<QString,bool> it ( settingsMap() );
   while ( it.hasNext() )
@@ -232,7 +232,7 @@ void ConfigBrowser::load ( QSettings * cfg )
   pluginPathChooser->setDirectory ( cfg->value ( QLatin1String ( "webkit_plugin_path" ) ).toString() );
 }
 
-void ConfigBrowser::save ( QSettings * cfg )
+void ConfigBrowser::save ( Settings * cfg )
 {
   QMapIterator<QString,bool> it ( settingsMap() );
   while ( it.hasNext() )

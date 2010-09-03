@@ -25,7 +25,6 @@
 /* QtCore */
 #include <QtCore/QList>
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -35,6 +34,9 @@
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkReply>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class Downloader;
 class DownloadsTable;
@@ -48,7 +50,7 @@ class DownloadManager : public QDockWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     DownloadsTable* m_table;
     DownloadsInfo* m_info;
     AutoSaver *m_autoSaver;
@@ -64,7 +66,7 @@ class DownloadManager : public QDockWidget
     void download ( QNetworkReply *reply, const QUrl &destination );
 
   public:
-    DownloadManager ( QWidget * parent = 0, QSettings * setting = 0 );
+    DownloadManager ( QWidget * parent = 0, Settings * setting = 0 );
     virtual ~DownloadManager();
 };
 

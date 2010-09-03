@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 
@@ -35,6 +34,9 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class DomTree;
 class DomToolBar;
@@ -47,7 +49,7 @@ class DomInspector : public QDockWidget
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     DomToolBar* m_domToolBar;
     QSplitter* m_domSplitter;
     DomTree* m_domTree;
@@ -75,7 +77,7 @@ class DomInspector : public QDockWidget
     void findItem ( const QWebElement & );
 
   public:
-    DomInspector ( QWidget * parent = 0, QSettings * settings = 0 );
+    DomInspector ( QWidget * parent = 0, Settings * settings = 0 );
     virtual ~DomInspector ();
 };
 

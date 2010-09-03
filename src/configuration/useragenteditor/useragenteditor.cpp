@@ -86,12 +86,12 @@ void UserAgentEditor::moveDown()
   table->moveRow ( 1 );
 }
 
-void UserAgentEditor::loadUserAgents ( QSettings * cfg )
+void UserAgentEditor::loadUserAgents ( Settings * cfg )
 {
   table->loadUserAgents ( cfg );
 }
 
-void UserAgentEditor::saveUserAgents ( QSettings * cfg )
+void UserAgentEditor::saveUserAgents ( Settings * cfg )
 {
   table->saveUserAgents ( cfg );
 }

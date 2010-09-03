@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QVector>
 
@@ -36,6 +35,9 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
+/* xhtmldbg */
+#include "settings.h"
+
 class ListStyleSheet : public QListWidget
 {
     Q_OBJECT
@@ -43,7 +45,7 @@ class ListStyleSheet : public QListWidget
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     const QIcon cascadedStyle;
     const QIcon inlineStyle;
     QString excludeRgb;
@@ -55,7 +57,7 @@ class ListStyleSheet : public QListWidget
     void setStyleSheetList ( const QWebElement & );
 
   public:
-    ListStyleSheet ( QWidget * parent = 0, QSettings * settings = 0 );
+    ListStyleSheet ( QWidget * parent = 0, Settings * settings = 0 );
     ~ListStyleSheet();
 };
 

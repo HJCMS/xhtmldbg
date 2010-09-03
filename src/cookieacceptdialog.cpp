@@ -43,10 +43,6 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
 
-  // Settings
-  m_settings = new QSettings ( QSettings::NativeFormat,
-                               QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
-
   QVBoxLayout* layout = new QVBoxLayout ( this );
   QString info = trUtf8 ( "The Host have sent a Cookie request, add here the Arrangement." );
   layout->addWidget ( new QLabel ( info, this ) );

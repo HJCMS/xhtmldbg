@@ -46,12 +46,12 @@ ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
             this, SIGNAL ( modified ( bool ) ) );
 }
 
-void ConfigUserAgents::load ( QSettings * cfg )
+void ConfigUserAgents::load ( Settings * cfg )
 {
   m_userAgentEditor->loadUserAgents ( cfg );
 }
 
-void ConfigUserAgents::save ( QSettings * cfg )
+void ConfigUserAgents::save ( Settings * cfg )
 {
   m_userAgentEditor->saveUserAgents ( cfg );
 }

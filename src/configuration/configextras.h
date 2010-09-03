@@ -51,8 +51,8 @@ class ConfigExtras : public PageWidget
 
   public:
     ConfigExtras ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigExtras();
 };
 

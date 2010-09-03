@@ -19,7 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "version.h"
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "networksettings.h"
 
 /* QtCore */
@@ -34,26 +36,17 @@
 #include <QtCore/QTextIStream>
 #include <QtCore/QVariant>
 
-/* QtGui */
-#include <QtGui/QDesktopServices>
-
 /* QtNetwork */
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslKey>
 
 NetworkSettings::NetworkSettings ( QObject * parent )
-    : QSettings ( QSettings::NativeFormat,
-                  QSettings::UserScope, "hjcms.de", "xhtmldbg", parent )
+    : Settings ( parent )
     , wcfg ( QWebSettings::globalSettings() )
 {
   setObjectName ( QLatin1String ( "networksettings" ) );
-
-  QString dbPath = QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
-  QDir dir ( dbPath );
-  dir.mkpath ( QLatin1String ( "icons" ) );
-  dir.mkpath ( QLatin1String ( "storage" ) );
-  wcfg->setIconDatabasePath ( dbPath + dir.separator() + QLatin1String ( "icons" ) );
-  wcfg->setLocalStoragePath ( dbPath + dir.separator() + QLatin1String ( "storage" ) );
+  wcfg->setIconDatabasePath ( webIconDatabasePath() );
+  wcfg->setLocalStoragePath ( webLocalStoragePath() );
   wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
 }
 
@@ -97,11 +90,11 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork );
 
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
-                         value ( "DoNotBufferUploadDataAttribute", true ).toBool() );
+                         boolValue ( "DoNotBufferUploadDataAttribute", true ) );
   request.setAttribute ( QNetworkRequest::HttpPipeliningAllowedAttribute,
-                         value ( "HttpPipeliningAllowedAttribute", true ).toBool() );
+                         boolValue ( "HttpPipeliningAllowedAttribute", true ) );
   request.setAttribute ( QNetworkRequest::HttpPipeliningWasUsedAttribute,
-                         value ( "HttpPipeliningWasUsedAttribute", true ).toBool() );
+                         boolValue ( "HttpPipeliningWasUsedAttribute", true ) );
 
 
   // Headers

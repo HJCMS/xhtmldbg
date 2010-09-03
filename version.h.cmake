@@ -19,6 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef VERSION_H
+#define VERSION_H
+
 /**
 * XHTMLDBG Version String
 */
@@ -33,3 +36,15 @@
 * GeoIP Database Location
 */
 #define GEOIP_DATABASE_PATH "@GEOIP_DATABASE_PATH@"
+
+/**
+* ApplicationName
+*/
+#define XHTMLBG_APPS_NAME "xhtmldbg"
+
+/**
+* OrganizationDomain
+*/
+#define XHTMLBG_DOMAIN "hjcms.de"
+
+#endif

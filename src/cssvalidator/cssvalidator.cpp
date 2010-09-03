@@ -43,7 +43,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
 
-CSSValidator::CSSValidator ( QWidget * parent, QSettings * settings )
+CSSValidator::CSSValidator ( QWidget * parent, Settings * settings )
     : QDockWidget ( parent )
     , cfg ( settings )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )

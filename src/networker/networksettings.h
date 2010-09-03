@@ -38,7 +38,10 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QSslConfiguration>
 
-class NetworkSettings : public QSettings
+/* xhtmldbg */
+#include "settings.h"
+
+class NetworkSettings : public Settings
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

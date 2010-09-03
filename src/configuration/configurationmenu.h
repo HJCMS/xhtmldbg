@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -33,6 +32,9 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
 
+/* xhtmldbg */
+#include "settings.h"
+
 class ConfigurationMenu : public QListWidget
 {
     Q_OBJECT
@@ -40,7 +42,7 @@ class ConfigurationMenu : public QListWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     void insertItem ( int, const QString &, const QIcon & );
 
   private Q_SLOTS:
@@ -50,7 +52,7 @@ class ConfigurationMenu : public QListWidget
     void itemClicked ( int );
 
   public:
-    ConfigurationMenu ( QWidget * parent = 0, QSettings * settings = 0 );
+    ConfigurationMenu ( QWidget * parent = 0, Settings * settings = 0 );
     ~ConfigurationMenu();
 };
 

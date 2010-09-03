@@ -27,7 +27,7 @@
 /* QtGui */
 #include <QtGui/QAction>
 
-UserAgentMenu::UserAgentMenu ( QMenu * parent, QSettings * settings )
+UserAgentMenu::UserAgentMenu ( QMenu * parent, Settings * settings )
     : QMenu ( parent )
     , cfg ( settings )
     , agentIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) )
@@ -55,7 +55,7 @@ void UserAgentMenu::addAgentActions()
   int size = cfg->beginReadArray ( QLatin1String ( "UserAgents" ) );
   if ( size < 1 )
   {
-    /* Wichtig - Immer schliessen sonst baut QSettings ein Array
+    /* Wichtig - Immer schliessen sonst baut Settings ein Array
     * ohne size= Schlüssel und stürtzt bei nächsten leseversuch ab! */
     cfg->endArray();
     return;

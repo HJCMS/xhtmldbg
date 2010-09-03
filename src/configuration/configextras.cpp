@@ -122,12 +122,12 @@ void ConfigExtras::setDatabasePath ( const QString &p )
   m_lineEditGeoIP->setText ( p );
 }
 
-void ConfigExtras::load ( QSettings * cfg )
+void ConfigExtras::load ( Settings * cfg )
 {
   m_lineEditGeoIP->setText ( cfg->value ( QLatin1String ( "GeoIP_Database" ), absoluteDatabasePath() ).toString() );
 }
 
-void ConfigExtras::save ( QSettings * cfg )
+void ConfigExtras::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "GeoIP_Database" ), m_lineEditGeoIP->text() );
 }

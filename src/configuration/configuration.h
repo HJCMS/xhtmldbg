@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -33,6 +32,9 @@
 #include <QtGui/QSplitter>
 #include <QtGui/QStackedWidget>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class ConfigurationMenu;
 class StackedWidget;
@@ -44,7 +46,7 @@ class Configuration : public QDialog
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     QSplitter* m_splitter;
     // Menues
     ConfigurationMenu* menuWidget;
@@ -62,7 +64,7 @@ class Configuration : public QDialog
     void quit();
 
   public:
-    Configuration ( QWidget * parent = 0, QSettings * settings = 0 );
+    Configuration ( QWidget * parent = 0, Settings * settings = 0 );
     virtual ~Configuration();
 };
 

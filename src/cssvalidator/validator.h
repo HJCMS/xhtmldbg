@@ -25,10 +25,12 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QProcess>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QTemporaryFile>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class Validator : public QProcess
 {
@@ -43,7 +45,7 @@ class Validator : public QProcess
     QStringList parameters;
     QString javaAppl;
     QString url;
-    const QString param ( const QString &, QSettings * ) const;
+    const QString param ( const QString &, Settings * ) const;
 
   private Q_SLOTS:
     void cleaning();
@@ -59,7 +61,7 @@ class Validator : public QProcess
     bool isRunning();
     const QString getValidation ();
     bool setValidation ( const QString &url );
-    void setEnviromentVariable ( QSettings * );
+    void setEnviromentVariable ( Settings * );
     const QString errorsLogFile();
     virtual ~Validator();
 };

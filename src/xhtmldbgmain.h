@@ -26,7 +26,6 @@
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -36,6 +35,7 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 
+#include "settings.h"
 #include "application.h"
 #include "window.h"
 
@@ -47,7 +47,7 @@ class xhtmldbgmain : public Application
 
   private:
     Window* activeWindow;
-    QSettings* m_settings;
+    Settings* m_settings;
     QList<QPointer<Window> > m_windows;
     void setWindowFocus();
     void cleanWindows();

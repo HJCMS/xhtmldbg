@@ -52,8 +52,8 @@ class ConfigDomTree : public PageWidget
 
   public:
     ConfigDomTree ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigDomTree();
 };
 

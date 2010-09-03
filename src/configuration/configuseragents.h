@@ -23,7 +23,6 @@
 #define CONFIGUSERAGENTS_H
 
 /* QtCore */
-#include <QtCore/QSettings>
 #include <QtCore/QObject>
 
 /* QtGui */
@@ -43,8 +42,8 @@ class ConfigUserAgents : public PageWidget
 
   public:
     ConfigUserAgents ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigUserAgents();
 };
 

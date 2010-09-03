@@ -39,7 +39,7 @@
 /* GeoIP */
 #include <GeoIP.h>
 
-GeoLocation::GeoLocation ( QWidget * parent, QSettings * settings )
+GeoLocation::GeoLocation ( QWidget * parent, Settings * settings )
     : QWidget ( parent )
     , cfg ( settings )
     , defaultIcon ( QIcon ( QString::fromUtf8 ( ":/flags/icons/flags/europeanunion.png" ) ) )

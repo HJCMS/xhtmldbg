@@ -24,13 +24,15 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QSignalMapper>
 
 /* QtGui */
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
+
+/* XHTMLBG */
+#include "settings.h"
 
 class UserAgentMenu : public QMenu
 {
@@ -39,7 +41,7 @@ class UserAgentMenu : public QMenu
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    QSettings* cfg;
+    Settings* cfg;
     const QIcon agentIcon;
     QSignalMapper* m_signalMapper;
     void addAgentActions();
@@ -48,7 +50,7 @@ class UserAgentMenu : public QMenu
     void clicked ( const QString & );
 
   public:
-    UserAgentMenu ( QMenu * parent = 0, QSettings * settings = 0 );
+    UserAgentMenu ( QMenu * parent = 0, Settings * settings = 0 );
     ~UserAgentMenu ();
 };
 

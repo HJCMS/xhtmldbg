@@ -34,51 +34,28 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
-
-/* QtGui */
-#include <QtGui/QIcon>
-#include <QtGui/QDesktopServices>
 
 xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
     : Application ( argc, argv )
     , activeWindow ( 0 )
 {
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  setApplicationName ( "xhtmldbg" );
-  setOrganizationDomain ( "hjcms.de" );
-  setObjectName ( "xhtmldbg" );
+  setApplicationName ( XHTMLBG_APPS_NAME );
+  setOrganizationDomain ( XHTMLBG_DOMAIN );
+  setObjectName ( XHTMLBG_APPS_NAME );
 
   // Settings
-  m_settings = new QSettings ( QSettings::NativeFormat, QSettings::UserScope,
-                               organizationDomain(), objectName(), this );
+  m_settings = new Settings ( this );
 
   if ( arguments().contains ( QLatin1String ( "--savemode" ), Qt::CaseInsensitive ) )
-  {
-    qWarning ( "(XHTMLDBG) Starting in savemode" );
-    m_settings->setValue ( QLatin1String ( "RecentUrl" ), QVariant ( "http://www.hjcms.de" ) );
-    m_settings->setValue ( QLatin1String ( "PluginsEnabled" ), false );
-    m_settings->remove ( QLatin1String ( "webkit_plugin_path" ) );
-  }
+    m_settings->setSaveMode();
 
-  /**
-  * BUG KDE4 >= 4.4*
-  * KDE 4 erstellt beim neu Initialisieren der Programmpfade nicht die
-  * oberen fehlenden Verzeichnisse z.B: ~/.local/share/data/xhtmldbg fehlt!
-  */
-  QString dataPath = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
-  QDir homeDir ( QDesktopServices::storageLocation ( QDesktopServices::HomeLocation ) );
-  if ( homeDir.mkpath ( dataPath ) )
-    QFile ( dataPath ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
-
-  // Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
-  QStringList searchPaths = m_settings->value ( "iconthemepaths", QIcon::themeSearchPaths() ).toStringList();
-  QIcon::setThemeSearchPaths ( searchPaths );
-  QIcon::setThemeName ( m_settings->value ( "icontheme", "oxygen" ).toString() );
+  m_settings->setDataPaths();
+  m_settings->setIconTheme();
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

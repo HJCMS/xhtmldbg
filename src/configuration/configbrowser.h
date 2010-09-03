@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QSpinBox>
@@ -52,8 +51,8 @@ class ConfigBrowser : public PageWidget
 
   public:
     ConfigBrowser ( QWidget * parent = 0 );
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigBrowser();
 };
 

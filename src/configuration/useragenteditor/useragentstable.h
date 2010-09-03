@@ -25,13 +25,15 @@
 /* QtCore */
 #include <QtCore/QMap>
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QContextMenuEvent>
 #include <QtGui/QTableView>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class UserAgentsTableModel;
 
@@ -56,8 +58,8 @@ class UserAgentsTable : public QTableView
   public:
     UserAgentsTable ( QWidget * parent = 0 );
     void moveRow ( int );
-    void loadUserAgents ( QSettings * cfg );
-    void saveUserAgents ( QSettings * cfg );
+    void loadUserAgents ( Settings * cfg );
+    void saveUserAgents ( Settings * cfg );
     ~UserAgentsTable();
 };
 

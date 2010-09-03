@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -34,6 +33,9 @@
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class PageWidget : public QScrollArea
 {
@@ -54,8 +56,8 @@ class PageWidget : public QScrollArea
     bool isActiv ();
     bool isChecked ();
     void setActiv ( bool b = true );
-    virtual void load ( QSettings * ) = 0;
-    virtual void save ( QSettings * ) = 0;
+    virtual void load ( Settings * ) = 0;
+    virtual void save ( Settings * ) = 0;
 
   protected Q_SLOTS:
     void setChecked ( bool );

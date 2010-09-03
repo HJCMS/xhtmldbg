@@ -176,15 +176,13 @@ void ConfigCookies::addCookieAccess()
   }
 }
 
-void ConfigCookies::load ( QSettings * cfg )
+void ConfigCookies::load ( Settings * cfg )
 {
-  // Q_UNUSED ( cfg )
+  Q_UNUSED ( cfg )
   cookiesTable->loadCookieAccess ();
-  // Abwärts Kompatible
-  cookiesTable->addCookiesFromOldConfig ( cfg );
 }
 
-void ConfigCookies::save ( QSettings * cfg )
+void ConfigCookies::save ( Settings * cfg )
 {
   Q_UNUSED ( cfg )
   cookiesTable->saveCookieAccess ();

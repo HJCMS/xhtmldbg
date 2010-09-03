@@ -58,7 +58,7 @@ static inline const QStringList deprecatedList()
   return list;
 }
 
-Configuration::Configuration ( QWidget * parent, QSettings * settings )
+Configuration::Configuration ( QWidget * parent, Settings * settings )
     : QDialog ( parent )
     , cfg ( settings )
 {

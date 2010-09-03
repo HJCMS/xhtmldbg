@@ -25,13 +25,14 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QRect>
-#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QBrush>
 #include <QtGui/QPaintEvent>
 #include <QtGui/QRubberBand>
 #include <QtGui/QWidget>
+
+class Settings;
 
 class Reticule : public QRubberBand
 {
@@ -40,7 +41,7 @@ class Reticule : public QRubberBand
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QSettings* m_settings;
+    Settings* m_settings;
     const QBrush currentBrush();
 
   protected:

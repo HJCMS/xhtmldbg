@@ -106,7 +106,7 @@ void ConfigHeaderDefinitions::itemChanged ( QTableWidgetItem * item )
 /**
 * Lade die Datenkopf Definitionen aus der Konfiguration
 */
-void ConfigHeaderDefinitions::loadHeaderDefinitions ( QSettings * cfg )
+void ConfigHeaderDefinitions::loadHeaderDefinitions ( Settings * cfg )
 {
   cfg->beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
   QStringList keys = cfg->allKeys();
@@ -133,7 +133,7 @@ void ConfigHeaderDefinitions::loadHeaderDefinitions ( QSettings * cfg )
 * Mit exclude werden die Header Definitionen ausgeschlossen die,
 * wie z.B: User-Agent nicht hier hinein gehören.
 */
-void ConfigHeaderDefinitions::saveHeaderDefinitions ( QSettings * cfg )
+void ConfigHeaderDefinitions::saveHeaderDefinitions ( Settings * cfg )
 {
   QStringList exclude ( "user-agent" );
   int rows = headersTable->rowCount();

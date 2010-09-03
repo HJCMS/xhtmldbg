@@ -19,10 +19,11 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#include "settings.h"
+#include "xhtmldbgmain.h"
 #include "viewer.h"
 #include "webviewer.h"
 #include "page.h"
-#include "xhtmldbgmain.h"
 #include "window.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
@@ -34,7 +35,6 @@
 #include <QtCore/QString>
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
-#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QBrush>
@@ -224,8 +224,7 @@ void Viewer::keyPressEvent ( QKeyEvent * e )
 void Viewer::contextMenuEvent ( QContextMenuEvent * e )
 {
   // Settings
-  QSettings* cfg = new QSettings ( QSettings::NativeFormat,
-                                   QSettings::UserScope, "hjcms.de", "xhtmldbg", this );
+  Settings* cfg = new Settings ( this );
 
   QMenu* menu = m_page->createStandardContextMenu();
   // Lesezeichen

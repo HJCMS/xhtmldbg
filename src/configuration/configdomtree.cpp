@@ -108,7 +108,7 @@ void ConfigDomTree::setBorderColor()
   previewBorder->setStyleSheet ( QString ( "background-color: %1;" ).arg ( highlightBorderColor ) );
 }
 
-void ConfigDomTree::load ( QSettings * cfg )
+void ConfigDomTree::load ( Settings * cfg )
 {
   m_backgroundColorGroup->setChecked ( cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool() );
   m_borderColorGroup->setChecked ( cfg->value ( QLatin1String ( "enableHighlightBorder" ), false ).toBool() );
@@ -120,7 +120,7 @@ void ConfigDomTree::load ( QSettings * cfg )
   previewBorder->setStyleSheet ( QString ( "background-color: %1;" ).arg ( highlightBorderColor ) );
 }
 
-void ConfigDomTree::save ( QSettings * cfg )
+void ConfigDomTree::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "enableHighlightBackground" ), m_backgroundColorGroup->isChecked() );
   cfg->setValue ( QLatin1String ( "enableHighlightBorder" ), m_borderColorGroup->isChecked() );

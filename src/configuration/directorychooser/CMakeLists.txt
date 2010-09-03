@@ -34,6 +34,7 @@ TARGET_LINK_LIBRARIES (DirectoryChooser
   ${QT_QTMAIN_LIBRARY}
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  Settings
 )
 
 ## EOF

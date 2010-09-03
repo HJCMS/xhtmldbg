@@ -39,7 +39,7 @@
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebElementCollection>
 
-DomInspector::DomInspector ( QWidget * parent, QSettings * settings )
+DomInspector::DomInspector ( QWidget * parent, Settings * settings )
     : QDockWidget ( parent )
     , cfg ( settings )
 {

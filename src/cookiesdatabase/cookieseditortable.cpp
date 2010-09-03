@@ -333,33 +333,5 @@ bool CookiesEditorTable::addCookie ( int t, const QString &h, int rfc )
   return true;
 }
 
-/**
-* Lädt die Cookie Regelungen aus der xhtmldbg.conf
-*/
-void CookiesEditorTable::addCookiesFromOldConfig ( QSettings * cfg )
-{
-  Q_ASSERT ( cfg );
-
-  if ( !cfg->contains ( QLatin1String ( "CookieArrangement" ) ) )
-    return;
-
-  cfg->beginGroup ( QLatin1String ( "CookieArrangement" ) );
-  QStringList keys = cfg->allKeys();
-  if ( keys.size() >= 1 )
-  {
-    foreach ( QString key, keys )
-    {
-      int val = cfg->value ( key ).toUInt();
-      if ( val < 0 )
-        continue;
-
-      addCookie ( val, key, 1 );
-      cfg->remove ( key );
-    }
-  }
-  cfg->endGroup();
-  cfg->remove ( QLatin1String ( "CookieArrangement" ) );
-}
-
 CookiesEditorTable::~CookiesEditorTable()
 {}

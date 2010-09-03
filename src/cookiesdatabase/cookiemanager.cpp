@@ -25,7 +25,6 @@
 /* QtCore */
 #include <QtCore/QDateTime>
 #include <QtCore/QDebug>
-#include <QtCore/QSettings>
 
 /* QtGui */
 #include <QtGui/QDesktopServices>

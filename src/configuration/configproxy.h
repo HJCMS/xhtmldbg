@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QString>
-#include <QtCore/QSettings>
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
 
@@ -72,8 +71,8 @@ class ConfigProxy : public PageWidget
     int getPort ();
     const QString  getUser ();
     const QString  getPassword ();
-    void load ( QSettings * );
-    void save ( QSettings * );
+    void load ( Settings * );
+    void save ( Settings * );
     ~ConfigProxy();
 };
 

@@ -64,7 +64,7 @@ ConfigSSL::ConfigSSL ( QWidget * parent )
             this, SIGNAL ( modified ( bool ) ) );
 }
 
-void ConfigSSL::load ( QSettings * cfg )
+void ConfigSSL::load ( Settings * cfg )
 {
   m_certIssuers->setCaCertDatabase ( cfg->value ( QLatin1String ( "sslCaCertsDatabase" ), QLatin1String ( "/etc/ssl/certs/ca-certificates.crt" ) ).toString() );
 
@@ -89,7 +89,7 @@ void ConfigSSL::load ( QSettings * cfg )
   m_configAccessControl->setPassPhrase ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() );
 }
 
-void ConfigSSL::save ( QSettings * cfg )
+void ConfigSSL::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "sslCaCertsDatabase" ), m_certIssuers->getCaBundleFile() );
 

@@ -38,6 +38,7 @@ SET_TARGET_PROPERTIES (Networker PROPERTIES
 
 TARGET_LINK_LIBRARIES (Networker
   AutoSaver
+  Settings
   CookiesDatabase
   ${XHTMLDBG_LIBRARIES}
 )

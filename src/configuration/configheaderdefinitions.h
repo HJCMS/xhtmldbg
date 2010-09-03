@@ -24,7 +24,6 @@
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSettings>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -32,6 +31,9 @@
 #include <QtGui/QTableWidget>
 #include <QtGui/QTableWidgetItem>
 #include <QtGui/QWidget>
+
+/* xhtmldbg */
+#include "settings.h"
 
 class ConfigHeaderDefinitions : public QGroupBox
 {
@@ -52,8 +54,8 @@ class ConfigHeaderDefinitions : public QGroupBox
 
   public:
     ConfigHeaderDefinitions ( QWidget * parent = 0 );
-    void loadHeaderDefinitions ( QSettings * );
-    void saveHeaderDefinitions ( QSettings * );
+    void loadHeaderDefinitions ( Settings * );
+    void saveHeaderDefinitions ( Settings * );
     ~ConfigHeaderDefinitions();
 };
 
