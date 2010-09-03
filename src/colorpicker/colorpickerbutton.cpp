@@ -31,6 +31,8 @@ ColorPickerButton::ColorPickerButton ( QWidget * parent )
     : QToolButton ( parent )
 {
   setObjectName ( QLatin1String ( "colorpickerbutton" ) );
+  setToolTip ( trUtf8( "Color picker" ) );
+  setStatusTip ( trUtf8( "Color picker" ) );
   setCheckable ( true );
   setChecked ( false );
   setAutoRaise ( true );
