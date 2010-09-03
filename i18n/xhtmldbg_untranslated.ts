@@ -530,12 +530,22 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/colorpicker/colorpicker.cpp" line="69"/>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="60"/>
+        <source>Gray Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="61"/>
+        <source>Topographic Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="71"/>
         <source>Color preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/colorpicker/colorpicker.cpp" line="94"/>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="96"/>
         <source>Color tapping</source>
         <translation type="unfinished"></translation>
     </message>

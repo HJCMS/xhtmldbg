@@ -531,12 +531,22 @@ Do you realy wan to exit?</source>
         <translation>Regenbogen Farben</translation>
     </message>
     <message>
-        <location filename="../src/colorpicker/colorpicker.cpp" line="69"/>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="60"/>
+        <source>Gray Colors</source>
+        <translation>Graustufen</translation>
+    </message>
+    <message>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="61"/>
+        <source>Topographic Colors</source>
+        <translation>Topografische Farben</translation>
+    </message>
+    <message>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="71"/>
         <source>Color preview</source>
         <translation>Farben-Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/colorpicker/colorpicker.cpp" line="94"/>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="96"/>
         <source>Color tapping</source>
         <translation>Farbe abgreifen</translation>
     </message>

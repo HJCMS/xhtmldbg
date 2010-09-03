@@ -35,6 +35,8 @@ class Colors : public QObject
     static const QVector<QColor> webColors();
     static const QVector<QColor> royalColors();
     static const QVector<QColor> rainbowColors();
+    static const QVector<QColor> grayColors();
+    static const QVector<QColor> topographicColors();
 };
 
 #endif

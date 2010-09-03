@@ -57,6 +57,8 @@ ColorPicker::ColorPicker ( QWidget * parent )
   m_colorComboBox->insertItem ( 0, trUtf8 ( "Web Colors" ) );
   m_colorComboBox->insertItem ( 1, trUtf8 ( "Royal Colors" ) );
   m_colorComboBox->insertItem ( 2, trUtf8 ( "Rainbow Colors" ) );
+  m_colorComboBox->insertItem ( 3, trUtf8 ( "Gray Colors" ) );
+  m_colorComboBox->insertItem ( 4, trUtf8 ( "Topographic Colors" ) );
   verticalLayout->addWidget ( m_colorComboBox, 0, Qt::AlignRight );
 
   // Farbpaletten Ausgeben
@@ -154,6 +156,14 @@ void ColorPicker::colorMapChanged ( int index )
 
     case 2:
       m_colorTable->insertColors ( Colors::rainbowColors() );
+      break;
+
+    case 3:
+      m_colorTable->insertColors ( Colors::grayColors() );
+      break;
+
+    case 4:
+      m_colorTable->insertColors ( Colors::topographicColors() );
       break;
 
     default:
