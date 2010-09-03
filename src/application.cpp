@@ -69,9 +69,8 @@ QString Application::myName () const
   QString name = applicationName();
   Q_ASSERT ( ! name.isEmpty() );
   QProcessEnvironment pe ( QProcessEnvironment::systemEnvironment () );
-  QString uid = QString::number ( getuid() );
   name.append ( "_" );
-  name.append ( pe.value ( QLatin1String ( "USER" ), uid ) );
+  name.append ( pe.value ( QLatin1String ( "USER" ), QString::number ( getuid() ) ) );
   name.append ( "_" );
   name.append ( QString::number ( QX11Info::appScreen() ) );
   return name;
@@ -100,7 +99,7 @@ bool Application::startUniqueServer()
         b = true;
     }
     if ( ! b )
-      qWarning() << "XHTML_DBG_SERVER: Unable to listen:" << m_server->errorString();
+      qWarning() << "(xhtmldbg) Unable to listen:" << m_server->errorString();
   }
   else
   {
@@ -111,7 +110,7 @@ bool Application::startUniqueServer()
   {
     QFile file ( m_server->fullServerName() );
     if ( ! file.setPermissions ( QFile::ReadUser | QFile::WriteUser ) )
-      qWarning() << "XHTML_DBG_SERVER: Permissions Denied:" << file.fileName() << file.errorString();
+      qWarning() << "(xhtmldbg) Permissions Denied:" << file.fileName() << file.errorString();
 
   }
 
