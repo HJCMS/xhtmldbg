@@ -276,10 +276,8 @@ Window::Window ( Settings * settings )
             m_webViewer, SLOT ( refresh() ) );
   // } AutoReload
   // ColorPicker {
-  connect ( m_colorPickerButton, SIGNAL ( toggled ( bool ) ),
+  connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
-  connect ( m_colorPicker, SIGNAL ( recording ( bool ) ),
-            m_colorPickerButton, SLOT ( setChecked ( bool ) ) );
   // } ColorPicker
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome

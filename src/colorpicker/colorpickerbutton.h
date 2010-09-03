@@ -27,14 +27,19 @@
 #include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
-class ColorPickerButton : public QToolButton
+class ColorPickerButton : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private Q_SLOTS:
+    void clicked();
+
+  Q_SIGNALS:
+    void clicked ( bool );
 
   public:
     ColorPickerButton ( QWidget * parent = 0 );

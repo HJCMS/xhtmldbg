@@ -25,18 +25,38 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
+#include <QtGui/QVBoxLayout>
 #include <QtGui/QIcon>
+#include <QtGui/QToolButton>
 
 ColorPickerButton::ColorPickerButton ( QWidget * parent )
-    : QToolButton ( parent )
+    : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "colorpickerbutton" ) );
-  setToolTip ( trUtf8( "Color picker" ) );
-  setStatusTip ( trUtf8( "Color picker" ) );
-  setCheckable ( true );
-  setChecked ( false );
-  setAutoRaise ( true );
-  setIcon ( QIcon::fromTheme ( "color-picker" ) );
+  setToolTip ( trUtf8 ( "Color picker" ) );
+  setStatusTip ( trUtf8 ( "Color picker" ) );
+  setContentsMargins ( 0, 0, 0, 0 );
+
+  QVBoxLayout* layout = new QVBoxLayout ( this );
+  layout->setObjectName ( QLatin1String ( "colorpickerbutton.layout" ) );
+  layout->setContentsMargins ( 0, 0, 0, 0 );
+
+  QToolButton* button = new QToolButton ( this );
+  button->setObjectName ( QLatin1String ( "colorpickerbutton.layout.button" ) );
+  button->setCheckable ( false );
+  button->setAutoRaise ( true );
+  button->setIcon ( QIcon::fromTheme ( "color-picker" ) );
+  layout->addWidget ( button );
+
+  setLayout ( layout );
+
+  connect ( button, SIGNAL ( clicked() ),
+            this,SLOT ( clicked() ) );
+}
+
+void ColorPickerButton::clicked()
+{
+  emit clicked ( true );
 }
 
 ColorPickerButton::~ColorPickerButton()

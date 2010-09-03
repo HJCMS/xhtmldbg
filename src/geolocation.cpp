@@ -48,6 +48,7 @@ GeoLocation::GeoLocation ( QWidget * parent, Settings * settings )
 {
   setObjectName ( QLatin1String ( "geolocation" ) );
   setToolTip ( trUtf8 ( "country code from host address." ) );
+  setStatusTip ( trUtf8 ( "country code from host address." ) );
   setContentsMargins ( 0, 0, 0, 0 );
 
   QString fallbackPath ( GEOIP_DATABASE_PATH );
