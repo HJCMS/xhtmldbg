@@ -48,6 +48,8 @@
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
+#include "colorpicker.h"
+#include "colorpickerbutton.h"
 #include "geolocation.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
@@ -138,6 +140,10 @@ Window::Window ( Settings * settings )
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
 
+  // Farben Pipette Ein/Ausschalten
+  ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );
+  tabCornerBottomWidgetLayout->addWidget ( m_colorPickerButton );
+
   // Gebiete mit der IP Adresse ermitteln
   m_geoLocation = new GeoLocation ( tabCornerBottomWidget, m_settings );
   tabCornerBottomWidgetLayout->addWidget ( m_geoLocation );
@@ -182,6 +188,10 @@ Window::Window ( Settings * settings )
   // CSS Validierer Prozess
   m_cssValidator = new CSSValidator ( this, m_settings );
   addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
+
+  // ColorPicker
+  m_colorPicker = new ColorPicker ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_colorPicker );
 
   // Zeige Datenköpfe für CGI GET/POST und HTTP Header an.
   m_headerDock = new HeaderDock ( this );
@@ -265,6 +275,12 @@ Window::Window ( Settings * settings )
   connect ( m_autoReloader, SIGNAL ( reload () ),
             m_webViewer, SLOT ( refresh() ) );
   // } AutoReload
+  // ColorPicker {
+  connect ( m_colorPickerButton, SIGNAL ( toggled ( bool ) ),
+            m_colorPicker, SLOT ( tapping ( bool ) ) );
+  connect ( m_colorPicker, SIGNAL ( recording ( bool ) ),
+            m_colorPickerButton, SLOT ( setChecked ( bool ) ) );
+  // } ColorPicker
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
@@ -550,6 +566,7 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
+  inspectorsMenu->addAction ( m_colorPicker->toggleViewAction() );
 
   // Plugin Menu
   m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );

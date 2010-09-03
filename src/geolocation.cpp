@@ -23,6 +23,7 @@
 # include "version.h"
 #endif
 #include "geolocation.h"
+#include "hostinfo.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -43,6 +44,7 @@ GeoLocation::GeoLocation ( QWidget * parent, Settings * settings )
     : QWidget ( parent )
     , cfg ( settings )
     , defaultIcon ( QIcon ( QString::fromUtf8 ( ":/flags/icons/flags/europeanunion.png" ) ) )
+    , hostName ( QLatin1String ( "localhost" ) )
 {
   setObjectName ( QLatin1String ( "geolocation" ) );
   setToolTip ( trUtf8 ( "country code from host address." ) );
@@ -52,7 +54,7 @@ GeoLocation::GeoLocation ( QWidget * parent, Settings * settings )
   fallbackPath.append ( QDir::separator() );
   fallbackPath.append ( "GeoIP.dat" );
 
-  databasePath = cfg->value ( QLatin1String ( "GeoIP_Database" ), fallbackPath ).toString();
+  databasePath = cfg->strValue ( QLatin1String ( "GeoIP_Database" ), fallbackPath );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
   layout->setObjectName ( QLatin1String ( "geolocationlayout" ) );
@@ -63,10 +65,12 @@ GeoLocation::GeoLocation ( QWidget * parent, Settings * settings )
   m_toolButton->setObjectName ( QLatin1String ( "geolocationbutton" ) );
   m_toolButton->setIcon ( defaultIcon );
   m_toolButton->setAutoRaise ( true );
-  m_toolButton->setEnabled ( false );
   layout->addWidget ( m_toolButton );
 
   setLayout ( layout );
+
+  connect ( m_toolButton, SIGNAL ( clicked() ),
+            this, SLOT ( showDetails() ) );
 }
 
 void GeoLocation::setFlag ( const QString &code )
@@ -74,13 +78,11 @@ void GeoLocation::setFlag ( const QString &code )
   if ( code.isEmpty() )
   {
     m_toolButton->setIcon ( defaultIcon );
-    m_toolButton->setEnabled ( false );
     return;
   }
 
   QIcon icon ( QString::fromUtf8 ( ":/flags/icons/flags/%1.png" ).arg ( code.toLower() ) );
   m_toolButton->setIcon ( icon );
-  m_toolButton->setEnabled ( true );
 }
 
 /**
@@ -136,6 +138,20 @@ void GeoLocation::fetchFromHost ( const QHostInfo &host )
 }
 
 /**
+* Bei einem anklicken des ToolButtons die kompletten
+* Hostinformationen beziehen!
+*/
+void GeoLocation::showDetails()
+{
+  if ( hostName.isEmpty() )
+    return;
+
+  HostInfo* dialog = new HostInfo ( this );
+  dialog->setDomain ( hostName );
+  dialog->deleteLater();
+}
+
+/**
 * Diese Methode wird von @ref Window::requestsFinished aufgerufen.
 * @note Es wird dabei \b nicht überprüft ob es sich um eine URL mit
 * dem Schema http* handelt. Die Prüfung auf fehlenden Hostnamen
@@ -150,6 +166,7 @@ void GeoLocation::setHostName ( const QString &host )
   if ( host.isEmpty() )
     return;
 
+  hostName = host;
   QHostInfo::lookupHost ( host, this, SLOT ( fetchFromHost ( const QHostInfo & ) ) );
 }
 

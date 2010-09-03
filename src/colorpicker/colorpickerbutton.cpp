@@ -19,46 +19,23 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HOSTINFOPLUGIN_H
-#define HOSTINFOPLUGIN_H
+#include "colorpickerbutton.h"
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QWidget>
+#include <QtGui/QIcon>
 
-/* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
-
-class HostInfo;
-
-class XHTMLDBG_EXPORT HostInfoPlugin : public xhtmldbg::Interface
+ColorPickerButton::ColorPickerButton ( QWidget * parent )
+    : QToolButton ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_INTERFACES ( xhtmldbg::Interface )
+  setObjectName ( QLatin1String ( "colorpickerbutton" ) );
+  setCheckable ( true );
+  setChecked ( false );
+  setAutoRaise ( true );
+  setIcon ( QIcon::fromTheme ( "color-picker" ) );
+}
 
-  private:
-    HostInfo* m_hostInfo;
-    QUrl p_url;
-    QString p_content;
-
-  public Q_SLOTS:
-    void proccess ();
-
-  public:
-    bool create ( QWidget * parent );
-    QDockWidget* dockwidget();
-    void setContent ( const QString &source );
-    void setUrl ( const QUrl &url );
-    xhtmldbg::PluginInfo::PluginType type ();
-    xhtmldbg::PluginInfo* pluginInfo ();
-};
-
-#endif
+ColorPickerButton::~ColorPickerButton()
+{}

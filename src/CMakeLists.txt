@@ -22,6 +22,8 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+  ${CMAKE_CURRENT_SOURCE_DIR}/colorpicker
+  ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -60,6 +62,8 @@ ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
 ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (configuration)
+ADD_SUBDIRECTORY (colorpicker)
+ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (plugins)
 
 SET (xhtmldbg_SOURCES
@@ -149,6 +153,8 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   DownloadManager
   RDFParser
   About
+  ColorPicker
+  HostInfo
   ${OPTIONAL_LIBRARIES}
 )
 

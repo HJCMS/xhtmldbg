@@ -43,7 +43,7 @@ GrabberWindow::GrabberWindow ( QWidget * parent )
     , framePen ( Qt::SolidLine )
 {
   setObjectName ( QLatin1String ( "grabberwindow" ) );
-  setMouseTracking ( false ); // Wird nicht benötigt
+  setMouseTracking ( false ); // Wird hier nicht benötigt
   setMinimumWidth ( fixedSize );
   setMinimumHeight ( fixedSize );
   crossPen.setWidth ( penSize );

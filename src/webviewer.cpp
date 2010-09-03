@@ -35,6 +35,7 @@
 
 /* QtGui */
 #include <QtGui/QColor>
+#include <QtGui/QCursor>
 #include <QtGui/QDesktopServices>
 #include <QtGui/QIcon>
 #include <QtGui/QTabBar>

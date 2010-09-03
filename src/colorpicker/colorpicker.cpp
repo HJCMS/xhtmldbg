@@ -22,14 +22,18 @@
 #include "colorpicker.h"
 #include "colors.h"
 #include "colortable.h"
-#include "watcher.h"
+#include "grabberwindow.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 
 /* QtGui */
+#include <QtGui/QApplication>
+#include <QtGui/QDesktopWidget>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
+#include <QtGui/QImage>
+#include <QtGui/QPixmap>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QVBoxLayout>
@@ -39,6 +43,7 @@ ColorPicker::ColorPicker ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "colorpicker" ) );
   setWindowTitle ( trUtf8 ( "Colors" ) );
+  setMouseTracking ( true ); // wird für grabMouse benötigt
 
   QWidget* layer = new QWidget ( this );
   layer->setObjectName ( QLatin1String ( "colorpicker.layer" ) );
@@ -61,34 +66,42 @@ ColorPicker::ColorPicker ( QWidget * parent )
   verticalLayout->addWidget ( m_colorTable );
 
   // Vorschau Gruppe
-  QGroupBox* groupBox = new QGroupBox ( trUtf8( "Color preview" ), layer );
-  groupBox->setObjectName ( "colorpicker.layer.vlayout.groupbox" );
-  verticalLayout->addWidget ( groupBox );
+  QGroupBox* groupBox1 = new QGroupBox ( trUtf8 ( "Color preview" ), layer );
+  groupBox1->setObjectName ( "colorpicker.layer.vlayout.groupbox1" );
+  verticalLayout->addWidget ( groupBox1 );
 
-  QHBoxLayout* horizontalLayout = new QHBoxLayout ( groupBox );
-  horizontalLayout->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout" );
-  groupBox->setLayout ( horizontalLayout );
+  QHBoxLayout* hLayout1 = new QHBoxLayout ( groupBox1 );
+  hLayout1->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout" );
+  groupBox1->setLayout ( hLayout1 );
 
   // Ausgabe Hex
-  m_hexEdit = new QLineEdit ( groupBox );
-  m_hexEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.hexedit" );
-  horizontalLayout->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
+  m_hexEdit = new QLineEdit ( groupBox1 );
+  m_hexEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.hexedit" );
+  hLayout1->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
 
   // Farb-Vorschau
-  m_preview = new QLabel ( groupBox );
-  m_preview->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.preview" );
+  m_preview = new QLabel ( groupBox1 );
+  m_preview->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.preview" );
   m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
-  horizontalLayout->addWidget ( m_preview );
+  hLayout1->addWidget ( m_preview );
 
   // Ausgabe RGB
-  m_rgbEdit = new QLineEdit ( groupBox );
-  m_rgbEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout.rgbedit" );
-  horizontalLayout->addWidget ( m_rgbEdit, 0, Qt::AlignRight );
+  m_rgbEdit = new QLineEdit ( groupBox1 );
+  m_rgbEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.rgbedit" );
+  hLayout1->addWidget ( m_rgbEdit, 0, Qt::AlignRight );
 
   // Abgreifen von Farben aus dem QWebView Fenster
-  m_watcher = new Watcher ( layer );
-  m_watcher->setObjectName ( "colorpicker.layer.vlayout.watcher" );
-  verticalLayout->addWidget ( m_watcher );
+  QGroupBox* groupBox2 = new QGroupBox ( trUtf8 ( "Color tapping" ), layer );
+  groupBox2->setObjectName ( "colorpicker.layer.vlayout.groupbox2" );
+  verticalLayout->addWidget ( groupBox2 );
+
+  QHBoxLayout* hLayout2 = new QHBoxLayout ( groupBox2 );
+  hLayout2->setObjectName ( "colorpicker.layer.vlayout.groupbox2.hlayout2" );
+  groupBox2->setLayout ( hLayout2 );
+
+  m_grabberWindow = new GrabberWindow ( groupBox2 );
+  m_grabberWindow->setObjectName ( "colorpicker.layer.vlayout.groupbox2.hlayout2.grabberwindow" );
+  hLayout2->addWidget ( m_grabberWindow );
 
   QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
   verticalLayout->addItem ( spacer );
@@ -102,6 +115,26 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   connect ( m_colorTable, SIGNAL ( colorChanged ( const QColor & ) ),
             this, SLOT ( colorChanged ( const QColor & ) ) );
+
+  connect ( m_grabberWindow, SIGNAL ( recording ( bool ) ),
+            this, SIGNAL ( recording ( bool ) ) );
+}
+
+void ColorPicker::findPixelColor ( const QPoint &p )
+{
+  QColor color ( Qt::transparent );
+  QPixmap pixmap = QPixmap::grabWindow ( qApp->desktop()->winId(), p.x(), p.y(), 1, 1 );
+  QImage img = pixmap.toImage();
+  if ( img.isNull() )
+  {
+    m_hexEdit->clear();
+    m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
+    m_rgbEdit->clear();
+    return;
+  }
+
+  color.setRgba ( img.pixel ( 0, 0 ) );
+  colorChanged ( color );
 }
 
 /**
@@ -147,6 +180,41 @@ void ColorPicker::colorChanged ( const QColor &c )
 
   // Vorschau erzeugen
   m_preview->setStyleSheet ( QString ( "*{background:%1; border:1px ridge black;}" ).arg ( c.name() ) );
+}
+
+/**
+* Globale Maus Position
+*/
+void ColorPicker::pointerChanged ( const QPoint &p )
+{
+  findPixelColor ( p );
+  m_grabberWindow->startRecording ( false );
+  emit recording ( false );
+}
+
+/**
+* Wenn Maustaste gedrückt wird und MouseTracking eingeschaltet ist!
+* Ein Signal mit der aktuellen Position zurück geben!
+* @see tapping
+*/
+void ColorPicker::mousePressEvent ( QMouseEvent * event )
+{
+  setCursor ( Qt::ArrowCursor );
+  pointerChanged ( event->globalPos() );
+  releaseMouse();
+  QDockWidget::mousePressEvent ( event );
+}
+
+/**
+* Aktiviere/Deaktiviere das abgreifen der Maus Position
+* für die ermittlung der Farbe.
+*/
+void ColorPicker::tapping ( bool b )
+{
+  if ( b )
+    grabMouse ( Qt::CrossCursor );
+
+  m_grabberWindow->startRecording ( b );
 }
 
 ColorPicker::~ColorPicker()

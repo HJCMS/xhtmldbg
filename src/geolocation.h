@@ -46,6 +46,7 @@ class GeoLocation : public QWidget
   private:
     Settings* cfg;
     const QIcon defaultIcon;
+    QString hostName;
     QString databasePath;
     QToolButton* m_toolButton;
     void setFlag ( const QString & );
@@ -53,6 +54,7 @@ class GeoLocation : public QWidget
 
   private Q_SLOTS:
     void fetchFromHost ( const QHostInfo & );
+    void showDetails();
 
   public:
     GeoLocation ( QWidget * parent = 0, Settings * settings = 0 );

@@ -71,6 +71,7 @@ class AutoReloadMenu;
 class StatusBar;
 class AutoReloader;
 class DomInspector;
+class ColorPicker;
 class HeaderDock;
 class CSSValidator;
 class XHtmldbgAdaptor;
@@ -165,6 +166,8 @@ class Window : public QMainWindow
     HeaderDock* m_headerDock;
     // CSS Validator
     CSSValidator* m_cssValidator;
+    // ColorPicker
+    ColorPicker* m_colorPicker;
     // Dbus Adaptor
     XHtmldbgAdaptor* m_xhtmldbgAdaptor;
     // Plugin Interface

@@ -19,44 +19,59 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COLORPICKERPLUGIN_H
-#define COLORPICKERPLUGIN_H
+#ifndef COLORPICKER_H
+#define COLORPICKER_H
 
 /* QtCore */
+#include <QtCore/QEvent>
 #include <QtCore/QObject>
+#include <QtCore/QPoint>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QColor>
+#include <QtGui/QComboBox>
 #include <QtGui/QDockWidget>
+#include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
+#include <QtGui/QMouseEvent>
 #include <QtGui/QWidget>
 
-/* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
+class ColorTable;
+class GrabberWindow;
 
-class ColorPicker;
-
-class XHTMLDBG_EXPORT ColorPickerPlugin : public xhtmldbg::Interface
+class ColorPicker : public QDockWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_INTERFACES ( xhtmldbg::Interface )
 
-  public:
-    ColorPicker* m_colorPicker;
+  private:
+    QComboBox* m_colorComboBox;
+    ColorTable* m_colorTable;
+    QLineEdit* m_hexEdit;
+    QLabel* m_preview;
+    QLineEdit* m_rgbEdit;
+    GrabberWindow* m_grabberWindow;
+    void findPixelColor ( const QPoint & );
+
+  private Q_SLOTS:
+    void colorMapChanged ( int );
+    void colorChanged ( const QColor & );
+    void pointerChanged ( const QPoint & );
+
+  protected:
+    void mousePressEvent ( QMouseEvent * );
+
+  Q_SIGNALS:
+    void recording ( bool );
 
   public Q_SLOTS:
-    void proccess ();
+    void tapping ( bool );
 
   public:
-    bool create ( QWidget * parent );
-    QDockWidget* dockwidget();
-    void setContent ( const QString &source );
-    void setUrl ( const QUrl &url );
-    xhtmldbg::PluginInfo::PluginType type ();
-    xhtmldbg::PluginInfo* pluginInfo ();
+    ColorPicker ( QWidget * parent = 0 );
+    virtual ~ColorPicker();
 };
 
 #endif

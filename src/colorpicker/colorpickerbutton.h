@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef WATCHER_H
-#define WATCHER_H
+#ifndef COLORPICKERBUTTON_H
+#define COLORPICKERBUTTON_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -30,22 +30,15 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
-class GrabberWindow;
-
-class Watcher : public QWidget
+class ColorPickerButton : public QToolButton
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    bool startRecording;
-    GrabberWindow* m_grabberWindow;
-    QToolButton* m_recordButton;
-
   public:
-    Watcher ( QWidget * parent = 0 );
-    ~Watcher();
+    ColorPickerButton ( QWidget * parent = 0 );
+    ~ColorPickerButton();
 };
 
 #endif

@@ -19,45 +19,43 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COLORPICKER_H
-#define COLORPICKER_H
+#ifndef HOSTINFO_H
+#define HOSTINFO_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QProcess>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QColor>
-#include <QtGui/QComboBox>
-#include <QtGui/QDockWidget>
+#include <QtGui/QDialog>
 #include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidget>
+#include <QtGui/QListWidget>
 
-class ColorTable;
-class Watcher;
+/* QtNetwork */
+#include <QtNetwork/QHostInfo>
 
-class ColorPicker : public QDockWidget
+class HostInfo : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QComboBox* m_colorComboBox;
-    ColorTable* m_colorTable;
-    QLineEdit* m_hexEdit;
-    QLabel* m_preview;
-    QLineEdit* m_rgbEdit;
-    Watcher* m_watcher;
+    QProcess* proc;
+    QDialog* dialog;
+    QLabel* infoLabel;
+    QListWidget* digText;
 
   private Q_SLOTS:
-    void colorMapChanged ( int );
-    void colorChanged ( const QColor & );
+    void readHostnameInfo ();
+    void prepareHostInfo ( const QHostInfo &host );
 
   public:
-    ColorPicker ( QWidget * parent = 0 );
-    virtual ~ColorPicker();
+    HostInfo ( QObject * parent = 0 );
+    void setDomain ( const QString & );
+    ~HostInfo();
 };
 
 #endif

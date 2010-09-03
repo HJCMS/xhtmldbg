@@ -105,6 +105,8 @@ void HostInfo::prepareHostInfo ( const QHostInfo &host )
   args << "-x" << "-b" << host.hostName();
   proc->start ( "dig", args );
 
+  qDebug() << Q_FUNC_INFO << host.hostName();
+
   QString content = QString ( "<b>Host:</b> %1<br/>" ).arg ( host.hostName() );
   foreach ( QHostAddress address, host.addresses() )
   {
@@ -124,10 +126,9 @@ void HostInfo::prepareHostInfo ( const QHostInfo &host )
   dialog->exec();
 }
 
-void HostInfo::setDomain ( const QUrl &url )
+void HostInfo::setDomain ( const QString &domain )
 {
-  QHostInfo::lookupHost ( url.host(), this, SLOT ( prepareHostInfo ( const QHostInfo & ) ) );
-  // prepareHostInfo ( QHostInfo::fromName ( url.host() ) );
+  QHostInfo::lookupHost ( domain, this, SLOT ( prepareHostInfo ( const QHostInfo & ) ) );
 }
 
 HostInfo::~HostInfo()
