@@ -1,7 +1,5 @@
 ## Resolv Host Information Plugin
 
-SET (target_subproject ColorPicker)
-
 SET(subproject_SOURCES
   colorpicker.cpp
   colors.cpp
@@ -30,7 +28,7 @@ QT4_WRAP_CPP (subproject_MOCS ${subproject_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
-ADD_LIBRARY (${target_subproject} STATIC
+ADD_LIBRARY (ColorPicker STATIC
   ${subproject_SOURCES}
   ${subproject_RESOURCE}
   ${subproject_MOCS}
@@ -38,16 +36,15 @@ ADD_LIBRARY (${target_subproject} STATIC
   ${subproject_NOMOC_HEADERS}
 )
 
-TARGET_LINK_LIBRARIES (${target_subproject}
+SET_TARGET_PROPERTIES (ColorPicker PROPERTIES
+  LINKER_LANGUAGE CXX
+  COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
+)
+
+TARGET_LINK_LIBRARIES (ColorPicker
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTNETWORK_LIBRARY}
-)
-
-SET_TARGET_PROPERTIES (${target_subproject} PROPERTIES
-  OUTPUT_NAME ${target_subproject}
-  LINKER_LANGUAGE CXX
-  LINK_FLAGS "${LIB_FPIC_CXXFLAGS}"
 )
 
 ##EOF
