@@ -43,7 +43,6 @@ class NetworkCookie : public QNetworkCookieJar
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_ENUMS ( CookieArrangement )
 
   private:
     NetworkSettings* m_netcfg;
@@ -69,7 +68,6 @@ class NetworkCookie : public QNetworkCookieJar
     void setUrl ( const QUrl & );
 
   public:
-    enum CookieArrangement { Session = 0, Blocked = 1, Allowed = 2 };
     NetworkCookie ( NetworkSettings * settings, QObject * parent = 0 );
     QList<QNetworkCookie> cookiesForUrl ( const QUrl & ) const;
     bool setCookiesFromUrl ( const QList<QNetworkCookie> &, const QUrl & );
