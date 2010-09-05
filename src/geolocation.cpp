@@ -23,7 +23,7 @@
 # include "version.h"
 #endif
 #include "geolocation.h"
-#include "hostinfo.h"
+#include "hostinfodialog.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -147,9 +147,8 @@ void GeoLocation::showDetails()
   if ( hostName.isEmpty() )
     return;
 
-  HostInfo* dialog = new HostInfo ( this );
-  dialog->setDomain ( hostName );
-  dialog->deleteLater();
+  HostInfoDialog* dialog = new HostInfoDialog ( this );
+  dialog->getHostInfo ( hostName );
 }
 
 /**

@@ -19,48 +19,42 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef GEOLOCATION_H
-#define GEOLOCATION_H
+#ifndef HOSTINFODIALOG_H
+#define HOSTINFODIALOG_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QIcon>
-#include <QtGui/QToolButton>
+#include <QtGui/QDialog>
+#include <QtGui/QLabel>
+#include <QtGui/QListWidget>
 #include <QtGui/QWidget>
 
-/* QtNetwork */
-#include <QtNetwork/QHostInfo>
+class HostInfo;
 
-/* XHTMLBG */
-#include "settings.h"
-
-class GeoLocation : public QWidget
+class HostInfoDialog : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    Settings* cfg;
-    QHostInfo currentHostInfo;
-    const QIcon defaultIcon;
-    QString hostName;
-    QString databasePath;
-    QToolButton* m_toolButton;
-    void setFlag ( const QString & );
-    void setGeoAddress ( const QString & );
+    HostInfo* m_hostInfo;
+    QLabel* m_label;
+    QListWidget* m_listWidget;
 
   private Q_SLOTS:
-    void fetchFromHost ( const QHostInfo & );
-    void showDetails();
+    void setHeaderLabel ( const QString & );
+    void setListWidgetItems ( const QStringList & );
+    void hostDataChanged();
 
   public:
-    GeoLocation ( QWidget * parent = 0, Settings * settings = 0 );
-    void setHostName ( const QString & );
-    ~GeoLocation();
+    HostInfoDialog ( QWidget * parent = 0 );
+    void getHostInfo ( const QString & );
+    ~HostInfoDialog();
 };
 
 #endif

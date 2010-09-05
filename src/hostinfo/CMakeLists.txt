@@ -1,13 +1,13 @@
 ## Resolv Host Information Plugin
 
-SET (target_subproject HostInfo)
-
 SET(subproject_SOURCES
   hostinfo.cpp
+  hostinfodialog.cpp
 )
 
 SET(subproject_HEADERS
   hostinfo.h
+  hostinfodialog.h
 )
 
 INCLUDE_DIRECTORIES (

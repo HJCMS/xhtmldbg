@@ -26,35 +26,35 @@
 #include <QtCore/QObject>
 #include <QtCore/QProcess>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QDialog>
-#include <QtGui/QLabel>
-#include <QtGui/QListWidget>
+#include <QtGui/QWidget>
 
 /* QtNetwork */
 #include <QtNetwork/QHostInfo>
 
-class HostInfo : public QObject
+class HostInfo : public QProcess
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    QProcess* proc;
-    QDialog* dialog;
-    QLabel* infoLabel;
-    QListWidget* digText;
-
   private Q_SLOTS:
-    void readHostnameInfo ();
-    void prepareHostInfo ( const QHostInfo &host );
+    void readStandardOutput ();
+    void readErrorOutput();
+    void exited ( int, QProcess::ExitStatus );
+
+  public Q_SLOTS:
+    void dig ( const QHostInfo &host );
+
+  Q_SIGNALS:
+    void labelData ( const QString & );
+    void listData ( const QStringList & );
+    void closedNormal ();
 
   public:
-    HostInfo ( QObject * parent = 0 );
-    void setDomain ( const QString & );
+    HostInfo ( QWidget * parent = 0 );
     ~HostInfo();
 };
 

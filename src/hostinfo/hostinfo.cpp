@@ -20,93 +20,96 @@
 **/
 
 #include "hostinfo.h"
+#include "hostinfodialog.h"
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QDebug>
+#include <QtCore/QIODevice>
 #include <QtCore/QList>
 #include <QtCore/QRegExp>
 #include <QtCore/QSize>
 
-/* QtGui */
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QWidget>
-#include <QtGui/QVBoxLayout>
-
 /* QtNetwork */
 #include <QtNetwork/QHostAddress>
 
-HostInfo::HostInfo ( QObject * parent )
-    : QObject ( parent )
+HostInfo::HostInfo ( QWidget * parent )
+    : QProcess ( parent )
 {
   setObjectName ( QLatin1String ( "HostInfo" ) );
-  proc = new QProcess ( this );
-  proc->setReadChannel ( QProcess::StandardOutput );
+  setProcessChannelMode ( QProcess::SeparateChannels );
 
-  dialog = new QDialog;
-  dialog->setMinimumWidth ( 480 );
-  dialog->setObjectName ( QLatin1String ( "HostInfoDialog" ) );
-  dialog->setSizeGripEnabled ( true );
-  dialog->setWindowTitle ( trUtf8 ( "Host Information" ) );
+  connect ( this, SIGNAL ( readyReadStandardOutput() ),
+            this, SLOT ( readStandardOutput() ) );
 
-  QVBoxLayout* vLayout = new QVBoxLayout ( dialog );
-  vLayout->addWidget ( new QLabel ( trUtf8 ( "Resolved Host Information with given Url" ) ) );
+  connect ( this, SIGNAL ( readyReadStandardError() ),
+            this, SLOT ( readErrorOutput() ) );
 
-  infoLabel = new QLabel ( dialog );
-  infoLabel->setObjectName ( QLatin1String ( "ip_txt" ) );
-  vLayout->addWidget ( infoLabel );
-
-  digText = new QListWidget ( dialog );
-  digText->setObjectName ( QLatin1String ( "bind_dig_txt" ) );
-  digText->setAlternatingRowColors ( false );
-  digText->setSortingEnabled ( false );
-  vLayout->addWidget ( digText );
-
-  QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, dialog );
-  box->setStandardButtons ( QDialogButtonBox::Ok );
-  box->setCenterButtons ( true );
-  vLayout->addWidget ( box );
-
-  connect ( proc, SIGNAL ( readyReadStandardOutput() ),
-            this, SLOT ( readHostnameInfo() ) );
-
-  connect ( box, SIGNAL ( accepted() ), dialog, SLOT ( accept() ) );
+  connect ( this, SIGNAL ( finished ( int, QProcess::ExitStatus ) ),
+            this, SLOT ( exited ( int, QProcess::ExitStatus ) ) );
 }
 
-void HostInfo::readHostnameInfo()
+/**
+* Standard Ausgabe von dig einlesen!
+**/
+void HostInfo::readStandardOutput()
 {
-  digText->clear();
-  QPalette pal = digText->palette();
-  QString data = proc->readAll();
-  foreach ( QString line, data.split ( QRegExp ( "[\r\n]" ) ) )
+  QStringList data;
+  setReadChannel ( QProcess::StandardOutput );
+  QString buffer = readAll();
+  if ( buffer.length() > 1 )
+    data << buffer.split ( QRegExp ( "[\\n\\r]" ) );
+
+  closeReadChannel ( QProcess::StandardOutput );
+
+  if ( data.size() > 0 )
+    emit listData ( data );
+}
+
+/**
+* Fehler Ausgabe von dig im Terminal ausgeben
+**/
+void HostInfo::readErrorOutput()
+{
+  QByteArray buffer;
+  setReadChannel ( QProcess::StandardError );
+  buffer = readAll();
+  closeReadChannel ( QProcess::StandardError );
+
+  if ( buffer.size() > 1 )
+    qWarning ( "(XHTMLDBG) Hostinfo Read Error: %s", buffer.constData() );
+
+  terminate();
+}
+
+/**
+* Wenn der Prozess sauber beendet wurde hier das Signal
+* @ref closedNormal abstoßen.
+**/
+void HostInfo::exited ( int exitCode, QProcess::ExitStatus stat )
+{
+  Q_UNUSED ( exitCode )
+
+  switch ( stat )
   {
-    if ( ! line.isEmpty() )
-    {
-      QListWidgetItem* item = new QListWidgetItem ( line, digText );
-      if ( line.contains ( QRegExp ( "^;;" ) ) )
-      {
-        item->setForeground ( pal.brush ( QPalette::Normal, QPalette::Midlight ) );
-        item->setBackground ( pal.brush ( QPalette::Normal, QPalette::Dark ) );
-      }
-      else if ( line.contains ( QRegExp ( "^;" ) ) )
-      {
-        item->setForeground ( pal.brush ( QPalette::Normal, QPalette::Midlight ) );
-        item->setBackground ( pal.brush ( QPalette::Normal, QPalette::Mid ) );
-      }
-    }
+    case QProcess::NormalExit:
+      emit closedNormal ();
+      break;
+
+    case QProcess::CrashExit:
+      break;
+
+    default:
+      return;
   }
-  proc->close();
 }
 
-void HostInfo::prepareHostInfo ( const QHostInfo &host )
+/**
+* Zurerst die Adressen Informationen für @ref labelData generieren!
+* Danach den Befehl für "dig" Aufbereiten und den Prozess starten!
+**/
+void HostInfo::dig ( const QHostInfo &host )
 {
-  QStringList info;
-  // Zuserst eine Bind Anfrage senden
-  QStringList args;
-  args << "-x" << "-b" << host.hostName();
-  proc->start ( "dig", args );
-
-  qDebug() << Q_FUNC_INFO << host.hostName();
-
   QString content = QString ( "<b>Host:</b> %1<br/>" ).arg ( host.hostName() );
   foreach ( QHostAddress address, host.addresses() )
   {
@@ -122,13 +125,14 @@ void HostInfo::prepareHostInfo ( const QHostInfo &host )
       content.append ( QString ( "<b>IPv6:</b> %1<br/>" ).arg ( address.toString() ) );
     }
   }
-  infoLabel->setText ( content );
-  dialog->exec();
-}
 
-void HostInfo::setDomain ( const QString &domain )
-{
-  QHostInfo::lookupHost ( domain, this, SLOT ( prepareHostInfo ( const QHostInfo & ) ) );
+  if ( ! content.isEmpty() )
+    emit labelData ( content );
+
+  // Zuerst eine Bind Anfrage senden
+  QStringList args;
+  args << "-x" << "-b" << host.hostName();
+  start ( "dig", args, QIODevice::ReadWrite );
 }
 
 HostInfo::~HostInfo()
