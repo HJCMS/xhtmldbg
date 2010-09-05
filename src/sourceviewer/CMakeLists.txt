@@ -1,6 +1,6 @@
 # CMakeLists.txt
 
-SET (sourceview_SOURCES
+SET (sourceviewer_SOURCES
   sourcewidget.cpp
   sourceview.cpp
   listlines.cpp
@@ -8,7 +8,7 @@ SET (sourceview_SOURCES
   contextmenu.cpp
 )
 
-SET (sourceview_HEADERS
+SET (sourceviewer_HEADERS
   sourcewidget.h
   sourceview.h
   listlines.h
@@ -18,7 +18,7 @@ SET (sourceview_HEADERS
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_CPP (sourceview_MOC ${sourceview_HEADERS})
+QT4_WRAP_CPP (sourceviewer_MOC ${sourceviewer_HEADERS})
 
 ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 
@@ -28,9 +28,9 @@ INCLUDE_DIRECTORIES (
 )
 
 ADD_LIBRARY (SourceViewer STATIC
-  ${sourceview_MOC}
-  ${sourceview_HEADERS}
-  ${sourceview_SOURCES}
+  ${sourceviewer_MOC}
+  ${sourceviewer_HEADERS}
+  ${sourceviewer_SOURCES}
 )
 
 SET_TARGET_PROPERTIES (SourceViewer PROPERTIES

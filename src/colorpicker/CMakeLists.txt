@@ -1,6 +1,6 @@
 ## Resolv Host Information Plugin
 
-SET(subproject_SOURCES
+SET(colorpicker_SOURCES
   colorpicker.cpp
   colors.cpp
   colortable.cpp
@@ -8,14 +8,14 @@ SET(subproject_SOURCES
   grabberwindow.cpp
 )
 
-SET(subproject_HEADERS
+SET(colorpicker_HEADERS
   colorpicker.h
   colortable.h
   colorpickerbutton.h
   grabberwindow.h
 )
 
-SET(subproject_NOMOC_HEADERS
+SET(colorpicker_NOMOC_HEADERS
   colors.h
 )
 
@@ -24,16 +24,15 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
-QT4_WRAP_CPP (subproject_MOCS ${subproject_HEADERS})
+QT4_WRAP_CPP (colorpicker_MOCS ${colorpicker_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
 ADD_LIBRARY (ColorPicker STATIC
-  ${subproject_SOURCES}
-  ${subproject_RESOURCE}
-  ${subproject_MOCS}
-  ${subproject_HEADERS}
-  ${subproject_NOMOC_HEADERS}
+  ${colorpicker_MOCS}
+  ${colorpicker_HEADERS}
+  ${colorpicker_NOMOC_HEADERS}
+  ${colorpicker_SOURCES}
 )
 
 SET_TARGET_PROPERTIES (ColorPicker PROPERTIES

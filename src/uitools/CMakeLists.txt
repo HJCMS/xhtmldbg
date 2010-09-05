@@ -1,19 +1,19 @@
 # CMakeLists.txt
 
-SET (subproject_SOURCES
+SET (uitools_SOURCES
   uitoolsloader.cpp
 )
 
-SET (subproject_HEADERS
+SET (uitools_HEADERS
   uitoolsloader.h
 )
 
-SET (subproject_NOMOC_HEADERS
+SET (uitools_NOMOC_HEADERS
 )
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+QT4_WRAP_CPP (uitools_MOC ${uitools_HEADERS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -22,10 +22,10 @@ INCLUDE_DIRECTORIES (
 )
 
 ADD_LIBRARY (UiToolsLoader STATIC
-  ${subproject_MOC}
-  ${subproject_HEADERS}
-  ${subproject_NOMOC_HEADERS}
-  ${subproject_SOURCES}
+  ${uitools_MOC}
+  ${uitools_HEADERS}
+  ${uitools_NOMOC_HEADERS}
+  ${uitools_SOURCES}
 )
 
 SET_TARGET_PROPERTIES (UiToolsLoader PROPERTIES

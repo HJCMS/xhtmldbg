@@ -5,7 +5,7 @@ ADD_SUBDIRECTORY (certissuers)
 ADD_SUBDIRECTORY (iconthemeselecter)
 ADD_SUBDIRECTORY (directorychooser)
 
-SET (subproject_SOURCES
+SET (configuration_SOURCES
   configuration.cpp
   configurationmenu.cpp
   stackedwidget.cpp
@@ -25,7 +25,7 @@ SET (subproject_SOURCES
   configutils.cpp
 )
 
-SET (subproject_HEADERS
+SET (configuration_HEADERS
   configuration.h
   configurationmenu.h
   stackedwidget.h
@@ -45,7 +45,7 @@ SET (subproject_HEADERS
   configutils.h
 )
 
-QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+QT4_WRAP_CPP (configuration_MOC ${configuration_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
@@ -64,9 +64,9 @@ INCLUDE_DIRECTORIES (
 )
 
 ADD_LIBRARY (Configuration STATIC
-  ${subproject_MOC}
-  ${subproject_HEADERS}
-  ${subproject_SOURCES}
+  ${configuration_MOC}
+  ${configuration_HEADERS}
+  ${configuration_SOURCES}
 )
 
 SET_TARGET_PROPERTIES (Configuration PROPERTIES

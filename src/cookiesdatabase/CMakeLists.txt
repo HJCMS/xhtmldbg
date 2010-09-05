@@ -1,6 +1,6 @@
 # CMakeLists.txt
 
-SET (subproject_SOURCES
+SET (cookiesdatabase_SOURCES
   cookiemanager.cpp
   cookiesdatabaselocation.cpp
   cookieaccesscombobox.cpp
@@ -8,7 +8,7 @@ SET (subproject_SOURCES
   cookiesboolcombobox.cpp
 )
 
-SET (subproject_HEADERS
+SET (cookiesdatabase_HEADERS
   cookiemanager.h
   cookiesdatabaselocation.h
   cookieaccesscombobox.h
@@ -16,19 +16,19 @@ SET (subproject_HEADERS
   cookiesboolcombobox.h
 )
 
-QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+QT4_WRAP_CPP (cookiesdatabase_MOC ${cookiesdatabase_HEADERS})
 
-QT4_ADD_RESOURCES (subproject_RESRC
+QT4_ADD_RESOURCES (cookiesdatabase_RESRC
   cookiesdatabase.qrc
   OPTIONS -name cookiesdatabase
 )
 
 ADD_LIBRARY (CookiesDatabase STATIC
-  ${subproject_MOC}
-  ${subproject_RESRC}
-  ${subproject_HEADERS}
-  ${subproject_STATIC_HEADERS}
-  ${subproject_SOURCES}
+  ${cookiesdatabase_MOC}
+  ${cookiesdatabase_RESRC}
+  ${cookiesdatabase_HEADERS}
+  ${cookiesdatabase_STATIC_HEADERS}
+  ${cookiesdatabase_SOURCES}
 )
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)

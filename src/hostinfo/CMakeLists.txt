@@ -1,11 +1,11 @@
 ## Resolv Host Information Plugin
 
-SET(subproject_SOURCES
+SET(hostinfo_SOURCES
   hostinfo.cpp
   hostinfodialog.cpp
 )
 
-SET(subproject_HEADERS
+SET(hostinfo_HEADERS
   hostinfo.h
   hostinfodialog.h
 )
@@ -15,14 +15,14 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
-QT4_WRAP_CPP (subproject_MOCS ${subproject_HEADERS})
+QT4_WRAP_CPP (hostinfo_MOCS ${hostinfo_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XML_LIB -DQT_WEBKIT_LIB -DQT_XMLPATTERNS_LIB)
 
 ADD_LIBRARY (HostInfo STATIC
-  ${subproject_SOURCES}
-  ${subproject_RESOURCE}
-  ${subproject_MOCS}
+  ${hostinfo_SOURCES}
+  ${hostinfo_MOCS}
+  ${hostinfo_HEADERS}
 )
 
 SET_TARGET_PROPERTIES (HostInfo PROPERTIES

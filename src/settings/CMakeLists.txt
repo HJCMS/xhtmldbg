@@ -1,10 +1,10 @@
 # CMakeLists.txt
 
-SET (subproject_SOURCES
+SET (settings_SOURCES
   settings.cpp
 )
 
-SET (subproject_HEADERS
+SET (settings_HEADERS
   settings.h
 )
 
@@ -14,12 +14,12 @@ INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+QT4_WRAP_CPP (settings_MOC ${settings_HEADERS})
 
 ADD_LIBRARY (Settings STATIC
-  ${subproject_MOC}
-  ${subproject_HEADERS}
-  ${subproject_SOURCES}
+  ${settings_MOC}
+  ${settings_HEADERS}
+  ${settings_SOURCES}
 )
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
