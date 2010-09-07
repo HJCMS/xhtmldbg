@@ -1,8 +1,9 @@
-- 2010/      Juergen Heinemann (Undefined)
+- 2010/09/    Juergen Heinemann (Undefined)
   Add: ColorPicker Widget
   Fix: CMake invalid COMPILE FLAGS
-  Add: Partial NS Plugin Interface Support
+  Add: Partial NPP Support
   Add: Qt UI Components Support
+  Add: Separate browser-plugins Directory
 
 - 2010/08/08 Juergen Heinemann (Undefined)
   Add: Plugin Factory Info

@@ -12,7 +12,7 @@ General "xhtmldbg" Requirements:
   -  cmake >= 2.8.0 (required) http://cmake.org
   -  Java Binary >= 1.5.0
   -  W3C Validator from CVS 2010 http://jigsaw.w3.org/css-validator/DOWNLOAD.html
-  -  dig (Optional) from http://www.isc.org/software/bind
+  -  dig (Required) from http://www.isc.org/software/bind
   -  GeoIP >= 1.4.5 (Required) http://www.maxmind.com/download/geoip/
   -  Mozilla Xulrunner >= 1.9.0 (Required) http://www.mozilla.org
 
@@ -79,11 +79,11 @@ INSTALL_TREE:
     |       `-- xhtmldbgplugininfo.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.*
-    |   |-- libxhtmldbg-1.0.so.0.8.*
+    |   |-- libxhtmldbg-1.0.so.0*
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
+    |       |-- browser-plugins
     |       |-- lib*.so
     `-- share
         |-- applications
@@ -160,3 +160,4 @@ INSTALL_TREE:
             |   |-- xsd.xsl
             |   `-- xslt10.dtd
             `-- xhtmldbg_untranslated.ts
+
