@@ -37,7 +37,8 @@
 #include <QtGui/QX11Info>
 
 /**
-* Wenn Xinerama Aktiv - dann an den Namen das Display hängen!
+* Wenn der Klient Desktop ein Xinerama/TwinView ist.
+* Dann - An den Programm-Namen die Screen Nummer anhängen!
 */
 static inline const QString xApplicationName()
 {
@@ -52,6 +53,10 @@ static inline const QString xApplicationName()
   return name;
 }
 
+/**
+* @class Settings
+* Hauptklasse für alle Einstellungen ab zu fragen!
+*/
 Settings::Settings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLBG_DOMAIN, xApplicationName(), parent )
     , cacheLocation ( QDesktopServices::storageLocation ( QDesktopServices::CacheLocation ) )
@@ -60,7 +65,7 @@ Settings::Settings ( QObject * parent )
 }
 
 /**
-* Qt4 Programme starten schneller wenn diese Pfade liste kleiner ist!
+* Qt4 Programme starten schneller wenn diese Pfadliste kleiner ist!
 */
 void Settings::setIconTheme()
 {
@@ -82,6 +87,9 @@ void Settings::setDataPaths()
     QFile ( path ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 }
 
+/**
+* Alle entscheidenden Einstellungen für den Start, Zurück setzen!
+*/
 void Settings::setSaveMode()
 {
   qWarning ( "(XHTMLDBG) Starting in savemode" );
@@ -90,6 +98,9 @@ void Settings::setSaveMode()
   remove ( QLatin1String ( "webkit_plugin_path" ) );
 }
 
+/**
+* Pfad zur HTML5 Grafiken Datenbank
+*/
 const QString Settings::webIconDatabasePath()
 {
   QDir d ( cacheLocation );
@@ -97,6 +108,9 @@ const QString Settings::webIconDatabasePath()
   return QString ( cacheLocation + d.separator() + QLatin1String ( "icons" ) );
 }
 
+/**
+* Pfad zur HTML5 Speicher Datenbank
+*/
 const QString Settings::webLocalStoragePath()
 {
   QDir d ( cacheLocation );
@@ -104,11 +118,25 @@ const QString Settings::webLocalStoragePath()
   return QString ( cacheLocation + d.separator() + QLatin1String ( "storage" ) );
 }
 
+/**
+* Vereinfachung : Boolische Werte abfragen
+*/
 bool Settings::boolValue ( const QString &p, bool b )
 {
   return value ( p, b ).toBool();
 }
 
+/**
+* Vereinfachung : Zahlen Werte abfragen
+*/
+int Settings::intValue ( const QString &p, int i )
+{
+  return value ( p, i ).toUInt();
+}
+
+/**
+* Vereinfachung : Zeichenketten abfragen
+*/
 const QString Settings::strValue ( const QString &p, const QString &d )
 {
   return value ( p, d ).toString();

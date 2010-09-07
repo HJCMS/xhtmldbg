@@ -81,14 +81,13 @@ Author:
 
 %build
 
-export GEOIP_DBBASE_DIR="/var"
-
 pushd build
 
 cmake -Wno-dev \
   -DCMAKE_CXX_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_C_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_INSTALL_PREFIX:PATH=%{_qt_prefix} \
+  -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF \
 %if %{_lib} == lib64
   -DLIB_SUFFIX:STRING=64 \
 %endif
@@ -123,6 +122,7 @@ popd
 %{_bindir}/%{name}
 %{_qt_transdir}/xhtmldbg_*.qm
 %dir %{_libdir}/%{name}
+%dir %{_libdir}/%{name}/browser-plugins
 %{_libdir}/%{name}/lib*.so
 %doc %{_datadir}/%{name}/AUTHORS
 %doc %{_datadir}/%{name}/COPYING
@@ -196,6 +196,13 @@ popd
 test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Sun Sep 05 2010 - Heinemann Juergen (Undefined) http://www.hjcms.de
+- Rebuild to .rc10
+- Bugfix Invalid CMake Flags
+
+* Sun Jul  4 2010 - Heinemann Juergen (Undefined) http://www.hjcms.de
+- Rebuild Bugfix Icon Theme Location
+
 * Sun Jun 27 2010 - Heinemann Juergen (Undefined) http://www.hjcms.de
 - Rebuild 0.8.8.rc3 for new OpenSuSE Build Service
 

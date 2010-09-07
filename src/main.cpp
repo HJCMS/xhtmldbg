@@ -34,8 +34,31 @@
 #endif
 #include "xhtmldbgmain.h"
 
+#ifdef Q_WS_X11
+/**
+* Weil verschiedene Distribution der Meinung sind,
+* Sie müssten den Plugin Pfad hart in WebKit einsetzen.
+* An dieser Stelle der Versuch dies zu umgehen!
+* QWebKit hat massive Probleme mit Plugins die nicht
+* sauber Initialisiert werden können!
+*
+* @see http://doc.qt.nokia.com/4.6/webintegration.html
+* @see http://trac.webkit.org/wiki/QtWebKitPlugins
+*/
+inline void xhtmldbg_restore_plugin_paths()
+{
+  setenv ( "MOZILLA_HOME", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+  setenv ( "MOZ_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+  setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+}
+#endif
+
 int main ( int argc, char *argv[] )
 {
+#ifdef Q_WS_X11
+  xhtmldbg_restore_plugin_paths();
+#endif
+
   xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;

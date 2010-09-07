@@ -33,6 +33,11 @@
 #define XHTMLDBG_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg"
 
 /**
+* XHTMLDBG NPP Plugin Path
+*/
+#define XHTMLDBG_NPP_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg/browser-plugins"
+
+/**
 * GeoIP Database Location
 */
 #define GEOIP_DATABASE_PATH "@GEOIP_DATABASE_PATH@"

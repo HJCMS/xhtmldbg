@@ -47,6 +47,7 @@ class Settings : public QSettings
     void setSaveMode();
     const QString webIconDatabasePath();
     const QString webLocalStoragePath();
+    int intValue ( const QString &p, int i );
     bool boolValue ( const QString &p, bool b = false );
     const QString strValue ( const QString &p, const QString &d = QString() );
     virtual ~Settings();

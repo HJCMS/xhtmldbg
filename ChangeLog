@@ -1,3 +1,9 @@
+- 2010/      Juergen Heinemann (Undefined)
+  Add: ColorPicker Widget
+  Fix: CMake invalid COMPILE FLAGS
+  Add: Partial NS Plugin Interface Support
+  Add: Qt UI Components Support
+
 - 2010/08/08 Juergen Heinemann (Undefined)
   Add: Plugin Factory Info
   Fix: CMake install dbus-1/{services,interfaces} Paths
