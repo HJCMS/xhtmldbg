@@ -140,6 +140,25 @@ void WebViewer::updateWebSettings()
   wcfg->setAttribute ( QWebSettings::PrintElementBackgrounds,
                        m_settings->boolValue ( QLatin1String ( "PrintElementBackgrounds" ) ) );
 
+  wcfg->setAttribute ( QWebSettings::LocalContentCanAccessRemoteUrls,
+                       m_settings->boolValue ( QLatin1String ( "LocalContentCanAccessRemoteUrls" ) ) );
+
+#if QT_VERSION >= 0x040700
+
+  wcfg->setAttribute ( QWebSettings::LocalContentCanAccessFileUrls,
+                       m_settings->boolValue ( QLatin1String ( "LocalContentCanAccessFileUrls" ) ) );
+
+  wcfg->setAttribute ( QWebSettings::XSSAuditingEnabled,
+                       m_settings->boolValue ( QLatin1String ( "XSSAuditingEnabled" ) ) );
+
+  wcfg->setAttribute ( QWebSettings::AcceleratedCompositingEnabled,
+                       m_settings->boolValue ( QLatin1String ( "AcceleratedCompositingEnabled" ) ) );
+
+  wcfg->setAttribute ( QWebSettings::TiledBackingStoreEnabled,
+                       m_settings->boolValue ( QLatin1String ( "TiledBackingStoreEnabled" ) ) );
+
+#endif
+
   delete m_settings;
 }
 

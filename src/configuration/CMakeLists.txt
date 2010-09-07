@@ -9,6 +9,7 @@ SET (configuration_SOURCES
   configuration.cpp
   configurationmenu.cpp
   stackedwidget.cpp
+  featurebox.cpp
   pagewidget.cpp
   configide.cpp
   configtidy.cpp
@@ -29,6 +30,7 @@ SET (configuration_HEADERS
   configuration.h
   configurationmenu.h
   stackedwidget.h
+  featurebox.h
   pagewidget.h
   configide.h
   configtidy.h

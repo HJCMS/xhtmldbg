@@ -26,12 +26,15 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QCheckBox>
 #include <QtGui/QSpinBox>
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
 #include "configheaderdefinitions.h"
 #include "directorychooser.h"
+
+
 
 class ConfigBrowser : public PageWidget
 {

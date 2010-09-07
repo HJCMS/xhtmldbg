@@ -19,35 +19,31 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#include "featurebox.h"
 
 /* QtCore */
-#include <QtCore/QString>
+#include <QtCore/QDebug>
+#include <QtCore/QRegExp>
 
-/* QtWebKit */
-#include <QtWebKit/QWebPluginFactory>
+/* QtGui */
+#include <QtGui/QAbstractButton>
+#include <QtGui/QSizePolicy>
 
-/* NSPR */
-extern "C"
+FeatureBox::FeatureBox ( const QString &text, QWidget * parent )
+    : QCheckBox ( parent )
+    , textSource ( text )
 {
-#include <npapi.h>
-#ifdef HAVE_OLD_NPUPP
-# include <npupp.h>
-#else
-# include <npfunctions.h>
-#endif
+  setAutoRepeat ( false );
+  setMouseTracking ( false );
+  setChecked ( false );
+  setForegroundRole ( QPalette::WindowText );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
+  setLayoutDirection ( Qt::LeftToRight );
+
+  QString buffer ( textSource );
+  buffer.replace ( QRegExp ( "\\.[\\s]+" ), QString::fromUtf8 ( ".\n" ) );
+  setText ( buffer );
 }
 
-class Plugin
-{
-  private:
-    const QString pluginFilePath;
-    NPP_t m_npInstance;
-
-  public:
-    Plugin ( const QString &path );
-    QWebPluginFactory::Plugin fetchInfo();
-};
-
-#endif
+FeatureBox::~FeatureBox()
+{}

@@ -608,87 +608,113 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigBrowser</name>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="64"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="70"/>
         <source>Browser Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="78"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="84"/>
         <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="82"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="88"/>
         <source>Allow HTTP pipelining with requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="86"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="92"/>
         <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="90"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="96"/>
         <source>Enable AutoLoad Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="94"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="100"/>
         <source>Enable Javascript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="98"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="104"/>
         <source>Enable Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="102"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="108"/>
         <source>Enable Java</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="106"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="112"/>
         <source>Zoom only text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="110"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="116"/>
         <source>Fetch DNS entries to speed up browsing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="114"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="120"/>
         <source>JavaScript programs can open new windows.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="118"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="124"/>
         <source>JavaScript programs can read or write to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="122"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="128"/>
         <source>The background color and images are also drawn when the page is printed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="132"/>
+        <source>Locally loaded documents are allowed to access remote urls.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/configuration/configbrowser.cpp" line="136"/>
+        <source>Locally loaded documents are allowed to access other local urls.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="140"/>
+        <source>Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector&apos;s JavaScript console. Warning: To enabe this feature might have an impact on performance.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="144"/>
+        <source>If enabled - CSS animations of the transform and opacity properties will be rendered
+by composing the cached content of the animated elements.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="148"/>
+        <source>This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="162"/>
         <source>Font Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="143"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="169"/>
         <source>Default Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="154"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="180"/>
         <source>Fixed Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="173"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="199"/>
         <source>Plugins Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2488,7 +2514,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="270"/>
+        <location filename="../src/webviewer.cpp" line="289"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>

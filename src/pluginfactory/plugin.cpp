@@ -27,11 +27,20 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
+typedef NPError ( *_NP_ShutdownPtr ) ();
+_NP_ShutdownPtr NP_ShutdownPtr;
+
+typedef char* ( *_NP_GetMIMEDescriptionPtr ) ( void );
+_NP_GetMIMEDescriptionPtr NP_GetMIMEDescriptionPtr;
+
+typedef NPError ( *_NP_GetValuePtr ) ( void* future, NPPVariable variable, void* value );
+_NP_GetValuePtr NP_GetValuePtr;
+
+/**
+* @class Plugin
+*/
 Plugin::Plugin ( const QString &path )
     : pluginFilePath ( path )
-    , NP_ShutdownPtr ( 0 )
-    , NP_GetMIMEDescriptionPtr ( 0 )
-    , NP_GetValuePtr ( 0 )
 {
   memset ( &m_npInstance, 0, sizeof ( NPP_t ) );
   m_npInstance.ndata = this;
@@ -48,7 +57,7 @@ QWebPluginFactory::Plugin Plugin::fetchInfo()
   QList<QWebPluginFactory::MimeType> p_mimeTypes;
 
   QLibrary nsplugin ( pluginFilePath );
-  NP_GetMIMEDescriptionPtr = ( _NP_GetMIMEDescriptionPtr ) nsplugin.resolve ( "NP_GetMIMEDescription" );
+  NP_GetMIMEDescriptionPtr = ( _NP_GetMIMEDescriptionPtr ) ( nsplugin.resolve ( "NP_GetMIMEDescription" ) );
   NP_GetValuePtr = ( _NP_GetValuePtr ) nsplugin.resolve ( "NP_GetValue" );
   NP_ShutdownPtr = ( _NP_ShutdownPtr ) nsplugin.resolve ( "NP_Shutdown" );
   if ( ! NP_GetMIMEDescriptionPtr || ! NP_GetValuePtr || ! NP_ShutdownPtr )

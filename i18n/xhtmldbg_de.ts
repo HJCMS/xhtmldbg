@@ -609,87 +609,113 @@ Do you realy wan to exit?</source>
 <context>
     <name>ConfigBrowser</name>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="64"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="70"/>
         <source>Browser Settings</source>
         <translation>Browser Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="78"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="84"/>
         <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
         <translation>Speichere keine Upload Daten wenn HTTP POST verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="82"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="88"/>
         <source>Allow HTTP pipelining with requests.</source>
         <translation>Erlaube HTTP Parallelverarbeitung bei den Anfragen.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="86"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="92"/>
         <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
         <translation>Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="90"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="96"/>
         <source>Enable AutoLoad Images</source>
         <translation>Bilder Automatisch laden.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="94"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="100"/>
         <source>Enable Javascript</source>
         <translation>Aktiviere JavaScript</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="98"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="104"/>
         <source>Enable Plugins</source>
         <translation>Aktiviere Plugins</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="102"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="108"/>
         <source>Enable Java</source>
         <translation>Aktiviere Java</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="106"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="112"/>
         <source>Zoom only text</source>
         <translation>Nur Text Zoomen</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="110"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="116"/>
         <source>Fetch DNS entries to speed up browsing.</source>
         <translation>Hole DNS Einträge für ein schnelleres Browsen.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="114"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="120"/>
         <source>JavaScript programs can open new windows.</source>
         <translation>JavaScript Programme dürfen neue Fenster öffnen.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="118"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="124"/>
         <source>JavaScript programs can read or write to the clipboard.</source>
         <translation>Erlaube JavaScript Programmen den zugriff auf das Clipboard.</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="122"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="128"/>
         <source>The background color and images are also drawn when the page is printed.</source>
         <translation>Beim Drucken von Seiten den Hintergund mit übertragen.</translation>
     </message>
     <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="132"/>
+        <source>Locally loaded documents are allowed to access remote urls.</source>
+        <translation>Lokal geöffnete Dokumente dürfen auf externe Adressen zugreifen.</translation>
+    </message>
+    <message>
         <location filename="../src/configuration/configbrowser.cpp" line="136"/>
+        <source>Locally loaded documents are allowed to access other local urls.</source>
+        <translation>Lokal geöffnete Dokumente dürfen auf andere Dokumente innerhalb des Systems zugreifen.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="140"/>
+        <source>Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector&apos;s JavaScript console. Warning: To enabe this feature might have an impact on performance.</source>
+        <translation>Spezifiziert ob Netzanfragen  auf Cross-Site Scripting überwacht werden sollen. In einem Verdachtsmoment werden diese Inhalte geblockt und eine Meldung an die Java-Script Konsole gesendet. Warnung: Diese Einstellung hat starken Einfluss auf die Performance.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="144"/>
+        <source>If enabled - CSS animations of the transform and opacity properties will be rendered
+by composing the cached content of the animated elements.</source>
+        <translation>Aktiviert - Werden CSS Animationen die mit transform oder opacity Prädikaten versehen sind aus dem Systemspeicher heraus animiert.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="148"/>
+        <source>This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store.</source>
+        <translation>Diese Einstellung aktiviert das rendern von Grafischen Inhalten mit fließenden Bildpunkten. Element Inhalte mit Grafiken werden hiermit auf den Sichtbaren Bereich synchronisiert. Bei Elementen mit dem geerbten CSS Prädikat „fixed“ hat dies keine Wirkung.</translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configbrowser.cpp" line="162"/>
         <source>Font Settings</source>
         <translation>Schriften Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="143"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="169"/>
         <source>Default Font Size:</source>
         <translation>Standard Schriftgröße:</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="154"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="180"/>
         <source>Fixed Font Size:</source>
         <translation>Standard für die feste Schriftgröße:</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="173"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="199"/>
         <source>Plugins Directory</source>
         <translation>Plugin Verzeichnis</translation>
     </message>
@@ -2496,7 +2522,7 @@ Gründe : </translation>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="270"/>
+        <location filename="../src/webviewer.cpp" line="289"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>

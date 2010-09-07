@@ -20,6 +20,7 @@
 **/
 
 #include "configbrowser.h"
+#include "featurebox.h"
 
 /* QtCore */
 #include <QtCore/QMap>
@@ -29,7 +30,6 @@
 /* QtGui */
 #include <QtGui/QAbstractButton>
 #include <QtGui/QButtonGroup>
-#include <QtGui/QCheckBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
@@ -41,6 +41,7 @@
 * Dabei ist der Objektname identisch mit dem Parameter
 * der Einstellungen. Siehe auch @ref QWebSettings
 * Der Boolische Wert ist der Standardwert.
+* http://doc.qt.nokia.com/main-snapshot/qwebsettings.html#WebAttribute-enum
 */
 static inline const QMap<QString,bool> settingsMap()
 {
@@ -57,6 +58,11 @@ static inline const QMap<QString,bool> settingsMap()
   map["JavascriptCanOpenWindows"] = false;
   map["JavascriptCanAccessClipboard"] = false;
   map["PrintElementBackgrounds"] = false;
+  map["LocalContentCanAccessRemoteUrls"] = true;
+  map["LocalContentCanAccessFileUrls"] = false;
+  map["XSSAuditingEnabled"] = false;
+  map["AcceleratedCompositingEnabled"] = true;
+  map["TiledBackingStoreEnabled"] = false;
   return map;
 }
 
@@ -75,57 +81,77 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
 
-  QCheckBox* cb1 = new QCheckBox ( trUtf8 ( "Do Not Buffer Upload Data when doing a HTTP POST request." ), centralWidget );
+  FeatureBox* cb1 = new FeatureBox ( trUtf8 ( "Do Not Buffer Upload Data when doing a HTTP POST request." ), centralWidget );
   cb1->setObjectName ( QLatin1String ( "DoNotBufferUploadDataAttribute" ) );
   verticalLayout->addWidget ( cb1 );
 
-  QCheckBox* cb2 = new QCheckBox ( trUtf8 ( "Allow HTTP pipelining with requests." ), centralWidget );
+  FeatureBox* cb2 = new FeatureBox ( trUtf8 ( "Allow HTTP pipelining with requests." ), centralWidget );
   cb2->setObjectName ( QLatin1String ( "HttpPipeliningAllowedAttribute" ) );
   verticalLayout->addWidget ( cb2 );
 
-  QCheckBox* cb3 = new QCheckBox ( trUtf8 ( "Indicates whether the HTTP Pipelining was used for receiving data Requests." ), centralWidget );
+  FeatureBox* cb3 = new FeatureBox ( trUtf8 ( "Indicates whether the HTTP Pipelining was used for receiving data Requests." ), centralWidget );
   cb3->setObjectName ( QLatin1String ( "HttpPipeliningWasUsedAttribute" ) );
   verticalLayout->addWidget ( cb3 );
 
-  QCheckBox* cb4 = new QCheckBox ( trUtf8 ( "Enable AutoLoad Images" ), centralWidget );
+  FeatureBox* cb4 = new FeatureBox ( trUtf8 ( "Enable AutoLoad Images" ), centralWidget );
   cb4->setObjectName ( QLatin1String ( "AutoLoadImages" ) );
   verticalLayout->addWidget ( cb4 );
 
-  QCheckBox* cb5 = new QCheckBox ( trUtf8 ( "Enable Javascript" ), centralWidget );
+  FeatureBox* cb5 = new FeatureBox ( trUtf8 ( "Enable Javascript" ), centralWidget );
   cb5->setObjectName ( QLatin1String ( "JavascriptEnabled" ) );
   verticalLayout->addWidget ( cb5 );
 
-  QCheckBox* cb6 = new QCheckBox ( trUtf8 ( "Enable Plugins" ), centralWidget );
+  FeatureBox* cb6 = new FeatureBox ( trUtf8 ( "Enable Plugins" ), centralWidget );
   cb6->setObjectName ( QLatin1String ( "PluginsEnabled" ) );
   verticalLayout->addWidget ( cb6 );
 
-  QCheckBox* cb7 = new QCheckBox ( trUtf8 ( "Enable Java" ), centralWidget );
+  FeatureBox* cb7 = new FeatureBox ( trUtf8 ( "Enable Java" ), centralWidget );
   cb7->setObjectName ( QLatin1String ( "JavaEnabled" ) );
   verticalLayout->addWidget ( cb7 );
 
-  QCheckBox* cb8 = new QCheckBox ( trUtf8 ( "Zoom only text" ), centralWidget );
+  FeatureBox* cb8 = new FeatureBox ( trUtf8 ( "Zoom only text" ), centralWidget );
   cb8->setObjectName ( QLatin1String ( "ZoomTextOnly" ) );
   verticalLayout->addWidget ( cb8 );
 
-  QCheckBox* cb9 = new QCheckBox ( trUtf8 ( "Fetch DNS entries to speed up browsing." ), centralWidget );
+  FeatureBox* cb9 = new FeatureBox ( trUtf8 ( "Fetch DNS entries to speed up browsing." ), centralWidget );
   cb9->setObjectName ( QLatin1String ( "DnsPrefetchEnabled" ) );
   verticalLayout->addWidget ( cb9 );
 
-  QCheckBox* cb10 = new QCheckBox ( trUtf8 ( "JavaScript programs can open new windows." ), centralWidget );
+  FeatureBox* cb10 = new FeatureBox ( trUtf8 ( "JavaScript programs can open new windows." ), centralWidget );
   cb10->setObjectName ( QLatin1String ( "JavascriptCanOpenWindows" ) );
   verticalLayout->addWidget ( cb10 );
 
-  QCheckBox* cb11 = new QCheckBox ( trUtf8 ( "JavaScript programs can read or write to the clipboard." ), centralWidget );
+  FeatureBox* cb11 = new FeatureBox ( trUtf8 ( "JavaScript programs can read or write to the clipboard." ), centralWidget );
   cb11->setObjectName ( QLatin1String ( "JavascriptCanAccessClipboard" ) );
   verticalLayout->addWidget ( cb11 );
 
-  QCheckBox* cb12 = new QCheckBox ( trUtf8 ( "The background color and images are also drawn when the page is printed." ), centralWidget );
+  FeatureBox* cb12 = new FeatureBox ( trUtf8 ( "The background color and images are also drawn when the page is printed." ), centralWidget );
   cb12->setObjectName ( QLatin1String ( "PrintElementBackgrounds" ) );
   verticalLayout->addWidget ( cb12 );
 
+  FeatureBox* cb13 = new FeatureBox ( trUtf8 ( "Locally loaded documents are allowed to access remote urls." ), centralWidget );
+  cb13->setObjectName ( QLatin1String ( "LocalContentCanAccessRemoteUrls" ) );
+  verticalLayout->addWidget ( cb13 );
+
+  FeatureBox* cb14 = new FeatureBox ( trUtf8 ( "Locally loaded documents are allowed to access other local urls." ), centralWidget );
+  cb14->setObjectName ( QLatin1String ( "LocalContentCanAccessFileUrls" ) );
+  verticalLayout->addWidget ( cb14 );
+
+  FeatureBox* cb15 = new FeatureBox ( trUtf8 ( "Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Warning: To enabe this feature might have an impact on performance." ), centralWidget );
+  cb15->setObjectName ( QLatin1String ( "XSSAuditingEnabled" ) );
+  verticalLayout->addWidget ( cb15 );
+
+  FeatureBox* cb16 = new FeatureBox ( trUtf8 ( "If enabled - CSS animations of the transform and opacity properties will be rendered\nby composing the cached content of the animated elements." ), centralWidget );
+  cb16->setObjectName ( QLatin1String ( "AcceleratedCompositingEnabled" ) );
+  verticalLayout->addWidget ( cb16 );
+
+  FeatureBox* cb17 = new FeatureBox ( trUtf8 ( "This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store." ), centralWidget );
+  cb17->setObjectName ( QLatin1String ( "TiledBackingStoreEnabled" ) );
+  verticalLayout->addWidget ( cb17 );
+
   /** Bitte nicht vergessen die Objektnamen in die Map ein zu tragen! */
   // Template:
-  // QCheckBox* cb = new QCheckBox ( trUtf8 ( "" ), centralWidget );
+  // FeatureBox* cb = new FeatureBox ( trUtf8 ( "" ), centralWidget );
   // cb->setObjectName ( QLatin1String ( "" ) );
   // verticalLayout->addWidget ( cb );
 
@@ -204,7 +230,7 @@ void ConfigBrowser::registerCheckBoxes()
   while ( it.hasNext() )
   {
     it.next();
-    btnGroup->addButton ( findChild<QCheckBox*> ( it.key() ), id++ );
+    btnGroup->addButton ( findChild<FeatureBox*> ( it.key() ), id++ );
   }
 
   connect ( btnGroup, SIGNAL ( buttonClicked ( int ) ),
@@ -222,7 +248,7 @@ void ConfigBrowser::load ( Settings * cfg )
   while ( it.hasNext() )
   {
     it.next();
-    findChild<QCheckBox*> ( it.key() )->setChecked ( cfg->value ( it.key(), it.value() ).toBool() );
+    findChild<FeatureBox*> ( it.key() )->setChecked ( cfg->value ( it.key(), it.value() ).toBool() );
   }
   DefaultFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
   DefaultFixedFontSize->setValue ( cfg->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
@@ -238,7 +264,7 @@ void ConfigBrowser::save ( Settings * cfg )
   while ( it.hasNext() )
   {
     it.next();
-    cfg->setValue ( it.key(), findChild<QCheckBox*> ( it.key() )->isChecked() );
+    cfg->setValue ( it.key(), findChild<FeatureBox*> ( it.key() )->isChecked() );
   }
   cfg->setValue ( QLatin1String ( "DefaultFontSize" ), DefaultFontSize->value() );
   cfg->setValue ( QLatin1String ( "DefaultFixedFontSize" ), DefaultFixedFontSize->value() );

@@ -19,35 +19,29 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#ifndef FEATUREBOX_H
+#define FEATUREBOX_H
 
 /* QtCore */
+#include <QtCore/QObject>
 #include <QtCore/QString>
 
-/* QtWebKit */
-#include <QtWebKit/QWebPluginFactory>
+/* QtGui */
+#include <QtGui/QCheckBox>
+#include <QtGui/QWidget>
 
-/* NSPR */
-extern "C"
+class FeatureBox : public QCheckBox
 {
-#include <npapi.h>
-#ifdef HAVE_OLD_NPUPP
-# include <npupp.h>
-#else
-# include <npfunctions.h>
-#endif
-}
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-class Plugin
-{
   private:
-    const QString pluginFilePath;
-    NPP_t m_npInstance;
+    const QString textSource;
 
   public:
-    Plugin ( const QString &path );
-    QWebPluginFactory::Plugin fetchInfo();
+    explicit FeatureBox ( const QString &text, QWidget * parent = 0 );
+    ~FeatureBox();
 };
 
 #endif
