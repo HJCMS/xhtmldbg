@@ -16,6 +16,7 @@ sslCaCertsDatabase=@CA_BUNDLE_FILE@
 icontheme=oxygen
 iconthemepaths=@ICON_THEME_PATH@
 GeoIP_Database=@GEOIP_DATABASE_PATH@/GeoIP.dat
+webkit_plugin_path=@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg/browser-plugins
 
 [HeaderDefinitions]
 Accept-Charset="utf-8, unicode-1-1;q=0.8"
