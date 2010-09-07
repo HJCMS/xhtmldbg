@@ -1972,7 +1972,7 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="268"/>
+        <location filename="../src/page.cpp" line="259"/>
         <source>(x-qt-plugin) ClassID: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1982,14 +1982,6 @@ Reasons : </source>
     <message>
         <location filename="../src/configuration/pagewidget.cpp" line="87"/>
         <source>Application restart required.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>PluginFactory</name>
-    <message>
-        <location filename="../src/pluginfactory/pluginfactory.cpp" line="75"/>
-        <source>Plugin found and initiated with predicates:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

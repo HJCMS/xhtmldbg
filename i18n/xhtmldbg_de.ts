@@ -1980,7 +1980,7 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="268"/>
+        <location filename="../src/page.cpp" line="259"/>
         <source>(x-qt-plugin) ClassID: %1</source>
         <translation></translation>
     </message>
@@ -1991,14 +1991,6 @@ Gründe : </translation>
         <location filename="../src/configuration/pagewidget.cpp" line="87"/>
         <source>Application restart required.</source>
         <translation>Anwendung Neustart erforderlich.</translation>
-    </message>
-</context>
-<context>
-    <name>PluginFactory</name>
-    <message>
-        <location filename="../src/pluginfactory/pluginfactory.cpp" line="75"/>
-        <source>Plugin found and initiated with predicates:</source>
-        <translation>Plugin mit den folgenden Prädikaten Initialisiert:</translation>
     </message>
 </context>
 <context>
