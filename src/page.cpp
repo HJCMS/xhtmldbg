@@ -31,10 +31,6 @@
 # include "uitoolsloader.h"
 #endif
 
-#ifdef HAVE_MOZILLA_PLUGIN_API
-# include "pluginfactory.h"
-#endif
-
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QList>
@@ -64,11 +60,6 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setForwardUnsupportedContent ( true );
 
   setNetworkAccessManager ( m_netManager );
-
-#ifdef HAVE_MOZILLA_PLUGIN_API
-  // Plugin Factory
-  setPluginFactory ( new PluginFactory ( this ) );
-#endif
 
   reply = 0x00;
 

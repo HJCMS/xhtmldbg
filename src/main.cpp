@@ -47,7 +47,7 @@
 */
 inline void xhtmldbg_restore_plugin_paths()
 {
-  setenv ( "MOZILLA_HOME", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+  setenv ( "MOZILLA_HOME", XHTMLDBG_PLUGIN_PATH, 1 );
   setenv ( "MOZ_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
   setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
 }
