@@ -69,6 +69,7 @@ class Viewer : public QWebView
     void checkingStyleSheet();
     void linkInfos ( const QString &, const QString &, const QString & );
     void errorMessage ( const QString & );
+    void screenshot();
 
   protected:
     Viewer* createWindow ( QWebPage::WebWindowType );

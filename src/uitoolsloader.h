@@ -27,6 +27,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 #include <QtCore/QVariant>
 
 /* QtGui */
@@ -66,12 +67,6 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     */
     const QStringList findProperties ( const QString &classID, QWidget * parent ) const;
 
-  protected:
-    /**
-    * Return a static Widget with failure message!
-    */
-    QWidget* displayFailWidget ( QWidget * parent );
-
   public:
     explicit UiToolsLoader ( const QString &cid, QObject * parent = 0 );
 
@@ -84,14 +79,19 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     bool setConfiguration ( const QStringList &params, const QStringList &values );
 
     /**
-    * Loading UI
+    * Return a static Widget with failure message!
+    */
+    QWidget* displayFailWidget ( QWidget * parent, const QString &mess = QString() ) const;
+
+    /**
+    * Loading UI Internal
     */
     QWidget* getUiComponent ( QWidget * parent );
 
     /**
-    * Dummy Widget for print Failures
+    * Loading UI External
     */
-    QWidget* failureWidget ( QWidget * parent ) const;
+    QWidget* loadUiComponent ( QWidget * parent, const QUrl &url );
 
     virtual ~UiToolsLoader();
 };

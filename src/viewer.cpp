@@ -29,12 +29,14 @@
 #include "networkcookie.h"
 #include "cookieacceptdialog.h"
 #include "useragentmenu.h"
+#include "settargetdialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
+#include <QtCore/QDateTime>
 
 /* QtGui */
 #include <QtGui/QBrush>
@@ -43,8 +45,10 @@
 #include <QtGui/QHelpEvent>
 #include <QtGui/QIcon>
 #include <QtGui/QKeySequence>
+#include <QtGui/QLabel>
 #include <QtGui/QMenu>
 #include <QtGui/QMessageBox>
+#include <QtGui/QPixmap>
 #include <QtGui/QPalette>
 #include <QtGui/QToolTip>
 
@@ -243,6 +247,13 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
 
   // Stylesheet Überprüfung
+  QAction* screenshot = menu->addAction ( trUtf8 ( "Screenshot" ) );
+  screenshot->setObjectName ( QLatin1String ( "ac_context_screenshot" ) );
+  screenshot->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
+  screenshot->setToolTip ( trUtf8 ( "Screenshot from current Page." ) );
+  connect ( screenshot, SIGNAL ( triggered() ), this, SLOT ( screenshot() ) );
+
+  // Stylesheet Überprüfung
   QAction* source = menu->addAction ( trUtf8 ( "Source" ) );
   source->setObjectName ( QLatin1String ( "ac_context_source" ) );
   source->setIcon ( QIcon::fromTheme ( QLatin1String ( "text-html" ) ) );
@@ -432,6 +443,25 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
 void Viewer::errorMessage ( const QString &error )
 {
   xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( error, true );
+}
+
+/** Ein Foto vom Aktuellen Fenster machen */
+void Viewer::screenshot()
+{
+  QPixmap pixmap = QPixmap::grabWidget ( m_page->view() );
+  QString host = url().host().replace ( QRegExp ( "\\W+" ), "_" );
+  QString time = QDateTime::currentDateTime ().toString ( "yyyy-MM-dd_hh:mm:ss" );
+  QUrl url ( QString::fromUtf8 ( "/tmp/img_%1_%2.png" ).arg ( host, time ) );
+  SetTargetDialog dialog ( url, this );
+  if ( dialog.exec() == QDialog::Accepted )
+  {
+    QString p = dialog.destination().toString ( QUrl::RemoveScheme );
+    if ( pixmap.save ( p, "png", 100 ) )
+    {
+      QString mess = trUtf8 ( "Screenshot saved to %1" ).arg ( p );
+      xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( mess, false );
+    }
+  }
 }
 
 Viewer::~Viewer()

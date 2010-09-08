@@ -45,16 +45,6 @@ ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (colorpicker)
 ADD_SUBDIRECTORY (hostinfo)
-
-IF (QT_QTUITOOLS_FOUND)
-  SET (XHTMLDBG_BINARY_PROJECT_INCULDE
-    ${XHTMLDBG_BINARY_PROJECT_INCULDE}
-    ${CMAKE_CURRENT_SOURCE_DIR}/uitools
-  )
-  ADD_SUBDIRECTORY (uitools)
-  SET (OPTIONAL_LIBRARIES ${OPTIONAL_LIBRARIES} UiToolsLoader)
-ENDIF (QT_QTUITOOLS_FOUND)
-
 ADD_SUBDIRECTORY (plugins)
 
 SET (xhtmldbg_SOURCES
@@ -111,6 +101,20 @@ SET (xhtmldbg_NOMOC
   historyitem.h
 )
 
+## x-qt-plugin Support
+IF (QT_QTUITOOLS_FOUND)
+  SET (OPTIONAL_LIBRARIES ${OPTIONAL_LIBRARIES}
+    ${QT_QTSCRIPT_LIBRARY}
+    ${QT_QTUITOOLS_LIBRARY}
+  )
+  SET (xhtmldbg_SOURCES ${xhtmldbg_SOURCES}
+    uitoolsloader.cpp
+  )
+  SET (xhtmldbg_HEADERS ${xhtmldbg_HEADERS}
+    uitoolsloader.h
+  )
+ENDIF (QT_QTUITOOLS_FOUND)
+
 QT4_WRAP_CPP (xhtmldbg_MOC ${xhtmldbg_HEADERS})
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
@@ -127,7 +131,6 @@ ADD_EXECUTABLE (xhtmldbg
   ${xhtmldbg_SOURCES}
 )
 
-## BrowserPlugin
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
   Settings

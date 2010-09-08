@@ -19,10 +19,12 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "uitoolsloader.h"
 #ifndef XHTMLDBG_VERSION_STRING
 # include "version.h"
 #endif
+#include "uitoolsloader.h"
+#include "xhtmldbgmain.h"
+#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -40,6 +42,10 @@
 #include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QListWidget>
+
+/* QtNetwork */
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
 
 UiToolsLoader::UiToolsLoader ( const QString &cid, QObject * parent )
     : QUiLoader ( parent ), QScriptable()
@@ -129,15 +135,21 @@ const QStringList UiToolsLoader::findProperties ( const QString &classID, QWidge
 /**
 * Nachrichten Fenster bei Fehlern
 */
-QWidget* UiToolsLoader::displayFailWidget ( QWidget * parent )
+QWidget* UiToolsLoader::displayFailWidget ( QWidget * parent, const QString &mess ) const
 {
+  QString message;
   QWidget* widget = new QWidget ( parent );
   QVBoxLayout* layout = new QVBoxLayout ( widget );
   layout->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
 
-  QString message ( trUtf8 ( "Sorry: I can't do it." ) );
-  message.append ( "\n" );
-  message.append ( trUtf8 ( "Invalid Element initialization." ) );
+  if ( mess.isEmpty() )
+  {
+    message.append ( trUtf8 ( "Sorry: I can't do it." ) );
+    message.append ( "\n" );
+    message.append ( trUtf8 ( "Invalid Element initialization." ) );
+  }
+  else
+    message = mess;
 
   QLabel* label = new QLabel ( message, widget );
   label->setWordWrap ( true );
@@ -191,23 +203,11 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
   return displayFailWidget ( parent );
 }
 
-/**
-* Fehler Widget ausgeben wenn einige Parameter fehlen!
-*/
-QWidget* UiToolsLoader::failureWidget ( QWidget * parent ) const
+QWidget* UiToolsLoader::loadUiComponent ( QWidget * parent, const QUrl &url )
 {
-  QWidget* widget = new QWidget ( parent );
-  widget->setObjectName ( "UiToolsLoader.failureWidget" );
-  QVBoxLayout* layout = new QVBoxLayout ( widget );
-  layout->setObjectName ( "UiToolsLoader.failureWidget.layout" );
-  QLabel* label = new QLabel ( widget );
-  label->setObjectName ( "UiToolsLoader.failureWidget.layout.label" );
-  label->setWordWrap ( true );
-  label->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
-  label->setText ( trUtf8 ( "Failed to load \"application/x-qt-plugin\".\nMissing some predicates!" ) );
-  layout->addWidget ( label );
-  widget->setLayout ( layout );
-  return widget;
+  Q_UNUSED ( url )
+  QString message ( trUtf8 ( "Sorry: External Ui Component Source not supported!" ) );
+  return displayFailWidget ( parent, message );
 }
 
 UiToolsLoader::~UiToolsLoader()
