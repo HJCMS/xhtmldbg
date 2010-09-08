@@ -27,7 +27,6 @@
 /* QtGui */
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QGridLayout>
-#include <QtGui/QGroupBox>
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
@@ -52,50 +51,50 @@ PasswordDialog::PasswordDialog ( QWidget * parent )
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
-  QGroupBox* box = new QGroupBox ( trUtf8 ( "Password Request" ), this );
-  vLayout->addWidget ( box );
+  m_groupBox = new QGroupBox ( trUtf8 ( "Password Request" ), this );
+  vLayout->addWidget ( m_groupBox );
 
-  QGridLayout* layout = new QGridLayout ( box );
+  QGridLayout* layout = new QGridLayout ( m_groupBox );
   layout->setMargin ( 5 );
-  box->setLayout ( layout );
+  m_groupBox->setLayout ( layout );
 
-  QLabel* lb1 = new QLabel ( box );
+  QLabel* lb1 = new QLabel ( m_groupBox );
   lb1->setText ( trUtf8 ( "User" ) );
   lb1->setAlignment ( Qt::AlignRight );
   lb1->setIndent ( 2 );
   layout->addWidget ( lb1, 0, 0, 1, 1 );
 
-  m_onwerLineEdit = new QLineEdit ( box );
+  m_onwerLineEdit = new QLineEdit ( m_groupBox );
   m_onwerLineEdit->setEchoMode ( QLineEdit::Normal );
   layout->addWidget ( m_onwerLineEdit, 0, 1, 1, 1 );
 
   scOwnerField = p_scriptEngine.newQObject ( m_onwerLineEdit );
   p_scriptEngine.globalObject().setProperty ( "userfield", scOwnerField );
 
-  QToolButton* btn1 = new QToolButton ( box );
+  QToolButton* btn1 = new QToolButton ( m_groupBox );
   btn1->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   btn1->setToolTip ( trUtf8 ( "Clear" ) );
   layout->addWidget ( btn1, 0, 2, 1, 1 );
 
-  QLabel* lb2 = new QLabel ( box );
+  QLabel* lb2 = new QLabel ( m_groupBox );
   lb2->setText ( trUtf8 ( "Password" ) );
   lb2->setAlignment ( Qt::AlignRight );
   lb2->setIndent ( 2 );
   layout->addWidget ( lb2, 1, 0, 1, 1 );
 
-  m_passLineEdit = new QLineEdit ( box );
+  m_passLineEdit = new QLineEdit ( m_groupBox );
   m_passLineEdit->setEchoMode ( QLineEdit::PasswordEchoOnEdit );
   layout->addWidget ( m_passLineEdit, 1, 1, 1, 1 );
 
   scPasswordField = p_scriptEngine.newQObject ( m_passLineEdit );
   p_scriptEngine.globalObject().setProperty ( "passwordfield", scPasswordField );
 
-  QToolButton* btn2 = new QToolButton ( box );
+  QToolButton* btn2 = new QToolButton ( m_groupBox );
   btn2->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   btn2->setToolTip ( trUtf8 ( "Clear" ) );
   layout->addWidget ( btn2, 1, 2, 1, 1 );
 
-  QDialogButtonBox* btnBox = new QDialogButtonBox ( Qt::Horizontal, box );
+  QDialogButtonBox* btnBox = new QDialogButtonBox ( Qt::Horizontal, m_groupBox );
   QPushButton* submit = btnBox->addButton ( QDialogButtonBox::Apply );
   QPushButton* reset = btnBox->addButton ( QDialogButtonBox::Reset );
   layout->addWidget ( btnBox, 2, 0, 1, 3, Qt::AlignRight );
@@ -141,7 +140,17 @@ void PasswordDialog::restore()
 
 void PasswordDialog::setUser ( const QString &o )
 {
-  m_onwerLineEdit->setText( o );
+  m_onwerLineEdit->setText ( o );
+}
+
+void PasswordDialog::setTitle ( const QString &t )
+{
+  m_groupBox->setTitle ( t );
+}
+
+QString PasswordDialog::title() const
+{
+  return m_groupBox->title();
 }
 
 QString PasswordDialog::user() const
@@ -151,7 +160,7 @@ QString PasswordDialog::user() const
 
 void PasswordDialog::setPassword ( const QString &p )
 {
-  m_passLineEdit->setText( p );
+  m_passLineEdit->setText ( p );
 }
 
 QString PasswordDialog::password() const

@@ -27,6 +27,7 @@
 #include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QGroupBox>
 #include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
@@ -38,6 +39,7 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_PROPERTY ( QString title READ title WRITE setTitle )
     Q_PROPERTY ( QString user READ user WRITE setUser )
     Q_PROPERTY ( QString password READ password WRITE setPassword )
 
@@ -46,6 +48,7 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     void submit();
 
   protected:
+    QGroupBox* m_groupBox;
     QLineEdit* m_onwerLineEdit;
     QLineEdit* m_passLineEdit;
 
@@ -66,6 +69,16 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     * @see http://www.ecma-international.org/publications/standards/Ecma-262.htm
     **/
     QScriptValue scPasswordField;
+
+    /**
+    * Set Meta-Object Property Title for @ref m_groupBox
+    **/
+    void setTitle ( const QString &t );
+
+    /**
+    * Current @ref m_groupBox Title
+    **/
+    QString title() const;
 
     /**
     * Set Meta-Object Property for @ref m_onwerLineEdit
