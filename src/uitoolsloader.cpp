@@ -23,13 +23,12 @@
 # include "version.h"
 #endif
 #include "uitoolsloader.h"
-#include "xhtmldbgmain.h"
-#include "networkaccessmanager.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QList>
 #include <QtCore/QMapIterator>
 #include <QtCore/QMetaProperty>
@@ -43,16 +42,14 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QListWidget>
 
-/* QtNetwork */
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkRequest>
-
-UiToolsLoader::UiToolsLoader ( const QString &cid, QObject * parent )
+/** @class UiToolsLoader */
+UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * parent )
     : QUiLoader ( parent ), QScriptable()
     , classID ( cid )
     , isValid ( false )
+    , uiUrl ( file )
 {
-  setObjectName ( QLatin1String ( "uitoolsloader" ) );
+  setObjectName ( QLatin1String ( "UiToolsLoader" ) );
 
   /* Keine zusätzlichen Plugins aus QT_INSTALL_PLUGINS/designer lesen!
   * Es werden nur die Standard Plugins von Qt und meine verwendet!
@@ -171,7 +168,19 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
     if ( uiConfig.contains ( QLatin1String ( "name" ) ) )
       objName = uiConfig["name"].toString();
 
-    QWidget* widget = createWidget ( classID, parent, objName );
+    QWidget* widget;
+    if ( uiUrl.isValid() && ( uiUrl.scheme() == QString::fromUtf8 ( "file" ) ) )
+    {
+      QFile fp ( uiUrl.toString() );
+      fp.open ( QFile::ReadOnly );
+      widget = load ( &fp, parent );
+      widget->setObjectName ( objName );
+      fp.close();
+      qDebug() << Q_FUNC_INFO << __LINE__ << "External";
+    }
+    else
+      widget = createWidget ( classID, parent, objName );
+
     // !!! Kein Klassen-Name keine Prädikate !!!
     if ( ! objName.isEmpty() )
     {
@@ -201,13 +210,6 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
     return widget;
   }
   return displayFailWidget ( parent );
-}
-
-QWidget* UiToolsLoader::loadUiComponent ( QWidget * parent, const QUrl &url )
-{
-  Q_UNUSED ( url )
-  QString message ( trUtf8 ( "Sorry: External Ui Component Source not supported!" ) );
-  return displayFailWidget ( parent, message );
 }
 
 UiToolsLoader::~UiToolsLoader()

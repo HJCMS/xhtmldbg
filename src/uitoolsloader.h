@@ -23,6 +23,7 @@
 #define UITOOLSLOADER_H
 
 /* QtCore */
+#include <QtCore/QIODevice>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -57,6 +58,11 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     bool isValid;
 
     /**
+    * Local Storage URL
+    **/
+    const QUrl uiUrl;
+
+    /**
     * Inherit all valid predicates and values from xhtml:object and
     * xhtml:param elements.
     */
@@ -68,7 +74,7 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     const QStringList findProperties ( const QString &classID, QWidget * parent ) const;
 
   public:
-    explicit UiToolsLoader ( const QString &cid, QObject * parent = 0 );
+    explicit UiToolsLoader ( const QString &cid, const QUrl &file, QObject * parent = 0 );
 
     /**
     * first we set all params and values to the loader.
@@ -87,11 +93,6 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     * Loading UI Internal
     */
     QWidget* getUiComponent ( QWidget * parent );
-
-    /**
-    * Loading UI External
-    */
-    QWidget* loadUiComponent ( QWidget * parent, const QUrl &url );
 
     virtual ~UiToolsLoader();
 };
