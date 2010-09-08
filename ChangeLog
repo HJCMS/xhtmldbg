@@ -1,7 +1,7 @@
 - 2010/09/    Juergen Heinemann (Undefined)
   Add: ColorPicker Widget
   Fix: CMake invalid COMPILE FLAGS
-  Add: Partial NPP Support
+  Removed: Internal NPP Support "to many problems" :-(
   Add: Qt UI Components Support
   Add: Separate browser-plugins Directory
 
