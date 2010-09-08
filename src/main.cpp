@@ -36,6 +36,9 @@
 
 int main ( int argc, char *argv[] )
 {
+  // Overwrite QTWEBKIT_PLUGIN_PATH to XHTMLDBG PLUGIN Directory
+  setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+
   xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
