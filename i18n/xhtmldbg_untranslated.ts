@@ -1972,8 +1972,14 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="259"/>
-        <source>(x-qt-plugin) ClassID: %1</source>
+        <location filename="../src/page.cpp" line="257"/>
+        <source>Permission Denied!
+Only file:// Protocol Accepted!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="264"/>
+        <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2278,12 +2284,12 @@ Reasons : </source>
 <context>
     <name>UiToolsLoader</name>
     <message>
-        <location filename="../src/uitools/uitoolsloader.cpp" line="137"/>
+        <location filename="../src/uitoolsloader.cpp" line="144"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/uitools/uitoolsloader.cpp" line="139"/>
+        <location filename="../src/uitoolsloader.cpp" line="146"/>
         <source>Invalid Element initialization.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2420,63 +2426,78 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="231"/>
+        <location filename="../src/viewer.cpp" line="235"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="238"/>
+        <location filename="../src/viewer.cpp" line="242"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="241"/>
+        <location filename="../src/viewer.cpp" line="245"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="246"/>
+        <location filename="../src/viewer.cpp" line="250"/>
+        <source>Screenshot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="253"/>
+        <source>Screenshot from current Page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="257"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="249"/>
+        <location filename="../src/viewer.cpp" line="260"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="341"/>
+        <location filename="../src/viewer.cpp" line="352"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="349"/>
+        <location filename="../src/viewer.cpp" line="360"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="354"/>
+        <location filename="../src/viewer.cpp" line="365"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="364"/>
+        <location filename="../src/viewer.cpp" line="375"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="370"/>
+        <location filename="../src/viewer.cpp" line="381"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="377"/>
+        <location filename="../src/viewer.cpp" line="388"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="382"/>
+        <location filename="../src/viewer.cpp" line="393"/>
         <source>Summary: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/viewer.cpp" line="461"/>
+        <source>Screenshot saved to %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
