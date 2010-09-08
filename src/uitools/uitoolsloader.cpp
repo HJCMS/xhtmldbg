@@ -39,6 +39,7 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QLabel>
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QListWidget>
 
 UiToolsLoader::UiToolsLoader ( const QString &cid, QObject * parent )
     : QUiLoader ( parent ), QScriptable()
@@ -148,7 +149,7 @@ QWidget* UiToolsLoader::displayFailWidget ( QWidget * parent )
 
 /**
 * Nehme die Ui:Komponente
-**/
+*/
 QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
 {
   if ( isValid )
@@ -188,6 +189,25 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
     return widget;
   }
   return displayFailWidget ( parent );
+}
+
+/**
+* Fehler Widget ausgeben wenn einige Parameter fehlen!
+*/
+QWidget* UiToolsLoader::failureWidget ( QWidget * parent ) const
+{
+  QWidget* widget = new QWidget ( parent );
+  widget->setObjectName ( "UiToolsLoader.failureWidget" );
+  QVBoxLayout* layout = new QVBoxLayout ( widget );
+  layout->setObjectName ( "UiToolsLoader.failureWidget.layout" );
+  QLabel* label = new QLabel ( widget );
+  label->setObjectName ( "UiToolsLoader.failureWidget.layout.label" );
+  label->setWordWrap ( true );
+  label->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
+  label->setText ( trUtf8 ( "Failed to load \"application/x-qt-plugin\".\nMissing some predicates!" ) );
+  layout->addWidget ( label );
+  widget->setLayout ( layout );
+  return widget;
 }
 
 UiToolsLoader::~UiToolsLoader()

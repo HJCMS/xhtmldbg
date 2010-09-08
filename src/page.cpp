@@ -247,16 +247,16 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 QObject* Page::createPlugin ( const QString &id, const QUrl &url,
                               const QStringList &params, const QStringList &values )
 {
+  Q_UNUSED ( url )
   UiToolsLoader loader ( id, view() );
-  // TODO  URL Validierung
-  if ( url.isValid() && url.scheme().contains ( QRegExp ( "^(http|file)$" ) ) )
-    {}
+  if ( ! params.contains ( "classid" ) || ! params.contains ( "name" ) )
+    return loader.failureWidget ( view() );
 
   // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
   // und Gültigkeit der Parameter und ihrer Werte geprüft!
   if ( loader.setConfiguration ( params, values ) )
   {
-    QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1" ).arg ( id );
+    QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
     internalMessanger ( message );
   }
   return loader.getUiComponent ( view() );

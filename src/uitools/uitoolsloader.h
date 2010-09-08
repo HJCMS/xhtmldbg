@@ -88,6 +88,11 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     */
     QWidget* getUiComponent ( QWidget * parent );
 
+    /**
+    * Dummy Widget for print Failures
+    */
+    QWidget* failureWidget ( QWidget * parent ) const;
+
     virtual ~UiToolsLoader();
 };
 
