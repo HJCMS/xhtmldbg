@@ -40,11 +40,11 @@ class QDESIGNER_WIDGET_EXPORT PasswordDialogPlugin : public QObject,
       public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
-    Q_INTERFACES ( QDesignerCustomWidgetInterface )
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
     Q_CLASSINFO ( "MIME", "application/x-qt-plugin" )
     Q_CLASSINFO ( "Description", "XHTMLDBG Password request Widget" )
+    Q_INTERFACES ( QDesignerCustomWidgetInterface )
 
   private:
     bool initialized;

@@ -26,15 +26,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
 
-/* QtGui */
-// #include <QtGui/QVBoxLayout>
-
-/* QtDBus */
-// #include <QtDBus>
-
-/* QtNetwork */
-// #include <QtNetwork>
-
 PasswordDialogPlugin::PasswordDialogPlugin ( QObject * parent )
     : QObject ( parent )
     , initialized ( false )

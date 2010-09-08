@@ -38,12 +38,8 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_PROPERTY ( QString user READ ownerData WRITE setOwnerData )
-    Q_PROPERTY ( QString pass READ passwordData WRITE setPasswordData )
-
-  private:
-    QString owner;
-    QString password;
+    Q_PROPERTY ( QString user READ user WRITE setUser )
+    Q_PROPERTY ( QString password READ password WRITE setPassword )
 
   private Q_SLOTS:
     void restore();
@@ -74,22 +70,22 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     /**
     * Set Meta-Object Property for @ref m_onwerLineEdit
     **/
-    void setOwnerData ( const QString &u );
+    void setUser ( const QString &u );
 
     /**
     * Current @ref m_passLineEdit Plain Text Data
     **/
-    QString ownerData() const;
+    QString user() const;
 
     /**
     * Set Meta-Object Property for @ref m_passLineEdit
     **/
-    void setPasswordData ( const QString &p );
+    void setPassword ( const QString &p );
 
     /**
     * Current @ref m_passLineEdit Plain Text Data
     **/
-    QString passwordData() const;
+    QString password() const;
 
     virtual ~PasswordDialog();
 };

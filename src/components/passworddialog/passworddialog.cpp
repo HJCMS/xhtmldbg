@@ -139,24 +139,24 @@ void PasswordDialog::restore()
   m_onwerLineEdit->setFocus();
 }
 
-void PasswordDialog::setOwnerData ( const QString &o )
+void PasswordDialog::setUser ( const QString &o )
 {
-  owner = o;
+  m_onwerLineEdit->setText( o );
 }
 
-QString PasswordDialog::ownerData() const
+QString PasswordDialog::user() const
 {
-  return owner;
+  return m_onwerLineEdit->text();
 }
 
-void PasswordDialog::setPasswordData ( const QString &p )
+void PasswordDialog::setPassword ( const QString &p )
 {
-  password = p;
+  m_passLineEdit->setText( p );
 }
 
-QString PasswordDialog::passwordData() const
+QString PasswordDialog::password() const
 {
-  return password;
+  return m_passLineEdit->text();
 }
 
 PasswordDialog::~PasswordDialog()
