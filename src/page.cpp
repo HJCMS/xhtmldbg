@@ -247,25 +247,21 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 QObject* Page::createPlugin ( const QString &id, const QUrl &url,
                               const QStringList &params, const QStringList &values )
 {
-  UiToolsLoader loader ( id, url, view() );
-  if ( ! params.contains ( "classid" ) || ! params.contains ( "name" ) )
-    return loader.displayFailWidget ( view() );
+  UiToolsLoader* loader = new UiToolsLoader ( id, url, view() );
+  connect ( loader, SIGNAL ( message ( const QString & ) ),
+            this, SLOT ( internalMessanger ( const QString & ) ) );
 
-  if ( ! url.isEmpty() && url.scheme().contains ( "http" ) )
-  {
-    downloadContentRequest ( QNetworkRequest ( url ) );
-    return loader.displayFailWidget ( view(), trUtf8 ( "Permission Denied!\nOnly file:// Protocol Accepted!" ) );
-  }
+  if ( ! params.contains ( "classid" ) || ! params.contains ( "name" ) )
+    return loader->displayFailWidget ( view() );
 
   // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
   // und Gültigkeit der Parameter und ihrer Werte geprüft!
-  if ( loader.setConfiguration ( params, values ) )
+  if ( loader->setConfiguration ( params, values ) )
   {
     QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
     internalMessanger ( message );
   }
-
-  return loader.getUiComponent ( view() );
+  return loader->getUiComponent ( view() );
 }
 #endif
 

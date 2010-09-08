@@ -40,7 +40,7 @@
 /* QtUiTools */
 #include <QtUiTools/QUiLoader>
 
-class UiToolsLoader : protected QUiLoader, protected QScriptable
+class UiToolsLoader : public QUiLoader, protected QScriptable
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -72,6 +72,9 @@ class UiToolsLoader : protected QUiLoader, protected QScriptable
     * a list with all writeable properties
     */
     const QStringList findProperties ( const QString &classID, QWidget * parent ) const;
+
+  Q_SIGNALS:
+    void message ( const QString & );
 
   public:
     explicit UiToolsLoader ( const QString &cid, const QUrl &file, QObject * parent = 0 );

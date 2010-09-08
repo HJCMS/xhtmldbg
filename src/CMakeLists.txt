@@ -46,6 +46,7 @@ ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (colorpicker)
 ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (plugins)
+ADD_SUBDIRECTORY (components)
 
 SET (xhtmldbg_SOURCES
   main.cpp

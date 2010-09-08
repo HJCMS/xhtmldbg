@@ -28,7 +28,6 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
-#include <QtCore/QFile>
 #include <QtCore/QList>
 #include <QtCore/QMapIterator>
 #include <QtCore/QMetaProperty>
@@ -50,6 +49,7 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
     , uiUrl ( file )
 {
   setObjectName ( QLatin1String ( "UiToolsLoader" ) );
+  setLanguageChangeEnabled ( true );
 
   /* Keine zusätzlichen Plugins aus QT_INSTALL_PLUGINS/designer lesen!
   * Es werden nur die Standard Plugins von Qt und meine verwendet!
@@ -59,7 +59,7 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
   clearPluginPaths();
 
   /* Setze meinen plugin Designer Pfad */
-  QString plPath = QString ( "%1/designer" ).arg ( XHTMLDBG_PLUGIN_PATH );
+  QString plPath ( "/home/heinemann/hjcms/xhtmldbg/build/app/designer" ); // = QString ( "%1/designer" ).arg ( XHTMLDBG_PLUGIN_PATH );
   addPluginPath ( plPath );
 
   /* setze die Ausführung im /tmp Pfad fort */
@@ -70,10 +70,10 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
   if ( ! classID.contains ( QRegExp ( "^(Q|X)\\w+$", Qt::CaseSensitive ) ) )
     return;
 
+  // qDebug() << Q_FUNC_INFO << availableWidgets();
+
   // Nachsehen ob sie in der Liste der ladbaren Klassen ist
   isValid = availableWidgets().contains ( classID );
-
-  // qDebug() << Q_FUNC_INFO << availableWidgets();
 
   // Map bereiningen
   uiConfig.clear();
@@ -90,7 +90,7 @@ bool UiToolsLoader::setConfiguration ( const QStringList &params, const QStringL
   if ( params.size() != values.size() )
   {
     isValid = false;
-    qWarning ( "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!" );
+    emit message ( trUtf8 ( "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!" ) );
     return false;
   }
 
@@ -168,19 +168,7 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
     if ( uiConfig.contains ( QLatin1String ( "name" ) ) )
       objName = uiConfig["name"].toString();
 
-    QWidget* widget;
-    if ( uiUrl.isValid() && ( uiUrl.scheme() == QString::fromUtf8 ( "file" ) ) )
-    {
-      QFile fp ( uiUrl.toString() );
-      fp.open ( QFile::ReadOnly );
-      widget = load ( &fp, parent );
-      widget->setObjectName ( objName );
-      fp.close();
-      qDebug() << Q_FUNC_INFO << __LINE__ << "External";
-    }
-    else
-      widget = createWidget ( classID, parent, objName );
-
+    QWidget* widget = createWidget ( classID, parent, objName );
     // !!! Kein Klassen-Name keine Prädikate !!!
     if ( ! objName.isEmpty() )
     {
@@ -202,7 +190,7 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
           if ( val.convert ( prop.type() ) )
             widget->setProperty ( prop.name(), val );
           else
-            qWarning ( "(XHTMLDBG) Invalid value for property: %s", prop.name() );
+            emit message ( trUtf8 ( "(XHTMLDBG) Invalid value for property: %1" ).arg ( prop.name() ) );
         }
       }
     }
