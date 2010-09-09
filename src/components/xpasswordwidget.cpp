@@ -29,25 +29,24 @@
 #include <QtGui/QGridLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
-#include <QtGui/QPushButton>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
+#include <QtGui/QTextDocument>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
 /* QtScript */
 #include <QtScript/QScriptEngine>
+#include <QtScript/QScriptContext>
 
 XPasswordWidget::XPasswordWidget ( QWidget * parent )
     : QWidget ( parent )
+    , isReady ( false )
 {
-  setObjectName ( QLatin1String ( "xXPasswordWidget" ) );
+  setObjectName ( QLatin1String ( " xPasswordWidget" ) );
   setMinimumWidth ( 250 );
   setMinimumHeight ( 200 );
   setContentsMargins ( 5, 5, 5, 5 );
-
-  QScriptEngine p_scriptEngine ( this );
-  p_scriptEngine.setObjectName ( QLatin1String ( "XPasswordWidgetScriptEngine" ) );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
@@ -68,9 +67,6 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   m_onwerLineEdit->setEchoMode ( QLineEdit::Normal );
   layout->addWidget ( m_onwerLineEdit, 0, 1, 1, 1 );
 
-  scOwnerField = p_scriptEngine.newQObject ( m_onwerLineEdit );
-  p_scriptEngine.globalObject().setProperty ( "userfield", scOwnerField );
-
   QToolButton* btn1 = new QToolButton ( m_groupBox );
   btn1->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   btn1->setToolTip ( trUtf8 ( "Clear" ) );
@@ -86,17 +82,17 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   m_passLineEdit->setEchoMode ( QLineEdit::PasswordEchoOnEdit );
   layout->addWidget ( m_passLineEdit, 1, 1, 1, 1 );
 
-  scPasswordField = p_scriptEngine.newQObject ( m_passLineEdit );
-  p_scriptEngine.globalObject().setProperty ( "passwordfield", scPasswordField );
-
   QToolButton* btn2 = new QToolButton ( m_groupBox );
   btn2->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   btn2->setToolTip ( trUtf8 ( "Clear" ) );
   layout->addWidget ( btn2, 1, 2, 1, 1 );
 
   QDialogButtonBox* btnBox = new QDialogButtonBox ( Qt::Horizontal, m_groupBox );
-  QPushButton* submit = btnBox->addButton ( QDialogButtonBox::Apply );
-  QPushButton* reset = btnBox->addButton ( QDialogButtonBox::Reset );
+  m_submitbutton = btnBox->addButton ( QDialogButtonBox::Apply );
+  m_submitbutton->setObjectName ( QLatin1String ( "submitbutton" ) );
+  QPushButton* m_resetbutton = btnBox->addButton ( QDialogButtonBox::Reset );
+  m_resetbutton->setObjectName ( QLatin1String ( "resetbutton" ) );
+
   layout->addWidget ( btnBox, 2, 0, 1, 3, Qt::AlignRight );
 
   QSpacerItem* vsp = new QSpacerItem ( 20, 20, QSizePolicy::Preferred, QSizePolicy::Expanding );
@@ -104,16 +100,15 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 
   setLayout ( vLayout );
 
-  connect ( submit, SIGNAL ( clicked() ), this, SLOT ( submit() ) );
-  connect ( reset, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
+  connect ( m_submitbutton, SIGNAL ( clicked() ), this, SLOT ( submit() ) );
+  connect ( m_resetbutton, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
   connect ( btn1, SIGNAL ( clicked() ), m_onwerLineEdit, SLOT ( clear() ) );
   connect ( btn2, SIGNAL ( clicked() ), m_passLineEdit, SLOT ( clear() ) );
+}
 
-  setTabOrder ( m_onwerLineEdit, btn1 );
-  setTabOrder ( btn1, m_passLineEdit );
-  setTabOrder ( m_passLineEdit, btn2 );
-  setTabOrder ( btn2, submit );
-  setTabOrder ( submit, reset );
+bool XPasswordWidget::status()
+{
+  return isReady;
 }
 
 void XPasswordWidget::submit()
@@ -128,7 +123,8 @@ void XPasswordWidget::submit()
     m_passLineEdit->setFocus();
     return;
   }
-  emit accept ( m_onwerLineEdit->text(), m_passLineEdit->text() );
+  isReady = true;
+  emit submitted ();
 }
 
 void XPasswordWidget::restore()
@@ -136,6 +132,7 @@ void XPasswordWidget::restore()
   m_passLineEdit->clear();
   m_onwerLineEdit->clear();
   m_onwerLineEdit->setFocus();
+  isReady = false;
 }
 
 void XPasswordWidget::setUser ( const QString &o )

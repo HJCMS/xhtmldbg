@@ -29,9 +29,11 @@
 /* QtGui */
 #include <QtGui/QGroupBox>
 #include <QtGui/QLineEdit>
+#include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
 /* QtScript */
+#include <QtScript/QScriptable>
 #include <QtScript/QScriptValue>
 
 /* XHTMLDBG Designer */
@@ -39,13 +41,18 @@
 
 class Q_DECL_EXPORT XPasswordWidget
       : public QWidget
+      , protected QScriptable
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_PROPERTY ( QString title READ title WRITE setTitle )
+    Q_PROPERTY ( QString title READ title WRITE setTitle SCRIPTABLE false )
     Q_PROPERTY ( QString user READ user WRITE setUser )
     Q_PROPERTY ( QString password READ password WRITE setPassword )
+    Q_PROPERTY ( bool status READ status NOTIFY submitted )
+
+  private:
+    bool isReady;
 
   private Q_SLOTS:
     void restore();
@@ -55,24 +62,15 @@ class Q_DECL_EXPORT XPasswordWidget
     QGroupBox* m_groupBox;
     QLineEdit* m_onwerLineEdit;
     QLineEdit* m_passLineEdit;
+    QPushButton* m_submitbutton;
 
   Q_SIGNALS:
-    void accept ( const QString &owner, const QString &password );
+    void submitted ();
 
   public:
     explicit XPasswordWidget ( QWidget * parent = 0 );
 
-    /**
-    * QScript Value from @ref m_onwerLineEdit Input Field
-    * @see http://www.ecma-international.org/publications/standards/Ecma-262.htm
-    **/
-    QScriptValue scOwnerField;
-
-    /**
-    * QScript Value from @ref m_passLineEdit Input Field
-    * @see http://www.ecma-international.org/publications/standards/Ecma-262.htm
-    **/
-    QScriptValue scPasswordField;
+    bool status();
 
     /**
     * Set Meta-Object Property Title for @ref m_groupBox

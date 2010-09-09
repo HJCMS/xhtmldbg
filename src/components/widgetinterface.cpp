@@ -21,9 +21,6 @@
 
 #include "widgetinterface.h"
 
-/* QtCore */
-#include <QtCore/QDebug>
-
 WidgetInterface::WidgetInterface ( const QString &clName, const QString &objName )
     : pluginClassName ( clName )
     , pluginObjectName ( objName )
@@ -69,14 +66,8 @@ QString WidgetInterface::domXml() const
 
 QString WidgetInterface::group() const
 {
-  return "xhtmldbg";
+  return QLatin1String ( "xhtmldbg" );
 }
-
-// QString WidgetInterface::includeFile() const
-// {
-//   QString n = pluginClassName.toLower();
-//   return QString::fromUtf8 ( "%1.h" ).arg ( n );
-// }
 
 QString WidgetInterface::name() const
 {
@@ -86,11 +77,6 @@ QString WidgetInterface::name() const
 QString WidgetInterface::toolTip() const
 {
   return QString::null;
-}
-
-QString WidgetInterface::whatsThis() const
-{
-  return QString::fromUtf8 ( "%1 Widget for Web Integration" ).arg ( pluginClassName );
 }
 
 void WidgetInterface::initialize ( QDesignerFormEditorInterface * formEditor )

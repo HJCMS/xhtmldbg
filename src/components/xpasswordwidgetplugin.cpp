@@ -32,7 +32,12 @@ XPasswordWidgetPlugin::XPasswordWidgetPlugin ( QObject * parent )
 
 QString XPasswordWidgetPlugin::includeFile() const
 {
-  return "xpasswordwidget.h";
+  return "designer/xpasswordwidget.h";
+}
+
+QString XPasswordWidgetPlugin::whatsThis() const
+{
+  return trUtf8 ( "%1 - A Widget for Scriptable Web Integration" ).arg ( "XPasswordWidget" );
 }
 
 QWidget* XPasswordWidgetPlugin::createWidget ( QWidget * parent )

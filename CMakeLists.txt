@@ -54,6 +54,10 @@ IF (NOT QT_USE_QTNETWORK)
   MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtNetwork support.")
 ENDIF (NOT QT_USE_QTNETWORK)
 
+IF (XHTMLDBG_BUILD_VERBOSE)
+  SET ( QT_USE_QTSCRIPTTOOLS 1 )
+ENDIF (XHTMLDBG_BUILD_VERBOSE)
+
 ##############################################################
 ## Set Header Definitions
 ##############################################################

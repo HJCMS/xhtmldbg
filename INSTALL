@@ -75,16 +75,22 @@ INSTALL_TREE:
     |   `-- xhtmldbg
     |-- include
     |   `-- xhtmldbg-1.0
+    |       |-- designer
+    |       |   |-- *.h
     |       |-- xhtmldbginterface.h
     |       `-- xhtmldbgplugininfo.h
     |-- lib
-    |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
+    |   |-- libxhtmldbg-1.0.so
     |   |-- libxhtmldbg-1.0.so.0*
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
     |       |-- browser-plugins
-    |       |-- lib*.so
+    |       |-- designer
+    |       |   `-- libXHTMLDBGWidgets.so
+    |       |-- libRFCBrowser.so
+    |       |-- libSelfHtmlSidebar.so
+    |       `-- libWebKitInspector.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop
@@ -142,6 +148,11 @@ INSTALL_TREE:
             |-- ChangeLog
             |-- NEWS
             |-- README
+            |-- designertemplate
+            |   |-- template.cpp
+            |   |-- template.h
+            |   |-- templateplugin.cpp
+            |   `-- templateplugin.h
             |-- plugintemplate
             |   |-- CMakeLists.txt
             |   |-- helloworld.cpp
@@ -160,4 +171,3 @@ INSTALL_TREE:
             |   |-- xsd.xsl
             |   `-- xslt10.dtd
             `-- xhtmldbg_untranslated.ts
-

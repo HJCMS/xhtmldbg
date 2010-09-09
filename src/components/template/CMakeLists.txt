@@ -5,7 +5,7 @@ INSTALL (FILES
   template.cpp
   templateplugin.h
   template.h
-  DESTINATION share/xhtmldbg/designer
+  DESTINATION share/xhtmldbg/designertemplate
 )
 
 ## EOF

@@ -42,6 +42,7 @@ class QDESIGNER_WIDGET_EXPORT XPasswordWidgetPlugin
   public:
     explicit XPasswordWidgetPlugin ( QObject * parent = 0 );
     QString includeFile() const;
+    QString whatsThis() const;
     QWidget* createWidget ( QWidget *parent );
 };
 
