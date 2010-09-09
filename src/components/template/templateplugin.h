@@ -19,49 +19,31 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PASSWORDDIALOGPLUGIN_H
-#define PASSWORDDIALOGPLUGIN_H
+#ifndef @TEMPLATE@_H
+#define @TEMPLATE@_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QIcon>
 #include <QtGui/QWidget>
 
-/* QtDesigner */
-#include <QtDesigner/QDesignerExportWidget>
-#include <QtDesigner/QDesignerIntegrationInterface>
-#include <QtDesigner/QDesignerCustomWidgetInterface>
-#include <QtDesigner/QDesignerFormEditorInterface>
+/* XHTMLDBG Designer */
+#include <widgetinterface.h>
 
-class QDESIGNER_WIDGET_EXPORT PasswordDialogPlugin : public QObject,
-      public QDesignerCustomWidgetInterface
+class QDESIGNER_WIDGET_EXPORT @TEMPLATE@Plugin
+      : public QObject
+      , public WidgetInterface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_CLASSINFO ( "MIME", "application/x-qt-plugin" )
-    Q_CLASSINFO ( "Description", "XHTMLDBG Password request Widget" )
-    Q_INTERFACES ( QDesignerCustomWidgetInterface )
-
-  private:
-    bool initialized;
 
   public:
-    PasswordDialogPlugin ( QObject * parent = 0 );
-    bool isContainer() const;
-    bool isInitialized() const;
-    QIcon icon() const;
-    QString domXml() const;
-    QString group() const;
+    explicit @TEMPLATE@Plugin ( QObject * parent = 0 );
     QString includeFile() const;
-    QString name() const;
-    QString toolTip() const;
-    QString whatsThis() const;
     QWidget* createWidget ( QWidget *parent );
-    void initialize ( QDesignerFormEditorInterface * formEditor );
 };
 
 #endif

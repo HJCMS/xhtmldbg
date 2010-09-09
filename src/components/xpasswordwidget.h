@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef PASSWORDDIALOG_H
-#define PASSWORDDIALOG_H
+#ifndef XPASSWORDWIDGET_H
+#define XPASSWORDWIDGET_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -34,7 +34,11 @@
 /* QtScript */
 #include <QtScript/QScriptValue>
 
-class Q_DECL_EXPORT PasswordDialog : public QWidget
+/* XHTMLDBG Designer */
+#include <widgetinterface.h>
+
+class Q_DECL_EXPORT XPasswordWidget
+      : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -56,7 +60,7 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     void accept ( const QString &owner, const QString &password );
 
   public:
-    explicit PasswordDialog ( QWidget * parent = 0 );
+    explicit XPasswordWidget ( QWidget * parent = 0 );
 
     /**
     * QScript Value from @ref m_onwerLineEdit Input Field
@@ -100,7 +104,7 @@ class Q_DECL_EXPORT PasswordDialog : public QWidget
     **/
     QString password() const;
 
-    virtual ~PasswordDialog();
+    virtual ~XPasswordWidget();
 };
 
 #endif

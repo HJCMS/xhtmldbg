@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "passworddialog.h"
+#include "xpasswordwidget.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -38,16 +38,16 @@
 /* QtScript */
 #include <QtScript/QScriptEngine>
 
-PasswordDialog::PasswordDialog ( QWidget * parent )
+XPasswordWidget::XPasswordWidget ( QWidget * parent )
     : QWidget ( parent )
 {
-  setObjectName ( QLatin1String ( "xPasswordDialog" ) );
+  setObjectName ( QLatin1String ( "xXPasswordWidget" ) );
   setMinimumWidth ( 250 );
   setMinimumHeight ( 200 );
   setContentsMargins ( 5, 5, 5, 5 );
 
   QScriptEngine p_scriptEngine ( this );
-  p_scriptEngine.setObjectName ( QLatin1String ( "PasswordDialogScriptEngine" ) );
+  p_scriptEngine.setObjectName ( QLatin1String ( "XPasswordWidgetScriptEngine" ) );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
@@ -116,7 +116,7 @@ PasswordDialog::PasswordDialog ( QWidget * parent )
   setTabOrder ( submit, reset );
 }
 
-void PasswordDialog::submit()
+void XPasswordWidget::submit()
 {
   if ( m_onwerLineEdit->text().isEmpty() )
   {
@@ -131,42 +131,42 @@ void PasswordDialog::submit()
   emit accept ( m_onwerLineEdit->text(), m_passLineEdit->text() );
 }
 
-void PasswordDialog::restore()
+void XPasswordWidget::restore()
 {
   m_passLineEdit->clear();
   m_onwerLineEdit->clear();
   m_onwerLineEdit->setFocus();
 }
 
-void PasswordDialog::setUser ( const QString &o )
+void XPasswordWidget::setUser ( const QString &o )
 {
   m_onwerLineEdit->setText ( o );
 }
 
-void PasswordDialog::setTitle ( const QString &t )
+void XPasswordWidget::setTitle ( const QString &t )
 {
   m_groupBox->setTitle ( t );
 }
 
-QString PasswordDialog::title() const
+QString XPasswordWidget::title() const
 {
   return m_groupBox->title();
 }
 
-QString PasswordDialog::user() const
+QString XPasswordWidget::user() const
 {
   return m_onwerLineEdit->text();
 }
 
-void PasswordDialog::setPassword ( const QString &p )
+void XPasswordWidget::setPassword ( const QString &p )
 {
   m_passLineEdit->setText ( p );
 }
 
-QString PasswordDialog::password() const
+QString XPasswordWidget::password() const
 {
   return m_passLineEdit->text();
 }
 
-PasswordDialog::~PasswordDialog()
+XPasswordWidget::~XPasswordWidget()
 {}
