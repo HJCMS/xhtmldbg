@@ -100,6 +100,12 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 
   setLayout ( vLayout );
 
+  connect ( m_onwerLineEdit, SIGNAL ( textChanged( const QString & ) ),
+            this, SLOT ( textModified ( const QString & ) ) );
+
+  connect ( m_passLineEdit, SIGNAL ( textChanged( const QString & ) ),
+            this, SLOT ( textModified ( const QString & ) ) );
+
   connect ( m_submitbutton, SIGNAL ( clicked() ), this, SLOT ( submit() ) );
   connect ( m_resetbutton, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
   connect ( btn1, SIGNAL ( clicked() ), m_onwerLineEdit, SLOT ( clear() ) );
@@ -109,6 +115,21 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 bool XPasswordWidget::status()
 {
   return isReady;
+}
+
+void XPasswordWidget::textModified ( const QString &text )
+{
+  Q_UNUSED ( text )
+  isReady = false;
+  emit modified();
+}
+
+void XPasswordWidget::restore()
+{
+  m_passLineEdit->clear();
+  m_onwerLineEdit->clear();
+  m_onwerLineEdit->setFocus();
+  isReady = false;
 }
 
 void XPasswordWidget::submit()
@@ -126,14 +147,6 @@ void XPasswordWidget::submit()
   isReady = true;
   emit submitted ();
   emit changed ( m_onwerLineEdit->text(), m_passLineEdit->text() );
-}
-
-void XPasswordWidget::restore()
-{
-  m_passLineEdit->clear();
-  m_onwerLineEdit->clear();
-  m_onwerLineEdit->setFocus();
-  isReady = false;
 }
 
 void XPasswordWidget::setUser ( const QString &o )

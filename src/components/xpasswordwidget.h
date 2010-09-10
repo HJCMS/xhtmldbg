@@ -70,6 +70,7 @@ class Q_DECL_EXPORT XPasswordWidget
     bool isReady;
 
   private Q_SLOTS:
+    void textModified ( const QString & );
     void restore();
     void submit();
 
@@ -80,6 +81,7 @@ class Q_DECL_EXPORT XPasswordWidget
     QPushButton* m_submitbutton;
 
   Q_SIGNALS:
+    void modified ();
     void submitted ();
     void changed ( const QString &owner, const QString &pass );
 
