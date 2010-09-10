@@ -89,11 +89,15 @@ IF (NOT QTIDY_LIBRARY)
 ENDIF (NOT QTIDY_LIBRARY)
 
 IF (QTIDY_FOUND)
-  MESSAGE (STATUS " Found version ${QTIDY_VERSION}")
+  MESSAGE (STATUS " Found Version ${QTIDY_VERSION}")
   MESSAGE (STATUS " Found includedir ${QTIDY_INCLUDE}")
   MESSAGE (STATUS " Found library ${QTIDY_LIBRARY}")
 ELSE (QTIDY_FOUND)
-  MESSAGE (FATAL_ERROR "Could NOT find QTidy. Check ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log for more details.")
+  IF (QTidy_FIND_REQUIRED)
+    MESSAGE (FATAL_ERROR "Could NOT find QTidy. Check ${CMAKE_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/CMakeError.log for more details.")
+  ELSE (QTidy_FIND_REQUIRED)
+    MESSAGE (STATUS "Notice - QTidy not Found")
+  ENDIF (QTidy_FIND_REQUIRED)
 ENDIF (QTIDY_FOUND)
 
 ##############################################################

@@ -39,6 +39,21 @@
 /* XHTMLDBG Designer */
 #include <widgetinterface.h>
 
+/**
+* @class XPasswordWidget
+* @short x-qt-plugin for QDesigner or Website Integration
+* @author Jürgen Heinemann (Undefined) http://www.hjcms.de
+* @since 2010/09/10
+* @code
+  <object type="application/x-qt-plugin"
+          classid="XPasswordWidget" name="xPasswordWidget"
+          width="450" height="180">
+    <param name="title" value="Enter your Password" valuetype="data" />
+    <param name="user" value="Username" valuetype="data" />
+    <param name="password" value="MyPassword" valuetype="data" />
+  </object>
+* @endcode
+*/
 class Q_DECL_EXPORT XPasswordWidget
       : public QWidget
       , protected QScriptable
@@ -66,39 +81,43 @@ class Q_DECL_EXPORT XPasswordWidget
 
   Q_SIGNALS:
     void submitted ();
+    void changed ( const QString &owner, const QString &pass );
 
   public:
     explicit XPasswordWidget ( QWidget * parent = 0 );
 
+    /**
+    * Returns the Status of @ref isReady
+    **/
     bool status();
 
     /**
-    * Set Meta-Object Property Title for @ref m_groupBox
+    * Set Meta-Object Property Title for GroupBox
     **/
     void setTitle ( const QString &t );
 
     /**
-    * Current @ref m_groupBox Title
+    * Current GroupBox Title
     **/
     QString title() const;
 
     /**
-    * Set Meta-Object Property for @ref m_onwerLineEdit
+    * Set Meta-Object Property for Owner Edit
     **/
     void setUser ( const QString &u );
 
     /**
-    * Current @ref m_passLineEdit Plain Text Data
+    * Current Owner Edit TextPlain Data
     **/
     QString user() const;
 
     /**
-    * Set Meta-Object Property for @ref m_passLineEdit
+    * Set Meta-Object Property for Password Edit
     **/
     void setPassword ( const QString &p );
 
     /**
-    * Current @ref m_passLineEdit Plain Text Data
+    * Current Password Edit TextPlain Data
     **/
     QString password() const;
 

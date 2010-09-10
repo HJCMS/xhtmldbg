@@ -125,6 +125,7 @@ void XPasswordWidget::submit()
   }
   isReady = true;
   emit submitted ();
+  emit changed ( m_onwerLineEdit->text(), m_passLineEdit->text() );
 }
 
 void XPasswordWidget::restore()

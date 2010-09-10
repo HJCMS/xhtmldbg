@@ -14,6 +14,7 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
+MESSAGE (STATUS "Looking for Raptor")
 
 INCLUDE(MacroEnsureVersion)
 
@@ -82,11 +83,11 @@ endif (RAPTOR_INCLUDE_DIR AND RAPTOR_LIBRARIES)
 if (RAPTOR_FOUND)
   set(RAPTOR_DEFINITIONS ${raptor_CFLAGS})
   if (NOT Raptor_FIND_QUIETLY)
-    message(STATUS "Found Raptor ${RAPTOR_VERSION}: libs - ${RAPTOR_LIBRARIES}; includes - ${RAPTOR_INCLUDE_DIR}")
+    message(STATUS " Found Raptor ${RAPTOR_VERSION}: libs - ${RAPTOR_LIBRARIES}; includes - ${RAPTOR_INCLUDE_DIR}")
   endif (NOT Raptor_FIND_QUIETLY)
 else (RAPTOR_FOUND)
   if (Raptor_FIND_REQUIRED)
-    message(FATAL_ERROR "Could NOT find Raptor")
+    message(FATAL_ERROR " Could NOT find Raptor")
   endif (Raptor_FIND_REQUIRED)
 endif (RAPTOR_FOUND)
 

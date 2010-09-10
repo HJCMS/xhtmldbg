@@ -25,8 +25,12 @@
 #include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QVBoxLayout>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QSizePolicy>
+
+/* QTidy */
+#include <QTidy>
 
 ConfigTidy::ConfigTidy ( QWidget * parent )
     : PageWidget ( trUtf8 ( "QTidy Source Parser" ), parent )
@@ -36,6 +40,8 @@ ConfigTidy::ConfigTidy ( QWidget * parent )
   setCheckable ( false );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( centralWidget );
+  vLayout->setObjectName ( QLatin1String ( "config_page_veritcal_layout" ) );
+  vLayout->setMargin ( 10 );
 
   m_radioCheck = new QRadioButton ( trUtf8 ( "Enable Auto Source Check" ), centralWidget );
   m_radioCheck->setObjectName ( QLatin1String ( "config_page_tidy_radio_check" ) );
@@ -49,6 +55,13 @@ ConfigTidy::ConfigTidy ( QWidget * parent )
   m_radioDisabled->setObjectName ( QLatin1String ( "config_page_tidy_radio_disabled" ) );
   m_radioDisabled->setChecked ( true );
   vLayout->addWidget ( m_radioDisabled );
+
+  /* Configuration */
+  QTidy::QTidySettings* cfg = new QTidy::QTidySettings;
+  QTidy::QTidyConfigTable* cfgTable = new QTidy::QTidyConfigTable ( cfg, centralWidget );
+  cfgTable->setObjectName ( "config_page_tidy_cfgtable" );
+  cfgTable->setMinimumHeight ( 350 );
+  vLayout->addWidget ( cfgTable );
 
   QButtonGroup* buttonGroup = new QButtonGroup ( centralWidget );
   buttonGroup->setObjectName ( QLatin1String ( "config_page_tidy_button_group" ) );

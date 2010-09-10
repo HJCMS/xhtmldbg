@@ -16,6 +16,8 @@
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 
+MESSAGE (STATUS "Looking for GeoIP")
+
 FIND_PATH(GEOIP_INCLUDE_DIR GeoIP.h
   HINTS
   $ENV{GEOIPDIR}
@@ -75,10 +77,10 @@ SET (GEOIP_FOUND "NO")
 IF (GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
   SET (GEOIP_FOUND "YES")
   SET (GEOIP_DEFINITIONS ${GEOIP_DEFINITIONS} -DHAVE_GEOIP)
-  MESSAGE (STATUS "Found GeoIP Library - ${GEOIP_LIBRARIES}; includes - ${GEOIP_INCLUDE_DIR}; databases - ${GEOIP_DATABASE_PATH}")
+  MESSAGE (STATUS " Found GeoIP Library - ${GEOIP_LIBRARIES}; includes - ${GEOIP_INCLUDE_DIR}; databases - ${GEOIP_DATABASE_PATH}")
 ELSE (GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
   IF (GeoIP_FIND_REQUIRED)
-    MESSAGE (FATAL_ERROR "Could NOT find GeoIP Development Library")
+    MESSAGE (FATAL_ERROR " Could NOT find GeoIP Development Library")
   ENDIF (GeoIP_FIND_REQUIRED)
 ENDIF(GEOIP_LIBRARIES AND GEOIP_INCLUDE_DIR)
 
