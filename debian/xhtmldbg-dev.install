@@ -1,0 +1,17 @@
+/usr/include/xhtmldbg-1.0/designer/widgetcollection.h
+/usr/include/xhtmldbg-1.0/designer/widgetinterface.h
+/usr/include/xhtmldbg-1.0/designer/xpasswordwidget.h
+/usr/include/xhtmldbg-1.0/designer/xpasswordwidgetplugin.h
+/usr/include/xhtmldbg-1.0/xhtmldbginterface.h
+/usr/include/xhtmldbg-1.0/xhtmldbgplugininfo.h
+/usr/lib/libxhtmldbg-1.0.so
+/usr/lib/pkgconfig/xhtmldbg.pc
+/usr/share/xhtmldbg/designertemplate/template.cpp
+/usr/share/xhtmldbg/designertemplate/template.h
+/usr/share/xhtmldbg/designertemplate/templateplugin.cpp
+/usr/share/xhtmldbg/designertemplate/templateplugin.h
+/usr/share/xhtmldbg/plugintemplate/CMakeLists.txt
+/usr/share/xhtmldbg/plugintemplate/helloworld.cpp
+/usr/share/xhtmldbg/plugintemplate/helloworld.h
+/usr/share/xhtmldbg/plugintemplate/helloworldplugin.cpp
+/usr/share/xhtmldbg/plugintemplate/helloworldplugin.h

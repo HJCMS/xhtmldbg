@@ -1,13 +1,46 @@
 Source: xhtmldbg
 Section: web
-Priority: extra
-Maintainer: Juergen Heinemann (Undefined) <no-spam@hjcms.de>
-Build-Depends: debhelper (>= 5), libqt4-dev (>= 4.6) libraptor1-dev (>= 1.4.21) libgeoip-dev (>= 1.4.6) libtidy-dev (>= 0.99) libqtidy-dev (>= 0.8.4)
-Standards-Version: 3.7.3
+Priority: optional
+Maintainer: Juergen Heinemann (Undefined) <nospam@hjcms.de>
+Build-Depends: debhelper (>= 7.0.50~), cdbs (>= 0.4.88), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5)
+Standards-Version: 3.8.4
+Homepage: http://qtidy.hjcms.de
+Vcs-Browser: http://gitweb.hjcms.de/cgi-bin/index.cgi/xhtmldbg/log/
+Vcs-Git: git://git.hjcms.jh/xhtmldbg/
 
 Package: xhtmldbg
+Section: web
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Provides: www-browser
-Description: xhtmldbg is an open-source xhtml/html debugger project that aims to build a debugger
- with a WebKit browser that integrates a tidy debugger an many more features.
+Suggests: oxygen-icon-theme (>= 4.4)
+Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5)
+Description: A XHTML/HTML Debugger for Website Developers
+  This software provides you with the facility to check and analyze web page content directly.
+  .
+  All these are good starting points for targeted xhtml development debugging:
+    * to watch HTTP headers,
+    * to watch _POST variables when send html forms,
+    * css stylesheet watching,
+    * dom inspector for better documents structure watching,
+    * to indicate css stylesheet attributes,
+    * to indicate current used cookies,
+    * to watch javascript errors,
+    * auto reload function up to 60 seconds,
+    * analyzing SEO keywords,
+    * quickly HTTP_USER_AGENT switching,
+    * strict RFC 2109 (HTTP State Management Mechanism) validation for Cookies,
+    * validate ATOM/RSS/RDF Documents,
+    * of course, this requires to validate and check the source.
+
+Package: libxhtmldbg
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqtidy (>= 0.8.5), libqt4 (>= 4.6)
+Description: Core Library for xhtmldbg the XHTML/HTML Debugger
+  More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de
+
+Package: xhtmldbg-dev
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxhtmldbg (= ${binary:Version}), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5)
+Description: Developer Package for xhtmldbg the XHTML/HTML Debugger
+  More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de

@@ -1,0 +1,4 @@
+?package(xhtmldbg):needs="X11|text|vc|wm" \
+  section="Applications/Programming" \
+  title="xhtmldbg" \
+  command="/usr/bin/xhtmldbg"

@@ -37,7 +37,7 @@
 #include <QtDesigner/QDesignerFormEditorInterface>
 #include <QtDesigner/QDesignerCustomWidgetCollectionInterface>
 
-class QDESIGNER_WIDGET_EXPORT WidgetCollection
+class WidgetCollection
   : public QObject
   , public QDesignerCustomWidgetCollectionInterface
 {
