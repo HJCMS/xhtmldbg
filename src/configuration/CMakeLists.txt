@@ -79,6 +79,7 @@ SET_TARGET_PROPERTIES (Configuration PROPERTIES
 TARGET_LINK_LIBRARIES (Configuration
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  ${QTIDY_LIBRARIES}
   CookiesDatabase
   UserAgentsEditor
   CertIssuers
