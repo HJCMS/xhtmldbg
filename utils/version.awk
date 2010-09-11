@@ -20,7 +20,7 @@ function append(str,sp)
   append($0,".")
 }
 
-/^SET[ ]+\([ ]*XHTMLDBG_VERSION_RELEASE[ ]+[0-9][ ]*\)$/ {
+/^SET[ ]+\([ ]*XHTMLDBG_VERSION_RELEASE[ ]+[0-9][0-9]*[ ]*\)$/ {
   append($0,".")
 }
 

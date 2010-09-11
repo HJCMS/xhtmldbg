@@ -5,11 +5,7 @@ set +x
 branch="${1:-master}"
 test -n $branch || exit 1
 
-version="$2"
-test -n "${version}" || \
-  version="$(awk -f `dirname $0`/version.awk CMakeLists.txt)"
-
-ORIG_VERSION="`git config --get package.version`"
+version="`awk -f utils/version.awk CMakeLists.txt`"
 ORIG_PACKAGER="`git config --get user.name`"
 ORIG_EMAIL="`git config --get user.email`"
 ORIG_SIGN_KEY="`git config --get user.signingkey`"
@@ -23,7 +19,7 @@ pushd /tmp/xhtmldbg-${version}
   git config --file .git/config --remove-section core
   git config --file .git/config remote.origin.url "$PWD"
   git config --file .git/config --add i18n.commitencoding "UTF-8"
-  git config --file .git/config --add packager.version "$ORIG_VERSION"
+  git config --file .git/config --add packager.version "${version}"
   git config --file .git/config --add packager.maintainer "$ORIG_PACKAGER"
   git config --file .git/config --add packager.email "$ORIG_EMAIL"
   git config --file .git/config --add packager.signingkey "$ORIG_SIGN_KEY"
