@@ -19,11 +19,11 @@ rm -rf /tmp/xhtmldbg-${version}*
 git clone ~/hjcms/xhtmldbg /tmp/xhtmldbg-${version}
 pushd /tmp/xhtmldbg-${version}
   touch .git/config
-  git prune master
+  git config --file .git/config --add gc.pruneExpire
+  git gc --aggressive --prune=now
   git config --file .git/config --remove-section core
-  git config --file .git/config --remove-section remote.origin
-  git config --file .git/config --remove-section remote.webmast
-  git config --file .git/config branch.master.remote "$PWD"
+  git config --file .git/config remote.origin.url "$PWD"
+  git config --file .git/config --add i18n.commitencoding "UTF-8"
   git config --file .git/config --add packager.version "$ORIG_VERSION"
   git config --file .git/config --add packager.maintainer "$ORIG_PACKAGER"
   git config --file .git/config --add packager.email "$ORIG_EMAIL"
@@ -32,10 +32,18 @@ popd
 
 pushd /tmp/
 > md5sums.txt
+rm -f xhtmldbg-${version}.git.tar.{bz2,lzma}
+echo -e '\E[1;37;44m' " Create Archive xhtmldbg-${version}.git.tar.bz2" '\033[0m'
+tar -cjf xhtmldbg-${version}.git.git.tar.bz2 xhtmldbg-${version}
+md5sum xhtmldbg-${version}.git.tar.bz2 > md5sums.txt
+
+echo -e '\E[1;37;44m' " Entferne Repository und Daten" '\033[0m'
+rm -rf xhtmldbg-${version}/.git*
+
 rm -f xhtmldbg-${version}.tar.{bz2,lzma}
 echo -e '\E[1;37;44m' " Create Archive xhtmldbg-${version}.tar.bz2" '\033[0m'
 tar -cjf xhtmldbg-${version}.tar.bz2 xhtmldbg-${version}
-md5sum xhtmldbg-${version}.tar.bz2 > md5sums.txt
+md5sum xhtmldbg-${version}.tar.bz2 >> md5sums.txt
 
 echo -e '\E[1;37;44m' " Create Archive xhtmldbg-${version}.tar.lzma" '\033[0m'
 tar -cJf xhtmldbg-${version}.tar.lzma xhtmldbg-${version}
