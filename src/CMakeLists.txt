@@ -135,7 +135,6 @@ ADD_EXECUTABLE (xhtmldbg
 )
 
 TARGET_LINK_LIBRARIES (xhtmldbg
-  ${XHTMLDBG_LIBRARIES}
   About
   Bookmark
   ColorPicker
@@ -154,6 +153,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   DownloadManager
   RDFParser
   ${OPTIONAL_LIBRARIES}
+  ${XHTMLDBG_LIBRARIES}
 )
 
 SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES

@@ -19,8 +19,13 @@ else
 TUNE="-O2 -mtune=generic -march=`uname -i`"
 fi
 
-##-Wfloat-equal
-MY_CFLAGS="${TUNE} -ggdb3 -gstabs+ -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic"
+## needed for some development tests
+MDEFS=""
+if test -d /home/$USER/hjcms/xhtmldbg ; then
+MDEFS="-DMAINTAINER_REPOSITORY"
+fi
+
+MY_CFLAGS="${TUNE} -ggdb3 -gstabs+ -Wformat -Woverloaded-virtual -Wmissing-field-initializers -pedantic ${MDEFS}"
 MY_CFLAGS="$MY_CFLAGS -Wlogical-op -Wmissing-declarations -ffast-math -fstrict-aliasing -finline-functions"
 MY_CFLAGS="$MY_CFLAGS -fomit-frame-pointer -funwind-tables -fasynchronous-unwind-tables -fexpensive-optimizations -pipe"
 

@@ -59,7 +59,12 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
   clearPluginPaths();
 
   /* Setze meinen plugin Designer Pfad */
-  QString plPath ( "/home/heinemann/hjcms/xhtmldbg/build/app/designer" ); // = QString ( "%1/designer" ).arg ( XHTMLDBG_PLUGIN_PATH );
+#ifdef MAINTAINER_REPOSITORY
+  QString plPath = QDir::homePath();
+  plPath.append ( "/hjcms/xhtmldbg/build/app/designer" );
+#else
+  QString plPath = QString ( "%1/designer" ).arg ( XHTMLDBG_PLUGIN_PATH );
+#endif
   addPluginPath ( plPath );
 
   /* setze die Ausführung im /tmp Pfad fort */
