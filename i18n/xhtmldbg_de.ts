@@ -994,22 +994,22 @@ by composing the cached content of the animated elements.</source>
 <context>
     <name>ConfigTidy</name>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="32"/>
+        <location filename="../src/configuration/configtidy.cpp" line="36"/>
         <source>QTidy Source Parser</source>
         <translation>QTidy Syntax Analysierer</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="40"/>
+        <location filename="../src/configuration/configtidy.cpp" line="46"/>
         <source>Enable Auto Source Check</source>
         <translation>Aktiviere Automatische Überprüfung</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="44"/>
+        <location filename="../src/configuration/configtidy.cpp" line="50"/>
         <source>Enable Autoformat and Check Source</source>
         <translation>Aktiviere Automatisches Bereinigen</translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="48"/>
+        <location filename="../src/configuration/configtidy.cpp" line="54"/>
         <source>Disable autoformat and autocheck</source>
         <translation>Deaktiviere Automatische Überprüfung und Syntaxbereinigung</translation>
     </message>
@@ -1980,14 +1980,7 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="257"/>
-        <source>Permission Denied!
-Only file:// Protocol Accepted!</source>
-        <translation>Zugriff Verweigert!
-Nur das file:// Protokoll wird Akzeptiert!</translation>
-    </message>
-    <message>
-        <location filename="../src/page.cpp" line="264"/>
+        <location filename="../src/page.cpp" line="261"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation>(x-qt-plugin) ClassID: %1 %2</translation>
     </message>
@@ -2293,6 +2286,11 @@ Nur das file:// Protokoll wird Akzeptiert!</translation>
 <context>
     <name>UiToolsLoader</name>
     <message>
+        <location filename="../src/uitoolsloader.cpp" line="93"/>
+        <source>(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!</source>
+        <translation>(XHTMLBG) Akzeptiert bei Object Elementen mit dem type application/x-qt-plugin nur zu 100%% reines XHTML!</translation>
+    </message>
+    <message>
         <location filename="../src/uitoolsloader.cpp" line="144"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation>Ich kann das leider nicht machen.</translation>
@@ -2301,6 +2299,11 @@ Nur das file:// Protokoll wird Akzeptiert!</translation>
         <location filename="../src/uitoolsloader.cpp" line="146"/>
         <source>Invalid Element initialization.</source>
         <translation>Fehler bei der Element Initialisierung.</translation>
+    </message>
+    <message>
+        <location filename="../src/uitoolsloader.cpp" line="193"/>
+        <source>(XHTMLDBG) Invalid value for property: %1</source>
+        <translation>(XHTMLDBG) Ungültiger Wert oder Parameter: %1</translation>
     </message>
 </context>
 <context>
@@ -2798,6 +2801,38 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <location filename="../src/xhtmldbgadaptor.cpp" line="96"/>
         <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
         <translation>(XHTMLDBG) FTP Anfrage &quot;%1&quot; Zurückgewiesen!</translation>
+    </message>
+</context>
+<context>
+    <name>XPasswordWidget</name>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="53"/>
+        <source>Password Request</source>
+        <translation>Passwort anfrage</translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="61"/>
+        <source>User</source>
+        <translation>Benutzer</translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="72"/>
+        <location filename="../src/components/xpasswordwidget.cpp" line="87"/>
+        <source>Clear</source>
+        <translation>Leeren</translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="76"/>
+        <source>Password</source>
+        <translation>Passwort</translation>
+    </message>
+</context>
+<context>
+    <name>XPasswordWidgetPlugin</name>
+    <message>
+        <location filename="../src/components/xpasswordwidgetplugin.cpp" line="40"/>
+        <source>%1 - A Widget for Scriptable Web Integration</source>
+        <translation>%1 - Ein Fenster für die Script Web Integration</translation>
     </message>
 </context>
 <context>

@@ -993,22 +993,22 @@ by composing the cached content of the animated elements.</source>
 <context>
     <name>ConfigTidy</name>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="32"/>
+        <location filename="../src/configuration/configtidy.cpp" line="36"/>
         <source>QTidy Source Parser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="40"/>
+        <location filename="../src/configuration/configtidy.cpp" line="46"/>
         <source>Enable Auto Source Check</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="44"/>
+        <location filename="../src/configuration/configtidy.cpp" line="50"/>
         <source>Enable Autoformat and Check Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="48"/>
+        <location filename="../src/configuration/configtidy.cpp" line="54"/>
         <source>Disable autoformat and autocheck</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1972,13 +1972,7 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="257"/>
-        <source>Permission Denied!
-Only file:// Protocol Accepted!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/page.cpp" line="264"/>
+        <location filename="../src/page.cpp" line="261"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2284,6 +2278,11 @@ Only file:// Protocol Accepted!</source>
 <context>
     <name>UiToolsLoader</name>
     <message>
+        <location filename="../src/uitoolsloader.cpp" line="93"/>
+        <source>(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/uitoolsloader.cpp" line="144"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation type="unfinished"></translation>
@@ -2291,6 +2290,11 @@ Only file:// Protocol Accepted!</source>
     <message>
         <location filename="../src/uitoolsloader.cpp" line="146"/>
         <source>Invalid Element initialization.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/uitoolsloader.cpp" line="193"/>
+        <source>(XHTMLDBG) Invalid value for property: %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2787,6 +2791,38 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location filename="../src/xhtmldbgadaptor.cpp" line="96"/>
         <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XPasswordWidget</name>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="53"/>
+        <source>Password Request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="61"/>
+        <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="72"/>
+        <location filename="../src/components/xpasswordwidget.cpp" line="87"/>
+        <source>Clear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/components/xpasswordwidget.cpp" line="76"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XPasswordWidgetPlugin</name>
+    <message>
+        <location filename="../src/components/xpasswordwidgetplugin.cpp" line="40"/>
+        <source>%1 - A Widget for Scriptable Web Integration</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
