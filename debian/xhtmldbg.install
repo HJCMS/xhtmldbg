@@ -20,7 +20,7 @@ usr/share/icons/oxygen/72x72/apps/xhtmldbg.png
 usr/share/icons/oxygen/96x96/apps/xhtmldbg.png
 usr/share/icons/oxygen/scalable/apps/xhtmldbg.svgz
 usr/share/pixmaps/xhtmldbg.xpm
-usr/share/qt/translations/xhtmldbg_de.qm
+usr/share/qt4/translations/xhtmldbg_de.qm
 usr/share/xhtmldbg/AUTHORS
 usr/share/xhtmldbg/COPYING
 usr/share/xhtmldbg/ChangeLog
