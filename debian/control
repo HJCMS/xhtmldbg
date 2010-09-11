@@ -2,7 +2,7 @@ Source: xhtmldbg
 Section: web
 Priority: optional
 Maintainer: Juergen Heinemann (Undefined) <nospam@hjcms.de>
-Build-Depends: debhelper (>= 7.0.50~), cdbs (>= 0.4.88), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5)
+Build-Depends: debhelper (>= 7.0.50~), cdbs (>= 0.4.88), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8)
 Standards-Version: 3.8.4
 Homepage: http://qtidy.hjcms.de
 Vcs-Browser: http://gitweb.hjcms.de/cgi-bin/index.cgi/xhtmldbg/log/
@@ -41,6 +41,6 @@ Description: Core Library for xhtmldbg the XHTML/HTML Debugger
 Package: xhtmldbg-dev
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxhtmldbg (= ${binary:Version}), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxhtmldbg (= ${binary:Version}), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8)
 Description: Developer Package for xhtmldbg the XHTML/HTML Debugger
   More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de
