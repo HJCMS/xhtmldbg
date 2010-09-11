@@ -33,7 +33,7 @@ pushd /tmp/
 > md5sums.txt
 rm -f xhtmldbg-${version}.git.tar.{bz2,lzma}
 echo -e '\E[1;37;44m' " Create Archive xhtmldbg-${version}.git.tar.bz2" '\033[0m'
-tar -cjf xhtmldbg-${version}.git.git.tar.bz2 xhtmldbg-${version}
+tar -cjf xhtmldbg-${version}.git.tar.bz2 xhtmldbg-${version}
 md5sum xhtmldbg-${version}.git.tar.bz2 > md5sums.txt
 
 echo -e '\E[1;37;44m' " Entferne Repository und Daten" '\033[0m'
