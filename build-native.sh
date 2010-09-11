@@ -26,8 +26,8 @@ export DEBUILD_LINTIAN_OPTS="-i -I.git --show-overrides"
 
 if test -n "$SIGN_KEY" ; then
   dpkg-buildpackage -rfakeroot -k$SIGN_KEY \
-    -v${VERSION} -F -sn -tc -Rdebian/rules
+    -v${VERSION} -F -tc -Rdebian/rules
 else
   dpkg-buildpackage -rfakeroot -v${VERSION} \
-     -F -sn -tc -Rdebian/rules
+     -F -tc -Rdebian/rules
 fi

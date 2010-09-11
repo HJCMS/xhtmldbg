@@ -12,7 +12,7 @@ Package: xhtmldbg
 Section: web
 Architecture: any
 Suggests: oxygen-icon-theme (>= 4.4)
-Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5)
+Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5), libqt4-webkit (>= 4.6), libqt4-sql (>= 4.6), geoip-database (>= 1.4)
 Description: A XHTML/HTML Debugger for Website Developers
   This software provides you with the facility to check and analyze web page content directly.
   .
@@ -34,7 +34,7 @@ Description: A XHTML/HTML Debugger for Website Developers
 Package: libxhtmldbg
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libqtidy (>= 0.8.5), libqt4 (>= 4.6)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqtidy (>= 0.8.5), libqt4-webkit (>= 4.6)
 Description: Core Library for xhtmldbg the XHTML/HTML Debugger
   More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de
 
