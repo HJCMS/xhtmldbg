@@ -4,15 +4,14 @@ Priority: optional
 Maintainer: Juergen Heinemann (Undefined) <nospam@hjcms.de>
 Build-Depends: debhelper (>= 7.0.50~), cdbs (>= 0.4.88), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8)
 Standards-Version: 3.8.4
-Homepage: http://qtidy.hjcms.de
+Homepage: http://xhtmldbg.hjcms.de
 Vcs-Browser: http://gitweb.hjcms.de/cgi-bin/index.cgi/xhtmldbg/log/
-Vcs-Git: git://git.hjcms.jh/xhtmldbg/
 
 Package: xhtmldbg
 Section: web
 Architecture: any
-Suggests: oxygen-icon-theme (>= 4.4)
-Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5), libqt4-webkit (>= 4.6), libqt4-sql (>= 4.6), geoip-database (>= 1.4)
+Suggests: geoip-bin
+Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5), libqt4-sql (>= 4.6), geoip-database (>= 1.4), oxygen-icon-theme (>= 4.4)
 Description: A XHTML/HTML Debugger for Website Developers
   This software provides you with the facility to check and analyze web page content directly.
   .
