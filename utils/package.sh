@@ -19,7 +19,6 @@ rm -rf /tmp/xhtmldbg-${version}*
 git clone ~/hjcms/xhtmldbg /tmp/xhtmldbg-${version}
 pushd /tmp/xhtmldbg-${version}
   touch .git/config
-  git config --file .git/config --add gc.pruneExpire
   git gc --aggressive --prune=now
   git config --file .git/config --remove-section core
   git config --file .git/config remote.origin.url "$PWD"
