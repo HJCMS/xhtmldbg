@@ -15,10 +15,10 @@ test -f $PWD/.git/config || {
   exit 1
 }
 
-VERSION="`git config --get package.version`"
-PACKAGER="`git config --get user.name`"
-EMAIL="`git config git config --get user.email`"
-SIGN_KEY="`git config --get user.signingkey`"
+VERSION="`git config --get packager.version`"
+PACKAGER="`git config --get packager.maintainer`"
+EMAIL="`git config git config --get packager.email`"
+SIGN_KEY="`git config --get packager.signingkey`"
 
 export DEBSIGN_KEYID="$SIGN_KEY"
 export DEBUILD_LINTIAN=yes
