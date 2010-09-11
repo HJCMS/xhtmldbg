@@ -6,45 +6,47 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${XHTMLDBG_INCLUDE_INTERFACE}
-  ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
-  ${CMAKE_CURRENT_SOURCE_DIR}/settings
-  ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
-  ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
-  ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
-  ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
-  ${CMAKE_CURRENT_SOURCE_DIR}/docking
-  ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
-  ${CMAKE_CURRENT_SOURCE_DIR}/networker
-  ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
-  ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
-  ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
-  ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
   ${CMAKE_CURRENT_BINARY_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/about
-  ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+  ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
+  ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/colorpicker
+  ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
+  ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
+  ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
+  ${CMAKE_CURRENT_SOURCE_DIR}/settings
+  ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
+  ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+  ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
+  ${CMAKE_CURRENT_SOURCE_DIR}/networker
+  ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
+  ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
   ${XHTMLDBG_INCLUDES}
 )
 
+ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (autosaver)
-ADD_SUBDIRECTORY (settings)
-ADD_SUBDIRECTORY (interface)
-ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (bookmark)
-ADD_SUBDIRECTORY (settargetdialog)
-ADD_SUBDIRECTORY (openurldialog)
-ADD_SUBDIRECTORY (docking)
+ADD_SUBDIRECTORY (colorpicker)
 ADD_SUBDIRECTORY (cookiesdatabase)
-ADD_SUBDIRECTORY (networker)
-ADD_SUBDIRECTORY (dominspector)
+ADD_SUBDIRECTORY (docking)
+ADD_SUBDIRECTORY (hostinfo)
+ADD_SUBDIRECTORY (interface)
+ADD_SUBDIRECTORY (openurldialog)
+ADD_SUBDIRECTORY (settargetdialog)
+ADD_SUBDIRECTORY (sourceviewer)
+ADD_SUBDIRECTORY (settings)
+## to predicate on certain conditions
 ADD_SUBDIRECTORY (cssvalidator)
+ADD_SUBDIRECTORY (configuration)
+ADD_SUBDIRECTORY (dominspector)
+ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
-ADD_SUBDIRECTORY (about)
-ADD_SUBDIRECTORY (configuration)
-ADD_SUBDIRECTORY (colorpicker)
-ADD_SUBDIRECTORY (hostinfo)
+## Extensions and Plugins
 ADD_SUBDIRECTORY (plugins)
 ADD_SUBDIRECTORY (components)
 
@@ -134,23 +136,23 @@ ADD_EXECUTABLE (xhtmldbg
 
 TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
-  Settings
-  xhtmldbginterface
-  SourceViewer
+  About
   Bookmark
-  Docking
-  DomInspector
-  SetTargetDialog
-  OpenUrlDialog
+  ColorPicker
   CookiesDatabase
-  Networker
-  Configuration
+  Docking
+  HostInfo
+  xhtmldbginterface
+  OpenUrlDialog
+  SetTargetDialog
+  SourceViewer
+  Settings
   CSSValidator
+  Configuration
+  DomInspector
+  Networker
   DownloadManager
   RDFParser
-  About
-  ColorPicker
-  HostInfo
   ${OPTIONAL_LIBRARIES}
 )
 
