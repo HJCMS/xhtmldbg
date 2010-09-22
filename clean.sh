@@ -14,4 +14,12 @@ Makefile
 *.txt
 *.cmake
 *.spec
+*.conf
+*.service
+*.xml
+CMakeFiles/
+app/
+data/
+i18n/
+src/
 EOF
