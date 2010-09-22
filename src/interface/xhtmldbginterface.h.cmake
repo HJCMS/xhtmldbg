@@ -55,6 +55,7 @@ namespace xhtmldbg
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )
       Q_CLASSINFO ( "Version", "@XHTMLDBG_VERSION@" )
       Q_CLASSINFO ( "Url", "http://xhtmldbg.hjcms.de" )
+      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/@XHTMLDBG_VERSION@" )
 
     public Q_SLOTS:
       /** This SLOT ist Used from triggered Action by MenuBar */

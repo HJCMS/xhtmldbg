@@ -42,6 +42,8 @@ and GCC 4.0.1 to develop applications.
       -DACCEPT_MICROSOFT_PUBLIC_LICENSE:BOOL=ON \
       -DCMAKE_INSTALL_PREFIX:PATH=/c/qtidy ..
 
+  Valid option for -DCMAKE_BUILD_TYPE:STRING=[Debug|Release|RelWithDebInfo|MinSizeRel]
+
 6) make
 7) make DESTDIR=/tmp/test install
 8) Checking if W3C Validator works on your System

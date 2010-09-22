@@ -65,8 +65,18 @@ ENDIF (XHTMLDBG_BUILD_VERBOSE)
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (MacroEnsureVersion)
 
+##############################################################
+## gcc g++ ld
+##############################################################
+
 IF (CMAKE_COMPILER_IS_GNUCXX)
+
   INCLUDE (CheckingGNUCXX)
+
+  IF (CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+    SET (TWEAKING_LDFLAGS "-Wl,--as-needed")
+  ENDIF(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
+
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 ##############################################################
