@@ -1,0 +1,5 @@
+Makefile
+*.h
+*.txt
+*.cmake
+*.spec
