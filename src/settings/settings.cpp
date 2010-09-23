@@ -71,16 +71,14 @@ Settings::Settings ( QObject * parent )
 void Settings::setWebinspectorDefaults()
 {
   static const QLatin1String p ( "Qt/QtWebKit/QWebInspector/" );
-  setValue ( p + "panelEnablerView", true );
-  setValue ( p + "panelEnablerView.type", "bool" );
-  setValue ( p + "resourceTrackingEnabled", true );
-  setValue ( p + "resourceTrackingEnabled.type", "bool" );
-  setValue ( p + "debuggerEnabled", true );
-  setValue ( p + "debuggerEnabled.type", "bool" );
-  setValue ( p + "profilerEnabled", true );
-  setValue ( p + "profilerEnabled.type", "bool" );
-  setValue ( p + "frontendSettings", "{\"event-listeners-filter\":\"all\",\"resource-view-tab\":\"content\"}" );
-  setValue ( p + "frontendSettings.type", "QString" );
+  setValue ( p + "resourceTrackingAlwaysEnabled", true );
+  setValue ( p + "resourceTrackingAlwaysEnabled.type", "bool" );
+  setValue ( p + "debuggerAlwaysEnabled", true );
+  setValue ( p + "debuggerAlwaysEnabled.type", "bool" );
+  setValue ( p + "profilerAlwaysEnabled", true );
+  setValue ( p + "profilerAlwaysEnabled.type", "bool" );
+  setValue ( p + "auditsPanelEnabled", true );
+  setValue ( p + "auditsPanelEnabled.type", "bool" );
 }
 
 /**

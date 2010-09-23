@@ -27,16 +27,14 @@ Accept-Charset="utf-8, unicode-1-1;q=0.8"
 size=2
 
 [Qt]
-QtWebKit\QWebInspector\lastActivePanel=resources
-QtWebKit\QWebInspector\lastActivePanel.type=QString
-QtWebKit\QWebInspector\resourceTrackingEnabled=true
-QtWebKit\QWebInspector\resourceTrackingEnabled.type=bool
-QtWebKit\QWebInspector\debuggerEnabled=true
-QtWebKit\QWebInspector\debuggerEnabled.type=bool
-QtWebKit\QWebInspector\profilerEnabled=true
-QtWebKit\QWebInspector\profilerEnabled.type=bool
-QtWebKit\QWebInspector\resources-large-rows=false
-QtWebKit\QWebInspector\resources-large-rows.type=bool
+QtWebKit\QWebInspector\resourceTrackingAlwaysEnabled=true
+QtWebKit\QWebInspector\resourceTrackingAlwaysEnabled.type=bool
+QtWebKit\QWebInspector\debuggerAlwaysEnabled=true
+QtWebKit\QWebInspector\debuggerAlwaysEnabled.type=bool
+QtWebKit\QWebInspector\profilerAlwaysEnabled=true
+QtWebKit\QWebInspector\profilerAlwaysEnabled.type=bool
+QtWebKit\QWebInspector\auditsPanelEnabled=true
+QtWebKit\QWebInspector\auditsPanelEnabled.type=bool
 
 [Plugins]
 SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
