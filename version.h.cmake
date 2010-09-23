@@ -45,11 +45,11 @@
 /**
 * ApplicationName
 */
-#define XHTMLBG_APPS_NAME "xhtmldbg"
+#define XHTMLDBG_APPS_NAME "xhtmldbg"
 
 /**
 * OrganizationDomain
 */
-#define XHTMLBG_DOMAIN "hjcms.de"
+#define XHTMLDBG_DOMAIN "hjcms.de"
 
 #endif

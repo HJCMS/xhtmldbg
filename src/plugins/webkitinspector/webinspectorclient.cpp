@@ -69,7 +69,7 @@ void WebInspectorClient::updateWebSettings()
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
   wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
   wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, true );
   wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
   wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );
   wcfg->setAttribute ( QWebSettings::PluginsEnabled, false );

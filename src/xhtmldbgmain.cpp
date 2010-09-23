@@ -44,9 +44,9 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
     , activeWindow ( 0 )
 {
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  setApplicationName ( XHTMLBG_APPS_NAME );
-  setOrganizationDomain ( XHTMLBG_DOMAIN );
-  setObjectName ( XHTMLBG_APPS_NAME );
+  setApplicationName ( XHTMLDBG_APPS_NAME );
+  setOrganizationDomain ( XHTMLDBG_DOMAIN );
+  setObjectName ( XHTMLDBG_APPS_NAME );
 
   // Settings
   m_settings = new Settings ( this );

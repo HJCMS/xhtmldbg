@@ -39,6 +39,7 @@ class Settings : public QSettings
 
   private:
     const QString cacheLocation;
+    void setWebinspectorDefaults();
 
   public:
     Settings ( QObject * parent = 0 );

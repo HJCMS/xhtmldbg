@@ -42,7 +42,7 @@
 */
 static inline const QString xApplicationName()
 {
-  QString name ( XHTMLBG_APPS_NAME );
+  QString name ( XHTMLDBG_APPS_NAME );
   int screen = QX11Info::appScreen();
   if ( screen != 0 )
   {
@@ -58,10 +58,29 @@ static inline const QString xApplicationName()
 * Hauptklasse für alle Einstellungen ab zu fragen!
 */
 Settings::Settings ( QObject * parent )
-    : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLBG_DOMAIN, xApplicationName(), parent )
+    : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, xApplicationName(), parent )
     , cacheLocation ( QDesktopServices::storageLocation ( QDesktopServices::CacheLocation ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
+  setWebinspectorDefaults();
+}
+
+/**
+* Dieser Pfad wird von QWebInspector benutzt!
+*/
+void Settings::setWebinspectorDefaults()
+{
+  static const QLatin1String p ( "Qt/QtWebKit/QWebInspector/" );
+  setValue ( p + "panelEnablerView", true );
+  setValue ( p + "panelEnablerView.type", "bool" );
+  setValue ( p + "resourceTrackingEnabled", true );
+  setValue ( p + "resourceTrackingEnabled.type", "bool" );
+  setValue ( p + "debuggerEnabled", true );
+  setValue ( p + "debuggerEnabled.type", "bool" );
+  setValue ( p + "profilerEnabled", true );
+  setValue ( p + "profilerEnabled.type", "bool" );
+  setValue ( p + "frontendSettings", "{\"event-listeners-filter\":\"all\",\"resource-view-tab\":\"content\"}" );
+  setValue ( p + "frontendSettings.type", "QString" );
 }
 
 /**
