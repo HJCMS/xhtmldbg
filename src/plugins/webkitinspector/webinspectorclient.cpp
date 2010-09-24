@@ -67,8 +67,7 @@ WebInspectorClient::WebInspectorClient ( QObject * parent )
 }
 
 /**
-* Das lesen aller Web Einstellungen muss
-* vor dem ersten erstellen ein tabs erfolgen.
+* Das lesen aller Web Einstellungen \b muss vor dem Erstellen erfolgen.
 */
 void WebInspectorClient::updateWebSettings()
 {
@@ -93,14 +92,14 @@ void WebInspectorClient::updateWebSettings()
   wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard, false );
 #if QT_VERSION >= 0x040700
   wcfg->setAttribute ( QWebSettings::LocalContentCanAccessFileUrls, false );
-  // TODO wcfg->setAttribute ( QWebSettings::XSSAuditingEnabled, false );
+  wcfg->setAttribute ( QWebSettings::XSSAuditingEnabled, true );
   wcfg->setAttribute ( QWebSettings::AcceleratedCompositingEnabled, false );
   wcfg->setAttribute ( QWebSettings::TiledBackingStoreEnabled, false );
 #endif
 }
 
 /**
-* Manipuliere die Netzwrk einstellungen für die URL anfrage!
+* Manipuliere die Netzwrk Einstellungen für die URL anfrage!
 * Wir benötigen für das Auditing einen Platten Speicher.
 * Weil aber XHTMLDBG selbst keinen Plattenspeicher verwendet.
 * Setzen wir hier eine \b neue Url anfrage damit der Netzwerkmanager
@@ -118,7 +117,9 @@ const QUrl WebInspectorClient::modifyRequest ( const QUrl &url )
 }
 
 /**
-* Sperre weiter Anfragen wenn ein Lade vorgang gestartet wurde
+* Sperre weitere Anfragen wenn ein Ladevorgang gestartet wurde.
+* Weil der Inspector @ref setHtml und @ref load gleichzeitig aufrufen
+* kann, an dieser stelle verhindern das es zu Überläufen kommt.
 */
 void WebInspectorClient::setLoadStarted ()
 {
@@ -138,7 +139,6 @@ void WebInspectorClient::setLoadFinished ( bool b )
 */
 void WebInspectorClient::load ( const QUrl &url )
 {
-  // verhindere doppelte anfragen
   if ( loading )
     return;
 
@@ -151,7 +151,6 @@ void WebInspectorClient::load ( const QUrl &url )
 */
 void WebInspectorClient::setHtml ( const QString &html, const QUrl &url )
 {
-  // verhindere doppelte anfragen
   if ( loading )
     return;
 
