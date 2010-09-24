@@ -43,11 +43,13 @@ class WebInspector : public QDockWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    QUrl documentUrl;
     QWebInspector* inspector;
     WebInspectorClient* client;
 
   public Q_SLOTS:
     void toInspect ( const QUrl & );
+    void setHtml ( const QString & );
 
   public:
     WebInspector ( QWidget * parent = 0 );

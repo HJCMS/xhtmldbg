@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QEvent>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QVariant>
@@ -183,7 +184,8 @@ class Window : public QMainWindow
     void createToolBars();
     void tabifyDockedWidgetUp ( QDockWidget * );
     void registerPlugins();
-    void unregisterDatabases();
+    bool unregisterDatabases();
+    bool unregisterPlugins();
 
   private Q_SLOTS:
     void requestsFinished ( bool );

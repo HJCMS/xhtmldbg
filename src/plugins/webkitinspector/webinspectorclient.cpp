@@ -33,12 +33,13 @@
 #include <QtWebKit/QWebSettings>
 
 /* QtNetwork */
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkDiskCache>
+#include <QtNetwork/QNetworkRequest>
 
 WebInspectorClient::WebInspectorClient ( QObject * parent )
     : QWebPage ( parent )
+    , loading ( false )
 {
   setObjectName ( QLatin1String ( "webinspectorpage" ) );
   setForwardUnsupportedContent ( false );
@@ -52,9 +53,17 @@ WebInspectorClient::WebInspectorClient ( QObject * parent )
   QNetworkDiskCache* diskCache = new QNetworkDiskCache ( this );
   diskCache->setCacheDirectory ( storagePath );
 
-  networkAccessManager()->setCache ( diskCache );
-  // Einstellungen ändern
+  // Web Einstellungen ändern
   updateWebSettings();
+
+  // Jetzt den Plattenspeicher setzen
+  networkAccessManager()->setCache ( diskCache );
+
+  // Signale
+  connect ( this, SIGNAL ( loadStarted() ),
+            this, SLOT ( setLoadStarted() ) );
+  connect ( this, SIGNAL ( loadFinished ( bool ) ),
+            this, SLOT ( setLoadFinished ( bool ) ) );
 }
 
 /**
@@ -64,28 +73,95 @@ WebInspectorClient::WebInspectorClient ( QObject * parent )
 void WebInspectorClient::updateWebSettings()
 {
   QWebSettings* wcfg = settings();
-  wcfg->setIconDatabasePath ( storagePath );
-  wcfg->setLocalStoragePath ( storagePath );
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
   wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
+
+  /* Speicher Verwaltung & Verhalten festlegen */
+  wcfg->setIconDatabasePath ( storagePath );
+  wcfg->setLocalStoragePath ( storagePath );
+  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
+  wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, true );
   wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, true );
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
+  // Browser Verhalten
   wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
   wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );
   wcfg->setAttribute ( QWebSettings::PluginsEnabled, false );
   wcfg->setAttribute ( QWebSettings::JavaEnabled, false );
-  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
   wcfg->setAttribute ( QWebSettings::DnsPrefetchEnabled, true );
   wcfg->setAttribute ( QWebSettings::JavascriptCanOpenWindows, false );
   wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard, false );
+#if QT_VERSION >= 0x040700
+  wcfg->setAttribute ( QWebSettings::LocalContentCanAccessFileUrls, false );
+  // TODO wcfg->setAttribute ( QWebSettings::XSSAuditingEnabled, false );
+  wcfg->setAttribute ( QWebSettings::AcceleratedCompositingEnabled, false );
+  wcfg->setAttribute ( QWebSettings::TiledBackingStoreEnabled, false );
+#endif
 }
 
+/**
+* Manipuliere die Netzwrk einstellungen für die URL anfrage!
+* Wir benötigen für das Auditing einen Platten Speicher.
+* Weil aber XHTMLDBG selbst keinen Plattenspeicher verwendet.
+* Setzen wir hier eine \b neue Url anfrage damit der Netzwerkmanager
+* von @class WebInspectorClient nicht die Einstelleungen von XHTMLDBG verwendet!
+*/
+const QUrl WebInspectorClient::modifyRequest ( const QUrl &url )
+{
+  QNetworkRequest req ( url );
+  req.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
+  req.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, true );
+  req.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache );
+  req.setAttribute ( QNetworkRequest::HttpPipeliningAllowedAttribute, false );
+  req.setAttribute ( QNetworkRequest::HttpPipeliningWasUsedAttribute, false );
+  return req.url();
+}
+
+/**
+* Sperre weiter Anfragen wenn ein Lade vorgang gestartet wurde
+*/
+void WebInspectorClient::setLoadStarted ()
+{
+  loading = true;
+}
+
+/**
+* Öffne die Sperre für weitere Anfragen
+*/
+void WebInspectorClient::setLoadFinished ( bool b )
+{
+  loading = ( b ) ? false : true;
+}
+
+/**
+* Seiten Url laden!
+*/
 void WebInspectorClient::load ( const QUrl &url )
 {
+  // verhindere doppelte anfragen
+  if ( loading )
+    return;
+
   if ( url.isValid() && url.scheme().contains ( "http" ) )
-    mainFrame()->load ( url );
+    mainFrame()->load ( modifyRequest ( url ) );
 }
 
+/**
+* Seiten Inhalt laden und Url anhängen!
+*/
+void WebInspectorClient::setHtml ( const QString &html, const QUrl &url )
+{
+  // verhindere doppelte anfragen
+  if ( loading )
+    return;
+
+  if ( ! html.isEmpty() && url.isValid() )
+    mainFrame()->setHtml ( html, modifyRequest ( url ) );
+}
+
+/**
+* Beim entladen den Debugger wieder abshalten und den Plattenspeicher leeren!
+*/
 WebInspectorClient::~WebInspectorClient ()
 {
   settings()->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );

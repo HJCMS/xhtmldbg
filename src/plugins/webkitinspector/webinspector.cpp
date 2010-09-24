@@ -24,12 +24,14 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QGlobalStatic>
 
 /* QtGui */
 #include <QtGui/QScrollArea>
 
 WebInspector::WebInspector ( QWidget * parent )
     : QDockWidget ( parent )
+    , documentUrl ( QUrl() )
 {
   setObjectName ( QLatin1String ( "webinspectorwidget" ) );
   setWindowTitle ( QLatin1String ( "Inspector" ) );
@@ -52,11 +54,31 @@ WebInspector::WebInspector ( QWidget * parent )
   // Layout abschliessen
   area->setWidget ( inspector );
   setWidget ( area );
+
+#if QT_VERSION >= 0x040700
+  /** FIXME Seit qt>=4.7.0 hat QWebInspector ein problem mit der Initialisierung!
+  * Deshalb nicht sofort anzeigen, erst nach der URL übergabe anzeigen!
+  * @see WebInspector::toInspect
+  */
+  inspector->hide();
+#endif
 }
 
 void WebInspector::toInspect ( const QUrl &url )
 {
+  if ( inspector->isHidden() )
+    inspector->show();
+
+  documentUrl = url;
   client->load ( url );
+}
+
+void WebInspector::setHtml ( const QString &html )
+{
+  if ( inspector->isHidden() )
+    inspector->show();
+
+  client->setHtml ( html, documentUrl );
 }
 
 WebInspector::~WebInspector()

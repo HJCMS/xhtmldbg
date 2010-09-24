@@ -43,7 +43,7 @@ QDockWidget* WebKitInspectorPlugin::dockwidget()
 
 void WebKitInspectorPlugin::setContent ( const QString &source )
 {
-  Q_UNUSED ( source );
+  m_webInspector->setHtml ( source );
 }
 
 void WebKitInspectorPlugin::setUrl ( const QUrl &url )

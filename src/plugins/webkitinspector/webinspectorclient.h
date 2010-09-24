@@ -37,14 +37,21 @@ class WebInspectorClient : public QWebPage
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool loading;
     QString storagePath;
     void updateWebSettings();
+    const QUrl modifyRequest ( const QUrl & );
+
+  private Q_SLOTS:
+    void setLoadStarted ();
+    void setLoadFinished ( bool );
 
   public Q_SLOTS:
     void load ( const QUrl & );
 
   public:
     WebInspectorClient ( QObject * parent = 0 );
+    void setHtml ( const QString &, const QUrl & );
     virtual ~WebInspectorClient ();
 };
 

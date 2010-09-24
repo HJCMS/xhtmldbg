@@ -44,7 +44,10 @@
     <message>
         <location filename="../src/addresstoolbar.cpp" line="193"/>
         <source>Sorry: FTP protocol is currently not supported</source>
-        <translation>Entschuldigung: Das FTP Protokoll wird im nicht Unterstützt</translation>
+        <translation variants="yes">
+            <lengthvariant>Entschuldigung: Das FTP Protokoll wird im nicht Unterstützt</lengthvariant>
+            <lengthvariant>FTP Protokoll wird nicht Unterstützt</lengthvariant>
+        </translation>
     </message>
 </context>
 <context>
@@ -631,7 +634,7 @@ Do you realy wan to exit?</source>
     <message>
         <location filename="../src/configuration/configbrowser.cpp" line="96"/>
         <source>Enable AutoLoad Images</source>
-        <translation>Bilder Automatisch laden.</translation>
+        <translation>Bilder Automatisch laden</translation>
     </message>
     <message>
         <location filename="../src/configuration/configbrowser.cpp" line="100"/>
@@ -1497,7 +1500,7 @@ Gründe : </translation>
         <location filename="../src/networker/errorsdialog.cpp" line="102"/>
         <source>Invalid Hostname or Host not Found</source>
         <translatorcomment>DNS Server Problem</translatorcomment>
-        <translation>Falscher Hostname oder Host nicht gefunden.</translation>
+        <translation>Falscher Hostname oder Host nicht gefunden</translation>
     </message>
     <message>
         <location filename="../src/networker/errorsdialog.cpp" line="112"/>

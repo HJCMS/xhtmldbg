@@ -576,10 +576,31 @@ void Window::createToolBars()
 * Sucht nach offenen Datenbank Verbindungen und
 * versucht diese sauber zu beenden!
 */
-void Window::unregisterDatabases ()
+bool Window::unregisterDatabases ()
 {
   if ( QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).isOpen() )
     QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).close();
+
+  return true;
+}
+
+/**
+* Plugins entladen und einige Module beim nächsten start nicht Automatisch anzeigen!
+*/
+bool Window::unregisterPlugins()
+{
+  // Vector Leeren
+  plugins.clear();
+
+  // Den Download Manager nicht in die Stats schreiben!
+  bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
+  if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
+  {
+    m_downloadManager->toggleViewAction()->setChecked ( false );
+    m_downloadManager->hide();
+  }
+
+  return true;
 }
 
 /**
@@ -592,19 +613,10 @@ void Window::closeEvent ( QCloseEvent *event )
     setWindowState ( windowState() & ~Qt::WindowFullScreen );
 
   unregisterDatabases ();
+  unregisterPlugins ();
 
-  // Den Download Manager nicht in die Stats schreiben!
-  bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
-  if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
-  {
-    m_downloadManager->toggleViewAction()->setChecked ( false );
-    m_downloadManager->hide();
-  }
-
-  plugins.clear(); // Vector Leeren
   m_settings->setValue ( "Window/MainWindowState", saveState() );
   m_settings->setValue ( "Window/MainWindowGeometry", saveGeometry() );
-
   QMainWindow::closeEvent ( event );
 }
 
