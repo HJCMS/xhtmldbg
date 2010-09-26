@@ -1,0 +1,14 @@
+#!/bin/sh
+
+test -d i18n || exit 1
+
+SOURCES="`find src/ -mindepth 1 -type f -name "*.cpp"`"
+SOURCES="${SOURCES} `find build/src -mindepth 1 -type f -name "moc_*.cxx"`"
+
+xgettext --package-name=nrplayer \
+  --default-domain=nrplayer \
+  --package-version="@XHTMLDBG_VERSION@" \
+  --msgid-bugs-address="`git config author.email`" \
+  --copyright-holder="GPLv3" \
+  --from-code=UTF-8 -C --c++ --qt -ctrUtf8 -ktr:1 \
+  ${SOURCES} --output-dir=i18n/ --output=nrplayer.pot

@@ -27,6 +27,7 @@ FIND_PACKAGE (OpenSSL REQUIRED)
 FIND_PACKAGE (Raptor REQUIRED)
 FIND_PACKAGE (GeoIP REQUIRED)
 FIND_PACKAGE (Java)
+FIND_PACKAGE (Gettext)
 
 ##############################################################
 ## Set xhtmldbg Specific Information
@@ -275,6 +276,15 @@ CONFIGURE_FILE (xhtmldbg.conf.cmake
 INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
   DESTINATION /etc/xdg/hjcms.de
 )
+
+##############################################################
+## gettext
+##############################################################
+IF (GETTEXT_FOUND)
+  CONFIGURE_FILE (xgettext.sh.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/xgettext.sh
+  )
+ENDIF (GETTEXT_FOUND)
 
 ##############################################################
 ## SUBDIRECTORIES
