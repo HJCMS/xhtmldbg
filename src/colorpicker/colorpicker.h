@@ -61,7 +61,7 @@ class ColorPicker : public QDockWidget
     void pointerChanged ( const QPoint & );
 
   protected:
-    void mousePressEvent ( QMouseEvent * );
+    virtual void mousePressEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void recording ( bool );

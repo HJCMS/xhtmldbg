@@ -25,6 +25,7 @@
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
 #include "jsmessanger.h"
+#include "javascriptpopup.h"
 
 /* QtUiTools */
 #ifdef HAVE_QTUITOOLS
@@ -45,6 +46,9 @@
 #include <QtGui/QAction>
 #include <QtGui/QClipboard>
 #include <QtGui/QIcon>
+#include <QtGui/QInputDialog>
+#include <QtGui/QMessageBox>
+#include <QtGui/QTextDocument>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkAccessManager>
@@ -92,6 +96,52 @@ void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & 
   message.remove ( QRegExp ( "[\\/\n]+" ) );
 
   xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( message );
+}
+
+/**
+* Zeigt ein Dialogfenster mit einem Eingabefeld, einem OK-Button und einem Abbrechen-Button an.
+* Der Anwender kann in diesem Fenster beim Eingabefeld Werte setzen.
+* Die JavaScript Methode prompt() gibt diesen eingegebenen Wert zurück.
+* So lassen sich Anwendereingaben im Script weiterverarbeiten.
+* Es werden mindestens zwei Parameter erwartet:
+*   @li Aufforderungstext = Text, der beschreibt, was der Anwender eingeben soll.
+*   @li Feldvorbelegung = val, mit dem das Eingabefeld vorbelegt wird.
+*
+* @param frame Aktueller Frame
+* @param text  Aufforderungstext
+* @param val   Feldvorbelegung (Kann null sein)
+* @param inp   Referenz auf den Rückgabewert!
+*/
+bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QString &val, QString * inp )
+{
+  bool b = false;
+  QString status = trUtf8 ( "JavaScript Prompt: " );
+  QString path = Qt::escape ( frame->requestedUrl().path() );
+  status.append ( Qt::escape ( text ) );
+
+#ifndef QT_NO_INPUTDIALOG
+  QString x = QInputDialog::getText ( view(), path, Qt::escape ( text ), QLineEdit::Normal, val, &b );
+  if ( b && inp )
+  {
+    status.append ( " ("+ Qt::escape ( x ) + ")" );
+    *inp = x;
+  }
+#endif
+
+  javaScriptConsoleMessage ( status, 0, path );
+
+  return b;
+}
+
+/**
+* JavaScript Fehler Meldung
+*/
+void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
+{
+  QString path = frame->requestedUrl().path();
+  QString text = Qt::escape ( message );
+  javaScriptConsoleMessage ( QString::fromUtf8 ( "%1 (%2)" ).arg ( text, path ), 0, path );
+  QMessageBox::warning ( view(), path, text );
 }
 
 /**

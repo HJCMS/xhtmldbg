@@ -1972,7 +1972,12 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="261"/>
+        <location filename="../src/page.cpp" line="118"/>
+        <source>JavaScript Prompt: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="311"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2278,22 +2283,22 @@ Reasons : </source>
 <context>
     <name>UiToolsLoader</name>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="93"/>
+        <location filename="../src/uitoolsloader.cpp" line="98"/>
         <source>(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="144"/>
+        <location filename="../src/uitoolsloader.cpp" line="149"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="146"/>
+        <location filename="../src/uitoolsloader.cpp" line="151"/>
         <source>Invalid Element initialization.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="193"/>
+        <location filename="../src/uitoolsloader.cpp" line="198"/>
         <source>(XHTMLDBG) Invalid value for property: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2669,18 +2674,18 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="950"/>
+        <location filename="../src/window.cpp" line="962"/>
         <source>a Url Request from outsite.
 Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="953"/>
+        <location filename="../src/window.cpp" line="965"/>
         <source>Url Request from Outsite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="984"/>
+        <location filename="../src/window.cpp" line="996"/>
         <source>Download Request: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2756,32 +2761,32 @@ Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="756"/>
+        <location filename="../src/window.cpp" line="768"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="812"/>
+        <location filename="../src/window.cpp" line="824"/>
         <source>HTML Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="813"/>
+        <location filename="../src/window.cpp" line="825"/>
         <source>Markup Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="814"/>
+        <location filename="../src/window.cpp" line="826"/>
         <source>Text Document %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="815"/>
+        <location filename="../src/window.cpp" line="827"/>
         <source>Unsupported Document Formats %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="822"/>
+        <location filename="../src/window.cpp" line="834"/>
         <source>Open HTML File</source>
         <translation type="unfinished"></translation>
     </message>

@@ -72,10 +72,10 @@ class Viewer : public QWebView
     void screenshot();
 
   protected:
-    Viewer* createWindow ( QWebPage::WebWindowType );
-    void keyPressEvent ( QKeyEvent * );
-    void contextMenuEvent ( QContextMenuEvent * );
-    void mousePressEvent ( QMouseEvent * );
+    virtual Viewer* createWindow ( QWebPage::WebWindowType );
+    virtual void keyPressEvent ( QKeyEvent * );
+    virtual void contextMenuEvent ( QContextMenuEvent * );
+    virtual void mousePressEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void totalBytes ( qint64 );

@@ -52,7 +52,7 @@ class DockTreeWidget : public QTreeWidget
     void onExpandCollapseResize ( QTreeWidgetItem * );
 
   protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    virtual void contextMenuEvent ( QContextMenuEvent * );
 
   public Q_SLOTS:
     void restore ();

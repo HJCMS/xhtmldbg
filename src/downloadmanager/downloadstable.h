@@ -49,7 +49,7 @@ class DownloadsTable : public QTableView
     void restart();
 
   protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    virtual void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void itemClicked ( Downloader * );

@@ -26,6 +26,8 @@
 
 Highlighter::Highlighter ( QTextDocument *parent )
     : QSyntaxHighlighter ( parent )
+    , cdataStart ( QRegExp ( "(\\<!\\[CDATA\\[)" ) )
+    , cdataEnd ( QRegExp ( "(\\]{2}\\>)" ) )
     , block_stat ( 0 )
 {
   otherFormat.setForeground ( Qt::black );
@@ -54,15 +56,16 @@ Highlighter::Highlighter ( QTextDocument *parent )
   step4.format = otherFormat;
   highlightRules.append ( step4 );
 
-  RuleHighlight step5; // Comments 1
-  step5.pattern = QRegExp ( "(\\<!(--|\\[)(.+)(--|\\]){1}\\>)+" );
+  RuleHighlight step5; // Comments 1 Single Line
+  step5.pattern = QRegExp ( "(\\<!(--|\\[)(.+)(--|\\])\\>)" );
   step5.format = commentFormat;
   highlightRules.append ( step5 );
 
-  RuleHighlight step6; // Comments 2
+  RuleHighlight step6; // Comments 2 Single Line
   step6.pattern = QRegExp ( "(\\/\\*(.+)\\*\\/)" );
   step6.format = commentFormat;
   highlightRules.append ( step6 );
+
 }
 
 void Highlighter::highlightBlock ( const QString &text )
@@ -83,8 +86,33 @@ void Highlighter::highlightBlock ( const QString &text )
       in = text.indexOf ( reg, in + le );
     }
   }
+
+/* TODO Multiline Comments
+  QRegExp pattern;
+  int cdataIndex = 0;
+  if ( text.indexOf ( cdataStart ) >= 0 )
+  {
+    pattern = cdataStart;
+    cdataIndex = text.indexOf ( cdataStart );
+  }
+  else if ( text.indexOf ( cdataEnd ) >= 0 )
+  {
+    pattern = cdataEnd;
+    cdataIndex = text.indexOf ( cdataEnd );
+  }
+  else
+    return;
+
+  while ( cdataIndex >= 0 )
+  {
+    int le = pattern.matchedLength();
+    setFormat ( cdataIndex, le, commentFormat );
+    cdataIndex = text.indexOf ( pattern, cdataIndex + le );
+  }
+*/
 }
 
 Highlighter::~Highlighter()
 {
+  highlightRules.clear();
 }

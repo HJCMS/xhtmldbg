@@ -14,9 +14,9 @@ test -d "${base}" || {
 debug_build_target=${base}/build
 
 if test "`hostname`" = "webmast" ; then
-TUNE="-O3 -mtune=athlon-xp -march=i686 -mno-sse3"
+  TUNE="-O3 -mtune=athlon-xp -march=i686 -mno-sse3"
 else
-TUNE="-O2 -mtune=generic -march=`uname -i`"
+  TUNE="-O2 -mtune=generic -march=`uname -i`"
 fi
 
 ## needed for some development tests
@@ -41,8 +41,7 @@ function runcmake()
     -DCMAKE_SKIP_RPATH:BOOL=ON \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DXHTMLDBG_BETA_EXTENSION:BOOL=ON \
-    -DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$INSTALL_DESTDIR" \
-    ../
+    -DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$INSTALL_DESTDIR" $@ ../
 }
 
 echo "cmake"
@@ -52,10 +51,10 @@ if test "$PWD" = "${debug_build_target}" ; then
     rm -rf ${debug_build_target}/*
   fi
   mkdir -p ${debug_build_target}/app/{designer,plugins}
-  runcmake
+  runcmake $@
 else
   mkdir -p build/app/{designer,plugins}
   pushd build
-    runcmake
+    runcmake $@
   popd
 fi

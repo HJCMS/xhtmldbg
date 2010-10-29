@@ -41,7 +41,10 @@ class Highlighter : public QSyntaxHighlighter
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
+    const QRegExp cdataStart;
+    const QRegExp cdataEnd;
     int block_stat;
+
     struct RuleHighlight
     {
       QRegExp pattern;

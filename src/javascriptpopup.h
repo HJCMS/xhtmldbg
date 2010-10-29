@@ -19,57 +19,26 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef SELFHTMLSIDEBAR_H
-#define SELFHTMLSIDEBAR_H
+#ifndef JAVASCRIPTPOPUP_H
+#define JAVASCRIPTPOPUP_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QUrl>
-#include <QtCore/QSettings>
+#include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QResizeEvent>
+#include <QtGui/QDialog>
 #include <QtGui/QWidget>
 
-/* QtDBus */
-#include <QtDBus/QDBusConnection>
-
-/* QtWebKit */
-#include <QtWebKit/QWebView>
-
-class SelfHtmlSidebar : public QDockWidget
+class JavaScriptPopup : public QDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    const QString service;
-    QDBusConnection p_dbus;
-    QSettings* cfg;
-    QWebView* m_webView;
-    const QUrl sideBarUrl() const;
-    QUrl lastChanged;
-    QLineEdit* searchLine;
-    QLabel* m_titleLabel;
-    QLabel* m_urlLabel;
-    void openConfigDialog ();
-
-  private Q_SLOTS:
-    void openIndex ();
-    void openConfig ();
-    void openLinkClicked ( const QUrl &url );
-    void findKeyword ( const QString &word = QString() );
-
-  protected:
-    virtual void resizeEvent ( QResizeEvent * );
-
   public:
-    SelfHtmlSidebar ( QWidget * parent = 0 );
-    virtual ~SelfHtmlSidebar();
+    JavaScriptPopup ( QWidget * parent = 0 );
+    virtual ~JavaScriptPopup();
 };
 
 #endif

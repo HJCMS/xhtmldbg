@@ -19,40 +19,19 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef RUBBERBAND_H
-#define RUBBERBAND_H
+#include "javascriptpopup.h"
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QRect>
+#include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QBrush>
-#include <QtGui/QPaintEvent>
-#include <QtGui/QRubberBand>
-#include <QtGui/QWidget>
+#include <QtGui/QVBoxLayout>
 
-class Settings;
-
-class Reticule : public QRubberBand
+JavaScriptPopup::JavaScriptPopup ( QWidget * parent )
+    : QDialog ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  setObjectName ( QLatin1String ( "JavaScriptPopup" ) );
+}
 
-  private:
-    Settings* m_settings;
-    const QBrush currentBrush();
-
-  protected:
-    virtual void paintEvent ( QPaintEvent * );
-
-  public Q_SLOTS:
-    void setRegion ( const QRect & );
-
-  public:
-    Reticule ( QWidget * parent = 0 );
-    virtual ~Reticule();
-};
-
-#endif
+JavaScriptPopup::~JavaScriptPopup()
+{}

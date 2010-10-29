@@ -39,18 +39,64 @@ class Settings : public QSettings
 
   private:
     const QString cacheLocation;
+
+  public Q_SLOTS:
+    /**
+    * set QWebsettings to default (XHTMLDBG) behavior
+    */
     void setWebinspectorDefaults();
 
   public:
     Settings ( QObject * parent = 0 );
+
+    /**
+    * On X11, the search path will use the \em XDG_DATA_DIRS environment variable if available.
+    * This function will reduce this path list for speed up XHTMLDBG Application start.
+    * And set the current icon theme to \em oxygen
+    */
     void setIconTheme();
+
+    /**
+    * This function will create all \em XDG_DATA_HOME paths that needed by XHTMLDBG.
+    */
     void setDataPaths();
+
+    /**
+    * Restore all Settings for next startup
+    */
     void setSaveMode();
+
+    /**
+    * Return for \em QWebSettings the path of the icon database.
+    */
     const QString webIconDatabasePath();
+
+    /**
+    * Returns for \em QWebSettings the path for HTML5 local storage.
+    */
     const QString webLocalStoragePath();
+
+    /**
+    * Alias for QSettings::value(QString,int).toUInt()
+    * \param p Settings Key(path)
+    * \param i Value
+    */
     int intValue ( const QString &p, int i );
+
+    /**
+    * Alias for QSettings::value(QString,bool).toBool()
+    * \param p Settings Key(path)
+    * \param b Value
+    */
     bool boolValue ( const QString &p, bool b = false );
+
+    /**
+    * Alias for QSettings::value(QString,QString).toString()
+    * \param p Settings Key(path)
+    * \param d Value
+    */
     const QString strValue ( const QString &p, const QString &d = QString() );
+
     virtual ~Settings();
 };
 

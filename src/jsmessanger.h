@@ -48,7 +48,7 @@ class JSMessanger : public QDockWidget
     void sortDescending();
 
   protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    virtual void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void itemsChanged();

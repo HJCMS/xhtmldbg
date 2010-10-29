@@ -64,7 +64,7 @@ class AutoSaver : public QObject
     QTime m_firstChange;
 
   protected:
-    void timerEvent ( QTimerEvent *event );
+    virtual void timerEvent ( QTimerEvent *event );
 
   public slots:
     void changeOccurred();

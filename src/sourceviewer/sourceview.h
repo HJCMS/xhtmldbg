@@ -61,7 +61,7 @@ class SourceView : public QTextEdit
     virtual void Clipboard();
 
   protected:
-    void contextMenuEvent ( QContextMenuEvent * );
+    virtual void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void textChanged ( const QList<QListWidgetItem*> & );

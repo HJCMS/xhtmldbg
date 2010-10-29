@@ -99,7 +99,7 @@ void WebInspectorClient::updateWebSettings()
 }
 
 /**
-* Manipuliere die Netzwrk Einstellungen für die URL anfrage!
+* Manipuliere die Netzwerk Einstellungen für die URL anfrage!
 * Wir benötigen für das Auditing einen Platten Speicher.
 * Weil aber XHTMLDBG selbst keinen Plattenspeicher verwendet.
 * Setzen wir hier eine \b neue Url anfrage damit der Netzwerkmanager
@@ -159,7 +159,7 @@ void WebInspectorClient::setHtml ( const QString &html, const QUrl &url )
 }
 
 /**
-* Beim entladen den Debugger wieder abshalten und den Plattenspeicher leeren!
+* Beim entladen den Debugger wieder abschalten und den Plattenspeicher leeren!
 */
 WebInspectorClient::~WebInspectorClient ()
 {

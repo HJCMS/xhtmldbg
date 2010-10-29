@@ -1983,7 +1983,15 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="261"/>
+        <location filename="../src/page.cpp" line="118"/>
+        <source>JavaScript Prompt: </source>
+        <translation variants="yes">
+            <lengthvariant>JavaScript Anfrage: </lengthvariant>
+            <lengthvariant>JS Anfrage: </lengthvariant>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="311"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation>(x-qt-plugin) ClassID: %1 %2</translation>
     </message>
@@ -2289,22 +2297,22 @@ Gründe : </translation>
 <context>
     <name>UiToolsLoader</name>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="93"/>
+        <location filename="../src/uitoolsloader.cpp" line="98"/>
         <source>(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!</source>
         <translation>(XHTMLBG) Akzeptiert bei Object Elementen mit dem type application/x-qt-plugin nur zu 100%% reines XHTML!</translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="144"/>
+        <location filename="../src/uitoolsloader.cpp" line="149"/>
         <source>Sorry: I can&apos;t do it.</source>
         <translation>Ich kann das leider nicht machen.</translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="146"/>
+        <location filename="../src/uitoolsloader.cpp" line="151"/>
         <source>Invalid Element initialization.</source>
         <translation>Fehler bei der Element Initialisierung.</translation>
     </message>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="193"/>
+        <location filename="../src/uitoolsloader.cpp" line="198"/>
         <source>(XHTMLDBG) Invalid value for property: %1</source>
         <translation>(XHTMLDBG) Ungültiger Wert oder Parameter: %1</translation>
     </message>
@@ -2686,19 +2694,19 @@ Gründe : </translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="950"/>
+        <location filename="../src/window.cpp" line="962"/>
         <source>a Url Request from outsite.
 Would you like to load this &quot;%1&quot; Url?</source>
         <translation>Ein Adressen wurde ausserhalb gesendet.
 Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="953"/>
+        <location filename="../src/window.cpp" line="965"/>
         <source>Url Request from Outsite</source>
         <translation>URL Anfrage von Aussen</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="984"/>
+        <location filename="../src/window.cpp" line="996"/>
         <source>Download Request: %1</source>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
@@ -2768,32 +2776,32 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="756"/>
+        <location filename="../src/window.cpp" line="768"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="812"/>
+        <location filename="../src/window.cpp" line="824"/>
         <source>HTML Document %1</source>
         <translation>HTML Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="813"/>
+        <location filename="../src/window.cpp" line="825"/>
         <source>Markup Document %1</source>
         <translation>Hypertext Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="814"/>
+        <location filename="../src/window.cpp" line="826"/>
         <source>Text Document %1</source>
         <translation>Text Dokument %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="815"/>
+        <location filename="../src/window.cpp" line="827"/>
         <source>Unsupported Document Formats %1</source>
         <translation>Nicht Unterstütze Dokumenten Formate %1</translation>
     </message>
     <message>
-        <location filename="../src/window.cpp" line="822"/>
+        <location filename="../src/window.cpp" line="834"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
     </message>

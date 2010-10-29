@@ -65,10 +65,12 @@ class Page : public QWebPage
     void replyFinished();
 
   protected:
-    void javaScriptConsoleMessage ( const QString &, int, const QString & );
-    bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
+    virtual void javaScriptConsoleMessage ( const QString &, int, const QString & );
+    virtual bool javaScriptPrompt ( QWebFrame *, const QString &, const QString &, QString * );
+    virtual void javaScriptAlert ( QWebFrame *, const QString & );
+    virtual bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
 #ifdef HAVE_QTUITOOLS
-    QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
+    virtual QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
 #endif
 
   Q_SIGNALS:

@@ -51,8 +51,8 @@ class GrabberWindow : public QWidget
     void listener();
 
   protected:
-    void timerEvent ( QTimerEvent * );
-    void paintEvent ( QPaintEvent * );
+    virtual void timerEvent ( QTimerEvent * );
+    virtual void paintEvent ( QPaintEvent * );
 
   Q_SIGNALS:
     void recording ( bool );

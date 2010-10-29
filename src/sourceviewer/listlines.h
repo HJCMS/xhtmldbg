@@ -44,7 +44,7 @@ class ListLines : public QWidget
     void setRowsWidth ( int );
 
   protected:
-    void paintEvent ( QPaintEvent * );
+    virtual void paintEvent ( QPaintEvent * );
 
   Q_SIGNALS:
     void valueChanged ( int );
