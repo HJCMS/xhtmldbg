@@ -1983,7 +1983,23 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="118"/>
+        <location filename="../src/page.cpp" line="97"/>
+        <source> Line: %1</source>
+        <translation variants="yes">
+            <lengthvariant> Zeile: %1</lengthvariant>
+            <lengthvariant> L: %1</lengthvariant>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="100"/>
+        <source> Document: %1</source>
+        <translation variants="yes">
+            <lengthvariant> Dokument: %1</lengthvariant>
+            <lengthvariant> src.: %1</lengthvariant>
+        </translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="122"/>
         <source>JavaScript Prompt: </source>
         <translation variants="yes">
             <lengthvariant>JavaScript Anfrage: </lengthvariant>
@@ -1991,7 +2007,7 @@ Gründe : </translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="311"/>
+        <location filename="../src/page.cpp" line="314"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation>(x-qt-plugin) ClassID: %1 %2</translation>
     </message>

@@ -1972,12 +1972,22 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="118"/>
+        <location filename="../src/page.cpp" line="97"/>
+        <source> Line: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="100"/>
+        <source> Document: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="122"/>
         <source>JavaScript Prompt: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="311"/>
+        <location filename="../src/page.cpp" line="314"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>

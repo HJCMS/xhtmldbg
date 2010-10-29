@@ -86,8 +86,6 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 */
 void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
 {
-  Q_UNUSED ( l )
-  Q_UNUSED ( id )
   if ( m.isEmpty() )
     return;
 
@@ -95,7 +93,13 @@ void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & 
   QString message ( cmd );
   message.remove ( QRegExp ( "[\\/\n]+" ) );
 
-  xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( message );
+  if ( l > 0 )
+    message.append ( trUtf8 ( " Line: %1" ).arg ( QString::number ( l ) ) );
+
+  if ( ! id.isEmpty() )
+    message.append ( trUtf8 ( " Document: %1" ).arg ( id ) );
+
+  xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( Qt::escape ( message ) );
 }
 
 /**
@@ -134,14 +138,13 @@ bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QStr
 }
 
 /**
-* JavaScript Fehler Meldung
+* JavaScript Fehler Meldung ausgeben
 */
 void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
 {
   QString path = frame->requestedUrl().path();
-  QString text = Qt::escape ( message );
-  javaScriptConsoleMessage ( QString::fromUtf8 ( "%1 (%2)" ).arg ( text, path ), 0, path );
-  QMessageBox::warning ( view(), path, text );
+  javaScriptConsoleMessage ( message, 0, path );
+  QMessageBox::warning ( view(), path, Qt::escape ( message ) );
 }
 
 /**
