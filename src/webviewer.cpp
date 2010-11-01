@@ -267,8 +267,9 @@ void WebViewer::addViewerTab ( Viewer *view )
   connect ( view, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 
-  connect ( view, SIGNAL ( loadFinished ( bool ) ),
-            this, SIGNAL ( loadFinished ( bool ) ) );
+  /* in 10. schritten 0% -> 100% */
+  connect ( view, SIGNAL ( loadProgress ( int ) ),
+            this, SIGNAL ( loadProgress ( int ) ) );
 
   connect ( view, SIGNAL ( iconChanged() ),
             this, SLOT ( setFavicon() ) );
@@ -323,9 +324,13 @@ void WebViewer::keywords ( const QStringList &words )
   }
 }
 
+/**
+* Dieser Slot wird nur von AutoRefresh aufgerufen!
+* Verwende deshalb QWebPage::ReloadAndBypassCache um den Cache zu unterdrücken!
+*/
 void WebViewer::refresh ()
 {
-  activeView()->reload();
+  activeView()->page()->triggerAction ( QWebPage::ReloadAndBypassCache );
 }
 
 void WebViewer::back ()
@@ -411,7 +416,7 @@ const QString WebViewer::toHtml()
 */
 const QWebElement WebViewer::toWebElement()
 {
-  return activeView()->page()->currentFrame()->documentElement ();
+  return activeView()->page()->mainFrame()->documentElement ();
 }
 
 /**

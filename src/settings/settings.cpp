@@ -63,6 +63,7 @@ Settings::Settings ( QObject * parent )
 {
   setObjectName ( QLatin1String ( "settings" ) );
   setWebinspectorDefaults();
+  setCacheDefaults();
 }
 
 /**
@@ -79,6 +80,18 @@ void Settings::setWebinspectorDefaults()
   setValue ( p + "profilerAlwaysEnabled.type", "bool" );
   setValue ( p + "auditsPanelEnabled", true );
   setValue ( p + "auditsPanelEnabled.type", "bool" );
+}
+
+/**
+* Wir verwenden keinen Cache!
+*/
+void Settings::setCacheDefaults()
+{
+  setValue ( "OfflineStorageDatabaseEnabled", false );
+  setValue ( "OfflineWebApplicationCacheEnabled", false );
+  setValue ( "SourceIsFromCacheAttribute", false );
+  setValue ( "CacheSaveControlAttribute", false );
+  setValue ( "DoNotBufferUploadDataAttribute", true );
 }
 
 /**

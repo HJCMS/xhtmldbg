@@ -59,6 +59,7 @@ class SourceWidget : public QWidget
     void fetchBlock ( int, int );
     void check();
     void format();
+    void restore();
 
   public:
     SourceWidget ( QWidget * parent = 0 );

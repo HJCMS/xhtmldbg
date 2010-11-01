@@ -46,6 +46,11 @@ class Settings : public QSettings
     */
     void setWebinspectorDefaults();
 
+    /**
+    * set QWebsettings/QNetworkSettings default cache behavior
+    */
+    void setCacheDefaults();
+
   public:
     Settings ( QObject * parent = 0 );
 

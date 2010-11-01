@@ -222,8 +222,8 @@ Window::Window ( Settings * settings )
   // } xhtmldbgplugger
 
   // WebViewer {
-  connect ( m_webViewer, SIGNAL ( loadFinished ( bool ) ),
-            this, SLOT ( requestsFinished ( bool ) ) );
+  connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ),
+            this, SLOT ( requestsFinished ( int ) ) );
 
   connect ( m_webViewer, SIGNAL ( hitTestResult ( const QWebElement & ) ),
             m_domInspector, SLOT ( findItem ( const QWebElement & ) ) );
@@ -233,6 +233,9 @@ Window::Window ( Settings * settings )
 
   connect ( m_webViewer, SIGNAL ( loadStarted () ),
             m_headerDock, SLOT ( clearAll() ) );
+
+  connect ( m_webViewer, SIGNAL ( loadStarted () ),
+            m_sourceWidget, SLOT ( restore() ) );
 
   connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
@@ -244,6 +247,10 @@ Window::Window ( Settings * settings )
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
             m_tidyMessanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
   // } SourceWidget
+  // DomInspector {
+  connect ( m_domInspector, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SLOT ( setApplicationMessage ( const QString & ) ) );
+  // } DomInspector
   // TidyMessanger {
   connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
@@ -697,9 +704,9 @@ void Window::registerPlugins()
 * @li An alle geladenen Plugins die URL übergeben.
 * Beim setzen von @em RecentUrl werden Passwörter und Anker entfernt.
 */
-void Window::requestsFinished ( bool ok )
+void Window::requestsFinished ( int prozent )
 {
-  if ( ok )
+  if ( prozent >= 100 )
   {
     QUrl currentUrl = m_webViewer->getUrl();
     QWebElement currentPage = m_webViewer->toWebElement();

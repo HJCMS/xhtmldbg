@@ -53,6 +53,7 @@ class DomTree : public QTreeWidget
 
   Q_SIGNALS:
     void itemClicked ( const QWebElement & );
+    void errorMessage ( const QString & );
 
   public Q_SLOTS:
     void setPrune();

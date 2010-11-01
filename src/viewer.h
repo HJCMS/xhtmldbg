@@ -62,7 +62,7 @@ class Viewer : public QWebView
 
   private Q_SLOTS:
     void cursorwait ();
-    void cursorFinished ( bool );
+    void cursorFinished ( int );
     void bookmark();
     void cookiesRequest ( const QUrl & );
     void showPageSource();

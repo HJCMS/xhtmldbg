@@ -62,9 +62,9 @@ class WebViewer : public QTabWidget
   Q_SIGNALS:
     void loadStarted ();
     void bytesLoaded ( qint64 );
+    void loadProgress ( int );
     void urlChanged ( const QUrl & );
     void addBookmark ( const QUrl &, const QString & );
-    void loadFinished ( bool );
     void statusBarMessage ( const QString & );
     void hitTestResult ( const QWebElement & );
 

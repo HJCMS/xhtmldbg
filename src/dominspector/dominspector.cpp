@@ -83,6 +83,9 @@ DomInspector::DomInspector ( QWidget * parent, Settings * settings )
   connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
 
+  connect ( m_domTree, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SIGNAL ( errorMessage ( const QString & ) ) );
+
   connect ( m_domToolBar, SIGNAL ( prune() ), m_domTree, SLOT ( setPrune() ) );
   connect ( m_domToolBar, SIGNAL ( expand() ), m_domTree, SLOT ( expandAll() ) );
   connect ( m_domToolBar, SIGNAL ( unselect() ), m_domTree, SLOT ( setUnselect() ) );

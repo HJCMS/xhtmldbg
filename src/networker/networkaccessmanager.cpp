@@ -38,6 +38,10 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkDiskCache>
+#include <QtNetwork/QAbstractNetworkCache>
+
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
     , requestUrl ( QUrl ( "http://localhost" ) )
@@ -54,6 +58,20 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
   trustedCertsHostsList << m_networkSettings->trustedCertsList();
 
   setCookieJar ( m_networkCookie );
+
+  // Wir benötigen den Plattenspeicher um sicher zu gehen das kein Plugin diesen setzt!
+  // @see Settings::webLocalStoragePath()
+  QNetworkDiskCache* m_networkDiskCache = new QNetworkDiskCache ( this );
+  m_networkDiskCache->setCacheDirectory ( m_networkSettings->webLocalStoragePath() );
+  // Jetzt den Plattenspeicher setzen
+  setCache ( m_networkDiskCache );
+
+#if QT_VERSION >= 0x040700
+
+  if ( networkAccessible() != QNetworkAccessManager::Accessible )
+    setNetworkAccessible ( QNetworkAccessManager::Accessible );
+
+#endif
 
   m_networkReply = 0x00;
 
@@ -222,7 +240,7 @@ void NetworkAccessManager::peekReplyProcess()
     /**
     * @short BUGFIX 2010/07/02 Crash with large page Size
     * Wenn eine Seitengröße sehr groß ist produziert WebKit
-    * zwichendurch einen unuzulässigen Haeder,
+    * zwichendurch einen unuzulässigen Header,
     * das wird jetzt an dieser Stelle abgefangen.
     */
     QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );
@@ -353,6 +371,9 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice * data )
 {
+  // Der cache muss immer Leer sein damit die Validierung funktioniert!
+  cache()->remove ( req.url() );
+
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );
 

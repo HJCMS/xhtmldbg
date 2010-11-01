@@ -79,9 +79,10 @@ void WebInspectorClient::updateWebSettings()
   wcfg->setIconDatabasePath ( storagePath );
   wcfg->setLocalStoragePath ( storagePath );
   wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
-  wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, true );
+  wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
   wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
   wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
+
   // Browser Verhalten
   wcfg->setAttribute ( QWebSettings::AutoLoadImages, true );
   wcfg->setAttribute ( QWebSettings::JavascriptEnabled, true );

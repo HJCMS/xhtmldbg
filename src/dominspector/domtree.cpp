@@ -23,6 +23,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QGlobalStatic>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
@@ -32,6 +33,14 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QTreeWidgetItemIterator>
+
+/* QtWebKit */
+#ifndef MAINTAINER_REPOSITORY
+# include <QtWebKit/QtWebKit>
+#else
+# include <QtWebKit/qwebkitglobal.h>
+# include <QtWebKit/qwebkitversion.h>
+#endif
 
 DomTree::DomTree ( QWidget * parent )
     : QTreeWidget ( parent )
@@ -84,6 +93,7 @@ void DomTree::parseAttributes ( const QWebElement &element, QTreeWidgetItem* par
       item->setText ( 0, QString::fromUtf8 ( "AttDef" ) );
       if ( ! name.contains ( QRegExp ( "(html|head|body)" ) ) )
         item->setData ( 0, Qt::UserRole, parent->data ( 0, Qt::UserRole ) );
+
       item->setForeground ( 0, Qt::lightGray );
       item->setText ( 1, name );
       item->setForeground ( 1, Qt::blue );
@@ -180,6 +190,14 @@ void DomTree::setDomTree ( const QWebElement &we )
 {
   clear();
   minCellWidth = 50;
+
+  if ( we.findFirst ( "BODY" ).toOuterXml().isEmpty() )
+  {
+    QString message ( "QWebFrame::documentElement() Rendering BUG" );
+    emit errorMessage ( QString::fromUtf8 ( "(XHTMLDBG) %1 WebKit(%2 %3) Qt(%4)" )
+                        .arg ( message, qWebKitVersion(), QTWEBKIT_VERSION_STR, QT_VERSION_STR ) );
+    return;
+  }
 
   QTreeWidgetItem* item = createTopLevelItem ( we.localName() );
   item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );

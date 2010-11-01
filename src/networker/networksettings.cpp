@@ -47,7 +47,10 @@ NetworkSettings::NetworkSettings ( QObject * parent )
   setObjectName ( QLatin1String ( "networksettings" ) );
   wcfg->setIconDatabasePath ( webIconDatabasePath() );
   wcfg->setLocalStoragePath ( webLocalStoragePath() );
+  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
   wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
+  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
+  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
 }
 
 /**
@@ -88,6 +91,9 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, false );
   request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, false );
   request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork );
+#if QT_VERSION >= 0x040700
+  request.setAttribute ( QNetworkRequest::CookieLoadControlAttribute, QNetworkRequest::Automatic );
+#endif
 
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
                          boolValue ( "DoNotBufferUploadDataAttribute", true ) );

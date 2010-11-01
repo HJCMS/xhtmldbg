@@ -71,6 +71,7 @@ class DomInspector : public QDockWidget
 
   Q_SIGNALS:
     void cascadedStylesHref ( const QStringList & );
+    void errorMessage ( const QString & );
 
   public Q_SLOTS:
     void setDomTree ( const QWebElement & );

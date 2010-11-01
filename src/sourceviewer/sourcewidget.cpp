@@ -149,6 +149,14 @@ void SourceWidget::format()
 }
 
 /**
+* Setzt den Quelltext auf ein Leeres HTML!
+*/
+void SourceWidget::restore()
+{
+  setSource ( "<html>\n<head><title>Waiting</title></head>\n<body>\n</body>\n</html>\n" );
+}
+
+/**
 * Nehme die Aktuelle ~/.tidyrc Konfiguration
 * von @ref QTidy::QTidySettings
 */

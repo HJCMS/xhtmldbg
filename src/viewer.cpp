@@ -91,7 +91,7 @@ Viewer::Viewer ( QWidget * parent )
   connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
 
   /* stop maus-sanduhr */
-  connect ( this, SIGNAL ( loadFinished ( bool ) ), this, SLOT ( cursorFinished ( bool ) ) );
+  connect ( this, SIGNAL ( loadProgress ( int ) ), this, SLOT ( cursorFinished ( int ) ) );
 
   /* bei überfahren mir der maus informationen der verknüpfung ausgeben. */
   connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
@@ -178,15 +178,16 @@ void Viewer::cursorwait ()
 }
 
 /**
-* Wird immer dann aufgerufen wenn ein signal @ref QWebView::loadFinished abgegeben wird.
+* Wird immer dann aufgerufen wenn signal @ref QWebView::loadProgress die 100% erreicht hat!
 * @li Entferne die Maus Sanduhr
 * @li Sende die Seitengröße mit @ref totalBytes
 * @li Rufe @ref openCookiesRequestDialog für die Cookies anfragen Verarbeitung auf.
 */
-void Viewer::cursorFinished ( bool )
+void Viewer::cursorFinished ( int p )
 {
-  if ( page()->bytesReceived() >= 1000 )
+  if ( p >= 100 )
   {
+    // qDebug() << Q_FUNC_INFO << page()->bytesReceived();
     setCursor ( Qt::ArrowCursor );
     emit totalBytes ( page()->bytesReceived() );
     // Seite geladen - dann Cookie Speicher verarbeiten

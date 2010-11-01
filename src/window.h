@@ -188,7 +188,7 @@ class Window : public QMainWindow
     bool unregisterPlugins();
 
   private Q_SLOTS:
-    void requestsFinished ( bool );
+    void requestsFinished ( int );
     void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();
