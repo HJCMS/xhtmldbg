@@ -27,6 +27,7 @@
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QScrollArea>
 
 /* QtWebKit */
@@ -64,6 +65,9 @@ WebInspector::WebInspector ( QWidget * parent )
 
 void WebInspector::setPage ( QWebPage * page )
 {
+  if ( ! toggleViewAction()->isChecked() || ! isVisible() )
+    return;
+
   if ( page->currentFrame()->url().isEmpty() )
   {
     emit errorMessage ( trUtf8 ( "WebInspector: Update rejected - no valide url given!" ) );
