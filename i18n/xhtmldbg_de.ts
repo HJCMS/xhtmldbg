@@ -2545,7 +2545,10 @@ Gründe : </translation>
     <message>
         <location filename="../src/webinspector.cpp" line="69"/>
         <source>WebInspector: Update rejected - no valide url given!</source>
-        <translation type="unfinished"></translation>
+        <translation variants="yes">
+            <lengthvariant>WebInspector: Update verworfen - Es wurde keine Valide Url übergeben!</lengthvariant>
+            <lengthvariant>WebInspector: Update verworfen - Keine Url erhalten!</lengthvariant>
+        </translation>
     </message>
 </context>
 <context>
