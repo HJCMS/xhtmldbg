@@ -222,8 +222,9 @@ void WebViewer::pretended ( int index )
 */
 void WebViewer::pageChanged()
 {
-  qDebug() << Q_FUNC_INFO << "TODO Popup Sniffer";
   if ( ! activeView()->page()->isModified() )
+    emit pageEntered ( activeView()->page() );
+  else if ( activeView()->page()->currentFrame()->url().isValid() )
     emit pageEntered ( activeView()->page() );
 }
 

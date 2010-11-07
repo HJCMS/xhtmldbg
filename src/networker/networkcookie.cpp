@@ -102,7 +102,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   QString rejectMessage = trUtf8 ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
-  if ( rfc && !domain.contains ( QRegExp ( "^\\." ) ) )
+  if ( rfc && ! domain.contains ( QRegExp ( "^\\." ) ) )
   {
 #ifdef XHTMLDBG_DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
@@ -125,16 +125,25 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   }
   else if ( host1.compare ( domain, Qt::CaseInsensitive ) == 0 )
   {
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug() << "(XHTMLDBG) Accepted:" << domain;
+#endif
     // Accepted: .host.tld == .domain.tld
     return true;
   }
   else if ( host2.compare ( domain, Qt::CaseInsensitive ) == 0 )
   {
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug() << "(XHTMLDBG) Accepted:" << domain;
+#endif
     // Accepted: host.tld == .domain.tld
     return true;
   }
   else if ( !rfc )
   {
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug() << "(XHTMLDBG) Accepted NONE RFC2109:" << domain;
+#endif
     // Accepted: NONE RFC2109
     return true;
   }
@@ -169,6 +178,9 @@ void NetworkCookie::save()
   QList<QNetworkCookie> cookies = allCookies();
   // Speichere die Cookies in die Datenbank
   m_cookieManager->saveCookiesList ( cookies );
+
+  inProgress.clear();
+  load();
 }
 
 /**
@@ -358,10 +370,6 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     return false;
   }
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp << " Saved:" << add;
-#endif
-
   if ( isInSecure )
     emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
@@ -370,6 +378,11 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     save();
   else if ( add && ! tmp )
     m_autoSaver->saveIfNeccessary();
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" 
+  << url.host() << " Access:" << yes << " Session:" << tmp << " Saved:" << add;
+#endif
 
   return add;
 }
