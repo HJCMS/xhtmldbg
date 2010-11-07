@@ -196,6 +196,7 @@ void WebViewer::updateTabTitle ( const QString &title )
   setTabText ( index, pr );
   setTabToolTip ( index, title );
   setTabWhatsThis ( index, title );
+  pageChanged();
 }
 
 /**
@@ -206,11 +207,13 @@ void WebViewer::pretended ( int index )
 {
   QUrl url = activeView()->url();
   if ( url.isValid() )
+  {
+    pageChanged();
     emit urlChanged ( url );
+  }
 
   QIcon icon = QWebSettings::iconForUrl ( url );
   setTabIcon ( index, icon );
-  pageChanged();
 }
 
 /**
