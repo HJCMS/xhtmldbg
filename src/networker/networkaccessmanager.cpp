@@ -46,6 +46,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
     , requestUrl ( QUrl ( "http://localhost" ) )
 {
+  setObjectName ( "xhtmldbgnetworkaccessmanager" );
   m_networkSettings = new  NetworkSettings ( this );
   m_networkCookie = new NetworkCookie ( m_networkSettings, this );
   m_errorsDialog = new ErrorsDialog;

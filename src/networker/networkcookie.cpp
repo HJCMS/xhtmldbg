@@ -169,8 +169,6 @@ void NetworkCookie::save()
   QList<QNetworkCookie> cookies = allCookies();
   // Speichere die Cookies in die Datenbank
   m_cookieManager->saveCookiesList ( cookies );
-  // Die Liste wieder leeren
-  inProgress.clear();
 }
 
 /**
@@ -312,7 +310,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
-  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
+  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
 
   // CookieUrl bereinigen
   QUrl cookieUrl;
@@ -361,7 +359,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp;
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:" << url.host() << " Access:" << yes << " Session:" << tmp << " Saved:" << add;
 #endif
 
   if ( isInSecure )
@@ -370,7 +368,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Wenn neu erzeugt dann später speichern
   if ( cookieAcces.Access == CookieManager::ALLOWED )
     save();
-  else if ( add )
+  else if ( add && ! tmp )
     m_autoSaver->saveIfNeccessary();
 
   return add;

@@ -216,11 +216,6 @@ Window::Window ( Settings * settings )
   m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
   m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
 
-  // jetzt die Plugins laden
-  // xhtmldbgplugger {
-  registerPlugins();
-  // } xhtmldbgplugger
-
   // WebViewer {
   connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ),
             this, SLOT ( requestsFinished ( int ) ) );
@@ -286,6 +281,11 @@ Window::Window ( Settings * settings )
   connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
   // } ColorPicker
+
+  // jetzt die Plugins laden
+  // xhtmldbgplugger {
+  registerPlugins();
+  // } xhtmldbgplugger
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
@@ -697,7 +697,7 @@ void Window::registerPlugins()
 }
 
 /**
-* Diese Methode wird von QWebView::loadFinished aufgerufen.
+* Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
 * Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
 * @li DomTree::setDomTree
 * @li Settings::setValue (RecentUrl)
