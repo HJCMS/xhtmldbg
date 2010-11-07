@@ -56,6 +56,9 @@
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkAccessManager>
 
+/* QtWebKit */
+#include <QtWebKit/QWebFrame>
+
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
 {

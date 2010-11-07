@@ -57,6 +57,7 @@ class WebViewer : public QTabWidget
   private Q_SLOTS:
     void updateTabTitle ( const QString & );
     void pretended ( int );
+    void pageChanged();
     void setFavicon();
 
   Q_SIGNALS:
@@ -67,6 +68,7 @@ class WebViewer : public QTabWidget
     void addBookmark ( const QUrl &, const QString & );
     void statusBarMessage ( const QString & );
     void hitTestResult ( const QWebElement & );
+    void pageEntered ( QWebPage * );
 
   public Q_SLOTS:
     void addViewerTab ( Viewer * );

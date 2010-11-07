@@ -75,6 +75,7 @@ SET (xhtmldbg_SOURCES
   zoombar.cpp
   geolocation.cpp
   javascriptpopup.cpp
+  webinspector.cpp
 )
 
 SET (xhtmldbg_HEADERS
@@ -100,6 +101,7 @@ SET (xhtmldbg_HEADERS
   zoombar.h
   geolocation.h
   javascriptpopup.h
+  webinspector.h
 )
 
 SET (xhtmldbg_NOMOC

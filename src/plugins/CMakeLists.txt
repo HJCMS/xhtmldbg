@@ -2,7 +2,6 @@
 # Plugins Directory
 
 ADD_SUBDIRECTORY (selfhtmlsidebar)
-ADD_SUBDIRECTORY (webkitinspector)
 ADD_SUBDIRECTORY (rfcbrowser)
 
 ## Development Template Data

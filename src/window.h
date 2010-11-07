@@ -72,6 +72,7 @@ class AutoReloadMenu;
 class StatusBar;
 class AutoReloader;
 class DomInspector;
+class WebInspector;
 class ColorPicker;
 class HeaderDock;
 class CSSValidator;
@@ -151,6 +152,8 @@ class Window : public QMainWindow
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
+    // WebInspector
+    WebInspector* m_webInspector;
     // Source Viewer
     SourceWidget* m_sourceWidget;
     // Read link:rev Alternate Elements

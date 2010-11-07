@@ -111,7 +111,7 @@ void WebViewer::updateWebSettings()
                        m_settings->boolValue ( QLatin1String ( "ZoomTextOnly" ), true ) );
 
   // Jetzt immer deaktiviert. Siehe Webinspector plugin!
-  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, false );
+  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
 
   wcfg->setAttribute ( QWebSettings::AutoLoadImages,
                        m_settings->boolValue ( QLatin1String ( "AutoLoadImages" ) ) );
@@ -210,6 +210,18 @@ void WebViewer::pretended ( int index )
 
   QIcon icon = QWebSettings::iconForUrl ( url );
   setTabIcon ( index, icon );
+  pageChanged();
+}
+
+/**
+* Wenn eine neue Seite aufgemacht wird dann hier
+* das Signal @ref pageEntered aufrufen!
+*/
+void WebViewer::pageChanged()
+{
+  qDebug() << Q_FUNC_INFO << "TODO Popup Sniffer";
+  if ( ! activeView()->page()->isModified() )
+    emit pageEntered ( activeView()->page() );
 }
 
 /**
@@ -290,6 +302,7 @@ void WebViewer::addViewerTab ( Viewer *view )
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
   int index = addTab ( view, title );
   setCurrentIndex ( index );
+  pageChanged();
   if ( uri.toString().contains ( "about:" ) )
     setAboutPage ( uri.toString().split ( ":" ).last() );
 }
@@ -351,6 +364,8 @@ void WebViewer::setUrl ( const QUrl &u )
   // qDebug() << Q_FUNC_INFO << u;
   activeView()->openUrl ( u );
   url = u;
+  // Bei ersten start Page mitteilen!
+  emit pageEntered ( activeView()->page() );
 }
 
 /**

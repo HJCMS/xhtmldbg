@@ -45,6 +45,7 @@
 #include "configuration.h"
 #include "statusbar.h"
 #include "dominspector.h"
+#include "webinspector.h"
 #include "headerdock.h"
 #include "autoreloadmenu.h"
 #include "autoreloader.h"
@@ -173,6 +174,11 @@ Window::Window ( Settings * settings )
   m_domInspector = new DomInspector ( this, m_settings );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
+  // WebInspector
+  // WebPage erst setzen wenn sicher gestellt wurde das eine Page vorhanden ist.
+  m_webInspector = new WebInspector ( this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
+
   // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
@@ -246,6 +252,12 @@ Window::Window ( Settings * settings )
   connect ( m_domInspector, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } DomInspector
+  // WebInspector {
+  connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
+            m_webInspector, SLOT ( setPage ( QWebPage * ) ) );
+  connect ( m_webInspector, SIGNAL ( errorMessage ( const QString & ) ),
+            this, SLOT ( setApplicationMessage ( const QString & ) ) );
+  // } WebInspector
   // TidyMessanger {
   connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
@@ -572,6 +584,8 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
   inspectorsMenu->addAction ( m_colorPicker->toggleViewAction() );
+  inspectorsMenu->addAction ( m_webInspector->toggleViewAction() );
+
 
   // Plugin Menu
   m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );
@@ -935,6 +949,7 @@ bool Window::openUrl ( const QUrl &url )
     return false;
 
   m_webViewer->setUrl ( url );
+
   return true;
 }
 
