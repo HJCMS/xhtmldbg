@@ -1,4 +1,5 @@
 # CMakeLists.txt
+##############################
 
 SET (OPTIONAL_LIBRARIES "")
 
@@ -50,6 +51,25 @@ ADD_SUBDIRECTORY (rdfparser)
 ADD_SUBDIRECTORY (plugins)
 ADD_SUBDIRECTORY (components)
 
+##############################
+## MOZILLA-PLUGIN
+##############################
+IF (XULRUNNER_FOUND)
+  SET (XHTMLDBG_BINARY_PROJECT_INCULDE 
+    ${XHTMLDBG_BINARY_PROJECT_INCULDE}
+    ${CMAKE_CURRENT_SOURCE_DIR}/npploader
+  )
+  SET (OPTIONAL_LIBRARIES
+    ${OPTIONAL_LIBRARIES}
+    NPPLoader
+  )
+  ADD_SUBDIRECTORY (npploader)
+  ADD_DEFINITIONS (-DHAVE_NPPLOADER)
+ENDIF (XULRUNNER_FOUND)
+
+##############################
+## SOURCES
+##############################
 SET (xhtmldbg_SOURCES
   main.cpp
   xhtmldbgmain.cpp
@@ -78,6 +98,9 @@ SET (xhtmldbg_SOURCES
   webinspector.cpp
 )
 
+##############################
+## HEADERS
+##############################
 SET (xhtmldbg_HEADERS
   xhtmldbgmain.h
   application.h
@@ -104,11 +127,16 @@ SET (xhtmldbg_HEADERS
   webinspector.h
 )
 
+##############################
+## NOMOC HEADERS
+##############################
 SET (xhtmldbg_NOMOC
   historyitem.h
 )
 
-## x-qt-plugin Support
+##############################
+## x-qt-plugin SUPPORT
+##############################
 IF (QT_QTUITOOLS_FOUND)
   SET (OPTIONAL_LIBRARIES ${OPTIONAL_LIBRARIES}
     ${QT_QTSCRIPT_LIBRARY}
@@ -122,12 +150,24 @@ IF (QT_QTUITOOLS_FOUND)
   )
 ENDIF (QT_QTUITOOLS_FOUND)
 
+##############################
+## generated MOC Files
+##############################
 QT4_WRAP_CPP (xhtmldbg_MOC ${xhtmldbg_HEADERS})
 
+##############################
+## INCLUDES
+##############################
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE})
 
+##############################
+## RESOURCE
+##############################
 QT4_ADD_RESOURCES (xhtmldbg_RESRC xhtmldbg.qrc)
 
+##############################
+## EXECUTABLE
+##############################
 ADD_EXECUTABLE (xhtmldbg
   ${xhtmldbg_RESRC}
   ${xhtmldbg_MOC}
@@ -138,6 +178,9 @@ ADD_EXECUTABLE (xhtmldbg
   ${xhtmldbg_SOURCES}
 )
 
+##############################
+## LINKER
+##############################
 TARGET_LINK_LIBRARIES (xhtmldbg
   About
   Bookmark
@@ -160,7 +203,9 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   ${XHTMLDBG_LIBRARIES}
 )
 
-
+##############################
+## LINKER PROPERTIES
+##############################
 SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES
   OUTPUT_NAME xhtmldbg
   LINKER_LANGUAGE CXX
@@ -168,6 +213,9 @@ SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES
   LINK_FLAGS "${LIB_FPIC_CXXFLAGS} ${APP_PIE_LDFLAGS} ${TWEAKING_LDFLAGS}"
 )
 
+##############################
+## INSTALL
+##############################
 INSTALL (TARGETS xhtmldbg DESTINATION bin)
 
 INSTALL (FILES xhtmldbg.desktop DESTINATION share/applications)

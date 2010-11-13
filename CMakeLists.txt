@@ -28,6 +28,7 @@ FIND_PACKAGE (Raptor REQUIRED)
 FIND_PACKAGE (GeoIP REQUIRED)
 FIND_PACKAGE (Java)
 FIND_PACKAGE (Gettext)
+FIND_PACKAGE (Xulrunner)
 
 ##############################################################
 ## Set xhtmldbg Specific Information

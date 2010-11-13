@@ -6,7 +6,10 @@
     <message>
         <location filename="../build/src/about/ui_aboutdialog.h" line="81"/>
         <source>About XHTMLDBG</source>
-        <translation>Über XHTMLDBG</translation>
+        <translation variants="yes">
+            <lengthvariant>Über XHTMLDBG</lengthvariant>
+            <lengthvariant></lengthvariant>
+        </translation>
     </message>
     <message>
         <location filename="../build/src/about/ui_aboutdialog.h" line="84"/>
@@ -1917,6 +1920,57 @@ Gründe : </translation>
     </message>
 </context>
 <context>
+    <name>NPPAttributes</name>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="51"/>
+        <source>Plugin Object Detected</source>
+        <translation>Plugin Objekt erkannt</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="59"/>
+        <source>Predicates</source>
+        <translation>Prädikate</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="59"/>
+        <source>Values</source>
+        <translation>Werte</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="68"/>
+        <source>Do not report bugs to XHTMLDBG Project if plug-ins produce application crashes. XHTMLDBG is not relevant for loading plugged extensions. All NPP Browser Plugins loaded by WebKit.</source>
+        <translation>Bitte melde keine Bugs beim XHTMLDBG Projekt wenn plugins Programm abstürtze Produzieren. XHTMLDBG ist nicht für das laden von Plugin erweiterungen zuständig. Alle NPP Browser Plugins werden von WebKit geladen.</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="73"/>
+        <source>Initiale</source>
+        <translation>Initialisiere</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="86"/>
+        <source>Predicate</source>
+        <translation>Prädikat</translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="88"/>
+        <source>Value</source>
+        <translation>Wert</translation>
+    </message>
+</context>
+<context>
+    <name>NPPLoader</name>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="58"/>
+        <source>MimeType</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="59"/>
+        <source>Source</source>
+        <translation>Quelle</translation>
+    </message>
+</context>
+<context>
     <name>NetworkAccessManager</name>
     <message>
         <location filename="../src/networker/networkaccessmanager.cpp" line="257"/>
@@ -1947,27 +2001,27 @@ Gründe : </translation>
         <translation>Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen.</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="142"/>
+        <location filename="../src/networker/networkcookie.cpp" line="151"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation>Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="276"/>
+        <location filename="../src/networker/networkcookie.cpp" line="288"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation>Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="301"/>
+        <location filename="../src/networker/networkcookie.cpp" line="313"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation>Ein blockiertes Cookie für den Hostnamen &quot;%1&quot; wurde verworfen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="307"/>
+        <location filename="../src/networker/networkcookie.cpp" line="319"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation>Drittanbieter Keks &quot;%1&quot; für den Host &quot;%2&quot; zurück gewiesen!</translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="366"/>
+        <location filename="../src/networker/networkcookie.cpp" line="374"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation>Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung</translation>
     </message>
@@ -1983,7 +2037,7 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="97"/>
+        <location filename="../src/page.cpp" line="104"/>
         <source> Line: %1</source>
         <translation variants="yes">
             <lengthvariant> Zeile: %1</lengthvariant>
@@ -1991,7 +2045,7 @@ Gründe : </translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="100"/>
+        <location filename="../src/page.cpp" line="107"/>
         <source> Document: %1</source>
         <translation variants="yes">
             <lengthvariant> Dokument: %1</lengthvariant>
@@ -1999,7 +2053,7 @@ Gründe : </translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="122"/>
+        <location filename="../src/page.cpp" line="129"/>
         <source>JavaScript Prompt: </source>
         <translation variants="yes">
             <lengthvariant>JavaScript Anfrage: </lengthvariant>
@@ -2007,7 +2061,7 @@ Gründe : </translation>
         </translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="314"/>
+        <location filename="../src/page.cpp" line="321"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation>(x-qt-plugin) ClassID: %1 %2</translation>
     </message>
@@ -2543,7 +2597,7 @@ Gründe : </translation>
 <context>
     <name>WebInspector</name>
     <message>
-        <location filename="../src/webinspector.cpp" line="69"/>
+        <location filename="../src/webinspector.cpp" line="73"/>
         <source>WebInspector: Update rejected - no valide url given!</source>
         <translation variants="yes">
             <lengthvariant>WebInspector: Update verworfen - Es wurde keine Valide Url übergeben!</lengthvariant>
@@ -2564,7 +2618,7 @@ Gründe : </translation>
         <translation>Eine Neue leere Seite erstellen</translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="302"/>
+        <location filename="../src/webviewer.cpp" line="306"/>
         <source>Startpage</source>
         <translation>Startseite</translation>
     </message>

@@ -26,10 +26,13 @@
 #include "downloadmanager.h"
 #include "jsmessanger.h"
 #include "javascriptpopup.h"
-
 /* QtUiTools */
 #ifdef HAVE_QTUITOOLS
 # include "uitoolsloader.h"
+#endif
+/* NPPLoader */
+#ifdef HAVE_NPPLOADER
+# include "npploader.h"
 #endif
 
 /* QtCore */
@@ -39,7 +42,6 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QVariant>
-
 
 /* QtGui */
 #include <QtGui/QApplication>
@@ -64,6 +66,11 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setForwardUnsupportedContent ( true );
 
   setNetworkAccessManager ( m_netManager );
+
+#ifdef HAVE_NPPLOADER
+  // NPP Plugin Factory
+  setPluginFactory ( new NPPLoader ( this ) );
+#endif
 
   reply = 0x00;
 

@@ -1906,6 +1906,57 @@ Reasons : </source>
     </message>
 </context>
 <context>
+    <name>NPPAttributes</name>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="51"/>
+        <source>Plugin Object Detected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="59"/>
+        <source>Predicates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="59"/>
+        <source>Values</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="68"/>
+        <source>Do not report bugs to XHTMLDBG Project if plug-ins produce application crashes. XHTMLDBG is not relevant for loading plugged extensions. All NPP Browser Plugins loaded by WebKit.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="73"/>
+        <source>Initiale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="86"/>
+        <source>Predicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/nppattributes.cpp" line="88"/>
+        <source>Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NPPLoader</name>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="58"/>
+        <source>MimeType</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="59"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NetworkAccessManager</name>
     <message>
         <location filename="../src/networker/networkaccessmanager.cpp" line="257"/>
@@ -1936,27 +1987,27 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="142"/>
+        <location filename="../src/networker/networkcookie.cpp" line="151"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="276"/>
+        <location filename="../src/networker/networkcookie.cpp" line="288"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="301"/>
+        <location filename="../src/networker/networkcookie.cpp" line="313"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="307"/>
+        <location filename="../src/networker/networkcookie.cpp" line="319"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="366"/>
+        <location filename="../src/networker/networkcookie.cpp" line="374"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1972,22 +2023,22 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="97"/>
+        <location filename="../src/page.cpp" line="104"/>
         <source> Line: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="100"/>
+        <location filename="../src/page.cpp" line="107"/>
         <source> Document: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="122"/>
+        <location filename="../src/page.cpp" line="129"/>
         <source>JavaScript Prompt: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="314"/>
+        <location filename="../src/page.cpp" line="321"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2523,7 +2574,7 @@ Reasons : </source>
 <context>
     <name>WebInspector</name>
     <message>
-        <location filename="../src/webinspector.cpp" line="69"/>
+        <location filename="../src/webinspector.cpp" line="73"/>
         <source>WebInspector: Update rejected - no valide url given!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2541,7 +2592,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="302"/>
+        <location filename="../src/webviewer.cpp" line="306"/>
         <source>Startpage</source>
         <translation type="unfinished"></translation>
     </message>
