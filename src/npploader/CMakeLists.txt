@@ -3,6 +3,7 @@
 SET (npploader_SOURCES
   npploader.cpp
   nppattributes.cpp
+  nppplugin.cpp
 )
 
 SET (npploader_HEADERS
@@ -11,6 +12,7 @@ SET (npploader_HEADERS
 )
 
 SET (npploader_NOMOC_HEADERS
+  nppplugin.h
 )
 
 QT4_WRAP_CPP (npploader_MOCS ${npploader_HEADERS})

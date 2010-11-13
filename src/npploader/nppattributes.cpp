@@ -21,13 +21,6 @@
 
 #include "nppattributes.h"
 
-// https://developer.mozilla.org/en/Gecko_Plugin_API_Reference
-// extern "C"
-// {
-// #include <npapi.h>
-// #include <npfunctions.h>
-// }
-
 /* QtCore */
 #include <QtCore/QDebug>
 

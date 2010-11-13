@@ -96,6 +96,9 @@ void WebViewer::updateWebSettings()
 
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
 
+  // Feature TEST
+  // wcfg->pluginDatabase();
+
   wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
   wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
 

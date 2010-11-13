@@ -33,6 +33,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QList>
 #include <QtCore/QString>
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
@@ -58,6 +59,7 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
+#include <QtWebKit/QWebPluginFactory>
 
 Viewer::Viewer ( QWidget * parent )
     : QWebView ( parent )
@@ -250,20 +252,27 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   style->setShortcut ( QKeySequence::Italic );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
 
-  // Stylesheet Überprüfung
-  QAction* screenshot = menu->addAction ( trUtf8 ( "Screenshot" ) );
-  screenshot->setObjectName ( QLatin1String ( "ac_context_screenshot" ) );
-  screenshot->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
-  screenshot->setToolTip ( trUtf8 ( "Screenshot from current Page." ) );
-  connect ( screenshot, SIGNAL ( triggered() ), this, SLOT ( screenshot() ) );
-
-  // Stylesheet Überprüfung
+  // Zur Quelltext Ansicht wechseln
   QAction* source = menu->addAction ( trUtf8 ( "Source" ) );
   source->setObjectName ( QLatin1String ( "ac_context_source" ) );
   source->setIcon ( QIcon::fromTheme ( QLatin1String ( "text-html" ) ) );
   source->setToolTip ( trUtf8 ( "Show Document Source" ) );
   source->setShortcut ( QKeySequence::Underline );
   connect ( source, SIGNAL ( triggered() ), this, SLOT ( showPageSource() ) );
+
+  // Einen Screenshot erstellen
+  QAction* screenshot = menu->addAction ( trUtf8 ( "Screenshot" ) );
+  screenshot->setObjectName ( QLatin1String ( "ac_context_screenshot" ) );
+  screenshot->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
+  screenshot->setToolTip ( trUtf8 ( "Screenshot from current Page." ) );
+  connect ( screenshot, SIGNAL ( triggered() ), this, SLOT ( screenshot() ) );
+
+  // Plugins Anzeigen
+  QAction* plugins = menu->addAction ( trUtf8 ( "Plugins" ) );
+  plugins->setObjectName ( QLatin1String ( "ac_context_plugins" ) );
+  plugins->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
+  plugins->setToolTip ( trUtf8 ( "Display initialed Browser-Plugins." ) );
+  connect ( plugins, SIGNAL ( triggered() ), this, SLOT ( displayPlugins() ) );
 
   // User-Agent
   menu->addMenu ( new UserAgentMenu ( menu, cfg ) );
@@ -447,6 +456,33 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
 void Viewer::errorMessage ( const QString &error )
 {
   xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( error, true );
+}
+
+/** Erzeugt eine Liste mit der mit JavaScript anzeigbaren Plugins. */
+void Viewer::displayPlugins()
+{
+  if ( page()->mainFrame() )
+  {
+    QStringList comboData;
+    QVariantMap plugins = page()->mainFrame()->evaluateJavaScript ( "window.navigator.plugins" ).toMap();
+    int pluginsLength = plugins["length"].toInt();
+    if ( pluginsLength < 1 )
+      return;
+
+    for ( int i = 0; i < pluginsLength; ++i )
+    {
+      QVariantMap plData = page()->mainFrame()->evaluateJavaScript (
+                               QString ( "window.navigator.plugins[%1]" ).arg ( i )
+                           ).toMap();
+
+      comboData << QString::fromUtf8 ( "%1 %2" ).arg (
+          plData["name"].toString(),
+          plData["description"].toString()
+      );
+    }
+
+    QMessageBox::information ( this, trUtf8 ( "Plugins" ), comboData.join ( "<br />" ) );
+  }
 }
 
 /** Ein Foto vom Aktuellen Fenster machen */

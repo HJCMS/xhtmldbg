@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QLabel>
@@ -34,14 +35,12 @@ NPPLoader::NPPLoader ( QObject * parent )
     : QWebPluginFactory ( parent )
 {
   setObjectName ( QLatin1String ( "NPPLoader" ) );
+  pluginsList.clear();
 }
 
 void NPPLoader::registerPlugins()
 {
   pluginsList.clear();
-//   PluginsFinder* m_pluginsFinder = new PluginsFinder ( pluginPath, this );
-//   pluginsList.append ( m_pluginsFinder->plugins() );
-//   delete m_pluginsFinder;
 }
 
 QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
@@ -55,8 +54,8 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
                                       | QUrl::RemoveFragment | QUrl::RemoveQuery );
 
   NPPAttributes* m_nppAttributes = new NPPAttributes;
-  m_nppAttributes->addItem ( trUtf8( "MimeType" ), mimeType );
-  m_nppAttributes->addItem ( trUtf8( "Source" ), url.toString ( urlformat ) );
+  m_nppAttributes->addItem ( trUtf8 ( "MimeType" ), mimeType );
+  m_nppAttributes->addItem ( trUtf8 ( "Source" ), url.toString ( urlformat ) );
 
   QStringListIterator it ( argumentValues );
   foreach ( QString p, argumentNames )
@@ -79,7 +78,7 @@ QList<QWebPluginFactory::Plugin> NPPLoader::plugins () const
 void NPPLoader::refreshPlugins()
 {
   registerPlugins();
-  QWebPluginFactory::refreshPlugins();
+  // QWebPluginFactory::refreshPlugins();
 }
 
 NPPLoader::~NPPLoader()

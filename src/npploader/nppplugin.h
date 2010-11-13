@@ -19,35 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NPPLOADER_H
-#define NPPLOADER_H
+#ifndef NPPPLUGIN_H
+#define NPPPLUGIN_H
 
 /* QtCore */
+#include <QtCore/QFileInfo>
 #include <QtCore/QList>
-#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QtCore/QVariant>
 
-/* QtWebKit */
-#include <QtWebKit/QWebPluginFactory>
-
-class NPPLoader : public QWebPluginFactory
+extern "C"
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+#include <npapi.h>
+#include <npfunctions.h>
+}
 
+class NPPPlugin
+{
   private:
-    mutable QList<QWebPluginFactory::Plugin> pluginsList;
-    void registerPlugins();
+    bool m_isEnabled;
+    bool m_isLoaded;
+    int m_loadCount;
+    const QFileInfo m_pluginInfo;
+
+    NPP_ShutdownProcPtr m_shutdownProcPtr;
+    NPPluginFuncs m_pluginFuncs;
+    NPNetscapeFuncs m_browserFuncs;
+    void initializeBrowserFuncs();
 
   public:
-    NPPLoader ( QObject * parent = 0 );
-    virtual QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
-    virtual QList<QWebPluginFactory::Plugin> plugins () const;
-    virtual void refreshPlugins();
-    virtual ~NPPLoader();
+    NPPPlugin ( const QString &realPath );
+    bool isEnabled() const;
+    void setEnabled ( bool );
+    bool load();
+    void unload();
+    virtual ~NPPPlugin();
 };
 
 #endif
