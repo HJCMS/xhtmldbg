@@ -475,10 +475,7 @@ void Viewer::displayPlugins()
                                QString ( "window.navigator.plugins[%1]" ).arg ( i )
                            ).toMap();
 
-      comboData << QString::fromUtf8 ( "%1 %2" ).arg (
-          plData["name"].toString(),
-          plData["description"].toString()
-      );
+      comboData << plData["name"].toString() << plData["description"].toString();
     }
 
     QMessageBox::information ( this, trUtf8 ( "Plugins" ), comboData.join ( "<br />" ) );
