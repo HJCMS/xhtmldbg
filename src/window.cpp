@@ -51,6 +51,7 @@
 #include "autoreloader.h"
 #include "colorpicker.h"
 #include "colorpickerbutton.h"
+#include "resizeportbuttons.h"
 #include "geolocation.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
@@ -140,6 +141,10 @@ Window::Window ( Settings * settings )
   QHBoxLayout* tabCornerBottomWidgetLayout = new QHBoxLayout ( tabCornerBottomWidget );
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
+
+  // Browser Fensterbreite Manipulieren
+  ResizePortButtons* m_resizePortButtons = new ResizePortButtons ( tabCornerBottomWidget );
+  tabCornerBottomWidgetLayout->addWidget ( m_resizePortButtons );
 
   // Farben Pipette Ein/Ausschalten
   ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );
@@ -293,6 +298,10 @@ Window::Window ( Settings * settings )
   connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
   // } ColorPicker
+  // ResizePortButtons {
+  connect ( m_resizePortButtons, SIGNAL ( itemClicked ( int ) ),
+            this, SLOT ( resizeBrowserWidget ( int ) ) );
+  // } ResizePortButtons
 
   // jetzt die Plugins laden
   // xhtmldbgplugger {
@@ -708,6 +717,19 @@ void Window::registerPlugins()
       m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
     }
   }
+}
+
+/**
+* Dieser SLOT setzt die Browser Fensterbreite auf ein fixes maß.
+* Siehe @ref ResizePortButtons
+*/
+void Window::resizeBrowserWidget ( int w )
+{
+  QSize s = m_webViewer->size();
+  s.setWidth ( w );
+  qDebug() << Q_FUNC_INFO  << "TODO m_webViewer resize "
+  << m_webViewer->size() << " to " << s;
+  // m_webViewer->resize ( s );
 }
 
 /**

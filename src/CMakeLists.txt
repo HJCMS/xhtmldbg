@@ -96,6 +96,7 @@ SET (xhtmldbg_SOURCES
   geolocation.cpp
   javascriptpopup.cpp
   webinspector.cpp
+  resizeportbuttons.cpp
 )
 
 ##############################
@@ -125,6 +126,7 @@ SET (xhtmldbg_HEADERS
   geolocation.h
   javascriptpopup.h
   webinspector.h
+  resizeportbuttons.h
 )
 
 ##############################
