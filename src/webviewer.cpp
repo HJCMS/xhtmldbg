@@ -54,6 +54,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setFocusPolicy ( Qt::StrongFocus );
   setTabsClosable ( true );
   setTabCornerButton();
+  setBackgroundRole (QPalette::NoRole);
 
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( QLatin1String ( "startpage" ) );
@@ -410,6 +411,24 @@ void WebViewer::zoomFactor ( int type )
       view->setZoomFactor ( 1.0 );
       break;
   }
+}
+
+/**
+* Dieser SLOT setzt die Browser Fensterbreite auf ein fixes mass.
+* Siehe @ref ResizePortButtons
+* @note Im Moment in @ref Window::Window mit MAINTAINER_REPOSITORY deaktiviert!
+*/
+void WebViewer::setViewerWidth ( int w )
+{
+  QSize s = size();
+  s.setWidth ( w );
+
+  if ( w < 250 ) // Restore
+    activeView()->page()->setPreferredContentsSize ( QSize ( 0, 0 ) );
+  else
+    activeView()->page()->setPreferredContentsSize ( s );
+
+  updateGeometry ();
 }
 
 /**

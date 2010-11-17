@@ -27,6 +27,7 @@
 #include <QtCore/QSignalMapper>
 
 /* QtGui */
+#include <QtGui/QDesktopWidget>
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
 #include <QtGui/QToolButton>
@@ -40,10 +41,13 @@ class ResizePortButtons : public QWidget
 
   private:
     const QIcon icon;
+    QDesktopWidget* m_desktopWidget;
     QSignalMapper* m_signalMapper;
     QToolButton* m_ToolButton;
     QMenu* m_menu;
-    void createSelections();
+
+  private Q_SLOTS:
+    void createSelections ( int );
 
   Q_SIGNALS:
     void itemClicked ( int );

@@ -81,6 +81,7 @@ class WebViewer : public QTabWidget
     void setUrl ( const QUrl & );
     void setWebFocus();
     void zoomFactor ( int );
+    void setViewerWidth ( int );
 
   public:
     WebViewer ( QWidget * parent = 0 );

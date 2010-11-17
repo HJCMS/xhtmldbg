@@ -144,6 +144,10 @@ Window::Window ( Settings * settings )
 
   // Browser Fensterbreite Manipulieren
   ResizePortButtons* m_resizePortButtons = new ResizePortButtons ( tabCornerBottomWidget );
+#ifdef XHTMLDBG_EXPERIMENTAL
+  // TODO Resize arbeitet im Moment nicht korrekt, deshalb nur bei mir aktiv :-/
+  m_resizePortButtons->setEnabled ( false );
+#endif
   tabCornerBottomWidgetLayout->addWidget ( m_resizePortButtons );
 
   // Farben Pipette Ein/Ausschalten
@@ -300,7 +304,7 @@ Window::Window ( Settings * settings )
   // } ColorPicker
   // ResizePortButtons {
   connect ( m_resizePortButtons, SIGNAL ( itemClicked ( int ) ),
-            this, SLOT ( resizeBrowserWidget ( int ) ) );
+            m_webViewer, SLOT ( setViewerWidth ( int ) ) );
   // } ResizePortButtons
 
   // jetzt die Plugins laden
@@ -717,19 +721,6 @@ void Window::registerPlugins()
       m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
     }
   }
-}
-
-/**
-* Dieser SLOT setzt die Browser Fensterbreite auf ein fixes maß.
-* Siehe @ref ResizePortButtons
-*/
-void Window::resizeBrowserWidget ( int w )
-{
-  QSize s = m_webViewer->size();
-  s.setWidth ( w );
-  qDebug() << Q_FUNC_INFO  << "TODO m_webViewer resize "
-  << m_webViewer->size() << " to " << s;
-  // m_webViewer->resize ( s );
 }
 
 /**

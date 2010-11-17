@@ -23,18 +23,17 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QSize>
+#include <QtCore/QRect>
 #include <QtCore/QString>
 
 /* QtGui */
 #include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
 #include <QtGui/QVBoxLayout>
-#include <QtGui/QX11Info>
 
 ResizePortButtons::ResizePortButtons ( QWidget * parent )
     : QWidget ( parent )
     , icon ( QIcon::fromTheme ( "measure" ) ) //select-rectangular
+    , m_desktopWidget ( qApp->desktop() )
 {
   setObjectName ( QLatin1String ( "ResizePortButtons" ) );
   setWindowTitle ( trUtf8 ( "Viewer Width" ) );
@@ -65,27 +64,40 @@ ResizePortButtons::ResizePortButtons ( QWidget * parent )
   connect ( m_signalMapper, SIGNAL ( mapped ( int ) ),
             this, SIGNAL ( itemClicked ( int ) ) );
 
-  createSelections();
+  connect ( m_desktopWidget, SIGNAL ( resized ( int ) ),
+            this, SLOT ( createSelections ( int ) ) );
+
+  connect ( m_desktopWidget, SIGNAL ( workAreaResized ( int ) ),
+            this, SLOT ( createSelections ( int ) ) );
+
+  createSelections ( m_desktopWidget->primaryScreen() );
 }
 
 /**
 * Nehme eine Standard Liste von Desktop Auflösungsbreiten und füge diese.
 * Wenn \b kleiner als die aktuelle Browser Auflösung in die Auswahl ein!
 */
-void ResizePortButtons::createSelections()
+void ResizePortButtons::createSelections ( int screen )
 {
   QList<int> list;
-  int maxWidth = qApp->desktop()->screen ( QX11Info::appScreen() )->size().width();
-  list << 600 << 800 << 1024 << 1152 << 1280 << 1360;
+  int maxWidth = m_desktopWidget->screenGeometry ( screen ).width();
+  list << 600 << 800 << 1024 << 1152 << 1280 << 1360 << 1600 << 1920;
 
   m_menu->clear();
+
+  // Falls der Benutzer die Bildschirm auflösung ändert, erst mal alles zurück setzen.
+  emit itemClicked ( 0 );
+
+  QAction* ac = m_menu->addAction ( icon, trUtf8 ( "Restore" ) );
+  connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
+  m_signalMapper->setMapping ( ac, 0 );
+
   for ( int i = 0; i < list.size(); ++i )
   {
     int value = list.at ( i );
     if ( value < maxWidth )
     {
-      QString title = QString::number ( value );
-      QAction* ac = m_menu->addAction ( icon, title );
+      QAction* ac = m_menu->addAction ( icon, QString::number ( value ) );
       connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
       m_signalMapper->setMapping ( ac, value );
     }

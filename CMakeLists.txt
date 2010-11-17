@@ -48,9 +48,9 @@ SET (CMAKE_INSTALL_RPATH_USE_LINK_PATH  TRUE)
 ## Extra Debugging Options
 OPTION (XHTMLDBG_BUILD_VERBOSE "Enable more Debugging Messages (ON/OFF)" OFF)
 MARK_AS_ADVANCED (XHTMLDBG_BUILD_VERBOSE)
-## Enable Beta Extensions
-OPTION (XHTMLDBG_BETA_EXTENSION "Enable Extensions that market Beta (ON/OFF)" OFF)
-MARK_AS_ADVANCED (XHTMLDBG_BETA_EXTENSION)
+## Enable experimental code fragments
+OPTION (XHTMLDBG_EXPERIMENTAL "Enable experimental features (ON/OFF)" OFF)
+MARK_AS_ADVANCED (XHTMLDBG_EXPERIMENTAL)
 
 IF (NOT QT_USE_QTNETWORK)
   MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtNetwork support.")
