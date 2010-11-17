@@ -39,9 +39,6 @@ class NPPAttributes : public QWidget
   private:
     QTreeWidget* m_treeWidget;
 
-  Q_SIGNALS:
-    void startPlugin();
-
   public Q_SLOTS:
     void addItem ( const QString &param, const QString &value );
 

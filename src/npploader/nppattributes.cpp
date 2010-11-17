@@ -27,7 +27,6 @@
 /* QtGui */
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
-#include <QtGui/QPushButton>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QVBoxLayout>
@@ -36,7 +35,7 @@ NPPAttributes::NPPAttributes ( QWidget * parent )
     : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "nppattributes" ) );
-  setMinimumWidth ( 150 );
+  setMinimumWidth ( 50 );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( "nppattributes/layout" );
@@ -47,6 +46,7 @@ NPPAttributes::NPPAttributes ( QWidget * parent )
 
   m_treeWidget = new QTreeWidget ( this );
   m_treeWidget->setObjectName ( "nppattributes/layout/tree" );
+  m_treeWidget->setMinimumWidth ( 150 );
 
   QStringList labels;
   labels << trUtf8 ( "Predicates" ) << trUtf8 ( "Values" );
@@ -58,27 +58,14 @@ NPPAttributes::NPPAttributes ( QWidget * parent )
   m_treeWidget->setFrameStyle ( QFrame::Box );
   vLayout->addWidget ( m_treeWidget );
 
-  QLabel* notice = new QLabel ( trUtf8 ( "Do not report bugs to XHTMLDBG Project if plug-ins produce application crashes. XHTMLDBG is not relevant for loading plugged extensions. All NPP Browser Plugins loaded by WebKit." ), this );
-  notice->setObjectName ( "nppattributes/layout/notice" );
-  notice->setWordWrap ( true );
-  vLayout->addWidget ( notice );
-
-  QPushButton* fire = new QPushButton ( trUtf8 ( "Initiale" ), this );
-  fire->setObjectName ( "nppattributes/layout/button" );
-  vLayout->addWidget ( fire, 0, Qt::AlignLeft );
-
   setLayout ( vLayout );
-
-  connect ( fire, SIGNAL ( clicked() ), this, SIGNAL ( startPlugin() ) );
 }
 
 void NPPAttributes::addItem ( const QString &param, const QString &value )
 {
   QTreeWidgetItem* item = new QTreeWidgetItem ( m_treeWidget );
   item->setData ( 0, Qt::DisplayRole, param );
-  item->setData ( 0, Qt::ToolTipRole, trUtf8 ( "Predicate" ) );
   item->setData ( 1, Qt::DisplayRole, value );
-  item->setData ( 1, Qt::ToolTipRole, trUtf8 ( "Value" ) );
   m_treeWidget->addTopLevelItem ( item );
 }
 
