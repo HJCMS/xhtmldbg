@@ -4,11 +4,13 @@ SET (npploader_SOURCES
   npploader.cpp
   nppattributes.cpp
   nppplugin.cpp
+  nppfailurewidget.cpp
 )
 
 SET (npploader_HEADERS
   npploader.h
   nppattributes.h
+  nppfailurewidget.h
 )
 
 SET (npploader_NOMOC_HEADERS

@@ -19,32 +19,29 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NPPATTRIBUTES_H
-#define NPPATTRIBUTES_H
+#ifndef NPPFAILUREWIDGET_H
+#define NPPFAILUREWIDGET_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QTreeWidget>
+#include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
-class NPPAttributes : public QWidget
+class NPPFailureWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QTreeWidget* m_treeWidget;
-
-  public Q_SLOTS:
-    void addItem ( const QString &param, const QString &value );
+    QLabel* m_label;
 
   public:
-    NPPAttributes ( QWidget * parent = 0 );
-    virtual ~NPPAttributes();
+    NPPFailureWidget ( const QString &message );
+    virtual ~NPPFailureWidget();
 };
 
 #endif

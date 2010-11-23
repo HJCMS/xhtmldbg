@@ -19,32 +19,33 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NPPATTRIBUTES_H
-#define NPPATTRIBUTES_H
-
-/* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QString>
+#include "nppfailurewidget.h"
 
 /* QtGui */
-#include <QtGui/QTreeWidget>
-#include <QtGui/QWidget>
+#include <QtGui/QVBoxLayout>
 
-class NPPAttributes : public QWidget
+NPPFailureWidget::NPPFailureWidget ( const QString &message )
+    : QWidget ()
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  setObjectName ( QLatin1String ( "nppfailurewidget" ) );
 
-  private:
-    QTreeWidget* m_treeWidget;
+  QVBoxLayout* layout = new QVBoxLayout ( this );
+  layout->setObjectName ( QLatin1String ( "nppfailurewidget/layout" ) );
 
-  public Q_SLOTS:
-    void addItem ( const QString &param, const QString &value );
+  QString text ( message );
+  text.append ( "\n" );
+  text.append ( trUtf8 ( "Plugin initialization aborted." ) );
 
-  public:
-    NPPAttributes ( QWidget * parent = 0 );
-    virtual ~NPPAttributes();
-};
+  m_label = new QLabel ( this );
+  m_label->setObjectName ( QLatin1String ( "nppfailurewidget/layout/label" ) );
+  m_label->setWordWrap ( true );
+  m_label->setText ( text );
+  layout->addWidget ( m_label );
 
-#endif
+  setLayout ( layout );
+}
+
+NPPFailureWidget::~NPPFailureWidget()
+{
+  m_label->clear();
+}

@@ -1924,14 +1924,32 @@ Reasons : </source>
     </message>
 </context>
 <context>
+    <name>NPPFailureWidget</name>
+    <message>
+        <location filename="../src/npploader/nppfailurewidget.cpp" line="37"/>
+        <source>Plugin initialization aborted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>NPPLoader</name>
     <message>
-        <location filename="../src/npploader/npploader.cpp" line="57"/>
+        <location filename="../src/npploader/npploader.cpp" line="52"/>
+        <source>Missing Mime-Type Declaration!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="54"/>
+        <source>Invalid URL for this Plugin Request!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/npploader/npploader.cpp" line="60"/>
         <source>MimeType</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/npploader/npploader.cpp" line="58"/>
+        <location filename="../src/npploader/npploader.cpp" line="61"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>

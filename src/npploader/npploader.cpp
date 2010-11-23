@@ -21,6 +21,7 @@
 
 #include "npploader.h"
 #include "nppattributes.h"
+#include "nppfailurewidget.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -48,7 +49,9 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
                              const QStringList &argumentValues ) const
 {
   if ( mimeType.isEmpty() )
-    return new QObject();
+    return new NPPFailureWidget ( trUtf8 ( "Missing Mime-Type Declaration!" ) );
+  else if ( ! url.isValid() )
+    return new NPPFailureWidget ( trUtf8 ( "Invalid URL for this Plugin Request!" ) );
 
   QUrl::FormattingOptions urlformat ( QUrl::RemoveAuthority | QUrl::RemoveScheme
                                       | QUrl::RemoveFragment | QUrl::RemoveQuery );
