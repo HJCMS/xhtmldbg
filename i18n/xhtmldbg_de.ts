@@ -1942,7 +1942,7 @@ Gründe : </translation>
     <message>
         <location filename="../src/npploader/nppfailurewidget.cpp" line="37"/>
         <source>Plugin initialization aborted.</source>
-        <translation type="unfinished"></translation>
+        <translation>Plugin Initialisierung fehlgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -1950,12 +1950,12 @@ Gründe : </translation>
     <message>
         <location filename="../src/npploader/npploader.cpp" line="52"/>
         <source>Missing Mime-Type Declaration!</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Mime-Type Deklaration gefunden!</translation>
     </message>
     <message>
         <location filename="../src/npploader/npploader.cpp" line="54"/>
         <source>Invalid URL for this Plugin Request!</source>
-        <translation type="unfinished"></translation>
+        <translation>Nicht valide Url Plugin anfrage erhalten!</translation>
     </message>
     <message>
         <location filename="../src/npploader/npploader.cpp" line="60"/>
