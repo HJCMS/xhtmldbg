@@ -245,17 +245,24 @@ bool NetworkCookie::isThirdPartyDomain ( const QUrl &url )
 */
 QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 {
+  QList<QNetworkCookie> list;
   if ( url.isValid() )
+    list = QNetworkCookieJar::cookiesForUrl ( url );
+
+  // Wenn leer - versuche es nur mit der Domäne und Pfad beim CookieManager
+  if ( list.isEmpty() )
   {
-    QUrl host;
-    host.setScheme ( url.scheme() );
-    host.setHost ( url.host() );
-    host.setPath ( url.path() );
-    return QNetworkCookieJar::cookiesForUrl ( url );
+    QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
+    QString path = url.path();
+    if ( ! path.contains( QRegExp( "^\\/.+\\/$" ) ) )
+      path = QLatin1String ( "/" );
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+    qDebug() << "(XHTMLDBG) Cookies Request to CookieManager: " << domain << " Path: " << path;
+#endif
+    list = m_cookieManager->getCookiesForDomain ( domain, path );
   }
-  // Versuche es nur mit der Domäne
-  QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
-  return m_cookieManager->getCookiesForDomain ( domain, url.path() );
+  return list;
 }
 
 /**
@@ -268,8 +275,8 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 *     nur als Session akzeptiert dann dieses Cookie modifizieren in dem die
 *     Laufzeit dieses Cookies entfernt wird.
 *    @li Wenn es sich um ein erlaubtes Cookie handelt dann die Laufzeit neu setzen.
-*    @li Überprüfen ob im Cookie der Wert cookie.domain nicht Leer ist.
-*     Wenn doch! Dann aus Anfrage Url die Domäne ermitteln und Cookie:Domain setzen.
+*    @li Überprüfen ob im Cookie der Wert cookie:.domain.tld nicht leer ist.
+*     Wenn doch! => An dieser Stelle aussteigen!
 *    @li Validiere die cookie.domain mit @ref validateDomainAndHost nach RFC 2109 bei
 *     fehlern wird dieses Cookie \b NICHT Akzeptiert!
 *    @li Überprüfe ob es sich um eine https Verbindung handelt und das Secure Flag gesetzt
@@ -324,7 +331,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
   tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
 
-  // CookieUrl bereinigen
+  // Ein Kopie von "url" erstellen und bereinigen
   QUrl cookieUrl;
   cookieUrl.setScheme ( url.scheme() );
   cookieUrl.setHost ( url.host() );
@@ -338,13 +345,15 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     foreach ( QNetworkCookie cookie, list )
     {
       QList<QNetworkCookie> cookies;
+      // @modified 2010/11/30
+      // cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
+      if ( cookie.domain().isEmpty() )
+        continue;
+
       if ( tmp && ! cookie.isSessionCookie() )
         cookie.setExpirationDate ( QDateTime() );
       else if ( ! cookie.isSessionCookie() && ( cookie.expirationDate() > lifeTime ) )
         cookie.setExpirationDate ( lifeTime );
-
-      if ( cookie.domain().isEmpty() )
-        cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
 
       if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl, cookieAcces.RFC2109 ) )
         continue;
@@ -380,7 +389,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     m_autoSaver->saveIfNeccessary();
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:" 
+  qDebug() << "(XHTMLDBG) Cookie Request - Host:"
   << url.host() << " Access:" << yes << " Session:" << tmp << " Saved:" << add;
 #endif
 
