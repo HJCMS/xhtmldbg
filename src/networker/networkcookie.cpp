@@ -254,7 +254,7 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
   {
     QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
     QString path = url.path();
-    if ( ! path.contains( QRegExp( "^\\/.+\\/$" ) ) )
+    if ( ! path.contains ( QRegExp ( "^\\/.+\\/$" ) ) )
       path = QLatin1String ( "/" );
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
@@ -331,7 +331,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
   tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
 
-  // Ein Kopie von "url" erstellen und bereinigen
+  // Eine Kopie von "url" erstellen und bereinigen
   QUrl cookieUrl;
   cookieUrl.setScheme ( url.scheme() );
   cookieUrl.setHost ( url.host() );

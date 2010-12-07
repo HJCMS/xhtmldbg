@@ -29,7 +29,6 @@
 /* QtGui */
 #include <QtGui/QGroupBox>
 #include <QtGui/QLineEdit>
-#include <QtGui/QPushButton>
 #include <QtGui/QWidget>
 
 /* QtScript */
@@ -61,29 +60,21 @@ class Q_DECL_EXPORT XPasswordWidget
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_PROPERTY ( QString title READ title WRITE setTitle SCRIPTABLE false )
+    Q_PROPERTY ( QString title READ title WRITE setTitle )
     Q_PROPERTY ( QString user READ user WRITE setUser )
     Q_PROPERTY ( QString password READ password WRITE setPassword )
-    Q_PROPERTY ( bool status READ status NOTIFY submitted )
+    Q_PROPERTY ( bool status READ status )
 
   private:
-    bool isReady;
-
-  private Q_SLOTS:
-    void textModified ( const QString & );
-    void restore();
-    void submit();
-
-  protected:
     QGroupBox* m_groupBox;
     QLineEdit* m_onwerLineEdit;
     QLineEdit* m_passLineEdit;
-    QPushButton* m_submitbutton;
 
-  Q_SIGNALS:
-    void modified ();
-    void submitted ();
-    void changed ( const QString &owner, const QString &pass );
+  private Q_SLOTS:
+    void textModified ( const QString & );
+
+  public Q_SLOTS:
+    void restore();
 
   public:
     explicit XPasswordWidget ( QWidget * parent = 0 );

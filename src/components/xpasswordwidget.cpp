@@ -29,6 +29,7 @@
 #include <QtGui/QGridLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QTextDocument>
@@ -41,7 +42,6 @@
 
 XPasswordWidget::XPasswordWidget ( QWidget * parent )
     : QWidget ( parent )
-    , isReady ( false )
 {
   setObjectName ( QLatin1String ( " xPasswordWidget" ) );
   setMinimumWidth ( 250 );
@@ -88,8 +88,6 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   layout->addWidget ( btn2, 1, 2, 1, 1 );
 
   QDialogButtonBox* btnBox = new QDialogButtonBox ( Qt::Horizontal, m_groupBox );
-  m_submitbutton = btnBox->addButton ( QDialogButtonBox::Apply );
-  m_submitbutton->setObjectName ( QLatin1String ( "submitbutton" ) );
   QPushButton* m_resetbutton = btnBox->addButton ( QDialogButtonBox::Reset );
   m_resetbutton->setObjectName ( QLatin1String ( "resetbutton" ) );
 
@@ -100,13 +98,12 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 
   setLayout ( vLayout );
 
-  connect ( m_onwerLineEdit, SIGNAL ( textChanged( const QString & ) ),
+  connect ( m_onwerLineEdit, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( textModified ( const QString & ) ) );
 
-  connect ( m_passLineEdit, SIGNAL ( textChanged( const QString & ) ),
+  connect ( m_passLineEdit, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( textModified ( const QString & ) ) );
 
-  connect ( m_submitbutton, SIGNAL ( clicked() ), this, SLOT ( submit() ) );
   connect ( m_resetbutton, SIGNAL ( clicked() ), this, SLOT ( restore() ) );
   connect ( btn1, SIGNAL ( clicked() ), m_onwerLineEdit, SLOT ( clear() ) );
   connect ( btn2, SIGNAL ( clicked() ), m_passLineEdit, SLOT ( clear() ) );
@@ -114,14 +111,22 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 
 bool XPasswordWidget::status()
 {
-  return isReady;
+  if ( m_onwerLineEdit->text().isEmpty() )
+  {
+    m_onwerLineEdit->setFocus();
+    return false;
+  }
+  else if ( m_passLineEdit->text().isEmpty() )
+  {
+    m_passLineEdit->setFocus();
+    return false;
+  }
+  return true;
 }
 
 void XPasswordWidget::textModified ( const QString &text )
 {
   Q_UNUSED ( text )
-  isReady = false;
-  emit modified();
 }
 
 void XPasswordWidget::restore()
@@ -129,24 +134,6 @@ void XPasswordWidget::restore()
   m_passLineEdit->clear();
   m_onwerLineEdit->clear();
   m_onwerLineEdit->setFocus();
-  isReady = false;
-}
-
-void XPasswordWidget::submit()
-{
-  if ( m_onwerLineEdit->text().isEmpty() )
-  {
-    m_onwerLineEdit->setFocus();
-    return;
-  }
-  else if ( m_passLineEdit->text().isEmpty() )
-  {
-    m_passLineEdit->setFocus();
-    return;
-  }
-  isReady = true;
-  emit submitted ();
-  emit changed ( m_onwerLineEdit->text(), m_passLineEdit->text() );
 }
 
 void XPasswordWidget::setUser ( const QString &o )

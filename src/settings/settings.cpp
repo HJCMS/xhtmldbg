@@ -36,6 +36,9 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QX11Info>
 
+/* QtCrypto */
+#include <QtCrypto>
+
 /**
 * Wenn der Klient Desktop ein Xinerama/TwinView ist.
 * Dann - An den Programm-Namen die Screen Nummer anhängen!

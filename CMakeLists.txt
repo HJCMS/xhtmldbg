@@ -23,6 +23,7 @@ FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS QTXMLPATTERNS QTSQL QTUITOOLS QTSCRIPT QTDESIGNERCOMPONENTS QTDESIGNER)
 FIND_PACKAGE (QTidy REQUIRED)
+FIND_PACKAGE (QtCrypto REQUIRED)
 FIND_PACKAGE (OpenSSL REQUIRED)
 FIND_PACKAGE (Raptor REQUIRED)
 FIND_PACKAGE (GeoIP REQUIRED)
@@ -66,6 +67,12 @@ ENDIF (XHTMLDBG_BUILD_VERBOSE)
 
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (MacroEnsureVersion)
+
+##############################################################
+# libgcrypt
+##############################################################
+# INCLUDE (FindGcryptConfig)
+# GCRYPT_CHECK (GCRYPT REQUIRED gcrypt)
 
 ##############################################################
 ## gcc g++ ld
