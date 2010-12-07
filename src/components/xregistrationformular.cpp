@@ -56,7 +56,8 @@ void XRegistrationFormular::setElementData ( const QString &name, const QVariant
   {
     findChild<QRadioButton*> ( name )->setChecked ( value.toBool() );
   }
-  qDebug() << Q_FUNC_INFO << name << value;
+  else
+    qWarning ( "Unknown Object", qPrintable ( name ) );
 }
 
 /**
