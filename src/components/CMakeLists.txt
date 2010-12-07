@@ -15,11 +15,17 @@ SET (LIBRARY_OUTPUT_PATH
   ${LIBRARY_OUTPUT_PATH}/designer
 )
 
+SET (subproject_FORMS
+  xregistrationformcomponent.ui
+)
+
 SET (subproject_SOURCES
   widgetcollection.cpp
   widgetinterface.cpp
   xpasswordwidget.cpp
   xpasswordwidgetplugin.cpp
+  xregistrationformular.cpp
+  xregistrationformularplugin.cpp
 )
 
 SET (subproject_HEADERS
@@ -27,7 +33,11 @@ SET (subproject_HEADERS
   widgetinterface.h
   xpasswordwidget.h
   xpasswordwidgetplugin.h
+  xregistrationformular.h
+  xregistrationformularplugin.h
 )
+
+QT4_WRAP_UI (subproject_UIC ${subproject_FORMS})
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
@@ -39,6 +49,7 @@ INCLUDE_DIRECTORIES (
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
 ADD_LIBRARY (XHTMLDBGWidgets MODULE
+  ${subproject_UIC}
   ${subproject_MOC}
   ${subproject_HEADERS}
   ${subproject_SOURCES}

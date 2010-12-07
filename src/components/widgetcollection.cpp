@@ -21,6 +21,7 @@
 
 #include "widgetcollection.h"
 #include "xpasswordwidgetplugin.h"
+#include "xregistrationformularplugin.h"
 
 /* QtCore */
 #include <QtCore/QtPlugin>
@@ -31,6 +32,7 @@ WidgetCollection::WidgetCollection ( QObject * parent )
   setObjectName ( QLatin1String ( "WidgetCollection" ) );
   // Mit allen Plugins befüllen
   m_plugins << new XPasswordWidgetPlugin ( this );
+  m_plugins << new XRegistrationFormularPlugin ( this );
 }
 
 QList<QDesignerCustomWidgetInterface *> WidgetCollection::customWidgets() const

@@ -1990,22 +1990,22 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="288"/>
+        <location filename="../src/networker/networkcookie.cpp" line="295"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="313"/>
+        <location filename="../src/networker/networkcookie.cpp" line="320"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="319"/>
+        <location filename="../src/networker/networkcookie.cpp" line="326"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="374"/>
+        <location filename="../src/networker/networkcookie.cpp" line="383"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2911,6 +2911,75 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location filename="../src/components/xpasswordwidgetplugin.cpp" line="40"/>
         <source>%1 - A Widget for Scriptable Web Integration</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XRegistrationFormComponent</name>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="222"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="223"/>
+        <source>Person</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="224"/>
+        <source>firstname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="225"/>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="227"/>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="229"/>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="231"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="226"/>
+        <source>surname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="228"/>
+        <source>nickname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="230"/>
+        <source>password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="232"/>
+        <source>house</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="233"/>
+        <source>female</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="234"/>
+        <source>male</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="235"/>
+        <source>age:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XRegistrationFormularPlugin</name>
+    <message>
+        <location filename="../src/components/xregistrationformularplugin.cpp" line="40"/>
+        <source>%1 - A Widget with Registration Formular</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

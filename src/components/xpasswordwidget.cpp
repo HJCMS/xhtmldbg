@@ -43,7 +43,7 @@
 XPasswordWidget::XPasswordWidget ( QWidget * parent )
     : QWidget ( parent )
 {
-  setObjectName ( QLatin1String ( " xPasswordWidget" ) );
+  setObjectName ( QLatin1String ( "xPasswordWidget" ) );
   setMinimumWidth ( 250 );
   setMinimumHeight ( 200 );
   setContentsMargins ( 5, 5, 5, 5 );
