@@ -17,7 +17,7 @@
 * along with this library; see the file COPYING.LIB.  If not, write to
 * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301, USA.
-**/
+*/
 
 #ifndef XPASSWORDWIDGET_H
 #define XPASSWORDWIDGET_H
@@ -74,6 +74,9 @@ class Q_DECL_EXPORT XPasswordWidget
     void textModified ( const QString & );
 
   public Q_SLOTS:
+    /**
+    * Reset Form
+    */
     void restore();
 
   public:
@@ -81,37 +84,37 @@ class Q_DECL_EXPORT XPasswordWidget
 
     /**
     * Returns the Status of @ref isReady
-    **/
+    */
     bool status();
 
     /**
     * Set Meta-Object Property Title for GroupBox
-    **/
+    */
     void setTitle ( const QString &t );
 
     /**
     * Current GroupBox Title
-    **/
+    */
     QString title() const;
 
     /**
     * Set Meta-Object Property for Owner Edit
-    **/
+    */
     void setUser ( const QString &u );
 
     /**
     * Current Owner Edit TextPlain Data
-    **/
+    */
     QString user() const;
 
     /**
     * Set Meta-Object Property for Password Edit
-    **/
+    */
     void setPassword ( const QString &p );
 
     /**
     * Current Password Edit TextPlain Data
-    **/
+    */
     QString password() const;
 
     virtual ~XPasswordWidget();

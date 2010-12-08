@@ -17,7 +17,7 @@
 * along with this library; see the file COPYING.LIB.  If not, write to
 * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301, USA.
-**/
+*/
 
 #ifndef XREGISTRATIONFORMULAR_H
 #define XREGISTRATIONFORMULAR_H
@@ -48,29 +48,50 @@ class Q_DECL_EXPORT XRegistrationFormular : public QWidget
     Q_PROPERTY ( QString data READ data WRITE setData )
 
   private:
+    /** Initial default Map Properties e.g. encoding,use_space... */
+    inline const QVariantMap initMap() const;
+
+    /** Modify GroupBox title */
     void setElementData ( const QString &name, const QVariant &value );
+
+  public Q_SLOTS:
+    /**
+    * Reset Form
+    */
+    void restore();
 
   public:
     explicit XRegistrationFormular ( QWidget * parent = 0 );
 
     /**
-    * Set Meta-Object Property Title for GroupBox
-    **/
+    * Modify GroupBox title
+    */
     void setTitle ( const QString &t );
 
     /**
-    * Current GroupBox Title
-    **/
+    * Read current GroupBox title
+    */
     QString title() const;
 
     /**
-    * Set Meta-Object Property Title for GroupBox
-    **/
+    * Set Input Values with Json String, for construction about
+    * this String see @ref data
+    */
     void setData ( const QString &d );
 
     /**
-    * Returns a List with all Scriptable Object an here Values (if exists ;-))!
-    **/
+    * create a list with all scriptable objects and here values.
+    * This method will build a json string.
+    * @code
+    *   {
+    *     "encoding" : "UTF-8",
+    *     "length" : Array size,
+    *     "use_space" : Boolean,
+    *     "::objectName()" : mixed Values, ...
+    *   }
+    * @endcode
+    * for more information read: @ref http://qjson.sourceforge.net/usage.html
+    */
     QString data() const;
 
     virtual ~XRegistrationFormular();

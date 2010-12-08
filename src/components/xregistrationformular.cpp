@@ -17,7 +17,7 @@
 * along with this library; see the file COPYING.LIB.  If not, write to
 * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301, USA.
-**/
+*/
 
 // XRegistrationFormular
 #include "xregistrationformular.h"
@@ -30,6 +30,7 @@
 #include <QtCore/QVariant>
 
 /* qjson */
+#include <qjson/qobjecthelper.h>
 #include <qjson/parser.h>
 #include <qjson/serializer.h>
 
@@ -42,8 +43,25 @@ XRegistrationFormular::XRegistrationFormular ( QWidget * parent )
   setMinimumHeight ( 200 );
 }
 
+/**
+* Standard Map Elemente
+*/
+inline const QVariantMap XRegistrationFormular::initMap() const
+{
+  QVariantMap m;
+  m.insert ( "encoding", "UTF-8" );
+  m.insert ( "use_space", false );
+  return m;
+}
+
+/**
+* Element Suchen und Wert zuweisen
+*/
 void XRegistrationFormular::setElementData ( const QString &name, const QVariant &value )
 {
+  if ( initMap().contains ( name ) )
+    return;
+
   if ( findChild<QLineEdit*> ( name ) )
   {
     findChild<QLineEdit*> ( name )->setText ( value.toString() );
@@ -56,29 +74,49 @@ void XRegistrationFormular::setElementData ( const QString &name, const QVariant
   {
     findChild<QRadioButton*> ( name )->setChecked ( value.toBool() );
   }
+  else if ( findChild<QGroupBox*> ( name ) )
+  {
+    if ( findChild<QGroupBox*> ( name )->isCheckable() )
+      findChild<QGroupBox*> ( name )->setChecked ( value.toBool() );
+  }
   else
-    qWarning ( "Unknown Object", qPrintable ( name ) );
+    qWarning ( "(XHTMLDBG) Unknown JSon Object - %s", qPrintable ( name ) );
 }
 
 /**
-* Set Meta-Object Property Title for GroupBox
-**/
+* Alle Felder zurück setzen
+*/
+void XRegistrationFormular::restore()
+{
+  foreach ( QLineEdit* e, findChildren<QLineEdit*>() )
+  {
+    if ( e->objectName().contains ( "person" ) )
+      e->clear();
+  }
+  if ( person_house->isCheckable() )
+    person_house->setChecked ( false );
+}
+
+/**
+* Den Titel der oberen Gruppen Box ändern!
+*/
 void XRegistrationFormular::setTitle ( const QString &t )
 {
   person_box->setTitle ( t );
 }
 
 /**
-* Current GroupBox Title
-**/
+* Den Titel der oberen Gruppen Box ausgeben
+*/
 QString XRegistrationFormular::title() const
 {
   return person_box->title();
 }
 
 /**
-* Set Meta-Object Property Title for GroupBox
-**/
+* Nehme einen JSon String und lese diesen in eine QVariantMap.
+* Danach übergebe jeden Eintrag an @ref setElementData
+*/
 void XRegistrationFormular::setData ( const QString &d )
 {
   if ( d.isEmpty() )
@@ -97,24 +135,28 @@ void XRegistrationFormular::setData ( const QString &d )
 }
 
 /**
-* Current GroupBox Title
-**/
+* Alle Inhalte der Objekte in einen JSon String schreiben!
+*/
 QString XRegistrationFormular::data() const
 {
-  QVariantMap map;
   QByteArray json;
+  QVariantMap map = initMap();
 
-  map.insert ( "encoding", "UTF-8" );
+  // Erst alle Eingabe zeilen setzen
   foreach ( QLineEdit* e, findChildren<QLineEdit*>() )
   {
     if ( e->objectName().contains ( "person" ) )
       map.insert ( e->objectName(), e->text() );
   }
-  // Radio & SpinBox
-  map.insert ( "person_house_female", person_house_female->isChecked() );
-  map.insert ( "person_house_male", person_house_male->isChecked() );
-  map.insert ( "person_age", person_age->value() );
-  map.insert ( "use_space", false );
+  // GroupBox, RadioButtons & SpinBoxes
+  if ( person_house->isChecked() )
+  {
+    map.insert ( "person_house", person_house->isChecked() );
+    map.insert ( "person_house_female", person_house_female->isChecked() );
+    map.insert ( "person_house_male", person_house_male->isChecked() );
+    map.insert ( "person_age", person_age->value() );
+  }
+  // Zum abschluss die Mappengröße setzen
   map.insert ( "length", map.size() + 1 );
 
   QJson::Serializer serializer;
@@ -125,4 +167,6 @@ QString XRegistrationFormular::data() const
 }
 
 XRegistrationFormular::~XRegistrationFormular()
-{}
+{
+  restore();
+}
