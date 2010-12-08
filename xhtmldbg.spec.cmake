@@ -59,6 +59,20 @@ Author:
 -------------
   Juergen Heinemann (Undefined)
 
+%package xqpluginswidgets
+Summary:     XQPluginWidgets Plugins
+License:     LGPLv3
+Group:       System/Libraries
+AutoReqProv: on
+Requires:    libxhtmldbg = %{version}-%{release}
+
+%description xqpluginswidgets
+a set of x-qt-plugin Plugins
+
+Author:
+-------------
+  Juergen Heinemann (Undefined)
+
 %package -n libxhtmldbg-devel
 Summary:     Development Package for xhtmldbg Plugin Interface Library
 License:     LGPLv3
@@ -174,6 +188,18 @@ popd
 %files -n libxhtmldbg%{lt_version}
 %defattr(-,root,root,-)
 %{_libdir}/libxhtmldbg-1.0.so.*
+
+## used by x-qt-plugin UILoader
+%post xqpluginswidgets
+%__ldconfig
+
+%postun xqpluginswidgets
+%__ldconfig
+
+%files xqpluginswidgets
+%defattr(-,root,root,-)
+%dir %{_libdir}/%{name}/designer
+%{_libdir}/%{name}/designer/libXQPluginWidgets.so
 
 %post -n libxhtmldbg-devel
 ##

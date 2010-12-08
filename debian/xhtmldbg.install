@@ -1,6 +1,6 @@
 etc/xdg/hjcms.de/xhtmldbg.conf
 usr/bin/xhtmldbg
-usr/lib/xhtmldbg/designer/libXHTMLDBGWidgets.so
+usr/lib/xhtmldbg/designer/libXQPluginWidgets.so
 usr/lib/xhtmldbg/libRFCBrowser.so
 usr/lib/xhtmldbg/libSelfHtmlSidebar.so
 usr/lib/xhtmldbg/libWebKitInspector.so
