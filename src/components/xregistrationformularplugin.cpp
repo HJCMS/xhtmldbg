@@ -37,7 +37,7 @@ QString XRegistrationFormularPlugin::includeFile() const
 
 QString XRegistrationFormularPlugin::whatsThis() const
 {
-  return trUtf8 ( "%1 - A Widget with Registration Formular" ).arg ( "XRegistrationFormular" );
+  return QString::fromUtf8 ( "%1 - XQPluginWidgets" ).arg ( "XRegistrationFormular" );
 }
 
 QWidget* XRegistrationFormularPlugin::createWidget ( QWidget * parent )

@@ -30,14 +30,13 @@
 #include <QtGui/QWidget>
 
 /* QtScript */
-#include <QtScript/QScriptValue>
+#include <QtScript/QScriptable>
 
 class Q_DECL_EXPORT @TEMPLATE@
       : public QWidget
+      , protected QScriptable
 {
     Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
     // Q_PROPERTY ( QString ?? READ ?? WRITE ?? )
 
   public:

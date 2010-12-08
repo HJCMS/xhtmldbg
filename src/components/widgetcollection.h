@@ -45,7 +45,7 @@ class WidgetCollection
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
     Q_CLASSINFO ( "MIME", "application/x-qt-plugin" )
-    Q_CLASSINFO ( "Description", "XHTMLDBG Widgets for x-qt-plugin Webdesign" )
+    Q_CLASSINFO ( "Description", "XQPluginWidgets a set of x-qt-plugins" )
     Q_INTERFACES ( QDesignerCustomWidgetCollectionInterface )
 
   private:

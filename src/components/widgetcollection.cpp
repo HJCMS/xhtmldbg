@@ -29,7 +29,7 @@
 WidgetCollection::WidgetCollection ( QObject * parent )
     : QObject ( parent )
 {
-  setObjectName ( QLatin1String ( "WidgetCollection" ) );
+  setObjectName ( QLatin1String ( "XQPluginWidgets" ) );
   // Mit allen Plugins befüllen
   m_plugins << new XPasswordWidgetPlugin ( this );
   m_plugins << new XRegistrationFormularPlugin ( this );
@@ -40,6 +40,6 @@ QList<QDesignerCustomWidgetInterface *> WidgetCollection::customWidgets() const
   return m_plugins;
 }
 
-Q_EXPORT_PLUGIN2 ( XHTMLDBGWidgets, WidgetCollection )
+Q_EXPORT_PLUGIN2 ( XQPluginWidgets, WidgetCollection )
 
 // EOF

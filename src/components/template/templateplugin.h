@@ -30,15 +30,13 @@
 #include <QtGui/QWidget>
 
 /* XHTMLDBG Designer */
-#include <widgetinterface.h>
+#include <designer/widgetinterface.h>
 
 class QDESIGNER_WIDGET_EXPORT @TEMPLATE@Plugin
       : public QObject
       , public WidgetInterface
 {
     Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   public:
     explicit @TEMPLATE@Plugin ( QObject * parent = 0 );

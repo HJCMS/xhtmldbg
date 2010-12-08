@@ -27,7 +27,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QMap>
 #include <QtCore/QTextCodec>
-#include <QtCore/QVariant>
 
 /* qjson */
 #include <qjson/qobjecthelper.h>

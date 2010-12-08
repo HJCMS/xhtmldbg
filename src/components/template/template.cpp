@@ -27,19 +27,12 @@
 /* QtGui */
 #include <QtGui/QVBoxLayout>
 
-/* QtScript */
-#include <QtScript/QScriptEngine>
-
 @TEMPLATE@::@TEMPLATE@ ( QWidget * parent )
     : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "@TEMPLATE@" ) );
   setMinimumWidth ( 250 );
   setMinimumHeight ( 200 );
-  setContentsMargins ( 5, 5, 5, 5 );
-
-  QScriptEngine p_scriptEngine ( this );
-  p_scriptEngine.setObjectName ( QLatin1String ( "@TEMPLATE@ScriptEngine" ) );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 

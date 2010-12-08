@@ -71,7 +71,7 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
   QDir chroot ( QDesktopServices::storageLocation ( QDesktopServices::TempLocation ) );
   setWorkingDirectory ( chroot );
 
-  // Keine (Q)t oder (X)HTMLDBG Designer Klasse dann abbrechen!
+  // Wenn keine (Q)t oder (X)QPluginWidgets Designer Klasse dann abbrechen!
   if ( ! classID.contains ( QRegExp ( "^(Q|X)\\w+$", Qt::CaseSensitive ) ) )
     return;
 

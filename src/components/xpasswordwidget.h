@@ -44,13 +44,41 @@
 * @author Jürgen Heinemann (Undefined) http://www.hjcms.de
 * @since 2010/09/10
 * @code
-  <object type="application/x-qt-plugin"
-          classid="XPasswordWidget" name="xPasswordWidget"
-          width="450" height="180">
-    <param name="title" value="Enter your Password" valuetype="data" />
-    <param name="user" value="Username" valuetype="data" />
-    <param name="password" value="MyPassword" valuetype="data" />
-  </object>
+  <script type="text/javascript">
+    /\* <![CDATA[ *\/
+        function checkForm()
+        {
+          document.getElementById( "u_data" ).value = document.xPasswordWidget.user;
+          document.getElementById( "p_data" ).value = document.xPasswordWidget.password;
+          return false;
+        }
+        function checkPlugin()
+        {
+          if ( ! document.xPasswordWidget.status )
+          {
+              var object = document.getElementById( "password_object" );
+              object.innerHTML = "<img src=\"xpasswordwidget.png\" width=\"450\" height=\"180\" \/>";
+          }
+        }
+    /\* ]]> *\/
+  </script>
+  <form action="#" method="post" target="_self" onsubmit="return checkForm();">
+    <div style="float:left;">
+        <object type="application/x-qt-plugin"
+              classid="XPasswordWidget" name="xPasswordWidget"
+              width="450" height="180" id="password_object">
+          <param name="title" value="Enter your Password" valuetype="data" />
+          <param name="user" value="Test Username" valuetype="data" />
+          <param name="password" value="hjcms.de" valuetype="data" />
+        </object>
+    </div>
+    <div style="clear:both;"></div>
+    <div style="text-align:center;">
+        <input type="reset" onclick="document.xPasswordWidget.restore();" />
+        <input type="button" onclick="document.xPasswordWidget.status;" value="Check" />
+        <input type="submit" />
+    </div>
+  </form>
 * @endcode
 */
 class Q_DECL_EXPORT XPasswordWidget

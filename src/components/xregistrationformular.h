@@ -32,11 +32,53 @@
 
 /* QtScript */
 #include <QtScript/QScriptable>
-#include <QtScript/QScriptValue>
 
 /* Ui */
 #include "ui_xregistrationformcomponent.h"
 
+/**
+* @class XRegistrationFormular
+* @short x-qt-plugin for QDesigner or Website Integration
+* @author Jürgen Heinemann (Undefined) http://www.hjcms.de
+* @since 2010/12/08
+* @code
+  <script type="text/javascript">
+    /\* <![CDATA[ *\/
+        function checkForm()
+        {
+          var json = document.xRegistrationFormular.data;
+          document.getElementById( "code" ).innerHTML = decodeURI(json);
+          return false;
+        }
+        function setData()
+        {
+          document.xRegistrationFormular.data = "{\"encoding\":\"UTF-8\",\"length\":10, \"person_age\":21,\"person_house\":true, \"person_house_female\":false, \"person_house_male\":true, \"person_name\":\"Hans\",\"person_nickname\":\"Tester\",\"person_password\":\"007\",\"person_surname\":\"Musterman\",\"use_space\":false}";
+        }
+        function checkPlugin()
+        {
+          if ( ! document.xRegistrationFormular.data )
+          {
+              var object = document.getElementById( "register_widget" );
+              object.innerHTML = "<img src=\"xpasswordwidget.png\" width=\"450\" height=\"180\" \/>";
+          }
+        }
+    /\* ]]> *\/
+  </script>
+  <form action="#" method="post" target="_self" onsubmit="return checkForm();">
+    <div>
+        <object type="application/x-qt-plugin" width="600" height="250" id="register_widget"
+              classid="XRegistrationFormular" name="xRegistrationFormular">
+          <param name="title" value="Registration" valuetype="data" />
+        </object>
+    </div>
+    <div style="text-align:center;">
+        <input type="reset" onClick="document.xRegistrationFormular.restore();" />
+        <input type="button" onClick="setData();" value="Insert" />
+        <input type="submit" />
+    </div>
+  </form>
+* @endcode
+*/
 class Q_DECL_EXPORT XRegistrationFormular : public QWidget
       , protected Ui::XRegistrationFormComponent
       , protected QScriptable

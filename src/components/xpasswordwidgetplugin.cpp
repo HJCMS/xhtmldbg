@@ -37,7 +37,7 @@ QString XPasswordWidgetPlugin::includeFile() const
 
 QString XPasswordWidgetPlugin::whatsThis() const
 {
-  return trUtf8 ( "%1 - A Widget for Scriptable Web Integration" ).arg ( "XPasswordWidget" );
+  return QString::fromUtf8 ( "%1 - XQPluginWidgets" ).arg ( "XPasswordWidget" );
 }
 
 QWidget* XPasswordWidgetPlugin::createWidget ( QWidget * parent )
