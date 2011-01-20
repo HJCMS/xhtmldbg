@@ -49,7 +49,7 @@ class NetworkSettings : public Settings
 
   private:
     QWebSettings* wcfg;
-    const QByteArray userAgentString();
+    const QByteArray userAgentString() const;
     QNetworkProxy::ProxyType proxyType();
 
   public:

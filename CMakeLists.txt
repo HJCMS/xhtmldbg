@@ -70,13 +70,7 @@ INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (MacroEnsureVersion)
 
 ##############################################################
-# libgcrypt
-##############################################################
-# INCLUDE (FindGcryptConfig)
-# GCRYPT_CHECK (GCRYPT REQUIRED gcrypt)
-
-##############################################################
-## gcc g++ ld
+## Complirer Checks e.g. "gcc g++"
 ##############################################################
 
 IF (CMAKE_COMPILER_IS_GNUCXX)

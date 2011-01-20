@@ -1,31 +1,28 @@
-This is XHTMLDBG
+This is XHTMLDBG a qt >= 4.6* based application for webpage debugging
 
--- INSTALLING SEE INSTALL
+-- SUPPORTED PLATFORMS --
+
+Currently - Only Linux is supported
+
+-- RELEASE INFORMATION --
+
+XHTMLDBG follows kernel-style version numbering.
+As such, the 0.8.x series is the current "stable" branch, and 0.9.x is considered development.
+
+-- INSTALLING SEE INSTALL --
 
 If you have a source package (a .tar.gz,.tar.bz2 or .tar.lzma file), follow the
 instructions in the INSTALL file.
 
--- SUPPORTED PLATFORMS
+-- HOW TO REPORT A BUG --
 
-Currently - Only Linux is supported
-
--- HOW TO REPORT A BUG
-
-If you think you have found a bug in xhtmldbg, we would like to hear about it so that we can fix it. 
-The hjcms bug tracking system is open to the public at http://bugs.hjcms.de/.
-
-Before reporting a bug, please use the bug-tracker's search functions
-and consult https://landfill.bugzilla.org/bugzilla-3.6-branch/page.cgi?id=bug-writing.html
-to see if the issue is already known.
-
-Always include the following information in your bug report: the name
-and version number of your compiler; the name and version number of
-your operating system; the version of xhtmldbg you are using, and what
-configure options it was compiled with.
-
-If the problem you are reporting is only visible at run-time, try to
-create a small test program that shows the problem when run. Often,
-such a program can be created with some minor changes to one of the many
-example programs in xhtmldbg's examples directory, or to the autotests that
-are available in the public source repository on http://gitweb.hjcms.de/.
-
+If you think you have found a bug in xhtmldbg,
+we would like to hear about it so that we can fix it. 
+Send me a eMail to "name . surname @ domain . tld". note, i have followed server restrictions
+- Do not use HTML format use RFC 821 text/plain otherwise, (Reject Action not taken).
+- Mails with different sender-host to mail.domain.tld (Reject “X-Spam-Status: yes“)
+- Mail with X-Headers = MS OLE Objekte (Reject “X-Spam-Status: yes“)
+- HELO/EHLO with invalid FQDN. (Reject Action not taken)
+- Attachments Mails with: pdf,zip,bat,exe,msi... (Reject “X-Spam-Status: yes“)
+- TLD's in (HELO/EHLO/TO/FROM/BODY) => (ar|au|ca|cn|es|ee|ru|pl|pi|hu|jp|edu|br|tw|tk|tv|se|us)
+  REJECT 550 Requested action not taken

@@ -1,5 +1,9 @@
 # CMakeLists.txt
 
+CONFIGURE_FILE (ts2gettext.xslt.cmake
+  ${CMAKE_CURRENT_SOURCE_DIR}/ts2gettext.xslt
+)
+
 SET (languages
   de
 )

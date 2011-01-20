@@ -3,6 +3,7 @@
 
 General "xhtmldbg" Requirements:
   -  Qt 4 >= 4.6.0 (required)  http://qt.nokia.com/products/
+  -  QJson >= 0.7.1 (Required) http://qjson.sourceforge.net
   -  libQTidy >= 0.8.2 (required) http://qtidy.hjcms.de
   -  libRaptor >= 1.4.16 and < 1.9.0 (required) http://librdf.org/raptor/NEWS.html
   -  QTidy >= 0.7.2 (required) http://qtidy.hjcms.de

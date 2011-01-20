@@ -57,7 +57,7 @@ NetworkSettings::NetworkSettings ( QObject * parent )
 * Suche in der Konfiguration nach dem aktuellen UserAgentString
 * Wenn keiner vorhanden setze den XHTMLDBG User-Agent
 */
-const QByteArray NetworkSettings::userAgentString()
+const QByteArray NetworkSettings::userAgentString() const
 {
   QString defaultAgent = value ( "UserAgentString" ).toString();
   if ( defaultAgent.isEmpty() )
