@@ -2934,14 +2934,6 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
     </message>
 </context>
 <context>
-    <name>XPasswordWidgetPlugin</name>
-    <message>
-        <location filename="../src/components/xpasswordwidgetplugin.cpp" line="40"/>
-        <source>%1 - A Widget for Scriptable Web Integration</source>
-        <translation>%1 - Ein Fenster für die Script Web Integration</translation>
-    </message>
-</context>
-<context>
     <name>XRegistrationFormComponent</name>
     <message>
         <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="222"/>
@@ -3000,14 +2992,6 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="235"/>
         <source>age:</source>
         <translation>Alter:</translation>
-    </message>
-</context>
-<context>
-    <name>XRegistrationFormularPlugin</name>
-    <message>
-        <location filename="../src/components/xregistrationformularplugin.cpp" line="40"/>
-        <source>%1 - A Widget with Registration Formular</source>
-        <translation></translation>
     </message>
 </context>
 <context>

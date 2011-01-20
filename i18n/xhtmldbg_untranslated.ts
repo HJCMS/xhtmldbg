@@ -2907,14 +2907,6 @@ Would you like to load this &quot;%1&quot; Url?</source>
     </message>
 </context>
 <context>
-    <name>XPasswordWidgetPlugin</name>
-    <message>
-        <location filename="../src/components/xpasswordwidgetplugin.cpp" line="40"/>
-        <source>%1 - A Widget for Scriptable Web Integration</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>XRegistrationFormComponent</name>
     <message>
         <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="222"/>
@@ -2972,14 +2964,6 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="235"/>
         <source>age:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>XRegistrationFormularPlugin</name>
-    <message>
-        <location filename="../src/components/xregistrationformularplugin.cpp" line="40"/>
-        <source>%1 - A Widget with Registration Formular</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

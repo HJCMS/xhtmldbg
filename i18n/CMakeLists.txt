@@ -22,6 +22,19 @@ FOREACH (lng ${languages})
   )
 ENDFOREACH (lng)
 
+IF (XSLTPROC)
+  EXEC_PROGRAM (xsltproc
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ARGS --encoding utf-8 --output ${CMAKE_CURRENT_SOURCE_DIR}/po/xhtmldbg.pot ts2gettext.xslt xhtmldbg_untranslated.ts
+  )
+  FOREACH (lng ${languages})
+    EXEC_PROGRAM (xsltproc
+      ${CMAKE_CURRENT_SOURCE_DIR}
+      ARGS --encoding utf-8 --output ${CMAKE_CURRENT_SOURCE_DIR}/po/xhtmldbg_${lng}.po ts2gettext.xslt xhtmldbg_${lng}.ts
+    )
+  ENDFOREACH (lng)
+ENDIF(XSLTPROC)
+
 INSTALL (FILES 
   ${ARCHIVE_OUTPUT_PATH}/xhtmldbg_de.qm
   ${ARCHIVE_OUTPUT_PATH}/xhtmldbgwidgets_de.qm
