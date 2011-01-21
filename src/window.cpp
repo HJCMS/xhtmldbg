@@ -234,6 +234,9 @@ Window::Window ( Settings * settings )
   connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ),
             this, SLOT ( requestsFinished ( int ) ) );
 
+  connect ( m_webViewer, SIGNAL ( currentChanged ( int ) ),
+            this, SLOT ( tabChanged ( int ) ) );
+
   connect ( m_webViewer, SIGNAL ( hitTestResult ( const QWebElement & ) ),
             m_domInspector, SLOT ( findItem ( const QWebElement & ) ) );
 
@@ -762,14 +765,12 @@ void Window::registerPlugins()
 }
 
 /**
-* Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
-* Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
-* @li DomTree::setDomTree
-* @li An alle geladenen Plugins die URL übergeben.
+* Wenn das Webviewer Tab gewechselt wird, nachsehen ob es sich um eine
+* Webpage mit gültigen Inhalt handelt und die Inhalte an den DomInspector senden!
 */
-void Window::requestsFinished ( int prozent )
+void Window::tabChanged ( int index )
 {
-  if ( prozent >= 100 )
+  if ( index != -1 )
   {
     QUrl currentUrl = m_webViewer->getUrl();
     QWebElement currentPage = m_webViewer->toWebElement();
@@ -792,6 +793,18 @@ void Window::requestsFinished ( int prozent )
         plugins.at ( i )->setUrl ( currentUrl );
     }
   }
+}
+
+/**
+* Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
+* Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
+* @li DomTree::setDomTree
+* @li An alle geladenen Plugins die URL übergeben.
+*/
+void Window::requestsFinished ( int prozent )
+{
+  if ( prozent >= 100 )
+    tabChanged ( m_webViewer->currentIndex() );
 }
 
 /**
@@ -963,7 +976,10 @@ bool Window::openFile ( const QUrl &url )
   if ( source.isNull() )
     return false;
 
-  return setSource ( source );
+  if ( m_webViewer->addViewerUrlTab ( url ) )
+    return setSource ( source );
+
+  return false;
 }
 
 /**

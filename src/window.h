@@ -199,6 +199,7 @@ class Window : public QMainWindow
 
   private Q_SLOTS:
     void requestsFinished ( int );
+    void tabChanged ( int );
     void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();

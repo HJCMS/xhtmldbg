@@ -31,7 +31,7 @@
   encoding="utf-8"
   media-type="text/plain" />
 
-<xsl:variable name="version" value="0.8.11.rc1" />
+<xsl:variable name="version" value="0.8.11.rc3" />
 <xsl:variable name="email" value="nospam@hjcms.de" />
 
 <!-- Hide -->
