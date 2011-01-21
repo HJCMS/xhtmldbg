@@ -23,6 +23,7 @@
 #define WEBVIEWER_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QSize>
 #include <QtCore/QStringList>
@@ -86,12 +87,14 @@ class WebViewer : public QTabWidget
   public:
     WebViewer ( QWidget * parent = 0 );
     bool setViewerTabByUrl ( const QUrl &, const QUrl & );
-    const QUrl getUrl();
+    bool addViewerUrlTab ( const QUrl & );
+    const QUrl getUrl ();
+    const QList<QUrl> getPageUrls();
     const QString toHtml();
     const QWebElement toWebElement();
     static const QString blank();
     void setAboutPage ( const QString & );
-    ~WebViewer();
+    virtual ~WebViewer();
 };
 
 #endif

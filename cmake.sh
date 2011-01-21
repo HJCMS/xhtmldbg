@@ -5,7 +5,7 @@
 # Copyright: See COPYING file that comes with this distribution
 #################################################################
 
-base=$HOME/hjcms/xhtmldbg
+base=../xhtmldbg
 
 test -d "${base}" || {
   base="`dirname $0`/"
@@ -21,7 +21,7 @@ fi
 
 ## needed for some development tests
 MDEFS=""
-if test -d /home/$USER/hjcms/xhtmldbg ; then
+if test -d /usr/src/packages/Heinemann/Projekte/xhtmldbg ; then
 MDEFS="-DMAINTAINER_REPOSITORY"
 fi
 

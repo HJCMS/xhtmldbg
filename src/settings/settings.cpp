@@ -149,11 +149,35 @@ const QString Settings::webLocalStoragePath()
 }
 
 /**
-* Vereinfachung : Boolische Werte abfragen
+* Url Pfad zur Historien XML Datei
 */
-bool Settings::boolValue ( const QString &p, bool b )
+const QUrl Settings::historyXml()
 {
-  return value ( p, b ).toBool();
+  QUrl u;
+  u.setScheme ( "file" );
+
+  QString p = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  p.append ( QDir::separator() );
+  p.append ( "history.xml" );
+  u.setPath ( p );
+
+  return u;
+}
+
+/**
+* Url Pfad zur Lesezeichen XBEL Datei
+*/
+const QUrl Settings::bookmarkXbel()
+{
+  QUrl u;
+  u.setScheme ( "file" );
+
+  QString p = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  p.append ( QDir::separator() );
+  p.append ( "bookmarks.xbel" );
+  u.setPath ( p );
+
+  return u;
 }
 
 /**
@@ -162,6 +186,14 @@ bool Settings::boolValue ( const QString &p, bool b )
 int Settings::intValue ( const QString &p, int i )
 {
   return value ( p, i ).toUInt();
+}
+
+/**
+* Vereinfachung : Boolische Werte abfragen
+*/
+bool Settings::boolValue ( const QString &p, bool b )
+{
+  return value ( p, b ).toBool();
 }
 
 /**

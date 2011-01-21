@@ -29,6 +29,7 @@
 #include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 #include <QtCore/QVariant>
 
 class Settings : public QSettings
@@ -80,6 +81,16 @@ class Settings : public QSettings
     * Returns for \em QWebSettings the path for HTML5 local storage.
     */
     const QString webLocalStoragePath();
+
+    /**
+    * Url Path to History XML File
+    */
+    const QUrl historyXml();
+
+    /**
+    * Url Path to Bookmark XBEL File
+    */
+    const QUrl bookmarkXbel();
 
     /**
     * Alias for QSettings::value(QString,int).toUInt()

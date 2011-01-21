@@ -76,7 +76,7 @@ const QByteArray NetworkSettings::userAgentString() const
 /**
 * ProxyType aus der Konfiguration lesen
 */
-QNetworkProxy::ProxyType NetworkSettings::proxyType()
+QNetworkProxy::ProxyType NetworkSettings::proxyType() const
 {
   int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
   return static_cast<QNetworkProxy::ProxyType> ( type );
@@ -191,5 +191,4 @@ const QList<QString> NetworkSettings::trustedCertsList()
 }
 
 NetworkSettings::~NetworkSettings()
-{
-}
+{}

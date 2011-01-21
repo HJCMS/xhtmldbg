@@ -185,7 +185,14 @@ class Window : public QMainWindow
 
     void createMenus();
     void createToolBars();
+
     void tabifyDockedWidgetUp ( QDockWidget * );
+
+    // Url and Tab Management
+    void loadPageHistory();
+    void savePageHistory();
+
+    // Plugin Management
     void registerPlugins();
     bool unregisterDatabases();
     bool unregisterPlugins();

@@ -36,6 +36,7 @@
 #include "appevents.h"
 #include "cssvalidator.h"
 #include "bookmark.h"
+#include "pagehistory.h"
 #include "historymanager.h"
 #include "historyitem.h"
 #include "historymenu.h"
@@ -313,21 +314,7 @@ Window::Window ( Settings * settings )
   // } xhtmldbgplugger
 
   // Wenn noch kein Eintrag vorhanden öffne about:welcome
-  QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
-  QUrl recentUrl = m_settings->value ( QLatin1String ( "RecentUrl" ) ).toUrl();
-  if ( startup.isValid() && ! startup.isEmpty() )
-  {
-    openUrl ( startup );
-  }
-  else if ( recentUrl.isValid() && ! recentUrl.isEmpty() )
-  {
-    if ( recentUrl.scheme().contains ( schemePattern ) )
-      openUrl ( recentUrl );
-    else
-      m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
-  }
-  else
-    m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
+  loadPageHistory();
 
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "Window/MainWindowState" ).toByteArray() );
@@ -606,6 +593,55 @@ void Window::createToolBars()
 }
 
 /**
+* Lade die zuletzt verwendeten Webseiten
+* \note Wird im Konstruktor aufgerufen.
+*/
+void Window::loadPageHistory()
+{
+  bool b = false;
+  QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
+  if ( startup.isValid() && ! startup.isEmpty() )
+  {
+    openUrl ( startup );
+    return; // Aussteigen
+  }
+  else
+  {
+    foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
+    {
+      if ( b ) // es wurde noch keine Seite geladen
+      {
+        b = m_webViewer->addViewerUrlTab ( url );
+        if ( ! b ) // bei einem fehlschlag abbrechen!
+          break;
+      }
+      else // erste Url auf das offene Tab setzen!
+      {
+        b = true;
+        openUrl ( url );
+      }
+    }
+  }
+
+  if ( ! b )
+    m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
+}
+
+/**
+* Speichere die zuletzt verwendeten Webseiten
+* \note Wird in \ref closeEvent aufgerufen.
+*/
+void Window::savePageHistory()
+{
+  if ( m_webViewer->count() < 1 )
+    return;
+
+  PageHistory hist;
+  hist.addEntries ( m_webViewer->getPageUrls() );
+  hist.saveHistory ( m_settings->historyXml() );
+}
+
+/**
 * Wird von @ref closeEvent aufgerufen.
 * Sucht nach offenen Datenbank Verbindungen und
 * versucht diese sauber zu beenden!
@@ -646,6 +682,7 @@ void Window::closeEvent ( QCloseEvent *event )
   if ( isFullScreen() ) // Keine Vollansicht Speichern!
     setWindowState ( windowState() & ~Qt::WindowFullScreen );
 
+  savePageHistory();
   unregisterDatabases ();
   unregisterPlugins ();
 
@@ -747,10 +784,11 @@ void Window::requestsFinished ( int prozent )
     m_geoLocation->setHostName ( currentUrl.host() );
     m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
 
-    // Make Secure
+    /* Make Secure
     QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
     QUrl recent ( currentUrl.toString ( options ) );
     m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
+    */
     // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
     {
@@ -967,8 +1005,7 @@ bool Window::openUrl ( const QUrl &url )
 }
 
 /**
-* Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl
-* noch nicht geöffnet ist.
+* Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl noch nicht geöffnet ist.
 * http://webmast.jh/selfhtml/navigation/sidebars/html.htm
 * http://webmast.jh/selfhtml/html/grafiken/verweis_sensitive.htm#definieren
 */

@@ -1,2183 +1,2173 @@
-# translation of xhtmldbg_de.po to German
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR GPLv3
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-# Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>, 2011.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: xhtmldbg_de\n"
+"Project-Id-Version: xhtmldbg \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20T20:31:22+01:00\n"
-"PO-Revision-Date: 2011-01-20 20:38+0100\n"
-"Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
-"Language-Team: German <de@li.org>\n"
+"POT-Creation-Date: 2011-01-21T10:15:13+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: build/src/about/ui_aboutdialog.h:81
-msgid "About XHTMLDBG"
+msgid  "About XHTMLDBG"
 msgstr "Über XHTMLDBG"
 
 #: build/src/about/ui_aboutdialog.h:84
-msgid "About"
+msgid  "About"
 msgstr "Über"
 
 #: build/src/about/ui_aboutdialog.h:85
-msgid "Contact"
+msgid  "Contact"
 msgstr "Kontakt"
 
 #: build/src/about/ui_aboutdialog.h:86
-msgid "Authors"
+msgid  "Authors"
 msgstr "Autoren"
 
 #: src/addresstoolbar.cpp:89
-msgid "Address"
+msgid  "Address"
 msgstr "Adresse"
 
 #: src/addresstoolbar.cpp:100
-msgid "Address:"
+msgid  "Address:"
 msgstr "Adresse:"
 
 #: src/addresstoolbar.cpp:107
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/addresstoolbar.cpp:193
-msgid "Sorry: FTP protocol is currently not supported"
+msgid  "Sorry: FTP protocol is currently not supported"
 msgstr "Entschuldigung: Das FTP Protokoll wird im nicht Unterstützt FTP Protokoll wird nicht Unterstützt"
 
 #: src/rdfparser/alternatelinkreader.cpp:40
-msgid "RSS/Atom"
-msgstr "RSS/Atom"
+msgid  "RSS/Atom"
+msgstr ""
 
 #: src/appevents.cpp:39
-msgid "XHTMLDBG Impartations"
+msgid  "XHTMLDBG Impartations"
 msgstr "XHTMLDBG Mitteilungen"
 
 #: src/appevents.cpp:71
-msgid "Ascending"
+msgid  "Ascending"
 msgstr "Aufteigend"
 
 #: src/appevents.cpp:75
-msgid "Descending"
+msgid  "Descending"
 msgstr "Absteigend"
 
 #: src/appevents.cpp:79
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/networker/authenticationdialog.cpp:35
-msgid "Authentication Request"
+msgid  "Authentication Request"
 msgstr "Authentifizierungs Anfrage"
 
 #: src/networker/authenticationdialog.cpp:44
-msgid "Authentication"
+msgid  "Authentication"
 msgstr "Authentifizierung"
 
 #: src/networker/authenticationdialog.cpp:50
-msgid "Login Username:"
+msgid  "Login Username:"
 msgstr "Anmelde Benutzername:"
 
 #: src/networker/authenticationdialog.cpp:62
-msgid "Login Password:"
+msgid  "Login Password:"
 msgstr "Anmelde Passwort:"
 
 #: src/autoreloadmenu.cpp:36
-msgid "Auto Refresh"
+msgid  "Auto Refresh"
 msgstr "Auto Aktualisierung"
 
 #: src/autoreloadmenu.cpp:41
-msgid "Disabled"
+msgid  "Disabled"
 msgstr "Deaktiviert"
 
 #: src/autoreloadmenu.cpp:46
-msgid "10 Seconds"
+msgid  "10 Seconds"
 msgstr "10 Sekunden"
 
 #: src/autoreloadmenu.cpp:50
-msgid "20 Seconds"
+msgid  "20 Seconds"
 msgstr "20 Sekunden"
 
 #: src/autoreloadmenu.cpp:58
-msgid "40 Seconds"
+msgid  "40 Seconds"
 msgstr "40 Sekunden"
 
 #: src/autoreloadmenu.cpp:62
-msgid "50 Seconds"
+msgid  "50 Seconds"
 msgstr "50 Sekunden"
 
 #: src/autoreloadmenu.cpp:54
-msgid "30 Seconds"
+msgid  "30 Seconds"
 msgstr "30 Sekunden"
 
 #: src/autoreloadmenu.cpp:66
-msgid "1 Minute"
+msgid  "1 Minute"
 msgstr "1 Minute"
 
 #: src/bookmark/bookmark.cpp:47
-msgid "Bookmarks"
+msgid  "Bookmarks"
 msgstr "Lesezeichen"
 
 #: src/bookmark/bookmarkeditor.cpp:48
-msgid "Bookmark Manager[*]"
+msgid  "Bookmark Manager[*]"
 msgstr "Lesezeichen Manager[*]"
 
 #: src/bookmark/bookmarkeditor.cpp:59
-msgid "Headline"
+msgid  "Headline"
 msgstr "Überschrift"
 
 #: src/bookmark/bookmarkeditor.cpp:60
-msgid "Hyperlink"
+msgid  "Hyperlink"
 msgstr "Verknüpfung"
 
 #: src/bookmark/bookmarkeditor.cpp:75
-msgid "Name:"
+msgid  "Name:"
 msgstr "Name:"
 
 #: src/bookmark/bookmarkeditor.cpp:80 src/bookmark/bookmarkeditor.cpp:81
-msgid "Folder or Bookmark Title"
+msgid  "Folder or Bookmark Title"
 msgstr "Verzeichnis oder Lesezeichen Titel"
 
 #: src/bookmark/bookmarkeditor.cpp:88 src/bookmark/bookmarkeditor.cpp:89 src/bookmark/bookmarkeditor.cpp:90
-msgid "Remove Selected Item"
+msgid  "Remove Selected Item"
 msgstr "Entferne gewählten Eintrag"
 
 #: src/bookmark/bookmarkeditor.cpp:95
-msgid "Link:"
+msgid  "Link:"
 msgstr "Verknüpfung:"
 
 #: src/bookmark/bookmarkeditor.cpp:100 src/bookmark/bookmarkeditor.cpp:101
-msgid "If this Line is Empty a Folder want created."
+msgid  "If this Line is Empty a Folder want created."
 msgstr "Wenn diese Zeile Leer ist wird ein Verzeichnis erstellt."
 
 #: src/bookmark/bookmarkeditor.cpp:108 src/bookmark/bookmarkeditor.cpp:109 src/bookmark/bookmarkeditor.cpp:110
-msgid "Add Item to Selected Main Item"
+msgid  "Add Item to Selected Main Item"
 msgstr "Füge Eintrag in den Ausgwählten Bereich ein"
 
 #: src/bookmark/bookmarkeditor.cpp:195
-msgid "Warning"
+msgid  "Warning"
 msgstr "Warnung"
 
 #: src/bookmark/bookmarkeditor.cpp:196
-msgid "I didn't add Bookmark in to other Bookmark :-) Please select a Folder."
+msgid  "I didn't add Bookmark in to other Bookmark :-) Please select a Folder."
 msgstr "Ich füge keine Lesezeichen in andere Lesezeichen ein :) Bitte wähle einen Ordner aus."
 
 #: src/bookmark/bookmarkeditor.cpp:238
-msgid "Unsaved Changes"
+msgid  "Unsaved Changes"
 msgstr "Ungespeicherte Änderungen"
 
 #: src/bookmark/bookmarkeditor.cpp:239
-msgid "Bookmark Manager found unsaved Changes. Do you realy wan to exit?"
+msgid  "Bookmark Manager found unsaved Changes. Do you realy wan to exit?"
 msgstr "Der Lesezeichen Manager hat nicht gespeicherte Änderungen entdeckt. Willst du wirklich beenden?"
 
 #: src/cssvalidator/cssconfigure.cpp:52
-msgid "no"
+msgid  "no"
 msgstr "keine"
 
 #: src/cssvalidator/cssconfigure.cpp:52
-msgid "less"
+msgid  "less"
 msgstr "weniger"
 
 #: src/cssvalidator/cssconfigure.cpp:52
-msgid "more"
+msgid  "more"
 msgstr "mehr"
 
 #: src/cssvalidator/cssconfigure.cpp:60
-msgid "Save && Exit"
+msgid  "Save && Exit"
 msgstr "Speichern && Beenden"
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:123
-msgid "Configure CSS Validation"
+msgid  "Configure CSS Validation"
 msgstr "Konfiguriere den W3C Validierer"
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:124
-msgid "The CSS profile used for the validation."
+msgid  "The CSS profile used for the validation."
 msgstr "Das CSS-Profil für die Validierung."
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:125
-msgid "The language used for the response."
+msgid  "The language used for the response."
 msgstr "Die Ausgabesprache."
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:126
-msgid "The warning level."
+msgid  "The warning level."
 msgstr "Menge der ausgegebenen Warnungen."
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:127
-msgid "The medium used for the validation."
+msgid  "The medium used for the validation."
 msgstr "Das Medium für die Validierung."
 
 #: src/cssvalidator/cssvalidator.cpp:54
-msgid "CSS Validation"
+msgid  "CSS Validation"
 msgstr "CSS Prüfung"
 
 #: src/cssvalidator/cssvalidator.cpp:152
-msgid "Rejected - CSS Validator is busy ..."
+msgid  "Rejected - CSS Validator is busy ..."
 msgstr "Verworfen - Die CSS Prüfung ist beschäftigt ..."
 
 #: src/cssvalidator/cssvalidator.cpp:198
-msgid "CSS Validator says: Invalid Url and denies this request."
+msgid  "CSS Validator says: Invalid Url and denies this request."
 msgstr "Der CSS Validator sagt: Ungültige Adresse und verweigert die Anfrage."
 
 #: src/cssvalidator/cssvalidator.cpp:211
-msgid "Checking (%1). Please wait a little!"
+msgid  "Checking (%1). Please wait a little!"
 msgstr "Prüfe (%1). Bitte warte einen Augenblick!"
 
 #: src/cssvalidator/cssvalidator.cpp:333
-msgid "To take in \"%1\" for Validation."
+msgid  "To take in \"%1\" for Validation."
 msgstr "Nehme \"%1\" für die Überprüfung an."
 
 #: src/cssvalidator/cssvalidator.cpp:355
-msgid "FailedToStart (%1) ..."
-msgstr "Startfehlschlag (%1)..."
+msgid  "FailedToStart (%1) ..."
+msgstr ""
 
 #: src/cssvalidator/cssvalidator.cpp:359
-msgid "Crashed (%1) ..."
+msgid  "Crashed (%1) ..."
 msgstr "Abgestürzt (%1) ..."
 
 #: src/cssvalidator/cssvalidator.cpp:363
-msgid "Timedout (%1) ..."
+msgid  "Timedout (%1) ..."
 msgstr "Zeitüberschreitung (%1) ..."
 
 #: src/cssvalidator/cssvalidator.cpp:367
-msgid "WriteError (%1) ..."
+msgid  "WriteError (%1) ..."
 msgstr "Schreibfehler (%1) ..."
 
 #: src/cssvalidator/cssvalidator.cpp:371
-msgid "ReadError (%1) ..."
+msgid  "ReadError (%1) ..."
 msgstr "Lesefehler (%1) ..."
 
 #: src/cssvalidator/cssvalidator.cpp:375
-msgid "UnknownError (%1) ..."
+msgid  "UnknownError (%1) ..."
 msgstr "Unbekannter Fehler (%1) ..."
 
 #: src/cssvalidator/cssvalidator.cpp:408
-msgid "Crashed see logfiles"
+msgid  "Crashed see logfiles"
 msgstr "Abgestürzt - Sehe die Logdateien ein"
 
 #: src/networker/certdialog.cpp:40
-msgid "Certification Notice"
+msgid  "Certification Notice"
 msgstr "Zertifikats Hinweis"
 
 #: src/networker/certdialog.cpp:53
-msgid "Notice"
+msgid  "Notice"
 msgstr "Hinweis"
 
 #: src/networker/certdialog.cpp:56
-msgid "Message"
+msgid  "Message"
 msgstr "Nachricht"
 
 #: src/networker/certdialog.cpp:68
-msgid "Level"
+msgid  "Level"
 msgstr "Ebene"
 
 #: src/networker/certdialog.cpp:68
-msgid "Values"
+msgid  "Values"
 msgstr "Werte"
 
 #: src/networker/certdialog.cpp:72
-msgid "Subject"
+msgid  "Subject"
 msgstr "Betreff"
 
 #: src/networker/certdialog.cpp:77
-msgid "Issuer"
+msgid  "Issuer"
 msgstr "Unterzeichner"
 
 #: src/networker/certdialog.cpp:89
-msgid "Organization (O)"
+msgid  "Organization (O)"
 msgstr "Organisation"
 
 #: src/networker/certdialog.cpp:90
-msgid "The name of the organization. (O)"
+msgid  "The name of the organization. (O)"
 msgstr "Name der Organisation (O)"
 
 #: src/networker/certdialog.cpp:95
-msgid "Common Name (CN)"
+msgid  "Common Name (CN)"
 msgstr "Gemeinsamer Name (CN)"
 
 #: src/networker/certdialog.cpp:96
-msgid "The common name; most often this is used to store the host name."
+msgid  "The common name; most often this is used to store the host name."
 msgstr "Der Gemeinsame Name; sollte den Hostnamen enthalten."
 
 #: src/networker/certdialog.cpp:101
-msgid "Locality (L)"
+msgid  "Locality (L)"
 msgstr "Örtlichkeit (L)"
 
 #: src/networker/certdialog.cpp:102
-msgid "The locality. (L)"
+msgid  "The locality. (L)"
 msgstr "Herkunft (L)"
 
 #: src/networker/certdialog.cpp:107
-msgid "Organizational UnitName (OU)"
+msgid  "Organizational UnitName (OU)"
 msgstr "Aufbauorganisation (OU)"
 
 #: src/networker/certdialog.cpp:108
-msgid "The organizational unit name. (OU)"
+msgid  "The organizational unit name. (OU)"
 msgstr "Der Aufbauorganisations Name (OU)"
 
 #: src/networker/certdialog.cpp:113
-msgid "CountryName (C)"
+msgid  "CountryName (C)"
 msgstr "Länder Name (C)"
 
 #: src/networker/certdialog.cpp:114
-msgid "The country. (C)"
+msgid  "The country. (C)"
 msgstr "Der Länder Name (C)"
 
 #: src/networker/certdialog.cpp:119
-msgid "State or Province (ST)"
+msgid  "State or Province (ST)"
 msgstr "Staat oder Provinz (ST)"
 
 #: src/networker/certdialog.cpp:120
-msgid "The state or province name. (ST)"
+msgid  "The state or province name. (ST)"
 msgstr "Der Staat oder die Provinz (ST)"
 
 #: src/networker/certdialog.cpp:139
-msgid "Certificate"
+msgid  "Certificate"
 msgstr "Zertifikat"
 
 #: src/networker/certdialog.cpp:147
-msgid "Import"
+msgid  "Import"
 msgstr "Importieren"
 
 #: src/networker/certdialog.cpp:199
-msgid "Serial Nr."
+msgid  "Serial Nr."
 msgstr "Serien Nr."
 
 #: src/networker/certdialog.cpp:206
-msgid "Expires"
+msgid  "Expires"
 msgstr "Erlischt"
 
 #: src/configuration/certissuers/certissuertable.cpp:41
-msgid "Organization (O)"
+msgid  "Organization (O)"
 msgstr "Organisation (O)"
 
 #: src/configuration/certissuers/certissuertable.cpp:42
-msgid "CommonName (CN)"
+msgid  "CommonName (CN)"
 msgstr "Gemeinsamer Name (CN)"
 
 #: src/configuration/certissuers/certissuertable.cpp:43
-msgid "Expires"
+msgid  "Expires"
 msgstr "Erlischt"
 
 #: src/configuration/certissuers/certissuers.cpp:42
-msgid "Issuers"
+msgid  "Issuers"
 msgstr "Unterzeichner"
 
 #: src/configuration/certissuers/certissuers.cpp:61
-msgid "Database:"
+msgid  "Database:"
 msgstr "Datenbank:"
 
 #: src/configuration/certissuers/certissuers.cpp:67 src/configuration/certissuers/certissuers.cpp:159
-msgid "CA Bundle Database"
+msgid  "CA Bundle Database"
 msgstr "CA Bündel Datenbank"
 
 #: src/configuration/certissuers/certissuers.cpp:156
-msgid "CA Bundle %1"
+msgid  "CA Bundle %1"
 msgstr "CA Bündle %1"
 
 #: src/configuration/certissuers/certissuers.cpp:157
-msgid "Certificate %1"
+msgid  "Certificate %1"
 msgstr "Zertifikat %1"
 
 #: src/colorpicker/colorpicker.cpp:45
-msgid "Colors"
+msgid  "Colors"
 msgstr "Farben"
 
 #: src/colorpicker/colorpicker.cpp:57
-msgid "Web Colors"
+msgid  "Web Colors"
 msgstr "Web Farben"
 
 #: src/colorpicker/colorpicker.cpp:58
-msgid "Royal Colors"
+msgid  "Royal Colors"
 msgstr "Royal Farben"
 
 #: src/colorpicker/colorpicker.cpp:59
-msgid "Rainbow Colors"
+msgid  "Rainbow Colors"
 msgstr "Regenbogen Farben"
 
 #: src/colorpicker/colorpicker.cpp:60
-msgid "Gray Colors"
+msgid  "Gray Colors"
 msgstr "Graustufen"
 
 #: src/colorpicker/colorpicker.cpp:61
-msgid "Topographic Colors"
+msgid  "Topographic Colors"
 msgstr "Topografische Farben"
 
 #: src/colorpicker/colorpicker.cpp:71
-msgid "Color preview"
+msgid  "Color preview"
 msgstr "Farben-Vorschau"
 
 #: src/colorpicker/colorpicker.cpp:96
-msgid "Color tapping"
+msgid  "Color tapping"
 msgstr "Farbe abgreifen"
 
 #: src/colorpicker/colorpickerbutton.cpp:36 src/colorpicker/colorpickerbutton.cpp:37
-msgid "Color picker"
+msgid  "Color picker"
 msgstr "Farbauswahl"
 
 #: src/configuration/configaccesscontrol.cpp:40
-msgid "Client Authentication and Access Control"
+msgid  "Client Authentication and Access Control"
 msgstr "Klient Authentifizierung und Zugangs Kontrolle"
 
 #: src/configuration/configaccesscontrol.cpp:60
-msgid "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control with Certificates please refer the Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"%1\">I know all my clients</a>?"
+msgid  "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control with Certificates please refer the Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"%1\">I know all my clients</a>?"
 msgstr "Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die Apache SSL Hilfe. How can I authenticate clients based on certificates when <a href=\"%1\">I know all my clients</a>?"
 
 #: src/configuration/configaccesscontrol.cpp:65
-msgid "Public Keyfile:"
+msgid  "Public Keyfile:"
 msgstr "Öffentlicher Schlüssel:"
 
 #: src/configuration/configaccesscontrol.cpp:79
-msgid "Private Keyfile:"
+msgid  "Private Keyfile:"
 msgstr "Privater Schlüssel:"
 
 #: src/configuration/configaccesscontrol.cpp:93
-msgid "Private Key Password:"
+msgid  "Private Key Password:"
 msgstr "Privates Passwort:"
 
 #: src/configuration/configaccesscontrol.cpp:127 src/configuration/configaccesscontrol.cpp:145
-msgid "PKCS#12 Format %1"
-msgstr "PKCS#12 Format %1"
+msgid  "PKCS#12 Format %1"
+msgstr ""
 
 #: src/configuration/configaccesscontrol.cpp:128 src/configuration/configaccesscontrol.cpp:144
-msgid "PEM or DER Encoding X.509 Format %1"
+msgid  "PEM or DER Encoding X.509 Format %1"
 msgstr "PEM oder DER Encodiertes X.509 Format %1"
 
 #: src/configuration/configaccesscontrol.cpp:130 src/configuration/configaccesscontrol.cpp:147
-msgid "Open Certificate"
+msgid  "Open Certificate"
 msgstr "Öffne Zertifikat"
 
 #: src/configuration/configbrowser.cpp:70
-msgid "Browser Settings"
+msgid  "Browser Settings"
 msgstr "Browser Einstellungen"
 
 #: src/configuration/configbrowser.cpp:84
-msgid "Do Not Buffer Upload Data when doing a HTTP POST request."
+msgid  "Do Not Buffer Upload Data when doing a HTTP POST request."
 msgstr "Speichere keine Upload Daten wenn HTTP POST verwendet wird."
 
 #: src/configuration/configbrowser.cpp:88
-msgid "Allow HTTP pipelining with requests."
+msgid  "Allow HTTP pipelining with requests."
 msgstr "Erlaube HTTP Parallelverarbeitung bei den Anfragen."
 
 #: src/configuration/configbrowser.cpp:92
-msgid "Indicates whether the HTTP Pipelining was used for receiving data Requests."
+msgid  "Indicates whether the HTTP Pipelining was used for receiving data Requests."
 msgstr "Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird."
 
 #: src/configuration/configbrowser.cpp:96
-msgid "Enable AutoLoad Images"
+msgid  "Enable AutoLoad Images"
 msgstr "Bilder Automatisch laden"
 
 #: src/configuration/configbrowser.cpp:100
-msgid "Enable Javascript"
+msgid  "Enable Javascript"
 msgstr "Aktiviere JavaScript"
 
 #: src/configuration/configbrowser.cpp:104
-msgid "Enable Plugins"
+msgid  "Enable Plugins"
 msgstr "Aktiviere Plugins"
 
 #: src/configuration/configbrowser.cpp:108
-msgid "Enable Java"
+msgid  "Enable Java"
 msgstr "Aktiviere Java"
 
 #: src/configuration/configbrowser.cpp:112
-msgid "Zoom only text"
+msgid  "Zoom only text"
 msgstr "Nur Text Zoomen"
 
 #: src/configuration/configbrowser.cpp:116
-msgid "Fetch DNS entries to speed up browsing."
+msgid  "Fetch DNS entries to speed up browsing."
 msgstr "Hole DNS Einträge für ein schnelleres Browsen."
 
 #: src/configuration/configbrowser.cpp:120
-msgid "JavaScript programs can open new windows."
+msgid  "JavaScript programs can open new windows."
 msgstr "JavaScript Programme dürfen neue Fenster öffnen."
 
 #: src/configuration/configbrowser.cpp:124
-msgid "JavaScript programs can read or write to the clipboard."
+msgid  "JavaScript programs can read or write to the clipboard."
 msgstr "Erlaube JavaScript Programmen den zugriff auf das Clipboard."
 
 #: src/configuration/configbrowser.cpp:128
-msgid "The background color and images are also drawn when the page is printed."
+msgid  "The background color and images are also drawn when the page is printed."
 msgstr "Beim Drucken von Seiten den Hintergund mit übertragen."
 
 #: src/configuration/configbrowser.cpp:132
-msgid "Locally loaded documents are allowed to access remote urls."
+msgid  "Locally loaded documents are allowed to access remote urls."
 msgstr "Lokal geöffnete Dokumente dürfen auf externe Adressen zugreifen."
 
 #: src/configuration/configbrowser.cpp:136
-msgid "Locally loaded documents are allowed to access other local urls."
+msgid  "Locally loaded documents are allowed to access other local urls."
 msgstr "Lokal geöffnete Dokumente dürfen auf andere Dokumente innerhalb des Systems zugreifen."
 
 #: src/configuration/configbrowser.cpp:140
-msgid "Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Warning: To enabe this feature might have an impact on performance."
+msgid  "Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Warning: To enabe this feature might have an impact on performance."
 msgstr "Spezifiziert ob Netzanfragen auf Cross-Site Scripting überwacht werden sollen. In einem Verdachtsmoment werden diese Inhalte geblockt und eine Meldung an die Java-Script Konsole gesendet. Warnung: Diese Einstellung hat starken Einfluss auf die Performance."
 
 #: src/configuration/configbrowser.cpp:144
-msgid "If enabled - CSS animations of the transform and opacity properties will be rendered by composing the cached content of the animated elements."
+msgid  "If enabled - CSS animations of the transform and opacity properties will be rendered by composing the cached content of the animated elements."
 msgstr "Aktiviert - Werden CSS Animationen die mit transform oder opacity Prädikaten versehen sind aus dem Systemspeicher heraus animiert."
 
 #: src/configuration/configbrowser.cpp:148
-msgid "This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store."
+msgid  "This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store."
 msgstr "Diese Einstellung aktiviert das rendern von Grafischen Inhalten mit fließenden Bildpunkten. Element Inhalte mit Grafiken werden hiermit auf den Sichtbaren Bereich synchronisiert. Bei Elementen mit dem geerbten CSS Prädikat „fixed“ hat dies keine Wirkung."
 
 #: src/configuration/configbrowser.cpp:162
-msgid "Font Settings"
+msgid  "Font Settings"
 msgstr "Schriften Einstellungen"
 
 #: src/configuration/configbrowser.cpp:169
-msgid "Default Font Size:"
+msgid  "Default Font Size:"
 msgstr "Standard Schriftgröße:"
 
 #: src/configuration/configbrowser.cpp:180
-msgid "Fixed Font Size:"
+msgid  "Fixed Font Size:"
 msgstr "Standard für die feste Schriftgröße:"
 
 #: src/configuration/configbrowser.cpp:199
-msgid "Plugins Directory"
+msgid  "Plugins Directory"
 msgstr "Plugin Verzeichnis"
 
 #: src/configuration/configcookies.cpp:42
-msgid "Cookie Management"
+msgid  "Cookie Management"
 msgstr "Keks Verwaltung"
 
 #: src/configuration/configcookies.cpp:66
-msgid "Search for existing Cookies"
+msgid  "Search for existing Cookies"
 msgstr "Suche nach einem existierenden Keks"
 
 #: src/configuration/configcookies.cpp:76
-msgid "Remove"
+msgid  "Remove"
 msgstr "Entfernen"
 
 #: src/configuration/configcookies.cpp:77
-msgid "Remove Selected Cookie"
+msgid  "Remove Selected Cookie"
 msgstr "Entferne den ausgwählten Keks"
 
 #: src/configuration/configcookies.cpp:83
-msgid "Clear Cookies Table"
+msgid  "Clear Cookies Table"
 msgstr "Leer die Kekstabelle"
 
 #: src/configuration/configcookies.cpp:87
-msgid "Create a new Cookie provision"
+msgid  "Create a new Cookie provision"
 msgstr "Erstelle eine neue Cookie Regelung"
 
 #: src/configuration/configcookies.cpp:97
-msgid "Hostname"
-msgstr "Hostname"
+msgid  "Hostname"
+msgstr ""
 
 #: src/configuration/configcookies.cpp:108
-msgid "Merely current Session"
+msgid  "Merely current Session"
 msgstr "Lediglich nur für die Sitzung"
 
 #: src/configuration/configcookies.cpp:109
-msgid "Always Blocked"
+msgid  "Always Blocked"
 msgstr "Immer verhindern"
 
 #: src/configuration/configcookies.cpp:110
-msgid "Always Allowed"
+msgid  "Always Allowed"
 msgstr "Immer erlauben"
 
 #: src/configuration/configcookies.cpp:118
-msgid "Add"
+msgid  "Add"
 msgstr "Einfügen"
 
 #: src/configuration/configdomtree.cpp:37
-msgid "DOM Inspector"
+msgid  "DOM Inspector"
 msgstr "DOM Kontrolleur"
 
 #: src/configuration/configdomtree.cpp:50
-msgid "Enable Background Highlight"
+msgid  "Enable Background Highlight"
 msgstr "Aktiviere die Hintergrund Hervorhebung"
 
 #: src/configuration/configdomtree.cpp:70
-msgid "Enable Border Highlight"
+msgid  "Enable Border Highlight"
 msgstr "Aktiviere die Rahmen Hervorhebung"
 
 #: src/configuration/configextras.cpp:41
-msgid "Extensions"
+msgid  "Extensions"
 msgstr "Erweiterungen"
 
 #: src/configuration/configextras.cpp:52
-msgid "Geological IP Resolver"
+msgid  "Geological IP Resolver"
 msgstr "Geologischer IP Koordinatenwandler"
 
 #: src/configuration/configextras.cpp:60
-msgid "Database"
+msgid  "Database"
 msgstr "Datenbank"
 
 #: src/configuration/configextras.cpp:101
-msgid "GeoIP Database %1"
+msgid  "GeoIP Database %1"
 msgstr "GeoIP Datenbank %1"
 
 #: src/configuration/configheaderdefinitions.cpp:37
-msgid "Header Field Definitions"
+msgid  "Header Field Definitions"
 msgstr "Datenkopf Definitionen"
 
 #: src/configuration/configheaderdefinitions.cpp:46
-msgid "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>"
+msgid  "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>"
 msgstr "Warnung: Editiere diese Tabelle nicht, wenn du nicht weist wie sie Arbeitet. Für mehr Informationen siehe <a href=\"%1\">rfc2616</a>"
 
 #: src/configuration/configheaderdefinitions.cpp:57
-msgid "Parameter"
+msgid  "Parameter"
 msgstr "Parameter"
 
 #: src/configuration/configheaderdefinitions.cpp:58
-msgid "Values"
+msgid  "Values"
 msgstr "Werte"
 
 #: src/configuration/configide.cpp:44
-msgid "Defaults"
+msgid  "Defaults"
 msgstr "Standards"
 
 #: src/configuration/configide.cpp:59
-msgid "Load this URL as default on start, if empty xhtmldbg will use recently viewed Url."
+msgid  "Load this URL as default on start, if empty xhtmldbg will use recently viewed Url."
 msgstr "Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte verwendetet."
 
 #: src/configuration/configide.cpp:87
-msgid "Do not open Downloadmanager on Application start."
+msgid  "Do not open Downloadmanager on Application start."
 msgstr "Öffne nicht die Download Verwaltung beim Programmstart."
 
 #: src/configuration/configide.cpp:94
-msgid "W3C CSS Validator Settings"
+msgid  "W3C CSS Validator Settings"
 msgstr "W3C Validierer Einstellungen"
 
 #: src/configuration/configide.cpp:105
-msgid "Java Application"
+msgid  "Java Application"
 msgstr "Java Programm"
 
 #: src/configuration/configide.cpp:122
-msgid "Path to W3C Validator file"
+msgid  "Path to W3C Validator file"
 msgstr "Pfad zur W3C Validierer Datei"
 
 #: src/configuration/configide.cpp:139
-msgid "W3C Validator CLASSPATH"
+msgid  "W3C Validator CLASSPATH"
 msgstr "Klassen Pfad des W3C Validierers"
 
 #: src/configuration/configide.cpp:188
-msgid "Default Icon Theme"
+msgid  "Default Icon Theme"
 msgstr "Standard Icon Thema"
 
 #: src/configuration/configide.cpp:312
-msgid "Icon Theme path"
+msgid  "Icon Theme path"
 msgstr "Icon Thema Pfad"
 
 #: src/configuration/configide.cpp:246
-msgid "<div style=\"color:red;\">W3C CSS Validator not found!</div><div>You can download it from <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Homepage.</div>"
+msgid  "<div style=\"color:red;\">W3C CSS Validator not found!</div><div>You can download it from <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Homepage.</div>"
 msgstr "<div style=\"color:red;\">Der W3C CSS Validierer wurde nicht gefunden!</div><div>Du kannst ihn von der <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Seite herunterladen.</div>"
 
 #: src/configuration/configide.cpp:166
-msgid "Application Theme Settings"
+msgid  "Application Theme Settings"
 msgstr "Programm Themen EInstellungen"
 
 #: src/configuration/configide.cpp:176
-msgid "On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path's to make sure where your Selected Icon Theme located."
+msgid  "On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path's to make sure where your Selected Icon Theme located."
 msgstr "Beim Programmstart, versucht Qt alle Icon Thema Pfade ein zu lesen und sucht in ihnen rekursiv nach den von xhtmldbg verwendeten Icons. Das macht den Programmstart auf ix86 Systemen langsamer. Mit dieser Liste kannst du die Performance dieser Operation steigern. Achtung! Wenn Sie diese Pfade setzen, stellen Sie bitte sicher das Ihr ausgewähltes Icon Thema in einem dieser Pfade liegt."
 
 #: src/configuration/configide.cpp:194
-msgid "The Default Icon Theme is (Oxygen)"
+msgid  "The Default Icon Theme is (Oxygen)"
 msgstr "Das Standard Icon Thema ist (Oxygen)"
 
 #: src/configuration/configide.cpp:279
-msgid "Java-Archive %1"
+msgid  "Java-Archive %1"
 msgstr "Java-Archiv %1"
 
 #: src/configuration/configide.cpp:280
-msgid "All %1"
+msgid  "All %1"
 msgstr "Alles %1"
 
 #: src/configuration/configide.cpp:282
-msgid "W3C CSS Validator"
+msgid  "W3C CSS Validator"
 msgstr "W3C CSS Validierer"
 
 #: src/configuration/configide.cpp:298
-msgid "W3C CSS Validator Java-Archive"
+msgid  "W3C CSS Validator Java-Archive"
 msgstr "W3C CSS Validierer Java-Archiv"
 
 #: src/configuration/configproxy.cpp:33
-msgid "Proxy"
-msgstr "Proxy"
+msgid  "Proxy"
+msgstr ""
 
 #: src/configuration/configproxy.cpp:49
-msgid "The Network Proxy Type:"
+msgid  "The Network Proxy Type:"
 msgstr "Type des Netzwerk Proxies:"
 
 #: src/configuration/configproxy.cpp:59
-msgid "Socks 5 (Based on RFC 1928 and RFC 1929)"
+msgid  "Socks 5 (Based on RFC 1928 and RFC 1929)"
 msgstr "Socks 5 (Basierend auf RFC 1928 und RFC 1329)"
 
 #: src/configuration/configproxy.cpp:61
-msgid "HTTP Transparent Proxying (Default)"
+msgid  "HTTP Transparent Proxying (Default)"
 msgstr "HTTP Transparenter Proxy (Standard)"
 
 #: src/configuration/configproxy.cpp:63
-msgid "Caching-only HTTP (Only for HTTP Requests)"
+msgid  "Caching-only HTTP (Only for HTTP Requests)"
 msgstr "Caching-only HTTP (Nur für HTTP Anfragen)"
 
 #: src/configuration/configproxy.cpp:65
-msgid "Caching FTP (Only for FTP Requests)"
+msgid  "Caching FTP (Only for FTP Requests)"
 msgstr "Caching FTP (Nur für FTP Anfragen)"
 
 #: src/configuration/configproxy.cpp:71
-msgid "Hostname of the Proxy:"
+msgid  "Hostname of the Proxy:"
 msgstr "Proxy Hostname:"
 
 #: src/configuration/configproxy.cpp:84
-msgid "Proxy Port Number:"
+msgid  "Proxy Port Number:"
 msgstr "Proxy Port Adresse:"
 
 #: src/configuration/configproxy.cpp:99
-msgid "Authentication Username:"
+msgid  "Authentication Username:"
 msgstr "Zugangs Benutzername:"
 
 #: src/configuration/configproxy.cpp:112
-msgid "Authentication Password:"
+msgid  "Authentication Password:"
 msgstr "Zugangs Passwort:"
 
 #: src/configuration/configssl.cpp:31
-msgid "SSL Certification"
+msgid  "SSL Certification"
 msgstr "SSL Zertifizierung"
 
 #: src/configuration/configtidy.cpp:36
-msgid "QTidy Source Parser"
+msgid  "QTidy Source Parser"
 msgstr "QTidy Syntax Analysierer"
 
 #: src/configuration/configtidy.cpp:46
-msgid "Enable Auto Source Check"
+msgid  "Enable Auto Source Check"
 msgstr "Aktiviere Automatische Überprüfung"
 
 #: src/configuration/configtidy.cpp:50
-msgid "Enable Autoformat and Check Source"
+msgid  "Enable Autoformat and Check Source"
 msgstr "Aktiviere Automatisches Bereinigen"
 
 #: src/configuration/configtidy.cpp:54
-msgid "Disable autoformat and autocheck"
+msgid  "Disable autoformat and autocheck"
 msgstr "Deaktiviere Automatische Überprüfung und Syntaxbereinigung"
 
 #: src/configuration/configtrustedhosts.cpp:38
-msgid "Whitelist for Untrusted Certificates"
+msgid  "Whitelist for Untrusted Certificates"
 msgstr "Weiße Liste für nicht vertrauenswürdig Zertifikate"
 
 #: src/configuration/configuseragents.cpp:31
-msgid "User-Agent"
+msgid  "User-Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/configutils.cpp:54
-msgid "Binary *%1*"
+msgid  "Binary *%1*"
 msgstr "Programm *%1*"
 
 #: src/configuration/configutils.cpp:55 src/configuration/configutils.cpp:73
-msgid "All %1"
+msgid  "All %1"
 msgstr "Alles %1"
 
 #: src/configuration/configutils.cpp:57
-msgid "Find Application"
+msgid  "Find Application"
 msgstr "Annwendung finden"
 
 #: src/configuration/configutils.cpp:75
-msgid "Find File"
+msgid  "Find File"
 msgstr "Dateisuche"
 
 #: src/configuration/configutils.cpp:127 src/configuration/configutils.cpp:149
-msgid "PKCS#12 Format %1"
-msgstr "PKCS#12 Format %1"
+msgid  "PKCS#12 Format %1"
+msgstr ""
 
 #: src/configuration/configutils.cpp:128 src/configuration/configutils.cpp:148
-msgid "PEM or DER Encoding X.509 Format %1"
+msgid  "PEM or DER Encoding X.509 Format %1"
 msgstr "PEM oder DER Encodiertes X.509 Format %1"
 
 #: src/configuration/configutils.cpp:131 src/configuration/configutils.cpp:152
-msgid "Open Certificate"
+msgid  "Open Certificate"
 msgstr "Öffne Zertifikat"
 
 #: src/configuration/configuration.cpp:66
-msgid "Configure xhtmldbg[*]"
+msgid  "Configure xhtmldbg[*]"
 msgstr "Konfiguriere xhtmldbg[*]"
 
 #: src/configuration/configuration.cpp:154
-msgid "Restore Settings"
+msgid  "Restore Settings"
 msgstr "Einstellungen Zurücksetzen"
 
 #: src/configuration/configuration.cpp:155
-msgid "All configuration options will be restored. After this operation, the configuration dialog will be closed automatically and you must restart the Application. Do you really want to do this?"
+msgid  "All configuration options will be restored. After this operation, the configuration dialog will be closed automatically and you must restart the Application. Do you really want to do this?"
 msgstr "Alle Konfigurations Optionen werden zurück gesetzt und gehen verloren. Nach dieser Aktion wird sich der Konfigurations Dialog Automatisch schließen und du must das Programm neu starten. Willst du das wirklich machen?"
 
 #: src/configuration/configuration.cpp:174
-msgid "Unsaved Changes"
+msgid  "Unsaved Changes"
 msgstr "Ungespeicherte Änderungen"
 
 #: src/configuration/configuration.cpp:175
-msgid "Found unsaved Changes. Do you really want to exit?"
+msgid  "Found unsaved Changes. Do you really want to exit?"
 msgstr "Nicht gespeicherte Einstellungen. Willst du wirklich beenden?"
 
 #: src/configuration/configurationmenu.cpp:45
-msgid "Defaults"
+msgid  "Defaults"
 msgstr "Standards"
 
 #: src/configuration/configurationmenu.cpp:46
-msgid "Tidy"
-msgstr "Tidy"
+msgid  "Tidy"
+msgstr ""
 
 #: src/configuration/configurationmenu.cpp:47
-msgid "Dom Inspector"
+msgid  "Dom Inspector"
 msgstr "DOM Kontrolleur"
 
 #: src/configuration/configurationmenu.cpp:48
-msgid "Browser"
-msgstr "Browser"
+msgid  "Browser"
+msgstr ""
 
 #: src/configuration/configurationmenu.cpp:49
-msgid "Cookies"
+msgid  "Cookies"
 msgstr "Kekse"
 
 #: src/configuration/configurationmenu.cpp:50
-msgid "Proxy"
-msgstr "204 Proxy"
+msgid  "Proxy"
+msgstr ""
 
 #: src/configuration/configurationmenu.cpp:51
-msgid "Certification"
+msgid  "Certification"
 msgstr "Zertifizierung"
 
 #: src/configuration/configurationmenu.cpp:52
-msgid "User Agent"
+msgid  "User Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/configurationmenu.cpp:53
-msgid "Extensions"
+msgid  "Extensions"
 msgstr "Erweiterungen"
 
 #: src/configuration/configurationmenu.cpp:67
-msgid "%1 Configuration options."
+msgid  "%1 Configuration options."
 msgstr "%1 Konfigurations Optionen."
 
 #: src/sourceviewer/contextmenu.cpp:37
-msgid "Debugger"
+msgid  "Debugger"
 msgstr "Debugger"
 
 #: src/sourceviewer/contextmenu.cpp:42
-msgid "Check Source"
+msgid  "Check Source"
 msgstr "Quelltext prüfen"
 
 #: src/sourceviewer/contextmenu.cpp:44
-msgid "Check Document Source"
+msgid  "Check Document Source"
 msgstr "Dokumenten Quelltext Überprüfen"
 
 #: src/sourceviewer/contextmenu.cpp:49
-msgid "Format Source"
+msgid  "Format Source"
 msgstr "Quelltext Formatieren"
 
 #: src/sourceviewer/contextmenu.cpp:51
-msgid "Format Document Source"
+msgid  "Format Document Source"
 msgstr "Den Dokumenten Quelltext formatieren"
 
 #: src/sourceviewer/contextmenu.cpp:57
-msgid "Document"
+msgid  "Document"
 msgstr "Dokument"
 
 #: src/sourceviewer/contextmenu.cpp:60
-msgid "Save"
+msgid  "Save"
 msgstr "Speichern"
 
 #: src/sourceviewer/contextmenu.cpp:62
-msgid "Save Html Source to ..."
+msgid  "Save Html Source to ..."
 msgstr "Speichere das HTML unter ..."
 
 #: src/sourceviewer/contextmenu.cpp:67
-msgid "Print"
+msgid  "Print"
 msgstr "Drucken"
 
 #: src/sourceviewer/contextmenu.cpp:69
-msgid "Print current Document"
+msgid  "Print current Document"
 msgstr "Drucke aktuelles Dokument"
 
 #: src/sourceviewer/contextmenu.cpp:75
-msgid "View"
+msgid  "View"
 msgstr "Ansicht"
 
 #: src/sourceviewer/contextmenu.cpp:78
-msgid "Wordwrap"
+msgid  "Wordwrap"
 msgstr "Textumbruch"
 
 #: src/sourceviewer/contextmenu.cpp:80
-msgid "enable disable line wrap mode"
+msgid  "enable disable line wrap mode"
 msgstr "(De)aktiviere den Textumbruch"
 
 #: src/cookieacceptdialog.cpp:41
-msgid "URL Cookie Requirement"
+msgid  "URL Cookie Requirement"
 msgstr "URL Keks Anforderung"
 
 #: src/cookieacceptdialog.cpp:47
-msgid "The Host have sent a Cookie request, add here the Arrangement."
+msgid  "The Host have sent a Cookie request, add here the Arrangement."
 msgstr "Die Webseite möchte einen Keks setzen, bearbeite hier deine Regelung."
 
 #: src/cookieacceptdialog.cpp:56
-msgid "Ready"
+msgid  "Ready"
 msgstr "Fertig"
 
 #: src/cookiesdatabase/cookieaccesscombobox.cpp:37
-msgid "Session"
+msgid  "Session"
 msgstr "Sitzung"
 
 #: src/cookiesdatabase/cookieaccesscombobox.cpp:38
-msgid "Blocked"
+msgid  "Blocked"
 msgstr "Verhindert"
 
 #: src/cookiesdatabase/cookieaccesscombobox.cpp:39
-msgid "Allowed"
+msgid  "Allowed"
 msgstr "Erlaubt"
 
 #: src/cookiesdatabase/cookiesboolcombobox.cpp:37
-msgid "Disabled"
+msgid  "Disabled"
 msgstr "Deaktiviert"
 
 #: src/cookiesdatabase/cookiesboolcombobox.cpp:38
-msgid "Enabled"
+msgid  "Enabled"
 msgstr "Aktiviert"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:65
-msgid "Domain"
+msgid  "Domain"
 msgstr "Domäne"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:65
-msgid "Arrangement"
+msgid  "Arrangement"
 msgstr "Regelung"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:66
-msgid "Allow third party"
+msgid  "Allow third party"
 msgstr "Erlaube Dritte"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:66
-msgid "rfc2109"
+msgid  "rfc2109"
 msgstr "RFC-2109"
 
 #: src/configuration/directorychooser/directorydialog.cpp:42
-msgid "Directory"
+msgid  "Directory"
 msgstr "Verzeichnis"
 
 #: src/docking/docktreewidget.cpp:95
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/docking/docktreewidget.cpp:99
-msgid "Expand All"
+msgid  "Expand All"
 msgstr "Komplett Einblenden"
 
 #: src/docking/docktreewidget.cpp:103
-msgid "Collapse All"
+msgid  "Collapse All"
 msgstr "Komplett Ausblenden"
 
 #: src/dominspector/dominspector.cpp:48
-msgid "DomTree"
-msgstr "DomTree"
+msgid  "DomTree"
+msgstr ""
 
 #: src/dominspector/domtoolbar.cpp:37
-msgid "Actions"
+msgid  "Actions"
 msgstr "Aktionen"
 
 #: src/dominspector/domtoolbar.cpp:54
-msgid "Expand"
+msgid  "Expand"
 msgstr "Einblenden"
 
 #: src/dominspector/domtoolbar.cpp:50
-msgid "Collapse"
+msgid  "Collapse"
 msgstr "Ausblenden"
 
 #: src/dominspector/domtoolbar.cpp:52
-msgid "Collapse Tree"
+msgid  "Collapse Tree"
 msgstr "Baum Ausblenden"
 
 #: src/dominspector/domtoolbar.cpp:56
-msgid "Expanding Tree"
+msgid  "Expanding Tree"
 msgstr "Baum Einblenden"
 
 #: src/dominspector/domtoolbar.cpp:58
-msgid "Deselect"
+msgid  "Deselect"
 msgstr "Abwählen"
 
 #: src/dominspector/domtoolbar.cpp:60
-msgid "Deselect Highlights"
+msgid  "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
 
 #: src/downloadmanager/downloadmanager.cpp:50
-msgid "Downloads"
+msgid  "Downloads"
 msgstr ""
 
 #: src/downloadmanager/downloadsinfo.cpp:57
-msgid "<b>Download Summary</b>"
+msgid  "<b>Download Summary</b>"
 msgstr "<b>Download Zusammenfassung</b>"
 
 #: src/downloadmanager/downloadsinfo.cpp:64
-msgid "Upload URL"
+msgid  "Upload URL"
 msgstr "Hochladen URL"
 
 #: src/downloadmanager/downloadsinfo.cpp:79
-msgid "Destination Path"
+msgid  "Destination Path"
 msgstr "Zielpfad"
 
 #: src/downloadmanager/downloadsinfo.cpp:95
-msgid "Filesize"
+msgid  "Filesize"
 msgstr "Dateigröße"
 
 #: src/downloadmanager/downloadsinfo.cpp:110
-msgid "Mime-Type"
+msgid  "Mime-Type"
 msgstr "Datentype"
 
 #: src/downloadmanager/downloadsinfo.cpp:170
-msgid "Open with external Application"
+msgid  "Open with external Application"
 msgstr "Öffne mit externen Programm"
 
 #: src/downloadmanager/downloadstable.cpp:92
-msgid "Stop"
+msgid  "Stop"
 msgstr "Anhalten"
 
 #: src/downloadmanager/downloadstable.cpp:94
-msgid "Remove"
+msgid  "Remove"
 msgstr "Entfernen"
 
 #: src/downloadmanager/downloadstablemodel.cpp:240
-msgid "Progress"
+msgid  "Progress"
 msgstr "Fortschritt"
 
 #: src/downloadmanager/downloadstablemodel.cpp:245
-msgid "Time"
+msgid  "Time"
 msgstr "Zeit"
 
 #: src/downloadmanager/downloadstablemodel.cpp:250
-msgid "Size"
+msgid  "Size"
 msgstr "Größe"
 
 #: src/downloadmanager/downloadstablemodel.cpp:255
-msgid "Url"
+msgid  "Url"
 msgstr ""
 
 #: src/downloadmanager/downloadstablemodel.cpp:260
-msgid "Destination"
+msgid  "Destination"
 msgstr "Ziel"
 
 #: src/downloadmanager/downloadstablemodel.cpp:264
-msgid "Unknown"
+msgid  "Unknown"
 msgstr "Unbekannt"
 
 #: src/configuration/useragenteditor/droptoclipboard.cpp:50 src/configuration/useragenteditor/droptoclipboard.cpp:51
-msgid "Copy to Clipboard Drop Area"
+msgid  "Copy to Clipboard Drop Area"
 msgstr "Kopiere Inhalt mit Maus fallen lassen in den Clipper"
 
 #: src/networker/errorsdialog.cpp:37
-msgid "Error"
+msgid  "Error"
 msgstr "Fehler"
 
 #: src/networker/errorsdialog.cpp:44
-msgid "Unknown Failure Message"
+msgid  "Unknown Failure Message"
 msgstr "Unbekannte Fehler Nachricht"
 
 #: src/networker/errorsdialog.cpp:76
-msgid "Reasons :"
+msgid  "Reasons :"
 msgstr "Gründe :"
 
 #: src/networker/errorsdialog.cpp:84
-msgid "Bad Request (400)"
+msgid  "Bad Request (400)"
 msgstr ""
 
 #: src/networker/errorsdialog.cpp:102
-msgid "Invalid Hostname or Host not Found"
+msgid  "Invalid Hostname or Host not Found"
 msgstr "Falscher Hostname oder Host nicht gefunden"
 
 #: src/networker/errorsdialog.cpp:112
-msgid "Request Timeout (408)"
+msgid  "Request Timeout (408)"
 msgstr "Zeitüberschreitung bei der Anfrage (408)"
 
 #: src/networker/errorsdialog.cpp:125
-msgid "the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted."
+msgid  "the SSL/TLS handshake failed and the encrypted channel could not be established. The sslErrors() signal should have been emitted."
 msgstr "Das Aushandeln der SSL/TLS Verbindung ist wegen Verschlüsselungsproblemen fehlgeschlagen."
 
 #: src/networker/errorsdialog.cpp:132
-msgid "Proxy Connection Refused Error"
+msgid  "Proxy Connection Refused Error"
 msgstr "Fehler - Proxy Zugang Verweigert"
 
 #: src/networker/errorsdialog.cpp:142
-msgid "Proxy Connection Closed Error"
+msgid  "Proxy Connection Closed Error"
 msgstr "Verbindung zum Proxy Server wurde unterbrochen Fehler"
 
 #: src/networker/errorsdialog.cpp:143
-msgid "the proxy server closed the connection prematurely, before the entire reply was received and processed"
+msgid  "the proxy server closed the connection prematurely, before the entire reply was received and processed"
 msgstr "Der Proxy Server schließt/verliert die Verbindung bevor es zur einer Antwort kommt."
 
 #: src/networker/errorsdialog.cpp:150
-msgid "Proxy Not Found Error"
+msgid  "Proxy Not Found Error"
 msgstr "Fehler - Der Proxy konnte nicht gefunden werden"
 
 #: src/networker/errorsdialog.cpp:151
-msgid "the proxy host name was not found (invalid proxy hostname)"
+msgid  "the proxy host name was not found (invalid proxy hostname)"
 msgstr "Der Proxy Hostname wurde nicht gefunden. (falscher Proxy Hostname)"
 
 #: src/networker/errorsdialog.cpp:158
-msgid "Proxy Timeout Error"
+msgid  "Proxy Timeout Error"
 msgstr "Fehler - Zeitüberschreitung zum Proxy"
 
 #: src/networker/errorsdialog.cpp:159
-msgid "the connection to the proxy timed out or the proxy did not reply in time to the request sent"
+msgid  "the connection to the proxy timed out or the proxy did not reply in time to the request sent"
 msgstr "Die Verbindung zum Proxy wurde wegen Zeitüberschreitung beim warten auf Antwort abgebrochen."
 
 #: src/networker/errorsdialog.cpp:92
-msgid "Server Gone (410)"
+msgid  "Server Gone (410)"
 msgstr "Server Verschwunden (410)"
 
 #: src/networker/errorsdialog.cpp:104
-msgid "The Remote Hostname was not found."
+msgid  "The Remote Hostname was not found."
 msgstr "Der entfernte Hostname konnte nicht aufgeöst werden."
 
 #: src/networker/errorsdialog.cpp:166
-msgid "Proxy Authentication Required Error (407)"
+msgid  "Proxy Authentication Required Error (407)"
 msgstr "Fehler: Proxy Authentifizierung Notwendig (407)"
 
 #: src/networker/errorsdialog.cpp:167
-msgid "the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)"
+msgid  "the proxy requires authentication in order to honour the request but did not accept any credentials offered (if any)"
 msgstr "Der Proxy erwartet eine Authentifizierung aber Akzeptiert nicht alle übermittelten eingaben (Konfigurationsfehler)"
 
 #: src/networker/errorsdialog.cpp:174
-msgid "Unauthorized (401)"
+msgid  "Unauthorized (401)"
 msgstr "Nich Autorisiert (401)"
 
 #: src/networker/errorsdialog.cpp:194
-msgid "Authentication Required Error"
+msgid  "Authentication Required Error"
 msgstr "Fehler - Authentifizierung erwartet"
 
 #: src/networker/errorsdialog.cpp:85
-msgid "the remote server \"%1\" refused the connection (the server is not accepting requests)"
+msgid  "the remote server \"%1\" refused the connection (the server is not accepting requests)"
 msgstr "Der Server \"%1\" verweigert den Verbindungsaufbau. (Der Server nimmt die Anfrage nicht an.)"
 
 #: src/networker/errorsdialog.cpp:93
-msgid "the remote server \"%1\" closed the connection prematurely, before the entire reply was received and processed"
+msgid  "the remote server \"%1\" closed the connection prematurely, before the entire reply was received and processed"
 msgstr "Der Server \"%1\" hat die Verbindung geschlossen, bevor eine Antwort gesendet wurde."
 
 #: src/networker/errorsdialog.cpp:103
-msgid "Invalid Hostname \"%1\", Server is currently down or DNS Problems."
+msgid  "Invalid Hostname \"%1\", Server is currently down or DNS Problems."
 msgstr "Falscher Hostname \"%1\" oder Host nicht gefunden."
 
 #: src/networker/errorsdialog.cpp:113
-msgid "the connection to the remote server \"%1\" timed out"
+msgid  "the connection to the remote server \"%1\" timed out"
 msgstr "Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
 
 #: src/networker/errorsdialog.cpp:133
-msgid "the connection to the proxy server \"%1\" was refused (the proxy server is not accepting requests)"
+msgid  "the connection to the proxy server \"%1\" was refused (the proxy server is not accepting requests)"
 msgstr "Die Verbindung zum Proxy Server \"%1\" wurde unterbrochen. (Der Proxy verweigert die Anfrage.)"
 
 #: src/networker/errorsdialog.cpp:175
-msgid "the access to the remote \"%1\" content was denied (similar to HTTP error 401)"
+msgid  "the access to the remote \"%1\" content was denied (similar to HTTP error 401)"
 msgstr "Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
 
 #: src/networker/errorsdialog.cpp:182
-msgid "the operation requested on the remote \"%1\" content is not permitted"
+msgid  "the operation requested on the remote \"%1\" content is not permitted"
 msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
 
 #: src/networker/errorsdialog.cpp:188
-msgid "the remote content \"%1\" was not found at the server (similar to HTTP error 404)"
+msgid  "the remote content \"%1\" was not found at the server (similar to HTTP error 404)"
 msgstr "Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
 
 #: src/networker/errorsdialog.cpp:195
-msgid "the remote server \"%1\" requires authentication to serve the content but the credentials provided were not accepted (if any)"
+msgid  "the remote server \"%1\" requires authentication to serve the content but the credentials provided were not accepted (if any)"
 msgstr "Die Gegenstelle \"%1\" erwartet eine Authentifizierung aber Akzeptiert nicht alle übermittelten eingaben."
 
 #: src/networker/errorsdialog.cpp:202
-msgid "Content Re Send Error"
+msgid  "Content Re Send Error"
 msgstr "Fehler - Bei der Daten Übertragung"
 
 #: src/networker/errorsdialog.cpp:203
-msgid "the request needed to be sent again, but this failed for example because the upload data could not be read a second time."
+msgid  "the request needed to be sent again, but this failed for example because the upload data could not be read a second time."
 msgstr "Die anfrage muss nochmal gesendet werden, dies wird wahrscheinlich fehlschlagen weil die Daten zum hoch laden zerstört sind oder nicht mehr im Speicher vorhanden sind."
 
 #: src/networker/errorsdialog.cpp:210
-msgid "QtNetwork Access API cannot honor the request because the protocol is not known."
+msgid  "QtNetwork Access API cannot honor the request because the protocol is not known."
 msgstr "Das Programm konnte nicht alle angefragten Protokolle verarbeiten."
 
 #: src/networker/errorsdialog.cpp:216
-msgid "Protocol Invalid Operation Error"
+msgid  "Protocol Invalid Operation Error"
 msgstr "Fehler - Nicht erlaubte Protokoll Übertragung"
 
 #: src/networker/errorsdialog.cpp:217
-msgid "the requested operation is invalid for this protocol"
+msgid  "the requested operation is invalid for this protocol"
 msgstr "Die Abfrageart für dieses Protokoll ist nicht erlaubt."
 
 #: src/networker/errorsdialog.cpp:224
-msgid "an unknown network-related error was detected"
+msgid  "an unknown network-related error was detected"
 msgstr "Ein Unbekannter Netzwerkfehler wurde festgestellt."
 
 #: src/networker/errorsdialog.cpp:230
-msgid "an unknown proxy-related error was detected"
+msgid  "an unknown proxy-related error was detected"
 msgstr "Ein Unbekannter Proxy Fehler wurde festgestellt."
 
 #: src/networker/errorsdialog.cpp:236
-msgid "an unknown error related to the remote content was detected"
+msgid  "an unknown error related to the remote content was detected"
 msgstr "Auf der Gegenstelle wurde ein Unbekannter Fehler festgestellt."
 
 #: src/networker/errorsdialog.cpp:242
-msgid "Protocol Failure"
+msgid  "Protocol Failure"
 msgstr "Protokoll Fehler"
 
 #: src/networker/errorsdialog.cpp:243
-msgid "a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)"
+msgid  "a breakdown in protocol was detected (parsing error, invalid or unexpected responses, etc.)"
 msgstr "Ein Zusammenbruch des Protokolls wurde festgestellt. (Syntaxfehler, oder falsche Eingabe etc.)"
 
 #: src/networker/errorsdialog.cpp:249
-msgid "an unknown related error was detected"
+msgid  "an unknown related error was detected"
 msgstr "Ein Unbekannter Inhaltlicher Fehler wurde festgestellt"
 
 #: src/geolocation.cpp:50 src/geolocation.cpp:51
-msgid "country code from host address."
+msgid  "country code from host address."
 msgstr "Ländercode von der Host Adresse."
 
 #: src/docking/headerdock.cpp:44
-msgid "Headers"
+msgid  "Headers"
 msgstr "Datenköpfe"
 
 #: src/docking/headerdock.cpp:47
-msgid "Header"
+msgid  "Header"
 msgstr "Datenkopf"
 
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60 src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
-msgid "Value"
+msgid  "Value"
 msgstr "Wert"
 
 #: src/docking/headerdock.cpp:57
-msgid "POST Variables"
+msgid  "POST Variables"
 msgstr "POST Variablen"
 
 #: src/docking/headerdock.cpp:60
-msgid "Parameter"
+msgid  "Parameter"
 msgstr ""
 
 #: src/docking/headerdock.cpp:68
-msgid "Cookies"
+msgid  "Cookies"
 msgstr "Kekse"
 
 #: src/docking/headerdock.cpp:70
-msgid "Name"
+msgid  "Name"
 msgstr "Name"
 
 #: src/docking/headerdock.cpp:151
-msgid "Hostname"
+msgid  "Hostname"
 msgstr ""
 
 #: src/docking/headerdock.cpp:160
-msgid "Item"
+msgid  "Item"
 msgstr "Eintrag"
 
 #: src/docking/headerdock.cpp:212
-msgid "Anchor"
+msgid  "Anchor"
 msgstr "Anker"
 
 #: src/docking/headerdock.cpp:280
-msgid "Yes"
+msgid  "Yes"
 msgstr "Ja"
 
 #: src/docking/headerdock.cpp:281
-msgid "No"
+msgid  "No"
 msgstr "Nein"
 
 #: src/docking/headerdock.cpp:292
-msgid "Cookie"
+msgid  "Cookie"
 msgstr "Keks"
 
 #: src/docking/headerdock.cpp:298
-msgid "Domain"
+msgid  "Domain"
 msgstr "Domäne"
 
 #: src/docking/headerdock.cpp:305
-msgid "Path"
+msgid  "Path"
 msgstr "Pfad"
 
 #: src/docking/headerdock.cpp:319
-msgid "Session Cookie"
+msgid  "Session Cookie"
 msgstr "Sitzungs Keks"
 
 #: src/docking/headerdock.cpp:326
-msgid "Only for HTTP?"
+msgid  "Only for HTTP?"
 msgstr "Nur HTTP?"
 
 #: src/docking/headerdock.cpp:333
-msgid "Expiration"
+msgid  "Expiration"
 msgstr "Verfällt"
 
 #: src/docking/headerdock.cpp:340
-msgid "Secure"
+msgid  "Secure"
 msgstr "Sicher"
 
 #: src/docking/headerdock.cpp:373
-msgid "Cookie Hostname"
+msgid  "Cookie Hostname"
 msgstr "Cookie Hostname"
 
 #: src/plugins/template/helloworldplugin.cpp:73
-msgid "Information for this Plugin"
+msgid  "Information for this Plugin"
 msgstr "Informtionen zu diesem Olugin"
 
 #: src/plugins/template/helloworldplugin.cpp:75
-msgid "long description for this plugin"
+msgid  "long description for this plugin"
 msgstr "Lange Beschreibung für dieses Plugin"
 
 #: src/plugins/template/helloworldplugin.cpp:76
-msgid "Your Name"
+msgid  "Your Name"
 msgstr "Dein Name"
 
 #: src/historymenu.cpp:37
-msgid "History"
+msgid  "History"
 msgstr "Historie"
 
 #: src/hostinfo/hostinfodialog.cpp:40
-msgid "Host Information"
+msgid  "Host Information"
 msgstr "Host Informationen"
 
 #: src/hostinfo/hostinfodialog.cpp:45
-msgid "Resolved Host Information with given Url"
+msgid  "Resolved Host Information with given Url"
 msgstr "Mit der URL die Host Informationen auflösen."
 
 #: src/configuration/iconthemeselecter/iconthemeslist.cpp:37
-msgid "descending order for icon theme search paths"
+msgid  "descending order for icon theme search paths"
 msgstr "Absteigende Reihenfolge für die Icon Thema Suchpfade"
 
 #: src/configuration/iconthemeselecter/iconthemeslist.cpp:76
-msgid "Adding"
+msgid  "Adding"
 msgstr "Einfügen"
 
 #: src/configuration/iconthemeselecter/iconthemeslist.cpp:79
-msgid "Remove"
+msgid  "Remove"
 msgstr "Entfernen"
 
 #: src/jsmessanger.cpp:41
-msgid "JavaScript Impartations"
+msgid  "JavaScript Impartations"
 msgstr "JavaScript Mitteilungen"
 
 #: src/jsmessanger.cpp:72
-msgid "Ascending"
+msgid  "Ascending"
 msgstr "Aufteigend"
 
 #: src/jsmessanger.cpp:76
-msgid "Descending"
+msgid  "Descending"
 msgstr "Absteigend"
 
 #: src/jsmessanger.cpp:80
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/keywordstoolbar.cpp:41 src/keywordstoolbar.cpp:62
-msgid "Keywords"
+msgid  "Keywords"
 msgstr "Schlüsselwörter"
 
 #: src/keywordstoolbar.cpp:42
-msgid "Show Keywords for Search Engine Optimisation (SEO)"
+msgid  "Show Keywords for Search Engine Optimisation (SEO)"
 msgstr "Zeige Schlüsselwörter für die Search Engine Optimierung (SEO)"
 
 #: src/keywordstoolbar.cpp:49
-msgid "SEO:"
+msgid  "SEO:"
 msgstr ""
 
 #: src/keywordstoolbar.cpp:50
-msgid "Search Engine Optimisation (SEO)"
+msgid  "Search Engine Optimisation (SEO)"
 msgstr ""
 
 #: src/keywordstoolbar.cpp:59
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/dominspector/liststylesheet.cpp:96
-msgid "Rendered from Stylesheet Document"
+msgid  "Rendered from Stylesheet Document"
 msgstr "Abgegeben vom StyleSheet Dokument"
 
 #: src/dominspector/liststylesheet.cpp:98
-msgid "Contained \"style\" Attribute"
+msgid  "Contained \"style\" Attribute"
 msgstr "Enthält ein \"style\" Prädikat"
 
 #: src/npploader/nppattributes.cpp:43
-msgid "Plugin Object Detected"
+msgid  "Plugin Object Detected"
 msgstr "Plugin Objekt erkannt"
 
 #: src/npploader/nppattributes.cpp:52
-msgid "Predicates"
+msgid  "Predicates"
 msgstr "Prädikate"
 
 #: src/npploader/nppattributes.cpp:52
-msgid "Values"
+msgid  "Values"
 msgstr "Werte"
 
 #: src/npploader/nppfailurewidget.cpp:37
-msgid "Plugin initialization aborted."
+msgid  "Plugin initialization aborted."
 msgstr "Plugin Initialisierung fehlgeschlagen."
 
 #: src/npploader/npploader.cpp:52
-msgid "Missing Mime-Type Declaration!"
+msgid  "Missing Mime-Type Declaration!"
 msgstr "Keine Mime-Type Deklaration gefunden!"
 
 #: src/npploader/npploader.cpp:54
-msgid "Invalid URL for this Plugin Request!"
+msgid  "Invalid URL for this Plugin Request!"
 msgstr "Nicht valide Url Plugin anfrage erhalten!"
 
 #: src/npploader/npploader.cpp:60
-msgid "MimeType"
+msgid  "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:61
-msgid "Source"
+msgid  "Source"
 msgstr "Quelle"
 
 #: src/networker/networkaccessmanager.cpp:257
-msgid "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)"
+msgid  "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)"
 msgstr "Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)"
 
 #: src/networker/networkcookie.cpp:102
-msgid "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109."
+msgid  "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109."
 msgstr "Unzulässiges Cookie Format für \"%1\" und Keks Domäne \"%2\", zurückgewiesen wegen RFC 2109."
 
 #: src/networker/networkcookie.cpp:110
-msgid "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot."
+msgid  "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot."
 msgstr "Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die Domäne nicht mit einem Punkt beginnt."
 
 #: src/networker/networkcookie.cpp:116
-msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
+msgid  "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr "Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer zurück gewiesen."
 
 #: src/networker/networkcookie.cpp:122
-msgid "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
+msgid  "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen."
 
 #: src/networker/networkcookie.cpp:151
-msgid "Different Cookie/Domain for host %1. (Rejected)"
+msgid  "Different Cookie/Domain for host %1. (Rejected)"
 msgstr "Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)"
 
 #: src/networker/networkcookie.cpp:295
-msgid "Invalid Url for Cookie Request - rejected!"
+msgid  "Invalid Url for Cookie Request - rejected!"
 msgstr "Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!"
 
 #: src/networker/networkcookie.cpp:320
-msgid "Cookie for Host \"%1\" rejected by blocked list!"
+msgid  "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr "Ein blockiertes Cookie für den Hostnamen \"%1\" wurde verworfen!"
 
 #: src/networker/networkcookie.cpp:326
-msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
+msgid  "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr "Drittanbieter Keks \"%1\" für den Host \"%2\" zurück gewiesen!"
 
 #: src/networker/networkcookie.cpp:383
-msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
+msgid  "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr "Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung"
 
 #: src/openurldialog/openurldialog.cpp:38
-msgid "Open Url"
+msgid  "Open Url"
 msgstr "Öffne Url"
 
 #: src/page.cpp:104
-msgid "Line: %1"
+msgid  "Line: %1"
 msgstr "Zeile: %1 L: %1"
 
 #: src/page.cpp:107
-msgid "Document: %1"
+msgid  "Document: %1"
 msgstr "Dokument: %1 src.: %1"
 
 #: src/page.cpp:129
-msgid "JavaScript Prompt:"
+msgid  "JavaScript Prompt:"
 msgstr "JavaScript Anfrage: JS Anfrage:"
 
 #: src/page.cpp:321
-msgid "(x-qt-plugin) ClassID: %1 %2"
+msgid  "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
 #: src/configuration/pagewidget.cpp:87
-msgid "Application restart required."
+msgid  "Application restart required."
 msgstr "Anwendung Neustart erforderlich."
 
 #: src/bookmark/bookmarktreereader.cpp:94
-msgid "Unknown"
+msgid  "Unknown"
 msgstr "Unbekannt"
 
 #: src/bookmark/bookmarktreereader.cpp:137
-msgid "Bookmark file is not Valid XBEL Scheme!"
+msgid  "Bookmark file is not Valid XBEL Scheme!"
 msgstr "Die Lesezeichen Datei besitzt kein Valides XBEL Schema!"
 
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:61
-msgid "RFC Document Browser"
+msgid  "RFC Document Browser"
 msgstr "RFC Dokumenten Browser"
 
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:68
-msgid "Change RFC Document"
+msgid  "Change RFC Document"
 msgstr "Wähle ein RFC Dokument"
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:69
-msgid "RFC Document Browser"
+msgid  "RFC Document Browser"
 msgstr "RFC Dokumenten Browser"
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:71
-msgid "Browse RFC Documents"
+msgid  "Browse RFC Documents"
 msgstr "Dursuche RFC Dokumente"
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:72
-msgid "Jürgen Heinemann (Undefined)"
+msgid  "Jürgen Heinemann (Undefined)"
 msgstr ""
 
 #: src/rdfparser/rssparserdialog.cpp:61
-msgid "RSS Parser"
+msgid  "RSS Parser"
 msgstr "RSS Syntaxanalysierer"
 
 #: src/rdfparser/rssparserdialog.cpp:81
-msgid "Document Structure"
+msgid  "Document Structure"
 msgstr "Dokumenten Struktur"
 
 #: src/rdfparser/rssparserdialog.cpp:78
-msgid "Parser Messages"
+msgid  "Parser Messages"
 msgstr "Syntaxanalysierer Nachrichten"
 
 #: src/rdfparser/rssparserdialog.cpp:84
-msgid "Source"
+msgid  "Source"
 msgstr "Quelltext"
 
 #: src/rdfparser/rssparserdialog.cpp:158
-msgid "Checking: %1"
+msgid  "Checking: %1"
 msgstr "Prüfe: %1"
 
 #: src/rdfparser/rssparserdialog.cpp:161
-msgid "Version not Defined"
+msgid  "Version not Defined"
 msgstr "Version nicht definiert"
 
 #: src/rdfparser/rssparserdialog.cpp:165
-msgid "Parsing RDF-%1"
+msgid  "Parsing RDF-%1"
 msgstr "Syntaxanalyse RDF-%1"
 
 #: src/rdfparser/rssparserdialog.cpp:171
-msgid "Parsing ATOM-%1"
+msgid  "Parsing ATOM-%1"
 msgstr "Syntaxanalyse ATOM-%1"
 
 #: src/rdfparser/rssparserdialog.cpp:177
-msgid "Parsing RSS-%1"
+msgid  "Parsing RSS-%1"
 msgstr "Syntaxanalyse RSS-%1"
 
 #: src/rdfparser/rsstreeview.cpp:46
-msgid "Element"
+msgid  "Element"
 msgstr ""
 
 #: src/rdfparser/rsstreeview.cpp:46
-msgid "Predicate"
+msgid  "Predicate"
 msgstr "Prädikat"
 
 #: src/rdfparser/rsstreeview.cpp:46
-msgid "Value"
+msgid  "Value"
 msgstr "Wert"
 
 #: src/rdfparser/raptorparser.cpp:119
-msgid "Ready"
+msgid  "Ready"
 msgstr "Fertig"
 
 #: src/resizeportbuttons.cpp:39
-msgid "Viewer Width"
+msgid  "Viewer Width"
 msgstr "Anzeigebreite"
 
 #: src/resizeportbuttons.cpp:51
-msgid "Resize Browser to fixed width"
+msgid  "Resize Browser to fixed width"
 msgstr "Setze die Browser weite"
 
 #: src/resizeportbuttons.cpp:91
-msgid "Restore"
+msgid  "Restore"
 msgstr "Zurücksetzen"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:111 src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:112
-msgid "Index"
+msgid  "Index"
 msgstr "Startseite"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:103 src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:104
-msgid "Configure Startpage"
+msgid  "Configure Startpage"
 msgstr "Konfiguriere die Startseite"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:174
-msgid "Configure the SELFHTML Index HTML"
+msgid  "Configure the SELFHTML Index HTML"
 msgstr "Konfiguriere die SELFHTML Startseite"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:66
-msgid "SELFHTML"
+msgid  "SELFHTML"
 msgstr ""
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:68
-msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
+msgid  "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
 msgstr "Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
 
 #: src/settargetdialog/settargetdialog.cpp:39
-msgid "Output Directory"
+msgid  "Output Directory"
 msgstr "Ausgabe Verzeichnis"
 
 #: src/settargetdialog/settargetdialog.cpp:53
-msgid "Any files (*)"
+msgid  "Any files (*)"
 msgstr "Alle Dateien (*)"
 
 #: src/settargetdialog/settargetdialog.cpp:54 src/settargetdialog/settargetdialog.cpp:55 src/settargetdialog/settargetdialog.cpp:56 src/settargetdialog/settargetdialog.cpp:57 src/settargetdialog/settargetdialog.cpp:58 src/settargetdialog/settargetdialog.cpp:59 src/settargetdialog/settargetdialog.cpp:60
-msgid "%1 files %2"
+msgid  "%1 files %2"
 msgstr "%1 Dateien %2"
 
 #: src/settargetdialog/settargetdialog.cpp:54
-msgid "Compression"
+msgid  "Compression"
 msgstr "Komprimierte"
 
 #: src/settargetdialog/settargetdialog.cpp:55
-msgid "Image"
+msgid  "Image"
 msgstr "Bild"
 
 #: src/cssvalidator/soupreader.cpp:61
-msgid "Line"
+msgid  "Line"
 msgstr "Zeile"
 
 #: src/cssvalidator/soupreader.cpp:143
-msgid "File:.%1"
+msgid  "File:.%1"
 msgstr "Datei:.%1"
 
 #: src/cssvalidator/soupreader.cpp:205
-msgid "Congratulations! No Error Found. (%1)"
+msgid  "Congratulations! No Error Found. (%1)"
 msgstr "Gratulation! Es wurden keine Fehler gefunden. (%1)"
 
 #: src/sourceviewer/sourceview.cpp:214
-msgid "Markup Document %1"
+msgid  "Markup Document %1"
 msgstr "Hypertext Dokument %1"
 
 #: src/sourceviewer/sourceview.cpp:215
-msgid "Text Document %1"
+msgid  "Text Document %1"
 msgstr "Text Dokument %1"
 
 #: src/sourceviewer/sourceview.cpp:217
-msgid "Save Content to..."
+msgid  "Save Content to..."
 msgstr "Speichere Inhalt nach ..."
 
 #: src/sourceviewer/sourceview.cpp:239
-msgid "Can't write Source to \"%1\" Permission Denied."
+msgid  "Can't write Source to \"%1\" Permission Denied."
 msgstr "Kann Quelltext nicht nach \"%1\"speichern, Zugriff Verweigert."
 
 #: src/sourceviewer/sourceview.cpp:241
-msgid "To Save Source Operation dropout"
+msgid  "To Save Source Operation dropout"
 msgstr "Der Speichern Vorgang wurde abgebrochen"
 
 #: src/sourceviewer/sourcewidget.cpp:53
-msgid "Source"
+msgid  "Source"
 msgstr "Quelltext"
 
 #: src/statusbar.cpp:46
-msgid "Reload Status"
+msgid  "Reload Status"
 msgstr "Aktualisieren Status"
 
 #: src/statusbar.cpp:60
-msgid "QTidy Messanger contains Impartations"
+msgid  "QTidy Messanger contains Impartations"
 msgstr "Das QTidy Nachrichtenfenster enthält Nachrichten"
 
 #: src/statusbar.cpp:70
-msgid "the rendered page size"
+msgid  "the rendered page size"
 msgstr "Abgegebene Seitengröße"
 
 #: src/statusbar.cpp:78
-msgid "Display Browser Dimension Width x Height with Pixel."
+msgid  "Display Browser Dimension Width x Height with Pixel."
 msgstr "Zeige Browser Dimensionen Breit x Hoch in Pixel an."
 
 #: src/statusbar.cpp:140
-msgid "Browser %1x%2 px"
+msgid  "Browser %1x%2 px"
 msgstr ""
 
 #: src/tidymessanger.cpp:43
-msgid "HTML/XHTML Impartations"
+msgid  "HTML/XHTML Impartations"
 msgstr "HTML/XHTML Mitteilungen"
 
 #: src/tidymessanger.cpp:88
-msgid "Ascending"
+msgid  "Ascending"
 msgstr "Aufteigend"
 
 #: src/tidymessanger.cpp:92
-msgid "Descending"
+msgid  "Descending"
 msgstr "Absteigend"
 
 #: src/tidymessanger.cpp:96
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/uitoolsloader.cpp:98
-msgid "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!"
+msgid  "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!"
 msgstr "(XHTMLBG) Akzeptiert bei Object Elementen mit dem type application/x-qt-plugin nur zu 100%% reines XHTML!"
 
 #: src/uitoolsloader.cpp:149
-msgid "Sorry: I can't do it."
+msgid  "Sorry: I can't do it."
 msgstr "Ich kann das leider nicht machen."
 
 #: src/uitoolsloader.cpp:151
-msgid "Invalid Element initialization."
+msgid  "Invalid Element initialization."
 msgstr "Fehler bei der Element Initialisierung."
 
 #: src/uitoolsloader.cpp:198
-msgid "(XHTMLDBG) Invalid value for property: %1"
+msgid  "(XHTMLDBG) Invalid value for property: %1"
 msgstr "(XHTMLDBG) Ungültiger Wert oder Parameter: %1"
 
 #: src/configuration/useragenteditor/useragent.cpp:36
-msgid "XHTMLDBG (Default)"
+msgid  "XHTMLDBG (Default)"
 msgstr "XHTMLDBG (Standard)"
 
 #: src/configuration/useragenteditor/useragenteditor.cpp:54 src/configuration/useragenteditor/useragenteditor.cpp:55
-msgid "Move Selected row Up"
+msgid  "Move Selected row Up"
 msgstr "Verschiebe die ausgewählte Zeile nach Oben"
 
 #: src/configuration/useragenteditor/useragenteditor.cpp:61 src/configuration/useragenteditor/useragenteditor.cpp:62
-msgid "Move Selected row Down"
+msgid  "Move Selected row Down"
 msgstr "Verschiebe die ausgewählte Zeile nach Unten"
 
 #: src/useragentmenu.cpp:36
-msgid "User Agent"
+msgid  "User Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/useragenteditor/useragentstable.cpp:72
-msgid "Add"
+msgid  "Add"
 msgstr "Einfügen"
 
 #: src/configuration/useragenteditor/useragentstable.cpp:75
-msgid "Remove"
+msgid  "Remove"
 msgstr "Entfernen"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:57
-msgid "Bookmark Entry for Context Menue"
+msgid  "Bookmark Entry for Context Menue"
 msgstr "Leszeichen Eintrag für das Kontext Menü"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:63 src/configuration/useragenteditor/useragentstablemodel.cpp:201
-msgid "User-Agent"
+msgid  "User-Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:69
-msgid "Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application."
+msgid  "Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application."
 msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:198
-msgid "Bookmark"
+msgid  "Bookmark"
 msgstr "Lesezeichen"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:204
-msgid "Product Tokens"
+msgid  "Product Tokens"
 msgstr "Produkt Umschreibung"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:207
-msgid "Unknown"
+msgid  "Unknown"
 msgstr "Unbekannt"
 
 #: src/cssvalidator/validator.cpp:196
-msgid "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page."
+msgid  "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page."
 msgstr "Der Zugriff wurde wegen fehlender Adresse verweigert. Beachte bitte: Der CSS Validierer verwirft nach Verwendung die Adresse! Abhilfe: Die Seite neu laden."
 
 #: src/cssvalidator/validatormenu.cpp:36
-msgid "Check"
+msgid  "Check"
 msgstr "Prüfen"
 
 #: src/cssvalidator/validatormenu.cpp:37
-msgid "Checking last changed url"
+msgid  "Checking last changed url"
 msgstr "Prüfe die zuletzt eingefügte Adresse"
 
 #: src/cssvalidator/validatormenu.cpp:42
-msgid "Dropout"
+msgid  "Dropout"
 msgstr "Abbrechen"
 
 #: src/cssvalidator/validatormenu.cpp:43
-msgid "Dropout current request"
+msgid  "Dropout current request"
 msgstr "Aktuelle Anfrage abbrechen"
 
 #: src/cssvalidator/validatormenu.cpp:48
-msgid "Ascending"
+msgid  "Ascending"
 msgstr "Aufteigend"
 
 #: src/cssvalidator/validatormenu.cpp:52
-msgid "Descending"
+msgid  "Descending"
 msgstr "Absteigend"
 
 #: src/cssvalidator/validatormenu.cpp:56
-msgid "Configure"
+msgid  "Configure"
 msgstr "Konfigurieren"
 
 #: src/cssvalidator/validatormenu.cpp:60
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/viewer.cpp:241
-msgid "Bookmark"
+msgid  "Bookmark"
 msgstr "Lesezeichen"
 
 #: src/viewer.cpp:248
-msgid "StyleSheet"
-msgstr "StyleSheet"
+msgid  "StyleSheet"
+msgstr ""
 
 #: src/viewer.cpp:251
-msgid "Start CSS Validation for this Site."
+msgid  "Start CSS Validation for this Site."
 msgstr "Starte CSS Validierung für diese Seite."
 
 #: src/viewer.cpp:264
-msgid "Screenshot"
+msgid  "Screenshot"
 msgstr "Bildschirmfoto"
 
 #: src/viewer.cpp:267
-msgid "Screenshot from current Page."
+msgid  "Screenshot from current Page."
 msgstr "Bildschirmfoto von aktueller Seite."
 
 #: src/viewer.cpp:256
-msgid "Source"
+msgid  "Source"
 msgstr "Quelltext"
 
 #: src/viewer.cpp:259
-msgid "Show Document Source"
+msgid  "Show Document Source"
 msgstr "Zeige Dokumenten Quelltext"
 
 #: src/viewer.cpp:271 src/viewer.cpp:481
-msgid "Plugins"
-msgstr "Plugins"
+msgid  "Plugins"
+msgstr ""
 
 #: src/viewer.cpp:274
-msgid "Display initialed Browser-Plugins."
+msgid  "Display initialed Browser-Plugins."
 msgstr "Zeige Initialisierte Browser Erweiterungen."
 
 #: src/viewer.cpp:365
-msgid "SEO Result for \"%1\" Url:"
+msgid  "SEO Result for \"%1\" Url:"
 msgstr "SEO Ergebnis für \"%1\" Url:"
 
 #: src/viewer.cpp:373
-msgid "Word boundary:"
+msgid  "Word boundary:"
 msgstr "An Wortgrenzen:"
 
 #: src/viewer.cpp:378
-msgid "Case Sensitive:"
+msgid  "Case Sensitive:"
 msgstr "Groß- Kleinschreibung:"
 
 #: src/viewer.cpp:388
-msgid "Meta Keywords:"
+msgid  "Meta Keywords:"
 msgstr "Meta Schlüsselwörter:"
 
 #: src/viewer.cpp:394
-msgid "Meta Description:"
+msgid  "Meta Description:"
 msgstr "Meta Beschreibung:"
 
 #: src/viewer.cpp:401
-msgid "Page Title:"
+msgid  "Page Title:"
 msgstr "Seiten Titel:"
 
 #: src/viewer.cpp:406
-msgid "Summary:"
+msgid  "Summary:"
 msgstr "Zusammen:"
 
 #: src/viewer.cpp:498
-msgid "Screenshot saved to %1"
+msgid  "Screenshot saved to %1"
 msgstr "Bildschirmfoto gespeichert unter %1"
 
 #: src/webinspector.cpp:73
-msgid "WebInspector: Update rejected - no valide url given!"
+msgid  "WebInspector: Update rejected - no valide url given!"
 msgstr "WebInspector: Update verworfen - Es wurde keine Valide Url übergeben! WebInspector: Update verworfen - Keine Url erhalten!"
 
 #: src/webviewer.cpp:78
-msgid "New Page"
+msgid  "New Page"
 msgstr "Neue Seite"
 
 #: src/webviewer.cpp:80
-msgid "Add a new empty Tab"
+msgid  "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
 #: src/webviewer.cpp:307
-msgid "Startpage"
+msgid  "Startpage"
 msgstr "Startseite"
 
 #: src/window.cpp:127
-msgid "Browser"
-msgstr "Browser"
+msgid  "Browser"
+msgstr ""
 
 #: src/window.cpp:133
-msgid "Source"
+msgid  "Source"
 msgstr "Quelltext"
 
 #: src/window.cpp:354
-msgid "Open Url"
+msgid  "Open Url"
 msgstr "Öffne Url"
 
 #: src/window.cpp:355
-msgid "Load Document from Url"
+msgid  "Load Document from Url"
 msgstr "Lade Dokument von Url"
 
 #: src/window.cpp:361
-msgid "Open Html File"
+msgid  "Open Html File"
 msgstr "Öffne HTML Datei"
 
 #: src/window.cpp:362
-msgid "Open Html from System"
+msgid  "Open Html from System"
 msgstr "Öffne HTML Datei vom System"
 
 #: src/window.cpp:368
-msgid "Quit"
+msgid  "Quit"
 msgstr "Beenden"
 
 #: src/window.cpp:369
-msgid "Close Debugger"
+msgid  "Close Debugger"
 msgstr "Schliesse den Debugger"
 
 #: src/window.cpp:379
-msgid "Parse"
+msgid  "Parse"
 msgstr "Analysieren"
 
 #: src/window.cpp:380
-msgid "Parse current Document Source"
+msgid  "Parse current Document Source"
 msgstr "Analysiere den Dokumenten Quelltext"
 
 #: src/window.cpp:386
-msgid "Format"
+msgid  "Format"
 msgstr "Formatiere"
 
 #: src/window.cpp:387
-msgid "Prepare and Format Document Source"
+msgid  "Prepare and Format Document Source"
 msgstr "Formatiere den Dokumenten Quelltext"
 
 #: src/window.cpp:393
-msgid "&View"
+msgid  "&View"
 msgstr "Ansicht"
 
 #: src/window.cpp:397
-msgid "Zoom +"
-msgstr "Zoom +"
+msgid  "Zoom +"
+msgstr ""
 
 #: src/window.cpp:405
-msgid "Zoom -"
-msgstr "Zoom -"
+msgid  "Zoom -"
+msgstr ""
 
 #: src/window.cpp:413
-msgid "Original"
+msgid  "Original"
 msgstr "Orginal"
 
 #: src/window.cpp:426
-msgid "Fullscreen"
+msgid  "Fullscreen"
 msgstr "Vollansicht"
 
 #: src/window.cpp:436
-msgid "Refresh"
+msgid  "Refresh"
 msgstr "Auffrischen"
 
 #: src/window.cpp:442
-msgid "Back"
+msgid  "Back"
 msgstr "Zurück"
 
 #: src/window.cpp:448
-msgid "Forward"
+msgid  "Forward"
 msgstr "Vorwärts"
 
 #: src/window.cpp:454
-msgid "New Page"
+msgid  "New Page"
 msgstr "Neue Seite"
 
 #: src/window.cpp:455
-msgid "Add a new empty Tab"
+msgid  "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
 #: src/window.cpp:466
-msgid "Bookmarks"
+msgid  "Bookmarks"
 msgstr "Lesezeichen"
 
 #: src/window.cpp:489
-msgid "Organize Bookmarks"
+msgid  "Organize Bookmarks"
 msgstr "Lesezeichen Organisieren"
 
 #: src/window.cpp:497
-msgid "Configure Tidyrc"
+msgid  "Configure Tidyrc"
 msgstr "Konfiguriere die titdyrc"
 
 #: src/window.cpp:508 src/window.cpp:604
-msgid "Extensions"
+msgid  "Extensions"
 msgstr "Erweiterungen"
 
 #: src/window.cpp:543
-msgid "Settings"
+msgid  "Settings"
 msgstr "Einstellungen"
 
 #: src/window.cpp:997
-msgid "a Url Request from outsite. Would you like to load this \"%1\" Url?"
+msgid  "a Url Request from outsite. Would you like to load this \"%1\" Url?"
 msgstr "Ein Adressen wurde ausserhalb gesendet. Möchtest du diese Adresse \"%1\" laden?"
 
 #: src/window.cpp:1000
-msgid "Url Request from Outsite"
+msgid  "Url Request from Outsite"
 msgstr "URL Anfrage von Aussen"
 
 #: src/window.cpp:1031
-msgid "Download Request: %1"
+msgid  "Download Request: %1"
 msgstr "Herunterladen Anfrage: %1"
 
 #: src/window.cpp:511
-msgid "Display"
+msgid  "Display"
 msgstr "Anzeige"
 
 #: src/window.cpp:350
-msgid "&Application"
+msgid  "&Application"
 msgstr "&Anwendung"
 
 #: src/window.cpp:376
-msgid "&Debugger"
+msgid  "&Debugger"
 msgstr "&Debugger"
 
 #: src/window.cpp:433
-msgid "&Browser"
+msgid  "&Browser"
 msgstr "&Browser"
 
 #: src/window.cpp:495
-msgid "S&ettings"
+msgid  "S&ettings"
 msgstr "&Einstellungen"
 
 #: src/window.cpp:503
-msgid "Configure"
+msgid  "Configure"
 msgstr "Konfigurieren"
 
 #: src/window.cpp:515
-msgid "About"
+msgid  "About"
 msgstr "Über"
 
 #: src/window.cpp:516
-msgid "about Qt"
+msgid  "about Qt"
 msgstr "über Qt"
 
 #: src/window.cpp:521
-msgid "about hjcms"
+msgid  "about hjcms"
 msgstr "über HJCMS"
 
 #: src/window.cpp:532
-msgid "Actions"
+msgid  "Actions"
 msgstr "Aktionen"
 
 #: src/window.cpp:576
-msgid "Toolbars"
+msgid  "Toolbars"
 msgstr "Werkzeugleisten"
 
 #: src/window.cpp:586
-msgid "Impartations"
+msgid  "Impartations"
 msgstr "Mitteilungen"
 
 #: src/window.cpp:594
-msgid "Inspectors"
+msgid  "Inspectors"
 msgstr "Kontrolleure"
 
 #: src/window.cpp:802
-msgid "Check StyleSheet for %1"
+msgid  "Check StyleSheet for %1"
 msgstr "Prüfe den Stylesheet für %1"
 
 #: src/window.cpp:858
-msgid "HTML Document %1"
+msgid  "HTML Document %1"
 msgstr "HTML Dokument %1"
 
 #: src/window.cpp:859
-msgid "Markup Document %1"
+msgid  "Markup Document %1"
 msgstr "Hypertext Dokument %1"
 
 #: src/window.cpp:860
-msgid "Text Document %1"
+msgid  "Text Document %1"
 msgstr "Text Dokument %1"
 
 #: src/window.cpp:861
-msgid "Unsupported Document Formats %1"
+msgid  "Unsupported Document Formats %1"
 msgstr "Nicht Unterstütze Dokumenten Formate %1"
 
 #: src/window.cpp:868
-msgid "Open HTML File"
+msgid  "Open HTML File"
 msgstr "Öffne HTML Datei"
 
 #: src/xhtmldbgadaptor.cpp:96
-msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
+msgid  "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr "(XHTMLDBG) FTP Anfrage \"%1\" Zurückgewiesen!"
 
 #: src/components/xpasswordwidget.cpp:53
-msgid "Password Request"
+msgid  "Password Request"
 msgstr "Passwort anfrage"
 
 #: src/components/xpasswordwidget.cpp:61
-msgid "User"
+msgid  "User"
 msgstr "Benutzer"
 
 #: src/components/xpasswordwidget.cpp:72 src/components/xpasswordwidget.cpp:87
-msgid "Clear"
+msgid  "Clear"
 msgstr "Leeren"
 
 #: src/components/xpasswordwidget.cpp:76
-msgid "Password"
+msgid  "Password"
 msgstr "Passwort"
 
-#: src/components/xpasswordwidgetplugin.cpp:40
-msgid "%1 - A Widget for Scriptable Web Integration"
-msgstr "%1 - Ein Fenster für die Script Web Integration"
-
 #: build/src/components/ui_xregistrationformcomponent.h:222
-msgid "Form"
-msgstr "Form"
+msgid  "Form"
+msgstr ""
 
 #: build/src/components/ui_xregistrationformcomponent.h:223
-msgid "Person"
-msgstr "Person"
+msgid  "Person"
+msgstr ""
 
 #: build/src/components/ui_xregistrationformcomponent.h:224
-msgid "firstname:"
+msgid  "firstname:"
 msgstr "Vorname:"
 
 #: build/src/components/ui_xregistrationformcomponent.h:225 build/src/components/ui_xregistrationformcomponent.h:227 build/src/components/ui_xregistrationformcomponent.h:229 build/src/components/ui_xregistrationformcomponent.h:231
-msgid "..."
-msgstr "..."
+msgid  "..."
+msgstr ""
 
 #: build/src/components/ui_xregistrationformcomponent.h:226
-msgid "surname:"
+msgid  "surname:"
 msgstr "Nachname:"
 
 #: build/src/components/ui_xregistrationformcomponent.h:228
-msgid "nickname:"
+msgid  "nickname:"
 msgstr "Spitzname:"
 
 #: build/src/components/ui_xregistrationformcomponent.h:230
-msgid "password:"
+msgid  "password:"
 msgstr "Passwort:"
 
 #: build/src/components/ui_xregistrationformcomponent.h:232
-msgid "house"
+msgid  "house"
 msgstr "Gechlecht"
 
 #: build/src/components/ui_xregistrationformcomponent.h:233
-msgid "female"
+msgid  "female"
 msgstr "Weiblich"
 
 #: build/src/components/ui_xregistrationformcomponent.h:234
-msgid "male"
+msgid  "male"
 msgstr "Männlich"
 
 #: build/src/components/ui_xregistrationformcomponent.h:235
-msgid "age:"
+msgid  "age:"
 msgstr "Alter:"
 
-#: src/components/xregistrationformularplugin.cpp:40
-msgid "%1 - A Widget with Registration Formular"
-msgstr "%1 - Ein Widget mit einem Registrierungs Formular"
-
 #: src/rdfparser/xsdparser.cpp:117
-msgid "Document is Valid"
+msgid  "Document is Valid"
 msgstr "Das Dokument ist Valide"
 
 #: src/rdfparser/xsdparser.cpp:73 src/rdfparser/xsdparser.cpp:77
-msgid "Line %1 (%2)"
+msgid  "Line %1 (%2)"
 msgstr "Zeile %1 (%2)"
 
 #: src/rdfparser/xsdparser.cpp:81
-msgid "Document at Line %1 (%2)"
+msgid  "Document at Line %1 (%2)"
 msgstr "Dokumenten Zeile %1 (%2)"
 
 #: src/zoombar.cpp:36
-msgid "Zoom"
+msgid  "Zoom"
 msgstr "Zoomen"
 
 #: src/zoombar.cpp:37
-msgid "Zoom Webbrowser Content"
+msgid  "Zoom Webbrowser Content"
 msgstr "Zoome den Webbrowser Inhalt"
 
 #: src/zoombar.cpp:42
-msgid "ZoomIn"
+msgid  "ZoomIn"
 msgstr "Vergrößern"
 
 #: src/zoombar.cpp:46
-msgid "ZoomOut"
+msgid  "ZoomOut"
 msgstr "Verkleinern"
 
 #: src/zoombar.cpp:50
-msgid "Original"
+msgid  "Original"
 msgstr "Orginal"
 
 #: src/xhtmldbgmain.cpp:206
-msgid "Usage"
+msgid  "Usage"
 msgstr "Verwende"
 
 #: src/xhtmldbgmain.cpp:207
-msgid "Disable Plugins and loading the Default Url"
+msgid  "Disable Plugins and loading the Default Url"
 msgstr "Deaktiviere die Plugins und lade die Standard Url"
 
 #: src/xhtmldbgmain.cpp:208
-msgid "Examples:"
+msgid  "Examples:"
 msgstr "Beispiele:"
-

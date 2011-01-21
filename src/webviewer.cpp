@@ -54,7 +54,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setFocusPolicy ( Qt::StrongFocus );
   setTabsClosable ( true );
   setTabCornerButton();
-  setBackgroundRole (QPalette::NoRole);
+  setBackgroundRole ( QPalette::NoRole );
 
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( QLatin1String ( "startpage" ) );
@@ -322,6 +322,20 @@ void WebViewer::addViewerTab ()
   addViewerTab ( view );
 }
 
+/**
+* Ein neues Tab erstellen und die Url setzen Initialsieren.
+*/
+bool WebViewer::addViewerUrlTab ( const QUrl &url )
+{
+  if ( ! url.isValid() )
+    return false;
+
+  Viewer* view = new Viewer ( this );
+  view->setUrl ( url );
+  addViewerTab ( view );
+  return true;
+}
+
 void WebViewer::closeViewerTab ( int index )
 {
   if ( count() < 2 )
@@ -434,6 +448,21 @@ void WebViewer::setViewerWidth ( int w )
 const QUrl WebViewer::getUrl()
 {
   return activeView()->url();
+}
+
+/**
+* Nehme URL von @ref WebView::url holen.
+*/
+const QList<QUrl> WebViewer::getPageUrls ()
+{
+  QList<QUrl> list;
+  for ( int i = 0; i < count(); ++i )
+  {
+    Viewer* v = qobject_cast<Viewer*> ( widget ( i ) );
+    if ( v && v->url().isValid() )
+      list.append ( v->url() );
+  }
+  return list;
 }
 
 /**

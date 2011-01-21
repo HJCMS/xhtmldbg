@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-20T20:31:22+01:00\n"
+"POT-Creation-Date: 2011-01-21T10:15:13+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2084,10 +2084,6 @@ msgstr ""
 msgid  "Password"
 msgstr ""
 
-#: src/components/xpasswordwidgetplugin.cpp:40
-msgid  "%1 - A Widget for Scriptable Web Integration"
-msgstr ""
-
 #: build/src/components/ui_xregistrationformcomponent.h:222
 msgid  "Form"
 msgstr ""
@@ -2130,10 +2126,6 @@ msgstr ""
 
 #: build/src/components/ui_xregistrationformcomponent.h:235
 msgid  "age:"
-msgstr ""
-
-#: src/components/xregistrationformularplugin.cpp:40
-msgid  "%1 - A Widget with Registration Formular"
 msgstr ""
 
 #: src/rdfparser/xsdparser.cpp:117

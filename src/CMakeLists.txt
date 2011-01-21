@@ -82,6 +82,7 @@ SET (xhtmldbg_SOURCES
   webviewer.cpp
   viewer.cpp
   page.cpp
+  pagehistory.cpp
   historymanager.cpp
   historyitem.cpp
   historymenu.cpp
@@ -134,6 +135,7 @@ SET (xhtmldbg_HEADERS
 ##############################
 SET (xhtmldbg_NOMOC
   historyitem.h
+  pagehistory.h
 )
 
 ##############################
