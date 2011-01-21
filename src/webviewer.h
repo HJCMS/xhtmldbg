@@ -86,8 +86,8 @@ class WebViewer : public QTabWidget
 
   public:
     WebViewer ( QWidget * parent = 0 );
-    bool setViewerTabByUrl ( const QUrl &, const QUrl & );
-    bool addViewerUrlTab ( const QUrl & );
+    bool setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl );
+    bool addViewerUrlTab ( const QUrl &url );
     const QUrl getUrl ();
     const QList<QUrl> getPageUrls();
     const QString toHtml();

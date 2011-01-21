@@ -74,6 +74,7 @@ SET (xhtmldbg_SOURCES
   main.cpp
   xhtmldbgmain.cpp
   application.cpp
+  localsource.cpp
   window.cpp
   addresstoolbar.cpp
   keywordstoolbar.cpp
@@ -134,6 +135,7 @@ SET (xhtmldbg_HEADERS
 ## NOMOC HEADERS
 ##############################
 SET (xhtmldbg_NOMOC
+  localsource.h
   historyitem.h
   pagehistory.h
 )

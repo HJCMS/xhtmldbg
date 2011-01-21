@@ -323,6 +323,9 @@ Viewer* Viewer::createWindow ( QWebPage::WebWindowType t )
 */
 void Viewer::cookiesRequest ( const QUrl &url )
 {
+  if ( ! url.scheme().contains ( "http" ) )
+    return; // keine Anfragen für lokale Seiten zulassen!
+
   QUrl cookieUrl;
   cookieUrl.setScheme ( url.scheme() );
   cookieUrl.setHost ( url.host() );
@@ -415,7 +418,8 @@ void Viewer::findKeyword ( const QString &word )
 void Viewer::openUrl ( const QUrl &url )
 {
   // Sende die Seiten Url an den Cookie Manager
-  xhtmldbgmain::instance()->cookieManager()->setUrl ( url );
+  if ( url.scheme().contains ( "http" ) )
+    xhtmldbgmain::instance()->cookieManager()->setUrl ( url );
 
   setUrl ( url );
 }

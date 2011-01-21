@@ -24,6 +24,7 @@
 #include "historymanager.h"
 #include "historyitem.h"
 #include "settings.h"
+#include "localsource.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -47,7 +48,7 @@
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
-    , url ( QUrl ( QLatin1String ( "http://www.selfhtml.org" ) ) )
+    , url ( QUrl ( "http://www.selfhtml.org" ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -305,9 +306,12 @@ void WebViewer::addViewerTab ( Viewer *view )
 
   QUrl uri ( view->url() );
   QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
+
   int index = addTab ( view, title );
   setCurrentIndex ( index );
+
   pageChanged();
+
   if ( uri.toString().contains ( "about:" ) )
     setAboutPage ( uri.toString().split ( ":" ).last() );
 }
@@ -327,12 +331,24 @@ void WebViewer::addViewerTab ()
 */
 bool WebViewer::addViewerUrlTab ( const QUrl &url )
 {
-  if ( ! url.isValid() )
+  if ( ! url.scheme().contains ( QRegExp ( "(http[s]?|file)" ) ) )
     return false;
 
   Viewer* view = new Viewer ( this );
-  view->setUrl ( url );
   addViewerTab ( view );
+
+  if ( url.scheme().contains ( "file" ) )
+  {
+    LocalSource src = LocalSource::localSource ( url );
+    QString content = src.source();
+    if ( content.isNull() )
+      return false;
+
+    view->setHtml ( content, QUrl ( url.toString ( QUrl::RemoveScheme ) ) );
+  }
+  else
+    view->setUrl ( url );
+
   return true;
 }
 

@@ -93,9 +93,10 @@ const QDomElement PageHistory::timeStamp()
 
 const QDomElement PageHistory::createEntry ( const QUrl &url )
 {
+  QUrl::FormattingOptions format = ( QUrl::RemovePassword | QUrl::RemoveFragment );
   QDomElement recentItem = createElement ( "RecentItem" );
   QDomElement urlItem = createElement ( "URI" );
-  urlItem.appendChild ( createCDATASection ( url.toString() ) );
+  urlItem.appendChild ( createCDATASection ( url.toString ( format ) ) );
   recentItem.appendChild ( urlItem );
   recentItem.appendChild ( mimeType() );
   recentItem.appendChild ( timeStamp() );

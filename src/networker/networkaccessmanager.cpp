@@ -374,6 +374,8 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 {
   // Der cache muss immer Leer sein damit die Validierung funktioniert!
   cache()->remove ( req.url() );
+  if ( req.url().scheme().contains ( "file" ) )
+    qDebug() << Q_FUNC_INFO << req.url();
 
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );

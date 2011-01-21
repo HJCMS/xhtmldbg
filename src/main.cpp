@@ -36,17 +36,20 @@
 
 int main ( int argc, char *argv[] )
 {
-  // Overwrite QTWEBKIT_PLUGIN_PATH to XHTMLDBG PLUGIN Directory
+  /* Overwrite QTWEBKIT_PLUGIN_PATH to XHTMLDBG PLUGIN Directory
+  * This must forced to hide other plugins in global plugin-directories
+  * !!! QtWebkit produces major fuckups with invalid plugins !!!
+  */
   setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
 
   xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
 
-  QStringList trPaths ( QCoreApplication::applicationDirPath() );
+  QStringList trPaths ( app.applicationDirPath() );
   trPaths << QLibraryInfo::location ( QLibraryInfo::TranslationsPath );
 
-  QTranslator translator ( 0 );
+  QTranslator translator ( &app );
   foreach ( QString tf, trPaths )
   {
     if ( translator.load ( QString ( "xhtmldbg_%1.qm" ).arg ( QLocale().name() ), tf, "_" ) )

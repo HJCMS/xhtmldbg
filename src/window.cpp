@@ -22,6 +22,7 @@
 #include "version.h"
 #include "window.h"
 #include "application.h"
+#include "localsource.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "downloadmanager.h"
@@ -66,7 +67,6 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
-#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QMap>
 #include <QtCore/QProcess>
@@ -75,8 +75,6 @@
 #include <QtCore/QSize>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTextStream>
 
 /* QtGui */
 #include <QtGui/QApplication>
@@ -607,18 +605,22 @@ void Window::loadPageHistory()
   }
   else
   {
-    foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
+    QUrl hist ( "file:///home/heinemann/.xdg/local/data/xhtmldbg/history_test.xml" );
+    foreach ( QUrl url, PageHistory::history ( hist ) ) // m_settings->historyXml()
     {
-      if ( b ) // es wurde noch keine Seite geladen
+      if ( ! b )
       {
-        b = m_webViewer->addViewerUrlTab ( url );
-        if ( ! b ) // bei einem fehlschlag abbrechen!
-          break;
-      }
-      else // erste Url auf das offene Tab setzen!
-      {
+        // erste http Url auf das offene Tab setzen!
+        if ( url.scheme().contains ( "file" ) )
+          openFile ( url );
+        else
+          openUrl ( url );
+
         b = true;
-        openUrl ( url );
+      }
+      else
+      {
+        m_webViewer->addViewerUrlTab ( url );
       }
     }
   }
@@ -764,9 +766,7 @@ void Window::registerPlugins()
 * Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
 * Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
 * @li DomTree::setDomTree
-* @li Settings::setValue (RecentUrl)
 * @li An alle geladenen Plugins die URL übergeben.
-* Beim setzen von @em RecentUrl werden Passwörter und Anker entfernt.
 */
 void Window::requestsFinished ( int prozent )
 {
@@ -784,11 +784,6 @@ void Window::requestsFinished ( int prozent )
     m_geoLocation->setHostName ( currentUrl.host() );
     m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
 
-    /* Make Secure
-    QUrl::FormattingOptions options = ( QUrl::RemovePassword | QUrl::RemoveFragment );
-    QUrl recent ( currentUrl.toString ( options ) );
-    m_settings->setValue ( QLatin1String ( "RecentUrl" ), recent );
-    */
     // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
     {
@@ -916,7 +911,6 @@ void Window::openFileDialog()
     if ( openFile ( url ) )
     {
       m_webViewer->setUrl ( url.path() );
-      m_settings->setValue ( QLatin1String ( "RecentUrl" ), url );
       m_settings->setValue ( QLatin1String ( "RecentDirectory" ), info.absolutePath() );
     }
   }
@@ -959,29 +953,18 @@ void Window::toggleWindowFullScreen()
 /**
 * Wird von @ref openFileDialog verwendet um zu prüfen ob es
 * sich um ein file Schema handelt und existiert.
-* Danach wird sie in ein QTextStream eingelesen und weiter
-* an @ref setSource, der Pfad @ref WebViewer::setUrl gegeben.
-* Bei den Einstellungen wird @em RecentUrl modifiziert.
 */
 bool Window::openFile ( const QUrl &url )
 {
   if ( ! url.isValid() || url.scheme() != "file" )
     return false;
 
-  QFile fp ( url.path() );
-  if ( fp.open ( QFile::ReadOnly ) )
-  {
-    QTextStream rc ( &fp );
-    QByteArray buffer = rc.device()->readAll();
-    fp.close();
-    if ( ! buffer.isEmpty() )
-    {
-      QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
-      QString data = codec->toUnicode ( buffer );
-      return setSource ( data );
-    }
-  }
-  return false;
+  LocalSource html = LocalSource::localSource ( url );
+  QString source = html.source();
+  if ( source.isNull() )
+    return false;
+
+  return setSource ( source );
 }
 
 /**

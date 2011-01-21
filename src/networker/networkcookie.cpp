@@ -193,6 +193,9 @@ void NetworkCookie::save()
 */
 void NetworkCookie::setUrl ( const QUrl &url )
 {
+  if ( ! url.scheme().contains ( "http" ) )
+    return;
+
   primaryPageUrl.clear();
   if ( url.isValid() )
   {
@@ -250,7 +253,7 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
     list = QNetworkCookieJar::cookiesForUrl ( url );
 
   // Wenn leer - versuche es nur mit der Domäne und Pfad beim CookieManager
-  if ( list.isEmpty() )
+  if ( list.isEmpty() && url.scheme().contains ( "http" ) )
   {
     QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
     QString path = url.path();
@@ -289,6 +292,10 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
 */
 bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const QUrl &url )
 {
+  // XHTMLDBG Prodiziert einen loop wenn es sich nicht um eine Cookie URL handelt!
+  if ( ! url.scheme().contains ( "http" ) )
+    return false;
+
   // Fehlerhafte Url's erst gar nicht akzeptieren!
   if ( ! url.isValid() )
   {
