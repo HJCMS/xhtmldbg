@@ -35,6 +35,7 @@ class SourceCache : public QObject
   private:
     const QString tmpPath;
     QHash<int,QString> cacheFiles;
+    void cleanUp();
 
   public:
     explicit SourceCache ( QObject * parent );

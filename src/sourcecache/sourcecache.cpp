@@ -60,7 +60,7 @@ static inline const QString source_cache_temp_path()
   QString p ( QDir::tempPath () );
   p.append ( d.separator() );
   QString uuid = QUuid::createUuid();
-  p.append ( uuid.remove ( QRegExp ( "[\{\}]" ) ) );
+  p.append ( uuid.remove ( QRegExp ( "[\\{\\}]?" ) ) );
   d.mkpath ( p );
   return p;
 }
@@ -71,6 +71,20 @@ SourceCache::SourceCache ( QObject * parent )
 {
   setObjectName ( "SourceCache" );
   cacheFiles.clear();
+}
+
+void SourceCache::cleanUp()
+{
+  QDir d ( QDir::tempPath () );
+  d.setCurrent ( tmpPath );
+  QFile fp;
+  for ( int i = 0; i < cacheFiles.size(); ++i )
+  {
+    fp.setFileName ( cacheFiles.value ( i ) );
+    fp.remove();
+  }
+  d.setCurrent ( QDir::tempPath () );
+  d.rmdir ( tmpPath );
 }
 
 void SourceCache::setCache ( int index, const QString &source )
@@ -111,5 +125,6 @@ const QString SourceCache::getCache ( int index )
 
 SourceCache::~SourceCache()
 {
+  cleanUp();
   cacheFiles.clear();
 }
