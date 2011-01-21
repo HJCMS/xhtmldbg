@@ -60,6 +60,7 @@ class AddressToolBar;
 class KeywordsToolBar;
 class ZoomBar;
 class WebViewer;
+class SourceCache;
 class SourceWidget;
 class AlternateLinkReader;
 class GeoLocation;
@@ -154,6 +155,8 @@ class Window : public QMainWindow
     DomInspector* m_domInspector;
     // WebInspector
     WebInspector* m_webInspector;
+    // Source Cache
+    SourceCache* m_sourceCache;
     // Source Viewer
     SourceWidget* m_sourceWidget;
     // Read link:rev Alternate Elements

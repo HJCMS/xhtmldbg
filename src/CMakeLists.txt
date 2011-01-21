@@ -17,6 +17,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
   ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
   ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
+  ${CMAKE_CURRENT_SOURCE_DIR}/sourcecache
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/settings
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
@@ -38,6 +39,7 @@ ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (interface)
 ADD_SUBDIRECTORY (openurldialog)
 ADD_SUBDIRECTORY (settargetdialog)
+ADD_SUBDIRECTORY (sourcecache)
 ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (settings)
 ## to predicate on certain conditions
@@ -197,6 +199,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   xhtmldbginterface
   OpenUrlDialog
   SetTargetDialog
+  SourceCache
   SourceViewer
   Settings
   CSSValidator

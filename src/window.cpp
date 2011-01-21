@@ -30,6 +30,7 @@
 #include "keywordstoolbar.h"
 #include "zoombar.h"
 #include "webviewer.h"
+#include "sourcecache.h"
 #include "sourcewidget.h"
 #include "alternatelinkreader.h"
 #include "tidymessanger.h"
@@ -111,6 +112,9 @@ Window::Window ( Settings * settings )
 
   QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
   setWindowTitle ( winTitle );
+
+  // Quelltext Zwichen Speicher initialisieren
+  m_sourceCache = new SourceCache ( this );
 
   m_netManager = Application::networkAccessManager();
 
@@ -792,6 +796,10 @@ void Window::tabChanged ( int index )
       else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
         plugins.at ( i )->setUrl ( currentUrl );
     }
+
+    QString source = m_sourceCache->getCache ( m_webViewer->currentIndex() );
+    if ( ! source.isEmpty() )
+      m_sourceWidget->setSource ( source );
   }
 }
 
@@ -864,6 +872,7 @@ bool Window::setSource ( const QString &source )
     return false;
 
   // Quelltext einfügen
+  m_sourceCache->setCache ( m_webViewer->currentIndex(), source );
   m_sourceWidget->setSource ( source );
 
   // An alle sichtbaren Plugins den Quelltext übergeben
