@@ -67,6 +67,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );
     void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
     const QByteArray peekDeviceData ( QIODevice * );
+    void openLocalFile ( const QUrl & );
 
   private Q_SLOTS:
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
@@ -84,7 +85,7 @@ class NetworkAccessManager : public QNetworkAccessManager
 
   protected:
     virtual QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
-                                   const QNetworkRequest &req, QIODevice *data = 0 );
+                                           const QNetworkRequest &req, QIODevice *data = 0 );
 
   public Q_SLOTS:
     void replyFinished ( QNetworkReply * );

@@ -66,17 +66,20 @@ class AddressToolBar : public QToolBar
 
   private:
     const QRegExp schemePattern;
-    QAction *goToIndex;
+    QAction* ac_goToIndex;
+    QAction* ac_reload;
     AddressEdit* m_addressEdit;
     QStringList historylist;
 
   private Q_SLOTS:
     void validatePath ( const QString & );
     void urlToHostIndex();
+    void urlReloadPage();
     void checkInput();
 
   Q_SIGNALS:
     void urlChanged ( const QUrl & );
+    void reloadUrl ( const QUrl & );
     void sendMessage ( const QString & );
 
   public Q_SLOTS:
@@ -85,7 +88,7 @@ class AddressToolBar : public QToolBar
 
   public:
     AddressToolBar ( QWidget * parent = 0 );
-    ~AddressToolBar();
+    virtual ~AddressToolBar();
 };
 
 #endif

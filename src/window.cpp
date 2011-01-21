@@ -542,8 +542,11 @@ void Window::createToolBars()
   connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),
             m_addressToolBar, SLOT ( updateHistoryItems ( const QList<HistoryItem> & ) ) );
   connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
-            m_addressToolBar, SLOT ( setUrl ( const QUrl& ) ) );
+            m_addressToolBar, SLOT ( setUrl ( const QUrl & ) ) );
+  // Address ToolBar
   connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
+            m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
+  connect ( m_addressToolBar, SIGNAL ( reloadUrl ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
   connect ( m_addressToolBar, SIGNAL ( sendMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
@@ -785,8 +788,11 @@ void Window::tabChanged ( int index )
     if ( m_cssValidator->toggleViewAction()->isChecked() )
       m_cssValidator->addForValidation ( currentUrl );
 
-    m_geoLocation->setHostName ( currentUrl.host() );
-    m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
+    if ( ! currentUrl.isRelative() )
+    {
+      m_geoLocation->setHostName ( currentUrl.host() );
+      m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
+    }
 
     // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )

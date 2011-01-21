@@ -51,7 +51,6 @@ class WebViewer : public QTabWidget
   private:
     Viewer* m_viewer;
     Viewer* activeView();
-    QUrl url;
     void updateWebSettings();
     void setTabCornerButton();
 

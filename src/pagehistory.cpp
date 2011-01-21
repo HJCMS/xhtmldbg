@@ -25,9 +25,10 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QIODevice>
+#include <QtCore/QRegExp>
+#include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QTime>
-#include <QtCore/QString>
 
 /* QtXml */
 #include <QtXml/QDomNode>
@@ -109,7 +110,13 @@ void PageHistory::addEntries ( const QList<QUrl> &list )
 {
   foreach ( QUrl url, list )
   {
-    documentElement().appendChild ( createEntry ( url ) );
+    if ( url.isRelative() )
+    {
+      url.setScheme ( "file" );
+      documentElement().appendChild ( createEntry ( url ) );
+    }
+    else if ( url.scheme().contains ( QRegExp ( "(http[s]?|ftp|file)" ) ) )
+      documentElement().appendChild ( createEntry ( url ) );
   }
 }
 

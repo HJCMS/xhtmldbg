@@ -48,7 +48,6 @@
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
-    , url ( QUrl ( "http://www.selfhtml.org" ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -93,11 +92,10 @@ void WebViewer::updateWebSettings()
   Settings* m_settings = new Settings ( this );
 
   QWebSettings* wcfg = QWebSettings::globalSettings();
-  wcfg->setIconDatabasePath ( m_settings->webIconDatabasePath() );
   wcfg->setLocalStoragePath ( m_settings->webLocalStoragePath() );
-
+  wcfg->setIconDatabasePath ( m_settings->webIconDatabasePath() );
+  wcfg->clearIconDatabase ();
   wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
-
   wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
   wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
 
@@ -205,17 +203,15 @@ void WebViewer::updateTabTitle ( const QString &title )
 * Bei einem Tabwechsel die Url der Seite
 * ermitteln und weiter an @ref urlChanged geben.
 */
-void WebViewer::pretended ( int index )
+void WebViewer::pretended ( int )
 {
   QUrl url = activeView()->url();
-  if ( url.isValid() )
-  {
-    pageChanged();
-    emit urlChanged ( url );
-  }
+  if ( ! url.isValid() )
+    return;
 
-  QIcon icon = QWebSettings::iconForUrl ( url );
-  setTabIcon ( index, icon );
+  pageChanged();
+  emit urlChanged ( url );
+  setFavicon();
 }
 
 /**
@@ -236,7 +232,16 @@ void WebViewer::pageChanged()
 */
 void WebViewer::setFavicon()
 {
-  QIcon icon = activeView()->icon();
+  QIcon icon = QWebSettings::iconForUrl ( activeView()->url() );
+  if ( icon.isNull() )
+  {
+    icon = activeView()->icon();
+    if ( icon.isNull() )
+    {
+      setTabIcon ( currentIndex(), QIcon::fromTheme ( "text-html" ) );
+      return;
+    }
+  }
   setTabIcon ( currentIndex(), icon );
 }
 
@@ -310,6 +315,7 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   if ( move )
     setCurrentIndex ( index );
 
+  setFavicon();
   pageChanged();
 
   if ( uri.toString().contains ( "about:" ) )
@@ -400,7 +406,6 @@ void WebViewer::setUrl ( const QUrl &u )
   {
     // qDebug() << Q_FUNC_INFO << u;
     activeView()->openUrl ( u );
-    url = u;
     // Bei ersten start Page mitteilen!
     emit pageEntered ( activeView()->page() );
   }

@@ -33,10 +33,13 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QChar>
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
 #include <QtCore/QGlobalStatic>
+#include <QtCore/QIODevice>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkDiskCache>
@@ -226,6 +229,25 @@ const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
   return readBytes;
 }
 
+void NetworkAccessManager::openLocalFile ( const QUrl &url )
+{
+  if ( url.path().isNull() )
+    return;
+
+  QFile fp ( url.path() );
+  if ( fp.open ( QIODevice::ReadOnly ) )
+  {
+    QTextStream rc ( &fp );
+    QByteArray buffer = rc.device()->readAll();
+    if ( ! buffer.isEmpty() )
+    {
+      QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
+      emit postReplySource ( codec->toUnicode ( buffer ) );
+    }
+    fp.close();
+  }
+}
+
 /**
 * An dieser Stelle werden die Antworten abgefangen.
 * Weil QWebKit keinen Originalen Quelltext zurück gibt muss dies
@@ -374,12 +396,16 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 {
   // Der cache muss immer Leer sein damit die Validierung funktioniert!
   cache()->remove ( req.url() );
-  if ( req.url().scheme().contains ( "file" ) )
-    qDebug() << Q_FUNC_INFO << req.url();
+
+  // Lokale Dateien nicht über Network Reply laden !!!
+  if ( req.url().isRelative() )
+  {
+    openLocalFile ( req.url() );
+    return 0;
+  }
 
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
   setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );
-
   m_networkReply = QNetworkAccessManager::createRequest ( op, request, data );
   m_networkReply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   m_networkReply->setSslConfiguration ( sslConfig );

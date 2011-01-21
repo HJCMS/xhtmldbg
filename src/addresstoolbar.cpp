@@ -59,19 +59,19 @@ void AddressEdit::setColor ( BGCOL mode )
   switch ( mode )
   {
     case NORMAL:
-      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( defColor.name() ) );
+      setStyleSheet ( QString ( "QLineEdit { color: %1; }" ).arg ( defColor.name() ) );
       break;
 
     case WARN:
-      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( warnColor.name() ) );
+      setStyleSheet ( QString ( "QLineEdit { color: %1; }" ).arg ( warnColor.name() ) );
       break;
 
     case DANGER:
-      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( warnColor.name() ) );
+      setStyleSheet ( QString ( "QLineEdit { color: %1; }" ).arg ( warnColor.name() ) );
       break;
 
     default:
-      setStyleSheet ( QString( "QLineEdit { color: %1; }" ).arg( defColor.name() ) );
+      setStyleSheet ( QString ( "QLineEdit { color: %1; }" ).arg ( defColor.name() ) );
       break;
   };
 }
@@ -93,9 +93,12 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
 
   QIcon icon;
 
-  goToIndex = addAction ( QLatin1String ( "Index" ) );
-  goToIndex->setIcon ( icon.fromTheme ( QLatin1String ( "go-up" ) ) );
-  goToIndex->setEnabled ( false );
+  ac_goToIndex = addAction ( QLatin1String ( "Index" ) );
+  ac_goToIndex->setIcon ( icon.fromTheme ( QLatin1String ( "go-up" ) ) );
+  ac_goToIndex->setEnabled ( false );
+
+  ac_reload = addAction ( trUtf8 ( "Reload" ) );
+  ac_reload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
 
   QLabel *label = new QLabel ( trUtf8 ( "Address:" ), this );
   label->setContentsMargins ( 5, 0, 5, 0 );
@@ -112,10 +115,11 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
 
   connect ( m_addressEdit, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( validatePath ( const QString & ) ) );
-  connect ( m_addressEdit, SIGNAL ( returnPressed () ), this, SLOT ( checkInput () ) );
-  connect ( goToIndex, SIGNAL ( triggered () ), this, SLOT ( urlToHostIndex () ) );
+  connect ( m_addressEdit, SIGNAL ( returnPressed () ), this, SLOT ( checkInput() ) );
+  connect ( ac_goToIndex, SIGNAL ( triggered () ), this, SLOT ( urlToHostIndex() ) );
+  connect ( ac_reload, SIGNAL ( triggered () ), this, SLOT ( urlReloadPage() ) );
   connect ( cb, SIGNAL ( triggered() ), m_addressEdit, SLOT ( clear() ) );
-  connect ( go, SIGNAL ( triggered() ), this, SLOT ( checkInput () ) );
+  connect ( go, SIGNAL ( triggered() ), this, SLOT ( checkInput() ) );
 }
 
 /**
@@ -144,20 +148,23 @@ void AddressToolBar::updateHistoryItems ( const QList<HistoryItem> &items )
 
 /**
 * Prüfe ob die Angegebene Addresse einen Pfad enthält.
-* Wenn nicht dann die Aktion goToIndex Deaktivieren.
+* Wenn nicht dann die Aktion ac_goToIndex Deaktivieren.
 */
 void AddressToolBar::validatePath ( const QString &address )
 {
   QUrl url ( address );
-  if ( !url.isValid() || url.isRelative() )
+  if ( !url.isValid() )
     return;
+
+  if ( url.isRelative() )
+    url.setScheme ( "file" );
 
   if ( !url.scheme().contains ( schemePattern ) )
     return;
 
   AddressEdit::BGCOL col = url.scheme().contains ( "https" ) ? AddressEdit::WARN : AddressEdit::NORMAL;
   m_addressEdit->setColor ( col );
-  goToIndex->setEnabled ( ( ( url.path().length() > 1 ) ? true : false ) );
+  ac_goToIndex->setEnabled ( ( ( url.path().length() > 1 ) ? true : false ) );
 }
 
 /**
@@ -165,18 +172,34 @@ void AddressToolBar::validatePath ( const QString &address )
 * Die abgeschnitte Adresse wieder in @class AddressEdit ein.
 * Danach wird @ref checkInput aufgerufen.
 */
-void AddressToolBar::urlToHostIndex ()
+void AddressToolBar::urlToHostIndex()
 {
   QUrl url ( m_addressEdit->text() );
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( !url.scheme().contains ( schemePattern ) )
+  if ( ! url.scheme().contains ( schemePattern ) )
     return;
 
   QUrl::FormattingOptions flags = ( QUrl::RemovePath | QUrl::RemoveQuery | QUrl::RemoveFragment );
   m_addressEdit->setText ( url.toString ( flags ) );
   checkInput();
+}
+
+/**
+* Die Aktuelle Seiten URL neu Laden!
+*/
+void AddressToolBar::urlReloadPage()
+{
+  QUrl url ( m_addressEdit->text() );
+  if ( !url.isValid() )
+    return;
+
+  if ( url.isRelative() )
+    url.setScheme ( "file" );
+
+  if ( url.scheme().contains ( schemePattern ) )
+    emit reloadUrl ( url );
 }
 
 /**
@@ -192,10 +215,8 @@ void AddressToolBar::checkInput ()
   if ( url.scheme().contains ( "ftp" ) )
     emit sendMessage ( trUtf8 ( "Sorry: FTP protocol is currently not supported" ) );
 
-  if ( !url.scheme().contains ( schemePattern ) )
-    return;
-
-  emit urlChanged ( url );
+  if ( url.scheme().contains ( schemePattern ) )
+    emit urlChanged ( url );
 }
 
 AddressToolBar::~AddressToolBar()
