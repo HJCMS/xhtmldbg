@@ -72,7 +72,7 @@ class WebViewer : public QTabWidget
     void pageEntered ( QWebPage * );
 
   public Q_SLOTS:
-    void addViewerTab ( Viewer * );
+    void addViewerTab ( Viewer *, bool move = true );
     void addViewerTab ();
     void closeViewerTab ( int );
     void keywords ( const QStringList & );

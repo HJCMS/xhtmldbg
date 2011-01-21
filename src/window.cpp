@@ -605,8 +605,7 @@ void Window::loadPageHistory()
   }
   else
   {
-    QUrl hist ( "file:///home/heinemann/.xdg/local/data/xhtmldbg/history_test.xml" );
-    foreach ( QUrl url, PageHistory::history ( hist ) ) // m_settings->historyXml()
+    foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
     {
       if ( ! b )
       {

@@ -271,7 +271,7 @@ bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
 /**
 * Ein neues Tab erstellen und die Signale hierfür neu Initialsieren.
 */
-void WebViewer::addViewerTab ( Viewer *view )
+void WebViewer::addViewerTab ( Viewer *view, bool move )
 {
   if ( ! view )
     return;
@@ -305,10 +305,10 @@ void WebViewer::addViewerTab ( Viewer *view )
             this, SIGNAL ( loadStarted () ) );
 
   QUrl uri ( view->url() );
-  QString title = uri.host().isEmpty() ? trUtf8 ( "Startpage" ) : uri.host();
-
+  QString title = uri.host().isEmpty() ? trUtf8 ( "None" ) : uri.host();
   int index = addTab ( view, title );
-  setCurrentIndex ( index );
+  if ( move )
+    setCurrentIndex ( index );
 
   pageChanged();
 
@@ -335,20 +335,20 @@ bool WebViewer::addViewerUrlTab ( const QUrl &url )
     return false;
 
   Viewer* view = new Viewer ( this );
-  addViewerTab ( view );
 
   if ( url.scheme().contains ( "file" ) )
   {
     LocalSource src = LocalSource::localSource ( url );
     QString content = src.source();
     if ( content.isNull() )
-      return false;
-
-    view->setHtml ( content, QUrl ( url.toString ( QUrl::RemoveScheme ) ) );
+      view->setHtml ( blank() );
+    else
+      view->setHtml ( content, QUrl ( url.toString ( QUrl::RemoveScheme ) ) );
   }
   else
     view->setUrl ( url );
 
+  addViewerTab ( view, false );
   return true;
 }
 
@@ -396,11 +396,23 @@ void WebViewer::forward ()
 */
 void WebViewer::setUrl ( const QUrl &u )
 {
-  // qDebug() << Q_FUNC_INFO << u;
-  activeView()->openUrl ( u );
-  url = u;
-  // Bei ersten start Page mitteilen!
-  emit pageEntered ( activeView()->page() );
+  if ( u.scheme().contains ( "http" ) )
+  {
+    // qDebug() << Q_FUNC_INFO << u;
+    activeView()->openUrl ( u );
+    url = u;
+    // Bei ersten start Page mitteilen!
+    emit pageEntered ( activeView()->page() );
+  }
+  else if ( u.scheme().contains ( "file" ) )
+  {
+    LocalSource src = LocalSource::localSource ( u );
+    QString content = src.source();
+    if ( content.isNull() )
+      activeView()->setHtml ( blank() );
+    else
+      activeView()->setHtml ( content, QUrl ( u.toString ( QUrl::RemoveScheme ) ) );
+  }
 }
 
 /**
