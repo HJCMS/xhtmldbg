@@ -788,11 +788,11 @@ void Window::tabChanged ( int index )
     if ( m_cssValidator->toggleViewAction()->isChecked() )
       m_cssValidator->addForValidation ( currentUrl );
 
-    if ( ! currentUrl.isRelative() )
-    {
+    if ( ! currentUrl.isRelative() ) // Geo
       m_geoLocation->setHostName ( currentUrl.host() );
-      m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
-    }
+
+    // RSS/Atom
+    m_alternateLinkReader->setDomWebElement ( currentUrl, currentPage );
 
     // An alle Sichtbaren Plugins die Url übergeben
     for ( int i = 0; i < plugins.size(); ++i )
