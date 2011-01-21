@@ -21,14 +21,6 @@
 
 #include "pagehistory.h"
 
-/* std */
-#ifdef Q_OS_LINUX
-# include <cstdlib>
-# include <sys/sysinfo.h>
-# include <linux/unistd.h>
-# include <linux/kernel.h>
-#endif
-
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
@@ -94,18 +86,7 @@ inline const QDomElement PageHistory::mimeType()
 const QDomElement PageHistory::timeStamp()
 {
   QDomElement node = createElement ( "Timestamp" );
-#ifdef Q_OS_LINUX
-  QByteArray id;
-  struct sysinfo s_info;
-  if ( sysinfo ( &s_info ) != 0 )
-    id.setNum ( 0 );
-  else
-    id.setNum ( static_cast<qint64> ( s_info.uptime ) );
-
-  node.appendChild ( createTextNode ( id ) );
-#else
   node.appendChild ( createTextNode ( "0" ) );
-#endif
   documentElement().appendChild ( node );
   return node;
 }

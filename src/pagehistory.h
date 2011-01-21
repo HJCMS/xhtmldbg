@@ -40,13 +40,17 @@ class PageHistory : private QDomDocument
   public:
     PageHistory ();
 
-    /** get Saved History Url's */
+    /** get Saved History Url's
+    * \param filePath Absolute Path to history.xml
+    */
     static const QList<QUrl> history ( const QUrl &filePath );
 
     /** add Page Urls */
     void addEntries ( const QList<QUrl> &list );
 
-    /** save Document */
+    /** save Document
+    * \param filePath Absolute Path to history.xml
+    */
     bool saveHistory ( const QUrl &filePath );
 
     virtual ~PageHistory();
