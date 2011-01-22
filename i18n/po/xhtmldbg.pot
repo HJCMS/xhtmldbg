@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-22T11:05:39+01:00\n"
+"POT-Creation-Date: 2011-01-22T11:48:06+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,14 +37,18 @@ msgid  "Address"
 msgstr ""
 
 #: src/addresstoolbar.cpp:100
+msgid  "Reload"
+msgstr ""
+
+#: src/addresstoolbar.cpp:103
 msgid  "Address:"
 msgstr ""
 
-#: src/addresstoolbar.cpp:107
+#: src/addresstoolbar.cpp:110
 msgid  "Clear"
 msgstr ""
 
-#: src/addresstoolbar.cpp:193
+#: src/addresstoolbar.cpp:216
 msgid  "Sorry: FTP protocol is currently not supported"
 msgstr ""
 
@@ -1252,6 +1256,10 @@ msgstr ""
 msgid  "Name"
 msgstr ""
 
+#: src/docking/headerdock.cpp:125
+msgid  "System File"
+msgstr ""
+
 #: src/docking/headerdock.cpp:151
 msgid  "Hostname"
 msgstr ""
@@ -1416,7 +1424,7 @@ msgstr ""
 msgid  "Source"
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:257
+#: src/networker/networkaccessmanager.cpp:280
 msgid  "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)"
 msgstr ""
 
@@ -1440,23 +1448,43 @@ msgstr ""
 msgid  "Different Cookie/Domain for host %1. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:295
+#: src/networker/networkcookie.cpp:302
 msgid  "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:320
+#: src/networker/networkcookie.cpp:327
 msgid  "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:326
+#: src/networker/networkcookie.cpp:333
 msgid  "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:383
+#: src/networker/networkcookie.cpp:390
 msgid  "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
-#: src/openurldialog/openurldialog.cpp:38
+#: src/dialogs/openfiledialog.cpp:37
+msgid  "Open HTML File"
+msgstr ""
+
+#: src/dialogs/openfiledialog.cpp:41
+msgid  "HTML Document %1"
+msgstr ""
+
+#: src/dialogs/openfiledialog.cpp:42
+msgid  "Markup Document %1"
+msgstr ""
+
+#: src/dialogs/openfiledialog.cpp:43
+msgid  "Text Document %1"
+msgstr ""
+
+#: src/dialogs/openfiledialog.cpp:44
+msgid  "Unsupported Document Formats %1"
+msgstr ""
+
+#: src/dialogs/openurldialog.cpp:38
 msgid  "Open Url"
 msgstr ""
 
@@ -1472,7 +1500,7 @@ msgstr ""
 msgid  "JavaScript Prompt:"
 msgstr ""
 
-#: src/page.cpp:321
+#: src/page.cpp:317
 msgid  "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -1592,23 +1620,23 @@ msgstr ""
 msgid  "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
 msgstr ""
 
-#: src/settargetdialog/settargetdialog.cpp:39
+#: src/dialogs/settargetdialog.cpp:39
 msgid  "Output Directory"
 msgstr ""
 
-#: src/settargetdialog/settargetdialog.cpp:53
+#: src/dialogs/settargetdialog.cpp:53
 msgid  "Any files (*)"
 msgstr ""
 
-#: src/settargetdialog/settargetdialog.cpp:54 src/settargetdialog/settargetdialog.cpp:55 src/settargetdialog/settargetdialog.cpp:56 src/settargetdialog/settargetdialog.cpp:57 src/settargetdialog/settargetdialog.cpp:58 src/settargetdialog/settargetdialog.cpp:59 src/settargetdialog/settargetdialog.cpp:60
+#: src/dialogs/settargetdialog.cpp:54 src/dialogs/settargetdialog.cpp:55 src/dialogs/settargetdialog.cpp:56 src/dialogs/settargetdialog.cpp:57 src/dialogs/settargetdialog.cpp:58 src/dialogs/settargetdialog.cpp:59 src/dialogs/settargetdialog.cpp:60
 msgid  "%1 files %2"
 msgstr ""
 
-#: src/settargetdialog/settargetdialog.cpp:54
+#: src/dialogs/settargetdialog.cpp:54
 msgid  "Compression"
 msgstr ""
 
-#: src/settargetdialog/settargetdialog.cpp:55
+#: src/dialogs/settargetdialog.cpp:55
 msgid  "Image"
 msgstr ""
 
@@ -1812,7 +1840,7 @@ msgstr ""
 msgid  "Show Document Source"
 msgstr ""
 
-#: src/viewer.cpp:271 src/viewer.cpp:481
+#: src/viewer.cpp:271 src/viewer.cpp:485
 msgid  "Plugins"
 msgstr ""
 
@@ -1820,35 +1848,35 @@ msgstr ""
 msgid  "Display initialed Browser-Plugins."
 msgstr ""
 
-#: src/viewer.cpp:365
+#: src/viewer.cpp:368
 msgid  "SEO Result for \"%1\" Url:"
 msgstr ""
 
-#: src/viewer.cpp:373
+#: src/viewer.cpp:376
 msgid  "Word boundary:"
 msgstr ""
 
-#: src/viewer.cpp:378
+#: src/viewer.cpp:381
 msgid  "Case Sensitive:"
 msgstr ""
 
-#: src/viewer.cpp:388
+#: src/viewer.cpp:391
 msgid  "Meta Keywords:"
 msgstr ""
 
-#: src/viewer.cpp:394
+#: src/viewer.cpp:397
 msgid  "Meta Description:"
 msgstr ""
 
-#: src/viewer.cpp:401
+#: src/viewer.cpp:404
 msgid  "Page Title:"
 msgstr ""
 
-#: src/viewer.cpp:406
+#: src/viewer.cpp:409
 msgid  "Summary:"
 msgstr ""
 
-#: src/viewer.cpp:498
+#: src/viewer.cpp:502
 msgid  "Screenshot saved to %1"
 msgstr ""
 
@@ -1856,212 +1884,196 @@ msgstr ""
 msgid  "WebInspector: Update rejected - no valide url given!"
 msgstr ""
 
-#: src/webviewer.cpp:78
+#: src/webviewer.cpp:77
 msgid  "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:80
+#: src/webviewer.cpp:79
 msgid  "Add a new empty Tab"
 msgstr ""
 
-#: src/webviewer.cpp:307
-msgid  "Startpage"
+#: src/webviewer.cpp:312
+msgid  "None"
 msgstr ""
 
-#: src/window.cpp:127
+#: src/window.cpp:130
 msgid  "Browser"
 msgstr ""
 
-#: src/window.cpp:133
+#: src/window.cpp:136
 msgid  "Source"
 msgstr ""
 
-#: src/window.cpp:354
+#: src/window.cpp:346
 msgid  "Open Url"
 msgstr ""
 
-#: src/window.cpp:355
+#: src/window.cpp:347
 msgid  "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:361
+#: src/window.cpp:353
 msgid  "Open Html File"
 msgstr ""
 
-#: src/window.cpp:362
+#: src/window.cpp:354
 msgid  "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:368
+#: src/window.cpp:360
 msgid  "Quit"
 msgstr ""
 
-#: src/window.cpp:369
+#: src/window.cpp:361
 msgid  "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:379
+#: src/window.cpp:371
 msgid  "Parse"
 msgstr ""
 
-#: src/window.cpp:380
+#: src/window.cpp:372
 msgid  "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:386
+#: src/window.cpp:378
 msgid  "Format"
 msgstr ""
 
-#: src/window.cpp:387
+#: src/window.cpp:379
 msgid  "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:393
+#: src/window.cpp:385
 msgid  "&View"
 msgstr ""
 
-#: src/window.cpp:397
+#: src/window.cpp:389
 msgid  "Zoom +"
 msgstr ""
 
-#: src/window.cpp:405
+#: src/window.cpp:397
 msgid  "Zoom -"
 msgstr ""
 
-#: src/window.cpp:413
+#: src/window.cpp:405
 msgid  "Original"
 msgstr ""
 
-#: src/window.cpp:426
+#: src/window.cpp:418
 msgid  "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:436
+#: src/window.cpp:428
 msgid  "Refresh"
 msgstr ""
 
-#: src/window.cpp:442
+#: src/window.cpp:434
 msgid  "Back"
 msgstr ""
 
-#: src/window.cpp:448
+#: src/window.cpp:440
 msgid  "Forward"
 msgstr ""
 
-#: src/window.cpp:454
+#: src/window.cpp:446
 msgid  "New Page"
 msgstr ""
 
-#: src/window.cpp:455
+#: src/window.cpp:447
 msgid  "Add a new empty Tab"
 msgstr ""
 
-#: src/window.cpp:466
+#: src/window.cpp:458
 msgid  "Bookmarks"
 msgstr ""
 
-#: src/window.cpp:489
+#: src/window.cpp:481
 msgid  "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:497
+#: src/window.cpp:489
 msgid  "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:543
+#: src/window.cpp:535
 msgid  "Settings"
 msgstr ""
 
-#: src/window.cpp:997
+#: src/window.cpp:968
+msgid  "Invalid Url Rejected, required scheme is \"%1\"."
+msgstr ""
+
+#: src/window.cpp:1008
 msgid  "a Url Request from outsite. Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1000
+#: src/window.cpp:1011
 msgid  "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1031
+#: src/window.cpp:1042
 msgid  "Download Request: %1"
 msgstr ""
 
-#: src/window.cpp:511
+#: src/window.cpp:503
 msgid  "Display"
 msgstr ""
 
-#: src/window.cpp:350
+#: src/window.cpp:342
 msgid  "&Application"
 msgstr ""
 
-#: src/window.cpp:376
+#: src/window.cpp:368
 msgid  "&Debugger"
 msgstr ""
 
-#: src/window.cpp:433
+#: src/window.cpp:425
 msgid  "&Browser"
 msgstr ""
 
-#: src/window.cpp:495
+#: src/window.cpp:487
 msgid  "S&ettings"
 msgstr ""
 
-#: src/window.cpp:503
+#: src/window.cpp:495
 msgid  "Configure"
 msgstr ""
 
-#: src/window.cpp:508 src/window.cpp:604
+#: src/window.cpp:500 src/window.cpp:599
 msgid  "Extensions"
 msgstr ""
 
-#: src/window.cpp:515
+#: src/window.cpp:507
 msgid  "About"
 msgstr ""
 
-#: src/window.cpp:516
+#: src/window.cpp:508
 msgid  "about Qt"
 msgstr ""
 
-#: src/window.cpp:521
+#: src/window.cpp:513
 msgid  "about hjcms"
 msgstr ""
 
-#: src/window.cpp:532
+#: src/window.cpp:524
 msgid  "Actions"
 msgstr ""
 
-#: src/window.cpp:576
+#: src/window.cpp:571
 msgid  "Toolbars"
 msgstr ""
 
-#: src/window.cpp:586
+#: src/window.cpp:581
 msgid  "Impartations"
 msgstr ""
 
-#: src/window.cpp:594
+#: src/window.cpp:589
 msgid  "Inspectors"
 msgstr ""
 
-#: src/window.cpp:802
+#: src/window.cpp:856
 msgid  "Check StyleSheet for %1"
-msgstr ""
-
-#: src/window.cpp:858
-msgid  "HTML Document %1"
-msgstr ""
-
-#: src/window.cpp:859
-msgid  "Markup Document %1"
-msgstr ""
-
-#: src/window.cpp:860
-msgid  "Text Document %1"
-msgstr ""
-
-#: src/window.cpp:861
-msgid  "Unsupported Document Formats %1"
-msgstr ""
-
-#: src/window.cpp:868
-msgid  "Open HTML File"
 msgstr ""
 
 #: src/xhtmldbgadaptor.cpp:96
@@ -2160,14 +2172,14 @@ msgstr ""
 msgid  "Original"
 msgstr ""
 
-#: src/xhtmldbgmain.cpp:206
+#: src/xhtmldbgmain.cpp:196
 msgid  "Usage"
 msgstr ""
 
-#: src/xhtmldbgmain.cpp:207
+#: src/xhtmldbgmain.cpp:197
 msgid  "Disable Plugins and loading the Default Url"
 msgstr ""
 
-#: src/xhtmldbgmain.cpp:208
+#: src/xhtmldbgmain.cpp:198
 msgid  "Examples:"
 msgstr ""

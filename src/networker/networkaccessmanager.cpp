@@ -230,13 +230,18 @@ const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
   return readBytes;
 }
 
+/**
+* Weil Lokale Dateien nicht mit @ref peekReplyProcess gelesen werden
+* könne hier eine extra Routine zum lesen von Daten Quelltext für die
+* Quelltextansicht, siehe auch @ref createRequest
+*/
 void NetworkAccessManager::openLocalFile ( const QUrl &url )
 {
   if ( url.path().isEmpty() )
     return;
 
   LocalSource src = LocalSource::localSource ( url );
-  if ( src.source().isEmpty() )
+  if ( ! src.source().isEmpty() )
     emit postReplySource ( src.source() );
 }
 

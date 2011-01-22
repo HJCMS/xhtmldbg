@@ -178,7 +178,7 @@ void AddressToolBar::urlToHostIndex()
   if ( !url.isValid() || url.isRelative() )
     return;
 
-  if ( ! url.scheme().contains ( schemePattern ) )
+  if ( ! url.scheme().contains ( "http" ) )
     return;
 
   QUrl::FormattingOptions flags = ( QUrl::RemovePath | QUrl::RemoveQuery | QUrl::RemoveFragment );
