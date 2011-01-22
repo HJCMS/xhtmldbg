@@ -49,13 +49,12 @@ class NetworkCookie : public QNetworkCookieJar
     AutoSaver* m_autoSaver;
     CookieManager* m_cookieManager;
     QStringList inProgress;
-    QUrl primaryPageUrl;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;
     bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
     const QDateTime cookieLifeTime();
     void load();
-    bool isThirdPartyDomain ( const QUrl & );
+    bool isThirdPartyDomain ( const QString &, const QUrl & ) const;
 
   Q_SIGNALS:
     void cookieNotice ( const QString & );

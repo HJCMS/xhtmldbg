@@ -5,10 +5,11 @@
 # Copyright: See COPYING file that comes with this distribution
 #################################################################
 
-base=../xhtmldbg
+base=/usr/src/packages/Heinemann/Projekte/xhtmldbg
 
 test -d "${base}" || {
-  base="`dirname $0`/"
+  echo "Missing Directory"
+  exit 1
 }
 
 debug_build_target=${base}/build
@@ -49,12 +50,12 @@ echo "cmake"
 if test "$PWD" = "${debug_build_target}" ; then
   if test -f cmake_install.cmake ; then
     rm -rf ${debug_build_target}/*
+    mkdir -p ${debug_build_target}/app/{designer,plugins}
   fi
-  mkdir -p ${debug_build_target}/app/{designer,plugins}
   runcmake $@
 else
-  mkdir -p build/app/{designer,plugins}
-  pushd build
+  mkdir -p ${debug_build_target}/app/{designer,plugins}
+  pushd ${debug_build_target}
     runcmake $@
   popd
 fi

@@ -79,8 +79,10 @@ Viewer::Viewer ( QWidget * parent )
   /* signal cookie nachfrage dialog */
   connect ( networkCookieManager, SIGNAL ( cookieRequest ( const QUrl & ) ),
             this, SLOT ( cookiesRequest ( const QUrl & ) ) );
+
   connect ( networkCookieManager, SIGNAL ( cookieRejected ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
+
   connect ( networkCookieManager, SIGNAL ( cookieNotice ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
 
@@ -97,6 +99,9 @@ Viewer::Viewer ( QWidget * parent )
 
   /* stop maus-sanduhr */
   connect ( this, SIGNAL ( loadProgress ( int ) ), this, SLOT ( cursorFinished ( int ) ) );
+
+  connect ( this, SIGNAL ( titleChanged ( const QString & ) ),
+            this, SLOT ( readPageTitle ( const QString & ) ) );
 
   /* bei überfahren mir der maus informationen der verknüpfung ausgeben. */
   connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
@@ -454,6 +459,12 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
 
   QPoint point = cursor ().pos();
   QToolTip::showText ( point, title, this, QRect ( point, QSize ( 20, 20 ) ) );
+}
+
+/** Damit der Richtige Tab Titel gesetzt wird ein Signal mit Url senden! */
+void Viewer::readPageTitle ( const QString &title )
+{
+  emit titleChanged ( url(), title );
 }
 
 /** Nachricht weiter an IDE geben ! */

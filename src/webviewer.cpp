@@ -81,6 +81,11 @@ void WebViewer::setTabCornerButton()
   setCornerWidget ( btn, Qt::TopRightCorner );
 }
 
+int WebViewer::realPageIndex ( int index )
+{
+  return ( index == -1 ) ? currentIndex() : index;
+}
+
 /**
 * Das lesen aller Web Einstellungen muss
 * vor dem ersten erstellen ein tabs erfolgen.
@@ -161,9 +166,12 @@ void WebViewer::updateWebSettings()
   delete m_settings;
 }
 
-Viewer* WebViewer::activeView()
+/**
+* Zeiger auf das aktuelle Viewer an Hand des sichtbaren Tabs.
+*/
+Viewer* WebViewer::activeView ( int index )
 {
-  QObject* w = currentWidget();
+  QObject* w = widget ( realPageIndex ( index ) );
   while ( w )
   {
     if ( Viewer* mw = qobject_cast<Viewer*> ( w ) )
@@ -175,73 +183,96 @@ Viewer* WebViewer::activeView()
 }
 
 /**
+* Suche Index von Viewer mit der Url
+* Wenn nicht gefunden dann gebe -1 zurück.
+*/
+int WebViewer::getIndexWithUrl ( const QUrl &url )
+{
+  if ( ! url.isValid() )
+    return -1;
+
+  for ( int i = 0; i < count(); i++ )
+  {
+    Viewer* mw = qobject_cast<Viewer*> ( widget ( i ) );
+    if ( mw && mw->url() == url )
+    {
+      return i;
+    }
+  }
+  return -1;
+}
+
+/**
 * Wird von Signal @ref WebView::titleChanged aufgerufen.
 * Hier den Tab Titel, Tip und WasIstDas setzen.
 */
-void WebViewer::updateTabTitle ( const QString &title )
+void WebViewer::updateTab ( const QUrl &url, const QString &title )
 {
+  if ( title.isEmpty() || ! url.isValid() )
+    return;
+
   int max = 20;
-  int index = currentIndex();
+  int index = getIndexWithUrl ( url );
+  if ( index == -1 )
+    return;
+
   QString pr ( title );
-  if ( pr.isEmpty() )
-  {
-    pr.append ( activeView()->url().host() );
-  }
-  else if ( title.size() >= max )
+  if ( title.size() >= max )
   {
     pr.resize ( max );
     pr.append ( "..." );
   }
+
   setTabText ( index, pr );
   setTabToolTip ( index, title );
   setTabWhatsThis ( index, title );
-  pageChanged();
+  setFavicon ( index );
 }
 
 /**
 * Bei einem Tabwechsel die Url der Seite
 * ermitteln und weiter an @ref urlChanged geben.
 */
-void WebViewer::pretended ( int )
+void WebViewer::pretended ( int index )
 {
-  QUrl url = activeView()->url();
+  QUrl url = activeView ( index )->url();
   if ( ! url.isValid() )
     return;
 
-  pageChanged();
   emit urlChanged ( url );
-  setFavicon();
+  pageChanged( index );
 }
 
 /**
 * Wenn eine neue Seite aufgemacht wird dann hier
 * das Signal @ref pageEntered aufrufen!
 */
-void WebViewer::pageChanged()
+void WebViewer::pageChanged ( int index )
 {
-  if ( ! activeView()->page()->isModified() )
-    emit pageEntered ( activeView()->page() );
-  else if ( activeView()->page()->currentFrame()->url().isValid() )
-    emit pageEntered ( activeView()->page() );
+  if ( ! activeView ( index )->page()->isModified() )
+    emit pageEntered ( activeView ( index )->page() );
+  else if ( activeView ( index )->page()->currentFrame()->url().isValid() )
+    emit pageEntered ( activeView ( index )->page() );
 }
 
 /**
 * Setze wenn vorhanden einen Icon in das Tab
 * an sonsten mit leeren Icon wieder entfernen.
 */
-void WebViewer::setFavicon()
+void WebViewer::setFavicon ( int index )
 {
-  QIcon icon = QWebSettings::iconForUrl ( activeView()->url() );
+  int id = realPageIndex ( index );
+  QIcon icon = QWebSettings::iconForUrl ( activeView ( id )->url() );
   if ( icon.isNull() )
   {
-    icon = activeView()->icon();
+    icon = activeView ( id )->icon();
     if ( icon.isNull() )
     {
-      setTabIcon ( currentIndex(), QIcon::fromTheme ( "text-html" ) );
+      setTabIcon ( id, QIcon::fromTheme ( "text-html" ) );
       return;
     }
   }
-  setTabIcon ( currentIndex(), icon );
+  setTabIcon ( id, icon );
 }
 
 /**
@@ -256,16 +287,13 @@ bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
     setUrl ( newUrl );
     return true;
   }
-  // Suche nach einer Page mit @param oldUrl und setze die URL
-  for ( int i = 0; i < count(); i++ )
+  // Suche nach einer Page mit @param oldUrl
+  int index = getIndexWithUrl ( oldUrl );
+  if ( index != -1 )
   {
-    Viewer* mw = qobject_cast<Viewer*> ( widget ( i ) );
-    if ( mw && mw->url() == oldUrl )
-    {
-      mw->setUrl ( newUrl );
-      setCurrentIndex ( i );
-      return true;
-    }
+    activeView ( index )->setUrl ( newUrl );
+    setCurrentIndex ( index );
+    return true;
   }
   // Wenn keine Page mit oldURL vorhanden dann abbrechen.
   // Siehe Window::setPageUrl
@@ -280,8 +308,8 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   if ( ! view )
     return;
 
-  connect ( view, SIGNAL ( titleChanged ( const QString & ) ),
-            this, SLOT ( updateTabTitle ( const QString & ) ) );
+  connect ( view, SIGNAL ( titleChanged ( const QUrl &, const QString & ) ),
+            this, SLOT ( updateTab ( const QUrl &, const QString & ) ) );
 
   connect ( view, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ),
             this, SIGNAL ( addBookmark ( const QUrl &, const QString & ) ) );
@@ -309,13 +337,15 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
             this, SIGNAL ( loadStarted () ) );
 
   QUrl uri ( view->url() );
-  QString title = uri.host().isEmpty() ? trUtf8 ( "None" ) : uri.host();
+  QString title = uri.host().isEmpty() ? trUtf8 ( "file" ) : uri.host();
   int index = addTab ( view, title );
   if ( move )
+  {
     setCurrentIndex ( index );
+    pageChanged ( index );
+  }
 
   setFavicon();
-  pageChanged();
 
   if ( uri.toString().contains ( "about:" ) )
     setAboutPage ( uri.toString().split ( ":" ).last() );

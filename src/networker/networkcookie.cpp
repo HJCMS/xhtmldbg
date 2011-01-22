@@ -46,7 +46,6 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
-  primaryPageUrl.clear();
   inProgress.clear();
 
   if ( m_cookieManager->isOpen() )
@@ -184,7 +183,7 @@ void NetworkCookie::save()
 }
 
 /**
-* Schreibe @ref primaryPageUrl Neu!
+* DEPRECATED Diese Methode wird nicht mehr benötigt!
 * Dieser SLOT wird von @ref Viewer::cursorwait aufgerufen und
 * setzt die aktuell angefragte URL!
 * Dass ist deshalb nötig damit bei der Cookie Anfrage
@@ -193,17 +192,15 @@ void NetworkCookie::save()
 */
 void NetworkCookie::setUrl ( const QUrl &url )
 {
-  if ( ! url.scheme().contains ( "http" ) )
-    return;
+//   if ( ! url.scheme().contains ( "http" ) )
+  return;
 
-  primaryPageUrl.clear();
   if ( url.isValid() )
   {
     QUrl host;
     host.setScheme ( url.scheme() );
     host.setHost ( url.host() );
     host.setPath ( url.path() );
-    primaryPageUrl = host;
   }
 }
 
@@ -220,25 +217,29 @@ void NetworkCookie::setUrl ( const QUrl &url )
 *   Zeichen und Hostname vor der TLD enthalten.
 *   Andernfalls ist die Adresse nicht RFC Konform!
 *
-* @see setUrl
+* @param hostname der vom CookieManager übergeben wurde
+* @param url  die url der Anfrage
 * @see setCookiesFromUrl
 */
-bool NetworkCookie::isThirdPartyDomain ( const QUrl &url )
+bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &url ) const
 {
   // Wenn Leer dann true zurück geben ;-/
-  if ( primaryPageUrl.isEmpty() )
+  if ( hostname.isEmpty() )
     return true;
 
   // Ermittle "Domain" und "Top Level Domain"
-  QStringList pageHostname = primaryPageUrl.host().split ( "." );
-  if ( pageHostname.size() >= 2 )
+  // Manche Werbebanner... setzen SubDomain mit den Hostnamen der Original Seite!
+  QStringList list = url.host().split ( "." );
+  if ( list.size() >= 2 )
   {
-    QString domain ( pageHostname.takeLast() );
+    QString domain ( list.takeLast() ); // tld anhängen
     domain.prepend ( "." );
-    domain.prepend ( pageHostname.takeLast() );
-    return ( url.host().contains ( domain ) ? true : false );
+    domain.prepend ( list.takeLast() ); // host anhängen
+    // Wenn hostname vorhanden sollte es kein 3. Anbieter
+    return ( domain.contains ( hostname ) ? false : true );
   }
-  return false;
+  // letzter versuch wenn Hostname vorhanden dann false
+  return ( url.host().contains ( hostname ) ? false : true );
 }
 
 /**
@@ -253,16 +254,13 @@ QList<QNetworkCookie> NetworkCookie::cookiesForUrl ( const QUrl &url ) const
     list = QNetworkCookieJar::cookiesForUrl ( url );
 
   // Wenn leer - versuche es nur mit der Domäne und Pfad beim CookieManager
-  if ( list.isEmpty() && url.scheme().contains ( "http" ) )
+  if ( ( list.size() < 1 ) && url.scheme().contains ( "http" ) )
   {
-    QString domain ( url.host().remove ( QRegExp ( "^www\\b" ) ) );
+    QString domain ( url.host().remove ( QRegExp ( "^www[\\.]?\\b" ) ) );
     QString path = url.path();
-    if ( ! path.contains ( QRegExp ( "^\\/.+\\/$" ) ) )
+    if ( ! path.contains ( QRegExp ( "^\\/" ) ) )
       path = QLatin1String ( "/" );
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-    qDebug() << "(XHTMLDBG) Cookies Request to CookieManager: " << domain << " Path: " << path;
-#endif
     list = m_cookieManager->getCookiesForDomain ( domain, path );
   }
   return list;
@@ -327,10 +325,11 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
   }
-  else if ( ! cookieAcces.AllowThirdParty && ! isThirdPartyDomain ( url ) )
+  else if ( ! cookieAcces.AllowThirdParty && isThirdPartyDomain ( cookieAcces.Hostname, url ) )
   {
     // Drittanbieter keks Anfrage verwerfen.
-    emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" ).arg ( url.host(), primaryPageUrl.host() ) );
+    emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" )
+                        .arg ( url.host(), cookieAcces.Hostname ) );
     return false;
   }
 
@@ -407,5 +406,4 @@ NetworkCookie::~NetworkCookie()
 {
   m_autoSaver->saveIfNeccessary();
   inProgress.clear();
-  primaryPageUrl.clear();
 }

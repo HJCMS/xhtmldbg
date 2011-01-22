@@ -50,15 +50,17 @@ class WebViewer : public QTabWidget
 
   private:
     Viewer* m_viewer;
-    Viewer* activeView();
+    Viewer* activeView ( int index = -1 );
+    int getIndexWithUrl ( const QUrl & );
     void updateWebSettings();
     void setTabCornerButton();
+    int realPageIndex ( int index = -1 );
 
   private Q_SLOTS:
-    void updateTabTitle ( const QString & );
+    void updateTab ( const QUrl &, const QString & );
     void pretended ( int );
-    void pageChanged();
-    void setFavicon();
+    void pageChanged ( int index = -1 );
+    void setFavicon ( int index = -1 );
 
   Q_SIGNALS:
     void loadStarted ();
