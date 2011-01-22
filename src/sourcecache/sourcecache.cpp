@@ -78,14 +78,13 @@ void SourceCache::cleanUp()
   QDir d ( QDir::tempPath () );
   if ( ! d.rmdir ( tmpPath ) )
   {
-    d.setCurrent ( tmpPath );
+    d.setCurrent ( QDir::tempPath () );
     QFile fp;
     for ( int i = 0; i < cacheFiles.size(); ++i )
     {
       fp.setFileName ( cacheFiles.value ( i ) );
       fp.remove();
     }
-    d.setCurrent ( QDir::tempPath () );
     d.rmdir ( tmpPath );
   }
 }

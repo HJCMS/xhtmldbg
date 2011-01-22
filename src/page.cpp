@@ -22,6 +22,7 @@
 #include "page.h"
 #include "viewer.h"
 #include "xhtmldbgmain.h"
+#include "networkblocker.h"
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
 #include "jsmessanger.h"
@@ -245,6 +246,9 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   bool b = QWebPage::acceptNavigationRequest ( frame, request, type );
   if ( ! b )
     return b;
+
+  if ( xhtmldbgmain::instance()->blockerManager()->isBlocked ( request.url() ) )
+    return false;
 
   switch ( type )
   {

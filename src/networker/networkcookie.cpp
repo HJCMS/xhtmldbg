@@ -302,7 +302,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
-  QString cookieHost = url.host().remove ( QRegExp ( "^www\\." ) );
+  QString cookieHost = url.host().remove ( QRegExp ( "^www" ) );
   if ( inProgress.contains ( cookieHost ) )
     return false;
 

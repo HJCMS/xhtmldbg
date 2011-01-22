@@ -38,6 +38,7 @@ class DownloadManager;
 class HistoryManager;
 class NetworkCookie;
 class NetworkAccessManager;
+class NetworkBlocker;
 
 class Application : public QApplication
 {
@@ -51,6 +52,7 @@ class Application : public QApplication
     static HistoryManager* p_historyManager;
     static NetworkAccessManager* p_networkAccessManager;
     static DownloadManager* p_downloadManager;
+    static NetworkBlocker* p_networkBlocker;
 
   private Q_SLOTS:
     void newConnection();
@@ -68,6 +70,7 @@ class Application : public QApplication
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();
     static NetworkCookie* cookieManager();
+    static NetworkBlocker* blockerManager();
     ~Application();
 
 };

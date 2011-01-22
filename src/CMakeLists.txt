@@ -22,6 +22,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
+  ${CMAKE_CURRENT_SOURCE_DIR}/blocker
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
@@ -44,6 +45,7 @@ ADD_SUBDIRECTORY (settings)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (dominspector)
+ADD_SUBDIRECTORY (blocker)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
@@ -200,6 +202,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   CSSValidator
   Configuration
   DomInspector
+  NetBlocker
   Networker
   DownloadManager
   RDFParser
