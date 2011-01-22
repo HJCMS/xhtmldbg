@@ -1967,7 +1967,7 @@ Reasons : </source>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="280"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="276"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1975,47 +1975,47 @@ Reasons : </source>
 <context>
     <name>NetworkCookie</name>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="102"/>
+        <location filename="../src/networker/networkcookie.cpp" line="101"/>
         <source>Impermissible Cookie format for &quot;%1&quot; and Cookie Domain &quot;%2&quot; rejected by RFC 2109.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="110"/>
+        <location filename="../src/networker/networkcookie.cpp" line="109"/>
         <source>A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="116"/>
+        <location filename="../src/networker/networkcookie.cpp" line="115"/>
         <source>A Set-Cookie with attached dot Domain=%1, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="122"/>
+        <location filename="../src/networker/networkcookie.cpp" line="121"/>
         <source>A Set-Cookie with missing Hostname Domain=.tld, will always be rejected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="151"/>
+        <location filename="../src/networker/networkcookie.cpp" line="150"/>
         <source>Different Cookie/Domain for host %1. (Rejected)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="302"/>
+        <location filename="../src/networker/networkcookie.cpp" line="300"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="327"/>
+        <location filename="../src/networker/networkcookie.cpp" line="325"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="333"/>
+        <location filename="../src/networker/networkcookie.cpp" line="331"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="390"/>
+        <location filename="../src/networker/networkcookie.cpp" line="389"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2074,7 +2074,12 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="317"/>
+        <location filename="../src/page.cpp" line="246"/>
+        <source>Host %1 Blocked</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/page.cpp" line="318"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2550,88 +2555,88 @@ Reasons : </source>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="241"/>
+        <location filename="../src/viewer.cpp" line="246"/>
         <source>Bookmark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="248"/>
+        <location filename="../src/viewer.cpp" line="253"/>
         <source>StyleSheet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="251"/>
+        <location filename="../src/viewer.cpp" line="256"/>
         <source>Start CSS Validation for this Site.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="264"/>
+        <location filename="../src/viewer.cpp" line="269"/>
         <source>Screenshot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="267"/>
+        <location filename="../src/viewer.cpp" line="272"/>
         <source>Screenshot from current Page.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="256"/>
+        <location filename="../src/viewer.cpp" line="261"/>
         <source>Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="259"/>
+        <location filename="../src/viewer.cpp" line="264"/>
         <source>Show Document Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="271"/>
-        <location filename="../src/viewer.cpp" line="485"/>
+        <location filename="../src/viewer.cpp" line="276"/>
+        <location filename="../src/viewer.cpp" line="496"/>
         <source>Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="274"/>
+        <location filename="../src/viewer.cpp" line="279"/>
         <source>Display initialed Browser-Plugins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="368"/>
+        <location filename="../src/viewer.cpp" line="373"/>
         <source>SEO Result for &quot;%1&quot; Url: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="376"/>
+        <location filename="../src/viewer.cpp" line="381"/>
         <source>Word boundary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="381"/>
+        <location filename="../src/viewer.cpp" line="386"/>
         <source>Case Sensitive: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="391"/>
+        <location filename="../src/viewer.cpp" line="396"/>
         <source>Meta Keywords: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="397"/>
+        <location filename="../src/viewer.cpp" line="402"/>
         <source>Meta Description: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="404"/>
+        <location filename="../src/viewer.cpp" line="409"/>
         <source>Page Title: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="409"/>
+        <location filename="../src/viewer.cpp" line="414"/>
         <source>Summary: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/viewer.cpp" line="502"/>
+        <location filename="../src/viewer.cpp" line="513"/>
         <source>Screenshot saved to %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2657,8 +2662,8 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/webviewer.cpp" line="312"/>
-        <source>None</source>
+        <location filename="../src/webviewer.cpp" line="340"/>
+        <source>file</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
