@@ -122,7 +122,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
 {
   int widgetIndex = 0;
   bool isHtmlContent = false;
-  QString host = replyUrl.host();
+  QString host = ( replyUrl.scheme().contains ( "http" ) ? replyUrl.host() : trUtf8 ( "System File" ) );
   DockTreeWidget* tree = widget ( widgetIndex );
   QTreeWidgetItem* parent;
 
@@ -175,7 +175,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   if ( tree->topLevelItemCount() == 1 )
     tree->expandAll ();
 
-  
+
 }
 
 /**

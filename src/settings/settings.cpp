@@ -181,6 +181,43 @@ const QUrl Settings::bookmarkXbel()
 }
 
 /**
+* speichere das zueletzt verwendete Verzeichnis
+*/
+void Settings::setRecentDirectory ( const QString &d )
+{
+  QDir dir ( d );
+  if ( dir.exists() )
+    setValue ( "RecentDirectory", d );
+}
+
+/**
+* get last used directory, if empty HOME is set
+*/
+const QString Settings::getRecentDirectory()
+{
+  return value ( "RecentDirectory", QDir::homePath() ).toString();
+}
+
+/**
+* setze URL für RecentUrl
+*/
+void Settings::setRecentUrl ( const QUrl &u )
+{
+  if ( u.isValid() && ! u.isRelative() )
+    setValue ( "RecentUrl", u );
+  else
+    setValue ( "RecentUrl", QUrl ( "http://localhost" ) );
+}
+
+/**
+* zuletzt verwendete URL
+*/
+const QUrl Settings::getRecentUrl()
+{
+  return value ( "RecentUrl", QUrl ( "http://localhost" ) ).toUrl();
+}
+
+/**
 * Vereinfachung : Zahlen Werte abfragen
 */
 int Settings::intValue ( const QString &p, int i )

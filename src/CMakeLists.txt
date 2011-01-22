@@ -15,10 +15,9 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
-  ${CMAKE_CURRENT_SOURCE_DIR}/openurldialog
-  ${CMAKE_CURRENT_SOURCE_DIR}/settargetdialog
   ${CMAKE_CURRENT_SOURCE_DIR}/sourcecache
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
+  ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/settings
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
@@ -37,10 +36,9 @@ ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (interface)
-ADD_SUBDIRECTORY (openurldialog)
-ADD_SUBDIRECTORY (settargetdialog)
 ADD_SUBDIRECTORY (sourcecache)
 ADD_SUBDIRECTORY (sourceviewer)
+ADD_SUBDIRECTORY (dialogs)
 ADD_SUBDIRECTORY (settings)
 ## to predicate on certain conditions
 ADD_SUBDIRECTORY (cssvalidator)
@@ -76,7 +74,6 @@ SET (xhtmldbg_SOURCES
   main.cpp
   xhtmldbgmain.cpp
   application.cpp
-  localsource.cpp
   window.cpp
   addresstoolbar.cpp
   keywordstoolbar.cpp
@@ -137,7 +134,6 @@ SET (xhtmldbg_HEADERS
 ## NOMOC HEADERS
 ##############################
 SET (xhtmldbg_NOMOC
-  localsource.h
   historyitem.h
   pagehistory.h
 )
@@ -197,8 +193,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Docking
   HostInfo
   xhtmldbginterface
-  OpenUrlDialog
-  SetTargetDialog
+  Dialogs
   SourceCache
   SourceViewer
   Settings

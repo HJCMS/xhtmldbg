@@ -34,6 +34,7 @@
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
 #include <QtCore/QTranslator>
@@ -124,25 +125,14 @@ void xhtmldbgmain::sMessageReceived ( QLocalSocket* socket )
   if ( message.isEmpty() )
     return;
 
-  if ( message.startsWith ( QLatin1String ( "http://" ) ) )
+  // TODO Regexp Überprüfen!
+  if ( message.contains ( QRegExp ( "^(http[s]?|file):[\\/]{2,3}[\\w]+" ) ) )
   {
     QUrl url ( message.toUtf8() );
     if ( url.isValid() )
     {
       setWindowFocus();
       mainWindow()->openUrl ( url );
-      socket->write ( message.toUtf8() );
-      socket->waitForBytesWritten();
-      return;
-    }
-  }
-  else if ( message.startsWith ( QLatin1String ( "file://" ) ) )
-  {
-    QUrl url ( message.toUtf8() );
-    if ( url.isValid() )
-    {
-      setWindowFocus();
-      mainWindow()->openFile ( url );
       socket->write ( message.toUtf8() );
       socket->waitForBytesWritten();
       return;

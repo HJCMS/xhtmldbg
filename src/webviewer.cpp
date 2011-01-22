@@ -24,7 +24,6 @@
 #include "historymanager.h"
 #include "historyitem.h"
 #include "settings.h"
-#include "localsource.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -57,7 +56,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setBackgroundRole ( QPalette::NoRole );
 
   m_viewer = new Viewer ( this );
-  m_viewer->setObjectName ( QLatin1String ( "startpage" ) );
+  m_viewer->setObjectName ( "startpage" );
   updateWebSettings();
   addViewerTab ( m_viewer );
 
@@ -341,19 +340,7 @@ bool WebViewer::addViewerUrlTab ( const QUrl &url )
     return false;
 
   Viewer* view = new Viewer ( this );
-
-  if ( url.scheme().contains ( "file" ) )
-  {
-    LocalSource src = LocalSource::localSource ( url );
-    QString content = src.source();
-    if ( content.isNull() )
-      view->setHtml ( blank() );
-    else
-      view->setHtml ( content, QUrl ( url.toString ( QUrl::RemoveScheme ) ) );
-  }
-  else
-    view->setUrl ( url );
-
+  view->openUrl ( url );
   addViewerTab ( view, false );
   return true;
 }
@@ -400,24 +387,13 @@ void WebViewer::forward ()
 /**
 * Weiter auf @ref WebView::openUrl senden.
 */
-void WebViewer::setUrl ( const QUrl &u )
+void WebViewer::setUrl ( const QUrl &url )
 {
-  if ( u.scheme().contains ( "http" ) )
-  {
-    // qDebug() << Q_FUNC_INFO << u;
-    activeView()->openUrl ( u );
-    // Bei ersten start Page mitteilen!
-    emit pageEntered ( activeView()->page() );
-  }
-  else if ( u.scheme().contains ( "file" ) )
-  {
-    LocalSource src = LocalSource::localSource ( u );
-    QString content = src.source();
-    if ( content.isNull() )
-      activeView()->setHtml ( blank() );
-    else
-      activeView()->setHtml ( content, QUrl ( u.toString ( QUrl::RemoveScheme ) ) );
-  }
+  if ( ! url.isValid() || url.isRelative() )
+    return;
+
+  activeView()->openUrl ( url );
+  emit pageEntered ( activeView()->page() );
 }
 
 /**

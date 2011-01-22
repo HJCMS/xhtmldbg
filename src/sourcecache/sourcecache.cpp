@@ -76,15 +76,18 @@ SourceCache::SourceCache ( QObject * parent )
 void SourceCache::cleanUp()
 {
   QDir d ( QDir::tempPath () );
-  d.setCurrent ( tmpPath );
-  QFile fp;
-  for ( int i = 0; i < cacheFiles.size(); ++i )
+  if ( ! d.rmdir ( tmpPath ) )
   {
-    fp.setFileName ( cacheFiles.value ( i ) );
-    fp.remove();
+    d.setCurrent ( tmpPath );
+    QFile fp;
+    for ( int i = 0; i < cacheFiles.size(); ++i )
+    {
+      fp.setFileName ( cacheFiles.value ( i ) );
+      fp.remove();
+    }
+    d.setCurrent ( QDir::tempPath () );
+    d.rmdir ( tmpPath );
   }
-  d.setCurrent ( QDir::tempPath () );
-  d.rmdir ( tmpPath );
 }
 
 void SourceCache::setCache ( int index, const QString &source )

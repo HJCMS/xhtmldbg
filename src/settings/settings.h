@@ -93,6 +93,28 @@ class Settings : public QSettings
     const QUrl bookmarkXbel();
 
     /**
+    * set last used Directory
+    * \param d Directory Path
+    */
+    void setRecentDirectory ( const QString &d );
+
+    /**
+    * get last used directory, if empty HOME is set
+    */
+    const QString getRecentDirectory();
+
+    /**
+    * set last used Url
+    * \param d Directory Path
+    */
+    void setRecentUrl ( const QUrl &u );
+
+    /**
+    * get last used url
+    */
+    const QUrl getRecentUrl();
+
+    /**
     * Alias for QSettings::value(QString,int).toUInt()
     * \param p Settings Key(path)
     * \param i Value

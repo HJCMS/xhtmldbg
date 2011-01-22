@@ -25,6 +25,7 @@
 #include "authenticationdialog.h"
 #include "certdialog.h"
 #include "errorsdialog.h"
+#include "localsource.h"
 
 #include <climits>
 
@@ -231,21 +232,12 @@ const QByteArray NetworkAccessManager::peekDeviceData ( QIODevice * device )
 
 void NetworkAccessManager::openLocalFile ( const QUrl &url )
 {
-  if ( url.path().isNull() )
+  if ( url.path().isEmpty() )
     return;
 
-  QFile fp ( url.path() );
-  if ( fp.open ( QIODevice::ReadOnly ) )
-  {
-    QTextStream rc ( &fp );
-    QByteArray buffer = rc.device()->readAll();
-    if ( ! buffer.isEmpty() )
-    {
-      QTextCodec* codec = QTextCodec::codecForHtml ( buffer, QTextCodec::codecForName ( "UTF-8" ) );
-      emit postReplySource ( codec->toUnicode ( buffer ) );
-    }
-    fp.close();
-  }
+  LocalSource src = LocalSource::localSource ( url );
+  if ( src.source().isEmpty() )
+    emit postReplySource ( src.source() );
 }
 
 /**
@@ -258,6 +250,10 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
 */
 void NetworkAccessManager::peekReplyProcess()
 {
+  // Keine Lokalen Datenströme lesen siehe openLocalFile!
+  if ( ! m_networkReply->url().isRelative() )
+    return;
+
   if ( m_networkReply )
   {
     /**
@@ -397,15 +393,13 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   // Der cache muss immer Leer sein damit die Validierung funktioniert!
   cache()->remove ( req.url() );
 
-  // Lokale Dateien nicht über Network Reply laden !!!
-  if ( req.url().isRelative() )
-  {
-    openLocalFile ( req.url() );
-    return 0;
-  }
+  // Lokale Dateien werden nicht von readyRead() behandelt!
+  // Deshalb sende die Daten für die Quelltextansicht seperat.
+  if ( ! req.url().scheme().contains ( "http" ) )
+    openLocalFile ( requestUrl );
 
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
-  setUrl ( QUrl ( request.url().toString ( QUrl::RemoveFragment ) ) );
+  setUrl ( req.url().toString ( QUrl::RemoveFragment ) );
   m_networkReply = QNetworkAccessManager::createRequest ( op, request, data );
   m_networkReply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   m_networkReply->setSslConfiguration ( sslConfig );

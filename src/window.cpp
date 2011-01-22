@@ -22,7 +22,6 @@
 #include "version.h"
 #include "window.h"
 #include "application.h"
-#include "localsource.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "downloadmanager.h"
@@ -42,6 +41,7 @@
 #include "historymanager.h"
 #include "historyitem.h"
 #include "historymenu.h"
+#include "openfiledialog.h"
 #include "settargetdialog.h"
 #include "openurldialog.h"
 #include "about.h"
@@ -62,7 +62,6 @@
 #include "xhtmldbgplugger.h"
 #include "xhtmldbgplugininfo.h"
 #include "xhtmldbginterface.h"
-
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -97,15 +96,16 @@
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
+#define URL_SCHEME_PATTERN QRegExp ( "^(http[s]?|file)" )
+
 Window::Window ( Settings * settings )
     : QMainWindow()
     , m_settings ( settings )
-    , qTidyIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
-    , schemePattern ( QRegExp ( "^(http|ftp|file)" ) )
+    , xhtmldbgIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
 {
   // Standard Fenster optionen
   setObjectName ( "xhtmldbgwindow" );
-  setWindowIcon ( qTidyIcon );
+  setWindowIcon ( xhtmldbgIcon );
 
   QColor bgColor = palette().color ( QPalette::Background );
   setStyleSheet ( QString ( "QToolTip{background-color:%1;padding:1px;}" ).arg ( bgColor.name() ) );
@@ -128,13 +128,13 @@ Window::Window ( Settings * settings )
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
   m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
-  m_centralWidget->setTabIcon ( 0, qTidyIcon );
+  m_centralWidget->setTabIcon ( 0, xhtmldbgIcon );
   m_centralWidget->setCurrentIndex ( 0 );
 
   // Quelltext Anzeige
   m_sourceWidget = new SourceWidget ( m_centralWidget );
   m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
-  m_centralWidget->setTabIcon ( 1, qTidyIcon );
+  m_centralWidget->setTabIcon ( 1, xhtmldbgIcon );
 
   // Tabulatur unten Rechts
   QWidget* tabCornerBottomWidget = new QWidget ( m_centralWidget );
@@ -606,7 +606,7 @@ void Window::createToolBars()
 */
 void Window::loadPageHistory()
 {
-  bool b = false;
+  bool ok = false;
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
   if ( startup.isValid() && ! startup.isEmpty() )
   {
@@ -617,24 +617,12 @@ void Window::loadPageHistory()
   {
     foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
     {
-      if ( ! b )
-      {
-        // erste http Url auf das offene Tab setzen!
-        if ( url.scheme().contains ( "file" ) )
-          openFile ( url );
-        else
-          openUrl ( url );
-
-        b = true;
-      }
-      else
-      {
-        m_webViewer->addViewerUrlTab ( url );
-      }
+      ok = openUrl ( url, ok );
     }
   }
 
-  if ( ! b )
+  // wenn ok == erstelle eine about Page
+  if ( ! ok )
     m_webViewer->setAboutPage ( QLatin1String ( "welcome" ) );
 }
 
@@ -693,12 +681,17 @@ void Window::closeEvent ( QCloseEvent *event )
   if ( isFullScreen() ) // Keine Vollansicht Speichern!
     setWindowState ( windowState() & ~Qt::WindowFullScreen );
 
+  // Offene Tab URL's speichern
   savePageHistory();
+
+  // Plugins entladen
   unregisterDatabases ();
   unregisterPlugins ();
 
+  // Jetzt den Fenster Status Speichern
   m_settings->setValue ( "Window/MainWindowState", saveState() );
   m_settings->setValue ( "Window/MainWindowGeometry", saveGeometry() );
+
   QMainWindow::closeEvent ( event );
 }
 
@@ -734,7 +727,7 @@ void Window::tabifyDockedWidgetUp ( QDockWidget *dockWidget )
 
 /**
 * Beim Start nach Plugins suchen und diese entsprechent
-* dem type in die einzelnen Menüs einfügen.
+* dem Type in die einzelnen Menüs einfügen.
 * @ref m_pluginMenu Im TopLevel MenuBar
 * @ref m_diplayPlugins Im Anzeigen Menü
 */
@@ -811,7 +804,7 @@ void Window::tabChanged ( int index )
 
 /**
 * Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
-* Erst wenn das ergebnis true ergibt wird folgendes eingebunden:
+* Erst wenn das ergebnis true ergibt wird @ref tabChanged aufgerufen.
 * @li DomTree::setDomTree
 * @li An alle geladenen Plugins die URL übergeben.
 */
@@ -823,7 +816,8 @@ void Window::requestsFinished ( int prozent )
 
 /**
 * Nachrichten an @ref AppEvents übermitteln.
-* Wenn das Dock nicht sichtbar ist wird es nach vorne geholt!
+* Wenn das Dock nicht sichtbar ist wird es
+* mit @ref tabifyDockedWidgetUp nach vorne geholt!
 */
 void Window::setApplicationMessage ( const QString &message, bool warning )
 {
@@ -840,7 +834,8 @@ void Window::setApplicationMessage ( const QString &message, bool warning )
 
 /**
 * Nachrichten an @ref JSMessanger übermitteln.
-* Wenn das Dock nicht sichtbar ist wird es nach vorne geholt!
+* Wenn das Dock nicht sichtbar ist wird es
+* mit @ref tabifyDockedWidgetUp nach vorne geholt!
 */
 void Window::setJavaScriptMessage ( const QString &message )
 {
@@ -863,9 +858,12 @@ void Window::checkStyleSheet ( const QUrl &url )
 }
 
 /**
-* @li Hier wird der Quelltext in @class SourceView eingefügt.
-*  Gleichzeitig @ref TidyMessanger::clearItems aufgerufen.
-* @li Danach wird der Quelletext an die geladenen Plugins übergeben.
+* Hier wird der Quelltext an @ref SourceView übergeben.
+* @li Zuerst wird @ref TidyMessanger::clearItems aufgerufen.
+* @li Im zweiten Schritt wird nachgesehen ob der Quelltext nicht leer ist!
+* @li Wenn nicht Leer ihn in den Quelltextspeicher speichern.
+* @li Jetzt den Quelltext in @ref SourceView setzen.
+* @li Danach wird der Quelltext an die geladenen Plugins übergeben.
 * @li Wenn der überreichte Quelltext nicht leer ist wird in den
 *  Einstellungen nachgesehen ob @em AutoFormat oder @em AutoCheck
 *  aktiviert sind und entsprechend ausgeführt.
@@ -900,7 +898,7 @@ bool Window::setSource ( const QString &source )
 }
 
 /**
-* Standard SLOT für den Aufruf des Programms qtidyrc
+* Standard SLOT für den Prozessaufruf vom \e qtidyrc Programm.
 */
 void Window::openTidyConfigApplication()
 {
@@ -909,37 +907,19 @@ void Window::openTidyConfigApplication()
 
 /**
 * Standard Dialog für das öffnen einer HTML Datei.
-* Nach dem Dialog wird @ref openFile aufgerufen.
+* Nach dem Dialog wird @ref openUrl aufgerufen.
 */
 void Window::openFileDialog()
 {
-  QString htmlFile;
-  QStringList filters;
-  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm *.xhtml *.html.*" );
-  filters << trUtf8 ( "Markup Document %1" ).arg ( "*.xml *.xslt *.xbel" );
-  filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.text" );
-  filters << trUtf8 ( "Unsupported Document Formats %1" ).arg ( "*.*" );
-
-  QString lastDirectory = m_settings->value ( QLatin1String ( "RecentDirectory" ) ).toString();
-
-  QUrl url;
-  url.setScheme ( QLatin1String ( "file" ) );
-
-  htmlFile = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open HTML File" ),
-             lastDirectory, filters.join ( ";;" ) );
-
-  if ( htmlFile.isEmpty() )
-    return;
-
-  QFileInfo info ( htmlFile );
-  if ( info.exists() )
+  OpenFileDialog dialog ( centralWidget() );
+  dialog.setDirectory ( m_settings->getRecentDirectory() );
+  if ( dialog.exec() == QDialog::Accepted )
   {
-    url.setPath ( info.absoluteFilePath() );
-    if ( openFile ( url ) )
-    {
-      m_webViewer->setUrl ( url.path() );
-      m_settings->setValue ( QLatin1String ( "RecentDirectory" ), info.absolutePath() );
-    }
+    if ( ! dialog.getFileUrl().isValid() )
+      return;
+
+    m_settings->setRecentDirectory ( dialog.getDirectory() );
+    openUrl ( dialog.getFileUrl() );
   }
 }
 
@@ -978,49 +958,30 @@ void Window::toggleWindowFullScreen()
 }
 
 /**
-* Wird von @ref openFileDialog verwendet um zu prüfen ob es
-* sich um ein file Schema handelt und existiert.
-*/
-bool Window::openFile ( const QUrl &url )
-{
-  if ( ! url.isValid() || url.scheme() != "file" )
-    return false;
-
-  LocalSource html = LocalSource::localSource ( url );
-  QString source = html.source();
-  if ( source.isNull() )
-    return false;
-
-  if ( m_webViewer->addViewerUrlTab ( url ) )
-    return setSource ( source );
-
-  return false;
-}
-
-/**
 * Primitive überprüfung ob es sich um eine Url handelt.
 * Wenn ja wird @ref WebViewer::setUrl aufgerufen.
 */
-bool Window::openUrl ( const QUrl &url )
+bool Window::openUrl ( const QUrl &url, bool addtab )
 {
-  if ( ! url.isValid() )
+  if ( ! url.isValid() || url.isRelative() )
+  {
+    m_statusBar->showMessage ( trUtf8 ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
+    return false;
+  }
+
+  if ( ! url.scheme().contains ( URL_SCHEME_PATTERN ) )
     return false;
 
-  if ( url.scheme().contains ( "file" ) )
-    return false; // Siehe openFile
-
-  if ( ! url.scheme().contains ( schemePattern ) )
-    return false;
-
-  m_webViewer->setUrl ( url );
+  if ( addtab )
+    m_webViewer->addViewerUrlTab ( url );
+  else
+    m_webViewer->setUrl ( url );
 
   return true;
 }
 
 /**
 * Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl noch nicht geöffnet ist.
-* http://webmast.jh/selfhtml/navigation/sidebars/html.htm
-* http://webmast.jh/selfhtml/html/grafiken/verweis_sensitive.htm#definieren
 */
 bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
 {

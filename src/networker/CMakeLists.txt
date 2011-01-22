@@ -7,6 +7,7 @@ SET (networker_SOURCES
   authenticationdialog.cpp
   certdialog.cpp
   errorsdialog.cpp
+  localsource.cpp
 )
 
 SET (networker_HEADERS
@@ -18,6 +19,10 @@ SET (networker_HEADERS
   errorsdialog.h
 )
 
+SET (networker_NO_MOCS_HEADER
+  localsource.h
+)
+
 QT4_WRAP_CPP (networker_MOC ${networker_HEADERS})
 
 INCLUDE_DIRECTORIES (
@@ -27,6 +32,7 @@ INCLUDE_DIRECTORIES (
 
 ADD_LIBRARY (Networker STATIC
   ${networker_MOC}
+  ${networker_NO_MOCS_HEADER}
   ${networker_HEADERS}
   ${networker_SOURCES}
 )

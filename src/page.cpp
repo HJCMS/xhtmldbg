@@ -246,12 +246,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   if ( ! b )
     return b;
 
-  if ( request.url().scheme() == "file" )
-  {
-    xhtmldbgmain::instance()->mainWindow()->openFile ( request.url() );
-    return true;
-  }
-
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:
@@ -264,6 +258,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
     case QWebPage::NavigationTypeBackOrForward:
     {
+      // Navigation to a previously shown document in the back or forward history is requested.
       reply = m_netManager->get ( request );
       connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
       b = true;
@@ -272,6 +267,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
     case QWebPage::NavigationTypeReload:
     {
+      // The user activated the reload action.
       if ( request.url().toString().contains ( "about:" ) )
         return false;
 

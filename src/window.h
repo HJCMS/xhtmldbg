@@ -93,9 +93,7 @@ class Window : public QMainWindow
 
   private:
     Settings* m_settings;
-    const QIcon qTidyIcon;
-    // URL Scheme Validate
-    const QRegExp schemePattern;
+    const QIcon xhtmldbgIcon;
     // Network Manager
     NetworkAccessManager* m_netManager;
     // Download Manager
@@ -221,9 +219,7 @@ class Window : public QMainWindow
     bool setSource ( const QString & );
     void checkStyleSheet ( const QUrl & );
     // supported by DBus Adaptor
-    bool openFile ( const QUrl & );
-    // supported by DBus Adaptor
-    bool openUrl ( const QUrl & );
+    bool openUrl ( const QUrl &, bool addtab = false );
     // supported by DBus Adaptor
     bool setPageUrl ( const QUrl &, const QUrl & );
     // supported by DBus Adaptor
