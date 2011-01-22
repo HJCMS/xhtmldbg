@@ -71,7 +71,7 @@ class Application : public QApplication
     static NetworkAccessManager* networkAccessManager();
     static NetworkCookie* cookieManager();
     static NetworkBlocker* blockerManager();
-    ~Application();
+    virtual ~Application();
 
 };
 

@@ -92,14 +92,13 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 /**
 * Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster
 */
-void Page::javaScriptConsoleMessage ( const QString & m, int l, const QString & id )
+void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id )
 {
-  if ( m.isEmpty() )
+  if ( m.isEmpty() || id.isEmpty() )
     return;
 
-  QByteArray cmd = QByteArray::fromPercentEncoding ( m.toAscii() );
-  QString message ( cmd );
-  message.remove ( QRegExp ( "[\\/\n]+" ) );
+  QString message ( m.trimmed() );
+  message.remove ( QRegExp ( "[\r\n]+" ) );
 
   if ( l > 0 )
     message.append ( trUtf8 ( " Line: %1" ).arg ( QString::number ( l ) ) );
@@ -131,17 +130,12 @@ bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QStr
   QString path = Qt::escape ( frame->requestedUrl().path() );
   status.append ( Qt::escape ( text ) );
 
-#ifndef QT_NO_INPUTDIALOG
   QString x = QInputDialog::getText ( view(), path, Qt::escape ( text ), QLineEdit::Normal, val, &b );
   if ( b && inp )
   {
     status.append ( " ("+ Qt::escape ( x ) + ")" );
     *inp = x;
   }
-#endif
-
-  javaScriptConsoleMessage ( status, 0, path );
-
   return b;
 }
 
@@ -248,7 +242,10 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     return b;
 
   if ( xhtmldbgmain::instance()->blockerManager()->isBlocked ( request.url() ) )
+  {
+    internalMessanger ( trUtf8 ( "Host %1 Blocked" ).arg ( request.url().host() ) );
     return false;
+  }
 
   switch ( type )
   {

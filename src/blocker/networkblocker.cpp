@@ -82,9 +82,7 @@ bool NetworkBlocker::isBlocked ( const QUrl &url )
     return false;
 
   QString host = url.host().remove ( QRegExp ( "^www\\." ) );
-  qDebug() << Q_FUNC_INFO << host;
-
-  QString queryString ( "SELECT Access FROM blocker WHERE (Host='" );
+  QString queryString ( "SELECT Access FROM blocker WHERE (Host LIKE '%" );
   queryString.append ( host );
   queryString.append ( "') LIMIT 1;" );
 

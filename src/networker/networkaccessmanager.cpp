@@ -255,11 +255,7 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
 */
 void NetworkAccessManager::peekReplyProcess()
 {
-  // Keine Lokalen Datenströme lesen siehe openLocalFile!
-  if ( ! m_networkReply->url().isRelative() )
-    return;
-
-  if ( m_networkReply )
+  if ( m_networkReply && ( m_networkReply->size() > 1 ) )
   {
     /**
     * @short BUGFIX 2010/07/02 Crash with large page Size
