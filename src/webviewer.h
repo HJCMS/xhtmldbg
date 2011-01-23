@@ -30,6 +30,7 @@
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QIcon>
 #include <QtGui/QWidget>
 #include <QtGui/QTabWidget>
 
@@ -51,6 +52,7 @@ class WebViewer : public QTabWidget
 
   private:
     WebSettings* m_wcfg;
+    const QIcon tabIcon;
     Viewer* m_viewer;
     Viewer* activeView ( int index = -1 );
     int getIndexWithUrl ( const QUrl & );

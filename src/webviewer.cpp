@@ -47,6 +47,7 @@
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
     , m_wcfg ( new WebSettings ( this ) )
+    , tabIcon ( QIcon::fromTheme ( "xhtmldbg" ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -195,7 +196,7 @@ void WebViewer::setFavicon ( int index )
     icon = activeView ( id )->icon();
     if ( icon.isNull() )
     {
-      setTabIcon ( id, QIcon::fromTheme ( "text-html" ) );
+      setTabIcon ( id, tabIcon );
       return;
     }
   }
@@ -274,7 +275,7 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
     setCurrentIndex ( index );
   }
   else
-    addTab ( view, trUtf8 ( "Unknown" ) );
+    addTab ( view, tabIcon, trUtf8 ( "Unknown" ) );
 }
 
 /**
