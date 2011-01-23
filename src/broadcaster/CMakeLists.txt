@@ -1,0 +1,44 @@
+## Broadcaster
+
+SET (target_project_SOURCES
+)
+
+SET (target_project_HEADERS
+)
+
+SET (target_project_NOMOC_HEADERS
+)
+
+REMOVE_DEFINITIONS (-DQT_XMLPATTERNS_LIB)
+
+QT4_WRAP_CPP (target_project_MOC ${target_project_HEADERS})
+
+INCLUDE_DIRECTORIES (
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${XHTMLDBG_BINARY_PROJECT_INCULDE}
+)
+
+ADD_LIBRARY (Broadcaster STATIC
+  ${target_project_MOC}
+  ${target_project_HEADERS}
+  ${target_project_NOMOC_HEADERS}
+  ${target_project_SOURCES}
+)
+
+SET_TARGET_PROPERTIES (Broadcaster PROPERTIES
+  LINKER_LANGUAGE CXX
+  COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
+)
+
+TARGET_LINK_LIBRARIES (Broadcaster
+  ${QT_QTCORE_LIBRARY}
+  ${QT_QTGUI_LIBRARY}
+  ${QT_QTWEBKIT_LIBRARY}
+  ${QT_QTNETWORK_LIBRARY}
+  ${QT_QTDBUS_LIBRARY}
+  Settings
+  Networker
+)
+
+## EOF
+
