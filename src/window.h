@@ -194,7 +194,7 @@ class Window : public QMainWindow
     void savePageHistory();
 
     // Plugin Management
-    void registerPlugins();
+    bool registerPlugins();
     bool unregisterDatabases();
     bool unregisterPlugins();
 

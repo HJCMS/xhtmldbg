@@ -20,6 +20,7 @@
 **/
 
 #include "webinspector.h"
+#include "websettings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -73,6 +74,9 @@ void WebInspector::setPage ( QWebPage * page )
     emit errorMessage ( trUtf8 ( "WebInspector: Update rejected - no valide url given!" ) );
     return;
   }
+
+  WebSettings wcfg ( this );
+  wcfg.setAttribute ( "DeveloperExtrasEnabled", true );
 
   inspector->setPage ( page );
 

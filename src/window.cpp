@@ -56,6 +56,7 @@
 #include "colorpickerbutton.h"
 #include "resizeportbuttons.h"
 #include "geolocation.h"
+#include "websettings.h"
 /* DBus */
 #include "xhtmldbgadaptor.h"
 /* Interface */
@@ -118,6 +119,10 @@ Window::Window ( Settings * settings )
 
   m_netManager = Application::networkAccessManager();
 
+  /* Das lesen aller Web Einstellungen muss vor dem ersten erstellen ein tabs erfolgen. */
+  WebSettings websettings ( this );
+  websettings.setDefaults();
+
   // Zentrales TabWidget für Quelltext und Browser
   // TabWidgets {
   m_centralWidget = new QTabWidget ( this );
@@ -127,6 +132,7 @@ Window::Window ( Settings * settings )
 
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
+  m_webViewer->setAboutPage ( "welcome" );
   m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
   m_centralWidget->setTabIcon ( 0, xhtmldbgIcon );
   m_centralWidget->setCurrentIndex ( 0 );
@@ -318,15 +324,14 @@ Window::Window ( Settings * settings )
   registerPlugins();
   // } xhtmldbgplugger
 
-  // Wenn noch kein Eintrag vorhanden öffne about:welcome
-  loadPageHistory();
-
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "Window/MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "Window/MainWindowGeometry" ).toByteArray() );
 
   // zum abschluss den focus auf den Browser setzen
   m_webViewer->setWebFocus();
+  // Historien Laden
+  loadPageHistory();
 }
 
 /**
@@ -594,7 +599,6 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_colorPicker->toggleViewAction() );
   inspectorsMenu->addAction ( m_webInspector->toggleViewAction() );
 
-
   // Plugin Menu
   m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );
   m_diplayPlugins->setIcon ( icon );
@@ -651,6 +655,46 @@ bool Window::unregisterDatabases ()
     QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).close();
 
   return true;
+}
+
+/**
+* Beim Start nach Plugins suchen und diese entsprechent
+* dem Type in die einzelnen Menüs einfügen.
+* @ref m_pluginMenu Im TopLevel MenuBar
+* @ref m_diplayPlugins Im Anzeigen Menü
+*/
+bool Window::registerPlugins()
+{
+  QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
+  plugins.clear();
+  // PopUp Widgets
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
+  {
+    xhtmldbg::PluginInfo* info = plug->pluginInfo();
+    if ( info )
+    {
+      // qDebug() << Q_FUNC_INFO << info->getName();
+      plugins.push_back ( plug );
+      QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
+      ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
+      ac->setIcon ( icon );
+      ac->setStatusTip ( info->getDescription() );
+      connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
+    }
+  }
+  // Dock Widgets
+  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
+  {
+    xhtmldbg::PluginInfo* info = plug->pluginInfo();
+    if ( info )
+    {
+      // qDebug() << Q_FUNC_INFO << info->getName();
+      plugins.push_back ( plug );
+      addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
+      m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
+    }
+  }
+  return true; // Ready
 }
 
 /**
@@ -722,45 +766,6 @@ void Window::tabifyDockedWidgetUp ( QDockWidget *dockWidget )
   foreach ( QDockWidget* toHide, tabifiedDockWidgets ( dockWidget ) )
   {
     tabifyDockWidget ( toHide, dockWidget );
-  }
-}
-
-/**
-* Beim Start nach Plugins suchen und diese entsprechent
-* dem Type in die einzelnen Menüs einfügen.
-* @ref m_pluginMenu Im TopLevel MenuBar
-* @ref m_diplayPlugins Im Anzeigen Menü
-*/
-void Window::registerPlugins()
-{
-  QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
-  plugins.clear();
-  // PopUp Widgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
-  {
-    xhtmldbg::PluginInfo* info = plug->pluginInfo();
-    if ( info )
-    {
-      // qDebug() << Q_FUNC_INFO << info->getName();
-      plugins.push_back ( plug );
-      QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
-      ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
-      ac->setIcon ( icon );
-      ac->setStatusTip ( info->getDescription() );
-      connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
-    }
-  }
-  // Dock Widgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
-  {
-    xhtmldbg::PluginInfo* info = plug->pluginInfo();
-    if ( info )
-    {
-      // qDebug() << Q_FUNC_INFO << info->getName();
-      plugins.push_back ( plug );
-      addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
-      m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
-    }
   }
 }
 

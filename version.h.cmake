@@ -52,4 +52,9 @@
 */
 #define XHTMLDBG_DOMAIN "hjcms.de"
 
+/**
+* Static Paths for HTML Pages
+*/
+#define XHTMLDBG_TEMPLATE_DIR "@CMAKE_INSTALL_PREFIX@/share/xhtmldbg/html"
+
 #endif

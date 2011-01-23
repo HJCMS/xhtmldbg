@@ -69,6 +69,7 @@ class Viewer : public QWebView
     void checkingStyleSheet();
     void linkInfos ( const QString &, const QString &, const QString & );
     void readPageTitle ( const QString & );
+    void fetchTabIndex ( bool );
     void errorMessage ( const QString & );
     void displayPlugins();
     void screenshot();
@@ -85,6 +86,7 @@ class Viewer : public QWebView
     void hitTestResult ( const QWebElement & );
     void linkTriggered ( const QUrl &, const QString &, const QString & );
     void titleChanged ( const QUrl &, const QString & );
+    void pageChanged ( const QUrl & );
 
   public Q_SLOTS:
     void findKeyword ( const QString & );

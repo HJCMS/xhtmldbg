@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-22T15:13:25+01:00\n"
+"POT-Creation-Date: 2011-01-23T14:18:45+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1424,43 +1424,43 @@ msgstr ""
 msgid  "Source"
 msgstr "Quelle"
 
-#: src/networker/networkaccessmanager.cpp:280
+#: src/networker/networkaccessmanager.cpp:276
 msgid  "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)"
 msgstr "Mehrere Möglichkeiten mit Content-Location header bei POST anfragen erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)"
 
-#: src/networker/networkcookie.cpp:102
+#: src/networker/networkcookie.cpp:101
 msgid  "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109."
 msgstr "Unzulässiges Cookie Format für \"%1\" und Keks Domäne \"%2\", zurückgewiesen wegen RFC 2109."
 
-#: src/networker/networkcookie.cpp:110
+#: src/networker/networkcookie.cpp:109
 msgid  "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot."
 msgstr "Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die Domäne nicht mit einem Punkt beginnt."
 
-#: src/networker/networkcookie.cpp:116
+#: src/networker/networkcookie.cpp:115
 msgid  "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr "Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer zurück gewiesen."
 
-#: src/networker/networkcookie.cpp:122
+#: src/networker/networkcookie.cpp:121
 msgid  "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück gewiesen."
 
-#: src/networker/networkcookie.cpp:151
+#: src/networker/networkcookie.cpp:150
 msgid  "Different Cookie/Domain for host %1. (Rejected)"
 msgstr "Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)"
 
-#: src/networker/networkcookie.cpp:302
+#: src/networker/networkcookie.cpp:300
 msgid  "Invalid Url for Cookie Request - rejected!"
 msgstr "Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!"
 
-#: src/networker/networkcookie.cpp:327
+#: src/networker/networkcookie.cpp:325
 msgid  "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr "Ein blockiertes Cookie für den Hostnamen \"%1\" wurde verworfen!"
 
-#: src/networker/networkcookie.cpp:333
+#: src/networker/networkcookie.cpp:331
 msgid  "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr "Drittanbieter Keks \"%1\" für den Host \"%2\" zurück gewiesen!"
 
-#: src/networker/networkcookie.cpp:390
+#: src/networker/networkcookie.cpp:389
 msgid  "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr "Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS verbindung"
 
@@ -1500,7 +1500,11 @@ msgstr "Dokument: %1"
 msgid  "JavaScript Prompt:"
 msgstr "JavaScript Anfrage:"
 
-#: src/page.cpp:317
+#: src/page.cpp:246
+msgid  "Host %1 Blocked"
+msgstr "Host %1 Verweigert"
+
+#: src/page.cpp:318
 msgid  "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
@@ -1812,71 +1816,71 @@ msgstr "Konfigurieren"
 msgid  "Clear"
 msgstr "Leeren"
 
-#: src/viewer.cpp:241
+#: src/viewer.cpp:246
 msgid  "Bookmark"
 msgstr "Lesezeichen"
 
-#: src/viewer.cpp:248
+#: src/viewer.cpp:253
 msgid  "StyleSheet"
 msgstr ""
 
-#: src/viewer.cpp:251
+#: src/viewer.cpp:256
 msgid  "Start CSS Validation for this Site."
 msgstr "Starte CSS Validierung für diese Seite."
 
-#: src/viewer.cpp:264
+#: src/viewer.cpp:269
 msgid  "Screenshot"
 msgstr "Bildschirmfoto"
 
-#: src/viewer.cpp:267
+#: src/viewer.cpp:272
 msgid  "Screenshot from current Page."
 msgstr "Bildschirmfoto von aktueller Seite."
 
-#: src/viewer.cpp:256
+#: src/viewer.cpp:261
 msgid  "Source"
 msgstr "Quelltext"
 
-#: src/viewer.cpp:259
+#: src/viewer.cpp:264
 msgid  "Show Document Source"
 msgstr "Zeige Dokumenten Quelltext"
 
-#: src/viewer.cpp:271 src/viewer.cpp:485
+#: src/viewer.cpp:276 src/viewer.cpp:496
 msgid  "Plugins"
 msgstr ""
 
-#: src/viewer.cpp:274
+#: src/viewer.cpp:279
 msgid  "Display initialed Browser-Plugins."
 msgstr "Zeige Initialisierte Browser Erweiterungen."
 
-#: src/viewer.cpp:368
+#: src/viewer.cpp:373
 msgid  "SEO Result for \"%1\" Url:"
 msgstr "SEO Ergebnis für \"%1\" Url:"
 
-#: src/viewer.cpp:376
+#: src/viewer.cpp:381
 msgid  "Word boundary:"
 msgstr "An Wortgrenzen:"
 
-#: src/viewer.cpp:381
+#: src/viewer.cpp:386
 msgid  "Case Sensitive:"
 msgstr "Groß- Kleinschreibung:"
 
-#: src/viewer.cpp:391
+#: src/viewer.cpp:396
 msgid  "Meta Keywords:"
 msgstr "Meta Schlüsselwörter:"
 
-#: src/viewer.cpp:397
+#: src/viewer.cpp:402
 msgid  "Meta Description:"
 msgstr "Meta Beschreibung:"
 
-#: src/viewer.cpp:404
+#: src/viewer.cpp:409
 msgid  "Page Title:"
 msgstr "Seiten Titel:"
 
-#: src/viewer.cpp:409
+#: src/viewer.cpp:414
 msgid  "Summary:"
 msgstr "Zusammen:"
 
-#: src/viewer.cpp:502
+#: src/viewer.cpp:513
 msgid  "Screenshot saved to %1"
 msgstr "Bildschirmfoto gespeichert unter %1"
 
@@ -1892,9 +1896,9 @@ msgstr "Neue Seite"
 msgid  "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
-#: src/webviewer.cpp:312
-msgid  "None"
-msgstr "Nein"
+#: src/webviewer.cpp:340
+msgid  "file"
+msgstr "Datei"
 
 #: src/window.cpp:130
 msgid  "Browser"

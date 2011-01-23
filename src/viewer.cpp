@@ -34,6 +34,7 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QList>
+#include <QtCore/QMetaObject>
 #include <QtCore/QString>
 #include <QtCore/QPoint>
 #include <QtCore/QRect>
@@ -100,6 +101,10 @@ Viewer::Viewer ( QWidget * parent )
   /* stop maus-sanduhr */
   connect ( this, SIGNAL ( loadProgress ( int ) ), this, SLOT ( cursorFinished ( int ) ) );
 
+  /* Seite geladen */
+  connect ( this, SIGNAL ( loadFinished ( bool ) ), this, SLOT ( fetchTabIndex ( bool ) ) );
+
+  /* Title für Tab verarbeiten */
   connect ( this, SIGNAL ( titleChanged ( const QString & ) ),
             this, SLOT ( readPageTitle ( const QString & ) ) );
 
@@ -465,6 +470,12 @@ void Viewer::linkInfos ( const QString &link, const QString &title, const QStrin
 void Viewer::readPageTitle ( const QString &title )
 {
   emit titleChanged ( url(), title );
+}
+
+void Viewer::fetchTabIndex ( bool b )
+{
+  if ( b )
+    emit pageChanged ( url() );
 }
 
 /** Nachricht weiter an IDE geben ! */

@@ -241,12 +241,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
   if ( ! b )
     return b;
 
-  if ( xhtmldbgmain::instance()->blockerManager()->isBlocked ( request.url() ) )
-  {
-    internalMessanger ( trUtf8 ( "Host %1 Blocked" ).arg ( request.url().host() ) );
-    return false;
-  }
-
   switch ( type )
   {
     case QWebPage::NavigationTypeLinkClicked:

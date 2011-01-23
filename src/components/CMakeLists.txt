@@ -24,11 +24,14 @@ IF (QT_QTSCRIPTTOOLS_FOUND)
 
   SET (subproject_HEADERS
     widgetcollection.h
-    widgetinterface.h
     xpasswordwidget.h
     xpasswordwidgetplugin.h
     xregistrationformular.h
     xregistrationformularplugin.h
+  )
+
+  SET (subproject_NOMOC_HEADERS
+    widgetinterface.h
   )
 
   QT4_WRAP_UI (subproject_UIC ${subproject_FORMS})
@@ -45,6 +48,7 @@ IF (QT_QTSCRIPTTOOLS_FOUND)
   ADD_LIBRARY (XQPluginWidgets MODULE
     ${subproject_UIC}
     ${subproject_MOC}
+    ${subproject_NOMOC_HEADERS}
     ${subproject_HEADERS}
     ${subproject_SOURCES}
   )
@@ -73,6 +77,7 @@ IF (QT_QTSCRIPTTOOLS_FOUND)
 
   INSTALL (FILES
     ${subproject_HEADERS}
+    ${subproject_NOMOC_HEADERS}
     DESTINATION include/xhtmldbg-1.0/designer
   )
 

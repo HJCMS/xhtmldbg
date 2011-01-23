@@ -52,7 +52,6 @@ class WebViewer : public QTabWidget
     Viewer* m_viewer;
     Viewer* activeView ( int index = -1 );
     int getIndexWithUrl ( const QUrl & );
-    void updateWebSettings();
     void setTabCornerButton();
     int realPageIndex ( int index = -1 );
 
@@ -61,6 +60,9 @@ class WebViewer : public QTabWidget
     void pretended ( int );
     void pageChanged ( int index = -1 );
     void setFavicon ( int index = -1 );
+
+  protected:
+    virtual void tabInserted ( int index );
 
   Q_SIGNALS:
     void loadStarted ();

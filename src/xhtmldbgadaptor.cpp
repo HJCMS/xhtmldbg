@@ -135,7 +135,7 @@ bool XHtmldbgAdaptor::setFile ( const QString &url )
   {
     QUrl u ( file.absoluteFilePath() );
     u.setScheme ( "file" );
-    QMetaObject::invokeMethod ( parent(), "openFile", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    QMetaObject::invokeMethod ( parent(), "openUrl", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
     return b;
   }
   return false;

@@ -23,7 +23,7 @@
 #include "viewer.h"
 #include "historymanager.h"
 #include "historyitem.h"
-#include "settings.h"
+#include "websettings.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -43,7 +43,6 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
-#include <QtWebKit/QWebSettings>
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
@@ -56,9 +55,8 @@ WebViewer::WebViewer ( QWidget * parent )
   setBackgroundRole ( QPalette::NoRole );
 
   m_viewer = new Viewer ( this );
-  m_viewer->setObjectName ( "startpage" );
-  updateWebSettings();
-  addViewerTab ( m_viewer );
+  m_viewer->setObjectName ( "webviewer_startpage" );
+  addViewerTab ( m_viewer, true );
 
   connect ( this, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( pretended ( int ) ) );
@@ -67,9 +65,7 @@ WebViewer::WebViewer ( QWidget * parent )
             this, SLOT ( closeViewerTab ( int ) ) );
 }
 
-/**
-* Eckenknöpfe für neue Seite etc.
-*/
+/** Eckenknöpfe für neue Seite etc. */
 void WebViewer::setTabCornerButton()
 {
   QToolButton* btn = new QToolButton ( this );
@@ -81,94 +77,13 @@ void WebViewer::setTabCornerButton()
   setCornerWidget ( btn, Qt::TopRightCorner );
 }
 
+/** Gibt den Aktuellen Tab Index zurück */
 int WebViewer::realPageIndex ( int index )
 {
   return ( index == -1 ) ? currentIndex() : index;
 }
 
-/**
-* Das lesen aller Web Einstellungen muss
-* vor dem ersten erstellen ein tabs erfolgen.
-*/
-void WebViewer::updateWebSettings()
-{
-  // Settings
-  Settings* m_settings = new Settings ( this );
-
-  QWebSettings* wcfg = QWebSettings::globalSettings();
-  wcfg->setLocalStoragePath ( m_settings->webLocalStoragePath() );
-  wcfg->setIconDatabasePath ( m_settings->webIconDatabasePath() );
-  wcfg->clearIconDatabase ();
-  wcfg->setDefaultTextEncoding ( QLatin1String ( "utf-8" ) );
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
-
-  // Until QtWebkit defaults to 16
-  wcfg->setFontSize ( QWebSettings::DefaultFontSize,
-                      m_settings->value ( QLatin1String ( "DefaultFontSize" ), 16 ).toUInt() );
-
-  wcfg->setFontSize ( QWebSettings::DefaultFixedFontSize,
-                      m_settings->value ( QLatin1String ( "DefaultFixedFontSize" ), 16 ).toUInt() );
-
-  // Page Settings
-  wcfg->setAttribute ( QWebSettings::ZoomTextOnly,
-                       m_settings->boolValue ( QLatin1String ( "ZoomTextOnly" ), true ) );
-
-  // Jetzt immer deaktiviert. Siehe Webinspector plugin!
-  wcfg->setAttribute ( QWebSettings::DeveloperExtrasEnabled, true );
-
-  wcfg->setAttribute ( QWebSettings::AutoLoadImages,
-                       m_settings->boolValue ( QLatin1String ( "AutoLoadImages" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::JavascriptEnabled,
-                       m_settings->boolValue ( QLatin1String ( "JavascriptEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::PluginsEnabled,
-                       m_settings->boolValue ( QLatin1String ( "PluginsEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::JavaEnabled,
-                       m_settings->boolValue ( QLatin1String ( "JavaEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled,
-                       m_settings->boolValue ( QLatin1String ( "PrivateBrowsingEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::DnsPrefetchEnabled,
-                       m_settings->boolValue ( QLatin1String ( "DnsPrefetchEnabled" ), true ) );
-
-  wcfg->setAttribute ( QWebSettings::JavascriptCanOpenWindows,
-                       m_settings->boolValue ( QLatin1String ( "JavascriptCanOpenWindows" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::JavascriptCanAccessClipboard,
-                       m_settings->boolValue ( QLatin1String ( "JavascriptCanAccessClipboard" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::PrintElementBackgrounds,
-                       m_settings->boolValue ( QLatin1String ( "PrintElementBackgrounds" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::LocalContentCanAccessRemoteUrls,
-                       m_settings->boolValue ( QLatin1String ( "LocalContentCanAccessRemoteUrls" ) ) );
-
-#if QT_VERSION >= 0x040700
-
-  wcfg->setAttribute ( QWebSettings::LocalContentCanAccessFileUrls,
-                       m_settings->boolValue ( QLatin1String ( "LocalContentCanAccessFileUrls" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::XSSAuditingEnabled,
-                       m_settings->boolValue ( QLatin1String ( "XSSAuditingEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::AcceleratedCompositingEnabled,
-                       m_settings->boolValue ( QLatin1String ( "AcceleratedCompositingEnabled" ) ) );
-
-  wcfg->setAttribute ( QWebSettings::TiledBackingStoreEnabled,
-                       m_settings->boolValue ( QLatin1String ( "TiledBackingStoreEnabled" ) ) );
-
-#endif
-
-  delete m_settings;
-}
-
-/**
-* Zeiger auf das aktuelle Viewer an Hand des sichtbaren Tabs.
-*/
+/** Zeiger auf das aktuelle Viewer an Hand des sichtbaren Tabs. */
 Viewer* WebViewer::activeView ( int index )
 {
   QObject* w = widget ( realPageIndex ( index ) );
@@ -231,7 +146,8 @@ void WebViewer::updateTab ( const QUrl &url, const QString &title )
 
 /**
 * Bei einem Tabwechsel die Url der Seite
-* ermitteln und weiter an @ref urlChanged geben.
+* ermitteln und weiter an @ref urlChanged
+* und @ref pageChanged geben.
 */
 void WebViewer::pretended ( int index )
 {
@@ -240,12 +156,14 @@ void WebViewer::pretended ( int index )
     return;
 
   emit urlChanged ( url );
-  pageChanged( index );
+  pageChanged ( index );
 }
 
 /**
 * Wenn eine neue Seite aufgemacht wird dann hier
 * das Signal @ref pageEntered aufrufen!
+* Es wird hiermit die aktuelle WebPage an die
+* Plugins und DockWidgets gesendet!
 */
 void WebViewer::pageChanged ( int index )
 {
@@ -275,6 +193,15 @@ void WebViewer::setFavicon ( int index )
   setTabIcon ( id, icon );
 }
 
+/** Wenn ein Tab eingefügt oder geändert wird! */
+void WebViewer::tabInserted ( int index )
+{
+  // WebPage mitteilen
+  pageChanged ( index );
+  // Favicon Setzen
+  setFavicon ( index );
+}
+
 /**
 * Öffne eine Neue Seite mit @param newUrl wenn @param oldUrl
 * noch nicht geöffnet ist.
@@ -293,6 +220,7 @@ bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
   {
     activeView ( index )->setUrl ( newUrl );
     setCurrentIndex ( index );
+    // pageChanged ( index );
     return true;
   }
   // Wenn keine Page mit oldURL vorhanden dann abbrechen.
@@ -340,12 +268,7 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   QString title = uri.host().isEmpty() ? trUtf8 ( "file" ) : uri.host();
   int index = addTab ( view, title );
   if ( move )
-  {
     setCurrentIndex ( index );
-    pageChanged ( index );
-  }
-
-  setFavicon();
 
   if ( uri.toString().contains ( "about:" ) )
     setAboutPage ( uri.toString().split ( ":" ).last() );
@@ -358,7 +281,8 @@ void WebViewer::addViewerTab ()
 {
   Viewer* view = new Viewer ( this );
   view->setHtml ( blank() );
-  addViewerTab ( view );
+  // nach vorne holen
+  addViewerTab ( view, true );
 }
 
 /**
@@ -422,8 +346,10 @@ void WebViewer::setUrl ( const QUrl &url )
   if ( ! url.isValid() || url.isRelative() )
     return;
 
-  activeView()->openUrl ( url );
-  emit pageEntered ( activeView()->page() );
+  // Aktuelles Tab verwenden
+  int index = currentIndex ();
+  activeView ( index )->openUrl ( url );
+  // pageChanged ( index );
 }
 
 /**
@@ -530,15 +456,8 @@ const QWebElement WebViewer::toWebElement()
 */
 const QString WebViewer::blank()
 {
-  QFile fp ( QString::fromUtf8 ( ":/about/html/blank.html" ) );
-  if ( fp.open ( QFile::ReadOnly ) )
-  {
-    QTextStream rc ( &fp );
-    QByteArray html = rc.device()->readAll();
-    fp.close();
-    return QString ( html );
-  }
-  return QString::fromUtf8 ( "<html>\n<head>\n<title>QTidy Startpage</title>\n</head>\n<body>\n<div>New Empty Page</div>\n</body>\n</html>" );
+  WebSettings wcfg;
+  return wcfg.templateSource ( "blank" );
 }
 
 /**
@@ -546,16 +465,8 @@ const QString WebViewer::blank()
 */
 void WebViewer::setAboutPage ( const QString &type )
 {
-  QString about = QString ( ":/about/html/%1.html" ).arg ( type );
-  QFile fp ( about );
-  if ( fp.open ( QFile::ReadOnly ) )
-  {
-    QTextStream rc ( &fp );
-    QByteArray html = rc.device()->readAll();
-    fp.close();
-    if ( ! html.isEmpty() )
-      activeView()->setContent ( html, "text/html", QString ( "about:%1" ).arg ( type ) );
-  }
+  WebSettings wcfg ( this );
+  setUrl ( wcfg.templateSite ( type ) );
 }
 
 WebViewer::~WebViewer()

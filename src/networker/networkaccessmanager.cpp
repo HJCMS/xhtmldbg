@@ -394,6 +394,9 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   // Der cache muss immer Leer sein damit die Validierung funktioniert!
   cache()->remove ( req.url() );
 
+  // requestUrl setzen
+  setUrl ( req.url() );
+
   // Lokale Dateien werden nicht von readyRead() behandelt!
   // Deshalb sende die Daten für die Quelltextansicht seperat.
   if ( ! req.url().scheme().contains ( "http" ) )
