@@ -40,6 +40,7 @@
 #include <QtWebKit/QWebElement>
 
 class Viewer;
+class WebSettings;
 
 class WebViewer : public QTabWidget
 {
@@ -49,6 +50,7 @@ class WebViewer : public QTabWidget
     Q_PROPERTY ( QUrl url READ getUrl WRITE setUrl )
 
   private:
+    WebSettings* m_wcfg;
     Viewer* m_viewer;
     Viewer* activeView ( int index = -1 );
     int getIndexWithUrl ( const QUrl & );
@@ -96,7 +98,7 @@ class WebViewer : public QTabWidget
     const QList<QUrl> getPageUrls();
     const QString toHtml();
     const QWebElement toWebElement();
-    static const QString blank();
+    const QString blank();
     void setAboutPage ( const QString & );
     virtual ~WebViewer();
 };

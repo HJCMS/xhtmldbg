@@ -62,24 +62,7 @@ Settings::Settings ( QObject * parent )
     , cacheLocation ( QDesktopServices::storageLocation ( QDesktopServices::CacheLocation ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
-  setWebinspectorDefaults();
   setCacheDefaults();
-}
-
-/**
-* Dieser Pfad wird von QWebInspector benutzt!
-*/
-void Settings::setWebinspectorDefaults()
-{
-  static const QLatin1String p ( "Qt/QtWebKit/QWebInspector/" );
-  setValue ( p + "resourceTrackingAlwaysEnabled", true );
-  setValue ( p + "resourceTrackingAlwaysEnabled.type", "bool" );
-  setValue ( p + "debuggerAlwaysEnabled", true );
-  setValue ( p + "debuggerAlwaysEnabled.type", "bool" );
-  setValue ( p + "profilerAlwaysEnabled", true );
-  setValue ( p + "profilerAlwaysEnabled.type", "bool" );
-  setValue ( p + "auditsPanelEnabled", true );
-  setValue ( p + "auditsPanelEnabled.type", "bool" );
 }
 
 /**

@@ -42,6 +42,7 @@ class WebSettings : public Settings
 
   private:
     QWebSettings* m_ws;
+    void setWebinspectorConfig ( bool b = true );
     void setPaths();
     void setAttributes();
     void setFonts();
@@ -61,6 +62,9 @@ class WebSettings : public Settings
     /** Set XHTMLDBG Defaults */
     bool setDefaults();
 
+    /** get QWebSettings::WebAttribute value */
+    bool attribute ( const QString &key );
+
     /** Modify QWebSettings::WebAttribute */
     void setAttribute ( const QString &key, bool value = false );
 
@@ -69,6 +73,9 @@ class WebSettings : public Settings
 
     /** read HTML Template Source */
     const QString templateSource ( const QString &key );
+
+    /** enable/disable inspector */
+    void inspector ( bool );
 
     virtual ~WebSettings();
 };

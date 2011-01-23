@@ -122,6 +122,34 @@ WebSettings::WebSettings ( QObject * parent )
   m_ws->setDefaultTextEncoding ( QString::fromUtf8 ( "utf-8" ) );
 }
 
+/** Dieser Pfad wird von QWebInspector benutzt! */
+void WebSettings::setWebinspectorConfig ( bool b )
+{
+  static const QString p ( "Qt/QtWebKit/QWebInspector/" );
+  // Resource Tracking
+  setValue ( p + "resourceTrackingEnabled", b );
+  setValue ( p + "resourceTrackingEnabled.type", "bool" );
+  setValue ( p + "resourceTrackingAlwaysEnabled", b );
+  setValue ( p + "resourceTrackingAlwaysEnabled.type", "bool" );
+  // Debugger
+  setValue ( p + "debuggerEnabled", b );
+  setValue ( p + "debuggerEnabled.type", "bool" );
+  setValue ( p + "debuggerAlwaysEnabled", b );
+  setValue ( p + "debuggerAlwaysEnabled.type", "bool" );
+  // Profiler
+  setValue ( p + "profilerEnabled", b );
+  setValue ( p + "profilerEnabled.type", "bool" );
+  // Panel
+  setValue ( p + "panelEnablerView", b );
+  setValue ( p + "panelEnablerView.type", "bool" );
+
+#if QT_VERSION >= 0x040700
+  // Audits
+  setValue ( p + "auditsPanelEnabled", b );
+  setValue ( p + "auditsPanelEnabled.type", "bool" );
+#endif
+}
+
 void WebSettings::setPaths()
 {
   m_ws->setLocalStoragePath ( webLocalStoragePath() );
@@ -135,7 +163,7 @@ void WebSettings::setAttributes()
   QHash<QString,QWebSettings::WebAttribute>::iterator it;
   for ( it = hash.begin(); it != hash.end(); ++it )
   {
-    bool fallback = defaults[it.key()];
+    bool fallback = defaults[ it.key() ];
     m_ws->setAttribute ( it.value(), value ( it.key(), fallback ).toBool() );
   }
 }
@@ -168,6 +196,18 @@ bool WebSettings::setDefaults()
   setAttributes();
   setFonts();
   return true;
+}
+
+bool WebSettings::attribute ( const QString &key )
+{
+  QHash<QString,QWebSettings::WebAttribute> hash = supported_attribute_list();
+  QHash<QString,QWebSettings::WebAttribute>::iterator it;
+  for ( it = hash.begin(); it != hash.end(); ++it )
+  {
+    if ( it.key() == key )
+      return m_ws->testAttribute ( it.value() );
+  }
+  return false;
 }
 
 void WebSettings::setAttribute ( const QString &key, bool value )
@@ -227,6 +267,12 @@ const QString WebSettings::templateSource ( const QString &key )
     fp.close();
   }
   return sources;
+}
+
+void WebSettings::inspector ( bool b )
+{
+  setWebinspectorConfig ( b );
+  m_ws->setAttribute ( QWebSettings::DeveloperExtrasEnabled, b );
 }
 
 WebSettings::~WebSettings()

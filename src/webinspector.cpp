@@ -36,6 +36,7 @@
 
 WebInspector::WebInspector ( QWidget * parent )
     : QDockWidget ( parent )
+    , m_wcfg ( new WebSettings ( parent ) )
 {
   setObjectName ( QLatin1String ( "webinspectorwidget" ) );
   setWindowTitle ( QLatin1String ( "Inspector" ) );
@@ -54,14 +55,6 @@ WebInspector::WebInspector ( QWidget * parent )
   // Layout abschliessen
   area->setWidget ( inspector );
   setWidget ( area );
-
-#if QT_VERSION >= 0x040700
-  /** FIXME Seit qt>=4.7.0 hat QWebInspector ein problem mit der Initialisierung!
-  * Deshalb nicht sofort anzeigen, erst nach der URL übergabe anzeigen!
-  * @see WebInspector::toInspect
-  */
-  inspector->hide();
-#endif
 }
 
 void WebInspector::setPage ( QWebPage * page )
@@ -75,13 +68,10 @@ void WebInspector::setPage ( QWebPage * page )
     return;
   }
 
-  WebSettings wcfg ( this );
-  wcfg.setAttribute ( "DeveloperExtrasEnabled", true );
+  if ( ! m_wcfg->attribute ( "DeveloperExtrasEnabled" ) )
+    m_wcfg->inspector ( true );
 
   inspector->setPage ( page );
-
-  if ( inspector->isHidden() )
-    inspector->show();
 }
 
 WebInspector::~WebInspector()

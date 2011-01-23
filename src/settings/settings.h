@@ -43,11 +43,6 @@ class Settings : public QSettings
 
   public Q_SLOTS:
     /**
-    * set QWebsettings to default (XHTMLDBG) behavior
-    */
-    void setWebinspectorDefaults();
-
-    /**
     * set QWebsettings/QNetworkSettings default cache behavior
     */
     void setCacheDefaults();

@@ -46,6 +46,7 @@
 
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
+    , m_wcfg ( new WebSettings ( this ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
@@ -54,6 +55,7 @@ WebViewer::WebViewer ( QWidget * parent )
   setTabCornerButton();
   setBackgroundRole ( QPalette::NoRole );
 
+  m_wcfg->inspector ( false );
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( "webviewer_startpage" );
   addViewerTab ( m_viewer, true );
@@ -167,10 +169,9 @@ void WebViewer::pretended ( int index )
 */
 void WebViewer::pageChanged ( int index )
 {
-  if ( ! activeView ( index )->page()->isModified() )
-    emit pageEntered ( activeView ( index )->page() );
-  else if ( activeView ( index )->page()->currentFrame()->url().isValid() )
-    emit pageEntered ( activeView ( index )->page() );
+  Viewer* m_view = activeView ( index );
+  if ( m_view->url().isValid() )
+    emit pageEntered ( m_view->page() );
 }
 
 /**
@@ -349,7 +350,7 @@ void WebViewer::setUrl ( const QUrl &url )
   // Aktuelles Tab verwenden
   int index = currentIndex ();
   activeView ( index )->openUrl ( url );
-  // pageChanged ( index );
+  pageChanged ( index );
 }
 
 /**
@@ -456,8 +457,7 @@ const QWebElement WebViewer::toWebElement()
 */
 const QString WebViewer::blank()
 {
-  WebSettings wcfg;
-  return wcfg.templateSource ( "blank" );
+  return m_wcfg->templateSource ( "blank" );
 }
 
 /**
@@ -465,8 +465,7 @@ const QString WebViewer::blank()
 */
 void WebViewer::setAboutPage ( const QString &type )
 {
-  WebSettings wcfg ( this );
-  setUrl ( wcfg.templateSite ( type ) );
+  setUrl ( m_wcfg->templateSite ( type ) );
 }
 
 WebViewer::~WebViewer()
