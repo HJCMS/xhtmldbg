@@ -79,21 +79,26 @@ INSTALL_TREE:
     |-- include
     |   `-- xhtmldbg-1.0
     |       |-- designer
-    |       |   |-- *.h
+    |       |   |-- widgetcollection.h
+    |       |   |-- widgetinterface.h
+    |       |   |-- xpasswordwidget.h
+    |       |   |-- xpasswordwidgetplugin.h
+    |       |   |-- xregistrationformular.h
+    |       |   `-- xregistrationformularplugin.h
     |       |-- xhtmldbginterface.h
     |       `-- xhtmldbgplugininfo.h
     |-- lib
-    |   |-- libxhtmldbg-1.0.so
-    |   |-- libxhtmldbg-1.0.so.0*
+    |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.12
+    |   |-- libxhtmldbg-1.0.so.0.8.12
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
     |       |-- browser-plugins
     |       |-- designer
-    |       |   `-- libXHTMLDBGWidgets.so
+    |       |   `-- libXQPluginWidgets.so
     |       |-- libRFCBrowser.so
-    |       |-- libSelfHtmlSidebar.so
-    |       `-- libWebKitInspector.so
+    |       `-- libSelfHtmlSidebar.so
     `-- share
         |-- applications
         |   `-- xhtmldbg.desktop
@@ -144,7 +149,8 @@ INSTALL_TREE:
         |   `-- xhtmldbg.xpm
         |-- qt
         |   `-- translations
-        |       `-- xhtmldbg_de.qm
+        |       |-- xhtmldbg_de.qm
+        |       `-- xhtmldbgwidgets_de.qm
         `-- xhtmldbg
             |-- AUTHORS
             |-- COPYING
@@ -156,6 +162,10 @@ INSTALL_TREE:
             |   |-- template.h
             |   |-- templateplugin.cpp
             |   `-- templateplugin.h
+            |-- html
+            |   |-- blank.html
+            |   |-- colors.html
+            |   `-- welcome.html
             |-- plugintemplate
             |   |-- CMakeLists.txt
             |   |-- helloworld.cpp
@@ -173,4 +183,6 @@ INSTALL_TREE:
             |   |-- xml.xsd
             |   |-- xsd.xsl
             |   `-- xslt10.dtd
-            `-- xhtmldbg_untranslated.ts
+            |-- xhtmldbg_untranslated.ts
+            `-- xhtmldbgwidgets_untranslated.ts
+
