@@ -132,7 +132,9 @@ Window::Window ( Settings * settings )
 
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
+  // NOTE Wir brauchen eine gültige WebPage für den WebInspector
   m_webViewer->setAboutPage ( "welcome" );
+  // Viewer einfügen
   m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
   m_centralWidget->setTabIcon ( 0, xhtmldbgIcon );
   m_centralWidget->setCurrentIndex ( 0 );
@@ -193,8 +195,8 @@ Window::Window ( Settings * settings )
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
   // WebInspector
-  // WebPage erst setzen wenn sicher gestellt wurde das eine Page vorhanden ist.
-  m_webInspector = new WebInspector ( this );
+  // NOTE Bitte sicher stellen das eine Page vorhanden ist!!!
+  m_webInspector = new WebInspector ( m_webViewer->startPage(), this );
   addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
 
   // QTidy Nachrichtenfenster

@@ -59,7 +59,7 @@ static inline const QHash<QString,bool> default_web_settings()
   hash.insert ( "PrivateBrowsingEnabled", false );
   hash.insert ( "JavascriptCanOpenWindows", false );
   hash.insert ( "JavascriptCanAccessClipboard", false );
-  hash.insert ( "DeveloperExtrasEnabled", false );
+  hash.insert ( "DeveloperExtrasEnabled", true );
   hash.insert ( "SpatialNavigationEnabled", false );
   hash.insert ( "LinksIncludedInFocusChain", false );
   hash.insert ( "ZoomTextOnly", true );

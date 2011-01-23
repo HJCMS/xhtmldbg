@@ -5,6 +5,7 @@
     <title>Web Safe Colors</title>
     <meta name="content-language" content="de,ch,at" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <style type="text/css">
       div { width: 100%; text-align: center; }
       table { border: 1px ridge #000033; color: #000000; width: 602px; }

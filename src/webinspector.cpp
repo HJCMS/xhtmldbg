@@ -20,7 +20,6 @@
 **/
 
 #include "webinspector.h"
-#include "websettings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -31,12 +30,8 @@
 #include <QtGui/QAction>
 #include <QtGui/QScrollArea>
 
-/* QtWebKit */
-#include <QtWebKit/QWebFrame>
-
-WebInspector::WebInspector ( QWidget * parent )
+WebInspector::WebInspector ( QWebPage * startPage, QWidget * parent )
     : QDockWidget ( parent )
-    , m_wcfg ( new WebSettings ( parent ) )
 {
   setObjectName ( QLatin1String ( "webinspectorwidget" ) );
   setWindowTitle ( QLatin1String ( "Inspector" ) );
@@ -51,6 +46,11 @@ WebInspector::WebInspector ( QWidget * parent )
   inspector->setObjectName ( QLatin1String ( "webkitinspector" ) );
   // wir brauchen diese breite für eine volle darstellung :-/
   inspector->setMinimumWidth ( 780 );
+  /* Es ist unbedingt notwendig das hier eine Page gesetzt wird damit
+  * beim ersten Start und einem Prüfen im Webviewer sich kein Popup
+  * Fenster öffnet. Das hängt sehr wahrscheinlich mit dem QSharedPointer
+  * in QWebInspector zusammmen. */
+  inspector->setPage ( startPage );
 
   // Layout abschliessen
   area->setWidget ( inspector );
@@ -61,15 +61,6 @@ void WebInspector::setPage ( QWebPage * page )
 {
   if ( ! toggleViewAction()->isChecked() || ! isVisible() )
     return;
-
-  if ( page->currentFrame()->url().isEmpty() )
-  {
-    emit errorMessage ( trUtf8 ( "WebInspector: Update rejected - no valide url given!" ) );
-    return;
-  }
-
-  if ( ! m_wcfg->attribute ( "DeveloperExtrasEnabled" ) )
-    m_wcfg->inspector ( true );
 
   inspector->setPage ( page );
 }

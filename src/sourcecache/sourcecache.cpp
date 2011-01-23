@@ -20,6 +20,7 @@
 **/
 
 #include "sourcecache.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -28,7 +29,6 @@
 #include <QtCore/QIODevice>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
-#include <QtCore/QUuid>
 
 /* QtXml */
 #include <QtXml/QDomDocument>
@@ -54,20 +54,9 @@ static inline const QString sorry_no_cache_availably()
   return dom.toString ( 1 );
 }
 
-static inline const QString source_cache_temp_path()
-{
-  QDir d;
-  QString p ( QDir::tempPath () );
-  p.append ( d.separator() );
-  QString uuid = QUuid::createUuid();
-  p.append ( uuid.remove ( QRegExp ( "[\\{\\}]?" ) ) );
-  d.mkpath ( p );
-  return p;
-}
-
 SourceCache::SourceCache ( QObject * parent )
     : QObject ( parent )
-    , tmpPath ( source_cache_temp_path() )
+    , tmpPath ( Settings::tempDir ( "source" ) )
 {
   setObjectName ( "SourceCache" );
   cacheFiles.clear();
@@ -82,6 +71,9 @@ void SourceCache::cleanUp()
     QFile fp;
     for ( int i = 0; i < cacheFiles.size(); ++i )
     {
+      if ( cacheFiles.value ( i ).isEmpty() )
+        continue;
+
       fp.setFileName ( cacheFiles.value ( i ) );
       fp.remove();
     }

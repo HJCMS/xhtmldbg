@@ -55,10 +55,9 @@ WebViewer::WebViewer ( QWidget * parent )
   setTabCornerButton();
   setBackgroundRole ( QPalette::NoRole );
 
-  m_wcfg->inspector ( false );
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( "webviewer_startpage" );
-  addViewerTab ( m_viewer, true );
+  addViewerTab ( m_viewer );
 
   connect ( this, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( pretended ( int ) ) );
@@ -77,6 +76,12 @@ void WebViewer::setTabCornerButton()
   btn->setToolTip ( trUtf8 ( "Add a new empty Tab" ) );
   connect ( btn, SIGNAL ( clicked() ), this, SLOT ( addViewerTab() ) );
   setCornerWidget ( btn, Qt::TopRightCorner );
+}
+
+/** Wird für den Start von WebInspector benötigt */
+QWebPage* WebViewer::startPage()
+{
+  return m_viewer->page();
 }
 
 /** Gibt den Aktuellen Tab Index zurück */
@@ -169,6 +174,9 @@ void WebViewer::pretended ( int index )
 */
 void WebViewer::pageChanged ( int index )
 {
+  if ( index == -1 )
+    return;
+
   Viewer* m_view = activeView ( index );
   if ( m_view->url().isValid() )
     emit pageEntered ( m_view->page() );
@@ -209,24 +217,17 @@ void WebViewer::tabInserted ( int index )
 */
 bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
 {
+  qDebug() << Q_FUNC_INFO << oldUrl << newUrl;
+  // Suche nach einer Page mit @param oldUrl
+  int index = getIndexWithUrl ( oldUrl );
   // Wenn die Aktuelle page diese URL enthält dann setUrl und fertig.
-  if ( activeView()->url() == oldUrl )
+  if ( activeView ( index )->url() == oldUrl )
   {
     setUrl ( newUrl );
     return true;
   }
-  // Suche nach einer Page mit @param oldUrl
-  int index = getIndexWithUrl ( oldUrl );
-  if ( index != -1 )
-  {
-    activeView ( index )->setUrl ( newUrl );
-    setCurrentIndex ( index );
-    // pageChanged ( index );
-    return true;
-  }
-  // Wenn keine Page mit oldURL vorhanden dann abbrechen.
-  // Siehe Window::setPageUrl
-  return false;
+
+  return addViewerUrlTab ( newUrl );
 }
 
 /**
@@ -266,13 +267,14 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
             this, SIGNAL ( loadStarted () ) );
 
   QUrl uri ( view->url() );
-  QString title = uri.host().isEmpty() ? trUtf8 ( "file" ) : uri.host();
-  int index = addTab ( view, title );
-  if ( move )
+  if ( uri.isValid() && move )
+  {
+    QString title = uri.host().isEmpty() ? trUtf8 ( "file" ) : uri.host();
+    int index = addTab ( view, title );
     setCurrentIndex ( index );
-
-  if ( uri.toString().contains ( "about:" ) )
-    setAboutPage ( uri.toString().split ( ":" ).last() );
+  }
+  else
+    addTab ( view, trUtf8 ( "Unknown" ) );
 }
 
 /**
@@ -350,7 +352,6 @@ void WebViewer::setUrl ( const QUrl &url )
   // Aktuelles Tab verwenden
   int index = currentIndex ();
   activeView ( index )->openUrl ( url );
-  pageChanged ( index );
 }
 
 /**

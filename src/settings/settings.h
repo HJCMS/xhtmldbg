@@ -38,9 +38,6 @@ class Settings : public QSettings
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    const QString cacheLocation;
-
   public Q_SLOTS:
     /**
     * set QWebsettings/QNetworkSettings default cache behavior
@@ -49,6 +46,12 @@ class Settings : public QSettings
 
   public:
     Settings ( QObject * parent = 0 );
+
+    /** Default Cache Location */
+    static const QString cacheLocation();
+
+    /** Temp Directory for internal Application usage */
+    static const QString tempDir ( const QString &subdir = QString() );
 
     /**
     * On X11, the search path will use the \em XDG_DATA_DIRS environment variable if available.

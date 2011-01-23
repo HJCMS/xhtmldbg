@@ -59,10 +59,38 @@ static inline const QString xApplicationName()
 */
 Settings::Settings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, xApplicationName(), parent )
-    , cacheLocation ( QDesktopServices::storageLocation ( QDesktopServices::CacheLocation ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
   setCacheDefaults();
+}
+
+/** Standard Webspeicher Verzeichnis */
+const QString Settings::cacheLocation()
+{
+  return QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+}
+
+/** Temporäres Verzeichnis für die LogDateien */
+const QString Settings::tempDir ( const QString &subdir )
+{
+  QDir d ( QDir::tempPath() );
+  QString p ( QDir::tempPath() );
+  p.append ( d.separator() );
+  p.append ( xApplicationName() );
+
+  if ( ! subdir.isEmpty() )
+  {
+    p.append ( d.separator() );
+    p.append ( subdir );
+  }
+
+  if ( d.exists ( p ) )
+    return p;
+
+  if ( ! d.mkpath ( p ) )
+    qWarning ( "(XHTMLDBG) can not create \"%s\" directory", qPrintable ( p ) );
+
+  return p;
 }
 
 /**
@@ -116,9 +144,9 @@ void Settings::setSaveMode()
 */
 const QString Settings::webIconDatabasePath()
 {
-  QDir d ( cacheLocation );
+  QDir d ( cacheLocation() );
   d.mkpath ( QLatin1String ( "icons" ) );
-  return QString ( cacheLocation + d.separator() + QLatin1String ( "icons" ) );
+  return QString ( cacheLocation() + d.separator() + QLatin1String ( "icons" ) );
 }
 
 /**
@@ -126,9 +154,9 @@ const QString Settings::webIconDatabasePath()
 */
 const QString Settings::webLocalStoragePath()
 {
-  QDir d ( cacheLocation );
+  QDir d ( cacheLocation() );
   d.mkpath ( QLatin1String ( "storage" ) );
-  return QString ( cacheLocation + d.separator() + QLatin1String ( "storage" ) );
+  return QString ( cacheLocation() + d.separator() + QLatin1String ( "storage" ) );
 }
 
 /**

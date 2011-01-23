@@ -20,6 +20,7 @@
 **/
 
 #include "soupreader.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -225,7 +226,7 @@ bool SoupReader::readReceivedXML ( const QByteArray &xml, const QString &url )
 
 #if defined Q_OS_LINUX && defined XHTMLDBG_DEBUG
 
-  QTemporaryFile fp ( "/tmp/xhtmldbg_soup_XXXXXX.xml" );
+  QTemporaryFile fp ( Settings::tempDir () + "/xhtmldbg_soup_XXXXXX.xml" );
   fp.setAutoRemove ( false );
   if ( fp.open () )
   {

@@ -34,8 +34,6 @@
 #include <QtWebKit/QWebInspector>
 #include <QtWebKit/QWebPage>
 
-class WebSettings;
-
 class WebInspector : public QDockWidget
 {
     Q_OBJECT
@@ -43,7 +41,6 @@ class WebInspector : public QDockWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    WebSettings* m_wcfg;
     QWebInspector* inspector;
 
   Q_SIGNALS:
@@ -53,7 +50,7 @@ class WebInspector : public QDockWidget
     void setPage ( QWebPage * page );
 
   public:
-    WebInspector ( QWidget * parent = 0 );
+    WebInspector ( QWebPage * startPage, QWidget * parent = 0 );
     virtual ~WebInspector();
 };
 

@@ -92,6 +92,7 @@ class WebViewer : public QTabWidget
 
   public:
     WebViewer ( QWidget * parent = 0 );
+    QWebPage* startPage();
     bool setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl );
     bool addViewerUrlTab ( const QUrl &url );
     const QUrl getUrl ();

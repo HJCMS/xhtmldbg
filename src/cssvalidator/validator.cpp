@@ -20,6 +20,7 @@
 **/
 
 #include "validator.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -32,9 +33,9 @@
 
 static inline const QString tempFilePath()
 {
-  QString p ( QDir::tempPath() );
+  QString p ( Settings::tempDir () );
   p.append ( QDir::separator() );
-  p.append ( QString::fromUtf8 ( "XHTMLDBG_Validator_XXXXXX.log" ) );
+  p.append ( "xhtmldbg_validator_XXXXXX.log" );
   return p;
 }
 
