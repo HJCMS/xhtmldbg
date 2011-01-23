@@ -47,7 +47,7 @@
 WebViewer::WebViewer ( QWidget * parent )
     : QTabWidget ( parent )
     , m_wcfg ( new WebSettings ( this ) )
-    , tabIcon ( QIcon::fromTheme ( "xhtmldbg" ) )
+    , tabIcon ( QIcon::fromTheme ( "application-xhtml+xml" ) )
 {
   setObjectName ( "webviewer" );
   setContentsMargins ( 0, 0, 0, 0 );
