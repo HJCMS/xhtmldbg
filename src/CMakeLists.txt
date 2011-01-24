@@ -71,6 +71,13 @@ IF (XULRUNNER_FOUND)
 ENDIF (XULRUNNER_FOUND)
 
 ##############################
+## MOZILLA-PLUGIN
+##############################
+IF (XHTMLDBG_EXPERIMENTAL)
+  ADD_DEFINITIONS ("-D_XHTMLDBG_EXPERIMENTAL")
+ENDIF (XHTMLDBG_EXPERIMENTAL)
+
+##############################
 ## SOURCES
 ##############################
 SET (xhtmldbg_SOURCES

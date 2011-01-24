@@ -54,9 +54,12 @@
 #include "autoreloader.h"
 #include "colorpicker.h"
 #include "colorpickerbutton.h"
-#include "resizeportbuttons.h"
 #include "geolocation.h"
 #include "websettings.h"
+/* Experimental */
+#ifdef _XHTMLDBG_EXPERIMENTAL
+# include "resizeportbuttons.h"
+#endif
 /* DBus */
 #include "xhtmldbgadaptor.h"
 /* Interface */
@@ -153,13 +156,13 @@ Window::Window ( Settings * settings )
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
 
+#ifdef _XHTMLDBG_EXPERIMENTAL
   // Browser Fensterbreite Manipulieren
   ResizePortButtons* m_resizePortButtons = new ResizePortButtons ( tabCornerBottomWidget );
-#ifdef XHTMLDBG_EXPERIMENTAL
   // TODO Resize arbeitet im Moment nicht korrekt, deshalb nur bei mir aktiv :-/
   m_resizePortButtons->setEnabled ( false );
-#endif
   tabCornerBottomWidgetLayout->addWidget ( m_resizePortButtons );
+#endif
 
   // Farben Pipette Ein/Ausschalten
   ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );
@@ -316,10 +319,12 @@ Window::Window ( Settings * settings )
   connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
   // } ColorPicker
+#ifdef _XHTMLDBG_EXPERIMENTAL
   // ResizePortButtons {
   connect ( m_resizePortButtons, SIGNAL ( itemClicked ( int ) ),
             m_webViewer, SLOT ( setViewerWidth ( int ) ) );
   // } ResizePortButtons
+#endif
 
   // jetzt die Plugins laden
   // xhtmldbgplugger {
