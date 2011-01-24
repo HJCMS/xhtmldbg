@@ -58,6 +58,7 @@ class Page : public QWebPage
     bool prepareContent ( QNetworkReply * );
 
   private Q_SLOTS:
+    void readNetworkResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
     void internalMessanger ( const QString & );

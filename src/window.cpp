@@ -246,8 +246,7 @@ Window::Window ( Settings * settings )
   m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
 
   // WebViewer {
-  connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ),
-            this, SLOT ( requestsFinished ( int ) ) );
+  // connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ), this, SLOT (  ( int ) ) );
 
   connect ( m_webViewer, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( tabChanged ( int ) ) );
@@ -304,7 +303,8 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
-  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+  // NOTE httpReplySource muss in der Page gesetzt werden!
+  connect ( m_netManager, SIGNAL ( localReplySource ( const QUrl &, const QString & ) ),
             this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager
   // AutoReload {
@@ -326,8 +326,8 @@ Window::Window ( Settings * settings )
   // } ResizePortButtons
 #endif
 
-  // jetzt die Plugins laden
   // xhtmldbgplugger {
+  // jetzt die Plugins laden
   registerPlugins();
   // } xhtmldbgplugger
 
@@ -335,9 +335,9 @@ Window::Window ( Settings * settings )
   restoreState ( m_settings->value ( "Window/MainWindowState" ).toByteArray() );
   restoreGeometry ( m_settings->value ( "Window/MainWindowGeometry" ).toByteArray() );
 
-  // zum abschluss den focus auf den Browser setzen
+  // den focus auf den Browser setzen
   m_webViewer->setWebFocus();
-  // Historien Laden
+  // zuletzt Verwendete Seiten laden
   loadPageHistory();
 }
 
@@ -809,21 +809,18 @@ void Window::tabChanged ( int index )
     }
 
     QString source = m_sourceCache->getCache ( currentUrl );
-    if ( ! source.isEmpty() )
+    // qDebug() << Q_FUNC_INFO << currentUrl << source.length();
+    if ( source.isEmpty() )
+    {
+      QString notice ( "<!-- " );
+      notice.append ( trUtf8 ( "Warning: This Source comes from WebKit try reload to see 100% page source" ) );
+      notice.append ( " -->\n" );
+      notice.append ( currentPage.toOuterXml() );
+      m_sourceWidget->setSource ( notice );
+    }
+    else
       m_sourceWidget->setSource ( source );
   }
-}
-
-/**
-* Diese Methode wird aufgerufen wenn die Seite zu 100% geladen ist.
-* Erst wenn das ergebnis true ergibt wird @ref tabChanged aufgerufen.
-* @li DomTree::setDomTree
-* @li An alle geladenen Plugins die URL übergeben.
-*/
-void Window::requestsFinished ( int prozent )
-{
-  if ( prozent >= 100 )
-    tabChanged ( m_webViewer->currentIndex() );
 }
 
 /**

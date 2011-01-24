@@ -81,9 +81,15 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
+  // NOTE localReplySource muss in @class Window gesetzt werden!
+  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+            this, SLOT ( readNetworkResponse ( const QUrl &, const QString & ) ) );
+
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
+
   connect ( this, SIGNAL ( unsupportedContent ( QNetworkReply * ) ),
             this, SLOT ( unsupportedContentRequest ( QNetworkReply * ) ) );
+
   connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
             this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
 }
@@ -179,6 +185,8 @@ QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
 * Hier wird der Datenstrom ausgelesen und in den
 * passenden Zeichnsatz gesetzt. Danach geht es
 * weiter an @ref Window::setSource
+* @note Diese Methode Reagiert nur bei einem onClick oder laden innerhalb
+*       dieser Seite.
 */
 bool Page::prepareContent ( QNetworkReply * dev )
 {
@@ -189,8 +197,19 @@ bool Page::prepareContent ( QNetworkReply * dev )
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
   xhtml = codec->toUnicode ( data );
+  // qDebug() << Q_FUNC_INFO << currentFrame()->url() << xhtml.length();
   xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), xhtml );
+
   return true;
+}
+
+/**
+*
+*/
+void Page::readNetworkResponse ( const QUrl &url, const QString &source )
+{
+  qDebug() << Q_FUNC_INFO << url << source.length();
+  // xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
 }
 
 /**

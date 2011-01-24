@@ -35,26 +35,6 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 
-static inline const QString sorry_no_cache_availably()
-{
-  QDomDocument dom;
-  dom.appendChild ( dom.createProcessingInstruction ( "xml", "version=\"1.0\" encoding=\"utf-8\"" ) );
-  QDomElement html = dom.createElement ( "html" );
-  html.setAttribute ( "xmlns", "http://www.w3.org/1999/xhtml" );
-  dom.appendChild ( html );
-  QDomElement head = dom.createElement ( "head" );
-  html.appendChild ( head );
-  QDomElement title = dom.createElement ( "title" );
-  title.appendChild ( dom.createTextNode ( "Sorry" ) );
-  head.appendChild ( title );
-  QDomElement body = dom.createElement ( "body" );
-  html.appendChild ( body );
-  QDomElement div = dom.createElement ( "div" );
-  div.appendChild ( dom.createTextNode ( "\n\tno cache availably\tcurrently no url reloaded\n" ) );
-  body.appendChild ( div );
-  return dom.toString ( 1 );
-}
-
 SourceCache::SourceCache ( QObject * parent )
     : QObject ( parent )
     , tmpPath ( Settings::tempDir ( "source" ) )
@@ -116,7 +96,7 @@ const QString SourceCache::getCache ( const QUrl &url )
     return QString::null;
 
   QByteArray salt = md5sum ( url );
-  QString buffer ( sorry_no_cache_availably() );
+  QString buffer;
   if ( cacheFiles.contains ( salt ) )
   {
     QFile fp ( cacheFiles.value ( salt ) );
