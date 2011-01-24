@@ -19,32 +19,61 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef DATABASELOCATION_H
-#define DATABASELOCATION_H
+#ifndef DBMANAGER_H
+#define DBMANAGER_H
 
 /* QtCore */
-#include <QtCore/QDir>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtSql */
 #include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
+#include <QtSql/QSqlRecord>
 
-class DatabaseLocation : public QObject
+class DBManager : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QDir p_dbDir;
-    const QString sqlTableStatement () const;
+    QSqlDatabase sql;
+    enum QueryType { ACTION, OPEN, CREATE, SELECT, DELETE, UPDATE, QUERY, INSERT };
+
+  private Q_SLOTS:
+    void setError ( QueryType t, int l, const QString &m );
+
+  protected:
+    bool open();
+    virtual void shutdown();
+
+  Q_SIGNALS:
+    void error ( const QString & );
 
   public:
-    DatabaseLocation ( const QString &storageDirectory, QObject * parent = 0 );
-    const QString databasePath ( const QString & );
-    bool initCookieDatabase ( const QSqlDatabase & );
-    ~DatabaseLocation();
+    explicit DBManager ( QObject * parent = 0 );
+
+    /** Initial Databases */
+    bool init();
+
+    /** SQLite Databases handle */
+    const QSqlDatabase handle();
+
+    /** SQL SELECT Statements */
+    QSqlQuery select ( const QString &query );
+
+    /** SQL INSERT Statements */
+    bool insert ( const QStringList &queries );
+
+    /** SQL UPDATE Statements */
+    bool update ( const QStringList &queries );
+
+    /** SQL DELETE Statements */
+    bool remove ( const QStringList &queries );
+
+    virtual ~DBManager();
 };
 
 #endif

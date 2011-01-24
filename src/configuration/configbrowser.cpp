@@ -68,6 +68,7 @@ static inline const QMap<QString,bool> settingsMap()
 
 ConfigBrowser::ConfigBrowser ( QWidget * parent )
     : PageWidget ( trUtf8 ( "Browser Settings" ), parent )
+    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_browser" ) );
   setNotice ( true );
@@ -239,6 +240,7 @@ void ConfigBrowser::registerCheckBoxes()
 
 void ConfigBrowser::itemClicked ( int )
 {
+  mod = true;
   emit modified ( true );
 }
 
@@ -272,6 +274,11 @@ void ConfigBrowser::save ( Settings * cfg )
   headerDefinitions->saveHeaderDefinitions ( cfg );
   // Plugin Pfad
   cfg->setValue ( QLatin1String ( "webkit_plugin_path" ), pluginPathChooser->getDirectory() );
+}
+
+bool ConfigBrowser::isModified ()
+{
+  return mod;
 }
 
 ConfigBrowser::~ConfigBrowser()

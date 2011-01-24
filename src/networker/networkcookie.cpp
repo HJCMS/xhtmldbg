@@ -184,25 +184,9 @@ void NetworkCookie::save()
 
 /**
 * DEPRECATED Diese Methode wird nicht mehr benötigt!
-* Dieser SLOT wird von @ref Viewer::cursorwait aufgerufen und
-* setzt die aktuell angefragte URL!
-* Dass ist deshalb nötig damit bei der Cookie Anfrage
-* verabeitung ermittelt werden kann ob es sich um eine
-* Cookie anfrage eines Drittanbieters handelt!
 */
 void NetworkCookie::setUrl ( const QUrl &url )
-{
-//   if ( ! url.scheme().contains ( "http" ) )
-  return;
-
-  if ( url.isValid() )
-  {
-    QUrl host;
-    host.setScheme ( url.scheme() );
-    host.setHost ( url.host() );
-    host.setPath ( url.path() );
-  }
-}
+{}
 
 /**
 * Versucht an hand der aktuellen Anfrage URL und
@@ -311,7 +295,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   CookieManager::CookiesAccessItem cookieAcces = m_cookieManager->getCookieAccess ( cookieHost );
 
-  // Setze den Hostnamen dieser Url in die Berarbeitenliste!
+  // Setze den Hostnamen dieser Url in die Bearbeitenliste!
   inProgress << cookieHost;
 
   bool add = false;

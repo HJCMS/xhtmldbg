@@ -1,0 +1,9 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/" >
+    <file>cookiesstorage.sql</file>
+    <file>cookieshandle.sql</file>
+    <file>networkblocker.sql</file>
+    <file>pwmanager.sql</file>
+  </qresource>
+</RCC>

@@ -34,6 +34,7 @@
 
 ConfigTidy::ConfigTidy ( QWidget * parent )
     : PageWidget ( trUtf8 ( "QTidy Source Parser" ), parent )
+    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_tidy" ) );
   setNotice ( false );
@@ -77,6 +78,7 @@ ConfigTidy::ConfigTidy ( QWidget * parent )
 
 void ConfigTidy::itemClicked ( int )
 {
+  mod = true;
   emit modified ( true );
 }
 
@@ -95,6 +97,11 @@ void ConfigTidy::save ( Settings * cfg )
   cfg->setValue ( QLatin1String ( "AutoCheck" ), m_radioCheck->isChecked() );
   cfg->setValue ( QLatin1String ( "AutoFormat" ), m_radioFormat->isChecked() );
   cfg->setValue ( QLatin1String ( "AutoDisabled" ), m_radioDisabled->isChecked() );
+}
+
+bool ConfigTidy::isModified ()
+{
+  return mod;
 }
 
 ConfigTidy::~ConfigTidy()

@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "databaselocation.h"
+#include "dblocator.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -32,21 +32,38 @@
 #include <QtSql/QSqlError>
 #include <QtSql/QSqlQuery>
 
-DatabaseLocation::DatabaseLocation ( const QString &storageDirectory, QObject * parent )
+static inline const QStringList xhtmldbg_sql_databases()
+{
+  QStringList tbs;
+  tbs << "cookiesstorage"; // Cookie Zwischenspeicher
+  tbs << "cookieshandle"; // Cookie Hostnamen
+  tbs << "networkblocker"; // geblockte Host Adressen
+  tbs << "pwmanager"; // Passwörter
+  return tbs;
+}
+
+DBLocator::DBLocator ( const QString &storageDirectory, QObject * parent )
     : QObject ( parent )
     , p_dbDir ( storageDirectory )
 {
-  setObjectName ( QLatin1String ( "DatabaseLocation" ) );
+  setObjectName ( QLatin1String ( "DBLocator" ) );
 }
 
 /**
-* SQL Tabellen Context.
+* Sucht in den Ressoursen nach den SQL Dokumenten die
+* zum erstellen von Tabellen benötigt werden.
 */
-const QString DatabaseLocation::sqlTableStatement () const
+const QString DBLocator::sqlTableStatement ( const QString &dbName ) const
 {
-  QString statement ( "CREATE TABLE \"blocker\" (\n" );
-  statement.append ( "\"Host\" TEXT  UNIQUE PRIMARY KEY ASC,\n" );
-  statement.append ( "\"Access\" INTEGER default 0\n);\n" );
+  QString statement;
+  Q_INIT_RESOURCE ( dbmanager );
+  QFile file ( QString ( ":/%1.sql" ).arg ( dbName ) );
+  if ( file.open ( QIODevice::ReadOnly ) )
+  {
+    QTextStream out ( &file );
+    statement = out.readAll();
+    file.close();
+  }
   return statement;
 }
 
@@ -57,7 +74,7 @@ const QString DatabaseLocation::sqlTableStatement () const
 * Wenn diese nicht vorhanden sind wird eine Leere Datei angelegt!
 * Zum schluss werden die Berichtigungen neu gesetzt.
 */
-const QString DatabaseLocation::databasePath ( const QString &dbName )
+const QString DBLocator::databasePath ( const QString &dbName )
 {
   QFileInfo info ( p_dbDir, QString ( "%1.db" ).arg ( dbName ) );
   if ( info.exists() ) // existiert dann austeigen
@@ -71,7 +88,7 @@ const QString DatabaseLocation::databasePath ( const QString &dbName )
     file.setPermissions ( dbPath, QFile::ReadOwner | QFile::WriteOwner | QFile::ReadGroup );
   }
   else
-    qWarning ( "(XHTMLDBG) Can not write %s Database - Permission Denied!", qPrintable ( dbPath ) );
+    qFatal ( "(XHTMLDBG) Can not create \"%s\" - Permission Denied!", qPrintable ( dbPath ) );
 
   return dbPath;
 }
@@ -80,7 +97,7 @@ const QString DatabaseLocation::databasePath ( const QString &dbName )
 * Öffnet eine Datenbank, wenn nicht vorhanden wird versucht eine
 * Neue Leere Datenbank mit @param driver an zulegen.
 */
-bool DatabaseLocation::initCookieDatabase ( const QSqlDatabase &driver )
+bool DBLocator::initDatabase ( const QSqlDatabase &driver )
 {
   QSqlDatabase db = driver.database ( driver.connectionName(), false );
 
@@ -91,31 +108,29 @@ bool DatabaseLocation::initCookieDatabase ( const QSqlDatabase &driver )
   if ( db.open() )
   {
     db.transaction();
-    QSqlQuery query = db.exec ( sqlTableStatement () );
-    if ( query.lastError().type() == QSqlError::NoError )
+    QSqlQuery query;
+    foreach ( QString table, xhtmldbg_sql_databases() )
     {
-      // alles OK dann austeigen
+      query = db.exec ( sqlTableStatement ( table ) );
+      if ( query.lastError().type() == QSqlError::StatementError )
+      {
+        // Wenn die Tabelle schon angelegt ist - ist alles OK!
+        if ( ! query.lastError().text().contains ( "already exists" ) )
+          qWarning ( "(XHTMLDBG) SQL DB CREATE %s", qPrintable ( query.lastError().text() ) );
+      }
+      db.commit();
     }
-    else if ( query.lastError().type() == QSqlError::StatementError )
-    {
-      // Wenn die Tabelle schon angelegt ist - ist alles OK!
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-      qWarning ( "(XHTMLDBG) SQL DB CREATE %s", qPrintable ( query.lastError().text() ) );
-#endif
-    }
-    db.commit();
-
     query.finish();
     db.close();
     return true;
   }
 
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qWarning ( "(XHTMLDBG) SQL MESSAGES %s", qPrintable ( db.lastError().text() ) );
+  qWarning ( "(XHTMLDBG) SQL ERROR %s", qPrintable ( db.lastError().text() ) );
 #endif
 
   return false;
 }
 
-DatabaseLocation::~DatabaseLocation()
+DBLocator::~DBLocator()
 {}

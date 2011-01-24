@@ -23,6 +23,7 @@
 # include "version.h"
 #endif
 #include "xhtmldbgmain.h"
+#include "dbmanager.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -57,6 +58,12 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
 
   m_settings->setDataPaths();
   m_settings->setIconTheme();
+
+  /* NOTE init Database Manager muss nach Settings::setDataPaths Initialisiert
+  * werden und vor NetworkAccessManager aufgerufen sein!
+  * Klasse NetworkCookie braucht diesem Pointer!
+  */
+  dbManager()->init();
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

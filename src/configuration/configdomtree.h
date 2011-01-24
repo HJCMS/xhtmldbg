@@ -39,6 +39,7 @@ class ConfigDomTree : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     QString highlightBackgroundColor;
     QString highlightBorderColor;
     QGroupBox* m_backgroundColorGroup;
@@ -54,6 +55,7 @@ class ConfigDomTree : public PageWidget
     ConfigDomTree ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigDomTree();
 };
 

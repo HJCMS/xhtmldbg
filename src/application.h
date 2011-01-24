@@ -38,7 +38,7 @@ class DownloadManager;
 class HistoryManager;
 class NetworkCookie;
 class NetworkAccessManager;
-class NetworkBlocker;
+class DBManager;
 
 class Application : public QApplication
 {
@@ -52,7 +52,7 @@ class Application : public QApplication
     static HistoryManager* p_historyManager;
     static NetworkAccessManager* p_networkAccessManager;
     static DownloadManager* p_downloadManager;
-    static NetworkBlocker* p_networkBlocker;
+    static DBManager* p_dbManager;
 
   private Q_SLOTS:
     void newConnection();
@@ -66,11 +66,11 @@ class Application : public QApplication
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
     bool isRunning() const;
     void busEventHandler ( const QString &type, const QString &str );
+    static DBManager* dbManager();
     static DownloadManager* downloadManager();
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();
     static NetworkCookie* cookieManager();
-    static NetworkBlocker* blockerManager();
     virtual ~Application();
 
 };

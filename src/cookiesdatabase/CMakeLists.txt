@@ -2,7 +2,6 @@
 
 SET (cookiesdatabase_SOURCES
   cookiemanager.cpp
-  cookiesdatabaselocation.cpp
   cookieaccesscombobox.cpp
   cookieseditortable.cpp
   cookiesboolcombobox.cpp
@@ -10,22 +9,20 @@ SET (cookiesdatabase_SOURCES
 
 SET (cookiesdatabase_HEADERS
   cookiemanager.h
-  cookiesdatabaselocation.h
   cookieaccesscombobox.h
   cookieseditortable.h
   cookiesboolcombobox.h
 )
 
-QT4_WRAP_CPP (cookiesdatabase_MOC ${cookiesdatabase_HEADERS})
-
-QT4_ADD_RESOURCES (cookiesdatabase_RESRC
-  cookiesdatabase.qrc
-  OPTIONS -name cookiesdatabase
+INCLUDE_DIRECTORIES (
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
+
+QT4_WRAP_CPP (cookiesdatabase_MOC ${cookiesdatabase_HEADERS})
 
 ADD_LIBRARY (CookiesDatabase STATIC
   ${cookiesdatabase_MOC}
-  ${cookiesdatabase_RESRC}
   ${cookiesdatabase_HEADERS}
   ${cookiesdatabase_STATIC_HEADERS}
   ${cookiesdatabase_SOURCES}

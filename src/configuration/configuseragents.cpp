@@ -29,6 +29,7 @@
 
 ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
     : PageWidget ( trUtf8 ( "User-Agent" ), parent )
+    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_user_agents" ) );
   setNotice ( false );
@@ -43,7 +44,13 @@ ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
   centralWidget->setLayout ( verticalLayout );
 
   connect ( m_userAgentEditor, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( modified ( bool ) ) );
+            this, SLOT ( itemModified ( bool ) ) );
+}
+
+void ConfigUserAgents::itemModified ( bool b )
+{
+  mod = b;
+  emit modified ( b );
 }
 
 void ConfigUserAgents::load ( Settings * cfg )
@@ -54,6 +61,11 @@ void ConfigUserAgents::load ( Settings * cfg )
 void ConfigUserAgents::save ( Settings * cfg )
 {
   m_userAgentEditor->saveUserAgents ( cfg );
+}
+
+bool ConfigUserAgents::isModified ()
+{
+  return mod;
 }
 
 ConfigUserAgents::~ConfigUserAgents()

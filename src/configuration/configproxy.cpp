@@ -31,6 +31,7 @@
 
 ConfigProxy::ConfigProxy ( QWidget * parent )
     : PageWidget ( trUtf8 ( "Proxy" ), parent )
+    , mod ( false )
     , HostName ( QString::null )
     , User ( QString::null )
     , Password ( QString::null )
@@ -142,6 +143,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
 
 void ConfigProxy::itemClicked ( const QVariant & )
 {
+  mod = true;
   emit modified ( true );
 }
 
@@ -270,6 +272,11 @@ const QString ConfigProxy::getUser ()
 const QString ConfigProxy::getPassword ()
 {
   return proxyPassword->text();
+}
+
+bool ConfigProxy::isModified ()
+{
+  return mod;
 }
 
 ConfigProxy::~ConfigProxy()

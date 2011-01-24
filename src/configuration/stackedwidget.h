@@ -62,6 +62,9 @@ class StackedWidget : public QStackedWidget
     ConfigUserAgents* m_configUserAgents;
     ConfigExtras* m_configExtras;
 
+  private Q_SLOTS:
+    void loadWidgetSettings ( int );
+
   Q_SIGNALS:
     void settingsChanged ( bool );
 

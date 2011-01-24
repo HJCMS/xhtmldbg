@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-23T18:47:58+01:00\n"
+"POT-Creation-Date: 2011-01-24T11:54:01+01:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1500,11 +1500,7 @@ msgstr ""
 msgid  "JavaScript Prompt:"
 msgstr ""
 
-#: src/page.cpp:246
-msgid  "Host %1 Blocked"
-msgstr ""
-
-#: src/page.cpp:318
+#: src/page.cpp:312
 msgid  "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -1644,15 +1640,15 @@ msgstr ""
 msgid  "Image"
 msgstr ""
 
-#: src/cssvalidator/soupreader.cpp:61
+#: src/cssvalidator/soupreader.cpp:62
 msgid  "Line"
 msgstr ""
 
-#: src/cssvalidator/soupreader.cpp:143
+#: src/cssvalidator/soupreader.cpp:144
 msgid  "File:.%1"
 msgstr ""
 
-#: src/cssvalidator/soupreader.cpp:205
+#: src/cssvalidator/soupreader.cpp:206
 msgid  "Congratulations! No Error Found. (%1)"
 msgstr ""
 
@@ -1780,7 +1776,7 @@ msgstr ""
 msgid  "Unknown"
 msgstr ""
 
-#: src/cssvalidator/validator.cpp:196
+#: src/cssvalidator/validator.cpp:197
 msgid  "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page."
 msgstr ""
 
@@ -1816,267 +1812,267 @@ msgstr ""
 msgid  "Clear"
 msgstr ""
 
-#: src/viewer.cpp:246
+#: src/viewer.cpp:251
 msgid  "Bookmark"
 msgstr ""
 
-#: src/viewer.cpp:253
+#: src/viewer.cpp:258
 msgid  "StyleSheet"
 msgstr ""
 
-#: src/viewer.cpp:256
+#: src/viewer.cpp:261
 msgid  "Start CSS Validation for this Site."
 msgstr ""
 
-#: src/viewer.cpp:269
+#: src/viewer.cpp:274
 msgid  "Screenshot"
 msgstr ""
 
-#: src/viewer.cpp:272
+#: src/viewer.cpp:277
 msgid  "Screenshot from current Page."
 msgstr ""
 
-#: src/viewer.cpp:261
+#: src/viewer.cpp:266
 msgid  "Source"
 msgstr ""
 
-#: src/viewer.cpp:264
+#: src/viewer.cpp:269
 msgid  "Show Document Source"
 msgstr ""
 
-#: src/viewer.cpp:276 src/viewer.cpp:496
+#: src/viewer.cpp:281 src/viewer.cpp:507
 msgid  "Plugins"
 msgstr ""
 
-#: src/viewer.cpp:279
+#: src/viewer.cpp:284
 msgid  "Display initialed Browser-Plugins."
 msgstr ""
 
-#: src/viewer.cpp:373
+#: src/viewer.cpp:378
 msgid  "SEO Result for \"%1\" Url:"
 msgstr ""
 
-#: src/viewer.cpp:381
+#: src/viewer.cpp:386
 msgid  "Word boundary:"
 msgstr ""
 
-#: src/viewer.cpp:386
+#: src/viewer.cpp:391
 msgid  "Case Sensitive:"
 msgstr ""
 
-#: src/viewer.cpp:396
+#: src/viewer.cpp:401
 msgid  "Meta Keywords:"
 msgstr ""
 
-#: src/viewer.cpp:402
+#: src/viewer.cpp:407
 msgid  "Meta Description:"
 msgstr ""
 
-#: src/viewer.cpp:409
+#: src/viewer.cpp:414
 msgid  "Page Title:"
 msgstr ""
 
-#: src/viewer.cpp:414
+#: src/viewer.cpp:419
 msgid  "Summary:"
 msgstr ""
 
-#: src/viewer.cpp:513
+#: src/viewer.cpp:524
 msgid  "Screenshot saved to %1"
 msgstr ""
 
-#: src/webinspector.cpp:73
-msgid  "WebInspector: Update rejected - no valide url given!"
+#: src/webviewer.cpp:75
+msgid  "New Page"
 msgstr ""
 
 #: src/webviewer.cpp:77
-msgid  "New Page"
-msgstr ""
-
-#: src/webviewer.cpp:79
 msgid  "Add a new empty Tab"
 msgstr ""
 
-#: src/webviewer.cpp:340
+#: src/webviewer.cpp:273
 msgid  "file"
 msgstr ""
 
-#: src/window.cpp:130
+#: src/webviewer.cpp:278
+msgid  "Unknown"
+msgstr ""
+
+#: src/window.cpp:138
 msgid  "Browser"
 msgstr ""
 
-#: src/window.cpp:136
+#: src/window.cpp:144
 msgid  "Source"
 msgstr ""
 
-#: src/window.cpp:346
+#: src/window.cpp:353
 msgid  "Open Url"
 msgstr ""
 
-#: src/window.cpp:347
+#: src/window.cpp:354
 msgid  "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:353
+#: src/window.cpp:360
 msgid  "Open Html File"
 msgstr ""
 
-#: src/window.cpp:354
+#: src/window.cpp:361
 msgid  "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:360
+#: src/window.cpp:367
 msgid  "Quit"
 msgstr ""
 
-#: src/window.cpp:361
+#: src/window.cpp:368
 msgid  "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:371
+#: src/window.cpp:378
 msgid  "Parse"
 msgstr ""
 
-#: src/window.cpp:372
+#: src/window.cpp:379
 msgid  "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:378
+#: src/window.cpp:385
 msgid  "Format"
 msgstr ""
 
-#: src/window.cpp:379
+#: src/window.cpp:386
 msgid  "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:385
+#: src/window.cpp:392
 msgid  "&View"
 msgstr ""
 
-#: src/window.cpp:389
+#: src/window.cpp:396
 msgid  "Zoom +"
 msgstr ""
 
-#: src/window.cpp:397
+#: src/window.cpp:404
 msgid  "Zoom -"
 msgstr ""
 
-#: src/window.cpp:405
+#: src/window.cpp:412
 msgid  "Original"
 msgstr ""
 
-#: src/window.cpp:418
+#: src/window.cpp:425
 msgid  "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:428
+#: src/window.cpp:435
 msgid  "Refresh"
 msgstr ""
 
-#: src/window.cpp:434
+#: src/window.cpp:441
 msgid  "Back"
 msgstr ""
 
-#: src/window.cpp:440
+#: src/window.cpp:447
 msgid  "Forward"
 msgstr ""
 
-#: src/window.cpp:446
+#: src/window.cpp:453
 msgid  "New Page"
 msgstr ""
 
-#: src/window.cpp:447
+#: src/window.cpp:454
 msgid  "Add a new empty Tab"
 msgstr ""
 
-#: src/window.cpp:458
+#: src/window.cpp:465
 msgid  "Bookmarks"
 msgstr ""
 
-#: src/window.cpp:481
+#: src/window.cpp:488
 msgid  "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:489
+#: src/window.cpp:496
 msgid  "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:535
+#: src/window.cpp:542
 msgid  "Settings"
 msgstr ""
 
-#: src/window.cpp:968
+#: src/window.cpp:975
 msgid  "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1008
+#: src/window.cpp:1015
 msgid  "a Url Request from outsite. Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1011
+#: src/window.cpp:1018
 msgid  "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1042
+#: src/window.cpp:1049
 msgid  "Download Request: %1"
 msgstr ""
 
-#: src/window.cpp:503
+#: src/window.cpp:510
 msgid  "Display"
 msgstr ""
 
-#: src/window.cpp:342
+#: src/window.cpp:349
 msgid  "&Application"
 msgstr ""
 
-#: src/window.cpp:368
+#: src/window.cpp:375
 msgid  "&Debugger"
 msgstr ""
 
-#: src/window.cpp:425
+#: src/window.cpp:432
 msgid  "&Browser"
 msgstr ""
 
-#: src/window.cpp:487
+#: src/window.cpp:494
 msgid  "S&ettings"
 msgstr ""
 
-#: src/window.cpp:495
+#: src/window.cpp:502
 msgid  "Configure"
 msgstr ""
 
-#: src/window.cpp:500 src/window.cpp:599
+#: src/window.cpp:507 src/window.cpp:605
 msgid  "Extensions"
 msgstr ""
 
-#: src/window.cpp:507
+#: src/window.cpp:514
 msgid  "About"
 msgstr ""
 
-#: src/window.cpp:508
+#: src/window.cpp:515
 msgid  "about Qt"
 msgstr ""
 
-#: src/window.cpp:513
+#: src/window.cpp:520
 msgid  "about hjcms"
 msgstr ""
 
-#: src/window.cpp:524
+#: src/window.cpp:531
 msgid  "Actions"
 msgstr ""
 
-#: src/window.cpp:571
+#: src/window.cpp:578
 msgid  "Toolbars"
 msgstr ""
 
-#: src/window.cpp:581
+#: src/window.cpp:588
 msgid  "Impartations"
 msgstr ""
 
-#: src/window.cpp:589
+#: src/window.cpp:596
 msgid  "Inspectors"
 msgstr ""
 
-#: src/window.cpp:856
+#: src/window.cpp:863
 msgid  "Check StyleSheet for %1"
 msgstr ""
 

@@ -43,6 +43,7 @@ class ConfigIDE : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     QLineEdit* m_editStartUpUrl;
     QCheckBox* m_hideDownloadWidget;
     QLineEdit* m_javaApplication;
@@ -65,6 +66,7 @@ class ConfigIDE : public PageWidget
     ConfigIDE ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigIDE();
 };
 

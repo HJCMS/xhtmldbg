@@ -22,7 +22,6 @@
 #include "cookieseditortable.h"
 #include "cookieaccesscombobox.h"
 #include "cookiesboolcombobox.h"
-#include "cookiesdatabaselocation.h"
 
 /* QtCore */
 #include <QtCore/QAbstractTableModel>
@@ -83,33 +82,8 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
 */
 bool CookiesEditorTable::initialDatabase ()
 {
-  sql = QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false );
-  if ( sql.isOpen() )
-    return true; // wenn offen nichts machen
-
-  QString dbConnectionName;
-  sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
-  QString lc = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
-
-  /* Die SQL Tabelle wird von NetworkCookie erstellt! */
-  CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
-  dbConnectionName = locator->databasePath ( "cookies" );
-  delete locator;
-
-  if ( dbConnectionName.isEmpty() )
-  {
-    qWarning ( "(XHTMLDBG) Cannot find SQLite Database" );
-    return false;
-  }
-
-  sql.setDatabaseName ( dbConnectionName );
-  if ( ! sql.open() )
-  {
-    qWarning ( "(XHTMLDBG) SQLite:Error - %s", qPrintable ( sql.lastError().text() ) );
-    return false;
-  }
-  else
-    return true;
+  sql = QSqlDatabase::database ( QString::fromUtf8 ( "xhtmldbg" ), false );
+  return ( sql.isOpen() ? true : sql.open() );
 }
 
 /**

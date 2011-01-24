@@ -12,6 +12,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/colorpicker
+  ${CMAKE_CURRENT_SOURCE_DIR}/dbmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
@@ -22,7 +23,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
-  ${CMAKE_CURRENT_SOURCE_DIR}/blocker
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
@@ -34,6 +34,7 @@ ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (autosaver)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (colorpicker)
+ADD_SUBDIRECTORY (dbmanager)
 ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (hostinfo)
@@ -46,7 +47,6 @@ ADD_SUBDIRECTORY (settings)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (dominspector)
-ADD_SUBDIRECTORY (blocker)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
@@ -203,7 +203,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   CSSValidator
   Configuration
   DomInspector
-  NetBlocker
+  DBManager
   Networker
   DownloadManager
   RDFParser

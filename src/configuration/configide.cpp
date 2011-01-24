@@ -42,6 +42,7 @@
 
 ConfigIDE::ConfigIDE ( QWidget * parent )
     : PageWidget ( trUtf8 ( "Defaults" ), parent )
+    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_ide" ) );
   setNotice ( true );
@@ -252,9 +253,9 @@ void ConfigIDE::checkCSSValidator()
 * Dieser Slot wird immer dann aufgerufen wenn ein
 * QLineEdit verändert wurde.
 */
-void ConfigIDE::editingFinished ( const QString &t )
+void ConfigIDE::editingFinished ( const QString & )
 {
-  Q_UNUSED ( t )
+  mod = true;
   emit modified ( true );
 }
 
@@ -353,6 +354,11 @@ void ConfigIDE::save ( Settings * cfg )
   QString theme = m_iconThemeSelecter->selectedTheme();
   cfg->setValue ( QLatin1String ( "icontheme" ), theme );
   cfg->setValue ( QLatin1String ( "iconthemepaths" ), m_iconThemesList->iconPaths() );
+}
+
+bool ConfigIDE::isModified ()
+{
+  return mod;
 }
 
 ConfigIDE::~ConfigIDE()

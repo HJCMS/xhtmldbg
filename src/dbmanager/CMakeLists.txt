@@ -1,0 +1,46 @@
+# CMakeLists.txt
+
+SET (dbmanager_SOURCES
+  dbmanager.cpp
+  dblocator.cpp
+)
+
+SET (dbmanager_HEADERS
+  dbmanager.h
+  dblocator.h
+)
+
+SET (dbmanager_NOMOC_HEADERS
+)
+
+REMOVE_DEFINITIONS (-DQT_NETWORK_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
+INCLUDE_DIRECTORIES (
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${XHTMLDBG_INCLUDE_INTERFACE}
+)
+
+QT4_WRAP_CPP (dbmanager_MOC ${dbmanager_HEADERS})
+
+QT4_ADD_RESOURCES (dbmanager_QRC dbmanager.qrc)
+
+ADD_LIBRARY (DBManager STATIC
+  ${dbmanager_QRC}
+  ${dbmanager_MOC}
+  ${dbmanager_NOMOC_HEADERS}
+  ${dbmanager_HEADERS}
+  ${dbmanager_SOURCES}
+)
+
+SET_TARGET_PROPERTIES (DBManager PROPERTIES
+  LINKER_LANGUAGE CXX
+  COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
+)
+
+TARGET_LINK_LIBRARIES (DBManager
+  ${QT_QTCORE_LIBRARY}
+  ${QT_QTSQL_LIBRARY}
+  ${QT_QTDBUS_LIBRARY}
+)
+
+## EOF

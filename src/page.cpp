@@ -22,7 +22,6 @@
 #include "page.h"
 #include "viewer.h"
 #include "xhtmldbgmain.h"
-#include "networkblocker.h"
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
 #include "jsmessanger.h"

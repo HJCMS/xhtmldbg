@@ -46,8 +46,8 @@ class CookieManager : public QObject
     Q_ENUMS ( AccessType )
 
   private:
-    enum QueryType { OPEN, CREATE, SELECT, DELETE, UPDATE, QUERY, INSERT };
     QSqlDatabase sql;
+    enum QueryType { OPEN, CREATE, SELECT, DELETE, UPDATE, QUERY, INSERT };
     QList<QNetworkCookie> cookies;
     void sqlMessage ( QueryType t, int l, const QString &m );
     bool open();

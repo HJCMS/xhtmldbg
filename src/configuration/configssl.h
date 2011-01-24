@@ -40,14 +40,19 @@ class ConfigSSL : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     CertIssuers* m_certIssuers;
     ConfigTrustedHosts* m_configTrustedHosts;
     ConfigAccessControl* m_configAccessControl;
+
+  private Q_SLOTS:
+    void itemModified ( bool );
 
   public:
     ConfigSSL ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigSSL();
 };
 

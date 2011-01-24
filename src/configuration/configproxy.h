@@ -46,6 +46,7 @@ class ConfigProxy : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     QString HostName, User, Password;
     int Port;
     QComboBox* proxyType;
@@ -73,6 +74,7 @@ class ConfigProxy : public PageWidget
     const QString  getPassword ();
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigProxy();
 };
 

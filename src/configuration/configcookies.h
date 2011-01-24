@@ -31,7 +31,6 @@
 #include <QtGui/QWidget>
 
 #include "pagewidget.h"
-// #include "editcookiestable.h"
 #include "cookieseditortable.h"
 
 class ConfigCookies : public PageWidget
@@ -41,7 +40,7 @@ class ConfigCookies : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-//     EditCookiesTable *cookiesTable;
+    bool mod;
     CookiesEditorTable *cookiesTable;
     QLineEdit* cookieEdit;
     QComboBox* selectedArrangementType;
@@ -54,6 +53,7 @@ class ConfigCookies : public PageWidget
     ConfigCookies ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigCookies();
 };
 

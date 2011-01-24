@@ -24,7 +24,7 @@
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
 #include "downloadmanager.h"
-#include "networkblocker.h"
+#include "dbmanager.h"
 
 #include <cstdlib>
 
@@ -42,7 +42,7 @@
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
 DownloadManager* Application::p_downloadManager = 0;
-NetworkBlocker* Application::p_networkBlocker = 0;
+DBManager* Application::p_dbManager = 0;
 
 Application::Application ( int &argc, char **argv )
     : QApplication ( argc, argv, true )
@@ -160,6 +160,14 @@ bool Application::isRunning() const
   return ( 0 != m_server );
 }
 
+DBManager* Application::dbManager()
+{
+  if ( ! p_dbManager )
+    p_dbManager = new DBManager();
+
+  return p_dbManager;
+}
+
 DownloadManager* Application::downloadManager()
 {
   if ( ! p_downloadManager )
@@ -181,7 +189,7 @@ HistoryManager* Application::historyManager()
 NetworkAccessManager* Application::networkAccessManager()
 {
   if ( ! p_networkAccessManager )
-    p_networkAccessManager = new NetworkAccessManager();
+    p_networkAccessManager = new NetworkAccessManager ();
 
   return p_networkAccessManager;
 }
@@ -191,20 +199,10 @@ NetworkCookie* Application::cookieManager()
   return networkAccessManager()->cookieJar();
 }
 
-NetworkBlocker* Application::blockerManager()
-{
-  if ( ! p_networkBlocker )
-  {
-    p_networkBlocker = new NetworkBlocker();
-    p_networkBlocker->isOpen();
-  }
-  return p_networkBlocker;
-}
-
 Application::~Application()
 {
   delete p_historyManager;
   delete p_networkAccessManager;
   delete p_downloadManager;
-  delete p_networkBlocker;
+  delete p_dbManager;
 }

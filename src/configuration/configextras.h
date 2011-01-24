@@ -38,6 +38,7 @@ class ConfigExtras : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     QString databasePath;
     QLineEdit* m_lineEditGeoIP;
     const QString absoluteDatabasePath();
@@ -53,6 +54,7 @@ class ConfigExtras : public PageWidget
     ConfigExtras ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigExtras();
 };
 

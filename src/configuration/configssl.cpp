@@ -29,6 +29,7 @@
 
 ConfigSSL::ConfigSSL ( QWidget * parent )
     : PageWidget ( trUtf8 ( "SSL Certification" ), parent )
+    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_ssl" ) );
   setNotice ( false );
@@ -55,13 +56,19 @@ ConfigSSL::ConfigSSL ( QWidget * parent )
   polishVerticalSpacer ( QSizePolicy::Preferred );
 
   connect ( m_certIssuers, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( modified ( bool ) ) );
+            this, SLOT ( itemModified ( bool ) ) );
 
   connect ( m_configTrustedHosts, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( modified ( bool ) ) );
+            this, SLOT ( itemModified ( bool ) ) );
 
   connect ( m_configAccessControl, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( modified ( bool ) ) );
+            this, SLOT ( itemModified ( bool ) ) );
+}
+
+void ConfigSSL::itemModified ( bool b )
+{
+  mod = b;
+  emit modified ( b );
 }
 
 void ConfigSSL::load ( Settings * cfg )
@@ -108,6 +115,11 @@ void ConfigSSL::save ( Settings * cfg )
   cfg->setValue ( QLatin1String ( "sslPublicKey" ), m_configAccessControl->getPupKey() );
   cfg->setValue ( QLatin1String ( "sslPrivateKey" ), m_configAccessControl->getPrivKey() );
   cfg->setValue ( QLatin1String ( "sslPassPhrase" ), m_configAccessControl->getPassPhrase() );
+}
+
+bool ConfigSSL::isModified ()
+{
+  return mod;
 }
 
 ConfigSSL::~ConfigSSL()

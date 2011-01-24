@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COOKIESDATABASELOCATION_H
-#define COOKIESDATABASELOCATION_H
+#ifndef DBLOCATOR_H
+#define DBLOCATOR_H
 
 /* QtCore */
 #include <QtCore/QDir>
@@ -30,7 +30,10 @@
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
-class CookiesDatabaseLocation : public QObject
+/**
+* This Class initial and create the default XHTMLDBG SQLite databases.
+*/
+class DBLocator : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -38,13 +41,13 @@ class CookiesDatabaseLocation : public QObject
 
   private:
     QDir p_dbDir;
-    const QString sqlTableStatement ( const QString & );
+    const QString sqlTableStatement ( const QString &dbName ) const;
 
   public:
-    CookiesDatabaseLocation ( const QString &storageDirectory, QObject * parent = 0 );
+    DBLocator ( const QString &storageDirectory, QObject * parent = 0 );
     const QString databasePath ( const QString & );
-    bool initCookieDatabase ( const QSqlDatabase & );
-    ~CookiesDatabaseLocation();
+    bool initDatabase ( const QSqlDatabase & );
+    virtual ~DBLocator();
 };
 
 #endif

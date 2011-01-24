@@ -62,9 +62,7 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   insertWidget ( 8, m_configExtras );
 
   setCurrentIndex ( 0 );
-  update();
-
-  loadSettings();
+  loadWidgetSettings ( 0 );
 
   connect ( m_configIDE, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
@@ -92,11 +90,85 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
 
   connect ( m_configExtras, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
+
+  connect ( this, SIGNAL ( currentChanged ( int ) ),
+            this, SLOT ( loadWidgetSettings ( int ) ) );
+
+  // First start
+  emit settingsChanged ( false );
 }
 
-/**
-* Alle Einstellungen laden
-**/
+/** Damit der Start schneller von statten geht
+* erst beim öffnen eines Stacks die Konfiguration laden! */
+void StackedWidget::loadWidgetSettings ( int index )
+{
+  blockSignals ( true );
+  switch ( index )
+  {
+    case 0:
+    {
+      m_configIDE->load ( cfg );
+    }
+    break;
+
+    case 1:
+    {
+      m_configTidy->load ( cfg );
+    }
+    break;
+
+    case 2:
+    {
+      m_configDomTree->load ( cfg );
+    }
+    break;
+
+    case 3:
+    {
+      m_configBrowser->load ( cfg );
+    }
+    break;
+
+    case 4:
+    {
+      m_configCookies->load ( cfg );
+    }
+    break;
+
+    case 5:
+    {
+      m_configProxy->load ( cfg );
+    }
+    break;
+
+    case 6:
+    {
+      m_configSSL->load ( cfg );
+    }
+    break;
+
+    case 7:
+    {
+      m_configUserAgents->load ( cfg );
+    }
+    break;
+
+    case 8:
+    {
+      m_configExtras->load ( cfg );
+    }
+    break;
+
+    default:
+    {
+      m_configIDE->load ( cfg );
+    }
+    break;
+  }
+  blockSignals ( false );
+}
+
+/** Alle Einstellungen laden */
 void StackedWidget::loadSettings()
 {
   blockSignals ( true );
@@ -110,35 +182,52 @@ void StackedWidget::loadSettings()
   m_configUserAgents->load ( cfg );
   m_configExtras->load ( cfg );
   blockSignals ( false );
+  // zurück setzen
   emit settingsChanged ( false );
 }
 
-/**
-* Alle Einstellungen Speichern
-**/
+/** Alle Einstellungen Speichern */
 void StackedWidget::saveSettings()
 {
   blockSignals ( true );
-  m_configIDE->save ( cfg );
-  m_configTidy->save ( cfg );
-  m_configDomTree->save ( cfg );
-  m_configBrowser->save ( cfg );
-  m_configCookies->save ( cfg );
-  m_configProxy->save ( cfg );
-  m_configSSL->save ( cfg );
-  m_configUserAgents->save ( cfg );
-  m_configExtras->save ( cfg );
+
+  if ( m_configIDE->isModified () )
+    m_configIDE->save ( cfg );
+
+  if ( m_configTidy->isModified () )
+    m_configTidy->save ( cfg );
+
+  if ( m_configDomTree->isModified () )
+    m_configDomTree->save ( cfg );
+
+  if ( m_configBrowser->isModified () )
+    m_configBrowser->save ( cfg );
+
+  if ( m_configCookies->isModified () )
+    m_configCookies->save ( cfg );
+
+  if ( m_configProxy->isModified () )
+    m_configProxy->save ( cfg );
+
+  if ( m_configSSL->isModified () )
+    m_configSSL->save ( cfg );
+
+  if ( m_configUserAgents->isModified () )
+    m_configUserAgents->save ( cfg );
+
+  if ( m_configExtras->isModified () )
+    m_configExtras->save ( cfg );
+
   blockSignals ( false );
 
-  /**
-  * Qt >= 4.6.* hat einen bug beim Speichern und
+  /* Qt >= 4.6.* hat einen bug beim Speichern und
   * wieder herstellen der Fenster Dimensionen.
   * Deshalb werden hier die Variable gelöscht
   * damit sie bei @ref Window::closeEvent neu
-  * geschrieben werden.
-  */
+  * geschrieben werden. */
   cfg->remove ( "Window/MainWindowGeometry" );
 
+  // zurück setzen
   emit settingsChanged ( false );
 }
 

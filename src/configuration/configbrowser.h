@@ -43,6 +43,7 @@ class ConfigBrowser : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
+    bool mod;
     QSpinBox* DefaultFontSize;
     QSpinBox* DefaultFixedFontSize;
     ConfigHeaderDefinitions* headerDefinitions;
@@ -56,6 +57,7 @@ class ConfigBrowser : public PageWidget
     ConfigBrowser ( QWidget * parent = 0 );
     void load ( Settings * );
     void save ( Settings * );
+    bool isModified ();
     ~ConfigBrowser();
 };
 

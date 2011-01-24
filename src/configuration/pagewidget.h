@@ -70,6 +70,7 @@ class PageWidget : public QScrollArea
 
   public:
     PageWidget ( const QString &title, QWidget * parent = 0 );
+    virtual bool isModified () = 0;
     virtual ~PageWidget();
 };
 

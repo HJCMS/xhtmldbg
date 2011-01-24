@@ -27,6 +27,7 @@
 
 /* QtGui */
 #include <QtGui/QAbstractItemView>
+#include <QtGui/QCursor>
 #include <QtGui/QSizePolicy>
 
 ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
@@ -58,8 +59,10 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
 
 void ConfigurationMenu::findPage ( QListWidgetItem * item )
 {
+  setCursor ( Qt::WaitCursor );
   int index = item->data ( Qt::UserRole ).toUInt();
   emit itemClicked ( index );
+  unsetCursor ();
 }
 
 void ConfigurationMenu::insertItem ( int index, const QString &title, const QIcon &icon )

@@ -35,6 +35,7 @@
 
 ConfigDomTree::ConfigDomTree ( QWidget * parent )
     : PageWidget ( trUtf8 ( "DOM Inspector" ), parent )
+    , mod ( false )
     , highlightBackgroundColor ( QLatin1String ( "yellow" ) )
     , highlightBorderColor ( QLatin1String ( "red" ) )
 {
@@ -100,12 +101,16 @@ void ConfigDomTree::setBackgroundColor()
 {
   highlightBackgroundColor = ConfigUtils::openColorDialog ( highlightBackgroundColor, this );
   previewBackground->setStyleSheet ( QString ( "background-color: %1;" ).arg ( highlightBackgroundColor ) );
+  mod = true;
+  emit modified ( true );
 }
 
 void ConfigDomTree::setBorderColor()
 {
   highlightBorderColor = ConfigUtils::openColorDialog ( highlightBorderColor, this );
   previewBorder->setStyleSheet ( QString ( "background-color: %1;" ).arg ( highlightBorderColor ) );
+  mod = true;
+  emit modified ( true );
 }
 
 void ConfigDomTree::load ( Settings * cfg )
@@ -126,6 +131,11 @@ void ConfigDomTree::save ( Settings * cfg )
   cfg->setValue ( QLatin1String ( "enableHighlightBorder" ), m_borderColorGroup->isChecked() );
   cfg->setValue ( QLatin1String ( "highlightColor" ), highlightBackgroundColor );
   cfg->setValue ( QLatin1String ( "highlightBorder" ), highlightBorderColor );
+}
+
+bool ConfigDomTree::isModified ()
+{
+  return mod;
 }
 
 ConfigDomTree::~ConfigDomTree()

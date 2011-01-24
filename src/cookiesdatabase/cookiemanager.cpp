@@ -20,7 +20,6 @@
 **/
 
 #include "cookiemanager.h"
-#include "cookiesdatabaselocation.h"
 
 /* QtCore */
 #include <QtCore/QDateTime>
@@ -36,10 +35,9 @@
 
 CookieManager::CookieManager ( QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", "cookies" ) )
+    , sql ( QSqlDatabase::database ( QString::fromUtf8 ( "xhtmldbg" ), false ) )
 {
   setObjectName ( QLatin1String ( "cookiemanager" ) );
-  sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
 }
 
 /**
@@ -94,22 +92,7 @@ void CookieManager::sqlMessage ( QueryType t, int l, const QString &m )
 */
 bool CookieManager::open()
 {
-  QString lc = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
-  CookiesDatabaseLocation* locator = new CookiesDatabaseLocation ( lc, this );
-  if ( ! locator->initCookieDatabase ( sql ) )
-  {
-    sqlMessage ( CREATE, __LINE__, sql.lastError().text() );
-    return false;
-  }
-
-  if ( ! sql.open() )
-  {
-    sqlMessage ( OPEN, __LINE__, sql.lastError().text() );
-    return false;
-  }
-
-  delete locator;
-  return true;
+  return ( sql.isOpen() ? true : sql.open() );
 }
 
 /**

@@ -39,6 +39,7 @@
 
 ConfigExtras::ConfigExtras ( QWidget * parent )
     : PageWidget ( trUtf8 ( "Extensions" ), parent )
+    , mod ( false )
     , databasePath ( QString ( GEOIP_DATABASE_PATH ) )
 {
   setObjectName ( QLatin1String ( "config_page_geo" ) );
@@ -111,6 +112,7 @@ void ConfigExtras::openDatabaseDialog()
 */
 void ConfigExtras::dataChanged ( const QString & )
 {
+  mod = true;
   emit modified ( true );
 }
 
@@ -130,6 +132,11 @@ void ConfigExtras::load ( Settings * cfg )
 void ConfigExtras::save ( Settings * cfg )
 {
   cfg->setValue ( QLatin1String ( "GeoIP_Database" ), m_lineEditGeoIP->text() );
+}
+
+bool ConfigExtras::isModified ()
+{
+  return mod;
 }
 
 ConfigExtras::~ConfigExtras()
