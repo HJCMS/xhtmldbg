@@ -82,7 +82,7 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
   // NOTE localReplySource muss in @class Window gesetzt werden!
-  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+  connect ( m_netManager, SIGNAL ( httpReplySource ( const QUrl &, const QString & ) ),
             this, SLOT ( readNetworkResponse ( const QUrl &, const QString & ) ) );
 
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
