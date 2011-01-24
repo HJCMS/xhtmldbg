@@ -618,108 +618,108 @@ Do you realy wan to exit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="84"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="85"/>
         <source>Do Not Buffer Upload Data when doing a HTTP POST request.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="88"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="89"/>
         <source>Allow HTTP pipelining with requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="92"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="93"/>
         <source>Indicates whether the HTTP Pipelining was used for receiving data Requests.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="96"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="97"/>
         <source>Enable AutoLoad Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="100"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="101"/>
         <source>Enable Javascript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="104"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="105"/>
         <source>Enable Plugins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="108"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="109"/>
         <source>Enable Java</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="112"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="113"/>
         <source>Zoom only text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="116"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="117"/>
         <source>Fetch DNS entries to speed up browsing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="120"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="121"/>
         <source>JavaScript programs can open new windows.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="124"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="125"/>
         <source>JavaScript programs can read or write to the clipboard.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="128"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="129"/>
         <source>The background color and images are also drawn when the page is printed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="132"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="133"/>
         <source>Locally loaded documents are allowed to access remote urls.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="136"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="137"/>
         <source>Locally loaded documents are allowed to access other local urls.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="140"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="141"/>
         <source>Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector&apos;s JavaScript console. Warning: To enabe this feature might have an impact on performance.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="144"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="145"/>
         <source>If enabled - CSS animations of the transform and opacity properties will be rendered
 by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="148"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="149"/>
         <source>This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="162"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="163"/>
         <source>Font Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="169"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="170"/>
         <source>Default Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="180"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="181"/>
         <source>Fixed Font Size:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configbrowser.cpp" line="199"/>
+        <location filename="../src/configuration/configbrowser.cpp" line="200"/>
         <source>Plugins Directory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -732,52 +732,52 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="66"/>
+        <location filename="../src/configuration/configcookies.cpp" line="67"/>
         <source>Search for existing Cookies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="76"/>
+        <location filename="../src/configuration/configcookies.cpp" line="77"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="77"/>
+        <location filename="../src/configuration/configcookies.cpp" line="78"/>
         <source>Remove Selected Cookie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="83"/>
+        <location filename="../src/configuration/configcookies.cpp" line="84"/>
         <source>Clear Cookies Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="87"/>
+        <location filename="../src/configuration/configcookies.cpp" line="88"/>
         <source>Create a new Cookie provision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="97"/>
+        <location filename="../src/configuration/configcookies.cpp" line="98"/>
         <source>Hostname</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="108"/>
+        <location filename="../src/configuration/configcookies.cpp" line="109"/>
         <source>Merely current Session</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="109"/>
+        <location filename="../src/configuration/configcookies.cpp" line="110"/>
         <source>Always Blocked</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="110"/>
+        <location filename="../src/configuration/configcookies.cpp" line="111"/>
         <source>Always Allowed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configcookies.cpp" line="118"/>
+        <location filename="../src/configuration/configcookies.cpp" line="119"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
@@ -790,12 +790,12 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configdomtree.cpp" line="50"/>
+        <location filename="../src/configuration/configdomtree.cpp" line="51"/>
         <source>Enable Background Highlight</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configdomtree.cpp" line="70"/>
+        <location filename="../src/configuration/configdomtree.cpp" line="71"/>
         <source>Enable Border Highlight</source>
         <translation type="unfinished"></translation>
     </message>
@@ -808,17 +808,17 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configextras.cpp" line="52"/>
+        <location filename="../src/configuration/configextras.cpp" line="53"/>
         <source>Geological IP Resolver</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configextras.cpp" line="60"/>
+        <location filename="../src/configuration/configextras.cpp" line="61"/>
         <source>Database</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configextras.cpp" line="101"/>
+        <location filename="../src/configuration/configextras.cpp" line="102"/>
         <source>GeoIP Database %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -854,82 +854,82 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="59"/>
+        <location filename="../src/configuration/configide.cpp" line="60"/>
         <source>Load this URL as default on start, if empty xhtmldbg will use recently viewed Url.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="87"/>
+        <location filename="../src/configuration/configide.cpp" line="88"/>
         <source>Do not open Downloadmanager on Application start.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="94"/>
+        <location filename="../src/configuration/configide.cpp" line="95"/>
         <source>W3C CSS Validator Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="105"/>
+        <location filename="../src/configuration/configide.cpp" line="106"/>
         <source>Java Application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="122"/>
+        <location filename="../src/configuration/configide.cpp" line="123"/>
         <source>Path to W3C Validator file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="139"/>
+        <location filename="../src/configuration/configide.cpp" line="140"/>
         <source>W3C Validator CLASSPATH</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="188"/>
+        <location filename="../src/configuration/configide.cpp" line="189"/>
         <source>Default Icon Theme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="312"/>
+        <location filename="../src/configuration/configide.cpp" line="313"/>
         <source>Icon Theme path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="246"/>
+        <location filename="../src/configuration/configide.cpp" line="247"/>
         <source>&lt;div style=&quot;color:red;&quot;&gt;W3C CSS Validator not found!&lt;/div&gt;&lt;div&gt;You can download it from &lt;a href=&quot;http://xhtmldbg.hjcms.de&quot;&gt;xhtmldbg&lt;/a&gt; Homepage.&lt;/div&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="166"/>
+        <location filename="../src/configuration/configide.cpp" line="167"/>
         <source>Application Theme Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="176"/>
+        <location filename="../src/configuration/configide.cpp" line="177"/>
         <source>On Application start, Qt are trying to search with all Icon Theme paths on your System and read them recursively for Theme Icons used by xhtmldbg. On ix86 Systems this makes your Application startup slower. With this Entry list you can perform this operation. Attention! When set this Path&apos;s to make sure where your Selected Icon Theme located.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="194"/>
+        <location filename="../src/configuration/configide.cpp" line="195"/>
         <source>The Default Icon Theme is (Oxygen)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="279"/>
+        <location filename="../src/configuration/configide.cpp" line="280"/>
         <source>Java-Archive %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="280"/>
+        <location filename="../src/configuration/configide.cpp" line="281"/>
         <source>All %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="282"/>
+        <location filename="../src/configuration/configide.cpp" line="283"/>
         <source>W3C CSS Validator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configide.cpp" line="298"/>
+        <location filename="../src/configuration/configide.cpp" line="299"/>
         <source>W3C CSS Validator Java-Archive</source>
         <translation type="unfinished"></translation>
     </message>
@@ -942,47 +942,47 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="49"/>
+        <location filename="../src/configuration/configproxy.cpp" line="50"/>
         <source>The Network Proxy Type:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="59"/>
+        <location filename="../src/configuration/configproxy.cpp" line="60"/>
         <source>Socks 5 (Based on RFC 1928 and RFC 1929)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="61"/>
+        <location filename="../src/configuration/configproxy.cpp" line="62"/>
         <source>HTTP Transparent Proxying (Default)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="63"/>
+        <location filename="../src/configuration/configproxy.cpp" line="64"/>
         <source>Caching-only HTTP (Only for HTTP Requests)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="65"/>
+        <location filename="../src/configuration/configproxy.cpp" line="66"/>
         <source>Caching FTP (Only for FTP Requests)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="71"/>
+        <location filename="../src/configuration/configproxy.cpp" line="72"/>
         <source>Hostname of the Proxy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="84"/>
+        <location filename="../src/configuration/configproxy.cpp" line="85"/>
         <source>Proxy Port Number:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="99"/>
+        <location filename="../src/configuration/configproxy.cpp" line="100"/>
         <source>Authentication Username:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configproxy.cpp" line="112"/>
+        <location filename="../src/configuration/configproxy.cpp" line="113"/>
         <source>Authentication Password:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1003,17 +1003,17 @@ by composing the cached content of the animated elements.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="46"/>
+        <location filename="../src/configuration/configtidy.cpp" line="47"/>
         <source>Enable Auto Source Check</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="50"/>
+        <location filename="../src/configuration/configtidy.cpp" line="51"/>
         <source>Enable Autoformat and Check Source</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configtidy.cpp" line="54"/>
+        <location filename="../src/configuration/configtidy.cpp" line="55"/>
         <source>Disable autoformat and autocheck</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1111,52 +1111,52 @@ Do you really want to exit?</source>
 <context>
     <name>ConfigurationMenu</name>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="45"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="46"/>
         <source>Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="46"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
         <source>Tidy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
         <source>Dom Inspector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="49"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="49"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="50"/>
         <source>Cookies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="50"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="51"/>
         <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="51"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="52"/>
         <source>Certification</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="52"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="53"/>
         <source>User Agent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="53"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="54"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="67"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="70"/>
         <source>%1 Configuration options.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1281,23 +1281,71 @@ Do you really want to exit?</source>
 <context>
     <name>CookiesEditorTable</name>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="64"/>
         <source>Domain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="64"/>
         <source>Arrangement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
         <source>Allow third party</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="66"/>
+        <location filename="../src/cookiesdatabase/cookieseditortable.cpp" line="65"/>
         <source>rfc2109</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DBManager</name>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="56"/>
+        <source>SQL Invalid Operation: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="60"/>
+        <source>SQL Open Database: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="64"/>
+        <source>SQL Create Table: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="68"/>
+        <source>SQL Select: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="72"/>
+        <source>SQL Delete: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="76"/>
+        <source>SQL Update: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="80"/>
+        <source>SQL Insert: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="84"/>
+        <source>SQL Query: %1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/dbmanager/dbmanager.cpp" line="88"/>
+        <source>SQL: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2000,22 +2048,22 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="300"/>
+        <location filename="../src/networker/networkcookie.cpp" line="284"/>
         <source>Invalid Url for Cookie Request - rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="325"/>
+        <location filename="../src/networker/networkcookie.cpp" line="309"/>
         <source>Cookie for Host &quot;%1&quot; rejected by blocked list!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="331"/>
+        <location filename="../src/networker/networkcookie.cpp" line="315"/>
         <source>third-party vendor cookie &quot;%1&quot; for host &quot;%2&quot; rejected!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/networker/networkcookie.cpp" line="389"/>
+        <location filename="../src/networker/networkcookie.cpp" line="373"/>
         <source>Missing Optional Cookie/Secure attribute for HTTPS Scheme</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2059,22 +2107,22 @@ Reasons : </source>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="104"/>
+        <location filename="../src/page.cpp" line="103"/>
         <source> Line: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="107"/>
+        <location filename="../src/page.cpp" line="106"/>
         <source> Document: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="129"/>
+        <location filename="../src/page.cpp" line="128"/>
         <source>JavaScript Prompt: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/page.cpp" line="312"/>
+        <location filename="../src/page.cpp" line="311"/>
         <source>(x-qt-plugin) ClassID: %1 %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3035,17 +3083,17 @@ Would you like to load this &quot;%1&quot; Url?</source>
 <context>
     <name>xhtmldbgmain</name>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="196"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="203"/>
         <source>Usage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="197"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="204"/>
         <source>Disable Plugins and loading the Default Url</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="198"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="205"/>
         <source> Examples:</source>
         <translation type="unfinished"></translation>
     </message>
