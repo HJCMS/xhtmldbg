@@ -304,8 +304,8 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
-  connect ( m_netManager, SIGNAL ( postReplySource ( const QString & ) ),
-            this, SLOT ( setSource ( const QString & ) ) );
+  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+            this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager
   // AutoReload {
   connect ( m_autoReloadMenu, SIGNAL ( reloadInterval ( int ) ),
@@ -808,7 +808,7 @@ void Window::tabChanged ( int index )
         plugins.at ( i )->setUrl ( currentUrl );
     }
 
-    QString source = m_sourceCache->getCache ( m_webViewer->currentIndex() );
+    QString source = m_sourceCache->getCache ( currentUrl );
     if ( ! source.isEmpty() )
       m_sourceWidget->setSource ( source );
   }
@@ -880,7 +880,7 @@ void Window::checkStyleSheet ( const QUrl &url )
 *  Einstellungen nachgesehen ob @em AutoFormat oder @em AutoCheck
 *  aktiviert sind und entsprechend ausgeführt.
 */
-bool Window::setSource ( const QString &source )
+bool Window::setSource ( const QUrl &url, const QString &source )
 {
   m_tidyMessanger->clearItems();
 
@@ -888,7 +888,7 @@ bool Window::setSource ( const QString &source )
     return false;
 
   // Quelltext einfügen
-  m_sourceCache->setCache ( m_webViewer->currentIndex(), source );
+  m_sourceCache->setCache ( url, source );
   m_sourceWidget->setSource ( source );
 
   // An alle sichtbaren Plugins den Quelltext übergeben

@@ -79,7 +79,7 @@ class NetworkAccessManager : public QNetworkAccessManager
   Q_SIGNALS:
     void netNotify ( const QString & );
     void statusBarMessage ( const QString & );
-    void postReplySource ( const QString & );
+    void postReplySource ( const QUrl &, const QString & );
     void receivedHostHeaders ( const QUrl &, const QMap<QString,QString> & );
     void postedRefererData ( const QUrl &, const QStringList & );
 

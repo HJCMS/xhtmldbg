@@ -23,6 +23,7 @@
 #include "settings.h"
 
 /* QtCore */
+#include <QtCore/QCryptographicHash>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -62,6 +63,14 @@ SourceCache::SourceCache ( QObject * parent )
   cacheFiles.clear();
 }
 
+const QByteArray SourceCache::md5sum ( const QUrl &url ) const
+{
+  QString str = url.toString ();
+  QCryptographicHash cry ( QCryptographicHash::Md5 );
+  cry.addData ( str.toUtf8() );
+  return cry.result().toHex();
+}
+
 void SourceCache::cleanUp()
 {
   QDir d ( QDir::tempPath () );
@@ -69,26 +78,26 @@ void SourceCache::cleanUp()
   {
     d.setCurrent ( QDir::tempPath () );
     QFile fp;
-    for ( int i = 0; i < cacheFiles.size(); ++i )
+    QHashIterator<QByteArray,QString> i ( cacheFiles );
+    while ( i.hasNext() )
     {
-      if ( cacheFiles.value ( i ).isEmpty() )
-        continue;
-
-      fp.setFileName ( cacheFiles.value ( i ) );
+      i.next();
+      fp.setFileName ( i.value() );
       fp.remove();
     }
     d.rmdir ( tmpPath );
   }
 }
 
-void SourceCache::setCache ( int index, const QString &source )
+void SourceCache::setCache ( const QUrl &url, const QString &source )
 {
-  if ( index < 0 && source.isEmpty() )
+  if ( ! url.isValid() || source.isEmpty() )
     return;
 
+  QByteArray salt = md5sum ( url );
   QString p ( tmpPath );
   p.append ( QDir::separator() );
-  p.append ( QString::number ( index ) );
+  p.append ( salt );
   p.append ( ".tmp" );
 
   QFile fp ( p );
@@ -97,16 +106,20 @@ void SourceCache::setCache ( int index, const QString &source )
     QTextStream stream ( &fp );
     stream << source;
     fp.close();
-    cacheFiles.insert ( index, p );
+    cacheFiles.insert ( salt, p );
   }
 }
 
-const QString SourceCache::getCache ( int index )
+const QString SourceCache::getCache ( const QUrl &url )
 {
+  if ( ! url.isValid() )
+    return QString::null;
+
+  QByteArray salt = md5sum ( url );
   QString buffer ( sorry_no_cache_availably() );
-  if ( cacheFiles.contains ( index ) )
+  if ( cacheFiles.contains ( salt ) )
   {
-    QFile fp ( cacheFiles.value ( index ) );
+    QFile fp ( cacheFiles.value ( salt ) );
     if ( fp.open ( QIODevice::ReadOnly ) )
     {
       QTextStream stream ( &fp );

@@ -242,7 +242,7 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
 
   LocalSource src = LocalSource::localSource ( url );
   if ( ! src.source().isEmpty() )
-    emit postReplySource ( src.source() );
+    emit postReplySource ( url, src.source() );
 }
 
 /**
@@ -288,7 +288,7 @@ void NetworkAccessManager::peekReplyProcess()
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( m_networkReply ) );
       // qDebug() << codec->toUnicode ( peekPostData );
-      emit postReplySource ( codec->toUnicode ( peekPostData ) );
+      emit postReplySource ( m_networkReply->url(), codec->toUnicode ( peekPostData ) );
     }
   }
 }

@@ -23,8 +23,10 @@
 #define SOURCECACHE_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QHash>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 class SourceCache : public QObject
 {
@@ -34,13 +36,14 @@ class SourceCache : public QObject
 
   private:
     const QString tmpPath;
-    QHash<int,QString> cacheFiles;
+    QHash<QByteArray,QString> cacheFiles;
+    const QByteArray md5sum ( const QUrl &url ) const;
     void cleanUp();
 
   public:
     explicit SourceCache ( QObject * parent );
-    void setCache ( int index, const QString &source );
-    const QString getCache ( int index );
+    void setCache ( const QUrl &url, const QString &source );
+    const QString getCache ( const QUrl &url );
     virtual ~SourceCache();
 };
 

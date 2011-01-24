@@ -189,7 +189,7 @@ bool Page::prepareContent ( QNetworkReply * dev )
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
   xhtml = codec->toUnicode ( data );
-  xhtmldbgmain::instance()->mainWindow()->setSource ( xhtml );
+  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), xhtml );
   return true;
 }
 

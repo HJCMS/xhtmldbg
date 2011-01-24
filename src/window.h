@@ -216,7 +216,7 @@ class Window : public QMainWindow
     // supported by DBus Adaptor
     void setApplicationMessage ( const QString &, bool warning = false );
     // supported by DBus Adaptor
-    bool setSource ( const QString & );
+    bool setSource ( const QUrl &, const QString & );
     void checkStyleSheet ( const QUrl & );
     // supported by DBus Adaptor
     bool openUrl ( const QUrl &, bool addtab = false );
