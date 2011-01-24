@@ -882,22 +882,29 @@ void Window::checkStyleSheet ( const QUrl &url )
 */
 bool Window::setSource ( const QUrl &url, const QString &source )
 {
+  QString buffer;
   m_tidyMessanger->clearItems();
 
-  if ( source.isEmpty() )
+  if ( source.isEmpty() && url.isValid() )
+    buffer = m_sourceCache->getCache ( url );
+  else
+    buffer.append ( source );
+
+  if ( buffer.isEmpty() )
     return false;
 
   // Quelltext einfügen
-  m_sourceCache->setCache ( url, source );
-  m_sourceWidget->setSource ( source );
+  m_sourceWidget->setSource ( buffer );
+  if ( url.isValid() )
+    m_sourceCache->setCache ( url, buffer );
 
   // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
   {
     if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-      plugins.at ( i )->setContent ( source );
+      plugins.at ( i )->setContent ( buffer );
     else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-      plugins.at ( i )->setContent ( source );
+      plugins.at ( i )->setContent ( buffer );
   }
 
   // Ist AutoCheck oder AutoFormat aktiviert?
@@ -906,6 +913,7 @@ bool Window::setSource ( const QUrl &url, const QString &source )
   else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
     m_sourceWidget->check();
 
+  buffer.clear();
   return true;
 }
 
