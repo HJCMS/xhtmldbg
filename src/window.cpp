@@ -303,7 +303,7 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
 
-  // NOTE httpReplySource muss in der Page gesetzt werden!
+  // NOTE postReplySource muss in der Page gesetzt werden!
   connect ( m_netManager, SIGNAL ( localReplySource ( const QUrl &, const QString & ) ),
             this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager

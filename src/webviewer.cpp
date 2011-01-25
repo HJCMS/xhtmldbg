@@ -434,19 +434,6 @@ const QList<QUrl> WebViewer::getPageUrls ()
 }
 
 /**
-* Wenn kein XHTML Quelltext verfügbar ist wird der
-* von QWebKit generierte HTML Quelltext verwendet.
-*/
-const QString WebViewer::toHtml()
-{
-  QString source = activeView()->source ();
-  if ( source.isEmpty() )
-    return activeView()->page()->currentFrame()->toHtml ();
-  else
-    return source;
-}
-
-/**
 * Oberster WebElement baum für @class DomTree
 */
 const QWebElement WebViewer::toWebElement()

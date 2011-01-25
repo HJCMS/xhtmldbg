@@ -99,7 +99,6 @@ class WebViewer : public QTabWidget
     bool addViewerUrlTab ( const QUrl &url );
     const QUrl getUrl ();
     const QList<QUrl> getPageUrls();
-    const QString toHtml();
     const QWebElement toWebElement();
     const QString blank();
     void setAboutPage ( const QString & );

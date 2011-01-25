@@ -288,7 +288,7 @@ void NetworkAccessManager::peekReplyProcess()
     {
       QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( m_networkReply ) );
       // qDebug() << codec->toUnicode ( peekPostData );
-      emit httpReplySource ( m_networkReply->url(), codec->toUnicode ( peekPostData ) );
+      emit postReplySource ( m_networkReply->url(), codec->toUnicode ( peekPostData ) );
     }
   }
 }

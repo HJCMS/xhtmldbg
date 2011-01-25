@@ -444,14 +444,6 @@ const QString Viewer::bodyContent()
 }
 
 /**
-* Gibt den Original von page() Quelltext zurück!
-*/
-const QString Viewer::source()
-{
-  return m_page->xhtmlSource();
-}
-
-/**
 * Erstelle Extras für die Anzeige erweiterte Verknüpfungs Informationen.
 */
 void Viewer::linkInfos ( const QString &link, const QString &title, const QString & )

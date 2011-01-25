@@ -59,7 +59,6 @@
 Page::Page ( NetworkAccessManager * manager, QObject * parent )
     : QWebPage ( parent )
     , m_netManager ( manager )
-    , xhtml ( QString::null )
 {
   setObjectName ( "page" );
   // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
@@ -82,8 +81,8 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
   // NOTE localReplySource muss in @class Window gesetzt werden!
-  connect ( m_netManager, SIGNAL ( httpReplySource ( const QUrl &, const QString & ) ),
-            this, SLOT ( readNetworkResponse ( const QUrl &, const QString & ) ) );
+  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+            this, SLOT ( readPostResponse ( const QUrl &, const QString & ) ) );
 
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
 
@@ -190,26 +189,21 @@ QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
 */
 bool Page::prepareContent ( QNetworkReply * dev )
 {
-  xhtml.clear();
   QByteArray data = dev->readAll();
   if ( data.isEmpty() )
     return false;
 
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
-  xhtml = codec->toUnicode ( data );
-  // qDebug() << Q_FUNC_INFO << currentFrame()->url() << xhtml.length();
-  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), xhtml );
-
+  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
   return true;
 }
 
 /**
-*
+* Hier werden die Post Daten an die QuellText Ansicht weiter gegeben!
 */
-void Page::readNetworkResponse ( const QUrl &url, const QString &source )
+void Page::readPostResponse ( const QUrl &url, const QString &source )
 {
-  qDebug() << Q_FUNC_INFO << url << source.length();
-  // xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
+  xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
 }
 
 /**
@@ -243,8 +237,8 @@ void Page::replyFinished()
   if ( reply )
   {
     QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
-    if ( mimeType.contains ( "text/html" ) &&  prepareContent ( reply ) )
-      emit getUrl ( reply->url() );
+    if ( mimeType.contains ( "text/html" ) )
+      prepareContent ( reply );
   }
 }
 
@@ -378,15 +372,5 @@ const QStringList Page::keywordMetaTagItems()
   return words;
 }
 
-/**
-* Temporärer Quelltext wird in @ref prepareContent erstellt.
-*/
-const QString Page::xhtmlSource()
-{
-  return xhtml;
-}
-
 Page::~Page()
-{
-  xhtml.clear();
-}
+{}

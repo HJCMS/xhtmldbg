@@ -48,17 +48,15 @@ class Page : public QWebPage
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_PROPERTY ( QString xhtml READ xhtmlSource )
 
   private:
     NetworkAccessManager* m_netManager;
-    QString xhtml;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
     bool prepareContent ( QNetworkReply * );
 
   private Q_SLOTS:
-    void readNetworkResponse ( const QUrl &, const QString & );
+    void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
     void internalMessanger ( const QString & );
@@ -74,13 +72,9 @@ class Page : public QWebPage
     virtual QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
 #endif
 
-  Q_SIGNALS:
-    void getUrl ( const QUrl & );
-
   public:
     Page ( NetworkAccessManager * manager, QObject* parent = 0 );
     const QStringList keywordMetaTagItems();
-    const QString xhtmlSource();
     virtual ~Page();
 };
 
