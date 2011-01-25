@@ -199,6 +199,7 @@ class Window : public QMainWindow
     bool unregisterPlugins();
 
   private Q_SLOTS:
+    void intimateWidgets ( const QUrl &url );
     void tabChanged ( int );
     void openTidyConfigApplication();
     void openFileDialog();

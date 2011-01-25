@@ -55,51 +55,94 @@ class NetworkAccessManager : public QNetworkAccessManager
 
   private:
     QUrl requestUrl;
+
     NetworkSettings* m_networkSettings;
     NetworkCookie* m_networkCookie;
     ErrorsDialog* m_errorsDialog;
+
     QNetworkReply* m_networkReply;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
     QStringList certCustodyPending;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
+
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * reply );
     void fetchPostedData ( const QNetworkRequest &req, QIODevice * );
     const QByteArray peekDeviceData ( QIODevice * );
     void openLocalFile ( const QUrl & );
 
   private Q_SLOTS:
+    /** open authentication dialog */
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
+
+    /** open ssl authentication dialog */
     void proxyAuthenticationRequired ( const QNetworkProxy &, QAuthenticator * );
+
+    /** read SSL Errors */
     void certErrors ( QNetworkReply *, const QList<QSslError> & );
+
+    /** read Network Errors */
     void replyErrors ( QNetworkReply::NetworkError );
+
+    /** peek data from reply device */
     void peekReplyProcess ();
 
   Q_SIGNALS:
+    /** Error Messages from ErrorsDialog */
     void netNotify ( const QString & );
+
+    /** send statusBar Messages */
     void statusBarMessage ( const QString & );
+
+    /** returned content from http post */
     void postReplySource ( const QUrl &url, const QString & );
+
+    /** returned content from local file */
     void localReplySource ( const QUrl &url, const QString & );
+
+    /** HTTP-Content Headers */
     void receivedHostHeaders ( const QUrl &, const QMap<QString,QString> & );
+
+    /** Posted Data from Client */
     void postedRefererData ( const QUrl &, const QStringList & );
 
+    /** Posted Data from Client */
+    void urlLoadFinished ( const QUrl & );
+
   protected:
+    /** send requests and return an opened networkreply state */
     virtual QNetworkReply* createRequest ( QNetworkAccessManager::Operation op,
                                            const QNetworkRequest &req, QIODevice *data = 0 );
 
   public Q_SLOTS:
+    /** if NetworManager finished read Reply Headers */
     void replyFinished ( QNetworkReply * );
+
+    /** set Current Requested URL */
     void setUrl ( const QUrl & );
 
   public:
     NetworkAccessManager ( QObject *parent = 0 );
+
+    /** get Current Request URL */
     const QUrl getUrl();
+
+    /** Network Cookie Manager */
     NetworkCookie* cookieJar() const;
+
+    /** sends an HTTP HEAD request */
     QNetworkReply* head ( const QNetworkRequest & );
+
+    /** sends an HTTP POST request */
     QNetworkReply* post ( const QNetworkRequest &, QIODevice * );
+
+    /** sends an HTTP POST request */
     QNetworkReply* post ( const QNetworkRequest &, const QByteArray & );
+
+    /** sends an HTTP GET request  */
     QNetworkReply* get ( const QNetworkRequest &req );
+
     virtual ~NetworkAccessManager();
 };
 

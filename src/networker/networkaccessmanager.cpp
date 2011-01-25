@@ -105,7 +105,7 @@ QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
   QString encoding ( "UTF-8" );
   if ( reply )
   {
-    QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
+    QByteArray cType = reply->header ( QNetworkRequest::ContentTypeHeader ).toByteArray();
     if ( ! cType.isEmpty() )
     {
       QString Charset ( cType );
@@ -357,6 +357,7 @@ void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
       map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
     }
     emit receivedHostHeaders ( reply->url(), map );
+    emit urlLoadFinished ( reply->url() );
   }
 }
 
