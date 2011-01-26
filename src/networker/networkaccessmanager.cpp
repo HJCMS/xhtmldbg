@@ -392,7 +392,7 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice * data )
 {
-  // Der cache muss immer Leer sein damit die Validierung funktioniert!
+  // Damit die Validierung funktioniert muss der cache immer Leer sein!
   cache()->remove ( req.url() );
 
   // requestUrl setzen
@@ -400,7 +400,7 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 
   // Lokale Dateien werden nicht von readyRead() behandelt!
   // Deshalb sende die Daten für die Quelltextansicht seperat.
-  if ( ! req.url().scheme().contains ( "http" ) )
+  if ( req.url().scheme().contains ( "file" ) || req.url().isRelative() )
     openLocalFile ( requestUrl );
 
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
@@ -460,6 +460,7 @@ QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QB
 
 NetworkAccessManager::~NetworkAccessManager()
 {
+  cache()->clear();
   m_networkCookie->deleteLater();
   m_errorsDialog->deleteLater();
 }

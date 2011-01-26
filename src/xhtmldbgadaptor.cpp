@@ -130,12 +130,15 @@ bool XHtmldbgAdaptor::setUrl ( const QString &oldUrl, const QString &newUrl )
 bool XHtmldbgAdaptor::setFile ( const QString &url )
 {
   bool b = false;
-  QFileInfo file ( url );
+  QString buffer ( url );
+  QFileInfo file ( buffer.remove ( "file://" ) );
   if ( file.exists() && ! file.isExecutable() )
   {
     QUrl u ( file.absoluteFilePath() );
+    bool addtab = true;
     u.setScheme ( "file" );
-    QMetaObject::invokeMethod ( parent(), "openUrl", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    QMetaObject::invokeMethod ( parent(), "openUrl", Q_RETURN_ARG ( bool, b )
+                                , Q_ARG ( QUrl, u ), Q_ARG ( bool, addtab ) );
     return b;
   }
   return false;
@@ -144,11 +147,12 @@ bool XHtmldbgAdaptor::setFile ( const QString &url )
 /**
 * XHMLT/HTML Quelltext an die Ansicht übergeben.
 */
-bool XHtmldbgAdaptor::setSource ( const QString &xhtml )
+bool XHtmldbgAdaptor::setSource ( const QString &url, const QString &xhtml )
 {
   bool b = false;
+  QUrl sendUrl ( url, QUrl::StrictMode );
   QMetaObject::invokeMethod ( parent(), "setSource", Q_RETURN_ARG ( bool, b ),
-                              Q_ARG ( QString, xhtml ) );
+                              Q_ARG ( QUrl, sendUrl ), Q_ARG ( QString, xhtml ) );
   return b;
 }
 

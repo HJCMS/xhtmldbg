@@ -47,10 +47,6 @@ NetworkSettings::NetworkSettings ( QObject * parent )
   setObjectName ( QLatin1String ( "networksettings" ) );
   wcfg->setIconDatabasePath ( webIconDatabasePath() );
   wcfg->setLocalStoragePath ( webLocalStoragePath() );
-  wcfg->setAttribute ( QWebSettings::PrivateBrowsingEnabled, false );
-  wcfg->setAttribute ( QWebSettings::LocalStorageEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, false );
-  wcfg->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, false );
 }
 
 /**
@@ -88,12 +84,9 @@ QNetworkProxy::ProxyType NetworkSettings::proxyType() const
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
 {
   QNetworkRequest request = req;
-  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, false );
-  request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, false );
-  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork );
-#if QT_VERSION >= 0x040700
-  request.setAttribute ( QNetworkRequest::CookieLoadControlAttribute, QNetworkRequest::Automatic );
-#endif
+  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
+  request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, true );
+  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache );
 
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
                          boolValue ( "DoNotBufferUploadDataAttribute", true ) );
@@ -101,7 +94,6 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
                          boolValue ( "HttpPipeliningAllowedAttribute", true ) );
   request.setAttribute ( QNetworkRequest::HttpPipeliningWasUsedAttribute,
                          boolValue ( "HttpPipeliningWasUsedAttribute", true ) );
-
 
   // Headers
   beginGroup ( QLatin1String ( "HeaderDefinitions" ) );

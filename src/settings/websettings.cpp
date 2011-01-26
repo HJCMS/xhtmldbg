@@ -64,9 +64,9 @@ static inline const QHash<QString,bool> default_web_settings()
   hash.insert ( "LinksIncludedInFocusChain", false );
   hash.insert ( "ZoomTextOnly", true );
   hash.insert ( "PrintElementBackgrounds", false );
-  hash.insert ( "OfflineStorageDatabaseEnabled", false );
-  hash.insert ( "OfflineWebApplicationCacheEnabled", false );
-  hash.insert ( "LocalStorageEnabled", false );
+  hash.insert ( "OfflineStorageDatabaseEnabled", true );
+  hash.insert ( "OfflineWebApplicationCacheEnabled", true );
+  hash.insert ( "LocalStorageEnabled", true );
 #if QT_VERSION >= 0x040700
   hash.insert ( "LocalContentCanAccessRemoteUrls", true );
   hash.insert ( "LocalContentCanAccessFileUrls", false );

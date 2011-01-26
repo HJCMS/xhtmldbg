@@ -53,7 +53,7 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
     bool open ( const QString &url );
     bool setUrl ( const QString &oldUrl, const QString &newUrl );
     bool setFile ( const QString &url );
-    bool setSource ( const QString &xhtml );
+    bool setSource ( const QString &url, const QString &xhtml );
 
 };
 
