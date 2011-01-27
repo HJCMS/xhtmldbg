@@ -89,11 +89,11 @@ Viewer::Viewer ( QWidget * parent )
 
   /* Bei jeder Verknüpfungs Anfrage dem Netzwerk Manager als auch
   * dem Cookie Manager Mitteilen welches die Orignalanfrage Adresse */
-  connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
-            netManager, SLOT ( setUrl ( const QUrl & ) ) );
+//   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
+//             netManager, SLOT ( setUrl ( const QUrl & ) ) );
 
-  connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
-            networkCookieManager, SLOT ( setUrl ( const QUrl & ) ) );
+//   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
+//             networkCookieManager, SLOT ( setUrl ( const QUrl & ) ) );
 
   /* start maus-sanduhr */
   connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
@@ -186,10 +186,11 @@ void Viewer::prepareLinkInfo ( const QWebHitTestResult &link )
 void Viewer::cursorwait ()
 {
   setCursor ( Qt::WaitCursor );
-
-  // Bie neuer Seitenanfrage den Cookie Speicher freigeben
-//   if ( pendingCookieRequests.size() > 0 )
-//     pendingCookieRequests.clear();
+  if ( url().isValid() )
+  {
+    xhtmldbgmain::instance()->networkAccessManager()->setUrl ( url() );
+    xhtmldbgmain::instance()->cookieManager()->setUrl ( url() );
+  }
 }
 
 /**

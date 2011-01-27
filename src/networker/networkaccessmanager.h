@@ -46,6 +46,7 @@
 class NetworkSettings;
 class NetworkCookie;
 class ErrorsDialog;
+class NetworkCache;
 
 class NetworkAccessManager : public QNetworkAccessManager
 {
@@ -59,11 +60,12 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkSettings* m_networkSettings;
     NetworkCookie* m_networkCookie;
     ErrorsDialog* m_errorsDialog;
+    NetworkCache* m_networkCache;
 
     QNetworkReply* m_networkReply;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
-    QStringList certCustodyPending;
+    QStringList pendingCerts;
     QAbstractNetworkCache* xhtmlCache;
     QSslConfiguration sslConfig;
 
@@ -73,6 +75,9 @@ class NetworkAccessManager : public QNetworkAccessManager
     void openLocalFile ( const QUrl & );
 
   private Q_SLOTS:
+    /** cache for Url exists for read */
+    void cacheReadyRead ( const QUrl & );
+
     /** open authentication dialog */
     void authenticationRequired ( QNetworkReply *, QAuthenticator * );
 
@@ -107,7 +112,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     /** Posted Data from Client */
     void postedRefererData ( const QUrl &, const QStringList & );
 
-    /** Posted Data from Client */
+    /** Request Link from Client finished */
     void urlLoadFinished ( const QUrl & );
 
   protected:
@@ -142,6 +147,9 @@ class NetworkAccessManager : public QNetworkAccessManager
 
     /** sends an HTTP GET request  */
     QNetworkReply* get ( const QNetworkRequest &req );
+
+    /** get cached Source for URL */
+    void triggerCache ( const QUrl &url );
 
     virtual ~NetworkAccessManager();
 };

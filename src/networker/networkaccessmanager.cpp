@@ -22,6 +22,7 @@
 #include "networkaccessmanager.h"
 #include "networksettings.h"
 #include "networkcookie.h"
+#include "networkcache.h"
 #include "authenticationdialog.h"
 #include "certdialog.h"
 #include "errorsdialog.h"
@@ -41,10 +42,6 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
-
-/* QtNetwork */
-#include <QtNetwork/QNetworkDiskCache>
-#include <QtNetwork/QAbstractNetworkCache>
 
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     : QNetworkAccessManager ( parent )
@@ -66,10 +63,9 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   // Wir benötigen den Plattenspeicher um sicher zu gehen das kein Plugin diesen setzt!
   // @see Settings::webLocalStoragePath()
-  QNetworkDiskCache* m_networkDiskCache = new QNetworkDiskCache ( this );
-  m_networkDiskCache->setCacheDirectory ( m_networkSettings->webLocalStoragePath() );
+  m_networkCache = new NetworkCache ( m_networkSettings->webLocalStoragePath(), this );
   // Jetzt den Plattenspeicher setzen
-  setCache ( m_networkDiskCache );
+  setCache ( m_networkCache );
 
 #if QT_VERSION >= 0x040700
 
@@ -78,7 +74,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
 #endif
 
-  m_networkReply = 0x00;
+  m_networkReply = 0;
 
   connect ( this, SIGNAL ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ),
             this, SLOT ( authenticationRequired ( QNetworkReply *, QAuthenticator * ) ) );
@@ -94,6 +90,9 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
 
   connect ( m_errorsDialog, SIGNAL ( errorMessage ( const QString & ) ),
             this, SIGNAL ( netNotify ( const QString & ) ) );
+
+  connect ( m_networkCache, SIGNAL ( readyRead ( const QUrl & ) ),
+            this, SLOT ( cacheReadyRead ( const QUrl & ) ) );
 }
 
 /**
@@ -173,11 +172,11 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
   }
   else
   {
-    // FIXME Zurückhalte Speicher wegen mehrfacher angfragen!
-    if ( certCustodyPending.contains ( certHost ) )
+    // FIXME Zurückhalte Speicher wegen mehrfach anfragen!
+    if ( pendingCerts.contains ( certHost ) )
       return;
 
-    certCustodyPending.append ( certHost );
+    pendingCerts.append ( certHost );
 
     QStringList messages;
     QSslCertificate cert = errors.at ( 0 ).certificate ();
@@ -192,7 +191,7 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
     {
       trustedCertsHostsList.append ( certHost );
       reply->ignoreSslErrors();
-      certCustodyPending.clear();
+      pendingCerts.clear();
     }
   }
 }
@@ -246,6 +245,25 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
 }
 
 /**
+* Eine Cache Anforderung wurde mit @ref triggerCache Angefordert und
+* mit @ref NetworkCache::readyRead bestätigt.
+*/
+void NetworkAccessManager::cacheReadyRead ( const QUrl &url )
+{
+  if ( url.path().isEmpty() )
+    return;
+
+  QIODevice* dev = cache()->data ( url );
+  if ( dev )
+  {
+    QByteArray dc = dev->readAll();
+    QTextCodec* codec = QTextCodec::codecForLocale ();
+    emit localReplySource ( url, codec->toUnicode ( dc ) );
+    dev->deleteLater();
+  }
+}
+
+/**
 * An dieser Stelle werden die Antworten abgefangen.
 * Weil QWebKit keinen Originalen Quelltext zurück gibt muss dies
 * an dieser erfolgen. Dabei ist es wichtig das die Daten vom Device
@@ -255,14 +273,14 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
 */
 void NetworkAccessManager::peekReplyProcess()
 {
-  if ( m_networkReply && ( m_networkReply->size() > 1 ) )
+  /**
+  * FIXME 2011/01/27 Crash with invalid page Size
+  * Wenn eine Seitengröße sehr groß ist produziert WebKit
+  * zwichendurch einen unzulässigen leeren Header,
+  * das wird jetzt an dieser Stelle abgefangen.
+  */
+  if ( m_networkReply && m_networkReply->size() >= 1 )
   {
-    /**
-    * @short BUGFIX 2010/07/02 Crash with large page Size
-    * Wenn eine Seitengröße sehr groß ist produziert WebKit
-    * zwichendurch einen unuzulässigen Header,
-    * das wird jetzt an dieser Stelle abgefangen.
-    */
     QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );
     if ( ! contentTypeHeader.isValid() )
       return;
@@ -357,7 +375,8 @@ void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
       map[ QString ( k ) ] = QString ( reply->rawHeader ( k ) );
     }
     emit receivedHostHeaders ( reply->url(), map );
-    emit urlLoadFinished ( reply->url() );
+    if ( reply->url() == requestUrl )
+      emit urlLoadFinished ( reply->url() );
   }
 }
 
@@ -392,26 +411,21 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice * data )
 {
-  // Damit die Validierung funktioniert muss der cache immer Leer sein!
-  cache()->remove ( req.url() );
-
-  // requestUrl setzen
-  setUrl ( req.url() );
+  if ( op == QNetworkAccessManager::PostOperation )
+    cache()->clear();
 
   // Lokale Dateien werden nicht von readyRead() behandelt!
   // Deshalb sende die Daten für die Quelltextansicht seperat.
   if ( req.url().scheme().contains ( "file" ) || req.url().isRelative() )
-    openLocalFile ( requestUrl );
+    openLocalFile ( req.url() );
 
   QNetworkRequest request = m_networkSettings->requestOptions ( req );
-  setUrl ( req.url().toString ( QUrl::RemoveFragment ) );
   m_networkReply = QNetworkAccessManager::createRequest ( op, request, data );
-  m_networkReply->setReadBufferSize ( ( UCHAR_MAX * 1024 ) );
   m_networkReply->setSslConfiguration ( sslConfig );
   connect ( m_networkReply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
             this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
 
-  if ( op == QNetworkAccessManager::PostOperation && data )
+  if ( m_networkReply && op == QNetworkAccessManager::PostOperation )
   {
     peekPostData.clear();
     fetchPostedData ( m_networkReply->request(), data );
@@ -426,6 +440,9 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 */
 QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
+  // Damit die Validierung funktioniert muss der cache immer Leer sein!
+  cache()->remove ( req.url() );
+
   return createRequest ( QNetworkAccessManager::GetOperation, req );
 }
 
@@ -458,9 +475,18 @@ QNetworkReply* NetworkAccessManager::post ( const QNetworkRequest &req, const QB
   return reply;
 }
 
+/**
+* Startet eine Cache Anfrage für diese URL
+*/
+void NetworkAccessManager::triggerCache ( const QUrl &url )
+{
+  m_networkCache->initCache ( url );
+}
+
 NetworkAccessManager::~NetworkAccessManager()
 {
   cache()->clear();
+  pendingCerts.clear();
   m_networkCookie->deleteLater();
   m_errorsDialog->deleteLater();
 }

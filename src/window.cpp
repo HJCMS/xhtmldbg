@@ -90,6 +90,9 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
 
+/* QtNetwork */
+#include <QtNetwork/QAbstractNetworkCache>
+
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebPage>
@@ -790,10 +793,15 @@ void Window::intimateWidgets ( const QUrl &url )
   if ( url != m_webViewer->getUrl() )
     return;
 
+  // Quelltext vom Netzwerk Manager Platten-Speicher anfordern
+  m_netManager->triggerCache ( url );
+
+  // CSS Validator die URL übergeben
   if ( m_cssValidator->toggleViewAction()->isChecked() )
     m_cssValidator->addForValidation ( url );
 
-  if ( ! url.isRelative() ) // Geo
+  // GeoLocation die URL übergeben
+  if ( ! url.isRelative() )
     m_geoLocation->setHostName ( url.host() );
 
   // An alle Sichtbaren Plugins die Url übergeben
@@ -805,14 +813,18 @@ void Window::intimateWidgets ( const QUrl &url )
       plugins.at ( i )->setUrl ( url );
   }
 
-  // Dom senden
+  // WebElement an den DomInspector senden
   QWebElement currentPage = m_webViewer->toWebElement();
   if ( m_domInspector->toggleViewAction()->isChecked() )
     m_domInspector->setDomTree ( currentPage );
 
-  // RSS/Atom
+  // An RSS/Atom URL und WebElement senden
   m_alternateLinkReader->setDomWebElement ( url, currentPage );
 
+  // Quelltext einfügen
+  QString source = m_sourceCache->getCache ( url );
+  if ( ! source.isEmpty() )
+    m_sourceWidget->setSource ( source );
 }
 
 /**
@@ -822,27 +834,7 @@ void Window::intimateWidgets ( const QUrl &url )
 void Window::tabChanged ( int index )
 {
   if ( index != -1 )
-  {
-    QUrl currentUrl = m_webViewer->getUrl();
-    intimateWidgets ( currentUrl );
-
-    QString source = m_sourceCache->getCache ( currentUrl );
-    // qDebug() << Q_FUNC_INFO << currentUrl << source.length();
-    if ( source.isEmpty() )
-    {
-      QString notice ( "<!-- " );
-      notice.append ( trUtf8 ( "Warning: this sourcecode is from webkit and not xhtml-strict." ) );
-      notice.append ( " -->\n" );
-      notice.append ( "<!-- " );
-      notice.append ( trUtf8 ( "click F5 to get the right sourcecode from xhtmldbg." ) );
-      notice.append ( " -->\n" );
-      notice.append ( m_webViewer->toWebElement().toOuterXml() );
-      m_sourceWidget->setSource ( notice );
-      m_sourceWidget->format();
-    }
-    else
-      m_sourceWidget->setSource ( source );
-  }
+    intimateWidgets ( m_webViewer->getUrl() );
 }
 
 /**

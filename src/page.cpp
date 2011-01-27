@@ -71,7 +71,7 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setPluginFactory ( new NPPLoader ( this ) );
 #endif
 
-  reply = 0x00;
+  reply = 0;
 
   // merge ShortCuts with Application Window
   action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
@@ -290,7 +290,14 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 
     case QWebPage::NavigationTypeFormResubmitted:
       // An HTML form was submitted a second time.
-      return false;
+    {
+      qDebug() << Q_FUNC_INFO << request.url();
+      foreach ( QByteArray arr, request.rawHeaderList() )
+      {
+        qDebug() << Q_FUNC_INFO << arr << request.rawHeader ( arr );
+      }
+    }
+    return false;
 
     case QWebPage::NavigationTypeOther:
       // typically a external reload or header location href request

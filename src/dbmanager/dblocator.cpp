@@ -39,6 +39,7 @@ static inline const QStringList xhtmldbg_sql_databases()
   tbs << "cookieshandle"; // Cookie Hostnamen
   tbs << "networkblocker"; // geblockte Host Adressen
   tbs << "pwmanager"; // Passwörter
+  tbs << "ItemTable"; // HTML5 ItemTable
   return tbs;
 }
 

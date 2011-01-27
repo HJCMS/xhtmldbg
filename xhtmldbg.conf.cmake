@@ -20,6 +20,7 @@ webkit_plugin_path=@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg/browser-plugi
 
 [HeaderDefinitions]
 Accept-Charset="utf-8, unicode-1-1;q=0.8"
+Accept="application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
 
 [TrustedCertsHosts]
 1\host=bugs.hjcms.de

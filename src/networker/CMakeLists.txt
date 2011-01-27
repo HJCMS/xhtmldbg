@@ -7,6 +7,7 @@ SET (networker_SOURCES
   authenticationdialog.cpp
   certdialog.cpp
   errorsdialog.cpp
+  networkcache.cpp
   localsource.cpp
 )
 
@@ -17,6 +18,7 @@ SET (networker_HEADERS
   authenticationdialog.h
   certdialog.h
   errorsdialog.h
+  networkcache.h
 )
 
 SET (networker_NO_MOCS_HEADER
