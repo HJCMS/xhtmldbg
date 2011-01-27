@@ -36,4 +36,8 @@ usr/share/xhtmldbg/schemas/rss-2.0.xsd
 usr/share/xhtmldbg/schemas/xml.xsd
 usr/share/xhtmldbg/schemas/xsd.xsl
 usr/share/xhtmldbg/schemas/xslt10.dtd
+usr/share/xhtmldbg/html/style.css
+usr/share/xhtmldbg/html/blank.html
+usr/share/xhtmldbg/html/colors.html
+usr/share/xhtmldbg/html/welcome.html
 usr/share/xhtmldbg/xhtmldbg_untranslated.ts

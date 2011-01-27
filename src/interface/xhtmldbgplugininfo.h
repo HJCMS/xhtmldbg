@@ -144,10 +144,12 @@ namespace xhtmldbg
 
       /** DBus Interface
       * \param interface Interface Name
+      * \param path      registerPath
       * \param dbus      your QDBus Connection
       * \param parent    Object Referense
       */
       QDBusInterface* dbusInterface ( const QString &interface,
+                                      const QString &path,
                                       const QDBusConnection &dbus,
                                       QObject * parent );
 

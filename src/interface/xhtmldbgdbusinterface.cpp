@@ -21,8 +21,9 @@
 
 #include "xhtmldbgdbusinterface.h"
 
-XHtmldbgDbusInterface::XHtmldbgDbusInterface ( const QString &iface, const QDBusConnection &dbus, QObject* parent )
-    : QDBusInterface ( "de.hjcms.xhtmldbg", "/", iface.toAscii(), dbus, parent )
+XHtmldbgDbusInterface::XHtmldbgDbusInterface ( const QString &iface, const QString &path,
+                                               const QDBusConnection &dbus, QObject* parent )
+    : QDBusInterface ( "de.hjcms.xhtmldbg", path, iface.toAscii(), dbus, parent )
     , interface ( iface )
     , bus ( dbus )
 {

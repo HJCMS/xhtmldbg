@@ -71,10 +71,10 @@ class WebViewer : public QTabWidget
   Q_SIGNALS:
     void loadStarted ();
     void bytesLoaded ( qint64 );
-    void loadProgress ( int );
     void urlChanged ( const QUrl & );
     void addBookmark ( const QUrl &, const QString & );
     void statusBarMessage ( const QString & );
+    void elementsTree ( const QUrl &, const QWebElement & );
     void hitTestResult ( const QWebElement & );
     /** send currently used Page */
     void pageEntered ( QWebPage * );
@@ -99,7 +99,6 @@ class WebViewer : public QTabWidget
     bool addViewerUrlTab ( const QUrl &url );
     const QUrl getUrl ();
     const QList<QUrl> getPageUrls();
-    const QWebElement toWebElement();
     const QString blank();
     void setAboutPage ( const QString & );
     virtual ~WebViewer();

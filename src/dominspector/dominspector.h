@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -34,6 +35,7 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebPage>
 
 /* xhtmldbg */
 #include "settings.h"
@@ -74,11 +76,11 @@ class DomInspector : public QDockWidget
     void errorMessage ( const QString & );
 
   public Q_SLOTS:
-    void setDomTree ( const QWebElement & );
+    void setDomTree ( const QUrl &, const QWebElement & );
     void findItem ( const QWebElement & );
 
   public:
-    DomInspector ( QWidget * parent = 0, Settings * settings = 0 );
+    DomInspector ( Settings * settings, QWidget * parent = 0 );
     virtual ~DomInspector ();
 };
 

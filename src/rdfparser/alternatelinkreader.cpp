@@ -96,7 +96,7 @@ void AlternateLinkReader::itemClicked ( int index )
 * Im HEAD nach LINK mit Prädikat link[rel^=alternate] suchen und
 * nachsehen um welches RSS Format es sich handelt.
 */
-void AlternateLinkReader::setDomWebElement ( const QUrl &url, const QWebElement &dom )
+void AlternateLinkReader::setDomTree ( const QUrl &url, const QWebElement &dom )
 {
   QMenu* menu = new QMenu ( m_toolButton );
   menu->setObjectName ( QLatin1String ( "rssparsermenu" ) );

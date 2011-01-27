@@ -83,6 +83,7 @@ class Viewer : public QWebView
   Q_SIGNALS:
     void totalBytes ( qint64 );
     void addBookmark ( const QUrl &, const QString & );
+    void loadFinished ( const QUrl &, const QWebElement & );
     void hitTestResult ( const QWebElement & );
     void linkTriggered ( const QUrl &, const QString &, const QString & );
     void titleChanged ( const QUrl &, const QString & );

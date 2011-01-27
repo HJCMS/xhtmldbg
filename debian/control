@@ -2,16 +2,16 @@ Source: xhtmldbg
 Section: web
 Priority: optional
 Maintainer: Juergen Heinemann (Undefined) <nospam@hjcms.de>
-Build-Depends: debhelper (>= 7.0.50~), cdbs (>= 0.4.88), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8)
+Build-Depends: debhelper (>= 7.4.13), pkg-kde-tools (>= 0.6.4), cdbs (>= 0.4.88), libqt4-dev (>= 4.7), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8), libqjson-dev (>= 0.7.1)
 Standards-Version: 3.8.4
 Homepage: http://xhtmldbg.hjcms.de
-Vcs-Browser: http://gitweb.hjcms.de/cgi-bin/index.cgi/xhtmldbg/log/
+Vcs-Browser: http://gitweb.hjcms.de/cgi-bin/index.cgi/xhtmldbg/
 
 Package: xhtmldbg
 Section: web
 Architecture: any
-Suggests: geoip-bin
-Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5), libqt4-sql (>= 4.6), geoip-database (>= 1.4), oxygen-icon-theme (>= 4.4)
+Suggests: geoip-bin bind9utils
+Depends: ${shlibs:Depends}, ${misc:Depends}, qtidy (>= 0.8.5), libqt4-sql (>= 4.7), geoip-database (>= 1.4), oxygen-icon-theme (>= 4.4)
 Description: A XHTML/HTML Debugger for Website Developers
   This software provides you with the facility to check and analyze web page content directly.
   .
@@ -33,13 +33,13 @@ Description: A XHTML/HTML Debugger for Website Developers
 Package: libxhtmldbg
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libqtidy (>= 0.8.5), libqt4-webkit (>= 4.6)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libqtidy (>= 0.8.5), libqt4-webkit (>= 4.7)
 Description: Core Library for xhtmldbg the XHTML/HTML Debugger
   More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de
 
 Package: xhtmldbg-dev
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libxhtmldbg (= ${binary:Version}), libqt4-dev (>= 4.6), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8)
+Depends: ${shlibs:Depends}, ${misc:Depends}, libxhtmldbg (= ${binary:Version}), libqt4-dev (>= 4.7), libraptor1-dev (>= 1.4.21), libgeoip-dev (>= 1.4.6), libtidy-dev (>= 0.99), qtidy-dev (>= 0.8.5), libssl-dev (>= 0.9.8), libqjson-dev (>= 0.7.1)
 Description: Developer Package for xhtmldbg the XHTML/HTML Debugger
   More info can be found at XHTMLDBG Homepage http://xhtmldbg.hjcms.de

@@ -87,14 +87,6 @@ Viewer::Viewer ( QWidget * parent )
   connect ( networkCookieManager, SIGNAL ( cookieNotice ( const QString & ) ),
             this, SLOT ( errorMessage ( const QString & ) ) );
 
-  /* Bei jeder Verknüpfungs Anfrage dem Netzwerk Manager als auch
-  * dem Cookie Manager Mitteilen welches die Orignalanfrage Adresse */
-//   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
-//             netManager, SLOT ( setUrl ( const QUrl & ) ) );
-
-//   connect ( this, SIGNAL ( linkClicked ( const QUrl & ) ),
-//             networkCookieManager, SLOT ( setUrl ( const QUrl & ) ) );
-
   /* start maus-sanduhr */
   connect ( this, SIGNAL ( loadStarted () ), this, SLOT ( cursorwait () ) );
 
@@ -206,6 +198,7 @@ void Viewer::cursorFinished ( int p )
     // qDebug() << Q_FUNC_INFO << page()->bytesReceived();
     setCursor ( Qt::ArrowCursor );
     emit totalBytes ( page()->bytesReceived() );
+    emit loadFinished ( url(), page()->mainFrame()->documentElement () );
     // Seite geladen - dann Cookie Speicher verarbeiten
     openCookiesRequestDialog();
   }

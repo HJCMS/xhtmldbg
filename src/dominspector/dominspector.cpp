@@ -31,15 +31,15 @@
 #include <QtCore/QPoint>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QSizePolicy>
 
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
-#include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebElementCollection>
 
-DomInspector::DomInspector ( QWidget * parent, Settings * settings )
+DomInspector::DomInspector ( Settings * settings, QWidget * parent )
     : QDockWidget ( parent )
     , cfg ( settings )
 {
@@ -225,11 +225,12 @@ void DomInspector::setElementVisible ( const QWebElement &element )
 * externe CSS Referenzen verweisen, bei erfolg werden diese mit
 * dem Signal @ref cascadedStylesHref weiter gereicht.
 */
-void DomInspector::setDomTree ( const QWebElement &element )
+void DomInspector::setDomTree ( const QUrl &url, const QWebElement &element )
 {
   if ( ! element.webFrame() )
     return;
 
+  m_domTree->setToolTip ( url.toString ( QUrl::RemoveQuery ) );
   m_domTree->setDomTree ( element );
   QStringList css = foundStylesheetReferences ( element.findFirst ( "HEAD" ) );
   if ( css.size() >= 1 )

@@ -197,7 +197,7 @@ Window::Window ( Settings * settings )
 
   // DockWidgets {
   // Ansicht Dokumenten Baum
-  m_domInspector = new DomInspector ( this, m_settings );
+  m_domInspector = new DomInspector ( m_settings, this );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
   // WebInspector
@@ -245,14 +245,17 @@ Window::Window ( Settings * settings )
   setCentralWidget ( m_centralWidget );
 
   // bei DBus Adaptor anmelden
-  m_xhtmldbgAdaptor = new XHtmldbgAdaptor ( this );
-  m_xhtmldbgAdaptor->registerSubObject ( m_domInspector );
+  new XHtmldbgAdaptor ( this );
 
   // WebViewer {
-  // connect ( m_webViewer, SIGNAL ( loadProgress ( int ) ), this, SLOT (  ( int ) ) );
-
   connect ( m_webViewer, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( tabChanged ( int ) ) );
+
+  connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
+            m_domInspector, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
+
+  connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
+            m_alternateLinkReader, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
 
   connect ( m_webViewer, SIGNAL ( hitTestResult ( const QWebElement & ) ),
             m_domInspector, SLOT ( findItem ( const QWebElement & ) ) );
@@ -812,14 +815,6 @@ void Window::intimateWidgets ( const QUrl &url )
     else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
       plugins.at ( i )->setUrl ( url );
   }
-
-  // WebElement an den DomInspector senden
-  QWebElement currentPage = m_webViewer->toWebElement();
-  if ( m_domInspector->toggleViewAction()->isChecked() )
-    m_domInspector->setDomTree ( currentPage );
-
-  // An RSS/Atom URL und WebElement senden
-  m_alternateLinkReader->setDomWebElement ( url, currentPage );
 
   // Quelltext einfügen
   QString source = m_sourceCache->getCache ( url );

@@ -61,7 +61,7 @@ class AlternateLinkReader : public QWidget
     void itemClicked ( int );
 
   public Q_SLOTS:
-    void setDomWebElement ( const QUrl &, const QWebElement & );
+    void setDomTree ( const QUrl &, const QWebElement & );
 
   public:
     AlternateLinkReader ( QWidget * parent = 0 );

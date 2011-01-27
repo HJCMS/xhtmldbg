@@ -77,7 +77,6 @@ class WebInspector;
 class ColorPicker;
 class HeaderDock;
 class CSSValidator;
-class XHtmldbgAdaptor;
 class xhtmldbgplugger;
 
 namespace xhtmldbg
@@ -173,8 +172,6 @@ class Window : public QMainWindow
     CSSValidator* m_cssValidator;
     // ColorPicker
     ColorPicker* m_colorPicker;
-    // Dbus Adaptor
-    XHtmldbgAdaptor* m_xhtmldbgAdaptor;
     // Plugin Interface
     xhtmldbgplugger* plugger;
     // Plugin Menu

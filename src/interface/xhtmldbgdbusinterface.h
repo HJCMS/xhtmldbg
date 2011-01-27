@@ -25,12 +25,13 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtDBus */
 #include <QtDBus/QDBusInterface>
 #include <QtDBus/QDBusConnection>
 
-class XHtmldbgDbusInterface: public QDBusInterface
+class Q_DECL_EXPORT XHtmldbgDbusInterface: public QDBusInterface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -42,15 +43,27 @@ class XHtmldbgDbusInterface: public QDBusInterface
     const QDBusConnection bus;
 
   Q_SIGNALS:
-    void message ( const QString &mess );
+    void message ( const QString & );
+    void open ( const QUrl & );
+    void setUrl ( const QUrl &, const QUrl & );
+    void setSource ( const QUrl &, const QString & );
 
   public:
     XHtmldbgDbusInterface ( const QString &iface,
+                            const QString &path,
                             const QDBusConnection &dbus,
                             QObject *parent = 0 );
 
     virtual ~XHtmldbgDbusInterface();
 };
+
+namespace de
+{
+  namespace hjcms
+  {
+    typedef ::XHtmldbgDbusInterface xhtmldbg;
+  }
+}
 
 #endif
 

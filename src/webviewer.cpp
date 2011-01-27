@@ -180,7 +180,10 @@ void WebViewer::pageChanged ( int index )
 
   Viewer* m_view = activeView ( index );
   if ( m_view->url().isValid() )
+  {
     emit pageEntered ( m_view->page() );
+    emit elementsTree ( m_view->url(), m_view->page()->mainFrame()->documentElement () );
+  }
 }
 
 /**
@@ -218,7 +221,7 @@ void WebViewer::tabInserted ( int index )
 */
 bool WebViewer::setViewerTabByUrl ( const QUrl &oldUrl, const QUrl &newUrl )
 {
-  qDebug() << Q_FUNC_INFO << oldUrl << newUrl;
+  // qDebug() << Q_FUNC_INFO << oldUrl << newUrl;
   // Suche nach einer Page mit @param oldUrl
   int index = getIndexWithUrl ( oldUrl );
   // Wenn die Aktuelle page diese URL enthält dann setUrl und fertig.
@@ -248,15 +251,14 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   connect ( view, SIGNAL ( urlChanged ( const QUrl & ) ),
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 
-  /* in 10. schritten 0% -> 100% */
-  connect ( view, SIGNAL ( loadProgress ( int ) ),
-            this, SIGNAL ( loadProgress ( int ) ) );
-
   connect ( view, SIGNAL ( iconChanged() ),
             this, SLOT ( setFavicon() ) );
 
   connect ( view, SIGNAL ( statusBarMessage ( const QString & ) ),
             this, SIGNAL ( statusBarMessage ( const QString & ) ) );
+
+  connect ( view, SIGNAL ( loadFinished ( const QUrl &, const QWebElement & ) ),
+            this, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ) );
 
   connect ( view, SIGNAL ( hitTestResult ( const QWebElement & ) ),
             this, SIGNAL ( hitTestResult ( const QWebElement & ) ) );
@@ -431,14 +433,6 @@ const QList<QUrl> WebViewer::getPageUrls ()
       list.append ( v->url() );
   }
   return list;
-}
-
-/**
-* Oberster WebElement baum für @class DomTree
-*/
-const QWebElement WebViewer::toWebElement()
-{
-  return activeView()->page()->mainFrame()->documentElement ();
 }
 
 /**

@@ -113,9 +113,9 @@ namespace xhtmldbg
   * Gibt die DBus Interface Schnittstelle zurück
   */
   QDBusInterface* PluginInfo::dbusInterface ( const QString &interface,
-          const QDBusConnection &dbus, QObject * parent )
+          const QString &path, const QDBusConnection &dbus, QObject * parent )
   {
-    return new XHtmldbgDbusInterface ( interface, dbus, parent );
+    return new XHtmldbgDbusInterface ( interface, path, dbus, parent );
   }
 
 } /* eof namespace xhtmldbg */
