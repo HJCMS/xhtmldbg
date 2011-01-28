@@ -180,6 +180,7 @@ void Viewer::cursorwait ()
   setCursor ( Qt::WaitCursor );
   if ( url().isValid() )
   {
+    // Wenn eine Seite geladen wird, die URL dem Netzwerk- Cookiemanager mitteilen.
     xhtmldbgmain::instance()->networkAccessManager()->setUrl ( url() );
     xhtmldbgmain::instance()->cookieManager()->setUrl ( url() );
   }
@@ -195,11 +196,15 @@ void Viewer::cursorFinished ( int p )
 {
   if ( p >= 100 )
   {
-    // qDebug() << Q_FUNC_INFO << page()->bytesReceived();
+    // Die Maus wieder zurück setzen.
     setCursor ( Qt::ArrowCursor );
+    // Signal für den StatusBar
     emit totalBytes ( page()->bytesReceived() );
+    // FIXME Sollte eigentlich erst kommen wenn die Seiten Renderung beendet ist
+    // leider wird aber im Moment keine Möglichkeit hierfür angeboten :-/
+    // Dieses Signal sendet das QWebElement an den DomInstektor
     emit loadFinished ( url(), page()->mainFrame()->documentElement () );
-    // Seite geladen - dann Cookie Speicher verarbeiten
+    // Erst wenn die Seite vollständig geladen ist den Cookie Speicher verarbeiten.
     openCookiesRequestDialog();
   }
 }
