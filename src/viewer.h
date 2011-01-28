@@ -40,10 +40,11 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebHitTestResult>
-#include <QtWebKit/QWebView>
 #include <QtWebKit/QWebHistory>
 #include <QtWebKit/QWebPage>
+#include <QtWebKit/QWebView>
 
 class Page;
 

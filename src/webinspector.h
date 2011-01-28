@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QPoint>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -42,6 +43,9 @@ class WebInspector : public QDockWidget
 
   private:
     QWebInspector* inspector;
+
+  private Q_SLOTS:
+    void contextMenuRequested ( const QPoint & );
 
   Q_SIGNALS:
     void errorMessage ( const QString & );

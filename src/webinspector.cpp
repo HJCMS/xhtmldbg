@@ -28,22 +28,25 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QMenu>
 #include <QtGui/QScrollArea>
 
 WebInspector::WebInspector ( QWebPage * startPage, QWidget * parent )
     : QDockWidget ( parent )
 {
-  setObjectName ( QLatin1String ( "webinspectorwidget" ) );
-  setWindowTitle ( QLatin1String ( "Inspector" ) );
+  setObjectName ( QLatin1String ( "WebInspectorDockWidget" ) );
+  setWindowTitle ( trUtf8 ( "Inspector" ) );
   setContentsMargins ( 1, 2, 1, 2 );
+  // Kein Maus Menü zulassen
+  setContextMenuPolicy ( Qt::NoContextMenu );
 
   QScrollArea* area = new QScrollArea ( this );
-  area->setObjectName ( QLatin1String ( "webinspectorscrollarea" ) );
+  area->setObjectName ( QLatin1String ( "WebInspectorScrollArea" ) );
   area->setWidgetResizable ( true );
 
   // jetzt QWebInspector initialisieren
   inspector = new QWebInspector ( area );
-  inspector->setObjectName ( QLatin1String ( "webkitinspector" ) );
+  inspector->setObjectName ( QLatin1String ( "WebInspector" ) );
   // wir brauchen diese breite für eine volle darstellung :-/
   inspector->setMinimumWidth ( 780 );
   /* Es ist unbedingt notwendig das hier eine Page gesetzt wird damit
@@ -56,6 +59,9 @@ WebInspector::WebInspector ( QWebPage * startPage, QWidget * parent )
   area->setWidget ( inspector );
   setWidget ( area );
 }
+
+void WebInspector::contextMenuRequested ( const QPoint & )
+{}
 
 void WebInspector::setPage ( QWebPage * page )
 {
