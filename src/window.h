@@ -89,6 +89,7 @@ class Window : public QMainWindow
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
+    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
   private:
     Settings* m_settings;
@@ -210,17 +211,18 @@ class Window : public QMainWindow
 
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );
-    // supported by DBus Adaptor
-    void setApplicationMessage ( const QString &, bool warning = false );
-    // supported by DBus Adaptor
-    bool setSource ( const QUrl &, const QString & );
-    void checkStyleSheet ( const QUrl & );
-    // supported by DBus Adaptor
-    bool openUrl ( const QUrl &, bool addtab = false );
-    // supported by DBus Adaptor
-    bool setPageUrl ( const QUrl &, const QUrl & );
-    // supported by DBus Adaptor
-    bool urlRequest ( const QUrl & );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE void setApplicationMessage ( const QString &, bool warning = false );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE bool setSource ( const QUrl &, const QString & );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE void checkStyleSheet ( const QUrl & );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE bool openUrl ( const QUrl &, bool addtab = false );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE bool setPageUrl ( const QUrl &, const QUrl & );
+    // supported by DBus Adaptor and Service Interface
+    Q_SCRIPTABLE bool urlRequest ( const QUrl & );
 
     void visibleSourceChanged();
     // used by QWebPage ...

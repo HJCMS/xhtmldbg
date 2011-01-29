@@ -50,10 +50,16 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 
   public Q_SLOTS:
     Q_NOREPLY void message ( const QString &mess );
+    /** \return true if URL accepted otherwise false */
     bool open ( const QString &url );
+    /** \return true if URL accepted otherwise false */
     bool setUrl ( const QString &oldUrl, const QString &newUrl );
+    /** \return true if URL accepted otherwise false */
     bool setFile ( const QString &url );
+    /** \return true if URL accepted otherwise false */
     bool setSource ( const QString &url, const QString &xhtml );
+    /** \return true if URL accepted otherwise false */
+    bool checkStyleSheet ( const QString &url );
 
 };
 

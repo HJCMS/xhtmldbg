@@ -156,6 +156,17 @@ bool XHtmldbgAdaptor::setSource ( const QString &url, const QString &xhtml )
   return b;
 }
 
+bool XHtmldbgAdaptor::checkStyleSheet ( const QString &url )
+{
+  QUrl sendUrl ( url, QUrl::StrictMode );
+  if ( sendUrl.isValid() )
+  {
+    QMetaObject::invokeMethod ( parent(), "checkStyleSheet", Q_ARG ( QUrl, sendUrl ) );
+    return true;
+  }
+  return false;
+}
+
 XHtmldbgAdaptor::~XHtmldbgAdaptor()
 {
   if ( m_bus )
