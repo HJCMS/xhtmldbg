@@ -86,7 +86,7 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   QNetworkRequest request = req;
   request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
   request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, true );
-  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache );
+  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferNetwork );
 
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
                          boolValue ( "DoNotBufferUploadDataAttribute", true ) );

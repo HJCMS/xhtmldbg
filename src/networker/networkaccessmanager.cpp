@@ -411,6 +411,9 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice * data )
 {
+  // Damit die Validierung funktioniert muss der cache immer Leer sein!
+  cache()->remove ( req.url() );
+
   if ( op == QNetworkAccessManager::PostOperation )
     cache()->clear();
 
@@ -440,9 +443,6 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
 */
 QNetworkReply* NetworkAccessManager::get ( const QNetworkRequest &req )
 {
-  // Damit die Validierung funktioniert muss der cache immer Leer sein!
-  cache()->remove ( req.url() );
-
   return createRequest ( QNetworkAccessManager::GetOperation, req );
 }
 
