@@ -142,6 +142,8 @@ void Downloader::finished()
 {
   if ( inProgress >= 100 )
     emit dataChanged ( progressIndex );
+
+  m_output.close();
 }
 
 /**

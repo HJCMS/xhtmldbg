@@ -5,6 +5,7 @@
   Bugfix: load plugins only if required
   Bugfix: sqlite3 multible process
   Bugfix: page and QNetwork Reply
+  Bugfix: DownloadManager add missing close handle
 
 - 2010/09/13 Juergen Heinemann (Undefined)
   Add: ColorPicker Widget
