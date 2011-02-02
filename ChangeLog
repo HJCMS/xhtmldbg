@@ -1,4 +1,12 @@
-- 2010/09/    Juergen Heinemann (Undefined)
+- 2011/02/02 Juergen Heinemann (Undefined)
+  Add: gettext Support for KDE4
+  Bugfix: Network Cookie Manager (invalid hostnames)
+  Bugfix: Network AccessManger (Source reply)
+  Bugfix: load plugins only if required
+  Bugfix: sqlite3 multible process
+  Bugfix: page and QNetwork Reply
+
+- 2010/09/13 Juergen Heinemann (Undefined)
   Add: ColorPicker Widget
   Fix: CMake invalid COMPILE FLAGS
   Removed: Internal NPP Support "to many problems" :-(

@@ -77,6 +77,7 @@ INSTALL (FILES
 INSTALL (FILES
   ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbginterface.h
   ${CMAKE_CURRENT_SOURCE_DIR}/xhtmldbgplugininfo.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/xhtmldbgdbusinterface.h
   DESTINATION include/xhtmldbg-1.0
 )
 
