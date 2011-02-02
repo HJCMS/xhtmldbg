@@ -952,8 +952,8 @@ by composing the cached content of the animated elements.</source>
         <source>Warning: “xhtmldbg” always manage the best way for caching network connections with debugging.
 For example the source viewer need cached data to set the real source code from requested sites.
 By default “xhtmldbg” always remove cached data before a request operation has been send.</source>
-        <translation>“xhtmldbg” verwendet für das Debuggen bereits die bestmögliche Speicherverwaltung.
-z.B.: wir die Quelltextansicht für mit dem Zwischenspeicher verwendet.
+        <translation>Warnung: “xhtmldbg” verwendet für das Debuggen bereits die bestmögliche Speicherverwaltung.
+Es wird z.B. die Quelltextansicht mit dem Zwischenspeicher verwendet.
 Standardmäßig wird vor jeder Netzwerkoperation die Seite wieder entfernt.</translation>
     </message>
     <message>
