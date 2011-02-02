@@ -1,17 +1,13 @@
 # CMakeLists.txt
 
-CONFIGURE_FILE (ts2gettext.xslt.cmake
-  ${CMAKE_CURRENT_SOURCE_DIR}/ts2gettext.xslt
-)
-
-SET (languages
+SET (LANGUAGES
   de
 )
 
 EXEC_PROGRAM (${QT_QMAKE_EXECUTABLE} ARGS "-query QT_INSTALL_TRANSLATIONS" OUTPUT_VARIABLE INSTALL_TRANSLATIONS)
 
 FILE (MAKE_DIRECTORY ${ARCHIVE_OUTPUT_PATH})
-FOREACH (lng ${languages})
+FOREACH (lng ${LANGUAGES})
   EXEC_PROGRAM (${QT_LRELEASE_EXECUTABLE}
     ${CMAKE_CURRENT_SOURCE_DIR}
     ARGS -compress -silent -nounfinished qt_${lng}.ts xhtmldbg_${lng}.ts -qm ${ARCHIVE_OUTPUT_PATH}/xhtmldbg_${lng}.qm
@@ -22,18 +18,37 @@ FOREACH (lng ${languages})
   )
 ENDFOREACH (lng)
 
-IF (XSLTPROC)
-  EXEC_PROGRAM (xsltproc
+## add gettext bindings for KDE4
+## http://translate.sourceforge.net/wiki/toolkit/ts2po
+IF (TS2PO AND GETTEXT_FOUND)
+  ## xhtmldbg
+  EXEC_PROGRAM (${TS2PO}
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ARGS --encoding utf-8 --output ${CMAKE_CURRENT_SOURCE_DIR}/po/xhtmldbg.pot ts2gettext.xslt xhtmldbg_untranslated.ts
+    ARGS --pot --output=po/xhtmldbg.pot --input=xhtmldbg_untranslated.ts
   )
-  FOREACH (lng ${languages})
-    EXEC_PROGRAM (xsltproc
+  FOREACH (lng ${LANGUAGES})
+    FILE (MAKE_DIRECTORY po/${lng})
+    FILE (WRITE po/${lng}/.gitignore "*.po")
+    EXEC_PROGRAM (${TS2PO}
       ${CMAKE_CURRENT_SOURCE_DIR}
-      ARGS --encoding utf-8 --output ${CMAKE_CURRENT_SOURCE_DIR}/po/xhtmldbg_${lng}.po ts2gettext.xslt xhtmldbg_${lng}.ts
+      ARGS --output=po/${lng}/xhtmldbg.po --input=xhtmldbg_${lng}.ts
     )
   ENDFOREACH (lng)
-ENDIF(XSLTPROC)
+  ## xhtmldbgwidgets
+  EXEC_PROGRAM (${TS2PO}
+    ${CMAKE_CURRENT_SOURCE_DIR}
+    ARGS --pot --output=po/xhtmldbgwidgets.pot --input=xhtmldbgwidgets_untranslated.ts
+  )
+  FOREACH (lng ${LANGUAGES})
+    FILE (MAKE_DIRECTORY po/${lng})
+    EXEC_PROGRAM (${TS2PO}
+      ${CMAKE_CURRENT_SOURCE_DIR}
+      ARGS --output=po/${lng}/xhtmldbgwidgets.po --input=xhtmldbgwidgets_${lng}.ts
+    )
+  ENDFOREACH (lng)
+  ## add gettext directory
+  ADD_SUBDIRECTORY (po)
+ENDIF(TS2PO AND GETTEXT_FOUND)
 
 INSTALL (FILES 
   ${ARCHIVE_OUTPUT_PATH}/xhtmldbg_de.qm

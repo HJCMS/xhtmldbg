@@ -197,12 +197,12 @@ FIND_FILE (CSS_VALIDATOR_JAR
 )
 
 ##############################################################
-## XSLTPROC
+## TS2PO http://translate.sourceforge.net/wiki/toolkit/ts2po
 ##############################################################
 
-FIND_PROGRAM (XSLTPROC
-  NAMES xsltproc xsltproc1 xsltproc-1
-  DOC "xsltproc executable"
+FIND_PROGRAM (TS2PO
+  NAMES ts2po ts2po.py  ts2po.py2
+  DOC "ts2po from http://translate.sourceforge.net project"
 )
 
 ##############################################################
