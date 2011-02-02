@@ -35,34 +35,37 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   setContentsMargins ( 0, 0, 0, 0 );
 
   m_configIDE = new  ConfigIDE ( this );
-  insertWidget ( 0, m_configIDE );
+  insertWidget ( CONFIG_IDE, m_configIDE );
 
   m_configTidy = new ConfigTidy ( this );
-  insertWidget ( 1, m_configTidy );
+  insertWidget ( CONFIG_TIDY, m_configTidy );
 
   m_configDomTree = new ConfigDomTree ( this );
-  insertWidget ( 2, m_configDomTree );
+  insertWidget ( CONFIG_DOMTREE, m_configDomTree );
 
   m_configBrowser = new ConfigBrowser ( this );
-  insertWidget ( 3, m_configBrowser );
+  insertWidget ( CONFIG_BROWSER, m_configBrowser );
+
+  m_configNetwork = new ConfigNetwork ( this );
+  insertWidget ( CONFIG_NETWORK, m_configNetwork );
 
   m_configCookies = new ConfigCookies ( this );
-  insertWidget ( 4, m_configCookies );
+  insertWidget ( CONFIG_COOKIES, m_configCookies );
 
   m_configProxy = new ConfigProxy ( this );
-  insertWidget ( 5, m_configProxy );
+  insertWidget ( CONFIG_PROXY, m_configProxy );
 
   m_configSSL = new ConfigSSL ( this );
-  insertWidget ( 6, m_configSSL );
+  insertWidget ( CONFIG_SSL, m_configSSL );
 
   m_configUserAgents = new ConfigUserAgents ( this );
-  insertWidget ( 7, m_configUserAgents );
+  insertWidget ( CONFIG_USERAGENTS, m_configUserAgents );
 
   m_configExtras = new ConfigExtras ( this );
-  insertWidget ( 8, m_configExtras );
+  insertWidget ( CONFIG_EXTRAS, m_configExtras );
 
-  setCurrentIndex ( 0 );
-  loadWidgetSettings ( 0 );
+  setCurrentIndex ( CONFIG_IDE );
+  loadWidgetSettings ( CONFIG_IDE );
 
   connect ( m_configIDE, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
@@ -74,6 +77,9 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
   connect ( m_configBrowser, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( settingsChanged ( bool ) ) );
+
+  connect ( m_configNetwork, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
   connect ( m_configCookies, SIGNAL ( modified ( bool ) ),
@@ -105,55 +111,61 @@ void StackedWidget::loadWidgetSettings ( int index )
   blockSignals ( true );
   switch ( index )
   {
-    case 0:
+    case CONFIG_IDE:
     {
       m_configIDE->load ( cfg );
     }
     break;
 
-    case 1:
+    case CONFIG_TIDY:
     {
       m_configTidy->load ( cfg );
     }
     break;
 
-    case 2:
+    case CONFIG_DOMTREE:
     {
       m_configDomTree->load ( cfg );
     }
     break;
 
-    case 3:
+    case CONFIG_BROWSER:
     {
       m_configBrowser->load ( cfg );
     }
     break;
 
-    case 4:
+    case CONFIG_NETWORK:
+    {
+      m_configNetwork->load ( cfg );
+    }
+    break;
+
+    case CONFIG_COOKIES:
     {
       m_configCookies->load ( cfg );
     }
     break;
 
-    case 5:
+    case CONFIG_PROXY:
     {
       m_configProxy->load ( cfg );
     }
     break;
 
-    case 6:
+    case CONFIG_SSL:
     {
       m_configSSL->load ( cfg );
     }
     break;
 
-    case 7:
+    case CONFIG_USERAGENTS:
     {
       m_configUserAgents->load ( cfg );
     }
     break;
 
-    case 8:
+    case CONFIG_EXTRAS:
     {
       m_configExtras->load ( cfg );
     }
@@ -176,6 +188,7 @@ void StackedWidget::loadSettings()
   m_configTidy->load ( cfg );
   m_configDomTree->load ( cfg );
   m_configBrowser->load ( cfg );
+  m_configNetwork->load ( cfg );
   m_configCookies->load ( cfg );
   m_configProxy->load ( cfg );
   m_configSSL->load ( cfg );
@@ -202,6 +215,9 @@ void StackedWidget::saveSettings()
 
   if ( m_configBrowser->isModified () )
     m_configBrowser->save ( cfg );
+
+  if ( m_configNetwork->isModified () )
+    m_configNetwork->save ( cfg );
 
   if ( m_configCookies->isModified () )
     m_configCookies->save ( cfg );

@@ -38,6 +38,7 @@
 #include "configtidy.h"
 #include "configdomtree.h"
 #include "configbrowser.h"
+#include "confignetwork.h"
 #include "configcookies.h"
 #include "configproxy.h"
 #include "configssl.h"
@@ -56,11 +57,25 @@ class StackedWidget : public QStackedWidget
     ConfigTidy* m_configTidy;
     ConfigDomTree* m_configDomTree;
     ConfigBrowser* m_configBrowser;
+    ConfigNetwork* m_configNetwork;
     ConfigCookies* m_configCookies;
     ConfigProxy* m_configProxy;
     ConfigSSL* m_configSSL;
     ConfigUserAgents* m_configUserAgents;
     ConfigExtras* m_configExtras;
+    enum PageIndex
+    {
+      CONFIG_IDE = 0,
+      CONFIG_TIDY =  1,
+      CONFIG_DOMTREE =  2,
+      CONFIG_BROWSER =  3,
+      CONFIG_NETWORK =  4,
+      CONFIG_COOKIES =  5,
+      CONFIG_PROXY =  6,
+      CONFIG_SSL =  7,
+      CONFIG_USERAGENTS = 8,
+      CONFIG_EXTRAS = 9
+    };
 
   private Q_SLOTS:
     void loadWidgetSettings ( int );

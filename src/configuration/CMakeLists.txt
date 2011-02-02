@@ -15,6 +15,7 @@ SET (configuration_SOURCES
   configtidy.cpp
   configdomtree.cpp
   configbrowser.cpp
+  confignetwork.cpp
   configheaderdefinitions.cpp
   configcookies.cpp
   configproxy.cpp
@@ -36,6 +37,7 @@ SET (configuration_HEADERS
   configtidy.h
   configdomtree.h
   configbrowser.h
+  confignetwork.h
   configheaderdefinitions.h
   configcookies.h
   configproxy.h

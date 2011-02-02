@@ -125,7 +125,7 @@ QTextCodec* NetworkAccessManager::fetchHeaderEncoding ( QNetworkReply * reply )
 
 /**
 * Wenn die Netzwerk Anfrage eine Authentifizierung verlangt.
-* Dann, an dieser Setlle noch mal einen Dialog anzeigen.
+* Dann, an dieser Stelle einen Dialog anzeigen.
 */
 void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuthenticator * auth )
 {
@@ -141,7 +141,7 @@ void NetworkAccessManager::authenticationRequired ( QNetworkReply * reply, QAuth
 /**
 * Wenn es ein Proxy Verbindung ist und keine Konfiguration
 * vorhanden oder die Authentifizierung fehlschlägt.
-* Dann, an dieser Setlle noch mal einen Dialog anzeigen.
+* Dann - An dieser Stelle einen Dialog anzeigen.
 */
 void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &proxy, QAuthenticator * auth )
 {
@@ -264,7 +264,7 @@ void NetworkAccessManager::cacheReadyRead ( const QUrl &url )
 }
 
 /**
-* An dieser Stelle werden die Antworten abgefangen.
+* An dieser Stelle werden die POST Antworten abgefangen.
 * Weil QWebKit keinen Originalen Quelltext zurück gibt muss dies
 * an dieser erfolgen. Dabei ist es wichtig das die Daten vom Device
 * abgegriffen und nicht ausgelesen werden. Weil sonst die IO Device
@@ -313,7 +313,7 @@ void NetworkAccessManager::peekReplyProcess()
 
 /**
 * Wenn der Benutzer ein POST Formular absendet.
-* Werden die Daten an dieser Stelle abgefangen.
+* Werden die Header/Post Daten an dieser Stelle abgefangen.
 */
 void NetworkAccessManager::fetchPostedData ( const QNetworkRequest &req, QIODevice * data )
 {
@@ -382,6 +382,8 @@ void NetworkAccessManager::replyFinished ( QNetworkReply *reply )
 
 /**
 * Setzt die Virtuelle @ref url Variable
+* Wird von Page verwendet um den Zeiger auf den Cache zu definieren.
+* @see Siehe auch replyFinished
 */
 void NetworkAccessManager::setUrl ( const QUrl &u )
 {
@@ -411,13 +413,18 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
         const QNetworkRequest &req,
         QIODevice * data )
 {
-  // Damit die Validierung funktioniert muss der cache immer Leer sein!
-  cache()->remove ( req.url() );
+  // Keine Veränderung vornehmen wenn das Standard Speicherverhalten deaktiviert ist!
+  if ( m_networkSettings->defaultCachingBehavior() )
+  {
+    // Damit die Validierung funktioniert muss der cache immer Leer sein!
+    cache()->remove ( req.url() );
 
-  if ( op == QNetworkAccessManager::PostOperation )
-    cache()->clear();
+    // Bei einer POST Operation machen wir alles LEER!
+    if ( op == QNetworkAccessManager::PostOperation )
+      cache()->clear();
+  }
 
-  // Lokale Dateien werden nicht von readyRead() behandelt!
+  // Lokale Dateien werden nicht von Page::acceptNavigationRequest behandelt!
   // Deshalb sende die Daten für die Quelltextansicht seperat.
   if ( req.url().scheme().contains ( "file" ) || req.url().isRelative() )
     openLocalFile ( req.url() );
@@ -428,6 +435,7 @@ QNetworkReply* NetworkAccessManager::createRequest ( QNetworkAccessManager::Oper
   connect ( m_networkReply, SIGNAL ( error ( QNetworkReply::NetworkError ) ),
             this, SLOT ( replyErrors ( QNetworkReply::NetworkError ) ) );
 
+  // POST wird nicht von Page::acceptNavigationRequest behandelt!
   if ( m_networkReply && op == QNetworkAccessManager::PostOperation )
   {
     peekPostData.clear();

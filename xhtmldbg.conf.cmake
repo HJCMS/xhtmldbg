@@ -23,9 +23,8 @@ Accept-Charset="utf-8, unicode-1-1;q=0.8"
 Accept="application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5"
 
 [TrustedCertsHosts]
-1\host=bugs.hjcms.de
-2\host=hjcms.de
-size=2
+1\host=hjcms.de
+size=1
 
 [Qt]
 QtWebKit\QWebInspector\resourceTrackingAlwaysEnabled=true
@@ -48,3 +47,6 @@ SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
 2\agent=Mozilla/5.0
 2\tokens="(compatible; XHTMLDBG; en, en_US; X11) AppleWebKit (KHTML, like Gecko)"
 size=2
+
+[Networking]
+ModifyCachingBehavior=false

@@ -935,6 +935,66 @@ by composing the cached content of the animated elements.</source>
     </message>
 </context>
 <context>
+    <name>ConfigNetwork</name>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="42"/>
+        <source>Network Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="58"/>
+        <source>modify caching behavior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="../src/configuration/confignetwork.cpp" line="65"/>
+        <source>Warning: “xhtmldbg” always manage the best way for caching network connections with debugging.
+For example the source viewer need cached data to set the real source code from requested sites.
+By default “xhtmldbg” always remove cached data before a request operation has been send.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="68"/>
+        <source>Controls if the data obtained should be saved to cache for future uses.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="70"/>
+        <source>If the box is not checked, the data obtained will not be automatically cached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="74"/>
+        <source>Indicates whether incoming data was obtained from cache or not.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="76"/>
+        <source>If the box is not checked, incoming data will not be automatically checked.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="82"/>
+        <source>Always Network (always load from network and do not check if the cache has a valid entry)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="84"/>
+        <source>Prefer Network (load from the network if the cached entry is older than the network entry)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="86"/>
+        <source>Prefer Cache (load from cache if available, otherwise load from network)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/confignetwork.cpp" line="88"/>
+        <source>Always Cache (only load from cache, indicating error if the item was not cached)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConfigProxy</name>
     <message>
         <location filename="../src/configuration/configproxy.cpp" line="33"/>
@@ -1111,52 +1171,57 @@ Do you really want to exit?</source>
 <context>
     <name>ConfigurationMenu</name>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="46"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
         <source>Defaults</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="47"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
         <source>Tidy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="48"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="49"/>
         <source>Dom Inspector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="49"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="50"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="50"/>
-        <source>Cookies</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="51"/>
-        <source>Proxy</source>
+        <source>Network</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="52"/>
-        <source>Certification</source>
+        <source>Cookies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="53"/>
-        <source>User Agent</source>
+        <source>Proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/configuration/configurationmenu.cpp" line="54"/>
+        <source>Certification</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configurationmenu.cpp" line="55"/>
+        <source>User Agent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/configuration/configurationmenu.cpp" line="56"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/configuration/configurationmenu.cpp" line="70"/>
+        <location filename="../src/configuration/configurationmenu.cpp" line="72"/>
         <source>%1 Configuration options.</source>
         <translation type="unfinished"></translation>
     </message>

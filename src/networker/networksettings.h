@@ -59,6 +59,7 @@ class NetworkSettings : public Settings
     const QNetworkProxy getProxy();
     const QSslConfiguration sslConfiguration();
     const QList<QString> trustedCertsList();
+    bool defaultCachingBehavior();
     ~NetworkSettings();
 };
 

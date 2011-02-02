@@ -69,31 +69,41 @@ const QByteArray NetworkSettings::userAgentString() const
   return defaultAgent.toAscii();
 }
 
-/**
-* ProxyType aus der Konfiguration lesen
-*/
+/** ProxyType aus der Konfiguration lesen */
 QNetworkProxy::ProxyType NetworkSettings::proxyType() const
 {
   int type = value ( QLatin1String ( "proxyType" ), QNetworkProxy::HttpProxy ).toUInt();
   return static_cast<QNetworkProxy::ProxyType> ( type );
 }
 
-/**
-* Diese Methode wird vor jeder Netzwerkanfrage gesetzt!
-*/
+/** Diese Methode wird vor jeder Netzwerkanfrage gesetzt! */
 const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &req )
 {
   QNetworkRequest request = req;
-  request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
-  request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, true );
-  request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferNetwork );
+  if ( value ( "Networking/ModifyCachingBehavior", false ).toBool() )
+  {
+    request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute,
+                           value ( "Networking/CacheSaveControlAttribute", true ).toBool() );
+
+    request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute,
+                           value ( "Networking/SourceIsFromCacheAttribute", true ).toBool() );
+
+    request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute,
+                           intValue ( "Networking/CacheLoadControlAttribute", QNetworkRequest::PreferNetwork ) );
+  }
+  else
+  {
+    request.setAttribute ( QNetworkRequest::CacheSaveControlAttribute, true );
+    request.setAttribute ( QNetworkRequest::SourceIsFromCacheAttribute, true );
+    request.setAttribute ( QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferNetwork );
+  }
 
   request.setAttribute ( QNetworkRequest::DoNotBufferUploadDataAttribute,
-                         boolValue ( "DoNotBufferUploadDataAttribute", true ) );
+                         value ( "DoNotBufferUploadDataAttribute", true ).toBool() );
   request.setAttribute ( QNetworkRequest::HttpPipeliningAllowedAttribute,
-                         boolValue ( "HttpPipeliningAllowedAttribute", true ) );
+                         value ( "HttpPipeliningAllowedAttribute", true ).toBool() );
   request.setAttribute ( QNetworkRequest::HttpPipeliningWasUsedAttribute,
-                         boolValue ( "HttpPipeliningWasUsedAttribute", true ) );
+                         value ( "HttpPipeliningWasUsedAttribute", true ).toBool() );
 
   // Headers
   beginGroup ( QLatin1String ( "HeaderDefinitions" ) );
@@ -114,11 +124,13 @@ const QNetworkRequest NetworkSettings::requestOptions ( const QNetworkRequest &r
   return request;
 }
 
+/** Lokales Zwischenspeicher Verzeichnis */
 const QString NetworkSettings::storageDirectory ()
 {
   return wcfg->localStoragePath();
 }
 
+/** Ermittelt die aktuelle Proxy Konfiguration */
 const QNetworkProxy NetworkSettings::getProxy()
 {
   QNetworkProxy proxy;
@@ -131,6 +143,9 @@ const QNetworkProxy NetworkSettings::getProxy()
   return proxy;
 }
 
+/**
+* Liest/Schreibt die Standard SSL Konfiguration
+*/
 const QSslConfiguration NetworkSettings::sslConfiguration()
 {
   QSslConfiguration ssl = QSslConfiguration::defaultConfiguration ();
@@ -169,6 +184,7 @@ const QSslConfiguration NetworkSettings::sslConfiguration()
   return ssl;
 }
 
+/** Eine Liste der Hostnamen wo keine Zertifikat Prüfung durchgeführt wird! */
 const QList<QString> NetworkSettings::trustedCertsList()
 {
   QList<QString> list;
@@ -180,6 +196,13 @@ const QList<QString> NetworkSettings::trustedCertsList()
   }
   endArray();
   return list;
+}
+
+/** Abfrage, ob es eine Abweichung mit Seitenspeicher Verhalten gibt. */
+bool NetworkSettings::defaultCachingBehavior()
+{
+  bool b =value ( "Networking/ModifyCachingBehavior", false ).toBool();
+  return ( b ) ? false : true;
 }
 
 NetworkSettings::~NetworkSettings()
