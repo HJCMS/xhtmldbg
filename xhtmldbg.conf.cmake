@@ -50,3 +50,6 @@ size=2
 
 [Networking]
 ModifyCachingBehavior=false
+
+[Phonon::AudioOutput]
+xhtmldbg_Volume=0.69

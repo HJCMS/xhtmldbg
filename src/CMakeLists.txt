@@ -50,15 +50,11 @@ ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
-## Extensions and Plugins
-ADD_SUBDIRECTORY (plugins)
-ADD_SUBDIRECTORY (components)
-
 ##############################
-## MOZILLA-PLUGIN
+## Interfaces
 ##############################
 IF (XULRUNNER_FOUND)
-  SET (XHTMLDBG_BINARY_PROJECT_INCULDE 
+  SET (XHTMLDBG_BINARY_PROJECT_INCULDE
     ${XHTMLDBG_BINARY_PROJECT_INCULDE}
     ${CMAKE_CURRENT_SOURCE_DIR}/npploader
   )
@@ -70,12 +66,15 @@ IF (XULRUNNER_FOUND)
   ADD_DEFINITIONS (-DHAVE_NPPLOADER)
 ENDIF (XULRUNNER_FOUND)
 
-##############################
-## MOZILLA-PLUGIN
-##############################
 IF (XHTMLDBG_EXPERIMENTAL)
   ADD_DEFINITIONS ("-D_XHTMLDBG_EXPERIMENTAL")
 ENDIF (XHTMLDBG_EXPERIMENTAL)
+
+##############################
+## Extensions and Plugins
+##############################
+ADD_SUBDIRECTORY (plugins)
+ADD_SUBDIRECTORY (components)
 
 ##############################
 ## SOURCES

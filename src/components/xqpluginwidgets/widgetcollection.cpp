@@ -22,6 +22,9 @@
 #include "widgetcollection.h"
 #include "xpasswordwidgetplugin.h"
 #include "xregistrationformularplugin.h"
+#ifdef HAVE_PHONON
+# include "xoggvideoplugin.h"
+#endif
 
 /* QtCore */
 #include <QtCore/QtPlugin>
@@ -33,6 +36,9 @@ WidgetCollection::WidgetCollection ( QObject * parent )
   // Mit allen Plugins befüllen
   m_plugins << new XPasswordWidgetPlugin ( this );
   m_plugins << new XRegistrationFormularPlugin ( this );
+#ifdef HAVE_PHONON
+  m_plugins << new XOggVideoPlugin ( this );
+#endif
 }
 
 QList<QDesignerCustomWidgetInterface *> WidgetCollection::customWidgets() const

@@ -38,8 +38,8 @@
 #include <QtDesigner/QDesignerCustomWidgetCollectionInterface>
 
 class WidgetCollection
-  : public QObject
-  , public QDesignerCustomWidgetCollectionInterface
+      : public QObject
+      , public QDesignerCustomWidgetCollectionInterface
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

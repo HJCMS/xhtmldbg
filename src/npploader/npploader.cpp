@@ -48,6 +48,7 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
                              const QStringList &argumentNames,
                              const QStringList &argumentValues ) const
 {
+  qDebug() << Q_FUNC_INFO <<  mimeType;
   if ( mimeType.isEmpty() )
     return new NPPFailureWidget ( trUtf8 ( "Missing Mime-Type Declaration!" ) );
   else if ( ! url.isValid() )

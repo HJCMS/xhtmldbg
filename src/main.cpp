@@ -40,6 +40,7 @@ int main ( int argc, char *argv[] )
   * This must forced to hide other plugins in global plugin-directories
   * !!! QtWebkit produces major fuckups with invalid plugins !!!
   */
+  setenv ( "MOZ_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
   setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
 
   xhtmldbgmain app ( argc, argv );

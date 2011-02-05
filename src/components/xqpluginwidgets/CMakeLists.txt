@@ -1,0 +1,100 @@
+# CMakeLists.txt
+## x-qt-plugin Support required
+
+SET (subproject "XQPluginWidgets")
+
+SET (LIBRARY_OUTPUT_PATH
+  ${LIBRARY_OUTPUT_PATH}/designer
+)
+
+SET (subproject_FORMS
+  xregistrationformcomponent.ui
+)
+
+SET (subproject_SOURCES
+  widgetcollection.cpp
+  widgetinterface.cpp
+  xpasswordwidget.cpp
+  xpasswordwidgetplugin.cpp
+  xregistrationformular.cpp
+  xregistrationformularplugin.cpp
+)
+
+SET (subproject_HEADERS
+  widgetcollection.h
+  xpasswordwidget.h
+  xpasswordwidgetplugin.h
+  xregistrationformular.h
+  xregistrationformularplugin.h
+)
+
+IF (PHONON_FOUND)
+  ADD_DEFINITIONS (-DHAVE_PHONON)
+  SET (subproject_SOURCES
+    ${subproject_SOURCES}
+    xoggvideoplugin.cpp
+    xoggvideo.cpp
+  )
+  SET (subproject_HEADERS
+    ${subproject_HEADERS}
+    xoggvideoplugin.h
+    xoggvideo.h
+  )
+ENDIF (PHONON_FOUND)
+
+SET (subproject_NOMOC_HEADERS
+  widgetinterface.h
+)
+
+INCLUDE_DIRECTORIES (
+  ${CMAKE_CURRENT_BINARY_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
+  ${XHTMLDBG_BINARY_PROJECT_INCULDE}
+)
+
+QT4_WRAP_UI (subproject_UIC ${subproject_FORMS})
+
+QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+
+REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
+ADD_LIBRARY (${subproject} MODULE
+  ${subproject_UIC}
+  ${subproject_MOC}
+  ${subproject_NOMOC_HEADERS}
+  ${subproject_HEADERS}
+  ${subproject_SOURCES}
+)
+
+SET_TARGET_PROPERTIES (${subproject} PROPERTIES
+  OUTPUT_NAME ${subproject}
+  LINKER_LANGUAGE CXX
+  COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS} -fno-strict-aliasing"
+  LINK_FLAGS "${LIB_FPIC_CXXFLAGS} ${LIB_RDYNAMIC_CXXFLAGS}"
+)
+
+TARGET_LINK_LIBRARIES (${subproject}
+  ${QT_QTCORE_LIBRARY}
+  ${QT_QTGUI_LIBRARY}
+  ${QT_QTSCRIPT_LIBRARY}
+  ${QT_QTDESIGNER_LIBRARY}
+  ${QT_QTDESIGNERCOMPONENTS_LIBRARY}
+  ${QT_QTSCRIPTTOOLS_LIBRARY}
+  ${QT_QTUITOOLS_LIBRARY}
+  ${QJSON_LIBRARIES}
+  ${QJSON_LIBRARIES}
+  ${PHONON_LIBRARY}
+)
+
+INSTALL (TARGETS ${subproject}
+  LIBRARY DESTINATION lib${LIB_SUFFIX}/xhtmldbg/designer
+  COMPONENT Plugin
+)
+
+INSTALL (FILES
+  ${subproject_HEADERS}
+  ${subproject_NOMOC_HEADERS}
+  DESTINATION include/xhtmldbg-1.0/designer
+)
+
+## EOF

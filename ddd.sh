@@ -14,6 +14,8 @@ test -x ${base}/build/app/xhtmldbg || {
 export QT_DEBUG_PLUGINS=0
 export PHONON_GST_DEBUG=0
 export QT_CRASH_OUTPUT=${base}/build/app/crash.log
+export QT_WEBKIT_LOG=${base}/build/app/webkit.log
+export QT_DEBUG_PLUGINS=1
 
 if test -n "$LD_LIBRARY_PATH" ; then
   case ":$LD_LIBRARY_PATH:" in

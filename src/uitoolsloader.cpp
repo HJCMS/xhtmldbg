@@ -59,13 +59,16 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
   clearPluginPaths();
 
   /* Setze meinen plugin Designer Pfad */
+  QString pluginBase;
 #ifdef MAINTAINER_REPOSITORY
-  QString plPath = QDir::homePath();
-  plPath.append ( "/hjcms/xhtmldbg/build/app/designer" );
+  pluginBase = QDir::homePath();
+  pluginBase.append ( "/hjcms/xhtmldbg/build/app" );
 #else
-  QString plPath = QString ( "%1/designer" ).arg ( XHTMLDBG_PLUGIN_PATH );
+  pluginBase = QString ( XHTMLDBG_PLUGIN_PATH );
 #endif
-  addPluginPath ( plPath );
+
+  addPluginPath ( QString ( "%1/designer" ).arg ( pluginBase ) );
+  addPluginPath ( QString ( "%1/browser" ).arg ( pluginBase ) );
 
   /* setze die Ausführung im /tmp Pfad fort */
   QDir chroot ( QDesktopServices::storageLocation ( QDesktopServices::TempLocation ) );
@@ -79,6 +82,8 @@ UiToolsLoader::UiToolsLoader ( const QString &cid, const QUrl &file, QObject * p
 
   // Nachsehen ob sie in der Liste der ladbaren Klassen ist
   isValid = availableWidgets().contains ( classID );
+  if ( ! isValid )
+    qWarning ( "(XHTMLDBG) Missing %s Widget", qPrintable ( classID ) );
 
   // Map bereiningen
   uiConfig.clear();
