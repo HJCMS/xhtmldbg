@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef XHTMLDBGPLUGGER_H
-#define XHTMLDBGPLUGGER_H
+#ifndef XHTMLDBG_PLUGGER_H
+#define XHTMLDBG_PLUGGER_H
 
 /* QtCore */
 #include <QtCore/QDir>
@@ -35,28 +35,32 @@
 /* QtGui */
 #include <QtGui/QWidget>
 
-/* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
+#ifndef XHTMLDBG_VERSION
+# include <plugininfo.h>
+#endif
 
-class XHTMLDBG_EXPORT xhtmldbgplugger : public QObject
+namespace xhtmldbg
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  class Interface;
 
-  private:
-    QDir p_dir;
-    QStringList filters;
-    const QStringList findPlugins ();
+  class Q_DECL_EXPORT Plugger : public QObject
+  {
+      Q_OBJECT
+      Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+      Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  public:
-    explicit xhtmldbgplugger ( QObject * parent = 0 );
-    const QString findPlugin ( const QString &find );
-    const QList<xhtmldbg::Interface*> pluginsByType (
-        QWidget * parent,
-        xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::PopUp );
-    virtual ~xhtmldbgplugger();
-};
+    private:
+      QDir p_dir;
+      QStringList filters;
+      const QStringList findPlugins ();
+
+    public:
+      explicit Plugger ( QObject * parent = 0 );
+      const QString findPlugin ( const QString &find );
+      const QList<xhtmldbg::Interface*> pluginsByType ( QWidget * parent,
+              xhtmldbg::PluginInfo::PluginType type = xhtmldbg::PluginInfo::PopUp );
+      virtual ~Plugger();
+  };
+}
 
 #endif

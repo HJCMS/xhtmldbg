@@ -3,37 +3,35 @@
 # XHTMLDBG Plugin Interface
 #
 
-CONFIGURE_FILE (xhtmldbginterface.h.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbginterface.h
+SET (INCLUDE_NAME_DIR "xhtmldbg-1.0")
+
+CONFIGURE_FILE (interface.h.cmake 
+  ${CMAKE_CURRENT_SOURCE_DIR}/interface.h
 )
 
-SET (xhtmldbginterface_HEADERS
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbginterface.h
+CONFIGURE_FILE (xhtmldbg.pc.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.pc
 )
-
-#
-# XHTMLDBG Plugin Loader
-#
 
 SET (interface_SOURCES
-  xhtmldbgplugininfo.cpp
-  xhtmldbgplugger.cpp
-  xhtmldbgdbusinterface.cpp
+  plugininfo.cpp
+  plugger.cpp
+  wininterface.cpp
 )
 
 SET (interface_HEADERS
-  xhtmldbgplugininfo.h
-  xhtmldbgplugger.h
-  xhtmldbgdbusinterface.h
-  ${xhtmldbginterface_HEADERS}
+  interface.h
+  plugininfo.h
+  plugger.h
+  wininterface.h
 )
 
 QT4_WRAP_CPP (interface_MOC ${interface_HEADERS})
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_NETWORK_LIB -DQT_XMLPATTERNS_LIB)
+REMOVE_DEFINITIONS (-DQT_WEBKIT_LIB -DQT_NETWORK_LIB -DQT_XMLPATTERNS_LIB)
 
 INCLUDE_DIRECTORIES (
-  ${QJSON_INCLUDE_DIR}
+  ${QT_INCLUDE_DIR}
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
@@ -41,13 +39,12 @@ ADD_LIBRARY (xhtmldbginterface SHARED
   ${interface_MOC}
   ${interface_HEADERS}
   ${interface_SOURCES}
-  ${xhtmldbginterface_HEADERS}
 )
 
 SET_TARGET_PROPERTIES (xhtmldbginterface PROPERTIES
   VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}"
   SOVERSION ${XHTMLDBG_VERSION_MAJOR}
-  OUTPUT_NAME xhtmldbg-1.0
+  OUTPUT_NAME ${INCLUDE_NAME_DIR}
   LINKER_LANGUAGE CXX
   COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
   LINK_FLAGS "${LIB_FPIC_CXXFLAGS} ${LIB_RDYNAMIC_CXXFLAGS}"
@@ -65,20 +62,14 @@ INSTALL (TARGETS xhtmldbginterface
   LIBRARY DESTINATION lib${LIB_SUFFIX}
 )
 
-CONFIGURE_FILE (xhtmldbg.pc.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.pc
+INSTALL (FILES 
+  ${interface_HEADERS}
+  DESTINATION include/xhtmldbg-1.0
 )
 
 INSTALL (FILES 
   ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.pc
   DESTINATION lib${LIB_SUFFIX}/pkgconfig
-)
-
-INSTALL (FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbginterface.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/xhtmldbgplugininfo.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/xhtmldbgdbusinterface.h
-  DESTINATION include/xhtmldbg-1.0
 )
 
 ## EOF

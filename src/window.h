@@ -82,6 +82,7 @@ class xhtmldbgplugger;
 namespace xhtmldbg
 {
   class Interface;
+  class Plugger;
 }
 
 class Window : public QMainWindow
@@ -174,7 +175,7 @@ class Window : public QMainWindow
     // ColorPicker
     ColorPicker* m_colorPicker;
     // Plugin Interface
-    xhtmldbgplugger* plugger;
+    xhtmldbg::Plugger* m_plugger;
     // Plugin Menu
     QMenu* m_pluginMenu;
     // Toolbars Subsection Display Plugins

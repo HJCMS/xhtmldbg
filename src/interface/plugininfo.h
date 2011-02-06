@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef XHTMLDBGPLUGININFO_H
-#define XHTMLDBGPLUGININFO_H
+#ifndef XHTMLDBG_PLUGININFO_H
+#define XHTMLDBG_PLUGININFO_H
 
 /**
 * \def XHTMLDBG_EXPORT
@@ -36,20 +36,6 @@
 *
 */
 
-#ifdef HAVE_VISIBILITY
-#define XHTMLDBG_NO_EXPORT __attribute__ ((visibility("hidden")))
-#define XHTMLDBG_EXPORT __attribute__ ((visibility("default")))
-#define XHTMLDBG_IMPORT __attribute__ ((visibility("default")))
-#elif defined(_WIN32) || defined(_WIN64)
-#define XHTMLDBG_NO_EXPORT
-#define XHTMLDBG_EXPORT __declspec(dllexport)
-#define XHTMLDBG_IMPORT __declspec(dllimport)
-#else
-#define XHTMLDBG_NO_EXPORT
-#define XHTMLDBG_EXPORT
-#define XHTMLDBG_IMPORT
-#endif
-
 /* QtCore */
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QtPlugin>
@@ -63,11 +49,12 @@
 
 namespace xhtmldbg
 {
+  class WinInterface;
   /**
   * \short The Basic xhtmldbg Plugin Description Class
   * \class PluginInfo
   */
-  class XHTMLDBG_EXPORT PluginInfo : virtual public QObject
+  class Q_DECL_EXPORT PluginInfo : virtual public QObject
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Plugin Info" )
@@ -143,15 +130,9 @@ namespace xhtmldbg
       void setAuthor ( const QString &a = QLatin1String ( "Unknown" ) );
 
       /** DBus Interface
-      * \param interface Interface Name
-      * \param path      registerPath
-      * \param dbus      your QDBus Connection
       * \param parent    Object Referense
       */
-      QDBusInterface* dbusInterface ( const QString &interface,
-                                      const QString &path,
-                                      const QDBusConnection &dbus,
-                                      QObject * parent );
+      xhtmldbg::WinInterface* dbusInterface ( const QDBusConnection &dbus, QObject * parent );
 
   }; /* eof plugininfo */
 

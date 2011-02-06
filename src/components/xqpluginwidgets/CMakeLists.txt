@@ -86,8 +86,19 @@ TARGET_LINK_LIBRARIES (${subproject}
   ${PHONON_LIBRARY}
 )
 
-INSTALL (TARGETS ${subproject}
-  LIBRARY DESTINATION lib${LIB_SUFFIX}/xhtmldbg/designer
+FILE (MAKE_DIRECTORY browser designer)
+INSTALL (DIRECTORY designer 
+  DESTINATION lib${LIB_SUFFIX}/xhtmldbg
+  COMPONENT Plugin
+)
+
+INSTALL (DIRECTORY browser
+  DESTINATION lib${LIB_SUFFIX}/xhtmldbg
+  COMPONENT Plugin
+)
+
+INSTALL (TARGETS ${subproject} LIBRARY
+  DESTINATION lib${LIB_SUFFIX}/xhtmldbg/designer
   COMPONENT Plugin
 )
 

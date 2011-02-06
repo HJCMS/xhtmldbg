@@ -63,9 +63,9 @@
 /* DBus */
 #include "xhtmldbgadaptor.h"
 /* Interface */
-#include "xhtmldbgplugger.h"
-#include "xhtmldbgplugininfo.h"
-#include "xhtmldbginterface.h"
+#include "plugger.h"
+#include "plugininfo.h"
+#include "interface.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>
@@ -231,9 +231,9 @@ Window::Window ( Settings * settings )
   // } DockWidgets
 
   // WARNING Muss vor createMenus() und createToolBars() kommen!
-  // xhtmldbgplugger {
-  plugger = new xhtmldbgplugger ( this );
-  // } xhtmldbgplugger
+  // xhtmldbg::Plugger {
+  m_plugger = new xhtmldbg::Plugger ( this );
+  // } xhtmldbg::Plugger
 
   // erstelle alle Menü einträge
   createMenus();
@@ -335,10 +335,10 @@ Window::Window ( Settings * settings )
   // } ResizePortButtons
 #endif
 
-  // xhtmldbgplugger {
+  // xhtmldbg::Plugger {
   // jetzt die Plugins laden
   registerPlugins();
-  // } xhtmldbgplugger
+  // } xhtmldbg::Plugger
 
   // lade Fenster Einstellungen
   restoreState ( m_settings->value ( "Window/MainWindowState" ).toByteArray() );
@@ -687,7 +687,7 @@ bool Window::registerPlugins()
   QIcon icon = QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) );
   plugins.clear();
   // PopUp Widgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
+  foreach ( xhtmldbg::Interface* plug, m_plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
@@ -702,7 +702,7 @@ bool Window::registerPlugins()
     }
   }
   // Dock Widgets
-  foreach ( xhtmldbg::Interface* plug, plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
+  foreach ( xhtmldbg::Interface* plug, m_plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )

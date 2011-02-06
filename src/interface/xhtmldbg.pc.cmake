@@ -8,7 +8,7 @@ Name: xhtmldbg
 Description: The XHTMLDBG Plugin Interface Library
 Url: http://www.hjcms.de
 Version: @XHTMLDBG_VERSION@
-Requires: QtGui >= 4.6.0 QtCore >= 4.6.0
-Libs: -L$libdir -lxhtmldbg-1.0
+Requires: QtGui >= 4.7.0 QtCore >= 4.7.0
+Libs: -L$libdir -l@INCLUDE_NAME_DIR@
 Libs.private: 
-Cflags: -I$includedir/xhtmldbg-1.0
+Cflags: -I$includedir/@INCLUDE_NAME_DIR@

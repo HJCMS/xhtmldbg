@@ -19,43 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef XHTMLDBGINTERFACE_H
-#define XHTMLDBGINTERFACE_H
+#ifndef XHTMLDBG_INTERFACE_H
+#define XHTMLDBG_INTERFACE_H
+
+/** XHTMLDBG Interface Version */
+#ifndef XHTMLDBG_VERSION
+# define XHTMLDBG_VERSION    "0.8.12.rc2"
+#endif
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QtPlugin>
 #include <QtCore/QUrl>
 #include <QtCore/QMetaObject>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
 #include <QtGui/QWidget>
-#include <QtPlugin>
 
 /* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
+#include <plugininfo.h>
 
 namespace xhtmldbg
 {
   /**
-  * XHTMLDBG Interface Version
-  */
-#ifndef XHTMLDBG_VERSION
-# define XHTMLDBG_VERSION    "@XHTMLDBG_VERSION@"
-#endif
-
-  /**
-  * \short xhtmldbg Plugin Interface Class.
   * \class Interface
+  * \short xhtmldbg Plugin Interface Class.
   */
-  class XHTMLDBG_EXPORT Interface : virtual public QObject
+  class Q_DECL_EXPORT Interface : virtual public QObject
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )
-      Q_CLASSINFO ( "Version", "@XHTMLDBG_VERSION@" )
+      Q_CLASSINFO ( "Version", "0.8.12.rc2" )
       Q_CLASSINFO ( "Url", "http://xhtmldbg.hjcms.de" )
-      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/@XHTMLDBG_VERSION@" )
+      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/0.8.12.rc2" )
 
     public Q_SLOTS:
       /** This SLOT ist Used from triggered Action by MenuBar */
@@ -87,16 +85,16 @@ namespace xhtmldbg
       /**
       * Information about this Plugin Type
       */
-      virtual PluginInfo::PluginType type () = 0;
+      virtual xhtmldbg::PluginInfo::PluginType type () = 0;
 
       /**
       * Complete Plugin Information
       */
-      virtual PluginInfo* pluginInfo () = 0;
+      virtual xhtmldbg::PluginInfo* pluginInfo () = 0;
   }; /* eof interface */
 
 } /* eof namespace xhtmldbg */
 
-Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface/@XHTMLDBG_VERSION@" )
+Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface/0.8.12.rc2" )
 
 #endif

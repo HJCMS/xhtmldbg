@@ -157,11 +157,6 @@ INSTALL (FILES de.hjcms.xhtmldbg.xml
   DESTINATION ${DBUS_DATA_INSTALL_DIR}/interfaces
 )
 
-MAKE_DIRECTORY (browser-plugins)
-INSTALL (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/browser-plugins
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}/xhtmldbg
-)
-
 ##############################################################
 ## OpenSSL Certification Bundle
 ##############################################################

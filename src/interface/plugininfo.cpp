@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "xhtmldbgplugininfo.h"
-#include "xhtmldbgdbusinterface.h"
+#include "plugininfo.h"
+#include "wininterface.h"
 
 namespace xhtmldbg
 {
@@ -112,10 +112,9 @@ namespace xhtmldbg
   /**
   * Gibt die DBus Interface Schnittstelle zurück
   */
-  QDBusInterface* PluginInfo::dbusInterface ( const QString &interface,
-          const QString &path, const QDBusConnection &dbus, QObject * parent )
+  xhtmldbg::WinInterface* PluginInfo::dbusInterface ( const QDBusConnection &dbus, QObject * parent )
   {
-    return new XHtmldbgDbusInterface ( interface, path, dbus, parent );
+    return new WinInterface ( dbus, parent );
   }
 
 } /* eof namespace xhtmldbg */

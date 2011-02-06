@@ -32,12 +32,12 @@
 #include <QtGui/QWidget>
 
 /* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
+#include <plugininfo.h>
+#include <interface.h>
 
 class SelfHtmlSidebar;
 
-class XHTMLDBG_EXPORT SelfHtmlSidebarPlugin : public xhtmldbg::Interface
+class Q_DECL_EXPORT SelfHtmlSidebarPlugin : public xhtmldbg::Interface
 {
     Q_OBJECT
     Q_INTERFACES ( xhtmldbg::Interface )

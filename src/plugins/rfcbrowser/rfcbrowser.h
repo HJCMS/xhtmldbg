@@ -34,7 +34,7 @@
 
 class SelecterModel;
 
-class RFCBrowser : public QObject
+class Q_DECL_EXPORT RFCBrowser : public QObject
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
