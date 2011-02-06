@@ -2058,7 +2058,7 @@ Reasons : </source>
 <context>
     <name>NPPLoader</name>
     <message>
-        <location filename="../src/npploader/npploader.cpp" line="+52"/>
+        <location filename="../src/npploader/npploader.cpp" line="+53"/>
         <source>Missing Mime-Type Declaration!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2512,7 +2512,7 @@ Reasons : </source>
 <context>
     <name>UiToolsLoader</name>
     <message>
-        <location filename="../src/uitoolsloader.cpp" line="+98"/>
+        <location filename="../src/uitoolsloader.cpp" line="+103"/>
         <source>(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3020,9 +3020,22 @@ Would you like to load this &quot;%1&quot; Url?</source>
     </message>
 </context>
 <context>
+    <name>XOggVideo</name>
+    <message>
+        <location filename="../src/components/xqpluginwidgets/xoggvideo.cpp" line="+41"/>
+        <source>Video Player</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>Play OGG/OGM and Therora Videos with Phonon</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>XPasswordWidget</name>
     <message>
-        <location filename="../src/components/xpasswordwidget.cpp" line="+53"/>
+        <location filename="../src/components/xqpluginwidgets/xpasswordwidget.cpp" line="+53"/>
         <source>Password Request</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3040,6 +3053,81 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location line="-11"/>
         <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>XRegistrationFormComponent</name>
+    <message>
+        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="+222"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+222"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <source>Person</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <source>firstname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+2"/>
+        <location line="+2"/>
+        <location line="+2"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <location line="+2"/>
+        <location line="+2"/>
+        <location line="+2"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-5"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="-5"/>
+        <source>surname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
+        <source>nickname:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
+        <source>password:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
+        <source>house</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <source>female</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <source>male</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
+        <source>age:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
