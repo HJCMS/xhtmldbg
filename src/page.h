@@ -37,13 +37,17 @@
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebFrame>
 
+/* KDE */
+#include <KDE/KWebPage>
+#include <KDE/KWebWallet>
+
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 
 class NetworkAccessManager;
 
-class Page : public QWebPage
+class Page : public KWebPage
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

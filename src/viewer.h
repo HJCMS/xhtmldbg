@@ -44,11 +44,14 @@
 #include <QtWebKit/QWebHitTestResult>
 #include <QtWebKit/QWebHistory>
 #include <QtWebKit/QWebPage>
-#include <QtWebKit/QWebView>
+
+/* KDE */
+#include <KDE/KWebPage>
+#include <KDE/KWebView>
 
 class Page;
 
-class Viewer : public QWebView
+class Viewer : public KWebView
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

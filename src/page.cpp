@@ -57,7 +57,7 @@
 #include <QtNetwork/QNetworkReply>
 
 Page::Page ( NetworkAccessManager * manager, QObject * parent )
-    : QWebPage ( parent )
+    : KWebPage ( parent )
     , m_netManager ( manager )
 {
   setObjectName ( "page" );
@@ -79,6 +79,9 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
   action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
+
+  // TODO KWebWallet
+  wallet ();
 
   // NOTE localReplySource muss in @class Window gesetzt werden!
   connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),

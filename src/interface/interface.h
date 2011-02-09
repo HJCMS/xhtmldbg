@@ -24,7 +24,7 @@
 
 /** XHTMLDBG Interface Version */
 #ifndef XHTMLDBG_VERSION
-# define XHTMLDBG_VERSION    "0.8.12.rc2"
+# define XHTMLDBG_VERSION    "0.8.12.rc5"
 #endif
 
 /* QtCore */
@@ -51,9 +51,9 @@ namespace xhtmldbg
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )
-      Q_CLASSINFO ( "Version", "0.8.12.rc2" )
+      Q_CLASSINFO ( "Version", "0.8.12.rc5" )
       Q_CLASSINFO ( "Url", "http://xhtmldbg.hjcms.de" )
-      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/0.8.12.rc2" )
+      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/0.8.12.rc5" )
 
     public Q_SLOTS:
       /** This SLOT ist Used from triggered Action by MenuBar */
@@ -95,6 +95,6 @@ namespace xhtmldbg
 
 } /* eof namespace xhtmldbg */
 
-Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface/0.8.12.rc2" )
+Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface/0.8.12.rc5" )
 
 #endif

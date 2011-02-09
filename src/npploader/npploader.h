@@ -32,7 +32,10 @@
 /* QtWebKit */
 #include <QtWebKit/QWebPluginFactory>
 
-class NPPLoader : public QWebPluginFactory
+/* KDE */
+#include <KDE/KWebPluginFactory>
+
+class NPPLoader : public KWebPluginFactory
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

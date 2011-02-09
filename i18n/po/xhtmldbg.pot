@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-09 13:20+0200\n"
+"POT-Creation-Date: 2011-02-09 17:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,23 +10,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.8.0\n"
-
-#: AboutDialog#1
-msgid "About XHTMLDBG"
-msgstr ""
-
-#: AboutDialog#2
-msgctxt "AboutDialog#2"
-msgid "About"
-msgstr ""
-
-#: AboutDialog#3
-msgid "Contact"
-msgstr ""
-
-#: AboutDialog#4
-msgid "Authors"
-msgstr ""
 
 #: AddressToolBar#1
 msgid "Address"
@@ -197,26 +180,6 @@ msgstr ""
 
 #: CSSConfigure#4
 msgid "Save && Exit"
-msgstr ""
-
-#: CSSConfigureMain#1
-msgid "Configure CSS Validation"
-msgstr ""
-
-#: CSSConfigureMain#2
-msgid "The CSS profile used for the validation."
-msgstr ""
-
-#: CSSConfigureMain#3
-msgid "The language used for the response."
-msgstr ""
-
-#: CSSConfigureMain#4
-msgid "The warning level."
-msgstr ""
-
-#: CSSConfigureMain#5
-msgid "The medium used for the validation."
 msgstr ""
 
 #: CSSValidator#1
@@ -2334,35 +2297,22 @@ msgstr ""
 
 #: Window#38
 msgctxt "Window#38"
-msgid "About"
-msgstr ""
-
-#: Window#39
-msgid "about Qt"
-msgstr ""
-
-#: Window#40
-msgid "about hjcms"
-msgstr ""
-
-#: Window#41
-msgctxt "Window#41"
 msgid "Actions"
 msgstr ""
 
-#: Window#42
+#: Window#39
 msgid "Toolbars"
 msgstr ""
 
-#: Window#43
+#: Window#40
 msgid "Impartations"
 msgstr ""
 
-#: Window#44
+#: Window#41
 msgid "Inspectors"
 msgstr ""
 
-#: Window#45
+#: Window#42
 msgid "Check StyleSheet for %1"
 msgstr ""
 

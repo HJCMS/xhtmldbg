@@ -33,7 +33,7 @@
 #include <QtGui/QVBoxLayout>
 
 NPPLoader::NPPLoader ( QObject * parent )
-    : QWebPluginFactory ( parent )
+    : KWebPluginFactory ( parent )
 {
   setObjectName ( QLatin1String ( "NPPLoader" ) );
   pluginsList.clear();

@@ -61,9 +61,10 @@
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebPluginFactory>
+#include <QtWebKit/QWebView>
 
 Viewer::Viewer ( QWidget * parent )
-    : QWebView ( parent )
+    : KWebView ( parent )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "viewer" );

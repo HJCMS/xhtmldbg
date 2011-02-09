@@ -944,8 +944,7 @@ void Window::openTidyConfigApplication()
 */
 void Window::openFileDialog()
 {
-  OpenFileDialog dialog ( centralWidget() );
-  dialog.setDirectory ( m_settings->getRecentDirectory() );
+  OpenFileDialog dialog (  m_settings->getRecentDirectory(), centralWidget() );
   if ( dialog.exec() == QDialog::Accepted )
   {
     if ( ! dialog.getFileUrl().isValid() )

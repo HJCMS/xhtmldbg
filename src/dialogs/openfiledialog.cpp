@@ -29,20 +29,21 @@
 
 /* QtGui */
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QFileDialog>
 
-OpenFileDialog::OpenFileDialog ( QWidget * parent )
-    : QFileDialog ( parent )
+/* KDE */
+#include <KDE/KUrl>
+
+OpenFileDialog::OpenFileDialog ( const QString &target, QWidget * parent )
+    : KFileDialog ( KUrl ( target ), QString ( "*" ), parent )
 {
   setObjectName ( QLatin1String ( "OpenFileDialog" ) );
   setWindowTitle ( trUtf8 ( "Open HTML File" ) );
-  setViewMode ( QFileDialog::Detail );
+  setOperationMode ( KFileDialog::Opening );
 
   QStringList filters;
-  filters << trUtf8 ( "HTML Document %1" ).arg ( "*.html *.htm *.xhtml *.html.*" );
-  filters << trUtf8 ( "Markup Document %1" ).arg ( "*.xml *.xslt *.xbel" );
-  filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.text" );
-  filters << trUtf8 ( "Unsupported Document Formats %1" ).arg ( "*.*" );
-  setNameFilters ( filters );
+  filters << "text/html" << "text/xml" << "text/plain" << "application/xslt+xml" << "application/x-xbel";
+  setMimeFilter ( filters, QString ( "text/html" ) );
 }
 
 const QString OpenFileDialog::getDirectory()

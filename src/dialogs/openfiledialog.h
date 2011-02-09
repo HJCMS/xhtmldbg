@@ -29,20 +29,22 @@
 
 /* QtGui */
 #include <QtGui/QDialog>
-#include <QtGui/QFileDialog>
 #include <QtGui/QWidget>
+
+/* KDE */
+#include <KDE/KFileDialog>
 
 /**
 * Default Dialog for open HTML Files.
 */
-class OpenFileDialog : public QFileDialog
+class OpenFileDialog : public KFileDialog
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   public:
-    OpenFileDialog ( QWidget * parent = 0 );
+    OpenFileDialog ( const QString &target, QWidget * parent = 0 );
     const QString getDirectory();
     const QUrl getFileUrl();
     virtual ~OpenFileDialog();
