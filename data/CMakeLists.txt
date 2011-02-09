@@ -26,6 +26,11 @@ FOREACH(s ${icon_sizes})
   )
 ENDFOREACH(s)
 
+INSTALL (FILES
+  icontheme/scalable/apps/xhtmldbg.svgz
+  DESTINATION ${ICON_INSTALL_DIR}/oxygen/scalable/apps/
+)
+
 ## Pixmaps
 INSTALL (FILES
   pixmaps/xhtmldbg.xpm
