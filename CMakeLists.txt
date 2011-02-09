@@ -13,12 +13,13 @@ ENABLE_LANGUAGE (CXX)
 ##############################################################
 # where to look first for cmake modules, before ${CMAKE_ROOT}/cmake/Modules/ is checked
 ##############################################################
-SET (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMakeModules")
+SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules ${CMAKE_MODULE_PATH})
 
 ##############################################################
 ## Package
 ##############################################################
 SET (QT_MIN_VERSION 4.7.0)
+SET (KDE_MIN_VERSION 4.6.0)
 FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS QTXMLPATTERNS QTSQL QTUITOOLS QTSCRIPT QTDESIGNERCOMPONENTS QTDESIGNER)
@@ -31,6 +32,7 @@ FIND_PACKAGE (Java)
 FIND_PACKAGE (Gettext)
 FIND_PACKAGE (Xulrunner)
 FIND_PACKAGE (Phonon)
+FIND_PACKAGE (KDE4 QUIET COMPONENTS KDECORE KDEUI)
 
 ##############################################################
 ## Set xhtmldbg Specific Information
@@ -68,6 +70,8 @@ ENDIF (XHTMLDBG_BUILD_VERBOSE)
 
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (MacroEnsureVersion)
+INCLUDE (CheckFunctionExists)
+INCLUDE (CheckIncludeFiles)
 
 ##############################################################
 ## Complirer Checks e.g. "gcc g++"
@@ -82,6 +86,15 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
   ENDIF(CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
 
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
+
+##############################################################
+## Optional: Find KDE4 Core Libraries
+##############################################################
+
+IF (KDE4_FOUND)
+  MESSAGE (STATUS  "KDE4 found ...")
+  ADD_DEFINITIONS (-DHAVE_KDE4)
+ENDIF (KDE4_FOUND)
 
 ##############################################################
 ## APPEND|REMOVE DEFINITIONS
@@ -206,6 +219,7 @@ FIND_PROGRAM (TS2PO
 
 INCLUDE_DIRECTORIES (
   ${QT_INCLUDE_DIR}
+  ${KDE4_INCLUDE_DIR}
   ${QTIDY_INCLUDE_DIR}
   ${RAPTOR_INCLUDE_DIR}
 )
@@ -234,6 +248,8 @@ SET (XHTMLDBG_LIBRARIES
   ${QT_QTDBUS_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QT_QTSQL_LIBRARY}
+  ${KDE4_KDECORE_LIBRARY}
+  ${KDE4_KDEUI_LIBRARY}
   ${RAPTOR_LIBRARIES}
   ${QTIDY_LIBRARIES}
   ${GEOIP_LIBRARIES}

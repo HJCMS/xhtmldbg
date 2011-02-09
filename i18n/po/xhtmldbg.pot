@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-06 13:28+0200\n"
+"POT-Creation-Date: 2011-02-09 11:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1647,6 +1647,12 @@ msgstr ""
 
 #: NetworkAccessManager#1
 msgid ""
+"Broken SSL/TLS URL connection, handshake failed and could not be "
+"established."
+msgstr ""
+
+#: NetworkAccessManager#2
+msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
 msgstr ""
@@ -2364,6 +2370,14 @@ msgstr ""
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr ""
 
+#: XOggVideo#1
+msgid "Video Player"
+msgstr ""
+
+#: XOggVideo#2
+msgid "Play OGG/OGM and Therora Videos with Phonon"
+msgstr ""
+
 #: XPasswordWidget#1
 msgid "Password Request"
 msgstr ""
@@ -2379,6 +2393,50 @@ msgstr ""
 
 #: XPasswordWidget#4
 msgid "Password"
+msgstr ""
+
+#: XRegistrationFormComponent#1
+msgid "Form"
+msgstr ""
+
+#: XRegistrationFormComponent#2
+msgid "Person"
+msgstr ""
+
+#: XRegistrationFormComponent#3
+msgid "firstname:"
+msgstr ""
+
+#: XRegistrationFormComponent#4
+msgid "..."
+msgstr ""
+
+#: XRegistrationFormComponent#5
+msgid "surname:"
+msgstr ""
+
+#: XRegistrationFormComponent#6
+msgid "nickname:"
+msgstr ""
+
+#: XRegistrationFormComponent#7
+msgid "password:"
+msgstr ""
+
+#: XRegistrationFormComponent#8
+msgid "house"
+msgstr ""
+
+#: XRegistrationFormComponent#9
+msgid "female"
+msgstr ""
+
+#: XRegistrationFormComponent#10
+msgid "male"
+msgstr ""
+
+#: XRegistrationFormComponent#11
+msgid "age:"
 msgstr ""
 
 #: XsdParser#1

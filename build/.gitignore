@@ -11,3 +11,4 @@ app/
 data/
 i18n/
 src/
+CMakeTmp

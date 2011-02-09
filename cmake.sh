@@ -34,7 +34,7 @@ INSTALL_DESTDIR="`mktemp --tmpdir=/tmp xhtmldbg.XXXXXXXXXX`"
 
 function runcmake()
 {
-  cmake \
+  cmake -Wdev \
     -DCMAKE_CXX_FLAGS:STRING="$MY_CFLAGS" \
     -DCMAKE_INSTALL_PREFIX:PATH=/usr \
     -DCMAKE_BUILD_TYPE:STRING=Debug \
@@ -42,6 +42,7 @@ function runcmake()
     -DCMAKE_SKIP_RPATH:BOOL=ON \
     -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
     -DXHTMLDBG_EXPERIMENTAL:BOOL=ON \
+    -DAUTOMOC4_EXECUTABLE:FILEPATH=$(which automoc4) \
     -DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$INSTALL_DESTDIR" $@ ../
 }
 

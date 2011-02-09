@@ -64,7 +64,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkCache* m_networkCache;
 
     QNetworkReply* m_networkReply;
-    QSharedPointer<QNetworkReply> m_replyPointer;
+    // QSharedPointer<QNetworkReply> m_replyPointer;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
     QStringList pendingCerts;
