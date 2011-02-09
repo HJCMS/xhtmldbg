@@ -157,6 +157,9 @@ void NetworkAccessManager::proxyAuthenticationRequired ( const QNetworkProxy &pr
 
 /**
 * Zertifizierungs Fehler Meldungen verarbeiten.
+*
+* FIXME Wenn die SSL/TLS URL ein fehlerhaften Link sendet oder ein Header
+* Moved 303 ausgelöst/gesendet wurde. Ist das QNetworkReply ungültig!
 */
 void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslError> &errors )
 {
@@ -165,7 +168,8 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
   if ( trustedCertsHostsList.isEmpty() )
     trustedCertsHostsList << m_networkSettings->trustedCertsList();
 
-  if ( trustedCertsHostsList.contains ( certHost ) )
+  if ( trustedCertsHostsList.contains ( certHost )
+          && ( reply->error() == QNetworkReply::SslHandshakeFailedError ) )
   {
     reply->ignoreSslErrors();
     return;
@@ -190,8 +194,12 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
     if ( certDialog.exec() == QDialog::Accepted )
     {
       trustedCertsHostsList.append ( certHost );
-      reply->ignoreSslErrors();
       pendingCerts.clear();
+      if ( ( reply->error() == QNetworkReply::NoError ) ||
+              ( reply->error() == QNetworkReply::SslHandshakeFailedError ) )
+        reply->ignoreSslErrors();
+      else
+        emit netNotify ( trUtf8 ( "Broken SSL/TLS URL connection, handshake failed and could not be established." ) );
     }
   }
 }

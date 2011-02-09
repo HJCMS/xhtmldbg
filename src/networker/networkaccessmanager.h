@@ -28,6 +28,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
+#include <QtCore/QSharedPointer>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
@@ -63,6 +64,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     NetworkCache* m_networkCache;
 
     QNetworkReply* m_networkReply;
+    QSharedPointer<QNetworkReply> m_replyPointer;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;
     QStringList pendingCerts;

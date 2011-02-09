@@ -2081,7 +2081,12 @@ Reasons : </source>
 <context>
     <name>NetworkAccessManager</name>
     <message>
-        <location filename="../src/networker/networkaccessmanager.cpp" line="+294"/>
+        <location filename="../src/networker/networkaccessmanager.cpp" line="+202"/>
+        <source>Broken SSL/TLS URL connection, handshake failed and could not be established.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <source>Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)</source>
         <translation type="unfinished"></translation>
     </message>
