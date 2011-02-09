@@ -6,9 +6,9 @@
 SET (autosaver_SOURCES autosaver.cpp)
 SET (autosaver_HEADERS autosaver.h)
 
-QT4_WRAP_CPP (autosaver_MOC ${autosaver_HEADERS})
+KDE4_MOC_HEADERS (autosaver_MOC ${autosaver_HEADERS})
 
-ADD_LIBRARY (AutoSaver STATIC
+KDE4_ADD_LIBRARY (AutoSaver STATIC
   ${autosaver_MOC}
   ${autosaver_SOURCES}
   ${autosaver_HEADERS}

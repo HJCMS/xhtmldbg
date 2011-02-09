@@ -19,9 +19,9 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-QT4_WRAP_CPP (cookiesdatabase_MOC ${cookiesdatabase_HEADERS})
+KDE4_MOC_HEADERS (cookiesdatabase_MOC ${cookiesdatabase_HEADERS})
 
-ADD_LIBRARY (CookiesDatabase STATIC
+KDE4_ADD_LIBRARY (CookiesDatabase STATIC
   ${cookiesdatabase_MOC}
   ${cookiesdatabase_HEADERS}
   ${cookiesdatabase_STATIC_HEADERS}

@@ -28,10 +28,12 @@
 
 /* QtGui */
 #include <QtGui/QLabel>
-#include <QtGui/QStatusBar>
 #include <QtGui/QWidget>
 
-class StatusBar : public QStatusBar
+/* KDE */
+#include <KDE/KStatusBar>
+
+class StatusBar : public KStatusBar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -50,7 +52,7 @@ class StatusBar : public QStatusBar
     void setLoadedPageSize ( qint64 );
 
   public:
-    StatusBar ( QStatusBar * parent = 0 );
+    StatusBar ( KStatusBar * parent = 0 );
     ~StatusBar();
 };
 

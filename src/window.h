@@ -35,11 +35,8 @@
 #include <QtGui/QCloseEvent>
 #include <QtGui/QDockWidget>
 #include <QtGui/QIcon>
-#include <QtGui/QMainWindow>
-#include <QtGui/QMenuBar>
 #include <QtGui/QMenu>
 #include <QtGui/QPaintEvent>
-#include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
@@ -49,6 +46,11 @@
 
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
+
+/* KDE */
+#include <KDE/KMainWindow>
+#include <KDE/KMenuBar>
+#include <KDE/KMenu>
 
 /* XHTMLBG */
 #include "settings.h"
@@ -85,7 +87,7 @@ namespace xhtmldbg
   class Plugger;
 }
 
-class Window : public QMainWindow
+class Window : public KMainWindow
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -102,7 +104,7 @@ class Window : public QMainWindow
     // Address History Manager
     HistoryManager* m_historyManager;
     // Main Menu
-    QMenuBar* m_menuBar;
+    KMenuBar* m_menuBar;
     // Status Bar
     StatusBar* m_statusBar;
     // Default ToolBar
@@ -209,6 +211,7 @@ class Window : public QMainWindow
   protected:
     virtual void closeEvent ( QCloseEvent * );
     virtual void paintEvent ( QPaintEvent * );
+    virtual void showAboutApplication();
 
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );

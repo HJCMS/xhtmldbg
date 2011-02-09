@@ -22,11 +22,11 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDEDIR}
 )
 
-QT4_WRAP_CPP (helloworld_MOCS ${helloworld_HEADERS})
+KDE4_MOC_HEADERS (helloworld_MOCS ${helloworld_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB)
 
-ADD_LIBRARY (${target_plugin} MODULE
+KDE4_ADD_LIBRARY (${target_plugin} MODULE
   ${helloworld_SOURCES}
   ${helloworld_RESOURCE}
   ${helloworld_MOCS}

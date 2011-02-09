@@ -3,29 +3,6 @@
 <TS version="2.0" language="de_DE">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
-    <name>AboutDialog</name>
-    <message>
-        <location filename="../build/src/about/ui_aboutdialog.h" line="+81"/>
-        <source>About XHTMLDBG</source>
-        <translation>Über XHTMLDBG</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>About</source>
-        <translation>Über</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Contact</source>
-        <translation>Kontakt</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Authors</source>
-        <translation>Autoren</translation>
-    </message>
-</context>
-<context>
     <name>AddressToolBar</name>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="+89"/>
@@ -256,34 +233,6 @@ Do you realy wan to exit?</source>
         <location line="+8"/>
         <source>Save &amp;&amp; Exit</source>
         <translation>Speichern &amp;&amp; Beenden</translation>
-    </message>
-</context>
-<context>
-    <name>CSSConfigureMain</name>
-    <message>
-        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="+123"/>
-        <source>Configure CSS Validation</source>
-        <translation>Konfiguriere den W3C Validierer</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The CSS profile used for the validation.</source>
-        <translation>Das CSS-Profil für die Validierung.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The language used for the response.</source>
-        <translation>Die Ausgabesprache.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The warning level.</source>
-        <translation>Menge der ausgegebenen Warnungen.</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The medium used for the validation.</source>
-        <translation>Das Medium für die Validierung.</translation>
     </message>
 </context>
 <context>
@@ -2799,7 +2748,7 @@ Gründe : </translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="+144"/>
+        <location filename="../src/window.cpp" line="+148"/>
         <source>Browser</source>
         <translation></translation>
     </message>
@@ -2925,7 +2874,7 @@ Gründe : </translation>
     </message>
     <message>
         <location line="+11"/>
-        <location line="+98"/>
+        <location line="+95"/>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
     </message>
@@ -2935,7 +2884,7 @@ Gründe : </translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+438"/>
+        <location line="+444"/>
         <source>Invalid Url Rejected, required scheme is &quot;%1&quot;.</source>
         <translation>Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist &quot;%1&quot;.</translation>
     </message>
@@ -2957,7 +2906,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
     <message>
-        <location line="-544"/>
+        <location line="-547"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
@@ -2987,22 +2936,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location line="+12"/>
-        <source>About</source>
-        <translation>Über</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>about Qt</source>
-        <translation>über Qt</translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>about hjcms</source>
-        <translation>über HJCMS</translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="+26"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
@@ -3022,7 +2956,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location line="+264"/>
+        <location line="+270"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
@@ -3075,20 +3009,17 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
 <context>
     <name>XRegistrationFormComponent</name>
     <message>
-        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="+222"/>
         <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+222"/>
         <source>Form</source>
         <translation>Form</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>Person</source>
         <translation>Person</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>firstname:</source>
         <translation>Vorname:</translation>
     </message>
@@ -3097,52 +3028,41 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <location line="+2"/>
         <location line="+2"/>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
-        <location line="+2"/>
-        <location line="+2"/>
-        <location line="+2"/>
         <source>...</source>
         <translation></translation>
     </message>
     <message>
         <location line="-5"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="-5"/>
         <source>surname:</source>
         <translation>Name:</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>nickname:</source>
         <translation>Spitzname:</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>password:</source>
         <translation>Paßword:</translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>house</source>
         <translation>Geschlecht</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>female</source>
         <translation>Weiblich</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>male</source>
         <translation>Männlich</translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>age:</source>
         <translation>Alter:</translation>
     </message>
@@ -3200,7 +3120,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
 <context>
     <name>xhtmldbgmain</name>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="+203"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="+204"/>
         <source>Usage</source>
         <translation>Verwende</translation>
     </message>

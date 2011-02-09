@@ -11,14 +11,14 @@ SET (target_project_NOMOC_HEADERS
 
 REMOVE_DEFINITIONS (-DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_CPP (target_project_MOC ${target_project_HEADERS})
+KDE4_MOC_HEADERS (target_project_MOC ${target_project_HEADERS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (Broadcaster STATIC
+KDE4_ADD_LIBRARY (Broadcaster STATIC
   ${target_project_MOC}
   ${target_project_HEADERS}
   ${target_project_NOMOC_HEADERS}

@@ -166,11 +166,7 @@ ENDIF (QT_QTUITOOLS_FOUND)
 ##############################
 ## generated MOC Files
 ##############################
-IF (KDE_FOUND)
-  KDE4_MOC_HEADERS (xhtmldbg_MOC ${xhtmldbg_HEADERS})
-ELSE (KDE_FOUND)
-  QT4_WRAP_CPP (xhtmldbg_MOC ${xhtmldbg_HEADERS})
-ENDIF (KDE_FOUND)
+KDE4_MOC_HEADERS (xhtmldbg_MOC ${xhtmldbg_HEADERS})
 
 ##############################
 ## INCLUDES
@@ -185,27 +181,15 @@ QT4_ADD_RESOURCES (xhtmldbg_RESRC xhtmldbg.qrc)
 ##############################
 ## EXECUTABLE
 ##############################
-IF (KDE_FOUND)
-  KDE4_ADD_EXECUTABLE (xhtmldbg
-    ${xhtmldbg_RESRC}
-    ${xhtmldbg_MOC}
-    ${xhtmldbg_NOMOC}
-    ${xhtmldbg_UI}
-    ${xhtmldbg_ADAPTOR}
-    ${xhtmldbg_HEADERS}
-    ${xhtmldbg_SOURCES}
-  )
-ELSE (KDE_FOUND)
-  ADD_EXECUTABLE (xhtmldbg
-    ${xhtmldbg_RESRC}
-    ${xhtmldbg_MOC}
-    ${xhtmldbg_NOMOC}
-    ${xhtmldbg_UI}
-    ${xhtmldbg_ADAPTOR}
-    ${xhtmldbg_HEADERS}
-    ${xhtmldbg_SOURCES}
-  )
-ENDIF (KDE_FOUND)
+KDE4_ADD_EXECUTABLE (xhtmldbg
+  ${xhtmldbg_RESRC}
+  ${xhtmldbg_MOC}
+  ${xhtmldbg_NOMOC}
+  ${xhtmldbg_UI}
+  ${xhtmldbg_ADAPTOR}
+  ${xhtmldbg_HEADERS}
+  ${xhtmldbg_SOURCES}
+)
 
 ##############################
 ## LINKER
@@ -246,8 +230,8 @@ SET_TARGET_PROPERTIES (xhtmldbg PROPERTIES
 ##############################
 ## INSTALL
 ##############################
-INSTALL (TARGETS xhtmldbg DESTINATION bin)
+INSTALL (TARGETS xhtmldbg DESTINATION ${BIN_INSTALL_DIR})
 
-INSTALL (FILES xhtmldbg.desktop DESTINATION share/applications)
+INSTALL (FILES xhtmldbg.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
 
 ## EOF

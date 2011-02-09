@@ -18,7 +18,7 @@ SET (sourceviewer_HEADERS
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_CPP (sourceviewer_MOC ${sourceviewer_HEADERS})
+KDE4_MOC_HEADERS (sourceviewer_MOC ${sourceviewer_HEADERS})
 
 ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 
@@ -27,7 +27,7 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (SourceViewer STATIC
+KDE4_ADD_LIBRARY (SourceViewer STATIC
   ${sourceviewer_MOC}
   ${sourceviewer_HEADERS}
   ${sourceviewer_SOURCES}

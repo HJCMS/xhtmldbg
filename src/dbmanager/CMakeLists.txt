@@ -20,11 +20,11 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
-QT4_WRAP_CPP (dbmanager_MOC ${dbmanager_HEADERS})
+KDE4_MOC_HEADERS (dbmanager_MOC ${dbmanager_HEADERS})
 
 QT4_ADD_RESOURCES (dbmanager_QRC dbmanager.qrc)
 
-ADD_LIBRARY (DBManager STATIC
+KDE4_ADD_LIBRARY (DBManager STATIC
   ${dbmanager_QRC}
   ${dbmanager_MOC}
   ${dbmanager_NOMOC_HEADERS}

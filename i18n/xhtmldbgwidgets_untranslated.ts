@@ -42,20 +42,17 @@
 <context>
     <name>XRegistrationFormComponent</name>
     <message>
-        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="+222"/>
         <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+222"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>Person</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>firstname:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -64,52 +61,41 @@
         <location line="+2"/>
         <location line="+2"/>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
-        <location line="+2"/>
-        <location line="+2"/>
-        <location line="+2"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-5"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="-5"/>
         <source>surname:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>nickname:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>house</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>female</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>male</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>age:</source>
         <translation type="unfinished"></translation>
     </message>

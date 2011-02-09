@@ -10,7 +10,7 @@ SET (subproject_HEADERS
   certissuers.h
 )
 
-QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
+KDE4_MOC_HEADERS (subproject_MOC ${subproject_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
@@ -20,7 +20,7 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (CertIssuers STATIC
+KDE4_ADD_LIBRARY (CertIssuers STATIC
   ${subproject_MOC}
   ${subproject_HEADERS}
   ${subproject_SOURCES}

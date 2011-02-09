@@ -23,6 +23,7 @@
 #define SELFHTMLSIDEBARPLUGIN_H
 
 /* QtCore */
+#include <QtCore/QMetaMethod>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QUrl>

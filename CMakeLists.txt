@@ -23,6 +23,7 @@ SET (KDE_MIN_VERSION 4.6.0)
 FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS QTXMLPATTERNS QTSQL QTUITOOLS QTSCRIPT QTDESIGNERCOMPONENTS QTDESIGNER)
+FIND_PACKAGE (KDE4 REQUIRED COMPONENTS KDECORE KDEUI)
 FIND_PACKAGE (QTidy REQUIRED)
 FIND_PACKAGE (OpenSSL REQUIRED)
 FIND_PACKAGE (Raptor REQUIRED)
@@ -32,7 +33,7 @@ FIND_PACKAGE (Java)
 FIND_PACKAGE (Gettext)
 FIND_PACKAGE (Xulrunner)
 FIND_PACKAGE (Phonon)
-FIND_PACKAGE (KDE4 QUIET COMPONENTS KDECORE KDEUI)
+INCLUDE (KDE4Defaults)
 
 ##############################################################
 ## Set xhtmldbg Specific Information
@@ -88,17 +89,10 @@ IF (CMAKE_COMPILER_IS_GNUCXX)
 ENDIF (CMAKE_COMPILER_IS_GNUCXX)
 
 ##############################################################
-## Optional: Find KDE4 Core Libraries
-##############################################################
-
-IF (KDE4_FOUND)
-  MESSAGE (STATUS  "KDE4 found ...")
-  ADD_DEFINITIONS (-DHAVE_KDE4)
-ENDIF (KDE4_FOUND)
-
-##############################################################
 ## APPEND|REMOVE DEFINITIONS
 ##############################################################
+
+ADD_DEFINITIONS (${KDE4_DEFINITIONS})
 
 IF (GEOIP_FOUND)
   ADD_DEFINITIONS (${GEOIP_DEFINITIONS})
@@ -135,39 +129,19 @@ SET (PARSER_SCHEME_PATH
 )
 
 ##############################################################
-## D-Bus-1 Service Directory
+## D-Bus Data
 ##############################################################
-
-EXECUTE_PROCESS (
-  COMMAND ${PKG_CONFIG_EXECUTABLE} --variable=session_bus_services_dir dbus-1
-  OUTPUT_VARIABLE _dbus_services_dir
-  RESULT_VARIABLE _dbus_services_dir_failed
-)
-
-FIND_PATH (DBUS_DATA_INSTALL_DIR services interfaces
-  PATHS
-  /usr/share/dbus-1
-  /usr/local/share/dbus-1
-  ${_dbus_services_dir}
-  $ENV{KDEDIRS}"/share/dbus-1"
-  "[HKEY_LOCAL_MACHINE\\SOFTWARE\\GNU]/share/dbus-1"
-  DOC "Find D-Bus Files directory"
-)
-
-IF (NOT DBUS_DATA_INSTALL_DIR)
-  MESSAGE (FATAL_ERROR "Can not find D-Bus data Directory for interface and service files")
-ENDIF(NOT DBUS_DATA_INSTALL_DIR)
 
 CONFIGURE_FILE (de.hjcms.xhtmldbg.service.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
 )
 
 INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/de.hjcms.xhtmldbg.service
-  DESTINATION ${DBUS_DATA_INSTALL_DIR}/services
+  DESTINATION ${KDE4_DBUS_SERVICES_DIR}
 )
 
 INSTALL (FILES de.hjcms.xhtmldbg.xml
-  DESTINATION ${DBUS_DATA_INSTALL_DIR}/interfaces
+  DESTINATION ${KDE4_DBUS_INTERFACES_DIR}
 )
 
 ##############################################################

@@ -26,6 +26,10 @@
 #include "downloadmanager.h"
 #include "dbmanager.h"
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
+#include <iostream>
 #include <cstdlib>
 
 /* QtCore */
@@ -44,8 +48,8 @@ NetworkAccessManager* Application::p_networkAccessManager = 0;
 DownloadManager* Application::p_downloadManager = 0;
 DBManager* Application::p_dbManager = 0;
 
-Application::Application ( int &argc, char **argv )
-    : QApplication ( argc, argv, true )
+Application::Application ()
+    : KApplication ( true )
     , m_server ( 0 )
 {
   setObjectName ( "Application" );

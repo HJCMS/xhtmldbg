@@ -12,9 +12,9 @@ SET (about_HEADERS
   about.h
 )
 
-QT4_WRAP_UI (about_UIC ${about_UIS})
+KDE4_ADD_UI_FILES (about_UIC ${about_UIS})
 
-QT4_WRAP_CPP (about_MOC ${about_HEADERS})
+KDE4_MOC_HEADERS (about_MOC ${about_HEADERS})
 
 QT4_ADD_RESOURCES (about_QRC about.qrc)
 
@@ -23,7 +23,7 @@ INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-ADD_LIBRARY (About STATIC
+KDE4_ADD_LIBRARY (About STATIC
   ${about_MOC}
   ${about_UIC}
   ${about_QRC}

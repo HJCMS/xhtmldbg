@@ -49,7 +49,7 @@ SET (configuration_HEADERS
   configutils.h
 )
 
-QT4_WRAP_CPP (configuration_MOC ${configuration_HEADERS})
+KDE4_MOC_HEADERS (configuration_MOC ${configuration_HEADERS})
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
@@ -67,7 +67,7 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (Configuration STATIC
+KDE4_ADD_LIBRARY (Configuration STATIC
   ${configuration_MOC}
   ${configuration_HEADERS}
   ${configuration_SOURCES}

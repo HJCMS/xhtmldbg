@@ -103,16 +103,20 @@
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
+/* KDE */
+#include <KDE/KLocale>
+
 #define URL_SCHEME_PATTERN QRegExp ( "^(http[s]?|file)" )
 
 Window::Window ( Settings * settings )
-    : QMainWindow()
+    : KMainWindow()
     , m_settings ( settings )
     , xhtmldbgIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
 {
   // Standard Fenster optionen
   setObjectName ( "xhtmldbgwindow" );
   setWindowIcon ( xhtmldbgIcon );
+  setAutoSaveSettings ( "xhtmldbg", false );
 
   QColor bgColor = palette().color ( QPalette::Background );
   setStyleSheet ( QString ( "QToolTip{background-color:%1;padding:1px;}" ).arg ( bgColor.name() ) );
@@ -523,17 +527,14 @@ void Window::createMenus()
   // Show Enable/Disable Toolbars Menu
   m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
 
-  // Help and About Menu
-  QIcon infoIcon = icon.fromTheme ( QLatin1String ( "documentinfo" ) );
-  QMenu *m_aboutMenu = m_menuBar->addMenu ( trUtf8 ( "About" ) );
-  QAction* actionAboutQt = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about Qt" ) );
-  actionAboutQt->setMenuRole ( QAction::AboutQtRole );
-  connect ( actionAboutQt, SIGNAL ( triggered() ), qApp, SLOT ( aboutQt() ) );
+  QStringList items ( "<b>xhtmldbg</b>" );
+  items << i18n ( "A XHTML/HTML Debugger for K Desktop Environment Version 4," );
+  items << i18n ( "Copyright (C) 2007-2011 by Juergen Heinemann (Undefined)" );
+  items << i18n ( "Homepage http://xhtmldbg.hjcms.de" );
+  QString aboutText = items.join ( "<br />" );
 
-  About* aboutDialog = new About ( this );
-  QAction* actionAboutHJCMS = m_aboutMenu->addAction ( infoIcon, trUtf8 ( "about hjcms" ) );
-  actionAboutHJCMS->setMenuRole ( QAction::AboutRole );
-  connect ( actionAboutHJCMS, SIGNAL ( triggered() ), aboutDialog, SLOT ( open() ) );
+  // Help and About Menu
+  m_menuBar->addMenu ( customHelpMenu ( false ) );
 }
 
 /**
@@ -774,6 +775,12 @@ void Window::paintEvent ( QPaintEvent *event )
   m_statusBar->displayBrowserWidth ( m_webViewer->size() );
 
   QMainWindow::paintEvent ( event );
+}
+
+void Window::showAboutApplication()
+{
+  About* aboutDialog = new About( this );
+  aboutDialog->open();
 }
 
 /**

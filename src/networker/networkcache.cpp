@@ -22,6 +22,7 @@
 #include "networkcache.h"
 
 /* QtCore */
+#include <QtCore/QChar>
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
@@ -48,10 +49,11 @@ NetworkCache::NetworkCache ( const QString &path, QObject * parent )
 const QString NetworkCache::cacheFilePath ( const QUrl &url ) const
 {
   QByteArray file ( cacheDir.toUtf8() );
-  file.append ( QDir::separator() );
-  file.append ( url.scheme() );
-  file.append ( QDir::separator() );
+  file.append ( QDir::separator().toLatin1() );
+  file.append ( url.scheme().toUtf8() );
+  file.append ( QDir::separator().toLatin1() );
   file.append ( "cache_" );
+
   QUrl cleanUrl = url;
   cleanUrl.setPassword ( QString() );
   cleanUrl.setFragment ( QString() );

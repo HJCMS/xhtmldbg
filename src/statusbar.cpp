@@ -33,8 +33,8 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QIcon>
 
-StatusBar::StatusBar ( QStatusBar * parent )
-    : QStatusBar ( parent )
+StatusBar::StatusBar ( KStatusBar * parent )
+    : KStatusBar ( parent )
 {
   setObjectName ( QLatin1String ( "statusbar" ) );
   setContentsMargins ( 2, 5, 2, 2 );

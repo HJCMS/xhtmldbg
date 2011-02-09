@@ -28,8 +28,8 @@
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 
-/* QtGui */
-#include <QtGui/QApplication>
+/* KDE */
+#include <KDE/KApplication>
 
 /* QtNetwork */
 #include <QtNetwork/QLocalServer>

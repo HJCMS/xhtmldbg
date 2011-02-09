@@ -2,6 +2,8 @@
 
 ADD_SUBDIRECTORY (schemas)
 
+# KDE4_ADD_APP_ICON (xhtmldbg_icons_SRCS "icontheme/*/apps/xhtmldbg.*")
+
 ## Default IconTheme
 SET (icon_sizes
   16
@@ -20,15 +22,9 @@ SET (icon_sizes
 FOREACH(s ${icon_sizes})
   INSTALL (FILES
     icontheme/${s}/apps/xhtmldbg.png
-    DESTINATION share/icons/oxygen/${s}x${s}/apps/
+    DESTINATION ${ICON_INSTALL_DIR}/oxygen/${s}x${s}/apps/
   )
 ENDFOREACH(s)
-
-## SVG scalable
-INSTALL (FILES
-  icontheme/scalable/apps/xhtmldbg.svgz
-  DESTINATION share/icons/oxygen/scalable/apps/
-)
 
 ## Pixmaps
 INSTALL (FILES

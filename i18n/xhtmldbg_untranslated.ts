@@ -3,29 +3,6 @@
 <TS version="2.0">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
-    <name>AboutDialog</name>
-    <message>
-        <location filename="../build/src/about/ui_aboutdialog.h" line="+81"/>
-        <source>About XHTMLDBG</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Contact</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Authors</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>AddressToolBar</name>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="+89"/>
@@ -254,34 +231,6 @@ Do you realy wan to exit?</source>
     <message>
         <location line="+8"/>
         <source>Save &amp;&amp; Exit</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CSSConfigureMain</name>
-    <message>
-        <location filename="../build/src/cssvalidator/ui_cssconfiguremain.h" line="+123"/>
-        <source>Configure CSS Validation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The CSS profile used for the validation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The language used for the response.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The warning level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>The medium used for the validation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2789,7 +2738,7 @@ Reasons : </source>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="+144"/>
+        <location filename="../src/window.cpp" line="+148"/>
         <source>Browser</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2914,12 +2863,12 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+46"/>
+        <location line="+43"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+438"/>
+        <location line="+444"/>
         <source>Invalid Url Rejected, required scheme is &quot;%1&quot;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2940,7 +2889,7 @@ Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-544"/>
+        <location line="-547"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2971,27 +2920,12 @@ Would you like to load this &quot;%1&quot; Url?</source>
     </message>
     <message>
         <location line="+5"/>
-        <location line="+98"/>
+        <location line="+95"/>
         <source>Extensions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-91"/>
-        <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>about Qt</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>about hjcms</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
+        <location line="-74"/>
         <source>Actions</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3011,7 +2945,7 @@ Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+264"/>
+        <location line="+270"/>
         <source>Check StyleSheet for %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3064,20 +2998,17 @@ Would you like to load this &quot;%1&quot; Url?</source>
 <context>
     <name>XRegistrationFormComponent</name>
     <message>
-        <location filename="../build/src/components/ui_xregistrationformcomponent.h" line="+222"/>
         <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+222"/>
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>Person</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>firstname:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3086,52 +3017,41 @@ Would you like to load this &quot;%1&quot; Url?</source>
         <location line="+2"/>
         <location line="+2"/>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
-        <location line="+2"/>
-        <location line="+2"/>
-        <location line="+2"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-5"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="-5"/>
         <source>surname:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>nickname:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>password:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+2"/>
         <source>house</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>female</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>male</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <location filename="../build/src/components/xqpluginwidgets/ui_xregistrationformcomponent.h" line="+1"/>
         <source>age:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3189,7 +3109,7 @@ Would you like to load this &quot;%1&quot; Url?</source>
 <context>
     <name>xhtmldbgmain</name>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="+203"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="+204"/>
         <source>Usage</source>
         <translation type="unfinished"></translation>
     </message>

@@ -17,7 +17,7 @@ SET (npploader_NOMOC_HEADERS
   nppplugin.h
 )
 
-QT4_WRAP_CPP (npploader_MOCS ${npploader_HEADERS})
+KDE4_MOC_HEADERS (npploader_MOCS ${npploader_HEADERS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -25,7 +25,7 @@ INCLUDE_DIRECTORIES (
   ${XULRUNNER_INCLUDES}
 )
 
-ADD_LIBRARY (NPPLoader STATIC
+KDE4_ADD_LIBRARY (NPPLoader STATIC
   ${npploader_MOCS}
   ${npploader_NOMOC_HEADERS}
   ${npploader_HEADERS}

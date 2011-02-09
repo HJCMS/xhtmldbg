@@ -25,9 +25,9 @@ SET (cssvalidator_NOMOC
 
 REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_UI (cssvalidator_UIC ${cssvalidator_UIFILES})
+KDE4_ADD_UI_FILES (cssvalidator_UIC ${cssvalidator_UIFILES})
 
-QT4_WRAP_CPP (cssvalidator_MOC ${cssvalidator_HEADERS})
+KDE4_MOC_HEADERS (cssvalidator_MOC ${cssvalidator_HEADERS})
 
 ADD_DEFINITIONS (${QTIDY_DEFINITIONS})
 
@@ -36,7 +36,7 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (CSSValidator STATIC
+KDE4_ADD_LIBRARY (CSSValidator STATIC
   ${cssvalidator_UIC}
   ${cssvalidator_MOC}
   ${cssvalidator_NOMOC}

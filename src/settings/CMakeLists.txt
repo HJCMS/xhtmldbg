@@ -19,9 +19,9 @@ INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-QT4_WRAP_CPP (settings_MOC ${settings_HEADERS})
+KDE4_MOC_HEADERS (settings_MOC ${settings_HEADERS})
 
-ADD_LIBRARY (Settings STATIC
+KDE4_ADD_LIBRARY (Settings STATIC
   ${settings_MOC}
   ${settings_HEADERS}
   ${settings_NOMOC_HEADERS}

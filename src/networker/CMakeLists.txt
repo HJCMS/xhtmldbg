@@ -25,14 +25,14 @@ SET (networker_NO_MOCS_HEADER
   localsource.h
 )
 
-QT4_WRAP_CPP (networker_MOC ${networker_HEADERS})
+KDE4_MOC_HEADERS (networker_MOC ${networker_HEADERS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-ADD_LIBRARY (Networker STATIC
+KDE4_ADD_LIBRARY (Networker STATIC
   ${networker_MOC}
   ${networker_NO_MOCS_HEADER}
   ${networker_HEADERS}

@@ -42,18 +42,19 @@
 #include <QtCore/QUrl>
 
 xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
-    : Application ( argc, argv )
+    : Application ()
     , activeWindow ( 0 )
 {
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( XHTMLDBG_APPS_NAME );
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( XHTMLDBG_APPS_NAME );
+  Q_UNUSED ( argv )
 
   // Settings
   m_settings = new Settings ( this );
 
-  if ( arguments().contains ( QLatin1String ( "--savemode" ), Qt::CaseInsensitive ) )
+  if ( ( argc > 1 ) && arguments().contains ( QLatin1String ( "--savemode" ), Qt::CaseInsensitive ) )
     m_settings->setSaveMode();
 
   m_settings->setDataPaths();
@@ -68,9 +69,9 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
 
-  QStringList args = QCoreApplication::arguments();
-  if ( args.count() > 1 )
+  if ( argc > 1 )
   {
+    QStringList args = arguments();
     QString message = getArgumentUrl ( args.last() );
     sendMessage ( message.toUtf8() );
   }
@@ -205,8 +206,7 @@ void xhtmldbgmain::printOptionsHelp() const
   txt << trUtf8 ( " Examples:" );
   txt << QString::fromUtf8 ( "  xhtmldbg http://www.hjcms.de" );
   txt << QString::fromUtf8 ( "  xhtmldbg --savemode" );
-  std::string info = txt.join ( "\n" ).toStdString();
-  std::cout << info << std::endl;
+  qDebug ( "%s", qPrintable ( txt.join ( "\n" ) ) );
 }
 
 /**

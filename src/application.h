@@ -34,13 +34,16 @@
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
 
+/* KDE */
+#include <KDE/KApplication>
+
 class DownloadManager;
 class HistoryManager;
 class NetworkCookie;
 class NetworkAccessManager;
 class DBManager;
 
-class Application : public QApplication
+class Application : public KApplication
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -61,7 +64,7 @@ class Application : public QApplication
     void sMessageReceived ( QLocalSocket *socket );
 
   public:
-    Application ( int &argc, char **argv );
+    Application ();
     bool startUniqueServer();
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
     bool isRunning() const;
