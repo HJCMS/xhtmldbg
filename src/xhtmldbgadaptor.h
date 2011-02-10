@@ -39,13 +39,10 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 
   private:
     const QString service;
-    QDBusConnection* m_bus;
 
   public:
     XHtmldbgAdaptor ( QObject *parent = 0 );
-    bool registerSubObject ( QObject * object );
     const QString busService();
-    const QDBusConnection busConnection();
     virtual ~XHtmldbgAdaptor();
 
   public Q_SLOTS:

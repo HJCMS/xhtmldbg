@@ -32,21 +32,7 @@ XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject * parent )
     : QDBusAbstractAdaptor ( parent )
     , service ( "de.hjcms.xhtmldbg" )
 {
-  m_bus = new QDBusConnection ( QDBusConnection::sessionBus() );
-  m_bus->registerService ( service );
-  m_bus->registerObject ( "/xhtmldbg", parent, QDBusConnection::ExportAdaptors );
   setAutoRelaySignals ( false );
-}
-
-bool XHtmldbgAdaptor::registerSubObject ( QObject * object )
-{
-  if ( object->objectName().isEmpty() )
-    return false;
-
-  QString path ( QLatin1String ( "/xhtmldbg/" ) );
-  path.append ( object->objectName() );
-
-  return m_bus->registerObject ( path, object, QDBusConnection::ExportAdaptors );
 }
 
 /**
@@ -55,14 +41,6 @@ bool XHtmldbgAdaptor::registerSubObject ( QObject * object )
 const QString XHtmldbgAdaptor::busService()
 {
   return service;
-}
-
-/**
-* Aktuelle D-Bus Verbindung zurück geben!
-*/
-const QDBusConnection XHtmldbgAdaptor::busConnection()
-{
-  return m_bus->sessionBus();
 }
 
 /**
@@ -168,9 +146,4 @@ bool XHtmldbgAdaptor::checkStyleSheet ( const QString &url )
 }
 
 XHtmldbgAdaptor::~XHtmldbgAdaptor()
-{
-  if ( m_bus )
-  {
-    m_bus->unregisterObject ( "/xhtmldbg", QDBusConnection::UnregisterNode );
-  }
-}
+{}

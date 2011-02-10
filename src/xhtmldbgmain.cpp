@@ -24,6 +24,7 @@
 #endif
 #include "xhtmldbgmain.h"
 #include "dbmanager.h"
+#include "xhtmldbgadaptor.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -41,6 +42,7 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
 
+/* construct */
 xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
     : Application ()
     , activeWindow ( 0 )
@@ -48,7 +50,7 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( XHTMLDBG_APPS_NAME );
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
-  setObjectName ( XHTMLDBG_APPS_NAME );
+  setObjectName ( "xhtmldbgmain" );
   Q_UNUSED ( argv )
 
   // Settings
@@ -171,6 +173,9 @@ Window* xhtmldbgmain::newMainWindow()
 {
   Window *debugger = new Window ( m_settings );
   m_windows.prepend ( debugger );
+
+  // DBUS Adaptor registrieren
+  new XHtmldbgAdaptor ( debugger );
 
   debugger->show();
   debugger->setFocus ( Qt::ActiveWindowFocusReason );

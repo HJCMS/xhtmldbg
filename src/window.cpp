@@ -19,7 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "version.h"
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "window.h"
 #include "application.h"
 #include "networkaccessmanager.h"
@@ -60,8 +62,6 @@
 #ifdef _XHTMLDBG_EXPERIMENTAL
 # include "resizeportbuttons.h"
 #endif
-/* DBus */
-#include "xhtmldbgadaptor.h"
 /* Interface */
 #include "plugger.h"
 #include "plugininfo.h"
@@ -90,6 +90,9 @@
 #include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 /* QtNetwork */
 #include <QtNetwork/QAbstractNetworkCache>
 
@@ -105,6 +108,7 @@
 
 /* KDE */
 #include <KDE/KLocale>
+#include <KDE/KIcon>
 
 #define URL_SCHEME_PATTERN QRegExp ( "^(http[s]?|file)" )
 
@@ -114,7 +118,7 @@ Window::Window ( Settings * settings )
     , xhtmldbgIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
 {
   // Standard Fenster optionen
-  setObjectName ( "xhtmldbgwindow" );
+  setObjectName ( "Window" );
   setWindowIcon ( xhtmldbgIcon );
   setAutoSaveSettings ( "xhtmldbg", false );
 
@@ -135,7 +139,7 @@ Window::Window ( Settings * settings )
 
   // Zentrales TabWidget für Quelltext und Browser
   // TabWidgets {
-  m_centralWidget = new QTabWidget ( this );
+  m_centralWidget = new KTabWidget ( this );
   m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
   m_centralWidget->setTabPosition ( QTabWidget::South );
   m_centralWidget->setTabsClosable ( false );
@@ -248,9 +252,6 @@ Window::Window ( Settings * settings )
   // Design abschliessen
   setCentralWidget ( m_centralWidget );
 
-  // bei DBus Adaptor anmelden
-  new XHtmldbgAdaptor ( this );
-
   // WebViewer {
   connect ( m_webViewer, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( tabChanged ( int ) ) );
@@ -361,8 +362,6 @@ void Window::createMenus()
 {
   m_menuBar = menuBar ();
 
-  QIcon icon;
-
   // Main Menu
   m_applicationMenu = m_menuBar->addMenu ( trUtf8 ( "&Application" ) );
   m_applicationMenu ->setObjectName ( QLatin1String ( "applicationmenu" ) );
@@ -371,14 +370,14 @@ void Window::createMenus()
   actionOpenUrl = m_applicationMenu->addAction ( trUtf8 ( "Open Url" ) );
   actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_O );
-  actionOpenUrl->setIcon ( icon.fromTheme ( QLatin1String ( "document-open-remote" ) ) );
+  actionOpenUrl->setIcon ( KIcon ( "document-open-remote" ) );
   connect ( actionOpenUrl, SIGNAL ( triggered() ), this, SLOT ( openUrlDialog() ) );
 
   // Action Open File from Location
   actionOpenHtml = m_applicationMenu->addAction ( trUtf8 ( "Open Html File" ) );
   actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
-  actionOpenHtml->setIcon ( icon.fromTheme ( QLatin1String ( "document-open" ) ) );
+  actionOpenHtml->setIcon ( KIcon ( "document-open" ) );
   connect ( actionOpenHtml, SIGNAL ( triggered() ), this, SLOT ( openFileDialog() ) );
 
   // Action Application Exit
@@ -386,7 +385,7 @@ void Window::createMenus()
   actionQuit->setStatusTip ( trUtf8 ( "Close Debugger" ) );
   actionQuit->setShortcut ( Qt::CTRL + Qt::Key_Q );
   actionQuit->setMenuRole ( QAction::QuitRole );
-  actionQuit->setIcon ( icon.fromTheme ( QLatin1String ( "application-exit" ) ) );
+  actionQuit->setIcon ( KIcon ( "application-exit" ) );
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
 
   // Debugger Menu
@@ -396,14 +395,14 @@ void Window::createMenus()
   actionParse = m_debuggerMenu->addAction ( trUtf8 ( "Parse" ) );
   actionParse->setStatusTip ( trUtf8 ( "Parse current Document Source" ) );
   actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
-  actionParse->setIcon ( icon.fromTheme ( QLatin1String ( "document-edit-verify" ) ) );
+  actionParse->setIcon ( KIcon ( "document-edit-verify" ) );
   connect ( actionParse, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( check() ) );
 
   // Action Prepare and Format Document Source
   actionClean = m_debuggerMenu->addAction ( trUtf8 ( "Format" ) );
   actionClean->setStatusTip ( trUtf8 ( "Prepare and Format Document Source" ) );
   actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
-  actionClean->setIcon ( icon.fromTheme ( QLatin1String ( "format-list-ordered" ) ) );
+  actionClean->setIcon ( KIcon ( "format-list-ordered" ) );
   connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Ansicht Menu
@@ -413,7 +412,7 @@ void Window::createMenus()
   // Zoom +
   QAction* actionZoomIn = m_mainViewMenu->addAction ( trUtf8 ( "Zoom +" ) );
   actionZoomIn->setObjectName ( QLatin1String ( "action_view_zoom_in" ) );
-  actionZoomIn->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-in" ) ) );
+  actionZoomIn->setIcon ( KIcon ( "zoom-in" ) );
   actionZoomIn->setShortcut ( QKeySequence::ZoomIn );
   connect ( actionZoomIn, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map () ) );
   zoomSignalMapper->setMapping ( actionZoomIn, 1 );
@@ -421,7 +420,7 @@ void Window::createMenus()
   // Zoom -
   QAction* actionZoomOut = m_mainViewMenu->addAction ( trUtf8 ( "Zoom -" ) );
   actionZoomOut->setObjectName ( QLatin1String ( "action_view_zoom_out" ) );
-  actionZoomOut->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-out" ) ) );
+  actionZoomOut->setIcon ( KIcon ( "zoom-out" ) );
   actionZoomOut->setShortcut ( QKeySequence::ZoomOut );
   connect ( actionZoomOut, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map () ) );
   zoomSignalMapper->setMapping ( actionZoomOut, 2 );
@@ -429,7 +428,7 @@ void Window::createMenus()
   // Zoom zurück Original Ansicht
   QAction* actionZoomOriginal = m_mainViewMenu->addAction ( trUtf8 ( "Original" ) );
   actionZoomOriginal->setObjectName ( QLatin1String ( "action_view_zoom_original" ) );
-  actionZoomOriginal->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-original" ) ) );
+  actionZoomOriginal->setIcon ( KIcon ( "zoom-original" ) );
   actionZoomOriginal->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_0 );
   connect ( actionZoomOriginal, SIGNAL ( triggered () ), zoomSignalMapper, SLOT ( map() ) );
   zoomSignalMapper->setMapping ( actionZoomOriginal, 0 );
@@ -442,7 +441,7 @@ void Window::createMenus()
   // Fullansciht Modus
   QAction* actionFullScreen = m_mainViewMenu->addAction ( trUtf8 ( "Fullscreen" ) );
   actionFullScreen->setObjectName ( QLatin1String ( "action_view_full_screen" ) );
-  actionFullScreen->setIcon ( icon.fromTheme ( QLatin1String ( "view-fullscreen" ) ) );
+  actionFullScreen->setIcon ( KIcon ( "view-fullscreen" ) );
   actionFullScreen->setShortcut ( Qt::Key_F11 );
   connect ( actionFullScreen, SIGNAL ( triggered () ), this, SLOT ( toggleWindowFullScreen() ) );
 
@@ -452,26 +451,26 @@ void Window::createMenus()
   // Action WebView Reload
   actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
-  actionPageReload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
+  actionPageReload->setIcon ( KIcon ( "view-refresh" ) );
   connect ( actionPageReload, SIGNAL ( triggered () ), m_webViewer, SLOT ( refresh () ) );
 
   // Action WebView Back
   actionPageBack = m_viewMenu->addAction ( trUtf8 ( "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
-  actionPageBack->setIcon ( icon.fromTheme ( QLatin1String ( "go-previous-view-page" ) ) );
+  actionPageBack->setIcon ( KIcon ( "go-previous-view-page" ) );
   connect ( actionPageBack, SIGNAL ( triggered () ), m_webViewer, SLOT ( back () ) );
 
   // Action WebView Forward
   actionPageForward = m_viewMenu->addAction ( trUtf8 ( "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
-  actionPageForward->setIcon ( icon.fromTheme ( QLatin1String ( "go-next-view-page" ) ) );
+  actionPageForward->setIcon ( KIcon ( "go-next-view-page" ) );
   connect ( actionPageForward, SIGNAL ( triggered () ), m_webViewer, SLOT ( forward () ) );
 
   // New Empty WebView
   actionNewEmptyPage = m_viewMenu->addAction ( trUtf8 ( "New Page" ) );
   actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
-  actionNewEmptyPage->setIcon ( icon.fromTheme ( QLatin1String ( "window-new" ) ) );
+  actionNewEmptyPage->setIcon ( KIcon ( "window-new" ) );
   connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addViewerTab () ) );
 
   // Autoreload Menu Aciotn
@@ -479,7 +478,7 @@ void Window::createMenus()
   m_viewMenu->addMenu ( m_autoReloadMenu );
 
   // Bookmark/History Menues
-  QIcon bookmarksIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) );
+  KIcon bookmarksIcon ( "bookmarks" );
   QMenu* m_bookmarkerMenu = m_menuBar->addMenu ( trUtf8 ( "Bookmarks" ) );
   m_menuBar->addMenu ( m_bookmarkerMenu );
 
@@ -502,7 +501,7 @@ void Window::createMenus()
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
 
   // Bookmark Manager Action
-  QIcon bookEditIcon ( icon.fromTheme ( QLatin1String ( "bookmarks-organize" ) ) );
+  QIcon bookEditIcon ( KIcon ( "bookmarks-organize" ) );
   QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, trUtf8 ( "Organize Bookmarks" ) );
   // NOTICE Qt::CTRL + Qt::Key_B ist von WebView Reserviert!
   editorAction->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_B );
@@ -512,13 +511,13 @@ void Window::createMenus()
   m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "S&ettings" ) );
   // Action Open qtidyrc
   actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
-  actionTidyConfig->setIcon ( icon.fromTheme ( QLatin1String ( "configure-toolbars" ) ) );
+  actionTidyConfig->setIcon ( KIcon ( "configure-toolbars" ) );
   connect ( actionTidyConfig, SIGNAL ( triggered() ),
             this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Configure" ) );
-  actionConfigDialog->setIcon ( icon.fromTheme ( QLatin1String ( "configure" ) ) );
+  actionConfigDialog->setIcon ( KIcon ( "configure" ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
   // Plugin Menu
@@ -526,12 +525,6 @@ void Window::createMenus()
 
   // Show Enable/Disable Toolbars Menu
   m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
-
-  QStringList items ( "<b>xhtmldbg</b>" );
-  items << i18n ( "A XHTML/HTML Debugger for K Desktop Environment Version 4," );
-  items << i18n ( "Copyright (C) 2007-2011 by Juergen Heinemann (Undefined)" );
-  items << i18n ( "Homepage http://xhtmldbg.hjcms.de" );
-  QString aboutText = items.join ( "<br />" );
 
   // Help and About Menu
   m_menuBar->addMenu ( customHelpMenu ( false ) );
@@ -779,7 +772,7 @@ void Window::paintEvent ( QPaintEvent *event )
 
 void Window::showAboutApplication()
 {
-  About* aboutDialog = new About( this );
+  About* aboutDialog = new About ( this );
   aboutDialog->open();
 }
 
@@ -944,7 +937,7 @@ void Window::openTidyConfigApplication()
 */
 void Window::openFileDialog()
 {
-  OpenFileDialog dialog (  m_settings->getRecentDirectory(), centralWidget() );
+  OpenFileDialog dialog ( m_settings->getRecentDirectory(), centralWidget() );
   if ( dialog.exec() == QDialog::Accepted )
   {
     if ( ! dialog.getFileUrl().isValid() )

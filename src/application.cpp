@@ -49,10 +49,10 @@ DownloadManager* Application::p_downloadManager = 0;
 DBManager* Application::p_dbManager = 0;
 
 Application::Application ()
-    : KApplication ( true )
+    : KUniqueApplication ( true, true )
     , m_server ( 0 )
 {
-  setObjectName ( "Application" );
+  setObjectName ( "application" );
   Q_INIT_RESOURCE ( xhtmldbg );
 }
 

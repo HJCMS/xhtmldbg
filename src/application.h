@@ -35,7 +35,7 @@
 #include <QtNetwork/QLocalSocket>
 
 /* KDE */
-#include <KDE/KApplication>
+#include <KDE/KUniqueApplication>
 
 class DownloadManager;
 class HistoryManager;
@@ -43,7 +43,7 @@ class NetworkCookie;
 class NetworkAccessManager;
 class DBManager;
 
-class Application : public KApplication
+class Application : public KUniqueApplication
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

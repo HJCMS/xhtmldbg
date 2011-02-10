@@ -32,7 +32,7 @@ AutoReloader::AutoReloader ( QObject * parent )
     , reloadInSeconds ( 0 )
     , incrementer ( 0 )
 {
-  setObjectName ( QLatin1String ( "autoreloader" ) );
+  setObjectName ( QLatin1String ( "AutoReloader" ) );
   m_timer = new QTimer ( this );
   // 1 Sekunde = 1000 Millisekunden (SI-Einheitensystem)
   m_timer->setInterval ( 1000 );

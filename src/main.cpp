@@ -31,6 +31,10 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTranslator>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+#include <QtDBus/QDBusConnectionInterface>
+
 /* KDE */
 #include <KDE/KAboutData>
 #include <KDE/KAboutPerson>
@@ -74,6 +78,7 @@ inline static void setPluginPaths()
 int main ( int argc, char *argv[] )
 {
   setPluginPaths();
+
   KLocalizedString maintainer = ki18n ( "Juergen Heinemann (Undefined)" );
   KAboutData about ( appsName(), appsName(), ki18n ( appsName() ),
                      QByteArray ( XHTMLDBG_VERSION_STRING ),

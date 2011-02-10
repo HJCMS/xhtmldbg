@@ -51,6 +51,7 @@
 #include <KDE/KMainWindow>
 #include <KDE/KMenuBar>
 #include <KDE/KMenu>
+#include <KDE/KTabWidget>
 
 /* XHTMLBG */
 #include "settings.h"
@@ -92,7 +93,6 @@ class Window : public KMainWindow
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
   private:
     Settings* m_settings;
@@ -149,7 +149,7 @@ class Window : public KMainWindow
     // Enable/Disable ToolBars etc.
     QMenu* m_viewBarsMenu;
     // Central Widget
-    QTabWidget* m_centralWidget;
+    KTabWidget* m_centralWidget;
     // Browser Widget
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
@@ -216,17 +216,17 @@ class Window : public KMainWindow
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE void setApplicationMessage ( const QString &, bool warning = false );
+    void setApplicationMessage ( const QString &, bool warning = false );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE bool setSource ( const QUrl &, const QString & );
+    bool setSource ( const QUrl &, const QString & );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE void checkStyleSheet ( const QUrl & );
+    void checkStyleSheet ( const QUrl & );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE bool openUrl ( const QUrl &, bool addtab = false );
+    bool openUrl ( const QUrl &, bool addtab = false );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE bool setPageUrl ( const QUrl &, const QUrl & );
+    bool setPageUrl ( const QUrl &, const QUrl & );
     // supported by DBus Adaptor and Service Interface
-    Q_SCRIPTABLE bool urlRequest ( const QUrl & );
+    bool urlRequest ( const QUrl & );
 
     void visibleSourceChanged();
     // used by QWebPage ...
