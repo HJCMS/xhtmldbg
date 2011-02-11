@@ -21,11 +21,11 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XMLPATTERNS_LIB)
+REMOVE_DEFINITIONS (-DQT_XMLPATTERNS_LIB)
 
-QT4_WRAP_CPP (selfhtmlsidebar_MOCS ${selfhtmlsidebar_HEADERS})
+KDE4_MOC_HEADERS (selfhtmlsidebar_MOCS ${selfhtmlsidebar_HEADERS})
 
-ADD_LIBRARY (${target_plugin} MODULE
+KDE4_ADD_LIBRARY (${target_plugin} MODULE
   ${selfhtmlsidebar_SOURCES}
   ${selfhtmlsidebar_RESOURCE}
   ${selfhtmlsidebar_MOCS}

@@ -82,11 +82,11 @@ class WebViewer : public QTabWidget
   public Q_SLOTS:
     void addViewerTab ( Viewer *, bool move = true );
     void addViewerTab ();
-    void closeViewerTab ( int );
-    void keywords ( const QStringList & );
-    void refresh ();
-    void back ();
-    void forward ();
+    Q_SCRIPTABLE void closeViewerTab ( int );
+    Q_SCRIPTABLE void keywords ( const QStringList & );
+    Q_SCRIPTABLE void refresh ();
+    Q_SCRIPTABLE void back ();
+    Q_SCRIPTABLE void forward ();
     void setUrl ( const QUrl & );
     void setWebFocus();
     void zoomFactor ( int );
@@ -100,7 +100,7 @@ class WebViewer : public QTabWidget
     const QUrl getUrl ();
     const QList<QUrl> getPageUrls();
     const QString blank();
-    void setAboutPage ( const QString & );
+    Q_SCRIPTABLE void setAboutPage ( const QString & );
     virtual ~WebViewer();
 };
 

@@ -67,7 +67,7 @@ class ColorPicker : public QDockWidget
     void recording ( bool );
 
   public Q_SLOTS:
-    void tapping ( bool );
+    Q_SCRIPTABLE void tapping ( bool );
 
   public:
     ColorPicker ( QWidget * parent = 0 );

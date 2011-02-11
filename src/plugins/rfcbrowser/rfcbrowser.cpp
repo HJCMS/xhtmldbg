@@ -99,6 +99,10 @@ RFCBrowser::RFCBrowser ( QObject * parent )
   box->setCenterButtons ( true );
   vLayout->addWidget ( box );
 
+  // D-Bus Registrierung
+  QDBusConnection::sessionBus().registerObject ( "/Plugin/RFCBrowser", this,
+          QDBusConnection::ExportScriptableContents );
+
   connect ( rfcselecter, SIGNAL ( currentIndexChanged ( int ) ),
             this, SLOT ( currentIndexChanged ( int ) ) );
   connect ( search, SIGNAL ( textChanged ( const QString & ) ),

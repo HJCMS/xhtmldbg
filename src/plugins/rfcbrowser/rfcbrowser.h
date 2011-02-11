@@ -32,6 +32,9 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QTextEdit>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 class SelecterModel;
 
 class Q_DECL_EXPORT RFCBrowser : public QObject
@@ -55,8 +58,8 @@ class Q_DECL_EXPORT RFCBrowser : public QObject
 
   public:
     RFCBrowser ( QObject * parent = 0 );
-    void open();
-    ~RFCBrowser();
+    Q_SCRIPTABLE void open();
+    virtual ~RFCBrowser();
 };
 
 #endif

@@ -49,7 +49,8 @@ DownloadManager* Application::p_downloadManager = 0;
 DBManager* Application::p_dbManager = 0;
 
 Application::Application ()
-    : KUniqueApplication ( true, true )
+    : KApplication ( true )
+//     : KUniqueApplication ( true, true )
     , m_server ( 0 )
 {
   setObjectName ( "application" );

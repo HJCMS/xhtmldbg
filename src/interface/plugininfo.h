@@ -68,8 +68,8 @@ namespace xhtmldbg
     public:
       enum PluginType
       {
-        PopUp, /**< \short this Plugin is a Popup (QDialog QMessageBox etc.) */
-        Dock   /**< \short this Plugin is a QDockWidget */
+        PopUp = 0, /**< \short this Plugin is a Popup (QDialog QMessageBox etc.) */
+        Dock = 1   /**< \short this Plugin is a QDockWidget */
       };
 
     private:

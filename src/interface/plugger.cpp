@@ -93,6 +93,7 @@ namespace xhtmldbg
         QFileInfo info ( p );
         if ( QLibrary::isLibrary ( p ) && ! unique.contains ( info.baseName() ) )
         {
+          // qDebug() << Q_FUNC_INFO << "Found:" << path << info.baseName();
           unique << info.baseName();
           plugins << QString ( "%1%2%3" ).arg ( p_dir.path(), p_dir.separator(), p );
         }
@@ -123,15 +124,15 @@ namespace xhtmldbg
       xhtmldbg::PluginInfo::PluginType type )
   {
     // TODO pluginsByType
-    QList<xhtmldbg::Interface*> list;
+    QList<Interface*> list;
     foreach ( QString file, findPlugins() )
     {
       QPluginLoader loader ( file, this );
       QObject* plug = loader.instance();
       if ( plug )
       {
-        xhtmldbg::Interface* m_interface = qobject_cast<xhtmldbg::Interface*> ( plug );
-        if ( m_interface && m_interface->type() == type && m_interface->create ( parent ) )
+        Interface* m_interface = static_cast<Interface*> ( plug );
+        if ( m_interface && ( m_interface->type() == type ) && m_interface->create ( parent ) )
           list << m_interface;
       }
       else

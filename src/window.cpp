@@ -686,7 +686,6 @@ bool Window::registerPlugins()
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
     {
-      // qDebug() << Q_FUNC_INFO << info->getName();
       plugins.push_back ( plug );
       QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
       ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
@@ -701,7 +700,6 @@ bool Window::registerPlugins()
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
     if ( info )
     {
-      // qDebug() << Q_FUNC_INFO << info->getName();
       plugins.push_back ( plug );
       addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
       m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );

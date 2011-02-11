@@ -38,12 +38,17 @@
 #include <QtGui/QSpacerItem>
 #include <QtGui/QVBoxLayout>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 ColorPicker::ColorPicker ( QWidget * parent )
     : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "colorpicker" ) );
   setWindowTitle ( trUtf8 ( "Colors" ) );
   setMouseTracking ( true ); // wird für grabMouse benötigt
+
+  QDBusConnection dbus = QDBusConnection::sessionBus();
 
   QWidget* layer = new QWidget ( this );
   layer->setObjectName ( QLatin1String ( "colorpicker.layer" ) );
@@ -111,6 +116,9 @@ ColorPicker::ColorPicker ( QWidget * parent )
   // Layout abschliessen
   layer->setLayout ( verticalLayout );
   setWidget ( layer );
+
+  // D-Bus Registrierung
+  dbus.registerObject ( "/Extension/ColorPicker", this, QDBusConnection::ExportScriptableContents );
 
   connect ( m_colorComboBox, SIGNAL ( currentIndexChanged ( int ) ),
             this, SLOT ( colorMapChanged ( int ) ) );

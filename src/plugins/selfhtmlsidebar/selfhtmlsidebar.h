@@ -57,6 +57,7 @@ class Q_DECL_EXPORT SelfHtmlSidebar : public QDockWidget
     QLabel* m_titleLabel;
     QLabel* m_urlLabel;
     void openConfigDialog ();
+    void gotoKeyword ( const QString & );
 
   private Q_SLOTS:
     void openIndex ();

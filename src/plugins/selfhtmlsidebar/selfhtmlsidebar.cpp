@@ -24,15 +24,20 @@
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QRegExp>
+#include <QtCore/QRect>
 #include <QtCore/QStringList>
 #include <QtCore/QMargins>
 
 /* QtGui */
+#include <QtGui/QCursor>
 #include <QtGui/QDialog>
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QSizePolicy>
+#include <QtGui/QTextBrowser>
+#include <QtGui/QTextCursor>
+#include <QtGui/QTextDocument>
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
@@ -42,16 +47,18 @@
 #include <QtDBus/QDBusInterface>
 
 /* QtWebKit */
+#include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebSettings>
 
 SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
     : QDockWidget ( parent )
     , service ( "de.hjcms.xhtmldbg" )
-    , p_dbus ( QDBusConnection::connectToBus ( QDBusConnection::SessionBus, "de.hjcms.xhtmldbg" ) )
+    , p_dbus ( QDBusConnection::sessionBus() )
     , cfg ( new QSettings ( QSettings::NativeFormat, QSettings::UserScope, "hjcms.de", "xhtmldbg", this ) )
 {
-  setObjectName ( QLatin1String ( "selfhtmlsidebar" ) );
-  setWindowTitle ( QLatin1String ( "SELFTHML" ) );
+  setObjectName ( QLatin1String ( "SelfHtmlSidebar" ) );
+  setWindowTitle ( QLatin1String ( "SELFHTML" ) );
 
   QWidget* layer = new QWidget ( this );
   layer->setContentsMargins ( 1, 2, 1, 2 );
@@ -73,7 +80,7 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   vLayout->addWidget ( m_titleLabel );
 
   m_webView = new QWebView ( layer );
-  m_webView->setObjectName ( QLatin1String ( "slelfhtmlviewer" ) );
+  m_webView->setObjectName ( QLatin1String ( "Viewer" ) );
   m_webView->setSizePolicy ( policy );
   vLayout->addWidget ( m_webView );
 
@@ -90,6 +97,7 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 
   m_webView->page()->setLinkDelegationPolicy ( QWebPage::DelegateExternalLinks );
   m_webView->page()->setForwardUnsupportedContent ( false );
+
   openIndex();
 
   QHBoxLayout* hLayout = new QHBoxLayout;
@@ -107,13 +115,14 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
   hLayout->addStretch ( 1 );
 
   QToolButton* startPage = new QToolButton ( layer );
-  startPage->setObjectName ( QLatin1String ( "startpagebutton" ) );
+  startPage->setObjectName ( QLatin1String ( "Index" ) );
   startPage->setStatusTip ( trUtf8 ( "Index" ) );
   startPage->setToolTip ( trUtf8 ( "Index" ) );
   startPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "user-home" ) ) );
   hLayout->addWidget ( startPage );
 
   searchLine = new QLineEdit ( layer );
+  searchLine->setObjectName ( QLatin1String ( "Search" ) );
   hLayout->addWidget ( searchLine );
 
   QToolButton* searchButton = new QToolButton ( layer );
@@ -137,12 +146,21 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 
   connect ( m_webView, SIGNAL ( titleChanged ( const QString & ) ),
             m_titleLabel, SLOT ( setText ( const QString & ) ) );
+
   connect ( m_webView, SIGNAL ( linkClicked ( const QUrl & ) ),
             this, SLOT ( openLinkClicked ( const QUrl & ) ) );
+
   connect ( searchLine, SIGNAL ( returnPressed () ), this, SLOT ( findKeyword () ) );
   connect ( searchButton, SIGNAL ( clicked () ), this, SLOT ( findKeyword () ) );
   connect ( startPage, SIGNAL ( clicked () ), this, SLOT ( openIndex () ) );
   connect ( configPage, SIGNAL ( clicked () ), this, SLOT ( openConfig () ) );
+
+  // D-Bus Registrierung
+  if ( p_dbus.registerObject ( "/Plugin/SelfHtml", this, QDBusConnection::ExportAllSignals ) )
+  {
+    p_dbus.registerObject ( "/Plugin/SelfHtml/Viewer", m_webView, QDBusConnection::ExportAllSlots );
+    p_dbus.registerObject ( "/Plugin/SelfHtml/Search", searchLine, QDBusConnection::ExportAllSlots );
+  }
 }
 
 /**
@@ -187,6 +205,30 @@ void SelfHtmlSidebar::openConfigDialog ()
     cfg->setValue ( QLatin1String ( "Plugins/SelfHtmlSidebarUrl" ), setUrl->text() );
 
   delete dialog;
+}
+
+/**
+* Wenn nicht sichtbar - gehe zu gefundenen Element!
+*/
+void SelfHtmlSidebar::gotoKeyword ( const QString &w )
+{
+  QWebElement body = m_webView->page()->currentFrame()->findFirstElement ( "BODY" );
+  foreach ( QWebElement we, body.findAll ( "CODE" ) )
+  {
+    if ( we.toPlainText().contains ( w ) )
+    {
+      QRect elementRect = we.geometry();
+      if ( elementRect.isValid() && we.webFrame() )
+      {
+        QWebFrame* currentFrame = we.webFrame();
+        QRect topRect = currentFrame->geometry();
+        topRect.setTop ( currentFrame->scrollPosition().y() );
+        if ( ! topRect.contains ( elementRect ) )
+          currentFrame->setScrollPosition ( elementRect.topLeft() );
+      }
+      break;
+    }
+  }
 }
 
 /**
@@ -245,15 +287,13 @@ void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
 */
 void SelfHtmlSidebar::findKeyword ( const QString &word )
 {
-  QString words = ( word.isEmpty() ) ? searchLine->text() : word;
-  if ( words.isEmpty() )
+  QString w = ( word.isEmpty() ) ? searchLine->text() : word;
+  if ( w.isEmpty() )
     return;
 
-  m_webView->findText ( QString(), QWebPage::HighlightAllOccurrences );
-  if ( m_webView->findText ( words, QWebPage::HighlightAllOccurrences ) )
-  {
-    // TODO Scroll to Keywords
-  }
+  m_webView->findText ( QLatin1String ( "" ), QWebPage::FindBackward );
+  if ( m_webView->findText ( w, QWebPage::HighlightAllOccurrences ) )
+    gotoKeyword ( w );
 }
 
 /**

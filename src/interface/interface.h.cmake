@@ -47,13 +47,13 @@ namespace xhtmldbg
   * \class Interface
   * \short xhtmldbg Plugin Interface Class.
   */
-  class Q_DECL_EXPORT Interface : virtual public QObject
+  class Q_DECL_EXPORT Interface : public QObject
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )
       Q_CLASSINFO ( "Version", "@XHTMLDBG_VERSION@" )
       Q_CLASSINFO ( "Url", "http://xhtmldbg.hjcms.de" )
-      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface/@XHTMLDBG_VERSION@" )
+      Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface" )
 
     public Q_SLOTS:
       /** This SLOT ist Used from triggered Action by MenuBar */
@@ -95,6 +95,6 @@ namespace xhtmldbg
 
 } /* eof namespace xhtmldbg */
 
-Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface/@XHTMLDBG_VERSION@" )
+Q_DECLARE_INTERFACE ( xhtmldbg::Interface, "de.hjcms.xhtmldbg.interface" )
 
 #endif
