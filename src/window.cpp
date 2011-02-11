@@ -1008,6 +1008,7 @@ bool Window::openUrl ( const QUrl &url, bool addtab )
 */
 bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
 {
+  // qDebug() << Q_FUNC_INFO << oldUrl << newUrl;
   if ( ! oldUrl.isValid() || ! newUrl.isValid() )
     return false;
 

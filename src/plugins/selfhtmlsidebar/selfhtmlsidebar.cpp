@@ -266,13 +266,15 @@ void SelfHtmlSidebar::openLinkClicked ( const QUrl &url )
   {
     QList<QVariant> args;
     args << lastChanged.toString() << stripped.toString();
-    QDBusMessage meth = QDBusMessage::createMethodCall ( service, "/xhtmldbg", service, "setUrl" );
+    QDBusMessage meth = QDBusMessage::createMethodCall ( p_dbus.baseService(), "/xhtmldbg/Window",
+                                                         service, "setUrl" );
     meth.setArguments ( args );
     if ( p_dbus.send ( meth ) )
     {
       p_dbus.disconnectFromBus ( service );
       lastChanged = url;
     }
+    // qDebug() << p_dbus.lastError().message();
   }
   else // fehler ausgeben und lokal verarbeiten
   {

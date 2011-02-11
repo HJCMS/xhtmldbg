@@ -28,7 +28,6 @@
 
 /* QtDBus */
 #include <QtDBus/QDBusAbstractAdaptor>
-#include <QtDBus/QDBusConnection>
 
 class XHtmldbgAdaptor : public QDBusAbstractAdaptor
 {

@@ -28,6 +28,9 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QUrl>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject * parent )
     : QDBusAbstractAdaptor ( parent )
     , service ( "de.hjcms.xhtmldbg" )

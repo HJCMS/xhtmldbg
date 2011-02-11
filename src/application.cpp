@@ -48,9 +48,9 @@ NetworkAccessManager* Application::p_networkAccessManager = 0;
 DownloadManager* Application::p_downloadManager = 0;
 DBManager* Application::p_dbManager = 0;
 
+// KUniqueApplication ( true, true )
 Application::Application ()
     : KApplication ( true )
-//     : KUniqueApplication ( true, true )
     , m_server ( 0 )
 {
   setObjectName ( "application" );

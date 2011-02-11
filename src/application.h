@@ -44,6 +44,7 @@ class NetworkCookie;
 class NetworkAccessManager;
 class DBManager;
 
+// KUniqueApplication
 class Application : public KApplication
 {
     Q_OBJECT
