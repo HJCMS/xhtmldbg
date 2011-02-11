@@ -466,12 +466,12 @@ Do you realy wan to exit?</source>
 <context>
     <name>ColorPicker</name>
     <message>
-        <location filename="../src/colorpicker/colorpicker.cpp" line="+45"/>
+        <location filename="../src/colorpicker/colorpicker.cpp" line="+48"/>
         <source>Colors</source>
         <translation>Farben</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+14"/>
         <source>Web Colors</source>
         <translation>Web Farben</translation>
     </message>
@@ -2101,29 +2101,9 @@ Gründe : </translation>
 <context>
     <name>OpenFileDialog</name>
     <message>
-        <location filename="../src/dialogs/openfiledialog.cpp" line="+37"/>
+        <location filename="../src/dialogs/openfiledialog.cpp" line="+41"/>
         <source>Open HTML File</source>
         <translation>Öffne HTML Datei</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>HTML Document %1</source>
-        <translation>HTML Dokument %1</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Markup Document %1</source>
-        <translation>Hypertext Dokument %1</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Text Document %1</source>
-        <translation>Text Dokument %1</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Unsupported Document Formats %1</source>
-        <translation>Nicht Unterstützes Dokumenten Format %1</translation>
     </message>
 </context>
 <context>
@@ -2137,7 +2117,7 @@ Gründe : </translation>
 <context>
     <name>Page</name>
     <message>
-        <location filename="../src/page.cpp" line="+108"/>
+        <location filename="../src/page.cpp" line="+111"/>
         <source> Line: %1</source>
         <translation> Zeile: %1</translation>
     </message>
@@ -2304,7 +2284,7 @@ Gründe : </translation>
 <context>
     <name>SelfHtmlSidebar</name>
     <message>
-        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="+111"/>
+        <location filename="../src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp" line="+119"/>
         <location line="+1"/>
         <source>Index</source>
         <translation>Startseite</translation>
@@ -2316,7 +2296,7 @@ Gründe : </translation>
         <translation>Konfiguriere die Startseite</translation>
     </message>
     <message>
-        <location line="+70"/>
+        <location line="+80"/>
         <source>Configure the SELFHTML Index HTML</source>
         <translation>Konfiguriere die SELFHTML Startseite</translation>
     </message>
@@ -2628,7 +2608,7 @@ Gründe : </translation>
 <context>
     <name>Viewer</name>
     <message>
-        <location filename="../src/viewer.cpp" line="+250"/>
+        <location filename="../src/viewer.cpp" line="+251"/>
         <source>Bookmark</source>
         <translation>Lesezeichen</translation>
     </message>
@@ -2725,7 +2705,7 @@ Gründe : </translation>
 <context>
     <name>WebViewer</name>
     <message>
-        <location filename="../src/webviewer.cpp" line="+75"/>
+        <location filename="../src/webviewer.cpp" line="+82"/>
         <source>New Page</source>
         <translation>Neue Seite</translation>
     </message>
@@ -2748,7 +2728,7 @@ Gründe : </translation>
 <context>
     <name>Window</name>
     <message>
-        <location filename="../src/window.cpp" line="+148"/>
+        <location filename="../src/window.cpp" line="+152"/>
         <source>Browser</source>
         <translation></translation>
     </message>
@@ -2758,7 +2738,7 @@ Gründe : </translation>
         <translation>Quelltext</translation>
     </message>
     <message>
-        <location line="+217"/>
+        <location line="+212"/>
         <source>Open Url</source>
         <translation>Öffne Url</translation>
     </message>
@@ -2874,7 +2854,7 @@ Gründe : </translation>
     </message>
     <message>
         <location line="+11"/>
-        <location line="+95"/>
+        <location line="+89"/>
         <source>Extensions</source>
         <translation>Erweiterungen</translation>
     </message>
@@ -2884,7 +2864,7 @@ Gründe : </translation>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location line="+444"/>
+        <location line="+441"/>
         <source>Invalid Url Rejected, required scheme is &quot;%1&quot;.</source>
         <translation>Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist &quot;%1&quot;.</translation>
     </message>
@@ -2906,7 +2886,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
     <message>
-        <location line="-547"/>
+        <location line="-538"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
@@ -2936,7 +2916,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Konfigurieren</translation>
     </message>
     <message>
-        <location line="+26"/>
+        <location line="+20"/>
         <source>Actions</source>
         <translation>Aktionen</translation>
     </message>
@@ -2956,7 +2936,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Kontrolleure</translation>
     </message>
     <message>
-        <location line="+270"/>
+        <location line="+268"/>
         <source>Check StyleSheet for %1</source>
         <translation>Prüfe den Stylesheet für %1</translation>
     </message>
@@ -2964,7 +2944,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
 <context>
     <name>XHtmldbgAdaptor</name>
     <message>
-        <location filename="../src/xhtmldbgadaptor.cpp" line="+96"/>
+        <location filename="../src/xhtmldbgadaptor.cpp" line="+74"/>
         <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
         <translation>(XHTMLDBG) FTP Anfrage &quot;%1&quot; Zurückgewiesen!</translation>
     </message>
@@ -3120,7 +3100,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
 <context>
     <name>xhtmldbgmain</name>
     <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="+204"/>
+        <location filename="../src/xhtmldbgmain.cpp" line="+209"/>
         <source>Usage</source>
         <translation>Verwende</translation>
     </message>
