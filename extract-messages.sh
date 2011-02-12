@@ -39,6 +39,7 @@ pushd ${base}
     msgmerge -o $c.new $c po/${PROJECT}.pot
     mv -b $c.new $c
   done
+
 popd
 
 echo "Done ..."
