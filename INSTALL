@@ -89,7 +89,7 @@ INSTALL_TREE:
     |       |-- interface.h
     |       |-- plugger.h
     |       |-- plugininfo.h
-    |       `-- wbusinterface.h
+    |       `-- wininterface.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
     |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.12
@@ -98,7 +98,6 @@ INSTALL_TREE:
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
     |       |-- browser
-    |       |-- browser-plugins
     |       |-- designer
     |       |   `-- libXQPluginWidgets.so
     |       |-- libRFCBrowser.so
@@ -149,17 +148,13 @@ INSTALL_TREE:
         |       `-- scalable
         |           `-- apps
         |               `-- xhtmldbg.svgz
-        |-- locale
-        |   `-- de
-        |       `-- LC_MESSAGES
-        |           |-- xhtmldbg.mo
-        |           `-- xhtmldbgwidgets.mo
+        |-- kde4
+        |   `-- locale
+        |       `-- de
+        |           `-- LC_MESSAGES
+        |               `-- xhtmldbg.mo
         |-- pixmaps
         |   `-- xhtmldbg.xpm
-        |-- qt
-        |   `-- translations
-        |       |-- xhtmldbg_de.qm
-        |       `-- xhtmldbgwidgets_de.qm
         `-- xhtmldbg
             |-- AUTHORS
             |-- COPYING
@@ -193,7 +188,6 @@ INSTALL_TREE:
             |   |-- xml.xsd
             |   |-- xsd.xsl
             |   `-- xslt10.dtd
-            |-- xhtmldbg_untranslated.ts
-            `-- xhtmldbgwidgets_untranslated.ts
+            `-- xhtmldbg.pot
 
-56 directories, 71 files
+54 directories, 67 files
