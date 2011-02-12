@@ -20,6 +20,9 @@ pushd ${base}
   echo "Preparing build files"
   find ../../../build/src/components/xqpluginwidgets -name 'moc*.cpp' -o -name 'ui*.h' -o -name '*.cxx' | sort > ${TEMPFILE}
 
+  echo "Preparing uic rc files"
+  test -x "$EXTRACTRC" && $EXTRACTRC `find . -o -name "*.ui"` >> rc.cpp
+
   echo "Preparing src files"
   find . -name '*.cpp' -o -name '*.h' | sort >> ${TEMPFILE}
 
@@ -31,6 +34,7 @@ pushd ${base}
       echo "error while calling xgettext. aborting.";
       exit 1;
   }
+  rm -f rc.cpp
 
   echo "Merging translations"
   catalogs=`find . -name '*.po'`

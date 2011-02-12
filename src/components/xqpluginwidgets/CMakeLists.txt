@@ -1,8 +1,6 @@
 # CMakeLists.txt
 ## x-qt-plugin Support required
 
-ADD_SUBDIRECTORY (po)
-
 SET (subproject "XQPluginWidgets")
 
 SET (LIBRARY_OUTPUT_PATH
@@ -108,5 +106,9 @@ INSTALL (FILES
   ${subproject_NOMOC_HEADERS}
   DESTINATION include/xhtmldbg-1.0/designer
 )
+
+IF(GETTEXT_FOUND)
+  ADD_SUBDIRECTORY (po)
+ENDIF(GETTEXT_FOUND)
 
 ## EOF

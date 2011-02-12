@@ -7,7 +7,7 @@ for i in `find . -type d` ; do
     ;;
     *)
       $EXTRACTRC `find ${i} -name "*.ui"` >> ${i}/rc.cpp || exit 11
-      $XGETTEXT `find ${i} -name "*.cpp"` -o $podir/xhtmldbg.pot
+      $XGETTEXT `find ${i} -name "*.cpp"` -o ../po/xhtmldbg.pot
       rm -f ${i}/rc.cpp
     ;;
   esac

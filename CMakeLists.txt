@@ -289,7 +289,9 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
 ##############################################################
 ADD_SUBDIRECTORY (src)
 ADD_SUBDIRECTORY (data)
-ADD_SUBDIRECTORY (po)
+IF(GETTEXT_MSGFMT_EXECUTABLE)
+  ADD_SUBDIRECTORY (po)
+ENDIF(GETTEXT_MSGFMT_EXECUTABLE)
 
 ##############################################################
 ## LGPLv2+/GPLv3 Exceptions
