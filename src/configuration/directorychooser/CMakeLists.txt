@@ -10,7 +10,7 @@ SET (subproject_HEADERS
   directorydialog.h
 )
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
 
 KDE4_MOC_HEADERS (subproject_MOC ${subproject_HEADERS})
 

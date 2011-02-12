@@ -19,27 +19,25 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#include "formmanager.h"
 
 /* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QDebug>
 
 /* QtGui */
-#include <QtGui/QWidget>
+// #include <QtGui/QVBoxLayout>
 
-/* KDE */
-#include <KDE/KAboutApplicationDialog>
+/* QtDBus */
+// #include <QtDBus>
 
-class About : public KAboutApplicationDialog
+/* QtNetwork */
+// #include <QtNetwork>
+
+FormManager::FormManager ( QObject * parent )
+    : QObject ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  setObjectName ( QLatin1String ( "FormManager" ) );
+}
 
-  public:
-    About ( QWidget * parent = 0 );
-    virtual ~About();
-};
-
-#endif
+FormManager::~FormManager()
+{}

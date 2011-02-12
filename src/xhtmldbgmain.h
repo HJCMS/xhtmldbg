@@ -57,10 +57,9 @@ class xhtmldbgmain : public Application
     void sMessageReceived ( QLocalSocket* socket );
 
   public:
-    xhtmldbgmain ( int &argc, char **argv );
+    xhtmldbgmain ( int &argc, char **argv, bool failsafe = false );
     static xhtmldbgmain* instance();
     Window* mainWindow();
-    void printOptionsHelp() const;
     virtual ~xhtmldbgmain();
 
   public Q_SLOTS:

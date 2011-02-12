@@ -39,31 +39,15 @@
 #include <KDE/KAboutData>
 #include <KDE/KAboutPerson>
 #include <KDE/KCmdLineArgs>
+#include <KDE/KCmdLineOptions>
 #include <KDE/KGlobal>
 #include <KDE/KLocale>
 
 #ifndef XHTMLDBG_VERSION_STRING
 # include "version.h"
 #endif
+#include "aboutdata.h"
 #include "xhtmldbgmain.h"
-
-inline static const QByteArray aboutMail()
-{
-  QByteArray m ( "nospam" );
-  m.append ( "@" );
-  m.append ( "hjcms.de" );
-  return m;
-}
-
-inline static const QByteArray homePage()
-{
-  return QByteArray ( "http://xhtmldbg.hjcms.de" );
-}
-
-inline static const QByteArray appsName()
-{
-  return QByteArray ( XHTMLDBG_APPS_NAME );
-}
 
 inline static void setPluginPaths()
 {
@@ -79,23 +63,20 @@ int main ( int argc, char *argv[] )
 {
   setPluginPaths();
 
-  KLocalizedString maintainer = ki18n ( "Juergen Heinemann (Undefined)" );
-  KAboutData about ( appsName(), appsName(), ki18n ( appsName() ),
-                     QByteArray ( XHTMLDBG_VERSION_STRING ),
-                     ki18n ( "A XHTML/HTML Debugger" ),
-                     KAboutData::License_LGPL_V3,
-                     ki18n ( "Copyright (C) 2007-2011, Juergen Heinemann (Undefined)" ),
-                     ki18n ( "XHTML/HTML Debugger for KDEv4" ),
-                     homePage(), aboutMail() );
+  AboutData about;
 
-  about.setOrganizationDomain ( XHTMLDBG_DOMAIN );
-  about.setProgramIconName ( appsName() );
-  about.setProductName ( appsName() );
-  about.setVersion ( QByteArray ( XHTMLDBG_VERSION_STRING ) );
-  about.addAuthor ( maintainer, ki18n ( "developer" ), aboutMail(), homePage(), QByteArray ( "undefined" ) );
-  about.setTranslator ( maintainer, ki18n ( aboutMail() ) );
+  // Initialize command line args
   KCmdLineArgs::init ( argc, argv, &about );
 
+  // Define the command line options
+  KCmdLineOptions options;
+  options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ) );
+  options.add ( "f" ).add ( "failsafe", ki18n ( "Disable Plugins and loading the Default Url" ) );
+
+  // Register the supported options
+  KCmdLineArgs::addCmdLineOptions ( options );
+
+  // start application
   xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
@@ -111,14 +92,7 @@ int main ( int argc, char *argv[] )
   }
   app.installTranslator ( &translator );
 
-  KGlobal::locale()->insertCatalog ( appsName() );
-
-  if ( app.arguments().contains ( QLatin1String ( "--help" ) )
-          || app.arguments().contains ( QLatin1String ( "-h" ) ) )
-  {
-    app.printOptionsHelp();
-    return EXIT_SUCCESS;
-  }
+  KGlobal::locale()->insertCatalog (XHTMLDBG_APPS_NAME );
 
   app.newMainWindow();
   return app.exec();

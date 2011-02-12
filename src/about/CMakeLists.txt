@@ -1,37 +1,32 @@
 # CMakeLists.txt
 
-SET (about_UIS
-  aboutdialog.ui
-)
-
 SET (about_SOURCES
   about.cpp
+  aboutdata.cpp
 )
 
 SET (about_HEADERS
   about.h
 )
 
-KDE4_ADD_UI_FILES (about_UIC ${about_UIS})
+SET (about_NOMOC_HEADERS
+  aboutdata.h
+)
 
 KDE4_MOC_HEADERS (about_MOC ${about_HEADERS})
-
-QT4_ADD_RESOURCES (about_QRC about.qrc)
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}
+  ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
 KDE4_ADD_LIBRARY (About STATIC
   ${about_MOC}
-  ${about_UIC}
-  ${about_QRC}
   ${about_HEADERS}
+  ${about_NOMOC_HEADERS}
   ${about_SOURCES}
 )
-
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
 
 SET_TARGET_PROPERTIES (About PROPERTIES
   LINKER_LANGUAGE CXX
@@ -41,6 +36,7 @@ SET_TARGET_PROPERTIES (About PROPERTIES
 TARGET_LINK_LIBRARIES (About
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
+  ${XHTMLDBG_KDE_LIBRARIES}
 )
 
 ## EOF

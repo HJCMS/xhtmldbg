@@ -50,7 +50,7 @@ DBManager* Application::p_dbManager = 0;
 
 // KUniqueApplication ( true, true )
 Application::Application ()
-    : KUniqueApplication ( true, true )
+    : KApplication ( true )
     , m_server ( 0 )
 {
   setObjectName ( "application" );

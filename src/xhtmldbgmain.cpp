@@ -43,7 +43,7 @@
 #include <QtCore/QUrl>
 
 /* construct */
-xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
+xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
     : Application ()
     , activeWindow ( 0 )
 {
@@ -56,7 +56,7 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv )
   // Settings
   m_settings = new Settings ( this );
 
-  if ( ( argc > 1 ) && arguments().contains ( QLatin1String ( "--savemode" ), Qt::CaseInsensitive ) )
+  if ( failsafe )
     m_settings->setSaveMode();
 
   m_settings->setDataPaths();
@@ -198,20 +198,6 @@ Window* xhtmldbgmain::mainWindow()
   }
 
   return activeWindow;
-}
-
-/**
-* Komandozeilen Hilfe ausdrucken!
-*/
-void xhtmldbgmain::printOptionsHelp() const
-{
-  QStringList txt;
-  txt << QString::fromUtf8 ( " %1: xhtmldbg {--savemode} <url>" ).arg ( trUtf8 ( "Usage" ) );
-  txt << QString::fromUtf8 ( "  --savemode\t(%1)" ).arg ( trUtf8 ( "Disable Plugins and loading the Default Url" ) );
-  txt << trUtf8 ( " Examples:" );
-  txt << QString::fromUtf8 ( "  xhtmldbg http://www.hjcms.de" );
-  txt << QString::fromUtf8 ( "  xhtmldbg --savemode" );
-  qDebug ( "%s", qPrintable ( txt.join ( "\n" ) ) );
 }
 
 /**

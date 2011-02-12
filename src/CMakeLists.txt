@@ -26,6 +26,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
   ${CMAKE_CURRENT_SOURCE_DIR}/rdfparser
+  ${CMAKE_CURRENT_SOURCE_DIR}/formmanager
   ${XHTMLDBG_INCLUDES}
 )
 
@@ -50,6 +51,7 @@ ADD_SUBDIRECTORY (dominspector)
 ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
+ADD_SUBDIRECTORY (formmanager)
 ##############################
 ## Interfaces
 ##############################
@@ -213,6 +215,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Networker
   DownloadManager
   RDFParser
+  FormManager
   ${OPTIONAL_LIBRARIES}
   ${XHTMLDBG_LIBRARIES}
 )

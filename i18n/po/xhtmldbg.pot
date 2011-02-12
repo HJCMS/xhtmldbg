@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-11 13:02+0200\n"
+"POT-Creation-Date: 2011-02-12 08:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,6 +10,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Translate Toolkit 1.8.0\n"
+
+#: AboutData#1
+msgid "developer"
+msgstr ""
+
+#: AboutData#2
+msgid "Juergen Heinemann (Undefined)"
+msgstr ""
+
+#: AboutData#3
+msgid "Copyright (C) 2007-2011, Juergen Heinemann (Undefined)"
+msgstr ""
+
+#: AboutData#4
+msgid "A XHTML/HTML Debugger and CSS Validator for Webdevelopers"
+msgstr ""
+
+#: AboutData#5
+msgid ""
+"<div><p><strong>„xhtmldbg“ is a XHTML/HTML Debugger for Website "
+"Developers.</strong></p><p>This software provides you with the facility to "
+"check and analyze web page content directly.</p><p>All these are good "
+"starting points for targeted xhtml development debugging.</p><div><ul><li>to "
+"watch HTTP headers,</li><li>to watch _POST variables when send html "
+"forms,</li><li>css stylesheet watching,</li><li>dom inspector for better "
+"documents structure watching,</li><li>to indicate css stylesheet "
+"attributes,</li><li>to indicate current used cookies,</li><li>to watch "
+"javascript errors,</li><li>auto reload function up to 60 "
+"seconds,</li><li>analyzing <acronym title=\"Search Engine "
+"Optimisation\">SEO</acronym> keywords,</li><li>quickly HTTP_USER_AGENT "
+"switching,</li><li>strict RFC 2109 (HTTP State Management Mechanism) "
+"validation for Cookies,</li><li>validate ATOM/RSS/RDF Documents,</li><li>of "
+"course, this requires to validate and check the "
+"source.</li></ul></div></div>"
+msgstr ""
 
 #: AddressToolBar#1
 msgid "Address"
@@ -1665,24 +1700,6 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: OpenFileDialog#2
-msgid "HTML Document %1"
-msgstr ""
-
-#: OpenFileDialog#3
-msgctxt "OpenFileDialog#3"
-msgid "Markup Document %1"
-msgstr ""
-
-#: OpenFileDialog#4
-msgctxt "OpenFileDialog#4"
-msgid "Text Document %1"
-msgstr ""
-
-#: OpenFileDialog#5
-msgid "Unsupported Document Formats %1"
-msgstr ""
-
 #: OpenUrlDialog#1
 msgctxt "OpenUrlDialog#1"
 msgid "Open Url"
@@ -1859,12 +1876,10 @@ msgid "Congratulations! No Error Found. (%1)"
 msgstr ""
 
 #: SourceView#1
-msgctxt "SourceView#1"
 msgid "Markup Document %1"
 msgstr ""
 
 #: SourceView#2
-msgctxt "SourceView#2"
 msgid "Text Document %1"
 msgstr ""
 
@@ -2420,16 +2435,4 @@ msgstr ""
 #: ZoomBar#5
 msgctxt "ZoomBar#5"
 msgid "Original"
-msgstr ""
-
-#: xhtmldbgmain#1
-msgid "Usage"
-msgstr ""
-
-#: xhtmldbgmain#2
-msgid "Disable Plugins and loading the Default Url"
-msgstr ""
-
-#: xhtmldbgmain#3
-msgid " Examples:"
 msgstr ""

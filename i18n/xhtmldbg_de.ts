@@ -3,6 +3,34 @@
 <TS version="2.0" language="de_DE">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
+    <name>AboutData</name>
+    <message>
+        <location filename="../src/about/aboutdata.cpp" line="+44"/>
+        <source>developer</source>
+        <translation>Entwickler</translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Juergen Heinemann (Undefined)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Copyright (C) 2007-2011, Juergen Heinemann (Undefined)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>A XHTML/HTML Debugger and CSS Validator for Webdevelopers</source>
+        <translation>Ein XHTML/HTML Debugger und Validator für Webseiten Entwickler</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>&lt;div&gt;&lt;p&gt;&lt;strong&gt;„xhtmldbg“ is a XHTML/HTML Debugger for Website Developers.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This software provides you with the facility to check and analyze web page content directly.&lt;/p&gt;&lt;p&gt;All these are good starting points for targeted xhtml development debugging.&lt;/p&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;to watch HTTP headers,&lt;/li&gt;&lt;li&gt;to watch _POST variables when send html forms,&lt;/li&gt;&lt;li&gt;css stylesheet watching,&lt;/li&gt;&lt;li&gt;dom inspector for better documents structure watching,&lt;/li&gt;&lt;li&gt;to indicate css stylesheet attributes,&lt;/li&gt;&lt;li&gt;to indicate current used cookies,&lt;/li&gt;&lt;li&gt;to watch javascript errors,&lt;/li&gt;&lt;li&gt;auto reload function up to 60 seconds,&lt;/li&gt;&lt;li&gt;analyzing &lt;acronym title=&quot;Search Engine Optimisation&quot;&gt;SEO&lt;/acronym&gt; keywords,&lt;/li&gt;&lt;li&gt;quickly HTTP_USER_AGENT switching,&lt;/li&gt;&lt;li&gt;strict RFC 2109 (HTTP State Management Mechanism) validation for Cookies,&lt;/li&gt;&lt;li&gt;validate ATOM/RSS/RDF Documents,&lt;/li&gt;&lt;li&gt;of course, this requires to validate and check the source.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;</source>
+        <translation>&lt;div&gt;&lt;p&gt;&lt;strong&gt;„xhtmldbg“ ist ein Webseiten Debugger für Webentwickler und Konsumenten.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Der Grundgedanke dieses Projektes ist einen Webdebugger zu Entwickeln der Gleichzeitig den Quelltext als auch die damit zusammenhängenden Protokolle erkennt und auf ihre Validität prüft.&lt;/p&gt;&lt;p&gt;„xhtmldbg“ bietet neben dem prüfen auf einen Validen Quelltext zusätzliche Optionen:&lt;/p&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;Überwachen des HTTP Datenkopfes,&lt;/li&gt;&lt;li&gt;überwachen von abgesendeten Post Variablen aus einem Formular heraus,&lt;/li&gt;&lt;li&gt;CSS StyleSheet Überprüfung,&lt;/li&gt;&lt;li&gt;einen Dom Inspektor zur besseren Darstellung der Dokumenten Struktur,&lt;/li&gt;&lt;li&gt;anzeigen von CSS StyleSheet Prädikaten,&lt;/li&gt;&lt;li&gt;anzeige der aktuell verwendeten Cookies,&lt;/li&gt;&lt;li&gt;ausgeben von JavaScript Fehlern,&lt;/li&gt;&lt;li&gt;automatisches Aktualisieren in Zehner schritten bis 60 Sekunden,&lt;/li&gt;&lt;li&gt;&lt;acronym title=&quot;Search Engine Optimisation&quot;&gt;SEO&lt;/acronym&gt;Schlüsselwort Überprüfung,&lt;/li&gt;&lt;li&gt;schnelles Umschalten des USER-AGENT,&lt;/li&gt;&lt;li&gt;strikte Einhaltung des RFC 2109 (HTTP State Management Mechanism) für die Cookie Behandlung,&lt;/li&gt;&lt;li&gt;ATOM/RSS/RDF Nachrichten Dokumente Validieren,&lt;/li&gt;&lt;li&gt;und natürlich das Validieren und Bereinigen des Markup Quelltextes.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;</translation>
+    </message>
+</context>
+<context>
     <name>AddressToolBar</name>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="+89"/>
@@ -2869,7 +2897,7 @@ Gründe : </translation>
         <translation>Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist &quot;%1&quot;.</translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>a Url Request from outsite.
 Would you like to load this &quot;%1&quot; Url?</source>
         <translation>Ein Adressen wurde ausserhalb gesendet.
@@ -2886,7 +2914,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <translation>Herunterladen Anfrage: %1</translation>
     </message>
     <message>
-        <location line="-538"/>
+        <location line="-539"/>
         <source>Display</source>
         <translation>Anzeige</translation>
     </message>
@@ -2944,7 +2972,7 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
 <context>
     <name>XHtmldbgAdaptor</name>
     <message>
-        <location filename="../src/xhtmldbgadaptor.cpp" line="+74"/>
+        <location filename="../src/xhtmldbgadaptor.cpp" line="+77"/>
         <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
         <translation>(XHTMLDBG) FTP Anfrage &quot;%1&quot; Zurückgewiesen!</translation>
     </message>
@@ -3095,24 +3123,6 @@ Möchtest du diese Adresse &quot;%1&quot; laden?</translation>
         <location line="+4"/>
         <source>Original</source>
         <translation>Orginal</translation>
-    </message>
-</context>
-<context>
-    <name>xhtmldbgmain</name>
-    <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="+209"/>
-        <source>Usage</source>
-        <translation>Verwende</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Disable Plugins and loading the Default Url</source>
-        <translation>Deaktiviere die Plugins und lade die Standard Url</translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source> Examples:</source>
-        <translation>Beispiele:</translation>
     </message>
 </context>
 </TS>

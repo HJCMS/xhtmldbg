@@ -14,7 +14,7 @@ SET (dominspector_HEADERS
   domtoolbar.h
 )
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_XMLPATTERNS_LIB)
+
 
 KDE4_MOC_HEADERS (dominspector_MOC ${dominspector_HEADERS})
 

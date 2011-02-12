@@ -19,27 +19,30 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#ifndef ABOUTDATA_H
+#define ABOUTDATA_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QObject>
 
-/* QtGui */
-#include <QtGui/QWidget>
-
 /* KDE */
-#include <KDE/KAboutApplicationDialog>
+#include <KDE/KAboutData>
+#include <KDE/KLocalizedString>
 
-class About : public KAboutApplicationDialog
+class AboutData : public KAboutData
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
   public:
-    About ( QWidget * parent = 0 );
-    virtual ~About();
+    AboutData();
+    static const QByteArray version();
+    static const QByteArray eMail();
+    static const QByteArray homepage();
+    static const QByteArray appsname();
+    static const QByteArray ocsUserName();
+    static const KLocalizedString maintainer();
+    static const KLocalizedString copyright();
+    static const KLocalizedString smallDescription();
+    static const KLocalizedString description();
 };
 
 #endif

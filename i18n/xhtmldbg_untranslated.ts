@@ -3,6 +3,34 @@
 <TS version="2.0">
 <defaultcodec>UTF-8</defaultcodec>
 <context>
+    <name>AboutData</name>
+    <message>
+        <location filename="../src/about/aboutdata.cpp" line="+44"/>
+        <source>developer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Juergen Heinemann (Undefined)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Copyright (C) 2007-2011, Juergen Heinemann (Undefined)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>A XHTML/HTML Debugger and CSS Validator for Webdevelopers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>&lt;div&gt;&lt;p&gt;&lt;strong&gt;„xhtmldbg“ is a XHTML/HTML Debugger for Website Developers.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This software provides you with the facility to check and analyze web page content directly.&lt;/p&gt;&lt;p&gt;All these are good starting points for targeted xhtml development debugging.&lt;/p&gt;&lt;div&gt;&lt;ul&gt;&lt;li&gt;to watch HTTP headers,&lt;/li&gt;&lt;li&gt;to watch _POST variables when send html forms,&lt;/li&gt;&lt;li&gt;css stylesheet watching,&lt;/li&gt;&lt;li&gt;dom inspector for better documents structure watching,&lt;/li&gt;&lt;li&gt;to indicate css stylesheet attributes,&lt;/li&gt;&lt;li&gt;to indicate current used cookies,&lt;/li&gt;&lt;li&gt;to watch javascript errors,&lt;/li&gt;&lt;li&gt;auto reload function up to 60 seconds,&lt;/li&gt;&lt;li&gt;analyzing &lt;acronym title=&quot;Search Engine Optimisation&quot;&gt;SEO&lt;/acronym&gt; keywords,&lt;/li&gt;&lt;li&gt;quickly HTTP_USER_AGENT switching,&lt;/li&gt;&lt;li&gt;strict RFC 2109 (HTTP State Management Mechanism) validation for Cookies,&lt;/li&gt;&lt;li&gt;validate ATOM/RSS/RDF Documents,&lt;/li&gt;&lt;li&gt;of course, this requires to validate and check the source.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddressToolBar</name>
     <message>
         <location filename="../src/addresstoolbar.cpp" line="+89"/>
@@ -2853,7 +2881,7 @@ Reasons : </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+41"/>
         <source>a Url Request from outsite.
 Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
@@ -2869,7 +2897,7 @@ Would you like to load this &quot;%1&quot; Url?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-538"/>
+        <location line="-539"/>
         <source>Display</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2933,7 +2961,7 @@ Would you like to load this &quot;%1&quot; Url?</source>
 <context>
     <name>XHtmldbgAdaptor</name>
     <message>
-        <location filename="../src/xhtmldbgadaptor.cpp" line="+74"/>
+        <location filename="../src/xhtmldbgadaptor.cpp" line="+77"/>
         <source>(XHTMLDBG) Reject &quot;%1&quot; FTP request!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3083,24 +3111,6 @@ Would you like to load this &quot;%1&quot; Url?</source>
     <message>
         <location line="+4"/>
         <source>Original</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>xhtmldbgmain</name>
-    <message>
-        <location filename="../src/xhtmldbgmain.cpp" line="+209"/>
-        <source>Usage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source>Disable Plugins and loading the Default Url</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+1"/>
-        <source> Examples:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

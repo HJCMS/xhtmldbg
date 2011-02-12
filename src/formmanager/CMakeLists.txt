@@ -1,15 +1,17 @@
-## Broadcaster
+## CMakeLists.txt
+
+SET (subproject "FormManager")
 
 SET (target_project_SOURCES
+  formmanager.cpp
 )
 
 SET (target_project_HEADERS
+  formmanager.h
 )
 
 SET (target_project_NOMOC_HEADERS
 )
-
-REMOVE_DEFINITIONS (-DQT_XMLPATTERNS_LIB)
 
 KDE4_MOC_HEADERS (target_project_MOC ${target_project_HEADERS})
 
@@ -18,26 +20,22 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_BINARY_PROJECT_INCULDE}
 )
 
-KDE4_ADD_LIBRARY (Broadcaster STATIC
+KDE4_ADD_LIBRARY (${subproject} STATIC
   ${target_project_MOC}
   ${target_project_HEADERS}
   ${target_project_NOMOC_HEADERS}
   ${target_project_SOURCES}
 )
 
-SET_TARGET_PROPERTIES (Broadcaster PROPERTIES
+SET_TARGET_PROPERTIES (${subproject} PROPERTIES
   LINKER_LANGUAGE CXX
   COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
 )
 
-TARGET_LINK_LIBRARIES (Broadcaster
-  ${QT_QTCORE_LIBRARY}
-  ${QT_QTGUI_LIBRARY}
-  ${QT_QTWEBKIT_LIBRARY}
-  ${QT_QTNETWORK_LIBRARY}
-  ${QT_QTDBUS_LIBRARY}
-  Settings
-  Networker
+TARGET_LINK_LIBRARIES (${subproject}
+  ${XHTMLDBG_QT_LIBRARIES}
+  ${XHTMLDBG_KDE_LIBRARIES}
+  DBManager
 )
 
 ## EOF

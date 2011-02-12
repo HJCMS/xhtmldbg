@@ -56,7 +56,7 @@ QT4_WRAP_UI (subproject_UIC ${subproject_FORMS})
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XML_LIB -DQT_XMLPATTERNS_LIB)
+
 
 ADD_LIBRARY (${subproject} MODULE
   ${subproject_UIC}

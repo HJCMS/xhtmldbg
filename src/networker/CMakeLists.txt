@@ -48,7 +48,8 @@ TARGET_LINK_LIBRARIES (Networker
   AutoSaver
   Settings
   CookiesDatabase
-  ${XHTMLDBG_LIBRARIES}
+  ${XHTMLDBG_QT_LIBRARIES}
+  ${OPENSSL_LIBRARIES}
 )
 
 ## EOF

@@ -23,7 +23,7 @@ SET (cssvalidator_HEADERS
 SET (cssvalidator_NOMOC
 )
 
-REMOVE_DEFINITIONS (-DQT_DBUS_LIB -DQT_WEBKIT_LIB -DQT_XMLPATTERNS_LIB)
+
 
 KDE4_ADD_UI_FILES (cssvalidator_UIC ${cssvalidator_UIFILES})
 

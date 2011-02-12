@@ -20,80 +20,16 @@
 **/
 
 #include "about.h"
+#include "aboutdata.h"
 
 /* QtCore */
-#include <QtCore/QByteArray>
-#include <QtCore/QDebug>
-#include <QtCore/QResource>
 #include <QtCore/QString>
-#include <QtCore/QTextCodec>
-#include <QtCore/QVariant>
-
-/* QtGui */
-#include <QtGui/QDialogButtonBox>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QPixmap>
-#include <QtGui/QSizePolicy>
 
 About::About ( QWidget * parent )
-    : QDialog ( parent )
+    : KAboutApplicationDialog ( new AboutData(), KAboutApplicationDialog::HideKdeVersion, parent )
 {
-  Q_INIT_RESOURCE ( about );
-  setObjectName ( QLatin1String ( "about" ) );
-
-  setupUi ( this );
-
-  connect ( comboBox, SIGNAL ( currentIndexChanged ( int ) ),
-            this, SLOT ( htmlChanged ( int ) ) );
-
-  connect ( buttonBox, SIGNAL ( accepted () ),
-            this, SLOT ( accept() ) );
-
-  htmlChanged ( 0 );
-}
-
-/**
-* Lese die Resoursen Datei und konvertiere den Datenstrom
-* nach UTF-8 bevor er in den TextBrowser eingefügt wird.
-*/
-void About::loadHtml ( const QUrl &index )
-{
-  QTextCodec* codec = QTextCodec::codecForName ( QByteArray ( "UTF-8" ) );
-  QVariant buf = textBrowser->loadResource ( QTextDocument::HtmlResource, index );
-  if ( buf.isValid() )
-  {
-    QString xhtml = codec->toUnicode ( buf.toByteArray() );
-    textBrowser->setHtml ( xhtml );
-  }
-}
-
-/**
-* Wird von QComboBox aufgerufen um die HTML Seitenzu laden.
-*/
-void About::htmlChanged ( int index )
-{
-  switch ( index )
-  {
-    case 0:
-      loadHtml ( QUrl ( "qrc:/about.html" ) );
-      break;
-
-    case 1:
-      loadHtml ( QUrl ( "qrc:/contact.html" ) );
-      break;
-
-    case 2:
-      loadHtml ( QUrl ( "qrc:/author.html" ) );
-      break;
-
-    default:
-      loadHtml ( QUrl ( "qrc:/about.html" ) );
-      break;
-  }
+  setObjectName ( QLatin1String ( "AboutDialog" ) );
 }
 
 About::~About()
-{
-  Q_CLEANUP_RESOURCE ( about );
-}
+{}
