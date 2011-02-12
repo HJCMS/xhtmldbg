@@ -43,6 +43,9 @@
 /* QTidy */
 #include <QTidy/QTidySettings>
 
+/* KDE */
+#include <KDE/KLocale>
+
 SourceWidget::SourceWidget ( QWidget * parent )
     : QWidget ( parent )
     , tidyrc ( QLatin1String ( "~/.qtidyrc" ) )
@@ -50,7 +53,7 @@ SourceWidget::SourceWidget ( QWidget * parent )
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
   setBackgroundRole ( QPalette::NoRole );
-  setWindowTitle ( trUtf8 ( "Source" ) );
+  setWindowTitle ( i18n ( "Source" ) );
 
   QFont font ( qApp->font() );
   font.setPointSize ( 12 );

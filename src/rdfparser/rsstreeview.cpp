@@ -38,12 +38,16 @@
 #include <QtXml/QDomElement>
 #include <QtXml/QDomNamedNodeMap>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 RSSTreeView::RSSTreeView ( QWidget * parent )
     : QTreeWidget ( parent )
 {
   setObjectName ( QLatin1String ( "rsstreeview" ) );
   QStringList labels;
-  labels << trUtf8 ( "Element" ) << trUtf8 ( "Predicate" ) << trUtf8 ( "Value" );
+  labels << i18n ( "Element" ) << i18n ( "Predicate" ) << i18n ( "Value" );
   setHeaderLabels ( labels );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
   setFrameStyle ( QFrame::Box );
@@ -186,7 +190,7 @@ void RSSTreeView::createTreeView ( const QDomDocument &dom )
 
   QDomElement rootNode = dom.documentElement();
   QTreeWidgetItem* item = createTopLevelItem ( rootNode.tagName() );
-  item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
+  item->setIcon ( 0, KIcon ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
   parseAttributes ( rootNode, item );
   parseElements ( rootNode, item );
   onExpandCollapseResize ( item );

@@ -29,12 +29,16 @@
 #include <QtGui/QIcon>
 #include <QtGui/QToolButton>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 ColorPickerButton::ColorPickerButton ( QWidget * parent )
     : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "colorpickerbutton" ) );
-  setToolTip ( trUtf8 ( "Color picker" ) );
-  setStatusTip ( trUtf8 ( "Color picker" ) );
+  setToolTip ( i18n ( "Color picker" ) );
+  setStatusTip ( i18n ( "Color picker" ) );
   setContentsMargins ( 0, 0, 0, 0 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
@@ -45,7 +49,7 @@ ColorPickerButton::ColorPickerButton ( QWidget * parent )
   button->setObjectName ( QLatin1String ( "colorpickerbutton.layout.button" ) );
   button->setCheckable ( false );
   button->setAutoRaise ( true );
-  button->setIcon ( QIcon::fromTheme ( "color-picker" ) );
+  button->setIcon ( KIcon ( "color-picker" ) );
   layout->addWidget ( button );
 
   setLayout ( layout );

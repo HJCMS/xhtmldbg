@@ -28,6 +28,10 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 HelloWorld::HelloWorld ( QWidget * parent )
     : QDialog ( parent )
 {

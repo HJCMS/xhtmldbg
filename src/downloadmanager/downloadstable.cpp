@@ -35,6 +35,10 @@
 #include <QtGui/QIcon>
 #include <QtGui/QMenu>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 DownloadsTable::DownloadsTable ( QWidget * parent )
     : QTableView ( parent )
 {
@@ -89,11 +93,11 @@ void DownloadsTable::restart()
 void DownloadsTable::contextMenuEvent ( QContextMenuEvent *ev )
 {
   QMenu *m_menu = new QMenu ( "Actions", this );
-  QAction *add = m_menu->addAction ( QIcon::fromTheme ( "process-stop" ), trUtf8 ( "Stop" ) );
+  QAction *add = m_menu->addAction ( KIcon ( "process-stop" ), i18n ( "Stop" ) );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( abort() ) );
-  QAction *del= m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
+  QAction *del= m_menu->addAction ( KIcon ( "list-remove" ), i18n ( "Remove" ) );
   connect ( del, SIGNAL ( triggered() ), this, SLOT ( remove() ) );
-//   QAction *start = m_menu->addAction ( QIcon::fromTheme ( "process-working" ), trUtf8 ( "Restart" ) );
+//   QAction *start = m_menu->addAction ( KIcon ( "process-working" ), i18n ( "Restart" ) );
 //   connect ( start, SIGNAL ( triggered() ), this, SLOT ( restart() ) );
   m_menu->exec ( ev->globalPos() );
   delete m_menu;

@@ -30,13 +30,17 @@
 #include <QtGui/QApplication>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 ResizePortButtons::ResizePortButtons ( QWidget * parent )
     : QWidget ( parent )
-    , icon ( QIcon::fromTheme ( "measure" ) ) //select-rectangular
+    , icon ( KIcon ( "measure" ) ) //select-rectangular
     , m_desktopWidget ( qApp->desktop() )
 {
   setObjectName ( QLatin1String ( "ResizePortButtons" ) );
-  setWindowTitle ( trUtf8 ( "Viewer Width" ) );
+  setWindowTitle ( i18n ( "Viewer Width" ) );
   setContentsMargins ( 0, 0, 0, 0 );
 
   m_signalMapper =  new QSignalMapper ( this );
@@ -48,7 +52,7 @@ ResizePortButtons::ResizePortButtons ( QWidget * parent )
 
   m_ToolButton = new QToolButton ( this );
   m_ToolButton->setObjectName ( QLatin1String ( "resizeportbuttons.layout.toolbutton" ) );
-  m_ToolButton->setStatusTip ( trUtf8 ( "Resize Browser to fixed width" ) );
+  m_ToolButton->setStatusTip ( i18n ( "Resize Browser to fixed width" ) );
   m_ToolButton->setCheckable ( false );
   m_ToolButton->setAutoRaise ( true );
   m_ToolButton->setPopupMode ( QToolButton::InstantPopup );
@@ -88,7 +92,7 @@ void ResizePortButtons::createSelections ( int screen )
   // Falls der Benutzer die Bildschirm auflösung ändert, erst mal alles zurück setzen.
   emit itemClicked ( 0 );
 
-  QAction* ac = m_menu->addAction ( icon, trUtf8 ( "Restore" ) );
+  QAction* ac = m_menu->addAction ( icon, i18n ( "Restore" ) );
   connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
   m_signalMapper->setMapping ( ac, 0 );
 

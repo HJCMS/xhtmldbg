@@ -36,14 +36,21 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
+#include <KDE/KIcon>
+#include <KDE/KUrl>
+#include <KDE/KFileDialog>
+
 ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
-    : QGroupBox ( trUtf8 ( "Client Authentication and Access Control" ), parent )
+    : QGroupBox ( i18n ( "Client Authentication and Access Control" ), parent )
 {
   setObjectName ( QLatin1String ( "configaccesscontrol" ) );
   setFlat ( true );
   /** TODO Im Moment noch nicht Integriert,
   * siehe @class NetworkSettings::sslConfiguration */
-  setEnabled ( false );
+  setEnabled ( true );
 
   Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
@@ -57,12 +64,16 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   lr0->setIndent ( 2 );
   lr0->setOpenExternalLinks ( true );
   lr0->setTextInteractionFlags ( Qt::TextBrowserInteraction );
-  lr0->setText ( trUtf8 ( "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"%1\">I know all my clients</a>?" )
-                 .arg ( "http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org" ) );
+  // Certification Authorities Info
+  QString info = i18n ( "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when" );
+  info.append ( "<a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">" );
+  info.append ( i18n ( "I know all my clients" ) );
+  info.append ( "</a>?" );
+  lr0->setText ( info );
   gridLayout->addWidget ( lr0, 0, 0, 1, 3 );
 
   QLabel* lr1 = new QLabel ( this );
-  lr1->setText ( trUtf8 ( "Public Keyfile:" ) );
+  lr1->setText ( i18n ( "Public Keyfile:" ) );
   lr1->setAlignment ( labelAlign );
   gridLayout->addWidget ( lr1, 1, 0, 1, 1 );
 
@@ -76,7 +87,7 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   gridLayout->addWidget ( btn1, 1, 2, 1, 1 );
 
   QLabel* lr2 = new QLabel ( this );
-  lr2->setText ( trUtf8 ( "Private Keyfile:" ) );
+  lr2->setText ( i18n ( "Private Keyfile:" ) );
   lr2->setAlignment ( labelAlign );
   gridLayout->addWidget ( lr2, 2, 0, 1, 1 );
 
@@ -90,7 +101,7 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   gridLayout->addWidget ( btn2, 2, 2, 1, 1 );
 
   QLabel* lr3 = new QLabel ( this );
-  lr3->setText ( trUtf8 ( "Private Key Password:" ) );
+  lr3->setText ( i18n ( "Private Key Password:" ) );
   lr3->setAlignment ( labelAlign );
   gridLayout->addWidget ( lr3, 3, 0, 1, 1 );
 
@@ -101,7 +112,7 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 
   QToolButton* btn3 = new QToolButton ( this );
   btn3->setObjectName ( QLatin1String ( "clearPassButton" ) );
-  btn3->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  btn3->setIcon ( KIcon ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
   gridLayout->addWidget ( btn3, 3, 2, 1, 1 );
 
   setLayout ( gridLayout );
@@ -123,11 +134,8 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
 void ConfigAccessControl::getPrivKeyDialog()
 {
   QString path ( sslPrivateKey->text() );
-  QStringList filt;
-  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
-  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
-
-  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
+  path = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-pkcs12" ),
+                                        this, i18n ( "Open Private Certificate" ) );
 
   QFileInfo db ( path );
   if ( db.exists() )
@@ -140,11 +148,8 @@ void ConfigAccessControl::getPrivKeyDialog()
 void ConfigAccessControl::getPupKeyDialog()
 {
   QString path ( sslPublicKey->text() );
-  QStringList filt;
-  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
-  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
-
-  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "Open Certificate" ), path, filt.join ( ";;" ) );
+  path = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-x509-ca-cert" ),
+                                        this, i18n ( "Open Public Certificate" ) );
 
   QFileInfo db ( path );
   if ( db.exists() )

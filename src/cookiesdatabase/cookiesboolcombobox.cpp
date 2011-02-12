@@ -29,13 +29,16 @@
 #include <QtGui/QIcon>
 #include <QtGui/QStandardItem>
 
+/* KDE */
+#include <KDE/KLocale>
+
 CookiesBoolComboBox::CookiesBoolComboBox ( QWidget * parent, int state )
     : QComboBox ( parent )
 {
   QIcon icon;
   QStandardItemModel* model = new QStandardItemModel ( this );
-  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), trUtf8 ( "Disabled" ) ) );
-  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), trUtf8 ( "Enabled" ) ) );
+  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), i18n ( "Disabled" ) ) );
+  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), i18n ( "Enabled" ) ) );
   setModel ( model );
 
   setCurrentIndex ( state );

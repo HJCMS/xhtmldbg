@@ -37,7 +37,7 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
     , certHost ( QLatin1String ( "https://localhost:443" ) )
 {
   setObjectName ( QLatin1String ( "certdialog" ) );
-  setWindowTitle ( trUtf8 ( "Certification Notice" ) );
+  setWindowTitle ( i18n ( "Certification Notice" ) );
   setMinimumWidth ( 600 );
   setMinimumHeight ( 400 );
   setSizeGripEnabled ( true );
@@ -50,10 +50,10 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
 
   QWidget* infoWidget = new QWidget ( tabWidget );
   infoWidget->setObjectName ( QLatin1String ( "cert_info_widget" ) );
-  tabWidget->addTab ( infoWidget, trUtf8 ( "Notice" ) );
+  tabWidget->addTab ( infoWidget, i18n ( "Notice" ) );
 
   QVBoxLayout* t1Layout = new QVBoxLayout ( infoWidget );
-  notify = new QLabel ( trUtf8 ( "Message" ), infoWidget );
+  notify = new QLabel ( i18n ( "Message" ), infoWidget );
   notify->setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );
   notify->setIndent ( 2 );
   notify->setWordWrap ( true );
@@ -65,16 +65,16 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   treeWidget->setWordWrap ( false );
   treeWidget->setColumnCount ( 2 );
   QStringList treeHeaders;
-  treeHeaders << trUtf8( "Level" ) << trUtf8( "Values" );
+  treeHeaders << i18n( "Level" ) << i18n( "Values" );
   treeWidget->setHeaderLabels ( treeHeaders );
 
   subjectInfo = new QTreeWidgetItem ( treeWidget->invisibleRootItem() );
-  subjectInfo->setText ( 0, trUtf8 ( "Subject" ) );
+  subjectInfo->setText ( 0, i18n ( "Subject" ) );
   subjectInfo->setExpanded ( true );
   treeWidget->addTopLevelItem ( subjectInfo );
 
   issuerInfo = new QTreeWidgetItem ( treeWidget->invisibleRootItem() );
-  issuerInfo->setText ( 0, trUtf8 ( "Issuer" ) );
+  issuerInfo->setText ( 0, i18n ( "Issuer" ) );
   issuerInfo->setExpanded ( true );
   treeWidget->addTopLevelItem ( issuerInfo );
 
@@ -86,38 +86,38 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   * Und weil die Einträge so mehrfach eingelesen werden können.
   **/
   RowItem item1;
-  item1.text = trUtf8 ( "Organization (O)" );
-  item1.tip = trUtf8 ( "The name of the organization. (O)" );
+  item1.text = i18n ( "Organization (O)" );
+  item1.tip = i18n ( "The name of the organization. (O)" );
   item1.info = QSslCertificate::Organization;
   RowItems.append ( item1 );
 
   RowItem item2;
-  item2.text = trUtf8 ( "Common Name (CN)" );
-  item2.tip = trUtf8 ( "The common name; most often this is used to store the host name." );
+  item2.text = i18n ( "Common Name (CN)" );
+  item2.tip = i18n ( "The common name; most often this is used to store the host name." );
   item2.info = QSslCertificate::CommonName;
   RowItems.append ( item2 );
 
   RowItem item3;
-  item3.text = trUtf8 ( "Locality (L)" );
-  item3.tip = trUtf8 ( "The locality. (L)" );
+  item3.text = i18n ( "Locality (L)" );
+  item3.tip = i18n ( "The locality. (L)" );
   item3.info = QSslCertificate::LocalityName;
   RowItems.append ( item3 );
 
   RowItem item4;
-  item4.text = trUtf8 ( "Organizational UnitName (OU)" );
-  item4.tip = trUtf8 ( "The organizational unit name. (OU)" );
+  item4.text = i18n ( "Organizational UnitName (OU)" );
+  item4.tip = i18n ( "The organizational unit name. (OU)" );
   item4.info = QSslCertificate::OrganizationalUnitName;
   RowItems.append ( item4 );
 
   RowItem item5;
-  item5.text = trUtf8 ( "CountryName (C)" );
-  item5.tip = trUtf8 ( "The country. (C)" );
+  item5.text = i18n ( "CountryName (C)" );
+  item5.tip = i18n ( "The country. (C)" );
   item5.info = QSslCertificate::CountryName;
   RowItems.append ( item5 );
 
   RowItem item6;
-  item6.text = trUtf8 ( "State or Province (ST)" );
-  item6.tip = trUtf8 ( "The state or province name. (ST)" );
+  item6.text = i18n ( "State or Province (ST)" );
+  item6.tip = i18n ( "The state or province name. (ST)" );
   item6.info = QSslCertificate::StateOrProvinceName;
   RowItems.append ( item6 );
 
@@ -136,7 +136,7 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
     issuerInfo->addChild ( iss );
   }
 
-  tabWidget->addTab ( treeWidget, trUtf8 ( "Certificate" ) );
+  tabWidget->addTab ( treeWidget, i18n ( "Certificate" ) );
 
   tabWidget->setCurrentIndex ( 0 );
   vLayout->addWidget ( tabWidget );
@@ -144,7 +144,7 @@ CertDialog::CertDialog ( NetworkSettings * settings, QWidget * parent )
   QDialogButtonBox::StandardButtons buttons = ( QDialogButtonBox::Ignore | QDialogButtonBox::Abort );
   QDialogButtonBox* box = new QDialogButtonBox ( buttons, Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "buttonBox" ) );
-  QPushButton* btnsave = box->addButton ( trUtf8 ( "Import" ), QDialogButtonBox::ActionRole );
+  QPushButton* btnsave = box->addButton ( i18n ( "Import" ), QDialogButtonBox::ActionRole );
 
   vLayout->addWidget ( box );
 
@@ -196,14 +196,14 @@ void CertDialog::setCertificate ( const QSslCertificate &pem, const QString &hos
   {
     QTreeWidgetItem* itemSerialNumber = new QTreeWidgetItem ( subjectInfo );
     itemSerialNumber->setForeground ( 0, Qt::blue );
-    itemSerialNumber->setText ( 0, trUtf8 ( "Serial Nr." ) );
+    itemSerialNumber->setText ( 0, i18n ( "Serial Nr." ) );
     itemSerialNumber->setText ( 1, pem.serialNumber() );
     subjectInfo->addChild ( itemSerialNumber );
   }
 
   QTreeWidgetItem* itemExpiryDate = new QTreeWidgetItem ( subjectInfo );
   itemExpiryDate->setForeground ( 0, Qt::blue );
-  itemExpiryDate->setText ( 0, trUtf8 ( "Expires" ) );
+  itemExpiryDate->setText ( 0, i18n ( "Expires" ) );
   itemExpiryDate->setText ( 1, pem.expiryDate().toString ( Qt::DefaultLocaleLongDate ) );
   subjectInfo->addChild ( itemExpiryDate );
 

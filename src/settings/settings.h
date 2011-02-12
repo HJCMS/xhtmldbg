@@ -32,6 +32,12 @@
 #include <QtCore/QUrl>
 #include <QtCore/QVariant>
 
+/* KDE */
+#include <KDE/KGlobal>
+#include <KDE/KGlobalSettings>
+#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
+
 class Settings : public QSettings
 {
     Q_OBJECT

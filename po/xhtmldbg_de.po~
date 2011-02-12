@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-12 08:08+0200\n"
+"POT-Creation-Date: 2011-02-12 11:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 
 #: AboutData#1
 msgid "developer"
-msgstr ""
+msgstr "Entwickler"
 
 #: AboutData#2
 msgid "Juergen Heinemann (Undefined)"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: AboutData#4
 msgid "A XHTML/HTML Debugger and CSS Validator for Webdevelopers"
-msgstr ""
+msgstr "Ein XHTML/HTML Debugger und Validator für Webseiten Entwickler"
 
 #: AboutData#5
 msgid ""
@@ -45,27 +45,45 @@ msgid ""
 "course, this requires to validate and check the "
 "source.</li></ul></div></div>"
 msgstr ""
+"<div><p><strong>„xhtmldbg“ ist ein Webseiten Debugger für Webentwickler und "
+"Konsumenten.</strong></p><p>Der Grundgedanke dieses Projektes ist einen "
+"Webdebugger zu Entwickeln der Gleichzeitig den Quelltext als auch die damit "
+"zusammenhängenden Protokolle erkennt und auf ihre Validität "
+"prüft.</p><p>„xhtmldbg“ bietet neben dem prüfen auf einen Validen Quelltext "
+"zusätzliche Optionen:</p><div><ul><li>Überwachen des HTTP "
+"Datenkopfes,</li><li>überwachen von abgesendeten Post Variablen aus einem "
+"Formular heraus,</li><li>CSS StyleSheet Überprüfung,</li><li>einen Dom "
+"Inspektor zur besseren Darstellung der Dokumenten Struktur,</li><li>anzeigen "
+"von CSS StyleSheet Prädikaten,</li><li>anzeige der aktuell verwendeten "
+"Cookies,</li><li>ausgeben von JavaScript Fehlern,</li><li>automatisches "
+"Aktualisieren in Zehner schritten bis 60 Sekunden,</li><li><acronym "
+"title=\"Search Engine Optimisation\">SEO</acronym>Schlüsselwort "
+"Überprüfung,</li><li>schnelles Umschalten des USER-AGENT,</li><li>strikte "
+"Einhaltung des RFC 2109 (HTTP State Management Mechanism) für die Cookie "
+"Behandlung,</li><li>ATOM/RSS/RDF Nachrichten Dokumente "
+"Validieren,</li><li>und natürlich das Validieren und Bereinigen des Markup "
+"Quelltextes.</li></ul></div></div>"
 
 #: AddressToolBar#1
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: AddressToolBar#2
 msgid "Reload"
-msgstr ""
+msgstr "Auffrischen"
 
 #: AddressToolBar#3
 msgid "Address:"
-msgstr ""
+msgstr "Adresse:"
 
 #: AddressToolBar#4
 msgctxt "AddressToolBar#4"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: AddressToolBar#5
 msgid "Sorry: FTP protocol is currently not supported"
-msgstr ""
+msgstr "Entschuldigung: Das FTP Protokoll wird im nicht Unterstützt"
 
 #: AlternateLinkReader#1
 msgid "RSS/Atom"
@@ -73,169 +91,173 @@ msgstr ""
 
 #: AppEvents#1
 msgid "XHTMLDBG Impartations"
-msgstr ""
+msgstr "XHTMLDBG Mitteilungen"
 
 #: AppEvents#2
 msgctxt "AppEvents#2"
 msgid "Ascending"
-msgstr ""
+msgstr "Aufteigend"
 
 #: AppEvents#3
 msgctxt "AppEvents#3"
 msgid "Descending"
-msgstr ""
+msgstr "Absteigend"
 
 #: AppEvents#4
 msgctxt "AppEvents#4"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: AuthenticationDialog#1
 msgid "Authentication Request"
-msgstr ""
+msgstr "Authentifizierungs Anfrage"
 
 #: AuthenticationDialog#2
 msgid "Authentication"
-msgstr ""
+msgstr "Authentifizierung"
 
 #: AuthenticationDialog#3
 msgid "Login Username:"
-msgstr ""
+msgstr "Anmelde Benutzername:"
 
 #: AuthenticationDialog#4
 msgid "Login Password:"
-msgstr ""
+msgstr "Anmelde Passwort:"
 
 #: AutoReloadMenu#1
 msgid "Auto Refresh"
-msgstr ""
+msgstr "Auto Aktualisierung"
 
 #: AutoReloadMenu#2
 msgctxt "AutoReloadMenu#2"
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: AutoReloadMenu#3
 msgid "10 Seconds"
-msgstr ""
+msgstr "10 Sekunden"
 
 #: AutoReloadMenu#4
 msgid "20 Seconds"
-msgstr ""
+msgstr "20 Sekunden"
 
 #: AutoReloadMenu#5
 msgid "40 Seconds"
-msgstr ""
+msgstr "40 Sekunden"
 
 #: AutoReloadMenu#6
 msgid "50 Seconds"
-msgstr ""
+msgstr "50 Sekunden"
 
 #: AutoReloadMenu#7
 msgid "30 Seconds"
-msgstr ""
+msgstr "30 Sekunden"
 
 #: AutoReloadMenu#8
 msgid "1 Minute"
-msgstr ""
+msgstr "1 Minute"
 
 #: Bookmark#1
 msgctxt "Bookmark#1"
 msgid "Bookmarks"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: BookmarkEditor#1
 msgid "Bookmark Manager[*]"
-msgstr ""
+msgstr "Lesezeichen Manager[*]"
 
 #: BookmarkEditor#2
 msgid "Headline"
-msgstr ""
+msgstr "Überschrift"
 
 #: BookmarkEditor#3
 msgid "Hyperlink"
-msgstr ""
+msgstr "Verknüpfung"
 
 #: BookmarkEditor#4
 msgid "Name:"
-msgstr ""
+msgstr "Name:"
 
 #: BookmarkEditor#5
 msgid "Folder or Bookmark Title"
-msgstr ""
+msgstr "Verzeichnis oder Lesezeichen Titel"
 
 #: BookmarkEditor#6
 msgid "Remove Selected Item"
-msgstr ""
+msgstr "Entferne gewählten Eintrag"
 
 #: BookmarkEditor#7
 msgid "Link:"
-msgstr ""
+msgstr "Verknüpfung:"
 
 #: BookmarkEditor#8
 msgid "If this Line is Empty a Folder want created."
-msgstr ""
+msgstr "Wenn diese Zeile Leer ist wird ein Verzeichnis erstellt."
 
 #: BookmarkEditor#9
 msgid "Add Item to Selected Main Item"
-msgstr ""
+msgstr "Füge Eintrag in den Ausgwählten Bereich ein"
 
 #: BookmarkEditor#10
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #: BookmarkEditor#11
 msgid ""
 "I didn't add Bookmark in to other Bookmark :-)\n"
 "Please select a Folder."
 msgstr ""
+"Ich füge keine Lesezeichen in andere Lesezeichen ein :)\n"
+"Bitte wähle einen Ordner aus."
 
 #: BookmarkEditor#12
 msgctxt "BookmarkEditor#12"
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Ungespeicherte Änderungen"
 
 #: BookmarkEditor#13
 msgid ""
 "Bookmark Manager found unsaved Changes.\n"
 "Do you realy wan to exit?"
 msgstr ""
+"Der Lesezeichen Manager hat nicht gespeicherte Änderungen entdeckt. Willst "
+"du wirklich beenden?"
 
 #: CSSConfigure#1
 msgid "no"
-msgstr ""
+msgstr "keine"
 
 #: CSSConfigure#2
 msgid "less"
-msgstr ""
+msgstr "weniger"
 
 #: CSSConfigure#3
 msgid "more"
-msgstr ""
+msgstr "mehr"
 
 #: CSSConfigure#4
 msgid "Save && Exit"
-msgstr ""
+msgstr "Speichern && Beenden"
 
 #: CSSValidator#1
 msgid "CSS Validation"
-msgstr ""
+msgstr "CSS Prüfung"
 
 #: CSSValidator#2
 msgid "Rejected - CSS Validator is busy ..."
-msgstr ""
+msgstr "Verworfen - Die CSS Prüfung ist beschäftigt ..."
 
 #: CSSValidator#3
 msgid "CSS Validator says: Invalid Url and denies this request."
-msgstr ""
+msgstr "Der CSS Validator sagt: Ungültige Adresse und verweigert die Anfrage."
 
 #: CSSValidator#4
 msgid "Checking (%1). Please wait a little!"
-msgstr ""
+msgstr "Prüfe (%1). Bitte warte einen Augenblick!"
 
 #: CSSValidator#5
 msgid "To take in \"%1\" for Validation."
-msgstr ""
+msgstr "Nehme \"%1\" für die Überprüfung an."
 
 #: CSSValidator#6
 msgid "FailedToStart (%1) ..."
@@ -243,196 +265,196 @@ msgstr ""
 
 #: CSSValidator#7
 msgid "Crashed (%1) ..."
-msgstr ""
+msgstr "Abgestürzt (%1) ..."
 
 #: CSSValidator#8
 msgid "Timedout (%1) ..."
-msgstr ""
+msgstr "Zeitüberschreitung (%1) ..."
 
 #: CSSValidator#9
 msgid "WriteError (%1) ..."
-msgstr ""
+msgstr "Schreibfehler (%1) ..."
 
 #: CSSValidator#10
 msgid "ReadError (%1) ..."
-msgstr ""
+msgstr "Lesefehler (%1) ..."
 
 #: CSSValidator#11
 msgid "UnknownError (%1) ..."
-msgstr ""
+msgstr "Unbekannter Fehler (%1) ..."
 
 #: CSSValidator#12
 msgid "Crashed see logfiles"
-msgstr ""
+msgstr "Abgestürzt - Sehe die Logdateien ein"
 
 #: CertDialog#1
 msgid "Certification Notice"
-msgstr ""
+msgstr "Zertifikats Hinweis"
 
 #: CertDialog#2
 msgid "Notice"
-msgstr ""
+msgstr "Hinweis"
 
 #: CertDialog#3
 msgid "Message"
-msgstr ""
+msgstr "Nachricht"
 
 #: CertDialog#4
 msgid "Level"
-msgstr ""
+msgstr "Ebene"
 
 #: CertDialog#5
 msgctxt "CertDialog#5"
 msgid "Values"
-msgstr ""
+msgstr "Werte"
 
 #: CertDialog#6
 msgid "Subject"
-msgstr ""
+msgstr "Betreff"
 
 #: CertDialog#7
 msgid "Issuer"
-msgstr ""
+msgstr "Unterzeichner"
 
 #: CertDialog#8
 msgctxt "CertDialog#8"
 msgid "Organization (O)"
-msgstr ""
+msgstr "Organisation"
 
 #: CertDialog#9
 msgid "The name of the organization. (O)"
-msgstr ""
+msgstr "Name der Organisation (O)"
 
 #: CertDialog#10
 msgid "Common Name (CN)"
-msgstr ""
+msgstr "Gemeinsamer Name (CN)"
 
 #: CertDialog#11
 msgid "The common name; most often this is used to store the host name."
-msgstr ""
+msgstr "Der Gemeinsame Name; sollte den Hostnamen enthalten."
 
 #: CertDialog#12
 msgid "Locality (L)"
-msgstr ""
+msgstr "Örtlichkeit (L)"
 
 #: CertDialog#13
 msgid "The locality. (L)"
-msgstr ""
+msgstr "Herkunft (L)"
 
 #: CertDialog#14
 msgid "Organizational UnitName (OU)"
-msgstr ""
+msgstr "Aufbauorganisation (OU)"
 
 #: CertDialog#15
 msgid "The organizational unit name. (OU)"
-msgstr ""
+msgstr "Der Aufbauorganisations Name (OU)"
 
 #: CertDialog#16
 msgid "CountryName (C)"
-msgstr ""
+msgstr "Länder Name (C)"
 
 #: CertDialog#17
 msgid "The country. (C)"
-msgstr ""
+msgstr "Der Länder Name (C)"
 
 #: CertDialog#18
 msgid "State or Province (ST)"
-msgstr ""
+msgstr "Staat oder Provinz (ST)"
 
 #: CertDialog#19
 msgid "The state or province name. (ST)"
-msgstr ""
+msgstr "Der Staat oder die Provinz (ST)"
 
 #: CertDialog#20
 msgid "Certificate"
-msgstr ""
+msgstr "Zertifikat"
 
 #: CertDialog#21
 msgid "Import"
-msgstr ""
+msgstr "Importieren"
 
 #: CertDialog#22
 msgid "Serial Nr."
-msgstr ""
+msgstr "Serien Nr."
 
 #: CertDialog#23
 msgctxt "CertDialog#23"
 msgid "Expires"
-msgstr ""
+msgstr "Erlischt"
 
 #: CertIssuerTable#1
 msgctxt "CertIssuerTable#1"
 msgid "Organization (O)"
-msgstr ""
+msgstr "Organisation (O)"
 
 #: CertIssuerTable#2
 msgid "CommonName (CN)"
-msgstr ""
+msgstr "Gemeinsamer Name (CN)"
 
 #: CertIssuerTable#3
 msgctxt "CertIssuerTable#3"
 msgid "Expires"
-msgstr ""
+msgstr "Erlischt"
 
 #: CertIssuers#1
 msgid "Issuers"
-msgstr ""
+msgstr "Unterzeichner"
 
 #: CertIssuers#2
 msgid "Database:"
-msgstr ""
+msgstr "Datenbank:"
 
 #: CertIssuers#3
 msgid "CA Bundle Database"
-msgstr ""
+msgstr "CA Bündel Datenbank"
 
 #: CertIssuers#4
 msgid "CA Bundle %1"
-msgstr ""
+msgstr "CA Bündle %1"
 
 #: CertIssuers#5
 msgid "Certificate %1"
-msgstr ""
+msgstr "Zertifikat %1"
 
 #: ColorPicker#1
 msgid "Colors"
-msgstr ""
+msgstr "Farben"
 
 #: ColorPicker#2
 msgid "Web Colors"
-msgstr ""
+msgstr "Web Farben"
 
 #: ColorPicker#3
 msgid "Royal Colors"
-msgstr ""
+msgstr "Royal Farben"
 
 #: ColorPicker#4
 msgid "Rainbow Colors"
-msgstr ""
+msgstr "Regenbogen Farben"
 
 #: ColorPicker#5
 msgid "Gray Colors"
-msgstr ""
+msgstr "Graustufen"
 
 #: ColorPicker#6
 msgid "Topographic Colors"
-msgstr ""
+msgstr "Topografische Farben"
 
 #: ColorPicker#7
 msgid "Color preview"
-msgstr ""
+msgstr "Farben-Vorschau"
 
 #: ColorPicker#8
 msgid "Color tapping"
-msgstr ""
+msgstr "Farbe abgreifen"
 
 #: ColorPickerButton#1
 msgid "Color picker"
-msgstr ""
+msgstr "Farbauswahl"
 
 #: ConfigAccessControl#1
 msgid "Client Authentication and Access Control"
-msgstr ""
+msgstr "Klient Authentifizierung und Zugangs Kontrolle"
 
 #: ConfigAccessControl#2
 msgid ""
@@ -442,18 +464,23 @@ msgid ""
 "refer the  Apache SSL FAQ. How can I authenticate clients based on "
 "certificates when <a href=\"%1\">I know all my clients</a>?"
 msgstr ""
+"Dieses Zertifikat wird von der Gegenstelle zur Verifizierung einer "
+"Zertifikat basierenden Identifizierung verwendet. Für mehr Informationen "
+"über die Klient Authentifizierung und Zugangs Kontrolle lese bitte die "
+"Apache SSL Hilfe. How can I authenticate clients based on certificates when "
+"<a href=\"%1\">I know all my clients</a>?"
 
 #: ConfigAccessControl#3
 msgid "Public Keyfile:"
-msgstr ""
+msgstr "Öffentlicher Schlüssel:"
 
 #: ConfigAccessControl#4
 msgid "Private Keyfile:"
-msgstr ""
+msgstr "Privater Schlüssel:"
 
 #: ConfigAccessControl#5
 msgid "Private Key Password:"
-msgstr ""
+msgstr "Privates Passwort:"
 
 #: ConfigAccessControl#6
 msgctxt "ConfigAccessControl#6"
@@ -463,74 +490,76 @@ msgstr ""
 #: ConfigAccessControl#7
 msgctxt "ConfigAccessControl#7"
 msgid "PEM or DER Encoding X.509 Format %1"
-msgstr ""
+msgstr "PEM oder DER Encodiertes X.509 Format %1"
 
 #: ConfigAccessControl#8
 msgctxt "ConfigAccessControl#8"
 msgid "Open Certificate"
-msgstr ""
+msgstr "Öffne Zertifikat"
 
 #: ConfigBrowser#1
 msgid "Browser Settings"
-msgstr ""
+msgstr "Browser Einstellungen"
 
 #: ConfigBrowser#2
 msgid "Do Not Buffer Upload Data when doing a HTTP POST request."
-msgstr ""
+msgstr "Speichere keine Upload Daten wenn HTTP POST verwendet wird."
 
 #: ConfigBrowser#3
 msgid "Allow HTTP pipelining with requests."
-msgstr ""
+msgstr "Erlaube HTTP Parallelverarbeitung bei den Anfragen."
 
 #: ConfigBrowser#4
 msgid ""
 "Indicates whether the HTTP Pipelining was used for receiving data Requests."
-msgstr ""
+msgstr "Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird."
 
 #: ConfigBrowser#5
 msgid "Enable AutoLoad Images"
-msgstr ""
+msgstr "Bilder Automatisch laden"
 
 #: ConfigBrowser#6
 msgid "Enable Javascript"
-msgstr ""
+msgstr "Aktiviere JavaScript"
 
 #: ConfigBrowser#7
 msgid "Enable Plugins"
-msgstr ""
+msgstr "Aktiviere Plugins"
 
 #: ConfigBrowser#8
 msgid "Enable Java"
-msgstr ""
+msgstr "Aktiviere Java"
 
 #: ConfigBrowser#9
 msgid "Zoom only text"
-msgstr ""
+msgstr "Nur Text Zoomen"
 
 #: ConfigBrowser#10
 msgid "Fetch DNS entries to speed up browsing."
-msgstr ""
+msgstr "Hole DNS Einträge für ein schnelleres Browsen."
 
 #: ConfigBrowser#11
 msgid "JavaScript programs can open new windows."
-msgstr ""
+msgstr "JavaScript Programme dürfen neue Fenster öffnen."
 
 #: ConfigBrowser#12
 msgid "JavaScript programs can read or write to the clipboard."
-msgstr ""
+msgstr "Erlaube JavaScript Programmen den zugriff auf das Clipboard."
 
 #: ConfigBrowser#13
 msgid ""
 "The background color and images are also drawn when the page is printed."
-msgstr ""
+msgstr "Beim Drucken von Seiten den Hintergund mit übertragen."
 
 #: ConfigBrowser#14
 msgid "Locally loaded documents are allowed to access remote urls."
-msgstr ""
+msgstr "Lokal geöffnete Dokumente dürfen auf externe Adressen zugreifen."
 
 #: ConfigBrowser#15
 msgid "Locally loaded documents are allowed to access other local urls."
 msgstr ""
+"Lokal geöffnete Dokumente dürfen auf andere Dokumente innerhalb des Systems "
+"zugreifen."
 
 #: ConfigBrowser#16
 msgid ""
@@ -539,6 +568,10 @@ msgid ""
 "inspector's JavaScript console. Warning: To enabe this feature might have an "
 "impact on performance."
 msgstr ""
+"Spezifiziert ob Netzanfragen  auf Cross-Site Scripting überwacht werden "
+"sollen. In einem Verdachtsmoment werden diese Inhalte geblockt und eine "
+"Meldung an die Java-Script Konsole gesendet. Warnung: Diese Einstellung hat "
+"starken Einfluss auf die Performance."
 
 #: ConfigBrowser#17
 msgid ""
@@ -546,6 +579,8 @@ msgid ""
 "rendered\n"
 "by composing the cached content of the animated elements."
 msgstr ""
+"Aktiviert - Werden CSS Animationen die mit transform oder opacity Prädikaten "
+"versehen sind aus dem Systemspeicher heraus animiert."
 
 #: ConfigBrowser#18
 msgid ""
@@ -556,47 +591,51 @@ msgid ""
 "contents using CSS fixed positioning. This property allows application to "
 "temporarily freeze the contents of the backing store."
 msgstr ""
+"Diese Einstellung aktiviert das rendern von Grafischen Inhalten mit "
+"fließenden Bildpunkten. Element Inhalte mit Grafiken werden hiermit auf den "
+"Sichtbaren Bereich synchronisiert. Bei Elementen mit dem geerbten CSS "
+"Prädikat „fixed“ hat dies keine Wirkung."
 
 #: ConfigBrowser#19
 msgid "Font Settings"
-msgstr ""
+msgstr "Schriften Einstellungen"
 
 #: ConfigBrowser#20
 msgid "Default Font Size:"
-msgstr ""
+msgstr "Standard Schriftgröße:"
 
 #: ConfigBrowser#21
 msgid "Fixed Font Size:"
-msgstr ""
+msgstr "Standard für die feste Schriftgröße:"
 
 #: ConfigBrowser#22
 msgid "Plugins Directory"
-msgstr ""
+msgstr "Plugin Verzeichnis"
 
 #: ConfigCookies#1
 msgid "Cookie Management"
-msgstr ""
+msgstr "Keks Verwaltung"
 
 #: ConfigCookies#2
 msgid "Search for existing Cookies"
-msgstr ""
+msgstr "Suche nach einem existierenden Keks"
 
 #: ConfigCookies#3
 msgctxt "ConfigCookies#3"
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: ConfigCookies#4
 msgid "Remove Selected Cookie"
-msgstr ""
+msgstr "Entferne den ausgwählten Keks"
 
 #: ConfigCookies#5
 msgid "Clear Cookies Table"
-msgstr ""
+msgstr "Leer die Kekstabelle"
 
 #: ConfigCookies#6
 msgid "Create a new Cookie provision"
-msgstr ""
+msgstr "Erstelle eine neue Cookie Regelung"
 
 #: ConfigCookies#7
 msgctxt "ConfigCookies#7"
@@ -605,108 +644,112 @@ msgstr ""
 
 #: ConfigCookies#8
 msgid "Merely current Session"
-msgstr ""
+msgstr "Lediglich nur für die Sitzung"
 
 #: ConfigCookies#9
 msgid "Always Blocked"
-msgstr ""
+msgstr "Immer verhindern"
 
 #: ConfigCookies#10
 msgid "Always Allowed"
-msgstr ""
+msgstr "Immer erlauben"
 
 #: ConfigCookies#11
 msgctxt "ConfigCookies#11"
 msgid "Add"
-msgstr ""
+msgstr "Einfügen"
 
 #: ConfigDomTree#1
 msgid "DOM Inspector"
-msgstr ""
+msgstr "DOM Kontrolleur"
 
 #: ConfigDomTree#2
 msgid "Enable Background Highlight"
-msgstr ""
+msgstr "Aktiviere die Hintergrund Hervorhebung"
 
 #: ConfigDomTree#3
 msgid "Enable Border Highlight"
-msgstr ""
+msgstr "Aktiviere die Rahmen Hervorhebung"
 
 #: ConfigExtras#1
 msgctxt "ConfigExtras#1"
 msgid "Extensions"
-msgstr ""
+msgstr "Erweiterungen"
 
 #: ConfigExtras#2
 msgid "Geological IP Resolver"
-msgstr ""
+msgstr "Geologischer IP Koordinatenwandler"
 
 #: ConfigExtras#3
 msgid "Database"
-msgstr ""
+msgstr "Datenbank"
 
 #: ConfigExtras#4
 msgid "GeoIP Database %1"
-msgstr ""
+msgstr "GeoIP Datenbank %1"
 
 #: ConfigHeaderDefinitions#1
 msgid "Header Field Definitions"
-msgstr ""
+msgstr "Datenkopf Definitionen"
 
 #: ConfigHeaderDefinitions#2
 msgid ""
 "Warning: Do not edit this Table if you not now how it works! For more "
 "information see <a href=\"%1\">rfc2616</a>"
 msgstr ""
+"Warnung: Editiere diese Tabelle nicht, wenn du nicht weist wie sie Arbeitet. "
+"Für mehr Informationen siehe <a href=\"%1\">rfc2616</a>"
 
 #: ConfigHeaderDefinitions#3
 msgctxt "ConfigHeaderDefinitions#3"
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
 #: ConfigHeaderDefinitions#4
 msgctxt "ConfigHeaderDefinitions#4"
 msgid "Values"
-msgstr ""
+msgstr "Werte"
 
 #: ConfigIDE#1
 msgctxt "ConfigIDE#1"
 msgid "Defaults"
-msgstr ""
+msgstr "Standards"
 
 #: ConfigIDE#2
 msgid ""
 "Load this URL as default on start, if empty xhtmldbg will use recently "
 "viewed Url."
 msgstr ""
+"Lade immer diese URL beim Start, wenn Leer wird die zuletzt Besuchte "
+"verwendetet."
 
 #: ConfigIDE#3
 msgid "Do not open Downloadmanager on Application start."
-msgstr ""
+msgstr "Öffne nicht die Download Verwaltung beim Programmstart."
 
 #: ConfigIDE#4
 msgid "W3C CSS Validator Settings"
-msgstr ""
+msgstr "W3C Validierer Einstellungen"
 
 #: ConfigIDE#5
 msgid "Java Application"
-msgstr ""
+msgstr "Java Programm"
 
 #: ConfigIDE#6
 msgid "Path to W3C Validator file"
-msgstr ""
+msgstr "Pfad zur W3C Validierer Datei"
 
 #: ConfigIDE#7
 msgid "W3C Validator CLASSPATH"
-msgstr ""
+msgstr "Klassen Pfad des W3C Validierers"
 
 #: ConfigIDE#8
 msgid "Default Icon Theme"
-msgstr ""
+msgstr "Standard Icon Thema"
 
 #: ConfigIDE#9
 msgid "Icon Theme path"
-msgstr ""
+msgstr "Icon Thema Pfad"
 
 #: ConfigIDE#10
 msgid ""
@@ -714,10 +757,13 @@ msgid ""
 "download it from <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> "
 "Homepage.</div>"
 msgstr ""
+"<div style=\"color:red;\">Der W3C CSS Validierer wurde nicht "
+"gefunden!</div><div>Du kannst ihn von der <a "
+"href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Seite herunterladen.</div>"
 
 #: ConfigIDE#11
 msgid "Application Theme Settings"
-msgstr ""
+msgstr "Programm Themen EInstellungen"
 
 #: ConfigIDE#12
 msgid ""
@@ -727,35 +773,41 @@ msgid ""
 "list you can perform this operation. Attention! When set this Path's to make "
 "sure where your Selected Icon Theme located."
 msgstr ""
+"Beim Programmstart, versucht Qt alle Icon Thema Pfade ein zu lesen und sucht "
+"in ihnen rekursiv nach den von xhtmldbg verwendeten Icons. Das macht den "
+"Programmstart auf ix86 Systemen langsamer. Mit dieser Liste kannst du die "
+"Performance dieser Operation steigern. Achtung! Wenn Sie diese Pfade setzen, "
+"stellen Sie bitte sicher das Ihr ausgewähltes Icon Thema in einem dieser "
+"Pfade liegt."
 
 #: ConfigIDE#13
 msgid "The Default Icon Theme is (Oxygen)"
-msgstr ""
+msgstr "Das Standard Icon Thema ist (Oxygen)"
 
 #: ConfigIDE#14
 msgid "Java-Archive %1"
-msgstr ""
+msgstr "Java-Archiv %1"
 
 #: ConfigIDE#15
 msgctxt "ConfigIDE#15"
 msgid "All %1"
-msgstr ""
+msgstr "Alles %1"
 
 #: ConfigIDE#16
 msgid "W3C CSS Validator"
-msgstr ""
+msgstr "W3C CSS Validierer"
 
 #: ConfigIDE#17
 msgid "W3C CSS Validator Java-Archive"
-msgstr ""
+msgstr "W3C CSS Validierer Java-Archiv"
 
 #: ConfigNetwork#1
 msgid "Network Settings"
-msgstr ""
+msgstr "Netzwerk Einstellungen"
 
 #: ConfigNetwork#2
 msgid "modify caching behavior"
-msgstr ""
+msgstr "Speicherverhalten ändern"
 
 #: ConfigNetwork#3
 msgid ""
@@ -766,48 +818,64 @@ msgid ""
 "By default “xhtmldbg” always remove cached data before a request operation "
 "has been send."
 msgstr ""
+"Warnung: “xhtmldbg” verwendet für das Debuggen bereits die bestmögliche "
+"Speicherverwaltung.\n"
+"Es wird z.B. die Quelltextansicht mit dem Zwischenspeicher verwendet.\n"
+"Standardmäßig wird vor jeder Netzwerkoperation die Seite wieder entfernt."
 
 #: ConfigNetwork#4
 msgid "Controls if the data obtained should be saved to cache for future uses."
-msgstr ""
+msgstr "Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
 
 #: ConfigNetwork#5
 msgid ""
 "If the box is not checked, the data obtained will not be automatically "
 "cached."
 msgstr ""
+"Wenn die Auswahl nicht aktiviert ist, werden keine entnommene Daten "
+"zwichengespeichert."
 
 #: ConfigNetwork#6
 msgid "Indicates whether incoming data was obtained from cache or not."
-msgstr ""
+msgstr "Erkenne ob die Daten aus dem Zwichenspeicher entnommenen wurden."
 
 #: ConfigNetwork#7
 msgid ""
 "If the box is not checked, incoming data will not be automatically checked."
 msgstr ""
+"Wenn die Auswahl nicht aktiviert ist, werden nicht geprüft ob die Daten aus "
+"dem Zwichenspeicher entnommen wurden."
 
 #: ConfigNetwork#8
 msgid ""
 "Always Network (always load from network and do not check if the cache has a "
 "valid entry)"
 msgstr ""
+"Immer Netzwerk (Direkte Netzwerk Verbindung verwenden. Es wird kein "
+"Zwischenspeicher erstellt)"
 
 #: ConfigNetwork#9
 msgid ""
 "Prefer Network (load from the network if the cached entry is older than the "
 "network entry)"
 msgstr ""
+"Netzwerk vorziehen (Wenn der Zwischenspeicher veralltet ist verwende die "
+"Netzwerkanfrage)"
 
 #: ConfigNetwork#10
 msgid ""
 "Prefer Cache (load from cache if available, otherwise load from network)"
 msgstr ""
+"Speicher vorziehen (Lade Adresse vom Speicher. Es wird keine Aktualisierung "
+"geprüft)"
 
 #: ConfigNetwork#11
 msgid ""
 "Always Cache (only load from cache, indicating error if the item was not "
 "cached)"
 msgstr ""
+"Immer vom Speicher (Nur vom Speicher laden. Fehlende Seiten prodizieren "
+"Fehlermeldung)"
 
 #: ConfigProxy#1
 msgctxt "ConfigProxy#1"
@@ -816,85 +884,85 @@ msgstr ""
 
 #: ConfigProxy#2
 msgid "The Network Proxy Type:"
-msgstr ""
+msgstr "Type des Netzwerk Proxies:"
 
 #: ConfigProxy#3
 msgid "Socks 5 (Based on RFC 1928 and RFC 1929)"
-msgstr ""
+msgstr "Socks 5 (Basierend auf RFC 1928 und RFC 1329)"
 
 #: ConfigProxy#4
 msgid "HTTP Transparent Proxying (Default)"
-msgstr ""
+msgstr "HTTP Transparenter Proxy (Standard)"
 
 #: ConfigProxy#5
 msgid "Caching-only HTTP (Only for HTTP Requests)"
-msgstr ""
+msgstr "Caching-only HTTP (Nur für HTTP Anfragen)"
 
 #: ConfigProxy#6
 msgid "Caching FTP (Only for FTP Requests)"
-msgstr ""
+msgstr "Caching FTP (Nur für FTP Anfragen)"
 
 #: ConfigProxy#7
 msgid "Hostname of the Proxy:"
-msgstr ""
+msgstr "Proxy Hostname:"
 
 #: ConfigProxy#8
 msgid "Proxy Port Number:"
-msgstr ""
+msgstr "Proxy Port Adresse:"
 
 #: ConfigProxy#9
 msgid "Authentication Username:"
-msgstr ""
+msgstr "Zugangs Benutzername:"
 
 #: ConfigProxy#10
 msgid "Authentication Password:"
-msgstr ""
+msgstr "Zugangs Passwort:"
 
 #: ConfigSSL#1
 msgid "SSL Certification"
-msgstr ""
+msgstr "SSL Zertifizierung"
 
 #: ConfigTidy#1
 msgid "QTidy Source Parser"
-msgstr ""
+msgstr "QTidy Syntax Analysierer"
 
 #: ConfigTidy#2
 msgid "Enable Auto Source Check"
-msgstr ""
+msgstr "Aktiviere Automatische Überprüfung"
 
 #: ConfigTidy#3
 msgid "Enable Autoformat and Check Source"
-msgstr ""
+msgstr "Aktiviere Automatisches Bereinigen"
 
 #: ConfigTidy#4
 msgid "Disable autoformat and autocheck"
-msgstr ""
+msgstr "Deaktiviere Automatische Überprüfung und Syntaxbereinigung"
 
 #: ConfigTrustedHosts#1
 msgid "Whitelist for Untrusted Certificates"
-msgstr ""
+msgstr "Weiße Liste für nicht vertrauenswürdig Zertifikate"
 
 #: ConfigUserAgents#1
 msgctxt "ConfigUserAgents#1"
 msgid "User-Agent"
-msgstr ""
+msgstr "Benutzer Kennung"
 
 #: ConfigUtils#1
 msgid "Binary *%1*"
-msgstr ""
+msgstr "Programm *%1*"
 
 #: ConfigUtils#2
 msgctxt "ConfigUtils#2"
 msgid "All %1"
-msgstr ""
+msgstr "Alles %1"
 
 #: ConfigUtils#3
 msgid "Find Application"
-msgstr ""
+msgstr "Annwendung finden"
 
 #: ConfigUtils#4
 msgid "Find File"
-msgstr ""
+msgstr "Dateisuche"
 
 #: ConfigUtils#5
 msgctxt "ConfigUtils#5"
@@ -904,20 +972,20 @@ msgstr ""
 #: ConfigUtils#6
 msgctxt "ConfigUtils#6"
 msgid "PEM or DER Encoding X.509 Format %1"
-msgstr ""
+msgstr "PEM oder DER Encodiertes X.509 Format %1"
 
 #: ConfigUtils#7
 msgctxt "ConfigUtils#7"
 msgid "Open Certificate"
-msgstr ""
+msgstr "Öffne Zertifikat"
 
 #: Configuration#1
 msgid "Configure xhtmldbg[*]"
-msgstr ""
+msgstr "Konfiguriere xhtmldbg[*]"
 
 #: Configuration#2
 msgid "Restore Settings"
-msgstr ""
+msgstr "Einstellungen Zurücksetzen"
 
 #: Configuration#3
 msgid ""
@@ -927,22 +995,29 @@ msgid ""
 "\n"
 "Do you really want to do this?"
 msgstr ""
+"Alle Konfigurations Optionen werden zurück gesetzt und gehen verloren.\n"
+"Nach dieser Aktion wird sich der Konfigurations Dialog Automatisch schließen "
+"und du must das Programm neu starten.\n"
+"\n"
+"Willst du das wirklich machen?"
 
 #: Configuration#4
 msgctxt "Configuration#4"
 msgid "Unsaved Changes"
-msgstr ""
+msgstr "Ungespeicherte Änderungen"
 
 #: Configuration#5
 msgid ""
 "Found unsaved Changes.\n"
 "Do you really want to exit?"
 msgstr ""
+"Nicht gespeicherte Einstellungen.\n"
+"Willst du wirklich beenden?"
 
 #: ConfigurationMenu#1
 msgctxt "ConfigurationMenu#1"
 msgid "Defaults"
-msgstr ""
+msgstr "Standards"
 
 #: ConfigurationMenu#2
 msgid "Tidy"
@@ -950,7 +1025,7 @@ msgstr ""
 
 #: ConfigurationMenu#3
 msgid "Dom Inspector"
-msgstr ""
+msgstr "DOM Kontrolleur"
 
 #: ConfigurationMenu#4
 msgctxt "ConfigurationMenu#4"
@@ -959,12 +1034,12 @@ msgstr ""
 
 #: ConfigurationMenu#5
 msgid "Network"
-msgstr ""
+msgstr "Netzwerk"
 
 #: ConfigurationMenu#6
 msgctxt "ConfigurationMenu#6"
 msgid "Cookies"
-msgstr ""
+msgstr "Kekse"
 
 #: ConfigurationMenu#7
 msgctxt "ConfigurationMenu#7"
@@ -973,136 +1048,136 @@ msgstr ""
 
 #: ConfigurationMenu#8
 msgid "Certification"
-msgstr ""
+msgstr "Zertifizierung"
 
 #: ConfigurationMenu#9
 msgctxt "ConfigurationMenu#9"
 msgid "User Agent"
-msgstr ""
+msgstr "Benutzer Kennung"
 
 #: ConfigurationMenu#10
 msgctxt "ConfigurationMenu#10"
 msgid "Extensions"
-msgstr ""
+msgstr "Erweiterungen"
 
 #: ConfigurationMenu#11
 msgid "%1 Configuration options."
-msgstr ""
+msgstr "%1 Konfigurations Optionen."
 
 #: ContextMenu#1
 msgid "Debugger"
-msgstr ""
+msgstr "Debugger"
 
 #: ContextMenu#2
 msgid "Check Source"
-msgstr ""
+msgstr "Quelltext prüfen"
 
 #: ContextMenu#3
 msgid "Check Document Source"
-msgstr ""
+msgstr "Dokumenten Quelltext Überprüfen"
 
 #: ContextMenu#4
 msgid "Format Source"
-msgstr ""
+msgstr "Quelltext Formatieren"
 
 #: ContextMenu#5
 msgid "Format Document Source"
-msgstr ""
+msgstr "Den Dokumenten Quelltext formatieren"
 
 #: ContextMenu#6
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #: ContextMenu#7
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
 #: ContextMenu#8
 msgid "Save Html Source to ..."
-msgstr ""
+msgstr "Speichere das HTML unter ..."
 
 #: ContextMenu#9
 msgid "Print"
-msgstr ""
+msgstr "Drucken"
 
 #: ContextMenu#10
 msgid "Print current Document"
-msgstr ""
+msgstr "Drucke aktuelles Dokument"
 
 #: ContextMenu#11
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: ContextMenu#12
 msgid "Wordwrap"
-msgstr ""
+msgstr "Textumbruch"
 
 #: ContextMenu#13
 msgid "enable disable line wrap mode"
-msgstr ""
+msgstr "(De)aktiviere den Textumbruch"
 
 #: CookieAcceptDialog#1
 msgid "URL Cookie Requirement"
-msgstr ""
+msgstr "URL Keks Anforderung"
 
 #: CookieAcceptDialog#2
 msgid "The Host have sent a Cookie request, add here the Arrangement."
-msgstr ""
+msgstr "Die Webseite möchte einen Keks setzen, bearbeite hier deine Regelung."
 
 #: CookieAcceptDialog#3
 msgctxt "CookieAcceptDialog#3"
 msgid "Ready"
-msgstr ""
+msgstr "Fertig"
 
 #: CookieAccessComboBox#1
 msgid "Session"
-msgstr ""
+msgstr "Sitzung"
 
 #: CookieAccessComboBox#2
 msgid "Blocked"
-msgstr ""
+msgstr "Verhindert"
 
 #: CookieAccessComboBox#3
 msgid "Allowed"
-msgstr ""
+msgstr "Erlaubt"
 
 #: CookiesBoolComboBox#1
 msgctxt "CookiesBoolComboBox#1"
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: CookiesBoolComboBox#2
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 #: CookiesEditorTable#1
 msgctxt "CookiesEditorTable#1"
 msgid "Domain"
-msgstr ""
+msgstr "Domäne"
 
 #: CookiesEditorTable#2
 msgid "Arrangement"
-msgstr ""
+msgstr "Regelung"
 
 #: CookiesEditorTable#3
 msgid "Allow third party"
-msgstr ""
+msgstr "Erlaube Dritte"
 
 #: CookiesEditorTable#4
 msgid "rfc2109"
-msgstr ""
+msgstr "RFC-2109"
 
 #: DBManager#1
 msgid "SQL Invalid Operation: %1 %2"
-msgstr ""
+msgstr "SQL Ungültige Operation: %1 %2"
 
 #: DBManager#2
 msgid "SQL Open Database: %1 %2"
-msgstr ""
+msgstr "SQL Fehler beim öffnen der Datenbank: %1 %2"
 
 #: DBManager#3
 msgid "SQL Create Table: %1 %2"
-msgstr ""
+msgstr "SQL Fehler beim erstellen der Tabelle: %1 %2"
 
 #: DBManager#4
 msgid "SQL Select: %1 %2"
@@ -1122,7 +1197,7 @@ msgstr ""
 
 #: DBManager#8
 msgid "SQL Query: %1 %2"
-msgstr ""
+msgstr "SQL Abfragefehler: %1 %2"
 
 #: DBManager#9
 msgid "SQL: %1 %2"
@@ -1130,20 +1205,20 @@ msgstr ""
 
 #: DirectoryDialog#1
 msgid "Directory"
-msgstr ""
+msgstr "Verzeichnis"
 
 #: DockTreeWidget#1
 msgctxt "DockTreeWidget#1"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: DockTreeWidget#2
 msgid "Expand All"
-msgstr ""
+msgstr "Komplett Einblenden"
 
 #: DockTreeWidget#3
 msgid "Collapse All"
-msgstr ""
+msgstr "Komplett Ausblenden"
 
 #: DomInspector#1
 msgid "DomTree"
@@ -1152,31 +1227,31 @@ msgstr ""
 #: DomToolBar#1
 msgctxt "DomToolBar#1"
 msgid "Actions"
-msgstr ""
+msgstr "Aktionen"
 
 #: DomToolBar#2
 msgid "Expand"
-msgstr ""
+msgstr "Einblenden"
 
 #: DomToolBar#3
 msgid "Collapse"
-msgstr ""
+msgstr "Ausblenden"
 
 #: DomToolBar#4
 msgid "Collapse Tree"
-msgstr ""
+msgstr "Baum Ausblenden"
 
 #: DomToolBar#5
 msgid "Expanding Tree"
-msgstr ""
+msgstr "Baum Einblenden"
 
 #: DomToolBar#6
 msgid "Deselect"
-msgstr ""
+msgstr "Abwählen"
 
 #: DomToolBar#7
 msgid "Deselect Highlights"
-msgstr ""
+msgstr "Hervorhebung Abwählen"
 
 #: DownloadManager#1
 msgid "Downloads"
@@ -1184,48 +1259,48 @@ msgstr ""
 
 #: DownloadsInfo#1
 msgid "<b>Download Summary</b>"
-msgstr ""
+msgstr "<b>Download Zusammenfassung</b>"
 
 #: DownloadsInfo#2
 msgid "Upload URL"
-msgstr ""
+msgstr "Hochladen URL"
 
 #: DownloadsInfo#3
 msgid "Destination Path"
-msgstr ""
+msgstr "Zielpfad"
 
 #: DownloadsInfo#4
 msgid "Filesize"
-msgstr ""
+msgstr "Dateigröße"
 
 #: DownloadsInfo#5
 msgid "Mime-Type"
-msgstr ""
+msgstr "Datentype"
 
 #: DownloadsInfo#6
 msgid "Open with external Application"
-msgstr ""
+msgstr "Öffne mit externen Programm"
 
 #: DownloadsTable#1
 msgid "Stop"
-msgstr ""
+msgstr "Anhalten"
 
 #: DownloadsTable#2
 msgctxt "DownloadsTable#2"
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: DownloadsTableModel#1
 msgid "Progress"
-msgstr ""
+msgstr "Fortschritt"
 
 #: DownloadsTableModel#2
 msgid "Time"
-msgstr ""
+msgstr "Zeit"
 
 #: DownloadsTableModel#3
 msgid "Size"
-msgstr ""
+msgstr "Größe"
 
 #: DownloadsTableModel#4
 msgid "Url"
@@ -1233,30 +1308,32 @@ msgstr ""
 
 #: DownloadsTableModel#5
 msgid "Destination"
-msgstr ""
+msgstr "Ziel"
 
 #: DownloadsTableModel#6
 msgctxt "DownloadsTableModel#6"
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: DropToClipBoard#1
 msgid "Copy to Clipboard Drop Area"
-msgstr ""
+msgstr "Kopiere Inhalt mit Maus fallen lassen in den Clipper"
 
 #: ErrorsDialog#1
 msgid "Error"
-msgstr ""
+msgstr "Fehler"
 
 #: ErrorsDialog#2
 msgid "Unknown Failure Message"
-msgstr ""
+msgstr "Unbekannte Fehler Nachricht"
 
 #: ErrorsDialog#3
 msgid ""
 "\n"
 "Reasons : "
 msgstr ""
+"\n"
+"Gründe : "
 
 #: ErrorsDialog#4
 msgid "Bad Request (400)"
@@ -1264,193 +1341,216 @@ msgstr ""
 
 #: ErrorsDialog#5
 msgid "Invalid Hostname or Host not Found"
-msgstr ""
+msgstr "Falscher Hostname oder Host nicht gefunden"
 
 #: ErrorsDialog#6
 msgid "Request Timeout (408)"
-msgstr ""
+msgstr "Zeitüberschreitung bei der Anfrage (408)"
 
 #: ErrorsDialog#7
 msgid ""
 "the SSL/TLS handshake failed and the encrypted channel could not be "
 "established. The sslErrors() signal should have been emitted."
 msgstr ""
+"Das Aushandeln der SSL/TLS Verbindung ist wegen Verschlüsselungsproblemen "
+"fehlgeschlagen."
 
 #: ErrorsDialog#8
 msgid "Proxy Connection Refused Error"
-msgstr ""
+msgstr "Fehler - Proxy Zugang Verweigert"
 
 #: ErrorsDialog#9
 msgid "Proxy Connection Closed Error"
-msgstr ""
+msgstr "Verbindung zum Proxy Server wurde unterbrochen Fehler"
 
 #: ErrorsDialog#10
 msgid ""
 "the proxy server closed the connection prematurely, before the entire reply "
 "was received and processed"
 msgstr ""
+"Der Proxy Server schließt/verliert die Verbindung bevor es zur einer Antwort "
+"kommt."
 
 #: ErrorsDialog#11
 msgid "Proxy Not Found Error"
-msgstr ""
+msgstr "Fehler - Der Proxy konnte nicht gefunden werden"
 
 #: ErrorsDialog#12
 msgid "the proxy host name was not found (invalid proxy hostname)"
-msgstr ""
+msgstr "Der Proxy Hostname wurde nicht gefunden. (falscher Proxy Hostname)"
 
 #: ErrorsDialog#13
 msgid "Proxy Timeout Error"
-msgstr ""
+msgstr "Fehler - Zeitüberschreitung zum Proxy"
 
 #: ErrorsDialog#14
 msgid ""
 "the connection to the proxy timed out or the proxy did not reply in time to "
 "the request sent"
 msgstr ""
+"Die Verbindung zum Proxy wurde wegen Zeitüberschreitung beim warten auf "
+"Antwort abgebrochen."
 
 #: ErrorsDialog#15
 msgid "Server Gone (410)"
-msgstr ""
+msgstr "Server Verschwunden (410)"
 
 #: ErrorsDialog#16
 msgid "The Remote Hostname was not found."
-msgstr ""
+msgstr "Der entfernte Hostname konnte nicht aufgeöst werden."
 
 #: ErrorsDialog#17
 msgid "Proxy Authentication Required Error (407)"
-msgstr ""
+msgstr "Fehler: Proxy Authentifizierung Notwendig (407)"
 
 #: ErrorsDialog#18
 msgid ""
 "the proxy requires authentication in order to honour the request but did not "
 "accept any credentials offered (if any)"
 msgstr ""
+"Der Proxy erwartet eine Authentifizierung aber Akzeptiert nicht alle "
+"übermittelten eingaben (Konfigurationsfehler)"
 
 #: ErrorsDialog#19
 msgid "Unauthorized (401)"
-msgstr ""
+msgstr "Nich Autorisiert (401)"
 
 #: ErrorsDialog#20
 msgid "Authentication Required Error"
-msgstr ""
+msgstr "Fehler - Authentifizierung erwartet"
 
 #: ErrorsDialog#21
 msgid ""
 "the remote server \"%1\" refused the connection (the server is not accepting "
 "requests)"
 msgstr ""
+"Der Server \"%1\" verweigert den Verbindungsaufbau. (Der Server nimmt die "
+"Anfrage nicht an.)"
 
 #: ErrorsDialog#22
 msgid ""
 "the remote server \"%1\" closed the connection prematurely, before the entire "
 "reply was received and processed"
 msgstr ""
+"Der Server \"%1\" hat die Verbindung geschlossen, bevor eine Antwort gesendet "
+"wurde."
 
 #: ErrorsDialog#23
 msgid "Invalid Hostname \"%1\", Server is currently down or DNS Problems."
-msgstr ""
+msgstr "Falscher Hostname \"%1\" oder Host nicht gefunden."
 
 #: ErrorsDialog#24
 msgid "the connection to the remote server \"%1\" timed out"
 msgstr ""
+"Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
 
 #: ErrorsDialog#25
 msgid ""
 "the connection to the proxy server \"%1\" was refused (the proxy server is not "
 "accepting requests)"
 msgstr ""
+"Die Verbindung zum Proxy Server \"%1\" wurde unterbrochen. (Der Proxy "
+"verweigert die Anfrage.)"
 
 #: ErrorsDialog#26
 msgid ""
 "the access to the remote \"%1\" content was denied (similar to HTTP error 401)"
-msgstr ""
+msgstr "Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
 
 #: ErrorsDialog#27
 msgid "the operation requested on the remote \"%1\" content is not permitted"
-msgstr ""
+msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
 
 #: ErrorsDialog#28
 msgid ""
 "the remote content \"%1\" was not found at the server (similar to HTTP error "
 "404)"
 msgstr ""
+"Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
 
 #: ErrorsDialog#29
 msgid ""
 "the remote server \"%1\" requires authentication to serve the content but the "
 "credentials provided were not accepted (if any)"
 msgstr ""
+"Die Gegenstelle \"%1\" erwartet eine Authentifizierung aber Akzeptiert nicht "
+"alle übermittelten eingaben."
 
 #: ErrorsDialog#30
 msgid "Content Re Send Error"
-msgstr ""
+msgstr "Fehler - Bei der Daten Übertragung"
 
 #: ErrorsDialog#31
 msgid ""
 "the request needed to be sent again, but this failed for example because the "
 "upload data could not be read a second time."
 msgstr ""
+"Die anfrage muss nochmal gesendet werden, dies wird wahrscheinlich "
+"fehlschlagen weil die Daten zum hoch laden zerstört sind oder nicht mehr im "
+"Speicher vorhanden sind."
 
 #: ErrorsDialog#32
 msgid ""
 "QtNetwork Access API cannot honor the request because the protocol is not "
 "known."
-msgstr ""
+msgstr "Das Programm konnte nicht alle angefragten Protokolle verarbeiten."
 
 #: ErrorsDialog#33
 msgid "Protocol Invalid Operation Error"
-msgstr ""
+msgstr "Fehler - Nicht erlaubte Protokoll Übertragung"
 
 #: ErrorsDialog#34
 msgid "the requested operation is invalid for this protocol"
-msgstr ""
+msgstr "Die Abfrageart für dieses Protokoll ist nicht erlaubt."
 
 #: ErrorsDialog#35
 msgid "an unknown network-related error was detected"
-msgstr ""
+msgstr "Ein Unbekannter Netzwerkfehler wurde festgestellt."
 
 #: ErrorsDialog#36
 msgid "an unknown proxy-related error was detected"
-msgstr ""
+msgstr "Ein Unbekannter Proxy Fehler wurde festgestellt."
 
 #: ErrorsDialog#37
 msgid "an unknown error related to the remote content was detected"
-msgstr ""
+msgstr "Auf der Gegenstelle wurde ein Unbekannter Fehler festgestellt."
 
 #: ErrorsDialog#38
 msgid "Protocol Failure"
-msgstr ""
+msgstr "Protokoll Fehler"
 
 #: ErrorsDialog#39
 msgid ""
 "a breakdown in protocol was detected (parsing error, invalid or unexpected "
 "responses, etc.)"
 msgstr ""
+"Ein Zusammenbruch des Protokolls wurde festgestellt. (Syntaxfehler, oder "
+"falsche Eingabe etc.)"
 
 #: ErrorsDialog#40
 msgid "an unknown related error was detected"
-msgstr ""
+msgstr "Ein Unbekannter Inhaltlicher Fehler wurde festgestellt"
 
 #: GeoLocation#1
 msgid "country code from host address."
-msgstr ""
+msgstr "Ländercode von der Host Adresse."
 
 #: HeaderDock#1
 msgid "Headers"
-msgstr ""
+msgstr "Datenköpfe"
 
 #: HeaderDock#2
 msgid "Header"
-msgstr ""
+msgstr "Datenkopf"
 
 #: HeaderDock#3
 msgctxt "HeaderDock#3"
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: HeaderDock#4
 msgid "POST Variables"
-msgstr ""
+msgstr "POST Variablen"
 
 #: HeaderDock#5
 msgctxt "HeaderDock#5"
@@ -1460,15 +1560,15 @@ msgstr ""
 #: HeaderDock#6
 msgctxt "HeaderDock#6"
 msgid "Cookies"
-msgstr ""
+msgstr "Kekse"
 
 #: HeaderDock#7
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: HeaderDock#8
 msgid "System File"
-msgstr ""
+msgstr "System Datei"
 
 #: HeaderDock#9
 msgctxt "HeaderDock#9"
@@ -1477,116 +1577,116 @@ msgstr ""
 
 #: HeaderDock#10
 msgid "Item"
-msgstr ""
+msgstr "Eintrag"
 
 #: HeaderDock#11
 msgid "Anchor"
-msgstr ""
+msgstr "Anker"
 
 #: HeaderDock#12
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: HeaderDock#13
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: HeaderDock#14
 msgid "Cookie"
-msgstr ""
+msgstr "Keks"
 
 #: HeaderDock#15
 msgctxt "HeaderDock#15"
 msgid "Domain"
-msgstr ""
+msgstr "Domäne"
 
 #: HeaderDock#16
 msgid "Path"
-msgstr ""
+msgstr "Pfad"
 
 #: HeaderDock#17
 msgid "Session Cookie"
-msgstr ""
+msgstr "Sitzungs Keks"
 
 #: HeaderDock#18
 msgid "Only for HTTP?"
-msgstr ""
+msgstr "Nur HTTP?"
 
 #: HeaderDock#19
 msgid "Expiration"
-msgstr ""
+msgstr "Verfällt"
 
 #: HeaderDock#20
 msgid "Secure"
-msgstr ""
+msgstr "Sicher"
 
 #: HeaderDock#21
 msgid "Cookie Hostname"
-msgstr ""
+msgstr "Cookie Hostname"
 
 #: HelloWorldPlugin#1
 msgid "Information for this Plugin"
-msgstr ""
+msgstr "Informtionen zu diesem Olugin"
 
 #: HelloWorldPlugin#2
 msgid "long description for this plugin"
-msgstr ""
+msgstr "Lange Beschreibung für dieses Plugin"
 
 #: HelloWorldPlugin#3
 msgid "Your Name"
-msgstr ""
+msgstr "Dein Name"
 
 #: HistoryMenu#1
 msgid "History"
-msgstr ""
+msgstr "Historie"
 
 #: HostInfoDialog#1
 msgid "Host Information"
-msgstr ""
+msgstr "Host Informationen"
 
 #: HostInfoDialog#2
 msgid "Resolved Host Information with given Url"
-msgstr ""
+msgstr "Mit der URL die Host Informationen auflösen."
 
 #: IconThemesList#1
 msgid "descending order for icon theme search paths"
-msgstr ""
+msgstr "Absteigende Reihenfolge für die Icon Thema Suchpfade"
 
 #: IconThemesList#2
 msgid "Adding"
-msgstr ""
+msgstr "Einfügen"
 
 #: IconThemesList#3
 msgctxt "IconThemesList#3"
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: JSMessanger#1
 msgid "JavaScript Impartations"
-msgstr ""
+msgstr "JavaScript Mitteilungen"
 
 #: JSMessanger#2
 msgctxt "JSMessanger#2"
 msgid "Ascending"
-msgstr ""
+msgstr "Aufteigend"
 
 #: JSMessanger#3
 msgctxt "JSMessanger#3"
 msgid "Descending"
-msgstr ""
+msgstr "Absteigend"
 
 #: JSMessanger#4
 msgctxt "JSMessanger#4"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: KeywordsToolBar#1
 msgid "Keywords"
-msgstr ""
+msgstr "Schlüsselwörter"
 
 #: KeywordsToolBar#2
 msgid "Show Keywords for Search Engine Optimisation (SEO)"
-msgstr ""
+msgstr "Zeige Schlüsselwörter für die Search Engine Optimierung (SEO)"
 
 #: KeywordsToolBar#3
 msgid "SEO:"
@@ -1599,40 +1699,40 @@ msgstr ""
 #: KeywordsToolBar#5
 msgctxt "KeywordsToolBar#5"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: ListStyleSheet#1
 msgid "Rendered from Stylesheet Document"
-msgstr ""
+msgstr "Abgegeben vom StyleSheet Dokument"
 
 #: ListStyleSheet#2
 msgid "Contained \"style\" Attribute"
-msgstr ""
+msgstr "Enthält ein \"style\" Prädikat"
 
 #: NPPAttributes#1
 msgid "Plugin Object Detected"
-msgstr ""
+msgstr "Plugin Objekt erkannt"
 
 #: NPPAttributes#2
 msgid "Predicates"
-msgstr ""
+msgstr "Prädikate"
 
 #: NPPAttributes#3
 msgctxt "NPPAttributes#3"
 msgid "Values"
-msgstr ""
+msgstr "Werte"
 
 #: NPPFailureWidget#1
 msgid "Plugin initialization aborted."
-msgstr ""
+msgstr "Plugin Initialisierung fehlgeschlagen."
 
 #: NPPLoader#1
 msgid "Missing Mime-Type Declaration!"
-msgstr ""
+msgstr "Keine Mime-Type Deklaration gefunden!"
 
 #: NPPLoader#2
 msgid "Invalid URL for this Plugin Request!"
-msgstr ""
+msgstr "Nicht valide Url Plugin anfrage erhalten!"
 
 #: NPPLoader#3
 msgid "MimeType"
@@ -1640,117 +1740,134 @@ msgstr ""
 
 #: NPPLoader#4
 msgctxt "NPPLoader#4"
+"NPPLoader#4"
+"NPPLoader#4"
+"NPPLoader#4"
 msgid "Source"
-msgstr ""
+msgstr "Quelle"
 
 #: NetworkAccessManager#1
 msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be "
 "established."
 msgstr ""
+"SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
+"wurde verworfen."
 
 #: NetworkAccessManager#2
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
 msgstr ""
+"Mehrere Möglichkeiten mit Content-Location header bei POST anfragen "
+"erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)"
 
 #: NetworkCookie#1
 msgid ""
 "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC "
 "2109."
 msgstr ""
+"Unzulässiges Cookie Format für \"%1\" und Keks Domäne \"%2\", zurückgewiesen "
+"wegen RFC 2109."
 
 #: NetworkCookie#2
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
 msgstr ""
+"Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die "
+"Domäne nicht mit einem Punkt beginnt."
 
 #: NetworkCookie#3
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
+"Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer "
+"zurück gewiesen."
 
 #: NetworkCookie#4
 msgid ""
 "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
+"Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück "
+"gewiesen."
 
 #: NetworkCookie#5
 msgid "Different Cookie/Domain for host %1. (Rejected)"
-msgstr ""
+msgstr "Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)"
 
 #: NetworkCookie#6
 msgid "Invalid Url for Cookie Request - rejected!"
-msgstr ""
+msgstr "Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!"
 
 #: NetworkCookie#7
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
-msgstr ""
+msgstr "Ein blockiertes Cookie für den Hostnamen \"%1\" wurde verworfen!"
 
 #: NetworkCookie#8
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
-msgstr ""
+msgstr "Drittanbieter Keks \"%1\" für den Host \"%2\" zurück gewiesen!"
 
 #: NetworkCookie#9
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
+"Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS "
+"verbindung"
 
 #: OpenFileDialog#1
 msgid "Open HTML File"
-msgstr ""
+msgstr "Öffne HTML Datei"
 
 #: OpenUrlDialog#1
 msgctxt "OpenUrlDialog#1"
 msgid "Open Url"
-msgstr ""
+msgstr "Öffne Url"
 
 #: Page#1
 msgid " Line: %1"
-msgstr ""
+msgstr " Zeile: %1"
 
 #: Page#2
 msgid " Document: %1"
-msgstr ""
+msgstr " Dokument: %1"
 
 #: Page#3
 msgid "JavaScript Prompt: "
-msgstr ""
+msgstr "JavaScript Anfrage: "
 
 #: Page#4
 msgid "(x-qt-plugin) ClassID: %1 %2"
-msgstr ""
+msgstr "(x-qt-plugin) ClassID: %1 %2"
 
 #: PageWidget#1
 msgid "Application restart required."
-msgstr ""
+msgstr "Anwendung Neustart erforderlich."
 
 #: QObject#1
 msgctxt "QObject#1"
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: QObject#2
 msgid "Bookmark file is not Valid XBEL Scheme!"
-msgstr ""
+msgstr "Die Lesezeichen Datei besitzt kein Valides XBEL Schema!"
 
 #: RFCBrowser#1
 msgctxt "RFCBrowser#1"
 msgid "RFC Document Browser"
-msgstr ""
+msgstr "RFC Dokumenten Browser"
 
 #: RFCBrowser#2
 msgid "Change RFC Document"
-msgstr ""
+msgstr "Wähle ein RFC Dokument"
 
 #: RFCBrowserPlugin#1
 msgctxt "RFCBrowserPlugin#1"
 msgid "RFC Document Browser"
-msgstr ""
+msgstr "RFC Dokumenten Browser"
 
 #: RFCBrowserPlugin#2
 msgid "Browse RFC Documents"
-msgstr ""
+msgstr "Dursuche RFC Dokumente"
 
 #: RFCBrowserPlugin#3
 msgid "Jürgen Heinemann (Undefined)"
@@ -1758,40 +1875,40 @@ msgstr ""
 
 #: RSSParserDialog#1
 msgid "RSS Parser"
-msgstr ""
+msgstr "RSS Syntaxanalysierer"
 
 #: RSSParserDialog#2
 msgid "Document Structure"
-msgstr ""
+msgstr "Dokumenten Struktur"
 
 #: RSSParserDialog#3
 msgid "Parser Messages"
-msgstr ""
+msgstr "Syntaxanalysierer Nachrichten"
 
 #: RSSParserDialog#4
 msgctxt "RSSParserDialog#4"
 msgid "Source"
-msgstr ""
+msgstr "Quelltext"
 
 #: RSSParserDialog#5
 msgid "Checking: %1"
-msgstr ""
+msgstr "Prüfe: %1"
 
 #: RSSParserDialog#6
 msgid "Version not Defined"
-msgstr ""
+msgstr "Version nicht definiert"
 
 #: RSSParserDialog#7
 msgid "Parsing RDF-%1"
-msgstr ""
+msgstr "Syntaxanalyse RDF-%1"
 
 #: RSSParserDialog#8
 msgid "Parsing ATOM-%1"
-msgstr ""
+msgstr "Syntaxanalyse ATOM-%1"
 
 #: RSSParserDialog#9
 msgid "Parsing RSS-%1"
-msgstr ""
+msgstr "Syntaxanalyse RSS-%1"
 
 #: RSSTreeView#1
 msgid "Element"
@@ -1799,41 +1916,41 @@ msgstr ""
 
 #: RSSTreeView#2
 msgid "Predicate"
-msgstr ""
+msgstr "Prädikat"
 
 #: RSSTreeView#3
 msgctxt "RSSTreeView#3"
 msgid "Value"
-msgstr ""
+msgstr "Wert"
 
 #: RaptorParser#1
 msgctxt "RaptorParser#1"
 msgid "Ready"
-msgstr ""
+msgstr "Fertig"
 
 #: ResizePortButtons#1
 msgid "Viewer Width"
-msgstr ""
+msgstr "Anzeigebreite"
 
 #: ResizePortButtons#2
 msgid "Resize Browser to fixed width"
-msgstr ""
+msgstr "Setze die Browser weite"
 
 #: ResizePortButtons#3
 msgid "Restore"
-msgstr ""
+msgstr "Zurücksetzen"
 
 #: SelfHtmlSidebar#1
 msgid "Index"
-msgstr ""
+msgstr "Startseite"
 
 #: SelfHtmlSidebar#2
 msgid "Configure Startpage"
-msgstr ""
+msgstr "Konfiguriere die Startseite"
 
 #: SelfHtmlSidebar#3
 msgid "Configure the SELFHTML Index HTML"
-msgstr ""
+msgstr "Konfiguriere die SELFHTML Startseite"
 
 #: SelfHtmlSidebarPlugin#1
 msgid "SELFHTML"
@@ -1842,79 +1959,80 @@ msgstr ""
 #: SelfHtmlSidebarPlugin#2
 msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
 msgstr ""
+"Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
 
 #: SetTargetDialog#1
 msgid "Output Directory"
-msgstr ""
+msgstr "Ausgabe Verzeichnis"
 
 #: SetTargetDialog#2
 msgid "Any files (*)"
-msgstr ""
+msgstr "Alle Dateien (*)"
 
 #: SetTargetDialog#3
 msgid "%1 files %2"
-msgstr ""
+msgstr "%1 Dateien %2"
 
 #: SetTargetDialog#4
 msgid "Compression"
-msgstr ""
+msgstr "Komprimierte"
 
 #: SetTargetDialog#5
 msgid "Image"
-msgstr ""
+msgstr "Bild"
 
 #: SoupReader#1
 msgid "Line"
-msgstr ""
+msgstr "Zeile"
 
 #: SoupReader#2
 msgid "File:.%1"
-msgstr ""
+msgstr "Datei:.%1"
 
 #: SoupReader#3
 msgid "Congratulations! No Error Found. (%1)"
-msgstr ""
+msgstr "Gratulation! Es wurden keine Fehler gefunden. (%1)"
 
 #: SourceView#1
 msgid "Markup Document %1"
-msgstr ""
+msgstr "Hypertext Dokument %1"
 
 #: SourceView#2
 msgid "Text Document %1"
-msgstr ""
+msgstr "Text Dokument %1"
 
 #: SourceView#3
 msgid "Save Content to..."
-msgstr ""
+msgstr "Speichere Inhalt nach ..."
 
 #: SourceView#4
 msgid "Can't write Source to \"%1\" Permission Denied."
-msgstr ""
+msgstr "Kann Quelltext nicht nach \"%1\"speichern, Zugriff Verweigert."
 
 #: SourceView#5
 msgid "To Save Source Operation dropout"
-msgstr ""
+msgstr "Der Speichern Vorgang wurde abgebrochen"
 
 #: SourceWidget#1
 msgctxt "SourceWidget#1"
 msgid "Source"
-msgstr ""
+msgstr "Quelltext"
 
 #: StatusBar#1
 msgid "Reload Status"
-msgstr ""
+msgstr "Aktualisieren Status"
 
 #: StatusBar#2
 msgid "QTidy Messanger contains Impartations"
-msgstr ""
+msgstr "Das QTidy Nachrichtenfenster enthält Nachrichten"
 
 #: StatusBar#3
 msgid "the rendered page size"
-msgstr ""
+msgstr "Abgegebene Seitengröße"
 
 #: StatusBar#4
 msgid "Display Browser Dimension Width x Height with Pixel."
-msgstr ""
+msgstr "Zeige Browser Dimensionen Breit x Hoch in Pixel an."
 
 #: StatusBar#5
 msgid "Browser %1x%2 px"
@@ -1922,76 +2040,78 @@ msgstr ""
 
 #: TidyMessanger#1
 msgid "HTML/XHTML Impartations"
-msgstr ""
+msgstr "HTML/XHTML Mitteilungen"
 
 #: TidyMessanger#2
 msgctxt "TidyMessanger#2"
 msgid "Ascending"
-msgstr ""
+msgstr "Aufteigend"
 
 #: TidyMessanger#3
 msgctxt "TidyMessanger#3"
 msgid "Descending"
-msgstr ""
+msgstr "Absteigend"
 
 #: TidyMessanger#4
 msgctxt "TidyMessanger#4"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: UiToolsLoader#1
 msgid ""
 "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x"
 "-qt-plugin - severance!"
 msgstr ""
+"(XHTMLBG) Akzeptiert bei Object Elementen mit dem type application/x-qt-"
+"plugin nur zu 100%% reines XHTML!"
 
 #: UiToolsLoader#2
 msgid "Sorry: I can't do it."
-msgstr ""
+msgstr "Ich kann das leider nicht machen."
 
 #: UiToolsLoader#3
 msgid "Invalid Element initialization."
-msgstr ""
+msgstr "Fehler bei der Element Initialisierung."
 
 #: UiToolsLoader#4
 msgid "(XHTMLDBG) Invalid value for property: %1"
-msgstr ""
+msgstr "(XHTMLDBG) Ungültiger Wert oder Parameter: %1"
 
 #: UserAgent#1
 msgid "XHTMLDBG (Default)"
-msgstr ""
+msgstr "XHTMLDBG (Standard)"
 
 #: UserAgentEditor#1
 msgid "Move Selected row Up"
-msgstr ""
+msgstr "Verschiebe die ausgewählte Zeile nach Oben"
 
 #: UserAgentEditor#2
 msgid "Move Selected row Down"
-msgstr ""
+msgstr "Verschiebe die ausgewählte Zeile nach Unten"
 
 #: UserAgentMenu#1
 msgctxt "UserAgentMenu#1"
 msgid "User Agent"
-msgstr ""
+msgstr "Benutzer Kennung"
 
 #: UserAgentsTable#1
 msgctxt "UserAgentsTable#1"
 msgid "Add"
-msgstr ""
+msgstr "Einfügen"
 
 #: UserAgentsTable#2
 msgctxt "UserAgentsTable#2"
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: UserAgentsTableModel#1
 msgid "Bookmark Entry for Context Menue"
-msgstr ""
+msgstr "Leszeichen Eintrag für das Kontext Menü"
 
 #: UserAgentsTableModel#2
 msgctxt "UserAgentsTableModel#2"
 msgid "User-Agent"
-msgstr ""
+msgstr "Benutzer Kennung"
 
 #: UserAgentsTableModel#3
 msgid ""
@@ -2005,63 +2125,66 @@ msgstr ""
 #: UserAgentsTableModel#4
 msgctxt "UserAgentsTableModel#4"
 msgid "Bookmark"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: UserAgentsTableModel#5
 msgid "Product Tokens"
-msgstr ""
+msgstr "Produkt Umschreibung"
 
 #: UserAgentsTableModel#6
 msgctxt "UserAgentsTableModel#6"
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: Validator#1
 msgid ""
 "to deny access for this reason missing url. Please note: The CSS Validator "
 "discarded shared url's! Remedy: reload the page."
 msgstr ""
+"Der Zugriff wurde wegen fehlender Adresse verweigert. Beachte bitte: Der CSS "
+"Validierer verwirft nach Verwendung die Adresse! Abhilfe: Die Seite neu "
+"laden."
 
 #: ValidatorMenu#1
 msgid "Check"
-msgstr ""
+msgstr "Prüfen"
 
 #: ValidatorMenu#2
 msgid "Checking last changed url"
-msgstr ""
+msgstr "Prüfe die zuletzt eingefügte Adresse"
 
 #: ValidatorMenu#3
 msgid "Dropout"
-msgstr ""
+msgstr "Abbrechen"
 
 #: ValidatorMenu#4
 msgid "Dropout current request"
-msgstr ""
+msgstr "Aktuelle Anfrage abbrechen"
 
 #: ValidatorMenu#5
 msgctxt "ValidatorMenu#5"
 msgid "Ascending"
-msgstr ""
+msgstr "Aufteigend"
 
 #: ValidatorMenu#6
 msgctxt "ValidatorMenu#6"
 msgid "Descending"
-msgstr ""
+msgstr "Absteigend"
 
 #: ValidatorMenu#7
 msgctxt "ValidatorMenu#7"
 msgid "Configure"
-msgstr ""
+msgstr "Konfigurieren"
 
 #: ValidatorMenu#8
 msgctxt "ValidatorMenu#8"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: Viewer#1
 msgctxt "Viewer#1"
 msgid "Bookmark"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: Viewer#2
 msgid "StyleSheet"
@@ -2069,24 +2192,24 @@ msgstr ""
 
 #: Viewer#3
 msgid "Start CSS Validation for this Site."
-msgstr ""
+msgstr "Starte CSS Validierung für diese Seite."
 
 #: Viewer#4
 msgid "Screenshot"
-msgstr ""
+msgstr "Bildschirmfoto"
 
 #: Viewer#5
 msgid "Screenshot from current Page."
-msgstr ""
+msgstr "Bildschirmfoto von aktueller Seite."
 
 #: Viewer#6
 msgctxt "Viewer#6"
 msgid "Source"
-msgstr ""
+msgstr "Quelltext"
 
 #: Viewer#7
 msgid "Show Document Source"
-msgstr ""
+msgstr "Zeige Dokumenten Quelltext"
 
 #: Viewer#8
 msgid "Plugins"
@@ -2094,62 +2217,62 @@ msgstr ""
 
 #: Viewer#9
 msgid "Display initialed Browser-Plugins."
-msgstr ""
+msgstr "Zeige Initialisierte Browser Erweiterungen."
 
 #: Viewer#10
 msgid "SEO Result for \"%1\" Url: "
-msgstr ""
+msgstr "SEO Ergebnis für \"%1\" Url: "
 
 #: Viewer#11
 msgid "Word boundary: "
-msgstr ""
+msgstr "An Wortgrenzen: "
 
 #: Viewer#12
 msgid "Case Sensitive: "
-msgstr ""
+msgstr "Groß- Kleinschreibung: "
 
 #: Viewer#13
 msgid "Meta Keywords: "
-msgstr ""
+msgstr "Meta Schlüsselwörter: "
 
 #: Viewer#14
 msgid "Meta Description: "
-msgstr ""
+msgstr "Meta Beschreibung: "
 
 #: Viewer#15
 msgid "Page Title: "
-msgstr ""
+msgstr "Seiten Titel: "
 
 #: Viewer#16
 msgid "Summary: "
-msgstr ""
+msgstr "Zusammen: "
 
 #: Viewer#17
 msgid "Screenshot saved to %1"
-msgstr ""
+msgstr "Bildschirmfoto gespeichert unter %1"
 
 #: WebInspector#1
 msgid "Inspector"
-msgstr ""
+msgstr "Kontrolleur"
 
 #: WebViewer#1
 msgctxt "WebViewer#1"
 msgid "New Page"
-msgstr ""
+msgstr "Neue Seite"
 
 #: WebViewer#2
 msgctxt "WebViewer#2"
 msgid "Add a new empty Tab"
-msgstr ""
+msgstr "Eine Neue leere Seite erstellen"
 
 #: WebViewer#3
 msgid "file"
-msgstr ""
+msgstr "Datei"
 
 #: WebViewer#4
 msgctxt "WebViewer#4"
 msgid "Unknown"
-msgstr ""
+msgstr "Unbekannt"
 
 #: Window#1
 msgctxt "Window#1"
@@ -2159,52 +2282,52 @@ msgstr ""
 #: Window#2
 msgctxt "Window#2"
 msgid "Source"
-msgstr ""
+msgstr "Quelltext"
 
 #: Window#3
 msgctxt "Window#3"
 msgid "Open Url"
-msgstr ""
+msgstr "Öffne Url"
 
 #: Window#4
 msgid "Load Document from Url"
-msgstr ""
+msgstr "Lade Dokument von Url"
 
 #: Window#5
 msgid "Open Html File"
-msgstr ""
+msgstr "Öffne HTML Datei"
 
 #: Window#6
 msgid "Open Html from System"
-msgstr ""
+msgstr "Öffne HTML Datei vom System"
 
 #: Window#7
 msgid "Quit"
-msgstr ""
+msgstr "Beenden"
 
 #: Window#8
 msgid "Close Debugger"
-msgstr ""
+msgstr "Schliesse den Debugger"
 
 #: Window#9
 msgid "Parse"
-msgstr ""
+msgstr "Analysieren"
 
 #: Window#10
 msgid "Parse current Document Source"
-msgstr ""
+msgstr "Analysiere den Dokumenten Quelltext"
 
 #: Window#11
 msgid "Format"
-msgstr ""
+msgstr "Formatiere"
 
 #: Window#12
 msgid "Prepare and Format Document Source"
-msgstr ""
+msgstr "Formatiere den Dokumenten Quelltext"
 
 #: Window#13
 msgid "&View"
-msgstr ""
+msgstr "A&nsicht"
 
 #: Window#14
 msgid "Zoom +"
@@ -2217,160 +2340,162 @@ msgstr ""
 #: Window#16
 msgctxt "Window#16"
 msgid "Original"
-msgstr ""
+msgstr "Orginal"
 
 #: Window#17
 msgid "Fullscreen"
-msgstr ""
+msgstr "Vollansicht"
 
 #: Window#18
 msgid "Refresh"
-msgstr ""
+msgstr "Auffrischen"
 
 #: Window#19
 msgid "Back"
-msgstr ""
+msgstr "Zurück"
 
 #: Window#20
 msgid "Forward"
-msgstr ""
+msgstr "Vorwärts"
 
 #: Window#21
 msgctxt "Window#21"
 msgid "New Page"
-msgstr ""
+msgstr "Neue Seite"
 
 #: Window#22
 msgctxt "Window#22"
 msgid "Add a new empty Tab"
-msgstr ""
+msgstr "Eine Neue leere Seite erstellen"
 
 #: Window#23
 msgctxt "Window#23"
 msgid "Bookmarks"
-msgstr ""
+msgstr "Lesezeichen"
 
 #: Window#24
 msgid "Organize Bookmarks"
-msgstr ""
+msgstr "Lesezeichen Organisieren"
 
 #: Window#25
 msgid "Configure Tidyrc"
-msgstr ""
+msgstr "Konfiguriere die titdyrc"
 
 #: Window#26
-msgid "Settings"
-msgstr ""
+msgctxt "Window#26"
+msgid "Extensions"
+msgstr "Erweiterungen"
 
 #: Window#27
-msgid "Invalid Url Rejected, required scheme is \"%1\"."
-msgstr ""
+msgid "Settings"
+msgstr "Einstellungen"
 
 #: Window#28
+msgid "Invalid Url Rejected, required scheme is \"%1\"."
+msgstr "Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist \"%1\"."
+
+#: Window#29
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
-
-#: Window#29
-msgid "Url Request from Outsite"
-msgstr ""
+"Ein Adressen wurde ausserhalb gesendet.\n"
+"Möchtest du diese Adresse \"%1\" laden?"
 
 #: Window#30
-msgid "Download Request: %1"
-msgstr ""
+msgid "Url Request from Outsite"
+msgstr "URL Anfrage von Aussen"
 
 #: Window#31
-msgid "Display"
-msgstr ""
+msgid "Download Request: %1"
+msgstr "Herunterladen Anfrage: %1"
 
 #: Window#32
-msgid "&Application"
-msgstr ""
+msgid "Display"
+msgstr "Anzeige"
 
 #: Window#33
-msgid "&Debugger"
-msgstr ""
+msgid "&Application"
+msgstr "&Anwendung"
 
 #: Window#34
-msgid "&Browser"
-msgstr ""
+msgid "&Debugger"
+msgstr "&Debugger"
 
 #: Window#35
-msgid "S&ettings"
-msgstr ""
+msgid "&Browser"
+msgstr "&Browser"
 
 #: Window#36
-msgctxt "Window#36"
-msgid "Configure"
-msgstr ""
+msgid "S&ettings"
+msgstr "&Einstellungen"
 
 #: Window#37
 msgctxt "Window#37"
-msgid "Extensions"
-msgstr ""
+msgid "Configure"
+msgstr "Konfigurieren"
 
 #: Window#38
 msgctxt "Window#38"
 msgid "Actions"
-msgstr ""
+msgstr "Aktionen"
 
 #: Window#39
 msgid "Toolbars"
-msgstr ""
+msgstr "Werkzeugleisten"
 
 #: Window#40
 msgid "Impartations"
-msgstr ""
+msgstr "Mitteilungen"
 
 #: Window#41
 msgid "Inspectors"
-msgstr ""
+msgstr "Kontrolleure"
 
 #: Window#42
 msgid "Check StyleSheet for %1"
-msgstr ""
+msgstr "Prüfe den Stylesheet für %1"
 
 #: XHtmldbgAdaptor#1
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
-msgstr ""
+msgstr "(XHTMLDBG) FTP Anfrage \"%1\" Zurückgewiesen!"
 
 #: XOggVideo#1
 msgid "Video Player"
-msgstr ""
+msgstr "Video Spieler"
 
 #: XOggVideo#2
 msgid "Play OGG/OGM and Therora Videos with Phonon"
-msgstr ""
+msgstr "Abspielen von OGG/OGM und Theora Videos mit Phonon"
 
 #: XPasswordWidget#1
 msgid "Password Request"
-msgstr ""
+msgstr "Passwort anfrage"
 
 #: XPasswordWidget#2
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
 #: XPasswordWidget#3
 msgctxt "XPasswordWidget#3"
 msgid "Clear"
-msgstr ""
+msgstr "Leeren"
 
 #: XPasswordWidget#4
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: XRegistrationFormComponent#1
 msgid "Form"
-msgstr ""
+msgstr "Form"
 
 #: XRegistrationFormComponent#2
 msgid "Person"
-msgstr ""
+msgstr "Person"
 
 #: XRegistrationFormComponent#3
 msgid "firstname:"
-msgstr ""
+msgstr "Vorname:"
 
 #: XRegistrationFormComponent#4
 msgid "..."
@@ -2378,61 +2503,61 @@ msgstr ""
 
 #: XRegistrationFormComponent#5
 msgid "surname:"
-msgstr ""
+msgstr "Name:"
 
 #: XRegistrationFormComponent#6
 msgid "nickname:"
-msgstr ""
+msgstr "Spitzname:"
 
 #: XRegistrationFormComponent#7
 msgid "password:"
-msgstr ""
+msgstr "Paßword:"
 
 #: XRegistrationFormComponent#8
 msgid "house"
-msgstr ""
+msgstr "Geschlecht"
 
 #: XRegistrationFormComponent#9
 msgid "female"
-msgstr ""
+msgstr "Weiblich"
 
 #: XRegistrationFormComponent#10
 msgid "male"
-msgstr ""
+msgstr "Männlich"
 
 #: XRegistrationFormComponent#11
 msgid "age:"
-msgstr ""
+msgstr "Alter:"
 
 #: XsdParser#1
 msgid "Document is Valid"
-msgstr ""
+msgstr "Das Dokument ist Valide"
 
 #: XsdParserMessageHandler#1
 msgid "Line %1 (%2)"
-msgstr ""
+msgstr "Zeile %1 (%2)"
 
 #: XsdParserMessageHandler#2
 msgid "Document at Line %1 (%2)"
-msgstr ""
+msgstr "Dokumenten Zeile %1 (%2)"
 
 #: ZoomBar#1
 msgid "Zoom"
-msgstr ""
+msgstr "Zoomen"
 
 #: ZoomBar#2
 msgid "Zoom Webbrowser Content"
-msgstr ""
+msgstr "Zoome den Webbrowser Inhalt"
 
 #: ZoomBar#3
 msgid "ZoomIn"
-msgstr ""
+msgstr "Vergrößern"
 
 #: ZoomBar#4
 msgid "ZoomOut"
-msgstr ""
+msgstr "Verkleinern"
 
 #: ZoomBar#5
 msgctxt "ZoomBar#5"
 msgid "Original"
-msgstr ""
+msgstr "Orginal"

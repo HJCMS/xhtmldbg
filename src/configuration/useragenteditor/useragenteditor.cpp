@@ -51,15 +51,15 @@ UserAgentEditor::UserAgentEditor ( QWidget * parent )
 
   QToolButton* up = new QToolButton ( this );
   up->setObjectName ( QLatin1String ( "moveup" ) );
-  up->setToolTip ( trUtf8 ( "Move Selected row Up" ) );
-  up->setWhatsThis ( trUtf8 ( "Move Selected row Up" ) );
+  up->setToolTip ( i18n ( "Move Selected row Up" ) );
+  up->setWhatsThis ( i18n ( "Move Selected row Up" ) );
   up->setIcon ( QIcon::fromTheme ( QLatin1String ( "arrow-up" ) ) );
   vLayout->addWidget ( up );
 
   QToolButton* down = new QToolButton ( this );
   down->setObjectName ( QLatin1String ( "movedown" ) );
-  down->setToolTip ( trUtf8 ( "Move Selected row Down" ) );
-  down->setWhatsThis ( trUtf8 ( "Move Selected row Down" ) );
+  down->setToolTip ( i18n ( "Move Selected row Down" ) );
+  down->setWhatsThis ( i18n ( "Move Selected row Down" ) );
   down->setIcon ( QIcon::fromTheme ( QLatin1String ( "arrow-down" ) ) );
   vLayout->addWidget ( down );
 

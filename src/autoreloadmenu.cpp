@@ -28,42 +28,46 @@
 #include <QtGui/QIcon>
 #include <QtGui/QKeySequence>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 AutoReloadMenu::AutoReloadMenu ( QMenu * parent )
     : QMenu ( parent )
     , isActive ( false )
 {
   setObjectName ( QLatin1String ( "autoreloadmenu" ) );
-  setTitle ( trUtf8 ( "Auto Refresh" ) );
+  setTitle ( i18n ( "Auto Refresh" ) );
 
-  QIcon timeIcon ( QIcon::fromTheme ( QLatin1String ( "clock" ) ) );
+  KIcon timeIcon ( KIcon ( QLatin1String ( "clock" ) ) );
   setIcon ( timeIcon );
 
-  disableReload = addAction ( timeIcon, trUtf8 ( "Disabled" ) );
+  disableReload = addAction ( timeIcon, i18n ( "Disabled" ) );
   disableReload->setCheckable ( true );
   disableReload->setChecked ( true );
   connect ( disableReload, SIGNAL ( triggered() ), this, SLOT ( setTimerDisable() ) );
 
-  ac10_seconds = addAction ( timeIcon, trUtf8 ( "10 Seconds" ) );
+  ac10_seconds = addAction ( timeIcon, i18n ( "10 Seconds" ) );
   ac10_seconds->setCheckable ( true );
   connect ( ac10_seconds, SIGNAL ( triggered() ), this, SLOT ( set10_seconds() ) );
 
-  ac20_seconds = addAction ( timeIcon, trUtf8 ( "20 Seconds" ) );
+  ac20_seconds = addAction ( timeIcon, i18n ( "20 Seconds" ) );
   ac20_seconds->setCheckable ( true );
   connect ( ac20_seconds, SIGNAL ( triggered() ), this, SLOT ( set20_seconds() ) );
 
-  ac30_seconds = addAction ( timeIcon, trUtf8 ( "30 Seconds" ) );
+  ac30_seconds = addAction ( timeIcon, i18n ( "30 Seconds" ) );
   ac30_seconds->setCheckable ( true );
   connect ( ac30_seconds, SIGNAL ( triggered() ), this, SLOT ( set30_seconds() ) );
 
-  ac40_seconds = addAction ( timeIcon, trUtf8 ( "40 Seconds" ) );
+  ac40_seconds = addAction ( timeIcon, i18n ( "40 Seconds" ) );
   ac40_seconds->setCheckable ( true );
   connect ( ac40_seconds, SIGNAL ( triggered() ), this, SLOT ( set40_seconds() ) );
 
-  ac50_seconds = addAction ( timeIcon, trUtf8 ( "50 Seconds" ) );
+  ac50_seconds = addAction ( timeIcon, i18n ( "50 Seconds" ) );
   ac50_seconds->setCheckable ( true );
   connect ( ac50_seconds, SIGNAL ( triggered() ), this, SLOT ( set50_seconds() ) );
 
-  ac60_seconds = addAction ( timeIcon, trUtf8 ( "1 Minute" ) );
+  ac60_seconds = addAction ( timeIcon, i18n ( "1 Minute" ) );
   ac60_seconds->setCheckable ( true );
   connect ( ac60_seconds, SIGNAL ( triggered() ), this, SLOT ( set60_seconds() ) );
 

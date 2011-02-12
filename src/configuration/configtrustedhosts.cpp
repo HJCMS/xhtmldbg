@@ -34,8 +34,11 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 ConfigTrustedHosts::ConfigTrustedHosts ( QWidget * parent )
-    : QGroupBox ( trUtf8 ( "Whitelist for Untrusted Certificates" ), parent )
+    : QGroupBox ( i18n ( "Whitelist for Untrusted Certificates" ), parent )
 {
   setObjectName ( QLatin1String ( "configtrustedhosts" ) );
   setFlat ( true );

@@ -59,7 +59,7 @@ const QString SoupReader::prepareMessage ( const QDomNode &node ) const
   QStringList exclude ( "m:errortype" );
   exclude << "m:errorsubtype" << "m:skippedstring";
 
-  QStringList messages ( trUtf8 ( "Line" ) );
+  QStringList messages ( i18n ( "Line" ) );
   for ( QDomNode n = element.firstChild(); !n.isNull(); n = n.nextSibling() )
   {
     QDomText t = n.firstChild().toText();
@@ -141,7 +141,7 @@ const QString SoupReader::cssFileName ( const QDomElement &element ) const
   {
     QUrl url ( node.firstChild().nodeValue().trimmed() );
     if ( ! url.path().isEmpty() )
-      return trUtf8 ( "File:.%1" ).arg ( url.path () );
+      return i18n ( "File:.%1" ).arg ( url.path () );
   }
   return file;
 }
@@ -203,7 +203,7 @@ bool SoupReader::hasErrors()
   QDomNode node = dom.elementsByTagName ( "m:validity" ).item ( 0 );
   if ( node.isElement() && node.toElement().firstChild().nodeValue() == "true" )
   {
-    emit congratulation ( trUtf8 ( "Congratulations! No Error Found. (%1)" ).arg ( currenUrl ) );
+    emit congratulation ( i18n ( "Congratulations! No Error Found. (%1)" ).arg ( currenUrl ) );
     return false;
   }
   return true;

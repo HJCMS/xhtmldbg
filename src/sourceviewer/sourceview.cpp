@@ -39,7 +39,6 @@
 #include <QtGui/QCursor>
 #include <QtGui/QColor>
 #include <QtGui/QFileDialog>
-#include <QtGui/QIcon>
 #include <QtGui/QMessageBox>
 #include <QtGui/QPalette>
 #include <QtGui/QPrinter>
@@ -50,6 +49,9 @@
 #include <QtGui/QTextBlock>
 #include <QtGui/QTextCharFormat>
 #include <QtGui/QTextLayout>
+
+/* KDE */
+#include <KDE/KLocale>
 
 SourceView::SourceView ( const QFont &font, QWidget * parent )
     : QTextEdit ( parent )
@@ -211,10 +213,10 @@ void SourceView::saveSource()
 {
   QString path;
   QStringList filters;
-  filters << trUtf8 ( "Markup Document %1" ).arg ( "*.html *.xhtml *.xml" );
-  filters << trUtf8 ( "Text Document %1" ).arg ( "*.txt *.log" );
+  filters << i18n ( "Markup Document %1" ).arg ( "*.html *.xhtml *.xml" );
+  filters << i18n ( "Text Document %1" ).arg ( "*.txt *.log" );
 
-  path = QFileDialog::getSaveFileName ( this, trUtf8 ( "Save Content to..." ),
+  path = QFileDialog::getSaveFileName ( this, i18n ( "Save Content to..." ),
                                         QDir::tempPath(), filters.join ( ";;" ) );
 
   if ( path.isEmpty() )
@@ -236,9 +238,9 @@ void SourceView::saveSource()
   }
   else
   {
-    QString mess = trUtf8 ( "Can't write Source to \"%1\" Permission Denied." )
+    QString mess = i18n ( "Can't write Source to \"%1\" Permission Denied." )
                    .arg ( info.absoluteFilePath() );
-    QMessageBox::critical ( this, trUtf8 ( "To Save Source Operation dropout" ), mess );
+    QMessageBox::critical ( this, i18n ( "To Save Source Operation dropout" ), mess );
   }
 }
 

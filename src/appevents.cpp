@@ -30,13 +30,17 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QMenu>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 AppEvents::AppEvents ( QWidget * parent )
     : QDockWidget ( parent )
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
     , iconWarning ( QString::fromUtf8 ( ":/icons/warning.png" ) )
 {
   setObjectName ( "appevents" );
-  setWindowTitle ( trUtf8 ( "XHTMLDBG Impartations" ) );
+  setWindowTitle ( i18n ( "XHTMLDBG Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setFocusPolicy ( Qt::StrongFocus );
 
@@ -67,16 +71,16 @@ void AppEvents::contextMenuEvent ( QContextMenuEvent *e )
 {
   QMenu* menu = new QMenu ( this );
 
-  QAction* ac_Ascending = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-ascending" ) ),
-                          trUtf8 ( "Ascending" ) );
+  QAction* ac_Ascending = menu->addAction ( KIcon ( QLatin1String ( "view-sort-ascending" ) ),
+                          i18n ( "Ascending" ) );
   connect ( ac_Ascending, SIGNAL ( triggered() ), this, SLOT ( sortAscending() ) );
 
-  QAction* ac_Descending = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-descending" ) ),
-                           trUtf8 ( "Descending" ) );
+  QAction* ac_Descending = menu->addAction ( KIcon ( QLatin1String ( "view-sort-descending" ) ),
+                           i18n ( "Descending" ) );
   connect ( ac_Descending, SIGNAL ( triggered() ), this, SLOT ( sortDescending() ) );
 
-  QAction* ac_clear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
-                                        trUtf8 ( "Clear" ) );
+  QAction* ac_clear = menu->addAction ( KIcon ( QLatin1String ( "edit-clear" ) ),
+                                        i18n ( "Clear" ) );
   connect ( ac_clear, SIGNAL ( triggered() ), m_listWidget, SLOT ( clear() ) );
 
   menu->exec ( e->globalPos() );

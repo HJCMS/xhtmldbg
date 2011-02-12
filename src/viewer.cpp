@@ -248,40 +248,40 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
 
   QMenu* menu = m_page->createStandardContextMenu();
   // Lesezeichen
-  QAction* add = menu->addAction ( trUtf8 ( "Bookmark" ) );
+  QAction* add = menu->addAction ( i18n ( "Bookmark" ) );
   add->setObjectName ( QLatin1String ( "ac_context_addbookmarkaction" ) );
   add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
   add->setShortcut ( QKeySequence::Bold );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
 
   // Stylesheet Überprüfung
-  QAction* style = menu->addAction ( trUtf8 ( "StyleSheet" ) );
+  QAction* style = menu->addAction ( i18n ( "StyleSheet" ) );
   style->setObjectName ( QLatin1String ( "ac_context_stylesheet" ) );
   style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
-  style->setToolTip ( trUtf8 ( "Start CSS Validation for this Site." ) );
+  style->setToolTip ( i18n ( "Start CSS Validation for this Site." ) );
   style->setShortcut ( QKeySequence::Italic );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
 
   // Zur Quelltext Ansicht wechseln
-  QAction* source = menu->addAction ( trUtf8 ( "Source" ) );
+  QAction* source = menu->addAction ( i18n ( "Source" ) );
   source->setObjectName ( QLatin1String ( "ac_context_source" ) );
   source->setIcon ( QIcon::fromTheme ( QLatin1String ( "text-html" ) ) );
-  source->setToolTip ( trUtf8 ( "Show Document Source" ) );
+  source->setToolTip ( i18n ( "Show Document Source" ) );
   source->setShortcut ( QKeySequence::Underline );
   connect ( source, SIGNAL ( triggered() ), this, SLOT ( showPageSource() ) );
 
   // Einen Screenshot erstellen
-  QAction* screenshot = menu->addAction ( trUtf8 ( "Screenshot" ) );
+  QAction* screenshot = menu->addAction ( i18n ( "Screenshot" ) );
   screenshot->setObjectName ( QLatin1String ( "ac_context_screenshot" ) );
   screenshot->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
-  screenshot->setToolTip ( trUtf8 ( "Screenshot from current Page." ) );
+  screenshot->setToolTip ( i18n ( "Screenshot from current Page." ) );
   connect ( screenshot, SIGNAL ( triggered() ), this, SLOT ( screenshot() ) );
 
   // Plugins Anzeigen
-  QAction* plugins = menu->addAction ( trUtf8 ( "Plugins" ) );
+  QAction* plugins = menu->addAction ( i18n ( "Plugins" ) );
   plugins->setObjectName ( QLatin1String ( "ac_context_plugins" ) );
   plugins->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
-  plugins->setToolTip ( trUtf8 ( "Display initialed Browser-Plugins." ) );
+  plugins->setToolTip ( i18n ( "Display initialed Browser-Plugins." ) );
   connect ( plugins, SIGNAL ( triggered() ), this, SLOT ( displayPlugins() ) );
 
   // User-Agent
@@ -375,7 +375,7 @@ void Viewer::findKeyword ( const QString &word )
   }
 
   int summary = 0;
-  QString message = trUtf8 ( "SEO Result for \"%1\" Url: " ).arg ( word );
+  QString message = i18n ( "SEO Result for \"%1\" Url: " ).arg ( word );
   message.append ( url().toString ( ( QUrl::RemovePassword | QUrl::RemoveFragment ) ) );
   message.append ( "\n" );
 
@@ -383,12 +383,12 @@ void Viewer::findKeyword ( const QString &word )
 
   QString body = bodyContent();
   // An Wortgrenzen:
-  message.append ( trUtf8 ( "Word boundary: " ) );
+  message.append ( i18n ( "Word boundary: " ) );
   message.append ( QString::number ( body.count ( QRegExp ( "\\b"+word+"\\b", Qt::CaseInsensitive ) ) ) );
   message.append ( " " );
 
   // Groß- Kleinschreibung:
-  message.append ( trUtf8 ( "Case Sensitive: " ) );
+  message.append ( i18n ( "Case Sensitive: " ) );
   message.append ( QString::number ( body.count ( word, Qt::CaseSensitive ) ) );
   message.append ( " " );
 
@@ -398,25 +398,25 @@ void Viewer::findKeyword ( const QString &word )
 
   // Meta Schlüsselwörter:
   int keywords = meta.at ( 0 ).count ( word, Qt::CaseInsensitive );
-  message.append ( trUtf8 ( "Meta Keywords: " ) );
+  message.append ( i18n ( "Meta Keywords: " ) );
   message.append ( QString::number ( keywords ) );
   message.append ( " " );
 
   // Meta Beschreibung:
   int description = meta.at ( 1 ).count ( word, Qt::CaseInsensitive );
-  message.append ( trUtf8 ( "Meta Description: " ) );
+  message.append ( i18n ( "Meta Description: " ) );
   message.append ( QString::number ( description ) );
   message.append ( " " );
 
   // Seiten Titel:
   QString site = title().isEmpty() ? "0" : title();
   int inTitle = site.count ( word, Qt::CaseInsensitive );
-  message.append ( trUtf8 ( "Page Title: " ) );
+  message.append ( i18n ( "Page Title: " ) );
   message.append ( QString::number ( inTitle ) );
   message.append ( " " );
 
   // Insgesamt:
-  message.append ( trUtf8 ( "Summary: " ) );
+  message.append ( i18n ( "Summary: " ) );
   message.append ( QString::number ( ( summary + keywords + description + inTitle ) ) );
 
   xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( message );
@@ -496,7 +496,7 @@ void Viewer::displayPlugins()
       comboData << plData["name"].toString() << plData["description"].toString();
     }
 
-    QMessageBox::information ( this, trUtf8 ( "Plugins" ), comboData.join ( "<br />" ) );
+    QMessageBox::information ( this, i18n ( "Plugins" ), comboData.join ( "<br />" ) );
   }
 }
 
@@ -513,7 +513,7 @@ void Viewer::screenshot()
     QString p = dialog.destination().toString ( QUrl::RemoveScheme );
     if ( pixmap.save ( p, "png", 100 ) )
     {
-      QString mess = trUtf8 ( "Screenshot saved to %1" ).arg ( p );
+      QString mess = i18n ( "Screenshot saved to %1" ).arg ( p );
       xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( mess, false );
     }
   }

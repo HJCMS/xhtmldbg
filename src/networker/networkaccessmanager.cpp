@@ -199,7 +199,7 @@ void NetworkAccessManager::certErrors ( QNetworkReply * reply, const QList<QSslE
               ( reply->error() == QNetworkReply::SslHandshakeFailedError ) )
         reply->ignoreSslErrors();
       else
-        emit netNotify ( trUtf8 ( "Broken SSL/TLS URL connection, handshake failed and could not be established." ) );
+        emit netNotify ( i18n ( "Broken SSL/TLS URL connection, handshake failed and could not be established." ) );
     }
   }
 }
@@ -299,7 +299,7 @@ void NetworkAccessManager::peekReplyProcess()
 
     if ( m_networkReply->hasRawHeader ( QByteArray ( "location" ) ) )
     {
-      emit netNotify ( trUtf8 ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
+      emit netNotify ( i18n ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
       peekPostData.clear();
     }
 

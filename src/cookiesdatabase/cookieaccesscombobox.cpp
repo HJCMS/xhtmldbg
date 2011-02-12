@@ -29,14 +29,17 @@
 #include <QtGui/QIcon>
 #include <QtGui/QStandardItem>
 
+/* KDE */
+#include <KDE/KLocale>
+
 CookieAccessComboBox::CookieAccessComboBox ( QWidget * parent, int type )
     : QComboBox ( parent )
 {
   QIcon icon;
   QStandardItemModel* model = new QStandardItemModel ( this );
-  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "view-history" ) ), trUtf8 ( "Session" ) ) );
-  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), trUtf8 ( "Blocked" ) ) );
-  model->setItem ( 2, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), trUtf8 ( "Allowed" ) ) );
+  model->setItem ( 0, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "view-history" ) ), i18n ( "Session" ) ) );
+  model->setItem ( 1, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-remove" ) ), i18n ( "Blocked" ) ) );
+  model->setItem ( 2, new QStandardItem ( icon.fromTheme ( QString::fromUtf8 ( "list-add" ) ), i18n ( "Allowed" ) ) );
   setModel ( model );
 
   setCurrentIndex ( type );

@@ -194,7 +194,7 @@ void Validator::validate()
 
   if ( url.isEmpty() )
   {
-    emit criticalError ( trUtf8 ( "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page." ) );
+    emit criticalError ( i18n ( "to deny access for this reason missing url. Please note: The CSS Validator discarded shared url's! Remedy: reload the page." ) );
     return;
   }
 

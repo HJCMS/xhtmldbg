@@ -40,6 +40,10 @@
 #include <QtScript/QScriptEngine>
 #include <QtScript/QScriptContext>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 XPasswordWidget::XPasswordWidget ( QWidget * parent )
     : QWidget ( parent )
 {
@@ -50,7 +54,7 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
 
-  m_groupBox = new QGroupBox ( trUtf8 ( "Password Request" ), this );
+  m_groupBox = new QGroupBox ( i18n ( "Password Request" ), this );
   vLayout->addWidget ( m_groupBox );
 
   QGridLayout* layout = new QGridLayout ( m_groupBox );
@@ -58,7 +62,7 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   m_groupBox->setLayout ( layout );
 
   QLabel* lb1 = new QLabel ( m_groupBox );
-  lb1->setText ( trUtf8 ( "User" ) );
+  lb1->setText ( i18n ( "User" ) );
   lb1->setAlignment ( Qt::AlignRight );
   lb1->setIndent ( 2 );
   layout->addWidget ( lb1, 0, 0, 1, 1 );
@@ -68,12 +72,12 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   layout->addWidget ( m_onwerLineEdit, 0, 1, 1, 1 );
 
   QToolButton* btn1 = new QToolButton ( m_groupBox );
-  btn1->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
-  btn1->setToolTip ( trUtf8 ( "Clear" ) );
+  btn1->setIcon ( KIcon ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  btn1->setToolTip ( i18n ( "Clear" ) );
   layout->addWidget ( btn1, 0, 2, 1, 1 );
 
   QLabel* lb2 = new QLabel ( m_groupBox );
-  lb2->setText ( trUtf8 ( "Password" ) );
+  lb2->setText ( i18n ( "Password" ) );
   lb2->setAlignment ( Qt::AlignRight );
   lb2->setIndent ( 2 );
   layout->addWidget ( lb2, 1, 0, 1, 1 );
@@ -83,8 +87,8 @@ XPasswordWidget::XPasswordWidget ( QWidget * parent )
   layout->addWidget ( m_passLineEdit, 1, 1, 1, 1 );
 
   QToolButton* btn2 = new QToolButton ( m_groupBox );
-  btn2->setIcon ( QIcon::fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
-  btn2->setToolTip ( trUtf8 ( "Clear" ) );
+  btn2->setIcon ( KIcon ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  btn2->setToolTip ( i18n ( "Clear" ) );
   layout->addWidget ( btn2, 1, 2, 1, 1 );
 
   QDialogButtonBox* btnBox = new QDialogButtonBox ( Qt::Horizontal, m_groupBox );

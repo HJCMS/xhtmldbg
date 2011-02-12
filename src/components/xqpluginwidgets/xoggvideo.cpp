@@ -34,11 +34,15 @@
 #include <Phonon/ObjectDescriptionModel>
 #include <Phonon/VideoPlayer>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 XOggVideo::XOggVideo ( QWidget * parent )
     : QWidget ( parent )
 {
   setObjectName ( QLatin1String ( "XOggVideo" ) );
-  setWindowTitle ( trUtf8 ( "Video Player" ) );
+  setWindowTitle ( i18n ( "Video Player" ) );
   setContentsMargins ( 0, 0, 0, 0 );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
@@ -93,7 +97,7 @@ QString XOggVideo::name () const
 
 QString XOggVideo::description () const
 {
-  return trUtf8 ( "Play OGG/OGM and Therora Videos with Phonon" );
+  return i18n ( "Play OGG/OGM and Therora Videos with Phonon" );
 }
 
 QStringList XOggVideo::mimeTypes() const

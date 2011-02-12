@@ -24,10 +24,14 @@
 /* QtCore */
 #include <QtCore/QDebug>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 BookmarkTreeReader::BookmarkTreeReader ( QTreeWidget * parent )
     : m_treeWidget ( parent )
-    , bookmarkIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
-    , folderIcon ( QIcon::fromTheme ( QLatin1String ( "folder-bookmark" ) ) )
+    , bookmarkIcon ( KIcon ( QLatin1String ( "bookmarks" ) ) )
+    , folderIcon ( KIcon ( QLatin1String ( "folder-bookmark" ) ) )
 {}
 
 void BookmarkTreeReader::rebuildBookmarkList()
@@ -91,7 +95,7 @@ void BookmarkTreeReader::readBookmark ( QTreeWidgetItem* item )
 
   QTreeWidgetItem* bookmark = createChildItem ( item );
   bookmark->setIcon ( 0, bookmarkIcon );
-  bookmark->setText ( 0, QObject::trUtf8 ( "Unknown" ) );
+  bookmark->setText ( 0, i18n ( "Unknown" ) );
   bookmark->setText ( 1, xmlStream.attributes().value ( "href" ).toString() );
   bookmark->setFlags ( flags );
 
@@ -134,7 +138,7 @@ bool BookmarkTreeReader::read ( QIODevice* fp )
     if ( xmlStream.name() == "xbel" && xmlStream.attributes().value ( "version" ) == "1.0" )
       rebuildBookmarkList();
     else
-      xmlStream.raiseError ( QObject::trUtf8 ( "Bookmark file is not Valid XBEL Scheme!" ) );
+      xmlStream.raiseError ( i18n ( "Bookmark file is not Valid XBEL Scheme!" ) );
   }
   return !xmlStream.error();
 }

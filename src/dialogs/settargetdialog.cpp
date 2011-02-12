@@ -30,13 +30,16 @@
 /* QtGui */
 #include <QtGui/QDesktopServices>
 
+/* KDE */
+#include <KDE/KLocale>
+
 static inline const QString defaultDestdir()
 {
   return QDesktopServices::storageLocation ( QDesktopServices::TempLocation );
 }
 
 SetTargetDialog::SetTargetDialog ( const QUrl &url, QWidget * parent )
-    : QFileDialog ( parent, trUtf8 ( "Output Directory" ), defaultDestdir() )
+    : QFileDialog ( parent, i18n ( "Output Directory" ), defaultDestdir() )
     , fromUrl ( url )
     , lastSelection ( QString::null )
 {
@@ -50,14 +53,14 @@ SetTargetDialog::SetTargetDialog ( const QUrl &url, QWidget * parent )
 
   // Ein paar Optionale Erweiterungs Filter setzen.
   QStringList filters;
-  filters << trUtf8 ( "Any files (*)" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( trUtf8 ( "Compression" ), "*.tar* *.gz *.bz2 *.xz *.lzma" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( trUtf8 ( "Image" ), "*.png *.xpm *.jpg *.gif" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "video/mpeg", "*.mpeg *.mpg *.mpe *.m1v *.m2v *.vob" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "ogg/theora", "*.ogv *.ogg *.ogm" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "Quicktime", "*.qt *.mov *.moov *.qtvr" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "Markup", "*.html *.xhtml *.xml *.xslt *.rss *.ts" );
-  filters << trUtf8 ( "%1 files %2" ).arg ( "Text", "*.txt *.log *.text" );
+  filters << i18n ( "Any files (*)" );
+  filters << i18n ( "%1 files %2" ).arg ( i18n ( "Compression" ), "*.tar* *.gz *.bz2 *.xz *.lzma" );
+  filters << i18n ( "%1 files %2" ).arg ( i18n ( "Image" ), "*.png *.xpm *.jpg *.gif" );
+  filters << i18n ( "%1 files %2" ).arg ( "video/mpeg", "*.mpeg *.mpg *.mpe *.m1v *.m2v *.vob" );
+  filters << i18n ( "%1 files %2" ).arg ( "ogg/theora", "*.ogv *.ogg *.ogm" );
+  filters << i18n ( "%1 files %2" ).arg ( "Quicktime", "*.qt *.mov *.moov *.qtvr" );
+  filters << i18n ( "%1 files %2" ).arg ( "Markup", "*.html *.xhtml *.xml *.xslt *.rss *.ts" );
+  filters << i18n ( "%1 files %2" ).arg ( "Text", "*.txt *.log *.text" );
   setNameFilters ( filters );
 
   // Datei Namen von Url ermitteln und zu vor alles Überflüssige entfernen !

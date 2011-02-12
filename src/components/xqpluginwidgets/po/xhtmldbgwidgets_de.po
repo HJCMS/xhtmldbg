@@ -1,0 +1,41 @@
+# translation of xhtmldbgwidgets_de.po to German
+# Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: xhtmldbgwidgets_de\n"
+"Report-Msgid-Bugs-To: nomail@nospam.com\n"
+"POT-Creation-Date: 2011-02-12 12:22+0100\n"
+"PO-Revision-Date: 2011-02-12 12:34+0100\n"
+"Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
+"Language-Team: German <de@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: xoggvideo.cpp:45
+msgid "Video Player"
+msgstr "Video Abspieler"
+
+#: xoggvideo.cpp:100
+msgid "Play OGG/OGM and Therora Videos with Phonon"
+msgstr "Abspielen von OGG/OGM und Theora Videos mit Phonon"
+
+#: xpasswordwidget.cpp:57
+msgid "Password Request"
+msgstr "Passwortanfrage"
+
+#: xpasswordwidget.cpp:65
+msgid "User"
+msgstr "Benutzer"
+
+#: xpasswordwidget.cpp:76 xpasswordwidget.cpp:91
+msgid "Clear"
+msgstr "Leeren"
+
+#: xpasswordwidget.cpp:80
+msgid "Password"
+msgstr "Passwort"
+

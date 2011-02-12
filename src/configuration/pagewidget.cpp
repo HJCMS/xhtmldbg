@@ -84,7 +84,7 @@ PageWidget::PageWidget ( const QString &title, QWidget * parent )
 void PageWidget::setNotice ( bool b )
 {
   if ( b )
-    m_labelBottom->setText ( trUtf8 ( "Application restart required." ) );
+    m_labelBottom->setText ( i18n ( "Application restart required." ) );
 }
 
 /**

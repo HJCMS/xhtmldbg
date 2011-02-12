@@ -30,6 +30,9 @@
 /* QtGui */
 #include <QtGui/QDesktopServices>
 
+/* KDE */
+#include <KDE/KLocale>
+
 static inline const QString defaultDestdir ( const QString &p )
 {
   if ( p.isEmpty() )
@@ -39,7 +42,7 @@ static inline const QString defaultDestdir ( const QString &p )
 }
 
 DirectoryDialog::DirectoryDialog ( const QString &path, QWidget * parent )
-    : QFileDialog ( parent, trUtf8 ( "Directory" ), defaultDestdir ( path ) )
+    : QFileDialog ( parent, i18n ( "Directory" ), defaultDestdir ( path ) )
     , fromPath ( path )
     , lastSelection ( QString::null )
 {

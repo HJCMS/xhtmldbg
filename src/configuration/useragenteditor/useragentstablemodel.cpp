@@ -29,6 +29,9 @@
 #include <QtGui/QAbstractItemView>
 #include <QtGui/QFontMetrics>
 
+/* KDE */
+#include <KDE/KLocale>
+
 UserAgentsTableModel::UserAgentsTableModel ( QTableView * parent )
     : QAbstractTableModel ( parent )
 {
@@ -54,19 +57,19 @@ void UserAgentsTableModel::displayHeaderInfo ( const QModelIndex &index )
   {
     case 0:
     {
-      m_tableHeader->setToolTip ( trUtf8 ( "Bookmark Entry for Context Menue" ) );
+      m_tableHeader->setToolTip ( i18n ( "Bookmark Entry for Context Menue" ) );
       return;
     }
 
     case 1:
     {
-      m_tableHeader->setToolTip ( trUtf8 ( "User-Agent" ) );
+      m_tableHeader->setToolTip ( i18n ( "User-Agent" ) );
       return;
     }
 
     case 2:
     {
-      m_tableHeader->setToolTip ( trUtf8 ( "Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application." ) );
+      m_tableHeader->setToolTip ( i18n ( "Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application." ) );
       return;
     }
 
@@ -195,16 +198,16 @@ QVariant UserAgentsTableModel::headerData ( int section, Qt::Orientation orienta
     switch ( section )
     {
       case 0:
-        return trUtf8 ( "Bookmark" );
+        return i18n ( "Bookmark" );
 
       case 1:
-        return trUtf8 ( "User-Agent" );
+        return i18n ( "User-Agent" );
 
       case 2:
-        return trUtf8 ( "Product Tokens" );
+        return i18n ( "Product Tokens" );
 
       default:
-        return trUtf8 ( "Unknown" );
+        return i18n ( "Unknown" );
     }
   }
   // Vertikaler eintrag

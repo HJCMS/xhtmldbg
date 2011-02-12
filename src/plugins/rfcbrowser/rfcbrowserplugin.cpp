@@ -26,6 +26,9 @@
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
 
+/* KDE */
+#include <KDE/KLocale>
+
 bool RFCBrowserPlugin::create ( QWidget * parent )
 {
   if ( parent )
@@ -66,10 +69,10 @@ xhtmldbg::PluginInfo* RFCBrowserPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
   inf->setName ( QLatin1String ( "RFC Browser" ) );
-  inf->setGenericName ( trUtf8 ( "RFC Document Browser" ) );
+  inf->setGenericName ( i18n ( "RFC Document Browser" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( trUtf8 ( "Browse RFC Documents" ) );
-  inf->setAuthor ( trUtf8 ( "Jürgen Heinemann (Undefined)" ) );
+  inf->setDescription ( i18n ( "Browse RFC Documents" ) );
+  inf->setAuthor ( i18n ( "Jürgen Heinemann (Undefined)" ) );
   return inf;
 }
 

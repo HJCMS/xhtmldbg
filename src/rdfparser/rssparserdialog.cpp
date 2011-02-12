@@ -58,7 +58,7 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
     , iconNotice ( QString::fromUtf8 ( ":/icons/notice.png" ) )
 {
   setObjectName ( QLatin1String ( "rssparserdialog" ) );
-  setWindowTitle ( trUtf8 ( "RSS Parser" ) );
+  setWindowTitle ( i18n ( "RSS Parser" ) );
   setMinimumWidth ( 550 );
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
@@ -75,13 +75,13 @@ RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget
   m_MessagesList = new QListWidget ( toolBox );
   m_MessagesList->setObjectName ( QLatin1String ( "rssparsererrors" ) );
   m_MessagesList->setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Minimum );
-  toolBox->addItem ( m_MessagesList, boxIcon, trUtf8 ( "Parser Messages" ) );
+  toolBox->addItem ( m_MessagesList, boxIcon, i18n ( "Parser Messages" ) );
 
   m_treeViewer = new RSSTreeView ( toolBox );
-  toolBox->addItem ( m_treeViewer, boxIcon, trUtf8 ( "Document Structure" ) );
+  toolBox->addItem ( m_treeViewer, boxIcon, i18n ( "Document Structure" ) );
 
   m_sourceViewer = new RSSViewer ( toolBox );
-  toolBox->addItem ( m_sourceViewer, boxIcon, trUtf8 ( "Source" ) );
+  toolBox->addItem ( m_sourceViewer, boxIcon, i18n ( "Source" ) );
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "rssparserdialogbuttonbox" ) );
@@ -155,26 +155,26 @@ void RSSParserDialog::setDocumentSource ( const QByteArray &data, const QUrl &ur
   QDomDocument dom;
   if ( dom.setContent ( codec->toUnicode ( data ), false, &errorMsg, &errorLine, &errorColumn ) )
   {
-    notice ( trUtf8 ( "Checking: %1" ).arg ( url.toString() ) );
+    notice ( i18n ( "Checking: %1" ).arg ( url.toString() ) );
     QDomElement rootNode = dom.documentElement();
     QString nodeName = rootNode.tagName();
-    QString version = rootNode.attribute ( QLatin1String ( "version" ), trUtf8 ( "Version not Defined" ) );
+    QString version = rootNode.attribute ( QLatin1String ( "version" ), i18n ( "Version not Defined" ) );
     if ( ( nodeName.contains ( "rdf:", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein rdf:RDF Element handelt dann mit "RDF" prüfen
-      notice ( trUtf8 ( "Parsing RDF-%1" ).arg ( version ) );
+      notice ( i18n ( "Parsing RDF-%1" ).arg ( version ) );
       m_parser->parseDocument ( data, url );
     }
     else if ( ( nodeName.contains ( "feed", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "feed" Element handelt dann mit "ATOM" prüfen
-      notice ( trUtf8 ( "Parsing ATOM-%1" ).arg ( version ) );
+      notice ( i18n ( "Parsing ATOM-%1" ).arg ( version ) );
       m_xsdParser->parseDocument ( data, schemePath ( "atom-1.0" ), url );
     }
     else if ( ( nodeName.contains ( "rss", Qt::CaseInsensitive ) ) )
     {
       // Wenn es sich um ein "RSS" Scheme handelt dann mit "XsdParser" prüfen
-      notice ( trUtf8 ( "Parsing RSS-%1" ).arg ( version ) );
+      notice ( i18n ( "Parsing RSS-%1" ).arg ( version ) );
       m_xsdParser->parseDocument ( data, schemePath ( "rss-2.0" ), url );
     }
     // Die restlichen Fenster befüllen

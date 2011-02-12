@@ -30,7 +30,7 @@
 #include <QtGui/QLabel>
 
 ConfigProxy::ConfigProxy ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "Proxy" ), parent )
+    : PageWidget ( i18n ( "Proxy" ), parent )
     , mod ( false )
     , HostName ( QString::null )
     , User ( QString::null )
@@ -47,7 +47,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   gridLayout->setObjectName ( QLatin1String ( "config_page_proxy_layout" ) );
 
   // Proxy Type
-  QLabel* txtProxyType = new QLabel ( trUtf8 ( "The Network Proxy Type:" ), centralWidget );
+  QLabel* txtProxyType = new QLabel ( i18n ( "The Network Proxy Type:" ), centralWidget );
   txtProxyType->setAlignment ( defalignment );
   txtProxyType->setIndent ( 2 );
   txtProxyType->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -57,19 +57,19 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   // QNetworkProxy::DefaultProxy QNetworkProxy::NoProxy not used
   proxyType = new QComboBox ( centralWidget );
   proxyType->setObjectName ( QLatin1String ( "proxyType" ) );
-  proxyType->insertItem ( 0, trUtf8 ( "Socks 5 (Based on RFC 1928 and RFC 1929)" ), QNetworkProxy::Socks5Proxy );
+  proxyType->insertItem ( 0, i18n ( "Socks 5 (Based on RFC 1928 and RFC 1929)" ), QNetworkProxy::Socks5Proxy );
   proxyType->setItemData ( 0, QNetworkProxy::Socks5Proxy, Qt::UserRole );
-  proxyType->insertItem ( 1, trUtf8 ( "HTTP Transparent Proxying (Default)" ), QNetworkProxy::HttpProxy );
+  proxyType->insertItem ( 1, i18n ( "HTTP Transparent Proxying (Default)" ), QNetworkProxy::HttpProxy );
   proxyType->setItemData ( 1, QNetworkProxy::HttpProxy, Qt::UserRole );
-  proxyType->insertItem ( 2, trUtf8 ( "Caching-only HTTP (Only for HTTP Requests)" ), QNetworkProxy::HttpCachingProxy );
+  proxyType->insertItem ( 2, i18n ( "Caching-only HTTP (Only for HTTP Requests)" ), QNetworkProxy::HttpCachingProxy );
   proxyType->setItemData ( 2, QNetworkProxy::HttpCachingProxy, Qt::UserRole );
-  proxyType->insertItem ( 3, trUtf8 ( "Caching FTP (Only for FTP Requests)" ), QNetworkProxy::FtpCachingProxy );
+  proxyType->insertItem ( 3, i18n ( "Caching FTP (Only for FTP Requests)" ), QNetworkProxy::FtpCachingProxy );
   proxyType->setItemData ( 3, QNetworkProxy::FtpCachingProxy, Qt::UserRole );
   proxyType->setCurrentIndex ( 1 );
   gridLayout->addWidget ( proxyType, 0, 1, 1, 1 );
 
   // Proxy Hostname
-  QLabel* txtProxyHost = new QLabel ( trUtf8 ( "Hostname of the Proxy:" ), centralWidget );
+  QLabel* txtProxyHost = new QLabel ( i18n ( "Hostname of the Proxy:" ), centralWidget );
   txtProxyHost->setAlignment ( defalignment );
   txtProxyHost->setIndent ( 2 );
   txtProxyHost->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -82,7 +82,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   gridLayout->addWidget ( proxyHostName, 1, 1, 1, 1 );
 
   // Proxy Port
-  QLabel* txtProxyPort = new QLabel ( trUtf8 ( "Proxy Port Number:" ), centralWidget );
+  QLabel* txtProxyPort = new QLabel ( i18n ( "Proxy Port Number:" ), centralWidget );
   txtProxyPort->setAlignment ( defalignment );
   txtProxyPort->setIndent ( 2 );
   txtProxyPort->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -97,7 +97,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   gridLayout->addWidget ( proxyPort, 2, 1, 1, 1 );
 
   // Proxy User
-  QLabel* txtProxyUser = new QLabel ( trUtf8 ( "Authentication Username:" ), centralWidget );
+  QLabel* txtProxyUser = new QLabel ( i18n ( "Authentication Username:" ), centralWidget );
   txtProxyUser->setAlignment ( defalignment );
   txtProxyUser->setIndent ( 2 );
   txtProxyUser->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -110,7 +110,7 @@ ConfigProxy::ConfigProxy ( QWidget * parent )
   gridLayout->addWidget ( proxyUser, 3, 1, 1, 1 );
 
   // Proxy Password
-  QLabel* txtProxyPassword = new QLabel ( trUtf8 ( "Authentication Password:" ), centralWidget );
+  QLabel* txtProxyPassword = new QLabel ( i18n ( "Authentication Password:" ), centralWidget );
   txtProxyPassword->setAlignment ( defalignment );
   txtProxyPassword->setIndent ( 2 );
   txtProxyPassword->setTextInteractionFlags ( Qt::NoTextInteraction );

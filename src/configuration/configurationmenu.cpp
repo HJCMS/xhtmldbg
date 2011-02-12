@@ -44,16 +44,16 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
   QIcon icon = QIcon::fromTheme ( "xhtmldbg" );
 
   int c = 0;
-  insertItem ( c++, trUtf8 ( "Defaults" ), icon.fromTheme ( QLatin1String ( "preferences-system-windows" ) ) );
-  insertItem ( c++, trUtf8 ( "Tidy" ), icon.fromTheme ( QLatin1String ( "applications-development-web" ) ) );
-  insertItem ( c++, trUtf8 ( "Dom Inspector" ), icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
-  insertItem ( c++, trUtf8 ( "Browser" ), icon.fromTheme ( QLatin1String ( "internet-web-browser" ) ) );
-  insertItem ( c++, trUtf8 ( "Network" ), icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );
-  insertItem ( c++, trUtf8 ( "Cookies" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
-  insertItem ( c++, trUtf8 ( "Proxy" ), icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
-  insertItem ( c++, trUtf8 ( "Certification" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
-  insertItem ( c++, trUtf8 ( "User Agent" ), icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
-  insertItem ( c++, trUtf8 ( "Extensions" ), icon.fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
+  insertItem ( c++, i18n ( "Defaults" ), icon.fromTheme ( QLatin1String ( "preferences-system-windows" ) ) );
+  insertItem ( c++, i18n ( "Tidy" ), icon.fromTheme ( QLatin1String ( "applications-development-web" ) ) );
+  insertItem ( c++, i18n ( "Dom Inspector" ), icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
+  insertItem ( c++, i18n ( "Browser" ), icon.fromTheme ( QLatin1String ( "internet-web-browser" ) ) );
+  insertItem ( c++, i18n ( "Network" ), icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );
+  insertItem ( c++, i18n ( "Cookies" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
+  insertItem ( c++, i18n ( "Proxy" ), icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
+  insertItem ( c++, i18n ( "Certification" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
+  insertItem ( c++, i18n ( "User Agent" ), icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
+  insertItem ( c++, i18n ( "Extensions" ), icon.fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
 
   connect ( this, SIGNAL ( itemClicked ( QListWidgetItem * ) ),
             this, SLOT ( findPage ( QListWidgetItem * ) ) );
@@ -69,7 +69,7 @@ void ConfigurationMenu::findPage ( QListWidgetItem * item )
 
 void ConfigurationMenu::insertItem ( int index, const QString &title, const QIcon &icon )
 {
-  QString tip = trUtf8 ( "%1 Configuration options." ).arg ( title );
+  QString tip = i18n ( "%1 Configuration options." ).arg ( title );
   QListWidgetItem* item = new QListWidgetItem ( icon, title, this );
   item->setData ( Qt::UserRole, index );
   item->setData ( Qt::ToolTipRole, tip );

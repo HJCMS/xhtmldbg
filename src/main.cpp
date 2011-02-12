@@ -25,11 +25,9 @@
 /* QtCore */
 #include <QtCore/QCoreApplication>
 #include <QtCore/QGlobalStatic>
-#include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QTranslator>
 
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
@@ -80,17 +78,6 @@ int main ( int argc, char *argv[] )
   xhtmldbgmain app ( argc, argv );
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
-
-  QStringList trPaths ( app.applicationDirPath() );
-  trPaths << QLibraryInfo::location ( QLibraryInfo::TranslationsPath );
-
-  QTranslator translator ( &app );
-  foreach ( QString tf, trPaths )
-  {
-    if ( translator.load ( QString ( "xhtmldbg_%1.qm" ).arg ( QLocale().name() ), tf, "_" ) )
-      break;
-  }
-  app.installTranslator ( &translator );
 
   KGlobal::locale()->insertCatalog (XHTMLDBG_APPS_NAME );
 

@@ -38,7 +38,7 @@
 #include <QtGui/QVBoxLayout>
 
 ConfigExtras::ConfigExtras ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "Extensions" ), parent )
+    : PageWidget ( i18n ( "Extensions" ), parent )
     , mod ( false )
     , databasePath ( QString ( GEOIP_DATABASE_PATH ) )
 {
@@ -50,7 +50,7 @@ ConfigExtras::ConfigExtras ( QWidget * parent )
   verticalLayout->setObjectName ( QLatin1String ( "config_page_extensions_main_layout" ) );
   centralWidget->setLayout ( verticalLayout );
 
-  QGroupBox* geoipGroup = new QGroupBox ( trUtf8 ( "Geological IP Resolver" ), centralWidget );
+  QGroupBox* geoipGroup = new QGroupBox ( i18n ( "Geological IP Resolver" ), centralWidget );
   geoipGroup->setObjectName ( QLatin1String ( "config_page_extensions_group_geoip" ) );
 
   QHBoxLayout* geoipLayout = new QHBoxLayout ( geoipGroup );
@@ -58,7 +58,7 @@ ConfigExtras::ConfigExtras ( QWidget * parent )
 
   QLabel* infoGeoIP = new QLabel ( geoipGroup );
   infoGeoIP->setObjectName ( QLatin1String ( "config_page_extensions_label_geoip_info" ) );
-  infoGeoIP->setText ( trUtf8 ( "Database" ) );
+  infoGeoIP->setText ( i18n ( "Database" ) );
   geoipLayout->addWidget ( infoGeoIP );
 
   m_lineEditGeoIP = new QLineEdit ( geoipGroup );
@@ -99,7 +99,7 @@ const QString ConfigExtras::absoluteDatabasePath()
 void ConfigExtras::openDatabaseDialog()
 {
   QStringList dat;
-  dat << trUtf8 ( "GeoIP Database %1" ).arg ( "*.dat *.DAT" );
+  dat << i18n ( "*.dat *.DAT|GeoIP Database File" );
   QString p = ConfigUtils::findFileDialog ( m_lineEditGeoIP->text(), dat, this );
   if ( p.isEmpty() )
     return;

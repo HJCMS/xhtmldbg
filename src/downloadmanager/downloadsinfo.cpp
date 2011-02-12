@@ -35,6 +35,9 @@
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 
+/* KDE */
+#include <KDE/KLocale>
+
 DownloadsInfo::DownloadsInfo ( QWidget * parent )
     : QWidget ( parent )
 {
@@ -54,14 +57,14 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   txt_main_info->setObjectName ( QLatin1String ( "txt_main_info" ) );
   txt_main_info->setAlignment ( dataAlign );
   txt_main_info->setIndent ( 2 );
-  txt_main_info->setText ( trUtf8 ( "<b>Download Summary</b>" ) );
+  txt_main_info->setText ( i18n ( "<b>Download Summary</b>" ) );
   layout->addWidget ( txt_main_info, gridRow++, 0, 1, 2, Qt::AlignLeft );
 
   // Download Url
   QLabel* txt_url_info = new QLabel ( this );
   txt_url_info->setObjectName ( QLatin1String ( "txt_url_info" ) );
   txt_url_info->setAlignment ( infoAlign );
-  txt_url_info->setText ( trUtf8 ( "Upload URL" ) );
+  txt_url_info->setText ( i18n ( "Upload URL" ) );
   layout->addWidget ( txt_url_info, gridRow, 0 );
   layout->addWidget ( spacer(), gridRow, 1 );
 
@@ -76,7 +79,7 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   QLabel* txt_destination_info = new QLabel ( this );
   txt_destination_info->setObjectName ( QLatin1String ( "txt_destination_info" ) );
   txt_destination_info->setAlignment ( infoAlign );
-  txt_destination_info->setText ( trUtf8 ( "Destination Path" ) );
+  txt_destination_info->setText ( i18n ( "Destination Path" ) );
   layout->addWidget ( txt_destination_info, gridRow, 0 );
   layout->addWidget ( spacer(), gridRow, 1 );
 
@@ -92,7 +95,7 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   QLabel* txt_size_info = new QLabel ( this );
   txt_size_info->setObjectName ( QLatin1String ( "txt_size_info" ) );
   txt_size_info->setAlignment ( infoAlign );
-  txt_size_info->setText ( trUtf8 ( "Filesize" ) );
+  txt_size_info->setText ( i18n ( "Filesize" ) );
   layout->addWidget ( txt_size_info, gridRow, 0 );
   layout->addWidget ( spacer(), gridRow, 1 );
 
@@ -107,7 +110,7 @@ DownloadsInfo::DownloadsInfo ( QWidget * parent )
   QLabel* txt_mime_info = new QLabel ( this );
   txt_mime_info->setObjectName ( QLatin1String ( "txt_mime_info" ) );
   txt_mime_info->setAlignment ( infoAlign );
-  txt_mime_info->setText ( trUtf8 ( "Mime-Type" ) );
+  txt_mime_info->setText ( i18n ( "Mime-Type" ) );
   layout->addWidget ( txt_mime_info, gridRow, 0 );
   layout->addWidget ( spacer(), gridRow, 1 );
 
@@ -167,6 +170,6 @@ void DownloadsInfo::setInfoData ( Downloader * item )
 
   // Download ist fertig und existiert dann einen Link erzeugen.
   QString html = QString ( "<a href=\"%2\" type=\"%1\" target=\"_blank\" title=\"%3\">%2</a>" )
-                  .arg ( item->metaType(), item->destFile(), trUtf8 ( "Open with external Application" ) );
+                  .arg ( item->metaType(), item->destFile(), i18n ( "Open with external Application" ) );
   destinationPath->setText ( html );
 }

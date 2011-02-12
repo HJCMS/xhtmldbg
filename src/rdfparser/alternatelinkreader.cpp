@@ -35,9 +35,12 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElementCollection>
 
+/* KDE */
+#include <KDE/KLocale>
+
 AlternateLinkReader::AlternateLinkReader ( QWidget * parent )
     : QWidget ( parent )
-    , comboTitle ( trUtf8 ( "RSS/Atom" ) )
+    , comboTitle ( i18n ( "RSS/Atom" ) )
     , rssIcon ( QIcon::fromTheme ( QLatin1String ( "application-rss+xml" ) ) )
 {
   setObjectName ( QLatin1String ( "alternatelinkreader" ) );

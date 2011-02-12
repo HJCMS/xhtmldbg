@@ -93,9 +93,9 @@ void ListStyleSheet::addStyleItem ( const QString &attr, const QString &value, b
   QString display ( attr + ": " + value + ";" );
   QString tip;
   if ( cascaded )
-    tip = trUtf8 ( "Rendered from Stylesheet Document" );
+    tip = i18n ( "Rendered from Stylesheet Document" );
   else
-    tip = trUtf8 ( "Contained \"style\" Attribute" );
+    tip = i18n ( "Contained \"style\" Attribute" );
 
   QListWidgetItem* item = new QListWidgetItem ( this );
   item->setData ( Qt::DisplayRole, display );

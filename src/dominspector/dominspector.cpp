@@ -45,7 +45,7 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
 {
   Q_INIT_RESOURCE ( dominspector );
   setObjectName ( QLatin1String ( "domviewerdock" ) );
-  setWindowTitle ( trUtf8 ( "DomTree" ) );
+  setWindowTitle ( i18n ( "DomTree" ) );
   setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 1, 1, 1, 1 );

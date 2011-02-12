@@ -36,6 +36,9 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlQuery>
 
+/* KDE */
+#include <KDE/KLocale>
+
 DBManager::DBManager ( QObject * parent )
     : QObject ( parent )
     , sql ( QSqlDatabase::addDatabase ( "QSQLITE", "xhtmldbg" ) )
@@ -53,39 +56,39 @@ void DBManager::setError ( QueryType t, int l, const QString &m )
   switch ( t )
   {
     case ACTION:
-      emit error ( trUtf8 ( "SQL Invalid Operation: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Invalid Operation: %1 %2" ).arg ( line, m ) );
       break;
 
     case OPEN:
-      emit error ( trUtf8 ( "SQL Open Database: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Open Database: %1 %2" ).arg ( line, m ) );
       break;
 
     case CREATE:
-      emit error ( trUtf8 ( "SQL Create Table: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Create Table: %1 %2" ).arg ( line, m ) );
       break;
 
     case SELECT:
-      emit error ( trUtf8 ( "SQL Select: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Select: %1 %2" ).arg ( line, m ) );
       break;
 
     case DELETE:
-      emit error ( trUtf8 ( "SQL Delete: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Delete: %1 %2" ).arg ( line, m ) );
       break;
 
     case UPDATE:
-      emit error ( trUtf8 ( "SQL Update: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Update: %1 %2" ).arg ( line, m ) );
       break;
 
     case INSERT:
-      emit error ( trUtf8 ( "SQL Insert: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Insert: %1 %2" ).arg ( line, m ) );
       break;
 
     case QUERY:
-      emit error ( trUtf8 ( "SQL Query: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL Query: %1 %2" ).arg ( line, m ) );
       break;
 
     default:
-      emit error ( trUtf8 ( "SQL: %1 %2" ).arg ( line, m ) );
+      emit error ( i18n ( "SQL: %1 %2" ).arg ( line, m ) );
       break;
   }
 }

@@ -38,8 +38,11 @@
 #include <QtGui/QToolButton>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocalizedString>
+
 CertIssuers::CertIssuers ( QWidget * parent )
-    : QGroupBox ( trUtf8 ( "Issuers" ), parent )
+    : QGroupBox ( i18n ( "Issuers" ), parent )
     , ssl ( QSslConfiguration::defaultConfiguration () )
 {
   setObjectName ( QLatin1String ( "certissuers" ) );
@@ -58,13 +61,13 @@ CertIssuers::CertIssuers ( QWidget * parent )
 
   QLabel* label_1 = new QLabel ( this );
   label_1->setObjectName ( QLatin1String ( "label_1" ) );
-  label_1->setText ( trUtf8 ( "Database:" ) );
+  label_1->setText ( i18n ( "Database:" ) );
   label_1->setAlignment ( ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter ) );
   horizontalLayout->addWidget ( label_1 );
 
   m_editCaDatabase = new QLineEdit ( this );
   m_editCaDatabase->setObjectName ( QLatin1String ( "certissuers_edit_ca_db" ) );
-  m_editCaDatabase->setToolTip ( trUtf8 ( "CA Bundle Database" ) );
+  m_editCaDatabase->setToolTip ( i18n ( "CA Bundle Database" ) );
   horizontalLayout->addWidget ( m_editCaDatabase );
 
   QToolButton* openCaButton = new QToolButton ( this );
@@ -153,10 +156,10 @@ void CertIssuers::getCaCertDatabaseDialog()
 {
   QString path ( m_editCaDatabase->text() );
   QStringList filt;
-  filt << trUtf8 ( "CA Bundle %1" ).arg ( "*.crt ca-*" );
-  filt << trUtf8 ( "Certificate %1" ).arg ( "*.pem *.der" );
+  filt << i18nc ( "CA Bundle %1", "*.crt ca-*" );
+  filt << i18nc ( "Certificate %1", "*.pem *.der" );
 
-  path = QFileDialog::getOpenFileName ( this, trUtf8 ( "CA Bundle Database" ), path, filt.join ( ";;" ) );
+  path = QFileDialog::getOpenFileName ( this, i18n ( "CA Bundle Database" ), path, filt.join ( ";;" ) );
   setCaCertDatabase ( path );
 }
 

@@ -34,7 +34,7 @@ IconThemesList::IconThemesList ( QWidget * parent )
     : QListWidget ( parent )
 {
   setObjectName ( QLatin1String ( "iconthemeslist" ) );
-  setToolTip ( trUtf8 ( "descending order for icon theme search paths" ) );
+  setToolTip ( i18n ( "descending order for icon theme search paths" ) );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Preferred );
 }
 
@@ -73,10 +73,10 @@ void IconThemesList::removeSelectedPath()
 void IconThemesList::contextMenuEvent ( QContextMenuEvent * ev )
 {
   QMenu* m_menu = new QMenu ( "Actions", this );
-  QAction* add = m_menu->addAction ( QIcon::fromTheme ( "list-add" ), trUtf8 ( "Adding" ) );
+  QAction* add = m_menu->addAction ( QIcon::fromTheme ( "list-add" ), i18n ( "Adding" ) );
   connect ( add, SIGNAL ( triggered() ), this, SIGNAL ( setPathClicked() ) );
 
-  QAction* del = m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
+  QAction* del = m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), i18n ( "Remove" ) );
   connect ( del, SIGNAL ( triggered() ), this, SLOT ( removeSelectedPath() ) );
   m_menu->exec ( ev->globalPos() );
   delete m_menu;

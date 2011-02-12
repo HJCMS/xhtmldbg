@@ -26,6 +26,9 @@
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
 
+/* KDE */
+#include <KDE/KLocale>
+
 bool SelfHtmlSidebarPlugin::create ( QWidget * parent )
 {
   if ( parent )
@@ -63,9 +66,9 @@ xhtmldbg::PluginInfo* SelfHtmlSidebarPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
   inf->setName ( QLatin1String ( "SelfHtmlSidebar" ) );
-  inf->setGenericName ( trUtf8 ( "SELFHTML" ) );
+  inf->setGenericName ( i18n ( "SELFHTML" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( trUtf8 ( "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML." ) );
+  inf->setDescription ( i18n ( "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML." ) );
   inf->setAuthor ( QString::fromUtf8 ( "Jürgen Heinemann (Undefined)" ) );
   return inf;
 }

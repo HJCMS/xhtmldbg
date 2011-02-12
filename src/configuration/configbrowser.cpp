@@ -67,7 +67,7 @@ static inline const QMap<QString,bool> settingsMap()
 }
 
 ConfigBrowser::ConfigBrowser ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "Browser Settings" ), parent )
+    : PageWidget ( i18n ( "Browser Settings" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_browser" ) );
@@ -82,77 +82,77 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
 
-  FeatureBox* cb1 = new FeatureBox ( trUtf8 ( "Do Not Buffer Upload Data when doing a HTTP POST request." ), centralWidget );
+  FeatureBox* cb1 = new FeatureBox ( i18n ( "Do Not Buffer Upload Data when doing a HTTP POST request." ), centralWidget );
   cb1->setObjectName ( QLatin1String ( "DoNotBufferUploadDataAttribute" ) );
   verticalLayout->addWidget ( cb1 );
 
-  FeatureBox* cb2 = new FeatureBox ( trUtf8 ( "Allow HTTP pipelining with requests." ), centralWidget );
+  FeatureBox* cb2 = new FeatureBox ( i18n ( "Allow HTTP pipelining with requests." ), centralWidget );
   cb2->setObjectName ( QLatin1String ( "HttpPipeliningAllowedAttribute" ) );
   verticalLayout->addWidget ( cb2 );
 
-  FeatureBox* cb3 = new FeatureBox ( trUtf8 ( "Indicates whether the HTTP Pipelining was used for receiving data Requests." ), centralWidget );
+  FeatureBox* cb3 = new FeatureBox ( i18n ( "Indicates whether the HTTP Pipelining was used for receiving data Requests." ), centralWidget );
   cb3->setObjectName ( QLatin1String ( "HttpPipeliningWasUsedAttribute" ) );
   verticalLayout->addWidget ( cb3 );
 
-  FeatureBox* cb4 = new FeatureBox ( trUtf8 ( "Enable AutoLoad Images" ), centralWidget );
+  FeatureBox* cb4 = new FeatureBox ( i18n ( "Enable AutoLoad Images" ), centralWidget );
   cb4->setObjectName ( QLatin1String ( "AutoLoadImages" ) );
   verticalLayout->addWidget ( cb4 );
 
-  FeatureBox* cb5 = new FeatureBox ( trUtf8 ( "Enable Javascript" ), centralWidget );
+  FeatureBox* cb5 = new FeatureBox ( i18n ( "Enable Javascript" ), centralWidget );
   cb5->setObjectName ( QLatin1String ( "JavascriptEnabled" ) );
   verticalLayout->addWidget ( cb5 );
 
-  FeatureBox* cb6 = new FeatureBox ( trUtf8 ( "Enable Plugins" ), centralWidget );
+  FeatureBox* cb6 = new FeatureBox ( i18n ( "Enable Plugins" ), centralWidget );
   cb6->setObjectName ( QLatin1String ( "PluginsEnabled" ) );
   verticalLayout->addWidget ( cb6 );
 
-  FeatureBox* cb7 = new FeatureBox ( trUtf8 ( "Enable Java" ), centralWidget );
+  FeatureBox* cb7 = new FeatureBox ( i18n ( "Enable Java" ), centralWidget );
   cb7->setObjectName ( QLatin1String ( "JavaEnabled" ) );
   verticalLayout->addWidget ( cb7 );
 
-  FeatureBox* cb8 = new FeatureBox ( trUtf8 ( "Zoom only text" ), centralWidget );
+  FeatureBox* cb8 = new FeatureBox ( i18n ( "Zoom only text" ), centralWidget );
   cb8->setObjectName ( QLatin1String ( "ZoomTextOnly" ) );
   verticalLayout->addWidget ( cb8 );
 
-  FeatureBox* cb9 = new FeatureBox ( trUtf8 ( "Fetch DNS entries to speed up browsing." ), centralWidget );
+  FeatureBox* cb9 = new FeatureBox ( i18n ( "Fetch DNS entries to speed up browsing." ), centralWidget );
   cb9->setObjectName ( QLatin1String ( "DnsPrefetchEnabled" ) );
   verticalLayout->addWidget ( cb9 );
 
-  FeatureBox* cb10 = new FeatureBox ( trUtf8 ( "JavaScript programs can open new windows." ), centralWidget );
+  FeatureBox* cb10 = new FeatureBox ( i18n ( "JavaScript programs can open new windows." ), centralWidget );
   cb10->setObjectName ( QLatin1String ( "JavascriptCanOpenWindows" ) );
   verticalLayout->addWidget ( cb10 );
 
-  FeatureBox* cb11 = new FeatureBox ( trUtf8 ( "JavaScript programs can read or write to the clipboard." ), centralWidget );
+  FeatureBox* cb11 = new FeatureBox ( i18n ( "JavaScript programs can read or write to the clipboard." ), centralWidget );
   cb11->setObjectName ( QLatin1String ( "JavascriptCanAccessClipboard" ) );
   verticalLayout->addWidget ( cb11 );
 
-  FeatureBox* cb12 = new FeatureBox ( trUtf8 ( "The background color and images are also drawn when the page is printed." ), centralWidget );
+  FeatureBox* cb12 = new FeatureBox ( i18n ( "The background color and images are also drawn when the page is printed." ), centralWidget );
   cb12->setObjectName ( QLatin1String ( "PrintElementBackgrounds" ) );
   verticalLayout->addWidget ( cb12 );
 
-  FeatureBox* cb13 = new FeatureBox ( trUtf8 ( "Locally loaded documents are allowed to access remote urls." ), centralWidget );
+  FeatureBox* cb13 = new FeatureBox ( i18n ( "Locally loaded documents are allowed to access remote urls." ), centralWidget );
   cb13->setObjectName ( QLatin1String ( "LocalContentCanAccessRemoteUrls" ) );
   verticalLayout->addWidget ( cb13 );
 
-  FeatureBox* cb14 = new FeatureBox ( trUtf8 ( "Locally loaded documents are allowed to access other local urls." ), centralWidget );
+  FeatureBox* cb14 = new FeatureBox ( i18n ( "Locally loaded documents are allowed to access other local urls." ), centralWidget );
   cb14->setObjectName ( QLatin1String ( "LocalContentCanAccessFileUrls" ) );
   verticalLayout->addWidget ( cb14 );
 
-  FeatureBox* cb15 = new FeatureBox ( trUtf8 ( "Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Warning: To enabe this feature might have an impact on performance." ), centralWidget );
+  FeatureBox* cb15 = new FeatureBox ( i18n ( "Specifies whether load requests should be monitored for cross-site scripting attempts. Suspicious scripts will be blocked and reported in the inspector's JavaScript console. Warning: To enabe this feature might have an impact on performance." ), centralWidget );
   cb15->setObjectName ( QLatin1String ( "XSSAuditingEnabled" ) );
   verticalLayout->addWidget ( cb15 );
 
-  FeatureBox* cb16 = new FeatureBox ( trUtf8 ( "If enabled - CSS animations of the transform and opacity properties will be rendered\nby composing the cached content of the animated elements." ), centralWidget );
+  FeatureBox* cb16 = new FeatureBox ( i18n ( "If enabled - CSS animations of the transform and opacity properties will be rendered\nby composing the cached content of the animated elements." ), centralWidget );
   cb16->setObjectName ( QLatin1String ( "AcceleratedCompositingEnabled" ) );
   verticalLayout->addWidget ( cb16 );
 
-  FeatureBox* cb17 = new FeatureBox ( trUtf8 ( "This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store." ), centralWidget );
+  FeatureBox* cb17 = new FeatureBox ( i18n ( "This setting enables the tiled backing store feature for Graphics rendering. When enabled, the web page contents in and around the current visible area is speculatively cached to bitmap tiles. The Image content automatically kept in sync with the web page as it changes. It does not work well with contents using CSS fixed positioning. This property allows application to temporarily freeze the contents of the backing store." ), centralWidget );
   cb17->setObjectName ( QLatin1String ( "TiledBackingStoreEnabled" ) );
   verticalLayout->addWidget ( cb17 );
 
   /** Bitte nicht vergessen die Objektnamen in die Map ein zu tragen! */
   // Template:
-  // FeatureBox* cb = new FeatureBox ( trUtf8 ( "" ), centralWidget );
+  // FeatureBox* cb = new FeatureBox ( i18n ( "" ), centralWidget );
   // cb->setObjectName ( QLatin1String ( "" ) );
   // verticalLayout->addWidget ( cb );
 
@@ -160,14 +160,14 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   registerCheckBoxes();
 
   // Font Einstellungen
-  QGroupBox* fontGroup = new QGroupBox ( trUtf8 ( "Font Settings" ), centralWidget );
+  QGroupBox* fontGroup = new QGroupBox ( i18n ( "Font Settings" ), centralWidget );
   fontGroup->setObjectName ( QLatin1String ( "config_page_browser_font_group" ) );
   fontGroup->setFlat ( true );
 
   QHBoxLayout* horizontalLayout = new QHBoxLayout ( fontGroup );
   horizontalLayout->setObjectName ( QLatin1String ( "config_page_browser_font_grid_layout" ) );
 
-  QLabel* label_df = new QLabel ( trUtf8 ( "Default Font Size:" ), fontGroup );
+  QLabel* label_df = new QLabel ( i18n ( "Default Font Size:" ), fontGroup );
   label_df->setAlignment ( labelAlign );
   label_df->setSizePolicy ( sizePolicy );
   horizontalLayout->addWidget ( label_df );
@@ -178,7 +178,7 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   DefaultFontSize->setMaximum ( 50 );
   horizontalLayout->addWidget ( DefaultFontSize );
 
-  QLabel* label_ff = new QLabel ( trUtf8 ( "Fixed Font Size:" ), fontGroup );
+  QLabel* label_ff = new QLabel ( i18n ( "Fixed Font Size:" ), fontGroup );
   label_ff->setAlignment ( labelAlign );
   label_ff->setSizePolicy ( sizePolicy );
   horizontalLayout->addWidget ( label_ff );
@@ -197,7 +197,7 @@ ConfigBrowser::ConfigBrowser ( QWidget * parent )
   verticalLayout->addWidget ( headerDefinitions );
 
   // Pluginpfad auswählen
-  pluginPathChooser = new DirectoryChooser ( trUtf8 ( "Plugins Directory" ),
+  pluginPathChooser = new DirectoryChooser ( i18n ( "Plugins Directory" ),
           QString::fromUtf8 ( "webkit_plugin_path" ), centralWidget );
   verticalLayout->addWidget ( pluginPathChooser );
 

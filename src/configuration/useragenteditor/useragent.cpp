@@ -24,6 +24,9 @@
 /* QtCore */
 #include <QtCore/QString>
 
+/* KDE */
+#include <KDE/KLocale>
+
 UserAgent::UserAgent ( QObject * parent )
     : QObject ( parent )
 {
@@ -33,7 +36,7 @@ UserAgent::UserAgent ( QObject * parent )
 const QString UserAgent::getName()
 {
   if ( name.isEmpty() )
-    return trUtf8 ( "XHTMLDBG (Default)" );
+    return i18n ( "XHTMLDBG (Default)" );
   else
     return name;
 }

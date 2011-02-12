@@ -34,7 +34,7 @@
 #include <QtGui/QVBoxLayout>
 
 ConfigDomTree::ConfigDomTree ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "DOM Inspector" ), parent )
+    : PageWidget ( i18n ( "DOM Inspector" ), parent )
     , mod ( false )
     , highlightBackgroundColor ( QLatin1String ( "yellow" ) )
     , highlightBorderColor ( QLatin1String ( "red" ) )
@@ -48,7 +48,7 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_domtree_vertical_layout" ) );
 
-  m_backgroundColorGroup = new QGroupBox ( trUtf8 ( "Enable Background Highlight" ), centralWidget );
+  m_backgroundColorGroup = new QGroupBox ( i18n ( "Enable Background Highlight" ), centralWidget );
   m_backgroundColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_background" ) );
   m_backgroundColorGroup->setFlat ( true );
   m_backgroundColorGroup->setCheckable ( true );
@@ -68,7 +68,7 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
 
   m_backgroundColorGroup->setLayout ( hLayoutOne );
 
-  m_borderColorGroup = new QGroupBox ( trUtf8 ( "Enable Border Highlight" ), centralWidget );
+  m_borderColorGroup = new QGroupBox ( i18n ( "Enable Border Highlight" ), centralWidget );
   m_borderColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_border" ) );
   m_borderColorGroup->setCheckable ( true );
   m_borderColorGroup->setFlat ( true );

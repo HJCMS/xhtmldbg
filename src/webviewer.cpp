@@ -79,9 +79,9 @@ void WebViewer::setTabCornerButton()
 {
   QToolButton* btn = new QToolButton ( this );
   btn->setObjectName ( QLatin1String ( "newpagecorneraction" ) );
-  btn->setText ( trUtf8 ( "New Page" ) );
+  btn->setText ( i18n ( "New Page" ) );
   btn->setIcon ( QIcon::fromTheme ( QLatin1String ( "tab-new" ) ) );
-  btn->setToolTip ( trUtf8 ( "Add a new empty Tab" ) );
+  btn->setToolTip ( i18n ( "Add a new empty Tab" ) );
   connect ( btn, SIGNAL ( clicked() ), this, SLOT ( addViewerTab() ) );
   setCornerWidget ( btn, Qt::TopRightCorner );
 }
@@ -279,12 +279,12 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   QUrl uri ( view->url() );
   if ( uri.isValid() && move )
   {
-    QString title = uri.host().isEmpty() ? trUtf8 ( "file" ) : uri.host();
+    QString title = uri.host().isEmpty() ? i18n ( "file" ) : uri.host();
     int index = addTab ( view, title );
     setCurrentIndex ( index );
   }
   else
-    addTab ( view, tabIcon, trUtf8 ( "Unknown" ) );
+    addTab ( view, tabIcon, i18n ( "Unknown" ) );
 }
 
 /**

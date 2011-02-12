@@ -29,27 +29,29 @@
 #include <QtGui/QIcon>
 #include <QtGui/QLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 ZoomBar::ZoomBar ( QWidget * parent )
     : QToolBar ( parent )
 {
   setObjectName ( QLatin1String ( "zoommenu" ) );
-  setWindowTitle ( trUtf8 ( "Zoom" ) );
-  setStatusTip ( trUtf8 ( "Zoom Webbrowser Content" ) );
+  setWindowTitle ( i18n ( "Zoom" ) );
+  setStatusTip ( i18n ( "Zoom Webbrowser Content" ) );
   layout()->setSpacing ( 5 );
 
-  QIcon icon;
-
-  ac_in = addAction ( trUtf8 ( "ZoomIn" ) );
+  ac_in = addAction ( i18n ( "ZoomIn" ) );
   ac_in->setObjectName ( QLatin1String ( "action_zoom_in" ) );
-  ac_in->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-in" ) ) );
+  ac_in->setIcon ( KIcon ( QLatin1String ( "zoom-in" ) ) );
 
-  ac_out = addAction ( trUtf8 ( "ZoomOut" ) );
+  ac_out = addAction ( i18n ( "ZoomOut" ) );
   ac_out->setObjectName ( QLatin1String ( "action_zoom_out" ) );
-  ac_out->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-out" ) ) );
+  ac_out->setIcon ( KIcon ( QLatin1String ( "zoom-out" ) ) );
 
-  ac_original = addAction ( trUtf8 ( "Original" ) );
+  ac_original = addAction ( i18n ( "Original" ) );
   ac_original->setObjectName ( QLatin1String ( "action_zoom_original" ) );
-  ac_original->setIcon ( icon.fromTheme ( QLatin1String ( "zoom-original" ) ) );
+  ac_original->setIcon ( KIcon ( QLatin1String ( "zoom-original" ) ) );
 
   connect ( ac_in, SIGNAL ( triggered () ),
             this , SLOT ( zoomInClicked () ) );

@@ -31,11 +31,14 @@
 #include <QtGui/QMenu>
 #include <QtGui/QScrollArea>
 
+/* KDE */
+#include <KDE/KLocale>
+
 WebInspector::WebInspector ( QWebPage * startPage, QWidget * parent )
     : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "WebInspectorDockWidget" ) );
-  setWindowTitle ( trUtf8 ( "Inspector" ) );
+  setWindowTitle ( i18n ( "Inspector" ) );
   setContentsMargins ( 1, 2, 1, 2 );
   // Kein Maus Menü zulassen
   setContextMenuPolicy ( Qt::NoContextMenu );

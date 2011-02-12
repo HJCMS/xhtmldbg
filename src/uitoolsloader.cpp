@@ -100,7 +100,7 @@ bool UiToolsLoader::setConfiguration ( const QStringList &params, const QStringL
   if ( params.size() != values.size() )
   {
     isValid = false;
-    emit message ( trUtf8 ( "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!" ) );
+    emit message ( i18n ( "(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-qt-plugin - severance!" ) );
     return false;
   }
 
@@ -151,9 +151,9 @@ QWidget* UiToolsLoader::displayFailWidget ( QWidget * parent, const QString &mes
 
   if ( mess.isEmpty() )
   {
-    message.append ( trUtf8 ( "Sorry: I can't do it." ) );
+    message.append ( i18n ( "Sorry: I can't do it." ) );
     message.append ( "\n" );
-    message.append ( trUtf8 ( "Invalid Element initialization." ) );
+    message.append ( i18n ( "Invalid Element initialization." ) );
   }
   else
     message = mess;
@@ -200,7 +200,7 @@ QWidget* UiToolsLoader::getUiComponent ( QWidget * parent )
           if ( val.convert ( prop.type() ) )
             widget->setProperty ( prop.name(), val );
           else
-            emit message ( trUtf8 ( "(XHTMLDBG) Invalid value for property: %1" ).arg ( prop.name() ) );
+            emit message ( i18n ( "(XHTMLDBG) Invalid value for property: %1" ).arg ( prop.name() ) );
         }
       }
     }

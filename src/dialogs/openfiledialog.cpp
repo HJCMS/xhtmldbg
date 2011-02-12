@@ -33,12 +33,14 @@
 
 /* KDE */
 #include <KDE/KUrl>
+#include <KDE/KLocale>
+#include <KDE/KIcon>
 
 OpenFileDialog::OpenFileDialog ( const QString &target, QWidget * parent )
     : KFileDialog ( KUrl ( target ), QString ( "*" ), parent )
 {
   setObjectName ( QLatin1String ( "OpenFileDialog" ) );
-  setWindowTitle ( trUtf8 ( "Open HTML File" ) );
+  setWindowTitle ( i18n ( "Open HTML File" ) );
   setOperationMode ( KFileDialog::Opening );
 
   QStringList filters;

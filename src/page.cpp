@@ -108,10 +108,10 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
   message.remove ( QRegExp ( "[\r\n]+" ) );
 
   if ( l > 0 )
-    message.append ( trUtf8 ( " Line: %1" ).arg ( QString::number ( l ) ) );
+    message.append ( i18n ( " Line: %1" ).arg ( QString::number ( l ) ) );
 
   if ( ! id.isEmpty() )
-    message.append ( trUtf8 ( " Document: %1" ).arg ( id ) );
+    message.append ( i18n ( " Document: %1" ).arg ( id ) );
 
   xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( Qt::escape ( message ) );
 }
@@ -133,7 +133,7 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
 bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QString &val, QString * inp )
 {
   bool b = false;
-  QString status = trUtf8 ( "JavaScript Prompt: " );
+  QString status = i18n ( "JavaScript Prompt: " );
   QString path = Qt::escape ( frame->requestedUrl().path() );
   status.append ( Qt::escape ( text ) );
 
@@ -331,7 +331,7 @@ QObject* Page::createPlugin ( const QString &id, const QUrl &url,
   // und Gültigkeit der Parameter und ihrer Werte geprüft!
   if ( loader->setConfiguration ( params, values ) )
   {
-    QString message = trUtf8 ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
+    QString message = i18n ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
     internalMessanger ( message );
   }
   return loader->getUiComponent ( view() );

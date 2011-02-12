@@ -20,6 +20,7 @@
 **/
 
 #include "configutils.h"
+#include "directorydialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -28,18 +29,25 @@
 
 /* QtGui */
 #include <QtGui/QColor>
-#include <QtGui/QColorDialog>
 #include <QtGui/QFileDialog>
 
+/* KDE */
+#include <KDE/KColorDialog>
+#include <KDE/KDirSelectDialog>
+#include <KDE/KFileDialog>
+#include <KDE/KIcon>
+#include <KDE/KLocale>
+#include <KDE/KUrl>
+
 /**
-* Öffne einen QColorDialog und setze die Farbe.
+* Öffne einen KColorDialog und setze die Farbe.
 */
 const QString ConfigUtils::openColorDialog ( const QString &current, QWidget * parent )
 {
-  QColorDialog* dialog = new QColorDialog ( parent );
-  dialog->setCurrentColor ( QColor ( current ) );
+  KColorDialog* dialog = new KColorDialog ( parent );
+  dialog->setDefaultColor ( QColor ( current ) );
   if ( dialog->exec() )
-    return dialog->selectedColor().name();
+    return dialog->color().name();
 
   return current;
 }
@@ -50,14 +58,13 @@ const QString ConfigUtils::openColorDialog ( const QString &current, QWidget * p
 const QString ConfigUtils::findBinaryDialog ( const QString &searchName,
         QWidget * parent, const QString &path )
 {
-  QStringList filt;
-  filt << trUtf8 ( "Binary *%1*" ).arg ( searchName );
-  filt << trUtf8 ( "All %1" ).arg ( "*" );
-  QString p = QFileDialog::getOpenFileName ( parent,
-              trUtf8 ( "Find Application" ),
-              path, filt.join ( ";;" ) );
+  KFileDialog kfile ( KUrl ( path ), QString ( "application/x-executable" ), parent );
+  kfile.setSelection ( searchName );
 
-  QFileInfo db ( p );
+  if ( kfile.exec() != QDialog::Accepted )
+    return searchName;
+
+  QFileInfo db ( kfile.selectedFile() );
   if ( db.exists() )
     return db.absoluteFilePath();
 
@@ -66,16 +73,18 @@ const QString ConfigUtils::findBinaryDialog ( const QString &searchName,
 
 /** Sucht nach einer Datei */
 const QString ConfigUtils::findFileDialog ( const QString &path,
-        const QStringList &mimeTypes, QWidget * parent )
+        const QStringList &filters, QWidget * parent )
 {
-  QStringList filt;
-  filt << mimeTypes;
-  filt << trUtf8 ( "All %1" ).arg ( "*" );
-  QString p = QFileDialog::getOpenFileName ( parent,
-              trUtf8 ( "Find File" ),
-              path, filt.join ( ";;" ) );
+  KFileDialog kfile ( KUrl ( path ), QLatin1String ( "all/allfiles" ), parent );
+  foreach ( QString m, filters )
+  {
+    kfile.setFilter ( m );
+  }
 
-  QFileInfo db ( p );
+  if ( kfile.exec() != QDialog::Accepted )
+    return path;
+
+  QFileInfo db ( kfile.selectedFile() );
   if ( db.exists() )
     return db.absoluteFilePath();
 
@@ -88,33 +97,16 @@ const QString ConfigUtils::findFileDialog ( const QString &path,
 const QString ConfigUtils::findDirectoryDialog ( QWidget * parent,
         const QString &info, const QString &path )
 {
-  QFileDialog dialog ( parent );
-  dialog.setObjectName ( QLatin1String ( "configutils_finddirectorydialog" ) );
-  dialog.setWindowTitle ( info );
-  dialog.setFileMode ( QFileDialog::Directory );
-  dialog.setOptions ( QFileDialog::ReadOnly );
-  dialog.setViewMode ( QFileDialog::Detail );
-  dialog.setOption ( QFileDialog::ShowDirsOnly, true );
-
   QDir d ( path );
-  if ( d.exists() )
-  {
-    dialog.selectFile ( d.path() );
-    d.cdUp();
-    dialog.setDirectory ( d.path() );
-  }
+  if ( ! d.exists() )
+    d.setPath ( d.homePath() );
 
+  KDirSelectDialog dialog ( KUrl ( d.path() ), false, parent );
+  dialog.setCaption ( info );
   if ( dialog.exec() == QDialog::Accepted )
-  {
-    if ( dialog.directory().exists() )
-    {
-      QFileInfo info ( dialog.directory(), dialog.selectedFiles().first() );
-      if ( info.exists() )
-        return info.absoluteFilePath();
-    }
-  }
+    return dialog.url().toLocalFile();
 
-  return path;
+  return d.path();
 }
 
 /**
@@ -123,17 +115,12 @@ const QString ConfigUtils::findDirectoryDialog ( QWidget * parent,
 const QString ConfigUtils::openPrivateKeyDialog ( const QString &fallback,
         QWidget * parent, const QString &path )
 {
-  QStringList filt;
-  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
-  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
+  QString p = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-pkcs12" ),
+              parent, i18n ( "Open Private Certificate" ) );
 
-  QString p = QFileDialog::getOpenFileName ( parent,
-              trUtf8 ( "Open Certificate" ),
-              path, filt.join ( ";;" ) );
-
-  QFileInfo db ( p );
-  if ( db.exists() )
-    return db.absoluteFilePath();
+  QFileInfo info ( p );
+  if ( info.exists() )
+    return info.absoluteFilePath();
 
   return fallback;
 }
@@ -144,22 +131,17 @@ const QString ConfigUtils::openPrivateKeyDialog ( const QString &fallback,
 const QString ConfigUtils::openPuplicKeyDialog ( const QString &fallback,
         QWidget * parent, const QString &path )
 {
-  QStringList filt;
-  filt << trUtf8 ( "PEM or DER Encoding X.509 Format %1" ).arg ( "*.pem *.der *.cert" );
-  filt << trUtf8 ( "PKCS#12 Format %1" ).arg ( "*.p12" );
+  QString p = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-x509-ca-cert" ),
+              parent, i18n ( "Open Public Certificate" ) );
 
-  QString p = QFileDialog::getOpenFileName ( parent,
-              trUtf8 ( "Open Certificate" ),
-              path, filt.join ( ";;" ) );
-
-  QFileInfo db ( p );
-  if ( db.exists() )
-    return db.absoluteFilePath();
+  QFileInfo info ( p );
+  if ( info.exists() )
+    return info.absoluteFilePath();
 
   return fallback;
 }
 
 const QIcon ConfigUtils::folderIcon()
 {
-  return QIcon::fromTheme ( QLatin1String ( "document-open" ) );
+  return KIcon ( QLatin1String ( "document-open" ) );
 }

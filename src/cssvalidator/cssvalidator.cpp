@@ -51,7 +51,7 @@ CSSValidator::CSSValidator ( QWidget * parent, Settings * settings )
     , iconCritical ( QString::fromUtf8 ( ":/icons/critical.png" ) )
 {
   setObjectName ( QLatin1String ( "cssvalidator" ) );
-  setWindowTitle ( trUtf8 ( "CSS Validation" ) );
+  setWindowTitle ( i18n ( "CSS Validation" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 0, 0, 0, 0 );
 
@@ -149,7 +149,7 @@ bool CSSValidator::prepareToExecute ( const QUrl &url )
   {
     if ( m_validator->isRunning() )
     {
-      warningItem ( trUtf8 ( "Rejected - CSS Validator is busy ..." ) );
+      warningItem ( i18n ( "Rejected - CSS Validator is busy ..." ) );
       return false;
     }
 
@@ -195,7 +195,7 @@ void CSSValidator::doubleClicked ( QListWidgetItem * item )
   if ( prepareToExecute ( url ) )
     m_validator->validate();
   else
-    warningItem ( trUtf8 ( "CSS Validator says: Invalid Url and denies this request." ) );
+    warningItem ( i18n ( "CSS Validator says: Invalid Url and denies this request." ) );
 }
 
 /**
@@ -208,7 +208,7 @@ void CSSValidator::processTriggered()
   soupData.clear();
   setCursor ( Qt::WaitCursor );
   clearItems();
-  QString message = trUtf8 ( "Checking (%1). Please wait a little!" ).arg ( usedUrl );
+  QString message = i18n ( "Checking (%1). Please wait a little!" ).arg ( usedUrl );
   placeUrlItem ( message, QUrl ( usedUrl ) );
   m_menu->enableKillProcessAction ( m_validator->isRunning() );
 }
@@ -330,7 +330,7 @@ void CSSValidator::addForValidation ( const QUrl &url )
     QString display = url.toString ( QUrl::StripTrailingSlash | QUrl::RemoveFragment );
     QUrl remoteUrl ( remote );
     if ( isUnique ( remoteUrl ) )
-      placeUrlItem ( trUtf8 ( "To take in \"%1\" for Validation." ).arg ( display ), remoteUrl );
+      placeUrlItem ( i18n ( "To take in \"%1\" for Validation." ).arg ( display ), remoteUrl );
   }
 }
 
@@ -352,27 +352,27 @@ void CSSValidator::errors ( QProcess::ProcessError err )
   switch ( err )
   {
     case QProcess::FailedToStart:
-      criticalItem ( trUtf8 ( "FailedToStart (%1) ..." ).arg ( errtxt ) );
+      criticalItem ( i18n ( "FailedToStart (%1) ..." ).arg ( errtxt ) );
       break;
 
     case QProcess::Crashed:
-      criticalItem ( trUtf8 ( "Crashed (%1) ..." ).arg ( errtxt ) );
+      criticalItem ( i18n ( "Crashed (%1) ..." ).arg ( errtxt ) );
       break;
 
     case QProcess::Timedout:
-      warningItem ( trUtf8 ( "Timedout (%1) ..." ).arg ( errtxt ) );
+      warningItem ( i18n ( "Timedout (%1) ..." ).arg ( errtxt ) );
       break;
 
     case QProcess::WriteError:
-      criticalItem ( trUtf8 ( "WriteError (%1) ..." ).arg ( errtxt ) );
+      criticalItem ( i18n ( "WriteError (%1) ..." ).arg ( errtxt ) );
       break;
 
     case QProcess::ReadError:
-      criticalItem ( trUtf8 ( "ReadError (%1) ..." ).arg ( errtxt ) );
+      criticalItem ( i18n ( "ReadError (%1) ..." ).arg ( errtxt ) );
       break;
 
     case QProcess::UnknownError:
-      criticalItem ( trUtf8 ( "UnknownError (%1) ..." ).arg ( errtxt ) );
+      criticalItem ( i18n ( "UnknownError (%1) ..." ).arg ( errtxt ) );
       break;
   }
   m_validator->close();
@@ -405,7 +405,7 @@ void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
       break;
 
     case QProcess::CrashExit:
-      criticalItem ( trUtf8 ( "Crashed see logfiles" ) );
+      criticalItem ( i18n ( "Crashed see logfiles" ) );
       shutdownProcess();
       break;
 

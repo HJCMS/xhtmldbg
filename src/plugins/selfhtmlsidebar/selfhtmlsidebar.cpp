@@ -51,6 +51,10 @@
 #include <QtWebKit/QWebFrame>
 #include <QtWebKit/QWebSettings>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
     : QDockWidget ( parent )
     , service ( "de.hjcms.xhtmldbg" )
@@ -108,16 +112,16 @@ SelfHtmlSidebar::SelfHtmlSidebar ( QWidget * parent )
 
   QToolButton* configPage = new QToolButton ( layer );
   configPage->setObjectName ( QLatin1String ( "configurebutton" ) );
-  configPage->setStatusTip ( trUtf8 ( "Configure Startpage" ) );
-  configPage->setToolTip ( trUtf8 ( "Configure Startpage" ) );
+  configPage->setStatusTip ( i18n ( "Configure Startpage" ) );
+  configPage->setToolTip ( i18n ( "Configure Startpage" ) );
   configPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "configure" ) ) );
   hLayout->addWidget ( configPage );
   hLayout->addStretch ( 1 );
 
   QToolButton* startPage = new QToolButton ( layer );
   startPage->setObjectName ( QLatin1String ( "Index" ) );
-  startPage->setStatusTip ( trUtf8 ( "Index" ) );
-  startPage->setToolTip ( trUtf8 ( "Index" ) );
+  startPage->setStatusTip ( i18n ( "Index" ) );
+  startPage->setToolTip ( i18n ( "Index" ) );
   startPage->setIcon ( QIcon::fromTheme ( QLatin1String ( "user-home" ) ) );
   hLayout->addWidget ( startPage );
 
@@ -189,7 +193,7 @@ void SelfHtmlSidebar::openConfigDialog ()
 
   QVBoxLayout* layout = new QVBoxLayout ( dialog );
 
-  layout->addWidget ( new QLabel ( trUtf8 ( "Configure the SELFHTML Index HTML" ), dialog ) );
+  layout->addWidget ( new QLabel ( i18n ( "Configure the SELFHTML Index HTML" ), dialog ) );
 
   QLineEdit* setUrl = new QLineEdit ( sUrl, dialog );
   layout->addWidget ( setUrl );

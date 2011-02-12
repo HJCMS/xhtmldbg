@@ -22,6 +22,10 @@
 #ifndef VERSION_H
 #define VERSION_H
 
+/* KDE */
+#include <KDE/KGlobal>
+#include <KDE/KLocale>
+
 /**
 * XHTMLDBG Version String
 */

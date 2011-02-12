@@ -31,6 +31,10 @@
 #include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 DockTreeWidget::DockTreeWidget ( QWidget * parent )
     : QTreeWidget ( parent )
     , minWidth ( 50 )
@@ -91,16 +95,15 @@ void DockTreeWidget::onExpandCollapseResize ( QTreeWidgetItem *item )
 void DockTreeWidget::contextMenuEvent ( QContextMenuEvent *event )
 {
   QMenu* menu = new QMenu ( this );
-  QAction* acClear = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ),
-                                       trUtf8 ( "Clear" ) );
+  QAction* acClear = menu->addAction ( KIcon ( QLatin1String ( "edit-clear" ) ), i18n ( "Clear" ) );
   connect ( acClear, SIGNAL ( triggered() ), this, SLOT ( clear() ) );
 
-  QAction* acExpand = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-process-all-tree" ) ),
-                                        trUtf8 ( "Expand All" ) );
+  QAction* acExpand = menu->addAction ( KIcon ( QLatin1String ( "view-process-all-tree" ) ),
+                                        i18n ( "Expand All" ) );
   connect ( acExpand, SIGNAL ( triggered() ), this, SLOT ( expandAll() ) );
 
-  QAction* acCollapse = menu->addAction ( QIcon::fromTheme ( QLatin1String ( "view-list-tree" ) ),
-                                          trUtf8 ( "Collapse All" ) );
+  QAction* acCollapse = menu->addAction ( KIcon ( QLatin1String ( "view-list-tree" ) ),
+                                          i18n ( "Collapse All" ) );
   connect ( acCollapse, SIGNAL ( triggered() ), this, SLOT ( collapseAll() ) );
 
   menu->exec ( event->globalPos() );

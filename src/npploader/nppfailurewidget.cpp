@@ -24,6 +24,9 @@
 /* QtGui */
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 NPPFailureWidget::NPPFailureWidget ( const QString &message )
     : QWidget ()
 {
@@ -34,7 +37,7 @@ NPPFailureWidget::NPPFailureWidget ( const QString &message )
 
   QString text ( message );
   text.append ( "\n" );
-  text.append ( trUtf8 ( "Plugin initialization aborted." ) );
+  text.append ( i18n ( "Plugin initialization aborted." ) );
 
   m_label = new QLabel ( this );
   m_label->setObjectName ( QLatin1String ( "nppfailurewidget/layout/label" ) );

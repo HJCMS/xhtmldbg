@@ -31,6 +31,9 @@
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 NPPAttributes::NPPAttributes ( QWidget * parent )
     : QWidget ( parent )
 {
@@ -40,7 +43,7 @@ NPPAttributes::NPPAttributes ( QWidget * parent )
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
   vLayout->setObjectName ( "nppattributes/layout" );
 
-  QLabel* info = new QLabel ( trUtf8 ( "Plugin Object Detected" ), this );
+  QLabel* info = new QLabel ( i18n ( "Plugin Object Detected" ), this );
   info->setObjectName ( "nppattributes/layout/label" );
   vLayout->addWidget ( info );
 
@@ -49,7 +52,7 @@ NPPAttributes::NPPAttributes ( QWidget * parent )
   m_treeWidget->setMinimumWidth ( 150 );
 
   QStringList labels;
-  labels << trUtf8 ( "Predicates" ) << trUtf8 ( "Values" );
+  labels << i18n ( "Predicates" ) << i18n ( "Values" );
   m_treeWidget->setColumnCount ( labels.size() );
   m_treeWidget->setHeaderLabels ( labels );
   m_treeWidget->setSortingEnabled ( false );

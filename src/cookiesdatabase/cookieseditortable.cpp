@@ -42,6 +42,9 @@
 #include <QtSql/QSqlRecord>
 #include <QtSql/QSqlQuery>
 
+/* KDE */
+#include <KDE/KLocale>
+
 CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
@@ -61,8 +64,8 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
   setRowCount ( 0 );
 
   QStringList lb;
-  lb << ( trUtf8 ( "Domain" ) ) << trUtf8 ( "Arrangement" );
-  lb << trUtf8 ( "Allow third party" ) << trUtf8 ( "rfc2109" );
+  lb << i18n ( "Domain" ) << i18n ( "Arrangement" );
+  lb << i18n ( "Allow third party" ) << i18n ( "rfc2109" );
   setColumnCount ( lb.size() );
   setHorizontalHeaderLabels ( lb );
 

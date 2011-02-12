@@ -33,7 +33,7 @@ UserAgentMenu::UserAgentMenu ( QMenu * parent, Settings * settings )
     , agentIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) )
 {
   setObjectName ( QLatin1String ( "useragentmenu" ) );
-  setTitle ( trUtf8 ( "User Agent" ) );
+  setTitle ( i18n ( "User Agent" ) );
   setIcon ( agentIcon );
 
   // Signal Mapper

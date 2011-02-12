@@ -28,7 +28,7 @@
 #include <QtGui/QVBoxLayout>
 
 ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "User-Agent" ), parent )
+    : PageWidget ( i18n ( "User-Agent" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_user_agents" ) );

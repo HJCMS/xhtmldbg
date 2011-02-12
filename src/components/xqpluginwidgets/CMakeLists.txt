@@ -1,6 +1,8 @@
 # CMakeLists.txt
 ## x-qt-plugin Support required
 
+ADD_SUBDIRECTORY (po)
+
 SET (subproject "XQPluginWidgets")
 
 SET (LIBRARY_OUTPUT_PATH
@@ -56,8 +58,6 @@ QT4_WRAP_UI (subproject_UIC ${subproject_FORMS})
 
 QT4_WRAP_CPP (subproject_MOC ${subproject_HEADERS})
 
-
-
 ADD_LIBRARY (${subproject} MODULE
   ${subproject_UIC}
   ${subproject_MOC}
@@ -82,7 +82,8 @@ TARGET_LINK_LIBRARIES (${subproject}
   ${QT_QTSCRIPTTOOLS_LIBRARY}
   ${QT_QTUITOOLS_LIBRARY}
   ${QJSON_LIBRARIES}
-  ${QJSON_LIBRARIES}
+  ${KDE4_KDECORE_LIBRARY}
+  ${KDE4_KDEUI_LIBRARY}
   ${PHONON_LIBRARY}
 )
 

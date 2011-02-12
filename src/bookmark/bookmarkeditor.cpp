@@ -41,11 +41,15 @@
 #include <QtGui/QLabel>
 #include <QtGui/QMessageBox>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 BookmarkEditor::BookmarkEditor ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "bookmarkeditor" ) );
-  setWindowTitle ( trUtf8 ( "Bookmark Manager[*]" ) );
+  setWindowTitle ( i18n ( "Bookmark Manager[*]" ) );
   setMinimumWidth ( 550 );
   setMinimumHeight ( 450 );
   setSizeGripEnabled ( true );
@@ -54,10 +58,8 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   vLayout->setObjectName ( QLatin1String ( "verticallayout" ) );
   vLayout->setContentsMargins ( 5, 5, 5, 15 );
 
-  QIcon icon;
-
-  QStringList labels ( trUtf8 ( "Headline" ) );
-  labels << trUtf8 ( "Hyperlink" );
+  QStringList labels ( i18n ( "Headline" ) );
+  labels << i18n ( "Hyperlink" );
 
   m_treeWidget = new QTreeWidget ( this );
   m_treeWidget->setObjectName ( QLatin1String ( "treeviewer" ) );
@@ -72,43 +74,43 @@ BookmarkEditor::BookmarkEditor ( QWidget * parent )
   hLayout->setObjectName ( QLatin1String ( "horizontalbottomlayout" ) );
 
   // Edit Title Label
-  hLayout->addWidget ( new QLabel ( trUtf8 ( "Name:" ) ), 0, 0, Qt::AlignRight );
+  hLayout->addWidget ( new QLabel ( i18n ( "Name:" ) ), 0, 0, Qt::AlignRight );
 
   // LineEdit Title
   m_editTitle =  new QLineEdit ( this );
   m_editTitle->setObjectName ( QLatin1String ( "edittitle" ) );
-  m_editTitle->setToolTip ( trUtf8 ( "Folder or Bookmark Title" ) );
-  m_editTitle->setStatusTip ( trUtf8 ( "Folder or Bookmark Title" ) );
+  m_editTitle->setToolTip ( i18n ( "Folder or Bookmark Title" ) );
+  m_editTitle->setStatusTip ( i18n ( "Folder or Bookmark Title" ) );
   hLayout->addWidget ( m_editTitle, 0, 1 );
 
   // Remove Selected Item
   m_removeButton = new QToolButton ( this );
   m_removeButton->setObjectName ( QLatin1String ( "removebutton" ) );
   m_removeButton->setText ( QLatin1String ( "-" ) );
-  m_removeButton->setToolTip ( trUtf8 ( "Remove Selected Item" ) );
-  m_removeButton->setStatusTip ( trUtf8 ( "Remove Selected Item" ) );
-  m_removeButton->setWhatsThis ( trUtf8 ( "Remove Selected Item" ) );
-  m_removeButton->setIcon ( icon.fromTheme ( "format-remove-node" ) );
+  m_removeButton->setToolTip ( i18n ( "Remove Selected Item" ) );
+  m_removeButton->setStatusTip ( i18n ( "Remove Selected Item" ) );
+  m_removeButton->setWhatsThis ( i18n ( "Remove Selected Item" ) );
+  m_removeButton->setIcon ( KIcon ( "format-remove-node" ) );
   hLayout->addWidget ( m_removeButton, 0, 2, Qt::AlignRight );
 
   // Edit Link Label
-  hLayout->addWidget ( new QLabel ( trUtf8 ( "Link:" ) ), 1, 0, Qt::AlignRight );
+  hLayout->addWidget ( new QLabel ( i18n ( "Link:" ) ), 1, 0, Qt::AlignRight );
 
   // LineEdit HyperLink
   m_editLink =  new QLineEdit ( QLatin1String ( "http://" ), this );
   m_editLink->setObjectName ( QLatin1String ( "editlink" ) );
-  m_editLink->setToolTip ( trUtf8 ( "If this Line is Empty a Folder want created." ) );
-  m_editLink->setStatusTip ( trUtf8 ( "If this Line is Empty a Folder want created." ) );
+  m_editLink->setToolTip ( i18n ( "If this Line is Empty a Folder want created." ) );
+  m_editLink->setStatusTip ( i18n ( "If this Line is Empty a Folder want created." ) );
   hLayout->addWidget ( m_editLink, 1, 1 );
 
   // Add Item to Selected MainItem
   m_addButton = new QToolButton ( this );
   m_addButton->setObjectName ( QLatin1String ( "addbutton" ) );
   m_addButton->setText ( QLatin1String ( "+" ) );
-  m_addButton->setToolTip ( trUtf8 ( "Add Item to Selected Main Item" ) );
-  m_addButton->setStatusTip ( trUtf8 ( "Add Item to Selected Main Item" ) );
-  m_addButton->setWhatsThis ( trUtf8 ( "Add Item to Selected Main Item" ) );
-  m_addButton->setIcon ( icon.fromTheme ( "format-add-node" ) );
+  m_addButton->setToolTip ( i18n ( "Add Item to Selected Main Item" ) );
+  m_addButton->setStatusTip ( i18n ( "Add Item to Selected Main Item" ) );
+  m_addButton->setWhatsThis ( i18n ( "Add Item to Selected Main Item" ) );
+  m_addButton->setIcon ( KIcon ( "format-add-node" ) );
   hLayout->addWidget ( m_addButton, 1, 2, Qt::AlignRight );
   vLayout->addLayout ( hLayout );
 
@@ -192,8 +194,8 @@ void BookmarkEditor::addNewItemRow()
 
   if ( mainItem->columnCount() == 2 )
   {
-    QMessageBox::warning ( this, trUtf8 ( "Warning" ),
-                           trUtf8 ( "I didn't add Bookmark in to other Bookmark :-)\nPlease select a Folder." ) );
+    QMessageBox::warning ( this, i18n ( "Warning" ),
+                           i18n ( "I didn't add Bookmark in to other Bookmark :-)\nPlease select a Folder." ) );
     return;
   }
 
@@ -235,8 +237,8 @@ void BookmarkEditor::quit()
 {
   QMessageBox::StandardButton status = QMessageBox::Yes;
   if ( isWindowModified() )
-    status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
-                                     trUtf8 ( "Bookmark Manager found unsaved Changes.\nDo you realy wan to exit?" ),
+    status = QMessageBox::question ( this, i18n ( "Unsaved Changes" ),
+                                     i18n ( "Bookmark Manager found unsaved Changes.\nDo you realy wan to exit?" ),
                                      ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
 
   if ( status == QMessageBox::Yes )

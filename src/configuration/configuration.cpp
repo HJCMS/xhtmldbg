@@ -63,7 +63,7 @@ Configuration::Configuration ( QWidget * parent, Settings * settings )
     , cfg ( settings )
 {
   setObjectName ( QLatin1String ( "configurationdialog" ) );
-  setWindowTitle ( trUtf8 ( "Configure xhtmldbg[*]" ) );
+  setWindowTitle ( i18n ( "Configure xhtmldbg[*]" ) );
   setContentsMargins ( 0, 0, 0, 10 );
   setSizeGripEnabled ( true );
   setMinimumHeight ( 280 );
@@ -151,8 +151,8 @@ Configuration::Configuration ( QWidget * parent, Settings * settings )
 void Configuration::restoreSettings()
 {
   QMessageBox::StandardButton status;
-  status = QMessageBox::warning ( this, trUtf8 ( "Restore Settings" ),
-                                  trUtf8 ( "All configuration options will be restored.\nAfter this operation, the configuration dialog will be closed automatically and you must restart the Application.\n\nDo you really want to do this?" ),
+  status = QMessageBox::warning ( this, i18n ( "Restore Settings" ),
+                                  i18n ( "All configuration options will be restored.\nAfter this operation, the configuration dialog will be closed automatically and you must restart the Application.\n\nDo you really want to do this?" ),
                                   ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
 
   if ( status == QMessageBox::Yes )
@@ -171,8 +171,8 @@ void Configuration::quit()
   QMessageBox::StandardButton status = QMessageBox::Yes;
   if ( isWindowModified() )
   {
-    status = QMessageBox::question ( this, trUtf8 ( "Unsaved Changes" ),
-                                     trUtf8 ( "Found unsaved Changes.\nDo you really want to exit?" ),
+    status = QMessageBox::question ( this, i18n ( "Unsaved Changes" ),
+                                     i18n ( "Found unsaved Changes.\nDo you really want to exit?" ),
                                      ( QMessageBox::Cancel | QMessageBox::Yes ), QMessageBox::Cancel );
   }
 

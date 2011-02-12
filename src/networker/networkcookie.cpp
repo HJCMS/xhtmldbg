@@ -37,6 +37,10 @@
 /* QtWebKit */
 #include <QtWebKit/QWebSettings>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KLocalizedString>
+
 NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     : QNetworkCookieJar ( parent )
     , m_netcfg ( settings )
@@ -98,7 +102,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
 
   QString host1 = cookieDomainFromUrl ( url );
   QString host2 = cookieHostnameFromUrl ( url );
-  QString rejectMessage = trUtf8 ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
+  QString rejectMessage = i18n ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
   if ( rfc && ! domain.contains ( QRegExp ( "^\\." ) ) )
@@ -106,19 +110,19 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
 #ifdef XHTMLDBG_DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
 #endif
-    rejectMessage.append ( trUtf8 ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
+    rejectMessage.append ( i18n ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
   else if ( domain.contains ( QRegExp ( "\\.$" ) ) )
   {
-    rejectMessage.append ( trUtf8 ( "A Set-Cookie with attached dot Domain=%1, will always be rejected." ).arg ( domain ) );
+    rejectMessage.append ( i18n ( "A Set-Cookie with attached dot Domain=%1, will always be rejected." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
   else if ( !domain.contains ( QRegExp ( "([\\w\\d]+)\\.(\\w{2,})$" ) ) )
   {
-    rejectMessage.append ( trUtf8 ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
+    rejectMessage.append ( i18n ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
@@ -147,7 +151,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     return true;
   }
 
-  emit cookieNotice ( trUtf8 ( "Different Cookie/Domain for host %1. (Rejected)" ).arg ( url.host() ) );
+  emit cookieNotice ( i18n ( "Different Cookie/Domain for host %1. (Rejected)" ).arg ( url.host() ) );
   return false;
 }
 
@@ -281,7 +285,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Fehlerhafte Url's erst gar nicht akzeptieren!
   if ( ! url.isValid() )
   {
-    emit cookieNotice ( trUtf8 ( "Invalid Url for Cookie Request - rejected!" ) );
+    emit cookieNotice ( i18n ( "Invalid Url for Cookie Request - rejected!" ) );
     return false;
   }
 
@@ -306,13 +310,13 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   if ( cookieAcces.Access == CookieManager::BLOCKED )
   {
     // Wenn dieser Host in der Blockliste steht sofort aussteigen.
-    emit cookieNotice ( trUtf8 ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
+    emit cookieNotice ( i18n ( "Cookie for Host \"%1\" rejected by blocked list!" ).arg ( cookieHost ) );
     return false;
   }
   else if ( ! cookieAcces.AllowThirdParty && isThirdPartyDomain ( cookieAcces.Hostname, url ) )
   {
     // Drittanbieter keks Anfrage verwerfen.
-    emit cookieNotice ( trUtf8 ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" )
+    emit cookieNotice ( i18n ( "third-party vendor cookie \"%1\" for host \"%2\" rejected!" )
                         .arg ( url.host(), cookieAcces.Hostname ) );
     return false;
   }
@@ -370,7 +374,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   if ( isInSecure )
-    emit cookieNotice ( trUtf8 ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
+    emit cookieNotice ( i18n ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
   if ( cookieAcces.Access == CookieManager::ALLOWED )

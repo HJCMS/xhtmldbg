@@ -41,11 +41,15 @@
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 ColorPicker::ColorPicker ( QWidget * parent )
     : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "colorpicker" ) );
-  setWindowTitle ( trUtf8 ( "Colors" ) );
+  setWindowTitle ( i18n ( "Colors" ) );
   setMouseTracking ( true ); // wird für grabMouse benötigt
 
   QDBusConnection dbus = QDBusConnection::sessionBus();
@@ -59,11 +63,11 @@ ColorPicker::ColorPicker ( QWidget * parent )
   // Farbpaletten Auswahl
   m_colorComboBox = new QComboBox ( layer );
   m_colorComboBox->setObjectName ( "colorpicker.layer.vlayout.combobox" );
-  m_colorComboBox->insertItem ( 0, trUtf8 ( "Web Colors" ) );
-  m_colorComboBox->insertItem ( 1, trUtf8 ( "Royal Colors" ) );
-  m_colorComboBox->insertItem ( 2, trUtf8 ( "Rainbow Colors" ) );
-  m_colorComboBox->insertItem ( 3, trUtf8 ( "Gray Colors" ) );
-  m_colorComboBox->insertItem ( 4, trUtf8 ( "Topographic Colors" ) );
+  m_colorComboBox->insertItem ( 0, i18n ( "Web Colors" ) );
+  m_colorComboBox->insertItem ( 1, i18n ( "Royal Colors" ) );
+  m_colorComboBox->insertItem ( 2, i18n ( "Rainbow Colors" ) );
+  m_colorComboBox->insertItem ( 3, i18n ( "Gray Colors" ) );
+  m_colorComboBox->insertItem ( 4, i18n ( "Topographic Colors" ) );
   verticalLayout->addWidget ( m_colorComboBox, 0, Qt::AlignRight );
 
   // Farbpaletten Ausgeben
@@ -73,7 +77,7 @@ ColorPicker::ColorPicker ( QWidget * parent )
   verticalLayout->addWidget ( m_colorTable );
 
   // Vorschau Gruppe
-  QGroupBox* groupBox1 = new QGroupBox ( trUtf8 ( "Color preview" ), layer );
+  QGroupBox* groupBox1 = new QGroupBox ( i18n ( "Color preview" ), layer );
   groupBox1->setObjectName ( "colorpicker.layer.vlayout.groupbox1" );
   verticalLayout->addWidget ( groupBox1 );
 
@@ -98,7 +102,7 @@ ColorPicker::ColorPicker ( QWidget * parent )
   hLayout1->addWidget ( m_rgbEdit, 0, Qt::AlignRight );
 
   // Abgreifen von Farben aus dem QWebView Fenster
-  QGroupBox* groupBox2 = new QGroupBox ( trUtf8 ( "Color tapping" ), layer );
+  QGroupBox* groupBox2 = new QGroupBox ( i18n ( "Color tapping" ), layer );
   groupBox2->setObjectName ( "colorpicker.layer.vlayout.groupbox2" );
   verticalLayout->addWidget ( groupBox2 );
 

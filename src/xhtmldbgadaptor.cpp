@@ -31,6 +31,9 @@
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
 
+/* KDE */
+#include <KDE/KLocale>
+
 XHtmldbgAdaptor::XHtmldbgAdaptor ( QObject * parent )
     : QDBusAbstractAdaptor ( parent )
     , service ( "de.hjcms.xhtmldbg" )
@@ -74,7 +77,7 @@ bool XHtmldbgAdaptor::open ( const QString &url )
   }
   else if ( u.isValid() && u.scheme().contains ( "ftp" ) )
   {
-    message ( trUtf8 ( "(XHTMLDBG) Reject \"%1\" FTP request!" ).arg ( u.toString() ) );
+    message ( i18n ( "(XHTMLDBG) Reject \"%1\" FTP request!" ).arg ( u.toString() ) );
     return false;
   }
   return false;

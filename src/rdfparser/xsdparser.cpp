@@ -70,15 +70,15 @@ void XsdParserMessageHandler::handleMessage ( QtMsgType type, const QString &inf
   switch ( type )
   {
     case QtWarningMsg:
-      mess = trUtf8 ( "Line %1 (%2)" ).arg ( l, m );
+      mess = i18n ( "Line %1 (%2)" ).arg ( l, m );
       break;
 
     case QtFatalMsg:
-      mess = trUtf8 ( "Line %1 (%2)" ).arg ( l, m );
+      mess = i18n ( "Line %1 (%2)" ).arg ( l, m );
       break;
 
     default:
-      mess = trUtf8 ( "Document at Line %1 (%2)" ).arg ( l, m );
+      mess = i18n ( "Document at Line %1 (%2)" ).arg ( l, m );
       break;
   }
   emit message ( mess );
@@ -114,7 +114,7 @@ void XsdParser::parseDocument ( const QByteArray &data, const QString &xsd, cons
 
   validator.setMessageHandler ( &handler );
   if ( validator.validate ( data, baseUrl ) )
-    emit noticeMessage ( trUtf8 ( "Document is Valid" ) );
+    emit noticeMessage ( i18n ( "Document is Valid" ) );
 }
 
 XsdParser::~XsdParser()

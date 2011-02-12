@@ -30,6 +30,9 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QTableWidgetItem>
 
+/* KDE */
+#include <KDE/KLocale>
+
 CertIssuerTable::CertIssuerTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
@@ -38,9 +41,9 @@ CertIssuerTable::CertIssuerTable ( QWidget * parent )
 
   setRowCount(0);
   setColumnCount ( 3 );
-  setHorizontalHeaderItem ( 0, new QTableWidgetItem ( trUtf8 ( "Organization (O)" ) ) );
-  setHorizontalHeaderItem ( 1, new QTableWidgetItem ( trUtf8 ( "CommonName (CN)" ) ) );
-  setHorizontalHeaderItem ( 2, new QTableWidgetItem ( trUtf8 ( "Expires" ) ) );
+  setHorizontalHeaderItem ( 0, new QTableWidgetItem ( i18n ( "Organization (O)" ) ) );
+  setHorizontalHeaderItem ( 1, new QTableWidgetItem ( i18n ( "CommonName (CN)" ) ) );
+  setHorizontalHeaderItem ( 2, new QTableWidgetItem ( i18n ( "Expires" ) ) );
 
   setContextMenuPolicy ( Qt::NoContextMenu );
   setEditTriggers ( QAbstractItemView::NoEditTriggers );

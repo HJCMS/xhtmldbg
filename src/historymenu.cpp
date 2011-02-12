@@ -29,12 +29,15 @@
 /* QtGui */
 #include <QtGui/QAction>
 
+/* KDE */
+#include <KDE/KLocale>
+
 HistoryMenu::HistoryMenu ( QMenu * parent )
     : QMenu ( parent )
     , defaultIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
 {
   setObjectName ( QLatin1String ( "historymenu" ) );
-  setTitle ( trUtf8 ( "History" ) );
+  setTitle ( i18n ( "History" ) );
   setIcon ( defaultIcon );
   m_mapper = new QSignalMapper();
 

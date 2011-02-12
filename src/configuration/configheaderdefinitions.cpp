@@ -34,7 +34,7 @@
 #include <QtGui/QVBoxLayout>
 
 ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
-    : QGroupBox ( trUtf8 ( "Header Field Definitions" ), parent )
+    : QGroupBox ( i18n ( "Header Field Definitions" ), parent )
 {
   setObjectName ( QLatin1String ( "configheaderdefinitions" ) );
   setFlat ( true );
@@ -43,7 +43,7 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
   verticalLayout->setObjectName ( QLatin1String ( "configheaderdefinitions_vertical_layout" ) );
 
   QLabel* lr0 = new QLabel ( this );
-  lr0->setText ( trUtf8 ( "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>" )
+  lr0->setText ( i18n ( "Warning: Do not edit this Table if you not now how it works! For more information see <a href=\"%1\">rfc2616</a>" )
                  .arg ( "http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14" ) );
   lr0->setAlignment ( ( Qt::AlignJustify | Qt::AlignTop ) );
   lr0->setWordWrap ( true );
@@ -54,8 +54,8 @@ ConfigHeaderDefinitions::ConfigHeaderDefinitions ( QWidget * parent )
 
   headersTable = new QTableWidget ( this );
   headersTable->setColumnCount ( 2 );
-  headersTable->setHorizontalHeaderItem ( 0, new QTableWidgetItem ( trUtf8 ( "Parameter" ) ) );
-  headersTable->setHorizontalHeaderItem ( 1, new QTableWidgetItem ( trUtf8 ( "Values" ) ) );
+  headersTable->setHorizontalHeaderItem ( 0, new QTableWidgetItem ( i18n ( "Parameter" ) ) );
+  headersTable->setHorizontalHeaderItem ( 1, new QTableWidgetItem ( i18n ( "Values" ) ) );
   headersTable->setProperty ( "showDropIndicator", QVariant ( false ) );
   headersTable->setDragDropOverwriteMode ( false );
   headersTable->setWordWrap ( false );

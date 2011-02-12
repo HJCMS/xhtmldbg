@@ -47,6 +47,10 @@
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 RFCBrowser::RFCBrowser ( QObject * parent )
     : QObject ( parent )
 {
@@ -58,14 +62,14 @@ RFCBrowser::RFCBrowser ( QObject * parent )
   dialog->setMinimumWidth ( 480 );
   dialog->setObjectName ( QLatin1String ( "rfcbrowserdialog" ) );
   dialog->setSizeGripEnabled ( true );
-  dialog->setWindowTitle ( trUtf8 ( "RFC Document Browser" ) );
+  dialog->setWindowTitle ( i18n ( "RFC Document Browser" ) );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( dialog );
 
   rfcselecter = new QComboBox ( dialog );
   rfcselecter->setObjectName ( QLatin1String ( "rfcselecter" ) );
   model =  new SelecterModel ( rfcselecter );
-  model->setItem ( 0, new QStandardItem ( trUtf8 ( "Change RFC Document" ) ) );
+  model->setItem ( 0, new QStandardItem ( i18n ( "Change RFC Document" ) ) );
   model->item ( 0, 0 )->setEditable ( false );
   model->item ( 0, 0 )->setSelectable ( false );
   rfcselecter->setModel ( model );

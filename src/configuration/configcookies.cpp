@@ -39,7 +39,7 @@
 #include <QtGui/QSpacerItem>
 
 ConfigCookies::ConfigCookies ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "Cookie Management" ), parent )
+    : PageWidget ( i18n ( "Cookie Management" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_cookies" ) );
@@ -64,7 +64,7 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   QLineEdit* searchCookie = new QLineEdit ( centralWidget );
   searchCookie->setObjectName ( QLatin1String ( "config_cookies_search_cookie" ) );
   searchCookie->setMinimumWidth ( 150 );
-  searchCookie->setToolTip ( trUtf8 ( "Search for existing Cookies" ) );
+  searchCookie->setToolTip ( i18n ( "Search for existing Cookies" ) );
   mainLayout->addWidget ( searchCookie, 1, 0, 1, 1 );
 
   // Zweite Zeile Tabellen Aktionen
@@ -74,18 +74,18 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   QPushButton* removeCookieItem = new QPushButton ( centralWidget );
   removeCookieItem->setObjectName ( QLatin1String ( "removeCookieItem" ) );
   removeCookieItem->setIcon ( QIcon::fromTheme ( QLatin1String ( "list-remove" ) ) );
-  removeCookieItem->setText ( trUtf8 ( "Remove" ) );
-  removeCookieItem->setToolTip ( trUtf8 ( "Remove Selected Cookie" ) );
+  removeCookieItem->setText ( i18n ( "Remove" ) );
+  removeCookieItem->setToolTip ( i18n ( "Remove Selected Cookie" ) );
   mainLayout->addWidget ( removeCookieItem, 1, 2, 1, 1 );
 
   QToolButton* removeAllCookies = new QToolButton ( centralWidget );
   removeAllCookies->setObjectName ( QLatin1String ( "removeAllCookies" ) );
   removeAllCookies->setIcon ( QIcon::fromTheme ( QLatin1String ( "archive-remove" ) ) );
-  removeAllCookies->setToolTip ( trUtf8 ( "Clear Cookies Table" ) );
+  removeAllCookies->setToolTip ( i18n ( "Clear Cookies Table" ) );
   mainLayout->addWidget ( removeAllCookies, 1, 3, 1, 1 );
 
   // Dritte Zeile Keks einfügen
-  QGroupBox* editGroup = new QGroupBox ( trUtf8 ( "Create a new Cookie provision" ), centralWidget );
+  QGroupBox* editGroup = new QGroupBox ( i18n ( "Create a new Cookie provision" ), centralWidget );
   editGroup->setObjectName ( QLatin1String ( "config_cookies_add_group" ) );
 
   QGridLayout* editLayout = new QGridLayout ( editGroup );
@@ -95,7 +95,7 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   label_edit->setObjectName ( QLatin1String ( "config_cookies_edit_label" ) );
   label_edit->setAlignment ( labelAlign );
   label_edit->setIndent ( 3 );
-  label_edit->setText ( trUtf8 ( "Hostname" ) );
+  label_edit->setText ( i18n ( "Hostname" ) );
   editLayout->addWidget ( label_edit, 0, 0, 1, 1 );
 
   cookieEdit = new QLineEdit ( editGroup );
@@ -106,9 +106,9 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
   // Vierte Zeile Keks einfügen
   selectedArrangementType = new QComboBox ( editGroup );
   selectedArrangementType->setObjectName ( QLatin1String ( "selectedArrangementType" ) );
-  selectedArrangementType->insertItem ( 0, trUtf8 ( "Merely current Session" ) );
-  selectedArrangementType->insertItem ( 1, trUtf8 ( "Always Blocked" ) );
-  selectedArrangementType->insertItem ( 2, trUtf8 ( "Always Allowed" ) );
+  selectedArrangementType->insertItem ( 0, i18n ( "Merely current Session" ) );
+  selectedArrangementType->insertItem ( 1, i18n ( "Always Blocked" ) );
+  selectedArrangementType->insertItem ( 2, i18n ( "Always Allowed" ) );
   editLayout->addWidget ( selectedArrangementType, 1, 0, 1, 1 );
 
   QSpacerItem* spacer2 = new QSpacerItem ( 30, 20, QSizePolicy::Expanding, QSizePolicy::Preferred );
@@ -116,7 +116,7 @@ ConfigCookies::ConfigCookies ( QWidget * parent )
 
   QPushButton* addCookie = new QPushButton ( editGroup );
   addCookie->setObjectName ( QString::fromUtf8 ( "config_cookies_add_cookie_button" ) );
-  addCookie->setText ( trUtf8 ( "Add" ) );
+  addCookie->setText ( i18n ( "Add" ) );
   addCookie->setIcon ( QIcon::fromTheme ( QLatin1String ( "list-add" ) ) );
   editLayout->addWidget ( addCookie, 1, 2, 1, 1 );
 

@@ -69,10 +69,10 @@ void UserAgentsTable::contextMenuEvent ( QContextMenuEvent *ev )
 {
   QMenu *m_menu = new QMenu ( "Actions", this );
 
-  QAction* add = m_menu->addAction ( QIcon::fromTheme ( "list-add" ), trUtf8 ( "Add" ) );
+  QAction* add = m_menu->addAction ( QIcon::fromTheme ( "list-add" ), i18n ( "Add" ) );
   connect ( add, SIGNAL ( triggered() ), m_model, SLOT ( addItem() ) );
 
-  QAction* del = m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), trUtf8 ( "Remove" ) );
+  QAction* del = m_menu->addAction ( QIcon::fromTheme ( "list-remove" ), i18n ( "Remove" ) );
   connect ( del, SIGNAL ( triggered() ), this, SLOT ( removeRow() ) );
 
   m_menu->exec ( ev->globalPos() );

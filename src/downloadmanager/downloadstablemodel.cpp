@@ -30,7 +30,10 @@
 #include <QtGui/QAbstractItemView>
 #include <QtGui/QFont>
 #include <QtGui/QFontMetrics>
-#include <QtGui/QIcon>
+
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
 
 /** @class DownloadsTableModel */
 DownloadsTableModel::DownloadsTableModel ( QTableView * parent )
@@ -237,31 +240,31 @@ QVariant DownloadsTableModel::headerData ( int section, Qt::Orientation orientat
     {
       case 0:
       {
-        return trUtf8 ( "Progress" );
+        return i18n ( "Progress" );
       }
 
       case 1:
       {
-        return trUtf8 ( "Time" );
+        return i18n ( "Time" );
       }
 
       case 2:
       {
-        return trUtf8 ( "Size" );
+        return i18n ( "Size" );
       }
 
       case 3:
       {
-        return trUtf8 ( "Url" );
+        return i18n ( "Url" );
       }
 
       case 4:
       {
-        return trUtf8 ( "Destination" );
+        return i18n ( "Destination" );
       }
 
       default:
-        return trUtf8 ( "Unknown" );
+        return i18n ( "Unknown" );
     }
   }
 

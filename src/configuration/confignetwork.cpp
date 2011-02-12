@@ -39,7 +39,7 @@
 #include <QtNetwork/QNetworkRequest>
 
 ConfigNetwork::ConfigNetwork ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "Network Settings" ), parent )
+    : PageWidget ( i18n ( "Network Settings" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_network_settings" ) );
@@ -55,37 +55,37 @@ ConfigNetwork::ConfigNetwork ( QWidget * parent )
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
 
   // Cache Einstellungen
-  m_groupBox = new QGroupBox ( trUtf8 ( "modify caching behavior" ), centralWidget );
+  m_groupBox = new QGroupBox ( i18n ( "modify caching behavior" ), centralWidget );
   m_groupBox->setObjectName ( "Networking/ModifyCachingBehavior" );
   m_groupBox->setCheckable ( true );
   m_groupBox->setChecked ( false );
 
   QVBoxLayout* groupBoxLayout = new QVBoxLayout ( m_groupBox );
 
-  QString warn = trUtf8 ( "Warning: “xhtmldbg” always manage the best way for caching network connections with debugging.\nFor example the source viewer need cached data to set the real source code from requested sites.\nBy default “xhtmldbg” always remove cached data before a request operation has been send." );
+  QString warn = i18n ( "Warning: “xhtmldbg” always manage the best way for caching network connections with debugging.\nFor example the source viewer need cached data to set the real source code from requested sites.\nBy default “xhtmldbg” always remove cached data before a request operation has been send." );
   groupBoxLayout->addWidget ( new QLabel ( warn, m_groupBox ) );
 
-  m_cb1 = new FeatureBox ( trUtf8 ( "Controls if the data obtained should be saved to cache for future uses." ), m_groupBox );
+  m_cb1 = new FeatureBox ( i18n ( "Controls if the data obtained should be saved to cache for future uses." ), m_groupBox );
   m_cb1->setObjectName ( QLatin1String ( "Networking/CacheSaveControlAttribute" ) );
-  m_cb1->setToolTip ( trUtf8 ( "If the box is not checked, the data obtained will not be automatically cached." ) );
+  m_cb1->setToolTip ( i18n ( "If the box is not checked, the data obtained will not be automatically cached." ) );
   m_cb1->setChecked ( true );
   groupBoxLayout->addWidget ( m_cb1 );
 
-  m_cb2 = new FeatureBox ( trUtf8 ( "Indicates whether incoming data was obtained from cache or not." ), m_groupBox );
+  m_cb2 = new FeatureBox ( i18n ( "Indicates whether incoming data was obtained from cache or not." ), m_groupBox );
   m_cb2->setObjectName ( QLatin1String ( "Networking/SourceIsFromCacheAttribute" ) );
-  m_cb2->setToolTip ( trUtf8 ( "If the box is not checked, incoming data will not be automatically checked." ) );
+  m_cb2->setToolTip ( i18n ( "If the box is not checked, incoming data will not be automatically checked." ) );
   m_cb2->setChecked ( true );
   groupBoxLayout->addWidget ( m_cb2 );
 
   m_comboBox = new  QComboBox ( m_groupBox );
   // QNetworkRequest::AlwaysNetwork = 0
-  m_comboBox->insertItem ( 0, trUtf8 ( "Always Network (always load from network and do not check if the cache has a valid entry)" ), QNetworkRequest::AlwaysNetwork );
+  m_comboBox->insertItem ( 0, i18n ( "Always Network (always load from network and do not check if the cache has a valid entry)" ), QNetworkRequest::AlwaysNetwork );
   // QNetworkRequest::PreferNetwork = 1 (Standard)
-  m_comboBox->insertItem ( 1, trUtf8 ( "Prefer Network (load from the network if the cached entry is older than the network entry)" ), QNetworkRequest::PreferNetwork );
+  m_comboBox->insertItem ( 1, i18n ( "Prefer Network (load from the network if the cached entry is older than the network entry)" ), QNetworkRequest::PreferNetwork );
   // QNetworkRequest::PreferCache
-  m_comboBox->insertItem ( 2, trUtf8 ( "Prefer Cache (load from cache if available, otherwise load from network)" ), QNetworkRequest::PreferCache );
+  m_comboBox->insertItem ( 2, i18n ( "Prefer Cache (load from cache if available, otherwise load from network)" ), QNetworkRequest::PreferCache );
   // QNetworkRequest::AlwaysCache
-  m_comboBox->insertItem ( 3, trUtf8 ( "Always Cache (only load from cache, indicating error if the item was not cached)" ), QNetworkRequest::AlwaysCache );
+  m_comboBox->insertItem ( 3, i18n ( "Always Cache (only load from cache, indicating error if the item was not cached)" ), QNetworkRequest::AlwaysCache );
   m_comboBox->setCurrentIndex ( 1 );
   groupBoxLayout->addWidget ( m_comboBox );
 

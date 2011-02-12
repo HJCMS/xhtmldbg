@@ -41,10 +41,10 @@ HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
 {
   setObjectName ( "headerviews" );
-  setWindowTitle ( trUtf8 ( "Headers" ) );
+  setWindowTitle ( i18n ( "Headers" ) );
 
   QStringList labels;
-  labels << trUtf8 ( "Header" ) << trUtf8 ( "Value" );
+  labels << i18n ( "Header" ) << i18n ( "Value" );
 
   // Header Data
   setColumnCount ( 2, 0 );
@@ -54,10 +54,10 @@ HeaderDock::HeaderDock ( QWidget * parent )
   // Post Data
   m_treePostVars = new DockTreeWidget ( this );
   m_treePostVars->setObjectName ( QLatin1String ( "postvarstreewidget" ) );
-  m_treePostVars->setToolTip ( trUtf8 ( "POST Variables" ) );
+  m_treePostVars->setToolTip ( i18n ( "POST Variables" ) );
   addTreeWidget ( m_treePostVars );
 
-  labels << trUtf8 ( "Parameter" ) << trUtf8 ( "Value" );
+  labels << i18n ( "Parameter" ) << i18n ( "Value" );
   setColumnCount ( 2, 1 );
   setTreeHeaderLabels ( labels, 1 );
   labels.clear();
@@ -65,9 +65,9 @@ HeaderDock::HeaderDock ( QWidget * parent )
   // Cookies Data
   m_treeCookies = new DockTreeWidget ( this );
   m_treeCookies->setObjectName ( QLatin1String ( "cookiestreewidget" ) );
-  m_treeCookies->setToolTip ( trUtf8 ( "Cookies" ) );
+  m_treeCookies->setToolTip ( i18n ( "Cookies" ) );
   addTreeWidget ( m_treeCookies );
-  labels << trUtf8 ( "Name" ) << trUtf8 ( "Value" );
+  labels << i18n ( "Name" ) << i18n ( "Value" );
   setColumnCount ( 2, 2 );
   setTreeHeaderLabels ( labels, 2 );
   labels.clear();
@@ -122,7 +122,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
 {
   int widgetIndex = 0;
   bool isHtmlContent = false;
-  QString host = ( replyUrl.scheme().contains ( "http" ) ? replyUrl.host() : trUtf8 ( "System File" ) );
+  QString host = ( replyUrl.scheme().contains ( "http" ) ? replyUrl.host() : i18n ( "System File" ) );
   DockTreeWidget* tree = widget ( widgetIndex );
   QTreeWidgetItem* parent;
 
@@ -148,7 +148,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
     parent = addTopLevelItem ( rootItem ( widgetIndex ), widgetIndex );
     parent->setExpanded ( false );
     parent->setData ( 0, Qt::DisplayRole, host );
-    parent->setText ( 1, trUtf8 ( "Hostname" ) );
+    parent->setText ( 1, i18n ( "Hostname" ) );
     parent->setForeground ( 1, Qt::lightGray );
   }
 
@@ -157,7 +157,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   queryItem->setExpanded ( false );
   if ( ! isHtmlContent )
     queryItem->setForeground ( 0, Qt::lightGray );
-  queryItem->setText ( 1, trUtf8 ( "Item" ) );
+  queryItem->setText ( 1, i18n ( "Item" ) );
   queryItem->setForeground ( 1, Qt::lightGray );
   parent->addChild ( queryItem );
 
@@ -209,7 +209,7 @@ void HeaderDock::setPostedData ( const QUrl &url, const QStringList &list )
   if ( url.hasFragment() )
   {
     QTreeWidgetItem* item = new QTreeWidgetItem ( parent );
-    item->setData ( 0, Qt::DisplayRole, trUtf8 ( "Anchor" ) );
+    item->setData ( 0, Qt::DisplayRole, i18n ( "Anchor" ) );
     item->setForeground ( 0, Qt::lightGray );
     item->setData ( 1, Qt::DisplayRole, url.fragment() );
     item->setData ( 1, Qt::ToolTipRole, QLatin1String ( "Fragment" ) );
@@ -277,8 +277,8 @@ QString HeaderDock::unserialize ( const QByteArray &data ) const
 */
 void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* parent )
 {
-  QString yes ( trUtf8 ( "Yes" ) );
-  QString no ( trUtf8 ( "No" ) );
+  QString yes ( i18n ( "Yes" ) );
+  QString no ( i18n ( "No" ) );
   QString values = unserialize ( cookie.value() );
 
   if ( cookie.name() == QString::fromUtf8 ( "XDEBUG_SESSION" ) && ! values.isEmpty() )
@@ -289,55 +289,55 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   root->setExpanded ( false );
   root->setData ( 0, Qt::UserRole, cookie.name() );
   root->setText ( 0, cookie.name() );
-  root->setText ( 1, trUtf8 ( "Cookie" ) );
+  root->setText ( 1, i18n ( "Cookie" ) );
   root->setForeground ( 1, Qt::lightGray );
   parent->addChild ( root );
 
   // Domain
   QTreeWidgetItem* item0 = new QTreeWidgetItem ( root );
-  item0->setText ( 0, trUtf8 ( "Domain" ) );
+  item0->setText ( 0, i18n ( "Domain" ) );
   item0->setForeground ( 0, Qt::blue );
   item0->setText ( 1, cookie.domain() );
   root->addChild ( item0 );
 
   // Path
   QTreeWidgetItem* item1 = new QTreeWidgetItem ( root );
-  item1->setText ( 0, trUtf8 ( "Path" ) );
+  item1->setText ( 0, i18n ( "Path" ) );
   item1->setForeground ( 0, Qt::blue );
   item1->setText ( 1, cookie.path() );
   root->addChild ( item1 );
 
   // Values
   QTreeWidgetItem* item2 = new QTreeWidgetItem ( root );
-  item2->setText ( 0, trUtf8 ( "Value" ) );
+  item2->setText ( 0, i18n ( "Value" ) );
   item2->setForeground ( 0, Qt::blue );
   item2->setText ( 1, values );
   root->addChild ( item2 );
 
   // isSessionCookie
   QTreeWidgetItem* item3 = new QTreeWidgetItem ( root );
-  item3->setText ( 0, trUtf8 ( "Session Cookie" ) );
+  item3->setText ( 0, i18n ( "Session Cookie" ) );
   item3->setForeground ( 0, Qt::blue );
   item3->setText ( 1, ( ( cookie.isSessionCookie() ) ? yes : no ) );
   root->addChild ( item3 );
 
   // isHttpOnly
   QTreeWidgetItem* item4 = new QTreeWidgetItem ( root );
-  item4->setText ( 0, trUtf8 ( "Only for HTTP?" ) );
+  item4->setText ( 0, i18n ( "Only for HTTP?" ) );
   item4->setForeground ( 0, Qt::blue );
   item4->setText ( 1, ( ( cookie.isHttpOnly() ) ? yes : no ) );
   root->addChild ( item4 );
 
   // expirationDate
   QTreeWidgetItem* item5 = new QTreeWidgetItem ( root );
-  item5->setText ( 0, trUtf8 ( "Expiration" ) );
+  item5->setText ( 0, i18n ( "Expiration" ) );
   item5->setForeground ( 0, Qt::blue );
   item5->setText ( 1,  cookie.expirationDate().toString ( Qt::DefaultLocaleLongDate ) );
   root->addChild ( item5 );
 
   // isSecure
   QTreeWidgetItem* item6 = new QTreeWidgetItem ( root );
-  item6->setText ( 0, trUtf8 ( "Secure" ) );
+  item6->setText ( 0, i18n ( "Secure" ) );
   item6->setForeground ( 0, Qt::blue );
   item6->setText ( 1, ( ( cookie.isSecure() ) ? yes : no ) );
   root->addChild ( item6 );
@@ -370,7 +370,7 @@ void HeaderDock::setCookieData ( const QUrl &url )
     item->setText ( 0, host );
     item->setIcon ( 0, QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-cookies" ) ) );
     item->setToolTip ( 0, url.toString () );
-    item->setText ( 1, trUtf8 ( "Cookie Hostname" ) );
+    item->setText ( 1, i18n ( "Cookie Hostname" ) );
     item->setForeground ( 1, Qt::lightGray );
     // Read all Cookies
     foreach ( QNetworkCookie keks, cookies )

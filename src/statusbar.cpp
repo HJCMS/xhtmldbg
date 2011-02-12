@@ -33,6 +33,10 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QIcon>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 StatusBar::StatusBar ( KStatusBar * parent )
     : KStatusBar ( parent )
 {
@@ -43,7 +47,7 @@ StatusBar::StatusBar ( KStatusBar * parent )
   m_refreshLabel->setObjectName ( QLatin1String ( "refreshlabel" ) );
   m_refreshLabel->setFrameShape ( QFrame::NoFrame );
   m_refreshLabel->setContentsMargins ( 5, 2, 5, 2 );
-  m_refreshLabel->setToolTip ( trUtf8 ( "Reload Status" ) );
+  m_refreshLabel->setToolTip ( i18n ( "Reload Status" ) );
   m_refreshLabel->setMinimumWidth ( 26 );
   m_refreshLabel->setAlignment ( Qt::AlignCenter );
   m_refreshLabel->setStyleSheet ( "background-image:url(':/icons/clock.png');background-position:center;background-repeat:no-repeat;" );
@@ -57,7 +61,7 @@ StatusBar::StatusBar ( KStatusBar * parent )
   m_noticeLabel->setContentsMargins ( 5, 2, 5, 2 );
   QIcon noticeIcon ( QString::fromUtf8 ( ":/icons/notice.png" ) );
   m_noticeLabel->setPixmap ( noticeIcon.pixmap ( 16, QIcon::Normal, QIcon::On ) );
-  m_noticeLabel->setToolTip ( trUtf8 ( "QTidy Messanger contains Impartations" ) );
+  m_noticeLabel->setToolTip ( i18n ( "QTidy Messanger contains Impartations" ) );
   m_noticeLabel->setEnabled ( false );
   insertPermanentWidget ( 1, m_noticeLabel );
 
@@ -67,7 +71,7 @@ StatusBar::StatusBar ( KStatusBar * parent )
   m_viewPageSize->setFrameShape ( QFrame::NoFrame );
   m_viewPageSize->setContentsMargins ( 5, 2, 5, 2 );
   m_viewPageSize->setText ( QLatin1String ( "Bytes" ) );
-  m_viewPageSize->setToolTip ( trUtf8 ( "the rendered page size" ) );
+  m_viewPageSize->setToolTip ( i18n ( "the rendered page size" ) );
   insertPermanentWidget ( 2, m_viewPageSize );
 
   // Display Browser ViewPort Width
@@ -75,7 +79,7 @@ StatusBar::StatusBar ( KStatusBar * parent )
   m_viewPortInfo->setObjectName ( QLatin1String ( "viewportinfolabel" ) );
   m_viewPortInfo->setFrameShape ( QFrame::NoFrame );
   m_viewPortInfo->setContentsMargins ( 5, 2, 5, 2 );
-  m_viewPortInfo->setToolTip ( trUtf8 ( "Display Browser Dimension Width x Height with Pixel." ) );
+  m_viewPortInfo->setToolTip ( i18n ( "Display Browser Dimension Width x Height with Pixel." ) );
   insertPermanentWidget ( 3, m_viewPortInfo );
 
   reformat();
@@ -137,7 +141,7 @@ void StatusBar::displayBrowserWidth ( const QSize &s )
 {
   QString w = QString::number ( s.width() );
   QString h = QString::number ( s.height() );
-  QString txt = trUtf8 ( "Browser %1x%2 px" ).arg ( w, h );
+  QString txt = i18n ( "Browser %1x%2 px" ).arg ( w, h );
   m_viewPortInfo->setText ( txt );
 }
 

@@ -34,6 +34,9 @@
 #include <QtGui/QIcon>
 #include <QtGui/QPixmap>
 
+/* KDE */
+#include <KDE/KLocale>
+
 DropToClipBoard::DropToClipBoard ( QWidget * parent, QSize maxSize )
     : QWidget ( parent )
     , baseSize ( maxSize )
@@ -47,8 +50,8 @@ DropToClipBoard::DropToClipBoard ( QWidget * parent, QSize maxSize )
   layout->setContentsMargins ( 0, 0, 0, 0 );
 
   QLabel* label = new QLabel ( this );
-  label->setToolTip ( trUtf8 ( "Copy to Clipboard Drop Area" ) );
-  label->setWhatsThis ( trUtf8 ( "Copy to Clipboard Drop Area" ) );
+  label->setToolTip ( i18n ( "Copy to Clipboard Drop Area" ) );
+  label->setWhatsThis ( i18n ( "Copy to Clipboard Drop Area" ) );
   QIcon icon = QIcon::fromTheme ( QLatin1String ( "edit-copy" ) );
   label->setPixmap ( icon.pixmap ( baseSize, QIcon::Normal, QIcon::On ) );
   layout->addWidget ( label );

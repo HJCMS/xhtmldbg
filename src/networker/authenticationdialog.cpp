@@ -28,11 +28,14 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QGridLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 AuthenticationDialog::AuthenticationDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "authenticationdialog" ) );
-  setWindowTitle ( trUtf8 ( "Authentication Request" ) );
+  setWindowTitle ( i18n ( "Authentication Request" ) );
   setMinimumWidth ( 350 );
   setSizeGripEnabled ( true );
 
@@ -41,13 +44,13 @@ AuthenticationDialog::AuthenticationDialog ( QWidget * parent )
   QGridLayout* gLayout = new QGridLayout ( this );
 
   // Realm
-  txtRealm = new QLabel ( trUtf8 ( "Authentication" ), this );
+  txtRealm = new QLabel ( i18n ( "Authentication" ), this );
   txtRealm->setIndent ( 2 );
   txtRealm->setWordWrap ( true );
   gLayout->addWidget ( txtRealm, 0, 0, 1, 0 );
 
   // Login Name
-  QLabel* txtOwner = new QLabel ( trUtf8 ( "Login Username:" ), this );
+  QLabel* txtOwner = new QLabel ( i18n ( "Login Username:" ), this );
   txtOwner->setAlignment ( labelAligment );
   txtOwner->setIndent ( 2 );
   txtOwner->setTextInteractionFlags ( Qt::NoTextInteraction );
@@ -59,7 +62,7 @@ AuthenticationDialog::AuthenticationDialog ( QWidget * parent )
   gLayout->addWidget ( username, 1, 1 );
 
   // Login Password
-  QLabel* txtPass = new QLabel ( trUtf8 ( "Login Password:" ), this );
+  QLabel* txtPass = new QLabel ( i18n ( "Login Password:" ), this );
   txtPass->setAlignment ( labelAligment );
   txtPass->setIndent ( 2 );
   txtPass->setTextInteractionFlags ( Qt::NoTextInteraction );

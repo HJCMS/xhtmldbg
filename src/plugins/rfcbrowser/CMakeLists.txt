@@ -41,6 +41,8 @@ TARGET_LINK_LIBRARIES (${target_plugin}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QT_QTDBUS_LIBRARY}
+  ${KDE4_KDECORE_LIBRARY}
+  ${KDE4_KDEUI_LIBRARY}
   xhtmldbginterface
 )
 

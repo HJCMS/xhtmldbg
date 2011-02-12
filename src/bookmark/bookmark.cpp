@@ -37,14 +37,18 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QDialog>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 Bookmark::Bookmark ( QMenu * parent )
     : QMenu ( parent )
-    , defaultIcon ( QIcon::fromTheme ( QLatin1String ( "bookmarks" ) ) )
+    , defaultIcon ( KIcon ( QLatin1String ( "bookmarks" ) ) )
     , recent ( 5 )
 {
   Q_INIT_RESOURCE ( bookmark );
   setObjectName ( QLatin1String ( "bookmarkmenu" ) );
-  setTitle ( trUtf8 ( "Bookmarks" ) );
+  setTitle ( i18n ( "Bookmarks" ) );
   setIcon ( defaultIcon );
 
   m_bookmarkReader = new BookmarkReader ( this );

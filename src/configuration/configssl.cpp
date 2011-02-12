@@ -28,7 +28,7 @@
 #include <QtGui/QVBoxLayout>
 
 ConfigSSL::ConfigSSL ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "SSL Certification" ), parent )
+    : PageWidget ( i18n ( "SSL Certification" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_ssl" ) );

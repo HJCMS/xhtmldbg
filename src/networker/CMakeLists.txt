@@ -49,6 +49,7 @@ TARGET_LINK_LIBRARIES (Networker
   Settings
   CookiesDatabase
   ${XHTMLDBG_QT_LIBRARIES}
+  ${XHTMLDBG_KDE_LIBRARIES}
   ${OPENSSL_LIBRARIES}
 )
 

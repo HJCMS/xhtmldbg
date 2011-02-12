@@ -34,17 +34,20 @@
 #include <QtGui/QTableWidgetItem>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "cookieacceptdialog" ) );
-  setWindowTitle ( trUtf8 ( "URL Cookie Requirement" ) );
+  setWindowTitle ( i18n ( "URL Cookie Requirement" ) );
   setMinimumWidth ( 500 );
   setMinimumHeight ( 250 );
   setSizeGripEnabled ( true );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
-  QString info = trUtf8 ( "The Host have sent a Cookie request, add here the Arrangement." );
+  QString info = i18n ( "The Host have sent a Cookie request, add here the Arrangement." );
   layout->addWidget ( new QLabel ( info, this ) );
 
   m_editCookiesTable = new CookiesEditorTable ( this );
@@ -53,7 +56,7 @@ CookieAcceptDialog::CookieAcceptDialog ( QWidget * parent )
 
   QDialogButtonBox* box = new QDialogButtonBox ( Qt::Horizontal, this );
   box->setObjectName ( QLatin1String ( "buttonBox" ) );
-  QPushButton* save = box->addButton ( trUtf8 ( "Ready" ), QDialogButtonBox::ActionRole );
+  QPushButton* save = box->addButton ( i18n ( "Ready" ), QDialogButtonBox::ActionRole );
   layout->addWidget ( box );
 
   setLayout ( layout );

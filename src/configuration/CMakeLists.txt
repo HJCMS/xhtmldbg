@@ -82,6 +82,7 @@ TARGET_LINK_LIBRARIES (Configuration
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   ${QTIDY_LIBRARIES}
+  ${XHTMLDBG_KDE_LIBRARIES}
   CookiesDatabase
   UserAgentsEditor
   CertIssuers

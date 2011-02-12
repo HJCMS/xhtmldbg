@@ -35,6 +35,10 @@
 #include <QtGui/QLayout>
 #include <QtGui/QIcon>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 /** @class AddressEdit */
 AddressEdit::AddressEdit ( QToolBar * parent )
     : QLineEdit ( "http://", parent )
@@ -86,32 +90,30 @@ AddressToolBar::AddressToolBar ( QWidget * parent )
     , schemePattern ( QRegExp ( "^(http[s]?|file)" ) )
 {
   setObjectName ( QLatin1String ( "addresstoolbar" ) );
-  setWindowTitle ( trUtf8 ( "Address" ) );
+  setWindowTitle ( i18n ( "Address" ) );
   setOrientation ( Qt::Horizontal );
   setAllowedAreas ( Qt::TopToolBarArea | Qt::BottomToolBarArea );
   setMinimumWidth ( 350 );
 
-  QIcon icon;
-
   ac_goToIndex = addAction ( QLatin1String ( "Index" ) );
-  ac_goToIndex->setIcon ( icon.fromTheme ( QLatin1String ( "go-up" ) ) );
+  ac_goToIndex->setIcon ( KIcon ( QLatin1String ( "go-up" ) ) );
   ac_goToIndex->setEnabled ( false );
 
-  ac_reload = addAction ( trUtf8 ( "Reload" ) );
-  ac_reload->setIcon ( icon.fromTheme ( QLatin1String ( "view-refresh" ) ) );
+  ac_reload = addAction ( i18n ( "Reload" ) );
+  ac_reload->setIcon ( KIcon ( QLatin1String ( "view-refresh" ) ) );
 
-  QLabel *label = new QLabel ( trUtf8 ( "Address:" ), this );
+  QLabel *label = new QLabel ( i18n ( "Address:" ), this );
   label->setContentsMargins ( 5, 0, 5, 0 );
   addWidget ( label );
 
   m_addressEdit = new AddressEdit ( this );
   addWidget ( m_addressEdit );
 
-  QAction *cb = addAction ( trUtf8 ( "Clear" ) );
-  cb->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  QAction *cb = addAction ( i18n ( "Clear" ) );
+  cb->setIcon ( KIcon ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
 
   QAction *go = addAction ( QLatin1String ( "Go" ) );
-  go->setIcon ( icon.fromTheme ( QLatin1String ( "go-jump-locationbar" ) ) );
+  go->setIcon ( KIcon ( QLatin1String ( "go-jump-locationbar" ) ) );
 
   connect ( m_addressEdit, SIGNAL ( textChanged ( const QString & ) ),
             this, SLOT ( validatePath ( const QString & ) ) );
@@ -213,7 +215,7 @@ void AddressToolBar::checkInput ()
     return;
 
   if ( url.scheme().contains ( "ftp" ) )
-    emit sendMessage ( trUtf8 ( "Sorry: FTP protocol is currently not supported" ) );
+    emit sendMessage ( i18n ( "Sorry: FTP protocol is currently not supported" ) );
 
   if ( url.scheme().contains ( schemePattern ) )
     emit urlChanged ( url );

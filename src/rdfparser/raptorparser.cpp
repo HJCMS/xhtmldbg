@@ -33,6 +33,9 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QMutexLocker>
 
+/* KDE */
+#include <KDE/KLocale>
+
 class RaptorInitHelper
 {
   public:
@@ -116,7 +119,7 @@ void RaptorParser::parseDocument ( const QByteArray &data, const QUrl &url )
   if ( raptorUri )
     raptor_free_uri ( raptorUri );
 
-  emit noticeMessage ( trUtf8 ( "Ready" ) );
+  emit noticeMessage ( i18n ( "Ready" ) );
 }
 
 void RaptorParser::setMessage ( const QString &m )

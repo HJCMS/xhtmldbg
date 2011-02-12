@@ -40,12 +40,10 @@ class ConfigUtils : public QObject
   public:
     static const QString openColorDialog ( const QString &current, QWidget * parent );
 
-    static const QString findBinaryDialog ( const QString &searchName,
-                                            QWidget * parent,
+    static const QString findBinaryDialog ( const QString &searchName, QWidget * parent,
                                             const QString &path = QString::fromUtf8 ( "/usr/bin" ) );
 
-    static const QString findFileDialog ( const QString &path,
-                                          const QStringList &mimeTypes, QWidget * parent );
+    static const QString findFileDialog ( const QString &path, const QStringList &filters, QWidget * parent );
 
     static const QString findDirectoryDialog ( QWidget * parent,
             const QString &info, const QString &path );

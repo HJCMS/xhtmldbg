@@ -33,16 +33,19 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
+/* KDE */
+#include <KDE/KLocale>
+
 HostInfoDialog::HostInfoDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "HostInfoDialog" ) );
-  setWindowTitle ( trUtf8 ( "Host Information" ) );
+  setWindowTitle ( i18n ( "Host Information" ) );
   setMinimumWidth ( 480 );
   setSizeGripEnabled ( true );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
-  vLayout->addWidget ( new QLabel ( trUtf8 ( "Resolved Host Information with given Url" ) ) );
+  vLayout->addWidget ( new QLabel ( i18n ( "Resolved Host Information with given Url" ) ) );
 
   m_label = new QLabel ( this );
   m_label->setObjectName ( QLatin1String ( "ip_txt" ) );

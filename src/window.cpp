@@ -115,15 +115,12 @@
 Window::Window ( Settings * settings )
     : KMainWindow()
     , m_settings ( settings )
-    , xhtmldbgIcon ( QIcon ( QString::fromUtf8 ( ":/icons/qtidy.png" ) ) )
+    , xhtmldbgIcon ( KIcon ( "xhtmldbg" ) )
 {
   // Standard Fenster optionen
   setObjectName ( "Window" );
   setWindowIcon ( xhtmldbgIcon );
   setAutoSaveSettings ( "xhtmldbg", false );
-
-  QColor bgColor = palette().color ( QPalette::Background );
-  setStyleSheet ( QString ( "QToolTip{background-color:%1;padding:1px;}" ).arg ( bgColor.name() ) );
 
   QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
   setWindowTitle ( winTitle );
@@ -149,13 +146,13 @@ Window::Window ( Settings * settings )
   // NOTE Wir brauchen eine gültige WebPage für den WebInspector
   m_webViewer->setAboutPage ( "welcome" );
   // Viewer einfügen
-  m_centralWidget->insertTab ( 0, m_webViewer, trUtf8 ( "Browser" ) );
+  m_centralWidget->insertTab ( 0, m_webViewer, i18n ( "Browser" ) );
   m_centralWidget->setTabIcon ( 0, xhtmldbgIcon );
   m_centralWidget->setCurrentIndex ( 0 );
 
   // Quelltext Anzeige
   m_sourceWidget = new SourceWidget ( m_centralWidget );
-  m_centralWidget->insertTab ( 1, m_sourceWidget, trUtf8 ( "Source" ) );
+  m_centralWidget->insertTab ( 1, m_sourceWidget, i18n ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, xhtmldbgIcon );
 
   // Tabulatur unten Rechts
@@ -363,54 +360,54 @@ void Window::createMenus()
   m_menuBar = menuBar ();
 
   // Main Menu
-  m_applicationMenu = m_menuBar->addMenu ( trUtf8 ( "&Application" ) );
+  m_applicationMenu = m_menuBar->addMenu ( i18n ( "&Application" ) );
   m_applicationMenu ->setObjectName ( QLatin1String ( "applicationmenu" ) );
 
   // Action Open URL Dialog
-  actionOpenUrl = m_applicationMenu->addAction ( trUtf8 ( "Open Url" ) );
-  actionOpenUrl->setStatusTip ( trUtf8 ( "Load Document from Url" ) );
+  actionOpenUrl = m_applicationMenu->addAction ( i18n ( "Open Url" ) );
+  actionOpenUrl->setStatusTip ( i18n ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_O );
   actionOpenUrl->setIcon ( KIcon ( "document-open-remote" ) );
   connect ( actionOpenUrl, SIGNAL ( triggered() ), this, SLOT ( openUrlDialog() ) );
 
   // Action Open File from Location
-  actionOpenHtml = m_applicationMenu->addAction ( trUtf8 ( "Open Html File" ) );
-  actionOpenHtml->setStatusTip ( trUtf8 ( "Open Html from System" ) );
+  actionOpenHtml = m_applicationMenu->addAction ( i18n ( "Open Html File" ) );
+  actionOpenHtml->setStatusTip ( i18n ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
   actionOpenHtml->setIcon ( KIcon ( "document-open" ) );
   connect ( actionOpenHtml, SIGNAL ( triggered() ), this, SLOT ( openFileDialog() ) );
 
   // Action Application Exit
-  actionQuit = m_applicationMenu->addAction ( trUtf8 ( "Quit" ) );
-  actionQuit->setStatusTip ( trUtf8 ( "Close Debugger" ) );
+  actionQuit = m_applicationMenu->addAction ( i18n ( "Quit" ) );
+  actionQuit->setStatusTip ( i18n ( "Close Debugger" ) );
   actionQuit->setShortcut ( Qt::CTRL + Qt::Key_Q );
   actionQuit->setMenuRole ( QAction::QuitRole );
   actionQuit->setIcon ( KIcon ( "application-exit" ) );
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
 
   // Debugger Menu
-  m_debuggerMenu = m_menuBar->addMenu ( trUtf8 ( "&Debugger" ) );
+  m_debuggerMenu = m_menuBar->addMenu ( i18n ( "&Debugger" ) );
 
   // Action Parse Document Source
-  actionParse = m_debuggerMenu->addAction ( trUtf8 ( "Parse" ) );
-  actionParse->setStatusTip ( trUtf8 ( "Parse current Document Source" ) );
+  actionParse = m_debuggerMenu->addAction ( i18n ( "Parse" ) );
+  actionParse->setStatusTip ( i18n ( "Parse current Document Source" ) );
   actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
   actionParse->setIcon ( KIcon ( "document-edit-verify" ) );
   connect ( actionParse, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( check() ) );
 
   // Action Prepare and Format Document Source
-  actionClean = m_debuggerMenu->addAction ( trUtf8 ( "Format" ) );
-  actionClean->setStatusTip ( trUtf8 ( "Prepare and Format Document Source" ) );
+  actionClean = m_debuggerMenu->addAction ( i18n ( "Format" ) );
+  actionClean->setStatusTip ( i18n ( "Prepare and Format Document Source" ) );
   actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
   actionClean->setIcon ( KIcon ( "format-list-ordered" ) );
   connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Ansicht Menu
-  m_mainViewMenu = m_menuBar->addMenu ( trUtf8 ( "&View" ) );
+  m_mainViewMenu = m_menuBar->addMenu ( i18n ( "&View" ) );
   // Verwende Signal Mapper für die Signale an zoomBrowserContent
   QSignalMapper* zoomSignalMapper = new QSignalMapper ( m_mainViewMenu );
   // Zoom +
-  QAction* actionZoomIn = m_mainViewMenu->addAction ( trUtf8 ( "Zoom +" ) );
+  QAction* actionZoomIn = m_mainViewMenu->addAction ( i18n ( "Zoom +" ) );
   actionZoomIn->setObjectName ( QLatin1String ( "action_view_zoom_in" ) );
   actionZoomIn->setIcon ( KIcon ( "zoom-in" ) );
   actionZoomIn->setShortcut ( QKeySequence::ZoomIn );
@@ -418,7 +415,7 @@ void Window::createMenus()
   zoomSignalMapper->setMapping ( actionZoomIn, 1 );
 
   // Zoom -
-  QAction* actionZoomOut = m_mainViewMenu->addAction ( trUtf8 ( "Zoom -" ) );
+  QAction* actionZoomOut = m_mainViewMenu->addAction ( i18n ( "Zoom -" ) );
   actionZoomOut->setObjectName ( QLatin1String ( "action_view_zoom_out" ) );
   actionZoomOut->setIcon ( KIcon ( "zoom-out" ) );
   actionZoomOut->setShortcut ( QKeySequence::ZoomOut );
@@ -426,7 +423,7 @@ void Window::createMenus()
   zoomSignalMapper->setMapping ( actionZoomOut, 2 );
 
   // Zoom zurück Original Ansicht
-  QAction* actionZoomOriginal = m_mainViewMenu->addAction ( trUtf8 ( "Original" ) );
+  QAction* actionZoomOriginal = m_mainViewMenu->addAction ( i18n ( "Original" ) );
   actionZoomOriginal->setObjectName ( QLatin1String ( "action_view_zoom_original" ) );
   actionZoomOriginal->setIcon ( KIcon ( "zoom-original" ) );
   actionZoomOriginal->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_0 );
@@ -439,36 +436,36 @@ void Window::createMenus()
   m_mainViewMenu->addSeparator();
 
   // Fullansciht Modus
-  QAction* actionFullScreen = m_mainViewMenu->addAction ( trUtf8 ( "Fullscreen" ) );
+  QAction* actionFullScreen = m_mainViewMenu->addAction ( i18n ( "Fullscreen" ) );
   actionFullScreen->setObjectName ( QLatin1String ( "action_view_full_screen" ) );
   actionFullScreen->setIcon ( KIcon ( "view-fullscreen" ) );
   actionFullScreen->setShortcut ( Qt::Key_F11 );
   connect ( actionFullScreen, SIGNAL ( triggered () ), this, SLOT ( toggleWindowFullScreen() ) );
 
   // Browser Menu
-  m_viewMenu = m_menuBar->addMenu ( trUtf8 ( "&Browser" ) );
+  m_viewMenu = m_menuBar->addMenu ( i18n ( "&Browser" ) );
 
   // Action WebView Reload
-  actionPageReload = m_viewMenu->addAction ( trUtf8 ( "Refresh" ) );
+  actionPageReload = m_viewMenu->addAction ( i18n ( "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
   actionPageReload->setIcon ( KIcon ( "view-refresh" ) );
   connect ( actionPageReload, SIGNAL ( triggered () ), m_webViewer, SLOT ( refresh () ) );
 
   // Action WebView Back
-  actionPageBack = m_viewMenu->addAction ( trUtf8 ( "Back" ) );
+  actionPageBack = m_viewMenu->addAction ( i18n ( "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
   actionPageBack->setIcon ( KIcon ( "go-previous-view-page" ) );
   connect ( actionPageBack, SIGNAL ( triggered () ), m_webViewer, SLOT ( back () ) );
 
   // Action WebView Forward
-  actionPageForward = m_viewMenu->addAction ( trUtf8 ( "Forward" ) );
+  actionPageForward = m_viewMenu->addAction ( i18n ( "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
   actionPageForward->setIcon ( KIcon ( "go-next-view-page" ) );
   connect ( actionPageForward, SIGNAL ( triggered () ), m_webViewer, SLOT ( forward () ) );
 
   // New Empty WebView
-  actionNewEmptyPage = m_viewMenu->addAction ( trUtf8 ( "New Page" ) );
-  actionNewEmptyPage->setStatusTip ( trUtf8 ( "Add a new empty Tab" ) );
+  actionNewEmptyPage = m_viewMenu->addAction ( i18n ( "New Page" ) );
+  actionNewEmptyPage->setStatusTip ( i18n ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( KIcon ( "window-new" ) );
   connect ( actionNewEmptyPage, SIGNAL ( triggered () ), m_webViewer, SLOT ( addViewerTab () ) );
@@ -479,7 +476,7 @@ void Window::createMenus()
 
   // Bookmark/History Menues
   KIcon bookmarksIcon ( "bookmarks" );
-  QMenu* m_bookmarkerMenu = m_menuBar->addMenu ( trUtf8 ( "Bookmarks" ) );
+  QMenu* m_bookmarkerMenu = m_menuBar->addMenu ( i18n ( "Bookmarks" ) );
   m_menuBar->addMenu ( m_bookmarkerMenu );
 
   // Bookmark Menu
@@ -502,29 +499,29 @@ void Window::createMenus()
 
   // Bookmark Manager Action
   QIcon bookEditIcon ( KIcon ( "bookmarks-organize" ) );
-  QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, trUtf8 ( "Organize Bookmarks" ) );
+  QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, i18n ( "Organize Bookmarks" ) );
   // NOTICE Qt::CTRL + Qt::Key_B ist von WebView Reserviert!
   editorAction->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_B );
   connect ( editorAction, SIGNAL ( triggered() ), m_bookmarkMenu, SLOT ( openBookmarkEditor() ) );
 
   // Configuration Menu
-  m_configurationMenu = m_menuBar->addMenu ( trUtf8 ( "S&ettings" ) );
+  m_configurationMenu = m_menuBar->addMenu ( i18n ( "S&ettings" ) );
   // Action Open qtidyrc
-  actionTidyConfig = m_configurationMenu->addAction ( trUtf8 ( "Configure Tidyrc" ) );
+  actionTidyConfig = m_configurationMenu->addAction ( i18n ( "Configure Tidyrc" ) );
   actionTidyConfig->setIcon ( KIcon ( "configure-toolbars" ) );
   connect ( actionTidyConfig, SIGNAL ( triggered() ),
             this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
-  actionConfigDialog = m_configurationMenu->addAction ( trUtf8 ( "Configure" ) );
+  actionConfigDialog = m_configurationMenu->addAction ( i18n ( "Configure" ) );
   actionConfigDialog->setIcon ( KIcon ( "configure" ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
   // Plugin Menu
-  m_pluginMenu = m_menuBar->addMenu ( trUtf8 ( "Extensions" ) );
+  m_pluginMenu = m_menuBar->addMenu ( i18n ( "Extensions" ) );
 
   // Show Enable/Disable Toolbars Menu
-  m_viewBarsMenu = m_menuBar->addMenu ( trUtf8 ( "Display" ) );
+  m_viewBarsMenu = m_menuBar->addMenu ( i18n ( "Display" ) );
 
   // Help and About Menu
   m_menuBar->addMenu ( customHelpMenu ( false ) );
@@ -536,7 +533,7 @@ void Window::createMenus()
 void Window::createToolBars()
 {
   // Actions ToolBar
-  m_actionsToolBar = addToolBar ( trUtf8 ( "Actions" ) );
+  m_actionsToolBar = addToolBar ( i18n ( "Actions" ) );
   m_actionsToolBar->setObjectName ( QLatin1String ( "actionstoolbar" ) );
   m_actionsToolBar->addAction ( actionOpenUrl );
   m_actionsToolBar->addAction ( actionOpenHtml );
@@ -547,7 +544,7 @@ void Window::createToolBars()
   m_actionsToolBar->addAction ( actionClean );
 
   // Settings ToolBar
-  m_settingsToolBar = addToolBar ( trUtf8 ( "Settings" ) );
+  m_settingsToolBar = addToolBar ( i18n ( "Settings" ) );
   m_settingsToolBar->setObjectName ( QLatin1String ( "settingstoolbar" ) );
   m_settingsToolBar->addAction ( actionTidyConfig );
   m_settingsToolBar->addAction ( actionConfigDialog );
@@ -583,7 +580,7 @@ void Window::createToolBars()
 
   // Add ToolBar View Actions to Display Menu
   QIcon icon = QIcon::fromTheme ( "preferences-system-windows-actions" );
-  QMenu* viewToolbarsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Toolbars" ) );
+  QMenu* viewToolbarsMenu = m_viewBarsMenu->addMenu ( i18n ( "Toolbars" ) );
   viewToolbarsMenu->setIcon ( icon );
   viewToolbarsMenu->addAction ( m_actionsToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
@@ -593,7 +590,7 @@ void Window::createToolBars()
   viewToolbarsMenu->addSeparator ();
 
   // Add TOP|BOTTOM QDockWidget View Actions to Display Menu
-  QMenu* impartationsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Impartations" ) );
+  QMenu* impartationsMenu = m_viewBarsMenu->addMenu ( i18n ( "Impartations" ) );
   impartationsMenu->setIcon ( icon );
   impartationsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
   impartationsMenu->addAction ( m_jsMessanger->toggleViewAction() );
@@ -601,7 +598,7 @@ void Window::createToolBars()
   impartationsMenu->addAction ( m_cssValidator->toggleViewAction() );
 
   // Add RIGHT|LEFT QDockWidget View Actions to Display Menu
-  QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( trUtf8 ( "Inspectors" ) );
+  QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( i18n ( "Inspectors" ) );
   inspectorsMenu->setIcon ( icon );
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
@@ -610,7 +607,7 @@ void Window::createToolBars()
   inspectorsMenu->addAction ( m_webInspector->toggleViewAction() );
 
   // Plugin Menu
-  m_diplayPlugins = m_viewBarsMenu->addMenu ( trUtf8 ( "Extensions" ) );
+  m_diplayPlugins = m_viewBarsMenu->addMenu ( i18n ( "Extensions" ) );
   m_diplayPlugins->setIcon ( icon );
 }
 
@@ -869,7 +866,7 @@ void Window::setJavaScriptMessage ( const QString &message )
 */
 void Window::checkStyleSheet ( const QUrl &url )
 {
-  m_statusBar->showMessage ( trUtf8 ( "Check StyleSheet for %1" ).arg ( url.host() ), 1024 );
+  m_statusBar->showMessage ( i18n ( "Check StyleSheet for %1" ).arg ( url.host() ), 1024 );
   m_cssValidator->forceValidation ( url );
 }
 
@@ -988,7 +985,7 @@ bool Window::openUrl ( const QUrl &url, bool addtab )
 {
   if ( ! url.isValid() || url.isRelative() )
   {
-    m_statusBar->showMessage ( trUtf8 ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
+    m_statusBar->showMessage ( i18n ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
     return false;
   }
 
@@ -1029,10 +1026,10 @@ bool Window::urlRequest ( const QUrl &url )
   if ( ! url.isValid() )
     return false;
 
-  QString text = trUtf8 ( "a Url Request from outsite.\nWould you like to load this \"%1\" Url?" )
+  QString text = i18n ( "a Url Request from outsite.\nWould you like to load this \"%1\" Url?" )
                  .arg ( url.toString() );
   QMessageBox::StandardButton st;
-  st = QMessageBox::information ( this, trUtf8 ( "Url Request from Outsite" )
+  st = QMessageBox::information ( this, i18n ( "Url Request from Outsite" )
                                   , text, ( QMessageBox::Ok | QMessageBox::Cancel )
                                   , QMessageBox::Cancel );
 
@@ -1063,7 +1060,7 @@ void Window::downloadRequest ( const QNetworkRequest &request )
 {
   // Nachricht an den Messanger
   QUrl url = request.url();
-  QString message = trUtf8 ( "Download Request: %1" ).arg ( url.toString() );
+  QString message = i18n ( "Download Request: %1" ).arg ( url.toString() );
   setApplicationMessage ( message );
 
   // Ziel Verzeichnis auswählen und bei erfolg mit für den Download übergeben!

@@ -33,7 +33,7 @@
 #include <QTidy>
 
 ConfigTidy::ConfigTidy ( QWidget * parent )
-    : PageWidget ( trUtf8 ( "QTidy Source Parser" ), parent )
+    : PageWidget ( i18n ( "QTidy Source Parser" ), parent )
     , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_tidy" ) );
@@ -44,15 +44,15 @@ ConfigTidy::ConfigTidy ( QWidget * parent )
   vLayout->setObjectName ( QLatin1String ( "config_page_veritcal_layout" ) );
   vLayout->setMargin ( 10 );
 
-  m_radioCheck = new QRadioButton ( trUtf8 ( "Enable Auto Source Check" ), centralWidget );
+  m_radioCheck = new QRadioButton ( i18n ( "Enable Auto Source Check" ), centralWidget );
   m_radioCheck->setObjectName ( QLatin1String ( "config_page_tidy_radio_check" ) );
   vLayout->addWidget ( m_radioCheck );
 
-  m_radioFormat = new QRadioButton ( trUtf8 ( "Enable Autoformat and Check Source" ), centralWidget );
+  m_radioFormat = new QRadioButton ( i18n ( "Enable Autoformat and Check Source" ), centralWidget );
   m_radioFormat->setObjectName ( QLatin1String ( "config_page_tidy_radio_format" ) );
   vLayout->addWidget ( m_radioFormat );
 
-  m_radioDisabled = new QRadioButton ( trUtf8 ( "Disable autoformat and autocheck" ), centralWidget );
+  m_radioDisabled = new QRadioButton ( i18n ( "Disable autoformat and autocheck" ), centralWidget );
   m_radioDisabled->setObjectName ( QLatin1String ( "config_page_tidy_radio_disabled" ) );
   m_radioDisabled->setChecked ( true );
   vLayout->addWidget ( m_radioDisabled );

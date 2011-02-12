@@ -34,20 +34,22 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QIcon>
 
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
+
 KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
     : QToolBar ( parent )
 {
   setObjectName ( QLatin1String ( "keywordstoolbar" ) );
-  setWindowTitle ( trUtf8 ( "Keywords" ) );
-  setStatusTip ( trUtf8 ( "Show Keywords for Search Engine Optimisation (SEO)" ) );
+  setWindowTitle ( i18n ( "Keywords" ) );
+  setStatusTip ( i18n ( "Show Keywords for Search Engine Optimisation (SEO)" ) );
   setOrientation ( Qt::Horizontal );
   setAllowedAreas ( ( Qt::TopToolBarArea | Qt::BottomToolBarArea ) );
   layout()->setSpacing ( 5 );
 
-  QIcon icon;
-
-  QLabel* m_label = new QLabel ( trUtf8 ( "SEO:" ), this );
-  m_label->setToolTip ( trUtf8 ( "Search Engine Optimisation (SEO)" ) );
+  QLabel* m_label = new QLabel ( i18n ( "SEO:" ), this );
+  m_label->setToolTip ( i18n ( "Search Engine Optimisation (SEO)" ) );
   m_label->setContentsMargins ( 5, 0, 5, 0 );
   addWidget ( m_label );
 
@@ -56,11 +58,11 @@ KeywordsToolBar::KeywordsToolBar ( QWidget * parent )
   m_lineEdit->setMinimumWidth ( 100 );
   addWidget ( m_lineEdit );
 
-  QAction *cb = addAction ( trUtf8 ( "Clear" ) );
-  cb->setIcon ( icon.fromTheme ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
+  QAction *cb = addAction ( i18n ( "Clear" ) );
+  cb->setIcon ( KIcon ( QLatin1String ( "edit-clear-locationbar-rtl" ) ) );
 
-  actionFind = addAction ( trUtf8 ( "Keywords" ) );
-  actionFind->setIcon ( icon.fromTheme ( QLatin1String ( "edit-find" ) ) );
+  actionFind = addAction ( i18n ( "Keywords" ) );
+  actionFind->setIcon ( KIcon ( QLatin1String ( "edit-find" ) ) );
 
   connect ( m_lineEdit, SIGNAL ( returnPressed() ), this, SLOT ( treating() ) );
   connect ( cb, SIGNAL ( triggered() ), m_lineEdit, SLOT ( clear() ) );

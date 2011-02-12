@@ -9,6 +9,6 @@ Makefile
 CMakeFiles/
 app/
 data/
-i18n/
+po/
 src/
 CMakeTmp

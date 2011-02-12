@@ -285,20 +285,11 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
 )
 
 ##############################################################
-## gettext
-##############################################################
-IF (GETTEXT_FOUND)
-  CONFIGURE_FILE (xgettext.sh.in
-    ${CMAKE_CURRENT_SOURCE_DIR}/xgettext.sh
-  )
-ENDIF (GETTEXT_FOUND)
-
-##############################################################
 ## SUBDIRECTORIES
 ##############################################################
 ADD_SUBDIRECTORY (src)
 ADD_SUBDIRECTORY (data)
-ADD_SUBDIRECTORY (i18n)
+ADD_SUBDIRECTORY (po)
 
 ##############################################################
 ## LGPLv2+/GPLv3 Exceptions

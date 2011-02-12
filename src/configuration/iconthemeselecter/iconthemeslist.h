@@ -33,6 +33,9 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QWidget>
 
+/* KDE */
+#include <KDE/KLocale>
+
 class IconThemesList : public QListWidget
 {
     Q_OBJECT

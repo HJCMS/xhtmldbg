@@ -26,6 +26,9 @@
 #include <QtCore/QDebug>
 #include <QtCore/QtPlugin>
 
+/* KDE */
+#include <KDE/KLocale>
+
 bool HelloWorldPlugin::create ( QWidget * parent )
 {
   if ( parent )
@@ -70,10 +73,10 @@ xhtmldbg::PluginInfo* HelloWorldPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
   inf->setName ( QLatin1String ( "HelloWorld" ) );
-  inf->setGenericName ( trUtf8 ( "Information for this Plugin" ) );
+  inf->setGenericName ( i18n ( "Information for this Plugin" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( trUtf8 ( "long description for this plugin" ) );
-  inf->setAuthor ( trUtf8 ( "Your Name" ) );
+  inf->setDescription ( i18n ( "long description for this plugin" ) );
+  inf->setAuthor ( i18n ( "Your Name" ) );
   return inf;
 }
 

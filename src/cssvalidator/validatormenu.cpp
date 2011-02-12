@@ -24,8 +24,9 @@
 /* QtCore */
 #include <QtCore/QString>
 
-/* QtGui */
-#include <QtGui/QIcon>
+/* KDE */
+#include <KDE/KLocale>
+#include <KDE/KIcon>
 
 ValidatorMenu::ValidatorMenu ( QWidget * parent )
     : QMenu ( parent )
@@ -33,31 +34,31 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   setObjectName ( QLatin1String ( "validatormenu" ) );
 
   // Aktuelle Url Überprüfen
-  aCheck = addAction ( QIcon::fromTheme ( QLatin1String ( "system-run" ) ), trUtf8 ( "Check" ) );
-  aCheck->setToolTip ( trUtf8 ( "Checking last changed url" ) );
+  aCheck = addAction ( KIcon ( QLatin1String ( "system-run" ) ), i18n ( "Check" ) );
+  aCheck->setToolTip ( i18n ( "Checking last changed url" ) );
   aCheck->setEnabled ( false );
   connect ( aCheck, SIGNAL ( triggered() ), this, SIGNAL ( check() ) );
 
   // Sofort Abbrechen (killen)
-  aDropout = addAction ( QIcon::fromTheme ( QLatin1String ( "run-build-prune" ) ), trUtf8 ( "Dropout" ) );
-  aDropout->setToolTip ( trUtf8 ( "Dropout current request" ) );
+  aDropout = addAction ( KIcon ( QLatin1String ( "run-build-prune" ) ), i18n ( "Dropout" ) );
+  aDropout->setToolTip ( i18n ( "Dropout current request" ) );
   aDropout->setEnabled ( false );
   connect ( aDropout, SIGNAL ( triggered() ), this, SIGNAL ( dropout() ) );
 
   // Aufsteigend sortieren
-  aAscending = addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-ascending" ) ), trUtf8 ( "Ascending" ) );
+  aAscending = addAction ( KIcon ( QLatin1String ( "view-sort-ascending" ) ), i18n ( "Ascending" ) );
   connect ( aAscending, SIGNAL ( triggered() ), this, SIGNAL ( ascending() ) );
 
   // Absteigend sortieren
-  aDecending = addAction ( QIcon::fromTheme ( QLatin1String ( "view-sort-descending" ) ), trUtf8 ( "Descending" ) );
+  aDecending = addAction ( KIcon ( QLatin1String ( "view-sort-descending" ) ), i18n ( "Descending" ) );
   connect ( aDecending, SIGNAL ( triggered() ), this, SIGNAL ( descending() ) );
 
   // Konfiguration öffnen
-  aConfig = addAction ( QIcon::fromTheme ( QLatin1String ( "configure" ) ), trUtf8 ( "Configure" ) );
+  aConfig = addAction ( KIcon ( QLatin1String ( "configure" ) ), i18n ( "Configure" ) );
   connect ( aConfig, SIGNAL ( triggered() ), this, SIGNAL ( configure() ) );
 
   // Liste leeren
-  aClearItem = addAction ( QIcon::fromTheme ( QLatin1String ( "edit-clear" ) ), trUtf8 ( "Clear" ) );
+  aClearItem = addAction ( KIcon ( QLatin1String ( "edit-clear" ) ), i18n ( "Clear" ) );
   connect ( aClearItem, SIGNAL ( triggered() ), this, SIGNAL ( clearlist() ) );
 }
 

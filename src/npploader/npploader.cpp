@@ -32,6 +32,9 @@
 #include <QtGui/QWidget>
 #include <QtGui/QVBoxLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 NPPLoader::NPPLoader ( QObject * parent )
     : KWebPluginFactory ( parent )
 {
@@ -50,16 +53,16 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
 {
   qDebug() << Q_FUNC_INFO <<  mimeType;
   if ( mimeType.isEmpty() )
-    return new NPPFailureWidget ( trUtf8 ( "Missing Mime-Type Declaration!" ) );
+    return new NPPFailureWidget ( i18n ( "Missing Mime-Type Declaration!" ) );
   else if ( ! url.isValid() )
-    return new NPPFailureWidget ( trUtf8 ( "Invalid URL for this Plugin Request!" ) );
+    return new NPPFailureWidget ( i18n ( "Invalid URL for this Plugin Request!" ) );
 
   QUrl::FormattingOptions urlformat ( QUrl::RemoveAuthority | QUrl::RemoveScheme
                                       | QUrl::RemoveFragment | QUrl::RemoveQuery );
 
   NPPAttributes* m_nppAttributes = new NPPAttributes;
-  m_nppAttributes->addItem ( trUtf8 ( "MimeType" ), mimeType );
-  m_nppAttributes->addItem ( trUtf8 ( "Source" ), url.toString ( urlformat ) );
+  m_nppAttributes->addItem ( i18n ( "MimeType" ), mimeType );
+  m_nppAttributes->addItem ( i18n ( "Source" ), url.toString ( urlformat ) );
 
   QStringListIterator it ( argumentValues );
   foreach ( QString p, argumentNames )

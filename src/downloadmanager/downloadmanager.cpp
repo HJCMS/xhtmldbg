@@ -47,7 +47,7 @@ DownloadManager::DownloadManager ( QWidget * parent, Settings * settings )
     , m_autoSaver ( new AutoSaver ( this ) )
 {
   setObjectName ( QLatin1String ( "downloadmanager" ) );
-  setWindowTitle ( trUtf8 ( "Downloads" ) );
+  setWindowTitle ( i18n ( "Downloads" ) );
   setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 1, 1, 1, 1 );

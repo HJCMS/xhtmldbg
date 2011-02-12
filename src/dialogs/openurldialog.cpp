@@ -31,11 +31,14 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QLayout>
 
+/* KDE */
+#include <KDE/KLocale>
+
 OpenUrlDialog::OpenUrlDialog ( QWidget * parent )
     : QDialog ( parent )
 {
   setObjectName ( QLatin1String ( "openurldialog" ) );
-  setWindowTitle ( trUtf8 ( "Open Url" ) );
+  setWindowTitle ( i18n ( "Open Url" ) );
   setMinimumWidth ( 450 );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( this );

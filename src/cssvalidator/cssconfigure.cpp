@@ -49,7 +49,7 @@ CSSConfigure::CSSConfigure ( QWidget * parent, Settings  * settings )
   css_lang->addItems ( langList );
 
   // Menge der ausgegebenen Warnungen. (Auswahl Box) Type INTEGER
-  warningList << trUtf8 ( "no" ) << trUtf8 ( "less" ) << trUtf8 ( "more" );
+  warningList << i18n ( "no" ) << i18n ( "less" ) << i18n ( "more" );
   css_warning->addItems ( warningList );
 
   // Das Medium für die Validierung. (Auswahl Box) Type String
@@ -57,7 +57,7 @@ CSSConfigure::CSSConfigure ( QWidget * parent, Settings  * settings )
   mediumList.sort();
   css_medium->addItems ( mediumList );
 
-  QPushButton* ok = buttonBox->addButton ( trUtf8 ( "Save && Exit" ), QDialogButtonBox::ActionRole );
+  QPushButton* ok = buttonBox->addButton ( i18n ( "Save && Exit" ), QDialogButtonBox::ActionRole );
   ok->setIcon ( QIcon::fromTheme ( QLatin1String ( "dialog-ok-apply" ) ) );
   connect ( ok, SIGNAL ( clicked() ), this, SLOT ( saveAndExit() ) );
   connect ( buttonBox, SIGNAL ( rejected() ), this, SLOT ( reject() ) );

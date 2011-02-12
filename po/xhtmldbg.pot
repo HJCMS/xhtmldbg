@@ -1,0 +1,2143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: nomail@nospam.com\n"
+"POT-Creation-Date: 2011-02-12 12:04+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:126
+msgid "Configure CSS Validation"
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:127
+msgid "The CSS profile used for the validation."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:128
+msgid "The language used for the response."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:129
+msgid "The warning level."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:130
+msgid "The medium used for the validation."
+msgstr ""
+
+#: src/about/aboutdata.cpp:44
+msgid "developer"
+msgstr ""
+
+#: src/about/aboutdata.cpp:78
+msgid "Juergen Heinemann (Undefined)"
+msgstr ""
+
+#: src/about/aboutdata.cpp:83
+msgid "Copyright (C) 2007-2011, Juergen Heinemann (Undefined)"
+msgstr ""
+
+#: src/about/aboutdata.cpp:88
+msgid "A XHTML/HTML Debugger and CSS Validator for Webdevelopers"
+msgstr ""
+
+#: src/about/aboutdata.cpp:93
+msgid ""
+"<div><p><strong>„xhtmldbg“ is a XHTML/HTML Debugger for Website Developers.</"
+"strong></p><p>This software provides you with the facility to check and "
+"analyze web page content directly.</p><p>All these are good starting points "
+"for targeted xhtml development debugging.</p><div><ul><li>to watch HTTP "
+"headers,</li><li>to watch _POST variables when send html forms,</li><li>css "
+"stylesheet watching,</li><li>dom inspector for better documents structure "
+"watching,</li><li>to indicate css stylesheet attributes,</li><li>to indicate "
+"current used cookies,</li><li>to watch javascript errors,</li><li>auto "
+"reload function up to 60 seconds,</li><li>analyzing <acronym title=\"Search "
+"Engine Optimisation\">SEO</acronym> keywords,</li><li>quickly "
+"HTTP_USER_AGENT switching,</li><li>strict RFC 2109 (HTTP State Management "
+"Mechanism) validation for Cookies,</li><li>validate ATOM/RSS/RDF Documents,</"
+"li><li>of course, this requires to validate and check the source.</li></ul></"
+"div></div>"
+msgstr ""
+
+#: src/addresstoolbar.cpp:93
+msgid "Address"
+msgstr ""
+
+#: src/addresstoolbar.cpp:102
+msgid "Reload"
+msgstr ""
+
+#: src/addresstoolbar.cpp:105
+msgid "Address:"
+msgstr ""
+
+#: src/addresstoolbar.cpp:112 src/appevents.cpp:83
+#: src/components/xqpluginwidgets/xpasswordwidget.cpp:76
+#: src/components/xqpluginwidgets/xpasswordwidget.cpp:91
+#: src/cssvalidator/validatormenu.cpp:61 src/docking/docktreewidget.cpp:98
+#: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61 src/tidymessanger.cpp:100
+msgid "Clear"
+msgstr ""
+
+#: src/addresstoolbar.cpp:218
+msgid "Sorry: FTP protocol is currently not supported"
+msgstr ""
+
+#: src/appevents.cpp:43
+msgid "XHTMLDBG Impartations"
+msgstr ""
+
+#: src/appevents.cpp:75 src/cssvalidator/validatormenu.cpp:49
+#: src/jsmessanger.cpp:76 src/tidymessanger.cpp:92
+msgid "Ascending"
+msgstr ""
+
+#: src/appevents.cpp:79 src/cssvalidator/validatormenu.cpp:53
+#: src/jsmessanger.cpp:80 src/tidymessanger.cpp:96
+msgid "Descending"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:40
+msgid "Auto Refresh"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:45 src/cookiesdatabase/cookiesboolcombobox.cpp:40
+msgid "Disabled"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:50
+msgid "10 Seconds"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:54
+msgid "20 Seconds"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:58
+msgid "30 Seconds"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:62
+msgid "40 Seconds"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:66
+msgid "50 Seconds"
+msgstr ""
+
+#: src/autoreloadmenu.cpp:70
+msgid "1 Minute"
+msgstr ""
+
+#: src/bookmark/bookmark.cpp:51 src/window.cpp:479
+msgid "Bookmarks"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:52
+msgid "Bookmark Manager[*]"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:61
+msgid "Headline"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:62
+msgid "Hyperlink"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:77
+msgid "Name:"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:82 src/bookmark/bookmarkeditor.cpp:83
+msgid "Folder or Bookmark Title"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:90 src/bookmark/bookmarkeditor.cpp:91
+#: src/bookmark/bookmarkeditor.cpp:92
+msgid "Remove Selected Item"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:97
+msgid "Link:"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:102 src/bookmark/bookmarkeditor.cpp:103
+msgid "If this Line is Empty a Folder want created."
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:110 src/bookmark/bookmarkeditor.cpp:111
+#: src/bookmark/bookmarkeditor.cpp:112
+msgid "Add Item to Selected Main Item"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:197
+msgid "Warning"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:198
+msgid ""
+"I didn't add Bookmark in to other Bookmark :-)\n"
+"Please select a Folder."
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:240 src/configuration/configuration.cpp:174
+msgid "Unsaved Changes"
+msgstr ""
+
+#: src/bookmark/bookmarkeditor.cpp:241
+msgid ""
+"Bookmark Manager found unsaved Changes.\n"
+"Do you realy wan to exit?"
+msgstr ""
+
+#: src/bookmark/bookmarktreereader.cpp:98
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:210
+#: src/downloadmanager/downloadstablemodel.cpp:267 src/webviewer.cpp:287
+msgid "Unknown"
+msgstr ""
+
+#: src/bookmark/bookmarktreereader.cpp:141
+msgid "Bookmark file is not Valid XBEL Scheme!"
+msgstr ""
+
+#: src/colorpicker/colorpickerbutton.cpp:40
+#: src/colorpicker/colorpickerbutton.cpp:41
+msgid "Color picker"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:52
+msgid "Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:66
+msgid "Web Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:67
+msgid "Royal Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:68
+msgid "Rainbow Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:69
+msgid "Gray Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:70
+msgid "Topographic Colors"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:80
+msgid "Color preview"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:105
+msgid "Color tapping"
+msgstr ""
+
+#: src/components/xqpluginwidgets/xoggvideo.cpp:45
+msgid "Video Player"
+msgstr ""
+
+#: src/components/xqpluginwidgets/xoggvideo.cpp:100
+msgid "Play OGG/OGM and Therora Videos with Phonon"
+msgstr ""
+
+#: src/components/xqpluginwidgets/xpasswordwidget.cpp:57
+msgid "Password Request"
+msgstr ""
+
+#: src/components/xqpluginwidgets/xpasswordwidget.cpp:65
+msgid "User"
+msgstr ""
+
+#: src/components/xqpluginwidgets/xpasswordwidget.cpp:80
+msgid "Password"
+msgstr ""
+
+#: src/configuration/certissuers/certissuers.cpp:45
+msgid "Issuers"
+msgstr ""
+
+#: src/configuration/certissuers/certissuers.cpp:64
+msgid "Database:"
+msgstr ""
+
+#: src/configuration/certissuers/certissuers.cpp:70
+#: src/configuration/certissuers/certissuers.cpp:162
+msgid "CA Bundle Database"
+msgstr ""
+
+#: src/configuration/certissuers/certissuers.cpp:159
+msgctxt "CA Bundle %1"
+msgid "*.crt ca-*"
+msgstr ""
+
+#: src/configuration/certissuers/certissuers.cpp:160
+msgctxt "Certificate %1"
+msgid "*.pem *.der"
+msgstr ""
+
+#: src/configuration/certissuers/certissuertable.cpp:44
+#: src/networker/certdialog.cpp:89
+msgid "Organization (O)"
+msgstr ""
+
+#: src/configuration/certissuers/certissuertable.cpp:45
+msgid "CommonName (CN)"
+msgstr ""
+
+#: src/configuration/certissuers/certissuertable.cpp:46
+#: src/networker/certdialog.cpp:206
+msgid "Expires"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:47
+msgid "Client Authentication and Access Control"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:68
+msgid ""
+"This Certificate is used by the remote end to verify the local user's "
+"identity against its list of Certification Authorities. For more Information "
+"about Client Authentication and Access Control  with Certificates please "
+"refer the  Apache SSL FAQ. How can I authenticate clients based on "
+"certificates when"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:70
+msgid "I know all my clients"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:76
+msgid "Public Keyfile:"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:90
+msgid "Private Keyfile:"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:104
+msgid "Private Key Password:"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:138
+#: src/configuration/configutils.cpp:119
+msgid "Open Private Certificate"
+msgstr ""
+
+#: src/configuration/configaccesscontrol.cpp:152
+#: src/configuration/configutils.cpp:135
+msgid "Open Public Certificate"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:70
+msgid "Browser Settings"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:85
+msgid "Do Not Buffer Upload Data when doing a HTTP POST request."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:89
+msgid "Allow HTTP pipelining with requests."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:93
+msgid ""
+"Indicates whether the HTTP Pipelining was used for receiving data Requests."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:97
+msgid "Enable AutoLoad Images"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:101
+msgid "Enable Javascript"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:105
+msgid "Enable Plugins"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:109
+msgid "Enable Java"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:113
+msgid "Zoom only text"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:117
+msgid "Fetch DNS entries to speed up browsing."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:121
+msgid "JavaScript programs can open new windows."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:125
+msgid "JavaScript programs can read or write to the clipboard."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:129
+msgid ""
+"The background color and images are also drawn when the page is printed."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:133
+msgid "Locally loaded documents are allowed to access remote urls."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:137
+msgid "Locally loaded documents are allowed to access other local urls."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:141
+msgid ""
+"Specifies whether load requests should be monitored for cross-site scripting "
+"attempts. Suspicious scripts will be blocked and reported in the inspector's "
+"JavaScript console. Warning: To enabe this feature might have an impact on "
+"performance."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:145
+msgid ""
+"If enabled - CSS animations of the transform and opacity properties will be "
+"rendered\n"
+"by composing the cached content of the animated elements."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:149
+msgid ""
+"This setting enables the tiled backing store feature for Graphics rendering. "
+"When enabled, the web page contents in and around the current visible area "
+"is speculatively cached to bitmap tiles. The Image content automatically "
+"kept in sync with the web page as it changes. It does not work well with "
+"contents using CSS fixed positioning. This property allows application to "
+"temporarily freeze the contents of the backing store."
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:163
+msgid "Font Settings"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:170
+msgid "Default Font Size:"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:181
+msgid "Fixed Font Size:"
+msgstr ""
+
+#: src/configuration/configbrowser.cpp:200
+msgid "Plugins Directory"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:42
+msgid "Cookie Management"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:67
+msgid "Search for existing Cookies"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:77
+#: src/configuration/iconthemeselecter/iconthemeslist.cpp:79
+#: src/configuration/useragenteditor/useragentstable.cpp:75
+#: src/downloadmanager/downloadstable.cpp:98
+msgid "Remove"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:78
+msgid "Remove Selected Cookie"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:84
+msgid "Clear Cookies Table"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:88
+msgid "Create a new Cookie provision"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:98 src/docking/headerdock.cpp:151
+msgid "Hostname"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:109
+msgid "Merely current Session"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:110
+msgid "Always Blocked"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:111
+msgid "Always Allowed"
+msgstr ""
+
+#: src/configuration/configcookies.cpp:119
+#: src/configuration/useragenteditor/useragentstable.cpp:72
+msgid "Add"
+msgstr ""
+
+#: src/configuration/configdomtree.cpp:37
+msgid "DOM Inspector"
+msgstr ""
+
+#: src/configuration/configdomtree.cpp:51
+msgid "Enable Background Highlight"
+msgstr ""
+
+#: src/configuration/configdomtree.cpp:71
+msgid "Enable Border Highlight"
+msgstr ""
+
+#: src/configuration/configextras.cpp:41
+#: src/configuration/configurationmenu.cpp:56 src/window.cpp:521
+#: src/window.cpp:610
+msgid "Extensions"
+msgstr ""
+
+#: src/configuration/configextras.cpp:53
+msgid "Geological IP Resolver"
+msgstr ""
+
+#: src/configuration/configextras.cpp:61
+msgid "Database"
+msgstr ""
+
+#: src/configuration/configextras.cpp:102
+msgid "*.dat *.DAT|GeoIP Database File"
+msgstr ""
+
+#: src/configuration/configheaderdefinitions.cpp:37
+msgid "Header Field Definitions"
+msgstr ""
+
+#: src/configuration/configheaderdefinitions.cpp:46
+msgid ""
+"Warning: Do not edit this Table if you not now how it works! For more "
+"information see <a href=\"%1\">rfc2616</a>"
+msgstr ""
+
+#: src/configuration/configheaderdefinitions.cpp:57
+#: src/docking/headerdock.cpp:60
+msgid "Parameter"
+msgstr ""
+
+#: src/configuration/configheaderdefinitions.cpp:58
+#: src/networker/certdialog.cpp:68 src/npploader/nppattributes.cpp:55
+msgid "Values"
+msgstr ""
+
+#: src/configuration/configide.cpp:44
+#: src/configuration/configurationmenu.cpp:47
+msgid "Defaults"
+msgstr ""
+
+#: src/configuration/configide.cpp:60
+msgid ""
+"Load this URL as default on start, if empty xhtmldbg will use recently "
+"viewed Url."
+msgstr ""
+
+#: src/configuration/configide.cpp:88
+msgid "Do not open Downloadmanager on Application start."
+msgstr ""
+
+#: src/configuration/configide.cpp:95
+msgid "W3C CSS Validator Settings"
+msgstr ""
+
+#: src/configuration/configide.cpp:106
+msgid "Java Application"
+msgstr ""
+
+#: src/configuration/configide.cpp:123
+msgid "Path to W3C Validator file"
+msgstr ""
+
+#: src/configuration/configide.cpp:140
+msgid "W3C Validator CLASSPATH"
+msgstr ""
+
+#: src/configuration/configide.cpp:167
+msgid "Application Theme Settings"
+msgstr ""
+
+#: src/configuration/configide.cpp:177
+msgid ""
+"On Application start, Qt are trying to search with all Icon Theme paths on "
+"your System and read them recursively for Theme Icons used by xhtmldbg. On "
+"ix86 Systems this makes your Application startup slower. With this Entry "
+"list you can perform this operation. Attention! When set this Path's to make "
+"sure where your Selected Icon Theme located."
+msgstr ""
+
+#: src/configuration/configide.cpp:189
+msgid "Default Icon Theme"
+msgstr ""
+
+#: src/configuration/configide.cpp:195
+msgid "The Default Icon Theme is (Oxygen)"
+msgstr ""
+
+#: src/configuration/configide.cpp:247
+msgid ""
+"<div style=\"color:red;\">W3C CSS Validator not found!</div><div>You can "
+"download it from <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Homepage."
+"</div>"
+msgstr ""
+
+#: src/configuration/configide.cpp:280
+msgid "Java-Archive %1"
+msgstr ""
+
+#: src/configuration/configide.cpp:281
+msgid "All %1"
+msgstr ""
+
+#: src/configuration/configide.cpp:283
+msgid "W3C CSS Validator"
+msgstr ""
+
+#: src/configuration/configide.cpp:299
+msgid "W3C CSS Validator Java-Archive"
+msgstr ""
+
+#: src/configuration/configide.cpp:313
+msgid "Icon Theme path"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:42
+msgid "Network Settings"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:58
+msgid "modify caching behavior"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:65
+msgid ""
+"Warning: “xhtmldbg” always manage the best way for caching network "
+"connections with debugging.\n"
+"For example the source viewer need cached data to set the real source code "
+"from requested sites.\n"
+"By default “xhtmldbg” always remove cached data before a request operation "
+"has been send."
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:68
+msgid "Controls if the data obtained should be saved to cache for future uses."
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:70
+msgid ""
+"If the box is not checked, the data obtained will not be automatically "
+"cached."
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:74
+msgid "Indicates whether incoming data was obtained from cache or not."
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:76
+msgid ""
+"If the box is not checked, incoming data will not be automatically checked."
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:82
+msgid ""
+"Always Network (always load from network and do not check if the cache has a "
+"valid entry)"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:84
+msgid ""
+"Prefer Network (load from the network if the cached entry is older than the "
+"network entry)"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:86
+msgid ""
+"Prefer Cache (load from cache if available, otherwise load from network)"
+msgstr ""
+
+#: src/configuration/confignetwork.cpp:88
+msgid ""
+"Always Cache (only load from cache, indicating error if the item was not "
+"cached)"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:33
+#: src/configuration/configurationmenu.cpp:53
+msgid "Proxy"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:50
+msgid "The Network Proxy Type:"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:60
+msgid "Socks 5 (Based on RFC 1928 and RFC 1929)"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:62
+msgid "HTTP Transparent Proxying (Default)"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:64
+msgid "Caching-only HTTP (Only for HTTP Requests)"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:66
+msgid "Caching FTP (Only for FTP Requests)"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:72
+msgid "Hostname of the Proxy:"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:85
+msgid "Proxy Port Number:"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:100
+msgid "Authentication Username:"
+msgstr ""
+
+#: src/configuration/configproxy.cpp:113
+msgid "Authentication Password:"
+msgstr ""
+
+#: src/configuration/configssl.cpp:31
+msgid "SSL Certification"
+msgstr ""
+
+#: src/configuration/configtidy.cpp:36
+msgid "QTidy Source Parser"
+msgstr ""
+
+#: src/configuration/configtidy.cpp:47
+msgid "Enable Auto Source Check"
+msgstr ""
+
+#: src/configuration/configtidy.cpp:51
+msgid "Enable Autoformat and Check Source"
+msgstr ""
+
+#: src/configuration/configtidy.cpp:55
+msgid "Disable autoformat and autocheck"
+msgstr ""
+
+#: src/configuration/configtrustedhosts.cpp:41
+msgid "Whitelist for Untrusted Certificates"
+msgstr ""
+
+#: src/configuration/configuration.cpp:66
+msgid "Configure xhtmldbg[*]"
+msgstr ""
+
+#: src/configuration/configuration.cpp:154
+msgid "Restore Settings"
+msgstr ""
+
+#: src/configuration/configuration.cpp:155
+msgid ""
+"All configuration options will be restored.\n"
+"After this operation, the configuration dialog will be closed automatically "
+"and you must restart the Application.\n"
+"\n"
+"Do you really want to do this?"
+msgstr ""
+
+#: src/configuration/configuration.cpp:175
+msgid ""
+"Found unsaved Changes.\n"
+"Do you really want to exit?"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:48
+msgid "Tidy"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:49
+msgid "Dom Inspector"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:149
+msgid "Browser"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:51
+msgid "Network"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:52 src/docking/headerdock.cpp:68
+msgid "Cookies"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:54
+msgid "Certification"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:55 src/useragentmenu.cpp:36
+msgid "User Agent"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:72
+msgid "%1 Configuration options."
+msgstr ""
+
+#: src/configuration/configuseragents.cpp:31
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:66
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:204
+msgid "User-Agent"
+msgstr ""
+
+#: src/configuration/directorychooser/directorydialog.cpp:45
+msgid "Directory"
+msgstr ""
+
+#: src/configuration/iconthemeselecter/iconthemeslist.cpp:37
+msgid "descending order for icon theme search paths"
+msgstr ""
+
+#: src/configuration/iconthemeselecter/iconthemeslist.cpp:76
+msgid "Adding"
+msgstr ""
+
+#: src/configuration/pagewidget.cpp:87
+msgid "Application restart required."
+msgstr ""
+
+#: src/configuration/useragenteditor/droptoclipboard.cpp:53
+#: src/configuration/useragenteditor/droptoclipboard.cpp:54
+msgid "Copy to Clipboard Drop Area"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragent.cpp:39
+msgid "XHTMLDBG (Default)"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragenteditor.cpp:54
+#: src/configuration/useragenteditor/useragenteditor.cpp:55
+msgid "Move Selected row Up"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragenteditor.cpp:61
+#: src/configuration/useragenteditor/useragenteditor.cpp:62
+msgid "Move Selected row Down"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:60
+msgid "Bookmark Entry for Context Menue"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:72
+msgid ""
+"Product tokens are used to allow communicating applications to identify "
+"themselves by software name and version. Most fields using product tokens "
+"also allow sub-products which form a significant part of the application to "
+"be listed, separated by white space. By convention, the products are listed "
+"in order of their significance for identifying the application."
+msgstr ""
+
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:201
+#: src/viewer.cpp:251
+msgid "Bookmark"
+msgstr ""
+
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:207
+msgid "Product Tokens"
+msgstr ""
+
+#: src/cookieacceptdialog.cpp:44
+msgid "URL Cookie Requirement"
+msgstr ""
+
+#: src/cookieacceptdialog.cpp:50
+msgid "The Host have sent a Cookie request, add here the Arrangement."
+msgstr ""
+
+#: src/cookieacceptdialog.cpp:59 src/rdfparser/raptorparser.cpp:122
+msgid "Ready"
+msgstr ""
+
+#: src/cookiesdatabase/cookieaccesscombobox.cpp:40
+msgid "Session"
+msgstr ""
+
+#: src/cookiesdatabase/cookieaccesscombobox.cpp:41
+msgid "Blocked"
+msgstr ""
+
+#: src/cookiesdatabase/cookieaccesscombobox.cpp:42
+msgid "Allowed"
+msgstr ""
+
+#: src/cookiesdatabase/cookiesboolcombobox.cpp:41
+msgid "Enabled"
+msgstr ""
+
+#: src/cookiesdatabase/cookieseditortable.cpp:67
+#: src/docking/headerdock.cpp:298
+msgid "Domain"
+msgstr ""
+
+#: src/cookiesdatabase/cookieseditortable.cpp:67
+msgid "Arrangement"
+msgstr ""
+
+#: src/cookiesdatabase/cookieseditortable.cpp:68
+msgid "Allow third party"
+msgstr ""
+
+#: src/cookiesdatabase/cookieseditortable.cpp:68
+msgid "rfc2109"
+msgstr ""
+
+#: src/cssvalidator/cssconfigure.cpp:52
+msgid "no"
+msgstr ""
+
+#: src/cssvalidator/cssconfigure.cpp:52
+msgid "less"
+msgstr ""
+
+#: src/cssvalidator/cssconfigure.cpp:52
+msgid "more"
+msgstr ""
+
+#: src/cssvalidator/cssconfigure.cpp:60
+msgid "Save && Exit"
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:54
+msgid "CSS Validation"
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:152
+msgid "Rejected - CSS Validator is busy ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:198
+msgid "CSS Validator says: Invalid Url and denies this request."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:211
+msgid "Checking (%1). Please wait a little!"
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:333
+msgid "To take in \"%1\" for Validation."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:355
+msgid "FailedToStart (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:359
+msgid "Crashed (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:363
+msgid "Timedout (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:367
+msgid "WriteError (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:371
+msgid "ReadError (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:375
+msgid "UnknownError (%1) ..."
+msgstr ""
+
+#: src/cssvalidator/cssvalidator.cpp:408
+msgid "Crashed see logfiles"
+msgstr ""
+
+#: src/cssvalidator/soupreader.cpp:62
+msgid "Line"
+msgstr ""
+
+#: src/cssvalidator/soupreader.cpp:144
+msgid "File:.%1"
+msgstr ""
+
+#: src/cssvalidator/soupreader.cpp:206
+msgid "Congratulations! No Error Found. (%1)"
+msgstr ""
+
+#: src/cssvalidator/validator.cpp:197
+msgid ""
+"to deny access for this reason missing url. Please note: The CSS Validator "
+"discarded shared url's! Remedy: reload the page."
+msgstr ""
+
+#: src/cssvalidator/validatormenu.cpp:37
+msgid "Check"
+msgstr ""
+
+#: src/cssvalidator/validatormenu.cpp:38
+msgid "Checking last changed url"
+msgstr ""
+
+#: src/cssvalidator/validatormenu.cpp:43
+msgid "Dropout"
+msgstr ""
+
+#: src/cssvalidator/validatormenu.cpp:44
+msgid "Dropout current request"
+msgstr ""
+
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:516
+msgid "Configure"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:59
+msgid "SQL Invalid Operation: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:63
+msgid "SQL Open Database: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:67
+msgid "SQL Create Table: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:71
+msgid "SQL Select: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:75
+msgid "SQL Delete: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:79
+msgid "SQL Update: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:83
+msgid "SQL Insert: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:87
+msgid "SQL Query: %1 %2"
+msgstr ""
+
+#: src/dbmanager/dbmanager.cpp:91
+msgid "SQL: %1 %2"
+msgstr ""
+
+#: src/dialogs/openfiledialog.cpp:43
+msgid "Open HTML File"
+msgstr ""
+
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:367
+msgid "Open Url"
+msgstr ""
+
+#: src/dialogs/settargetdialog.cpp:42
+msgid "Output Directory"
+msgstr ""
+
+#: src/dialogs/settargetdialog.cpp:56
+msgid "Any files (*)"
+msgstr ""
+
+#: src/dialogs/settargetdialog.cpp:57 src/dialogs/settargetdialog.cpp:58
+#: src/dialogs/settargetdialog.cpp:59 src/dialogs/settargetdialog.cpp:60
+#: src/dialogs/settargetdialog.cpp:61 src/dialogs/settargetdialog.cpp:62
+#: src/dialogs/settargetdialog.cpp:63
+msgid "%1 files %2"
+msgstr ""
+
+#: src/dialogs/settargetdialog.cpp:57
+msgid "Compression"
+msgstr ""
+
+#: src/dialogs/settargetdialog.cpp:58
+msgid "Image"
+msgstr ""
+
+#: src/docking/docktreewidget.cpp:102
+msgid "Expand All"
+msgstr ""
+
+#: src/docking/docktreewidget.cpp:106
+msgid "Collapse All"
+msgstr ""
+
+#: src/docking/headerdock.cpp:44
+msgid "Headers"
+msgstr ""
+
+#: src/docking/headerdock.cpp:47
+msgid "Header"
+msgstr ""
+
+#: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
+#: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
+#: src/rdfparser/rsstreeview.cpp:50
+msgid "Value"
+msgstr ""
+
+#: src/docking/headerdock.cpp:57
+msgid "POST Variables"
+msgstr ""
+
+#: src/docking/headerdock.cpp:70
+msgid "Name"
+msgstr ""
+
+#: src/docking/headerdock.cpp:125
+msgid "System File"
+msgstr ""
+
+#: src/docking/headerdock.cpp:160
+msgid "Item"
+msgstr ""
+
+#: src/docking/headerdock.cpp:212
+msgid "Anchor"
+msgstr ""
+
+#: src/docking/headerdock.cpp:280
+msgid "Yes"
+msgstr ""
+
+#: src/docking/headerdock.cpp:281
+msgid "No"
+msgstr ""
+
+#: src/docking/headerdock.cpp:292
+msgid "Cookie"
+msgstr ""
+
+#: src/docking/headerdock.cpp:305
+msgid "Path"
+msgstr ""
+
+#: src/docking/headerdock.cpp:319
+msgid "Session Cookie"
+msgstr ""
+
+#: src/docking/headerdock.cpp:326
+msgid "Only for HTTP?"
+msgstr ""
+
+#: src/docking/headerdock.cpp:333
+msgid "Expiration"
+msgstr ""
+
+#: src/docking/headerdock.cpp:340
+msgid "Secure"
+msgstr ""
+
+#: src/docking/headerdock.cpp:373
+msgid "Cookie Hostname"
+msgstr ""
+
+#: src/dominspector/dominspector.cpp:48
+msgid "DomTree"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:41 src/window.cpp:536
+msgid "Actions"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:53
+msgid "Collapse"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:55
+msgid "Collapse Tree"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:57
+msgid "Expand"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:59
+msgid "Expanding Tree"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:61
+msgid "Deselect"
+msgstr ""
+
+#: src/dominspector/domtoolbar.cpp:63
+msgid "Deselect Highlights"
+msgstr ""
+
+#: src/dominspector/liststylesheet.cpp:96
+msgid "Rendered from Stylesheet Document"
+msgstr ""
+
+#: src/dominspector/liststylesheet.cpp:98
+msgid "Contained \"style\" Attribute"
+msgstr ""
+
+#: src/downloadmanager/downloadmanager.cpp:50
+msgid "Downloads"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:60
+msgid "<b>Download Summary</b>"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:67
+msgid "Upload URL"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:82
+msgid "Destination Path"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:98
+msgid "Filesize"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:113
+msgid "Mime-Type"
+msgstr ""
+
+#: src/downloadmanager/downloadsinfo.cpp:173
+msgid "Open with external Application"
+msgstr ""
+
+#: src/downloadmanager/downloadstable.cpp:96
+msgid "Stop"
+msgstr ""
+
+#: src/downloadmanager/downloadstablemodel.cpp:243
+msgid "Progress"
+msgstr ""
+
+#: src/downloadmanager/downloadstablemodel.cpp:248
+msgid "Time"
+msgstr ""
+
+#: src/downloadmanager/downloadstablemodel.cpp:253
+msgid "Size"
+msgstr ""
+
+#: src/downloadmanager/downloadstablemodel.cpp:258
+msgid "Url"
+msgstr ""
+
+#: src/downloadmanager/downloadstablemodel.cpp:263
+msgid "Destination"
+msgstr ""
+
+#: src/geolocation.cpp:50 src/geolocation.cpp:51
+msgid "country code from host address."
+msgstr ""
+
+#: src/historymenu.cpp:40
+msgid "History"
+msgstr ""
+
+#: src/hostinfo/hostinfodialog.cpp:43
+msgid "Host Information"
+msgstr ""
+
+#: src/hostinfo/hostinfodialog.cpp:48
+msgid "Resolved Host Information with given Url"
+msgstr ""
+
+#: src/jsmessanger.cpp:45
+msgid "JavaScript Impartations"
+msgstr ""
+
+#: src/keywordstoolbar.cpp:45 src/keywordstoolbar.cpp:64
+msgid "Keywords"
+msgstr ""
+
+#: src/keywordstoolbar.cpp:46
+msgid "Show Keywords for Search Engine Optimisation (SEO)"
+msgstr ""
+
+#: src/keywordstoolbar.cpp:51
+msgid "SEO:"
+msgstr ""
+
+#: src/keywordstoolbar.cpp:52
+msgid "Search Engine Optimisation (SEO)"
+msgstr ""
+
+#: src/main.cpp:71
+msgid "Open File from Path or URL"
+msgstr ""
+
+#: src/main.cpp:72
+msgid "Disable Plugins and loading the Default Url"
+msgstr ""
+
+#: src/networker/authenticationdialog.cpp:38
+msgid "Authentication Request"
+msgstr ""
+
+#: src/networker/authenticationdialog.cpp:47
+msgid "Authentication"
+msgstr ""
+
+#: src/networker/authenticationdialog.cpp:53
+msgid "Login Username:"
+msgstr ""
+
+#: src/networker/authenticationdialog.cpp:65
+msgid "Login Password:"
+msgstr ""
+
+#: src/networker/certdialog.cpp:40
+msgid "Certification Notice"
+msgstr ""
+
+#: src/networker/certdialog.cpp:53
+msgid "Notice"
+msgstr ""
+
+#: src/networker/certdialog.cpp:56
+msgid "Message"
+msgstr ""
+
+#: src/networker/certdialog.cpp:68
+msgid "Level"
+msgstr ""
+
+#: src/networker/certdialog.cpp:72
+msgid "Subject"
+msgstr ""
+
+#: src/networker/certdialog.cpp:77
+msgid "Issuer"
+msgstr ""
+
+#: src/networker/certdialog.cpp:90
+msgid "The name of the organization. (O)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:95
+msgid "Common Name (CN)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:96
+msgid "The common name; most often this is used to store the host name."
+msgstr ""
+
+#: src/networker/certdialog.cpp:101
+msgid "Locality (L)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:102
+msgid "The locality. (L)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:107
+msgid "Organizational UnitName (OU)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:108
+msgid "The organizational unit name. (OU)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:113
+msgid "CountryName (C)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:114
+msgid "The country. (C)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:119
+msgid "State or Province (ST)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:120
+msgid "The state or province name. (ST)"
+msgstr ""
+
+#: src/networker/certdialog.cpp:139
+msgid "Certificate"
+msgstr ""
+
+#: src/networker/certdialog.cpp:147
+msgid "Import"
+msgstr ""
+
+#: src/networker/certdialog.cpp:199
+msgid "Serial Nr."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:40
+msgid "Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:47
+msgid "Unknown Failure Message"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:79
+msgid ""
+"\n"
+"Reasons : "
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:87
+msgid "Bad Request (400)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:88
+msgid ""
+"the remote server \"%1\" refused the connection (the server is not accepting "
+"requests)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:95
+msgid "Server Gone (410)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:96
+msgid ""
+"the remote server \"%1\" closed the connection prematurely, before the "
+"entire reply was received and processed"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:105
+msgid "Invalid Hostname or Host not Found"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:106
+msgid "Invalid Hostname \"%1\", Server is currently down or DNS Problems."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:107
+msgid "The Remote Hostname was not found."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:115
+msgid "Request Timeout (408)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:116
+msgid "the connection to the remote server \"%1\" timed out"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:128
+msgid ""
+"the SSL/TLS handshake failed and the encrypted channel could not be "
+"established. The sslErrors() signal should have been emitted."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:135
+msgid "Proxy Connection Refused Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:136
+msgid ""
+"the connection to the proxy server \"%1\" was refused (the proxy server is "
+"not accepting requests)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:145
+msgid "Proxy Connection Closed Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:146
+msgid ""
+"the proxy server closed the connection prematurely, before the entire reply "
+"was received and processed"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:153
+msgid "Proxy Not Found Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:154
+msgid "the proxy host name was not found (invalid proxy hostname)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:161
+msgid "Proxy Timeout Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:162
+msgid ""
+"the connection to the proxy timed out or the proxy did not reply in time to "
+"the request sent"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:169
+msgid "Proxy Authentication Required Error (407)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:170
+msgid ""
+"the proxy requires authentication in order to honour the request but did not "
+"accept any credentials offered (if any)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:177
+msgid "Unauthorized (401)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:178
+msgid ""
+"the access to the remote \"%1\" content was denied (similar to HTTP error "
+"401)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:185
+msgid "the operation requested on the remote \"%1\" content is not permitted"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:191
+msgid ""
+"the remote content \"%1\" was not found at the server (similar to HTTP error "
+"404)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:197
+msgid "Authentication Required Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:198
+msgid ""
+"the remote server \"%1\" requires authentication to serve the content but "
+"the credentials provided were not accepted (if any)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:205
+msgid "Content Re Send Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:206
+msgid ""
+"the request needed to be sent again, but this failed for example because the "
+"upload data could not be read a second time."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:213
+msgid ""
+"QtNetwork Access API cannot honor the request because the protocol is not "
+"known."
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:219
+msgid "Protocol Invalid Operation Error"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:220
+msgid "the requested operation is invalid for this protocol"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:227
+msgid "an unknown network-related error was detected"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:233
+msgid "an unknown proxy-related error was detected"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:239
+msgid "an unknown error related to the remote content was detected"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:245
+msgid "Protocol Failure"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:246
+msgid ""
+"a breakdown in protocol was detected (parsing error, invalid or unexpected "
+"responses, etc.)"
+msgstr ""
+
+#: src/networker/errorsdialog.cpp:252
+msgid "an unknown related error was detected"
+msgstr ""
+
+#: src/networker/networkaccessmanager.cpp:202
+msgid ""
+"Broken SSL/TLS URL connection, handshake failed and could not be established."
+msgstr ""
+
+#: src/networker/networkaccessmanager.cpp:302
+msgid ""
+"Multiple Content-Location header from POST Request received. Note - Many "
+"Webservers are free to ignore this. (300)"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:105
+msgid ""
+"Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by "
+"RFC 2109."
+msgstr ""
+
+#: src/networker/networkcookie.cpp:113
+msgid ""
+"A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
+"does not begin with a dot."
+msgstr ""
+
+#: src/networker/networkcookie.cpp:119
+msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
+msgstr ""
+
+#: src/networker/networkcookie.cpp:125
+msgid ""
+"A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
+msgstr ""
+
+#: src/networker/networkcookie.cpp:154
+msgid "Different Cookie/Domain for host %1. (Rejected)"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:288
+msgid "Invalid Url for Cookie Request - rejected!"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:313
+msgid "Cookie for Host \"%1\" rejected by blocked list!"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:319
+msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:377
+msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
+msgstr ""
+
+#: src/npploader/nppattributes.cpp:46
+msgid "Plugin Object Detected"
+msgstr ""
+
+#: src/npploader/nppattributes.cpp:55
+msgid "Predicates"
+msgstr ""
+
+#: src/npploader/nppfailurewidget.cpp:40
+msgid "Plugin initialization aborted."
+msgstr ""
+
+#: src/npploader/npploader.cpp:56
+msgid "Missing Mime-Type Declaration!"
+msgstr ""
+
+#: src/npploader/npploader.cpp:58
+msgid "Invalid URL for this Plugin Request!"
+msgstr ""
+
+#: src/npploader/npploader.cpp:64
+msgid "MimeType"
+msgstr ""
+
+#: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
+#: src/sourceviewer/sourcewidget.cpp:56 src/viewer.cpp:266 src/window.cpp:155
+msgid "Source"
+msgstr ""
+
+#: src/page.cpp:111
+msgid " Line: %1"
+msgstr ""
+
+#: src/page.cpp:114
+msgid " Document: %1"
+msgstr ""
+
+#: src/page.cpp:136
+msgid "JavaScript Prompt: "
+msgstr ""
+
+#: src/page.cpp:334
+msgid "(x-qt-plugin) ClassID: %1 %2"
+msgstr ""
+
+#: src/plugins/rfcbrowser/rfcbrowser.cpp:65
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:72
+msgid "RFC Document Browser"
+msgstr ""
+
+#: src/plugins/rfcbrowser/rfcbrowser.cpp:72
+msgid "Change RFC Document"
+msgstr ""
+
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:74
+msgid "Browse RFC Documents"
+msgstr ""
+
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
+msgid "Jürgen Heinemann (Undefined)"
+msgstr ""
+
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:115
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:116
+msgid "Configure Startpage"
+msgstr ""
+
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:123
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:124
+msgid "Index"
+msgstr ""
+
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:196
+msgid "Configure the SELFHTML Index HTML"
+msgstr ""
+
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:69
+msgid "SELFHTML"
+msgstr ""
+
+#: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:71
+msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
+msgstr ""
+
+#: src/plugins/template/helloworldplugin.cpp:76
+msgid "Information for this Plugin"
+msgstr ""
+
+#: src/plugins/template/helloworldplugin.cpp:78
+msgid "long description for this plugin"
+msgstr ""
+
+#: src/plugins/template/helloworldplugin.cpp:79
+msgid "Your Name"
+msgstr ""
+
+#: src/rdfparser/alternatelinkreader.cpp:43
+msgid "RSS/Atom"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:61
+msgid "RSS Parser"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:78
+msgid "Parser Messages"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:81
+msgid "Document Structure"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:158
+msgid "Checking: %1"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:161
+msgid "Version not Defined"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:165
+msgid "Parsing RDF-%1"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:171
+msgid "Parsing ATOM-%1"
+msgstr ""
+
+#: src/rdfparser/rssparserdialog.cpp:177
+msgid "Parsing RSS-%1"
+msgstr ""
+
+#: src/rdfparser/rsstreeview.cpp:50
+msgid "Element"
+msgstr ""
+
+#: src/rdfparser/rsstreeview.cpp:50
+msgid "Predicate"
+msgstr ""
+
+#: src/rdfparser/xsdparser.cpp:73 src/rdfparser/xsdparser.cpp:77
+msgid "Line %1 (%2)"
+msgstr ""
+
+#: src/rdfparser/xsdparser.cpp:81
+msgid "Document at Line %1 (%2)"
+msgstr ""
+
+#: src/rdfparser/xsdparser.cpp:117
+msgid "Document is Valid"
+msgstr ""
+
+#: src/resizeportbuttons.cpp:43
+msgid "Viewer Width"
+msgstr ""
+
+#: src/resizeportbuttons.cpp:55
+msgid "Resize Browser to fixed width"
+msgstr ""
+
+#: src/resizeportbuttons.cpp:95
+msgid "Restore"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:41
+msgid "Debugger"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:44
+msgid "Check Source"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:46
+msgid "Check Document Source"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:51
+msgid "Format Source"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:53
+msgid "Format Document Source"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:59
+msgid "Document"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:62
+msgid "Save"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:64
+msgid "Save Html Source to ..."
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:69
+msgid "Print"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:71
+msgid "Print current Document"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:77
+msgid "View"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:80
+msgid "Wordwrap"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:82
+msgid "enable disable line wrap mode"
+msgstr ""
+
+#: src/sourceviewer/sourceview.cpp:216
+msgid "Markup Document %1"
+msgstr ""
+
+#: src/sourceviewer/sourceview.cpp:217
+msgid "Text Document %1"
+msgstr ""
+
+#: src/sourceviewer/sourceview.cpp:219
+msgid "Save Content to..."
+msgstr ""
+
+#: src/sourceviewer/sourceview.cpp:241
+msgid "Can't write Source to \"%1\" Permission Denied."
+msgstr ""
+
+#: src/sourceviewer/sourceview.cpp:243
+msgid "To Save Source Operation dropout"
+msgstr ""
+
+#: src/statusbar.cpp:50
+msgid "Reload Status"
+msgstr ""
+
+#: src/statusbar.cpp:64
+msgid "QTidy Messanger contains Impartations"
+msgstr ""
+
+#: src/statusbar.cpp:74
+msgid "the rendered page size"
+msgstr ""
+
+#: src/statusbar.cpp:82
+msgid "Display Browser Dimension Width x Height with Pixel."
+msgstr ""
+
+#: src/statusbar.cpp:144
+msgid "Browser %1x%2 px"
+msgstr ""
+
+#: src/tidymessanger.cpp:47
+msgid "HTML/XHTML Impartations"
+msgstr ""
+
+#: src/uitoolsloader.cpp:103
+#, c-format
+msgid ""
+"(XHTMLDBG) Accept 100%% sheer XHTML Object Elements with type application/x-"
+"qt-plugin - severance!"
+msgstr ""
+
+#: src/uitoolsloader.cpp:154
+msgid "Sorry: I can't do it."
+msgstr ""
+
+#: src/uitoolsloader.cpp:156
+msgid "Invalid Element initialization."
+msgstr ""
+
+#: src/uitoolsloader.cpp:203
+msgid "(XHTMLDBG) Invalid value for property: %1"
+msgstr ""
+
+#: src/viewer.cpp:258
+msgid "StyleSheet"
+msgstr ""
+
+#: src/viewer.cpp:261
+msgid "Start CSS Validation for this Site."
+msgstr ""
+
+#: src/viewer.cpp:269
+msgid "Show Document Source"
+msgstr ""
+
+#: src/viewer.cpp:274
+msgid "Screenshot"
+msgstr ""
+
+#: src/viewer.cpp:277
+msgid "Screenshot from current Page."
+msgstr ""
+
+#: src/viewer.cpp:281 src/viewer.cpp:499
+msgid "Plugins"
+msgstr ""
+
+#: src/viewer.cpp:284
+msgid "Display initialed Browser-Plugins."
+msgstr ""
+
+#: src/viewer.cpp:378
+msgid "SEO Result for \"%1\" Url: "
+msgstr ""
+
+#: src/viewer.cpp:386
+msgid "Word boundary: "
+msgstr ""
+
+#: src/viewer.cpp:391
+msgid "Case Sensitive: "
+msgstr ""
+
+#: src/viewer.cpp:401
+msgid "Meta Keywords: "
+msgstr ""
+
+#: src/viewer.cpp:407
+msgid "Meta Description: "
+msgstr ""
+
+#: src/viewer.cpp:414
+msgid "Page Title: "
+msgstr ""
+
+#: src/viewer.cpp:419
+msgid "Summary: "
+msgstr ""
+
+#: src/viewer.cpp:516
+msgid "Screenshot saved to %1"
+msgstr ""
+
+#: src/webinspector.cpp:41
+msgid "Inspector"
+msgstr ""
+
+#: src/webviewer.cpp:82 src/window.cpp:467
+msgid "New Page"
+msgstr ""
+
+#: src/webviewer.cpp:84 src/window.cpp:468
+msgid "Add a new empty Tab"
+msgstr ""
+
+#: src/webviewer.cpp:282
+msgid "file"
+msgstr ""
+
+#: src/window.cpp:363
+msgid "&Application"
+msgstr ""
+
+#: src/window.cpp:368
+msgid "Load Document from Url"
+msgstr ""
+
+#: src/window.cpp:374
+msgid "Open Html File"
+msgstr ""
+
+#: src/window.cpp:375
+msgid "Open Html from System"
+msgstr ""
+
+#: src/window.cpp:381
+msgid "Quit"
+msgstr ""
+
+#: src/window.cpp:382
+msgid "Close Debugger"
+msgstr ""
+
+#: src/window.cpp:389
+msgid "&Debugger"
+msgstr ""
+
+#: src/window.cpp:392
+msgid "Parse"
+msgstr ""
+
+#: src/window.cpp:393
+msgid "Parse current Document Source"
+msgstr ""
+
+#: src/window.cpp:399
+msgid "Format"
+msgstr ""
+
+#: src/window.cpp:400
+msgid "Prepare and Format Document Source"
+msgstr ""
+
+#: src/window.cpp:406
+msgid "&View"
+msgstr ""
+
+#: src/window.cpp:410
+msgid "Zoom +"
+msgstr ""
+
+#: src/window.cpp:418
+msgid "Zoom -"
+msgstr ""
+
+#: src/window.cpp:426 src/zoombar.cpp:52
+msgid "Original"
+msgstr ""
+
+#: src/window.cpp:439
+msgid "Fullscreen"
+msgstr ""
+
+#: src/window.cpp:446
+msgid "&Browser"
+msgstr ""
+
+#: src/window.cpp:449
+msgid "Refresh"
+msgstr ""
+
+#: src/window.cpp:455
+msgid "Back"
+msgstr ""
+
+#: src/window.cpp:461
+msgid "Forward"
+msgstr ""
+
+#: src/window.cpp:502
+msgid "Organize Bookmarks"
+msgstr ""
+
+#: src/window.cpp:508
+msgid "S&ettings"
+msgstr ""
+
+#: src/window.cpp:510
+msgid "Configure Tidyrc"
+msgstr ""
+
+#: src/window.cpp:524
+msgid "Display"
+msgstr ""
+
+#: src/window.cpp:547
+msgid "Settings"
+msgstr ""
+
+#: src/window.cpp:583
+msgid "Toolbars"
+msgstr ""
+
+#: src/window.cpp:593
+msgid "Impartations"
+msgstr ""
+
+#: src/window.cpp:601
+msgid "Inspectors"
+msgstr ""
+
+#: src/window.cpp:869
+msgid "Check StyleSheet for %1"
+msgstr ""
+
+#: src/window.cpp:988
+msgid "Invalid Url Rejected, required scheme is \"%1\"."
+msgstr ""
+
+#: src/window.cpp:1029
+msgid ""
+"a Url Request from outsite.\n"
+"Would you like to load this \"%1\" Url?"
+msgstr ""
+
+#: src/window.cpp:1032
+msgid "Url Request from Outsite"
+msgstr ""
+
+#: src/window.cpp:1063
+msgid "Download Request: %1"
+msgstr ""
+
+#: src/xhtmldbgadaptor.cpp:80
+msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
+msgstr ""
+
+#: src/zoombar.cpp:40
+msgid "Zoom"
+msgstr ""
+
+#: src/zoombar.cpp:41
+msgid "Zoom Webbrowser Content"
+msgstr ""
+
+#: src/zoombar.cpp:44
+msgid "ZoomIn"
+msgstr ""
+
+#: src/zoombar.cpp:48
+msgid "ZoomOut"
+msgstr ""
