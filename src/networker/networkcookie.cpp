@@ -223,8 +223,13 @@ bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &ur
     QString domain ( list.takeLast() ); // tld anhängen
     domain.prepend ( "." );
     domain.prepend ( list.takeLast() ); // host anhängen
+
+    bool status = ( domain.contains ( hostname ) ? false : true );
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << "(XHTMLDBG) Cookie isThirdPartyDomain:" << hostname << " : " << status;
+#endif
     // Wenn hostname vorhanden sollte es kein 3. Anbieter
-    return ( domain.contains ( hostname ) ? false : true );
+    return status;
   }
   // letzter versuch wenn Hostname vorhanden dann false
   return ( url.host().contains ( hostname ) ? false : true );
@@ -381,11 +386,6 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     save();
   else if ( add && ! tmp )
     m_autoSaver->saveIfNeccessary();
-
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie Request - Host:"
-  << url.host() << " Access:" << yes << " Session:" << tmp << " Saved:" << add;
-#endif
 
   return add;
 }
