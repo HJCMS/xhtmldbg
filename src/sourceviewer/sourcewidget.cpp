@@ -20,162 +20,237 @@
 **/
 
 #include "sourcewidget.h"
-#include "sourceview.h"
-#include "listlines.h"
+#include "contextmenu.h"
 
 #include <cstdio>
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QList>
+#include <QtCore/QPoint>
+#include <QtCore/QRect>
+#include <QtCore/QRegExp>
 #include <QtCore/QString>
+#include <QtCore/QDateTime>
+#include <QtCore/QSize>
 
 /* QtGui */
-#include <QtGui/QApplication>
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QListWidgetItem>
 #include <QtGui/QSizePolicy>
-#include <QtGui/QPalette>
-#include <QtGui/QFrame>
 #include <QtGui/QFont>
-#include <QtGui/QScrollBar>
+#include <QtGui/QFontMetrics>
+#include <QtGui/QPainter>
+#include <QtGui/QPrintPreviewDialog>
+#include <QtGui/QVBoxLayout>
 
 /* QTidy */
 #include <QTidy/QTidySettings>
 
 /* KDE */
 #include <KDE/KLocale>
+#include <KDE/KTextEditor/Cursor>
+#include <KDE/KTextEditor/Editor>
+#include <KDE/KTextEditor/EditorChooser>
 
 SourceWidget::SourceWidget ( QWidget * parent )
     : QWidget ( parent )
     , tidyrc ( QLatin1String ( "~/.qtidyrc" ) )
+    , m_document ( 0 )
+    , m_view ( 0 )
+    , m_parser ( 0 )
 {
   setObjectName ( QLatin1String ( "sourcewidget" ) );
   setContentsMargins ( 0, 0, 0, 0 );
   setBackgroundRole ( QPalette::NoRole );
   setWindowTitle ( i18n ( "Source" ) );
+  setContextMenuPolicy ( Qt::CustomContextMenu );
 
-  QFont font ( qApp->font() );
-  font.setPointSize ( 12 );
-  font.setStyleHint ( QFont::Courier, QFont::PreferDefault );
-  font.setFamily ( "Courier" );
+  QVBoxLayout* vLayout = new QVBoxLayout ( this );
+  vLayout->setContentsMargins ( 0, 0, 0, 0 );
 
-  QHBoxLayout* mainLayout = new QHBoxLayout ( this );
-  mainLayout->setContentsMargins ( 0, 0, 0, 0 );
-  mainLayout->setSpacing ( 1 );
+  KTextEditor::Editor* m_editor = KTextEditor::EditorChooser::editor();
+  m_editor->setSimpleMode ( false );
 
-  m_listLines = new ListLines ( font, this );
-  mainLayout->addWidget ( m_listLines );
-  mainLayout->setStretchFactor ( m_listLines, 0 );
+  // KTextEditor::Document
+  m_document = m_editor->createDocument ( this );
+  m_document->setMode ( QLatin1String ( "XML (Debug)" ) );
+  m_document->setHighlightingMode ( QLatin1String ( "HTML" ) );
 
-  m_sourceView = new SourceView ( font, this );
-  m_sourceView->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Expanding );
-  mainLayout->addWidget ( m_sourceView );
-  mainLayout->setStretchFactor ( m_sourceView, 1 );
+  // KTextEditor::View
+  m_view = m_document->createView ( this );
+  vLayout->addWidget ( m_view );
 
-  parser = new QTidy::QTidyParser ( this, getTidyrc() );
+  // ContextMenu
+  m_menu = new ContextMenu ( m_view );
+  m_menu->setHighlightModes ( m_document->highlightingModes() );
+  m_view->setContextMenu ( m_menu );
 
-  setLayout ( mainLayout );
+  // QTidy::QTidyParser
+  m_parser = new QTidy::QTidyParser ( this, getTidyrc() );
 
-  // Add Line Numbers
-  connect ( m_sourceView, SIGNAL ( textChanged ( const QList<QListWidgetItem*> & ) ),
-            m_listLines, SLOT ( setItems ( const QList<QListWidgetItem*> & ) ) );
+  setLayout ( vLayout );
 
-  // a cursor position hase changed
-  connect ( m_sourceView, SIGNAL ( lineChanged ( int ) ),
-            m_listLines, SLOT ( setCurrentRow ( int ) ) );
+  // Signals
+  connect ( m_menu, SIGNAL ( sscheck() ), this, SLOT ( check() ) );
+  connect ( m_menu, SIGNAL ( sformat() ), this, SLOT ( format() ) );
+  connect ( m_menu, SIGNAL ( ssave() ), this, SLOT ( saveSource() ) );
+  connect ( m_menu, SIGNAL ( sprint() ), this, SLOT ( printSource() ) );
+  connect ( m_menu, SIGNAL ( sconfig() ), this, SLOT ( openConfig() ) );
 
-  connect ( m_listLines, SIGNAL ( currentRowChanged ( int ) ),
-            m_sourceView, SLOT ( setCursorToRow ( int ) ) );
+  connect ( m_menu, SIGNAL ( updateHighlight ( const QString & ) ),
+            this, SLOT ( switchHighlight ( const QString & ) ) );
 
-  // Sync ScrollBars
-  connect ( m_sourceView->verticalScrollBar(), SIGNAL ( valueChanged ( int ) ),
-            m_listLines, SLOT ( setValue ( int ) ) );
+  connect ( m_view, SIGNAL ( contextMenuAboutToShow ( KTextEditor::View *, QMenu * ) ),
+            this, SLOT ( editorMenuEvent ( KTextEditor::View *, QMenu * ) ) );
 
-  connect ( m_listLines, SIGNAL ( valueChanged ( int ) ),
-            m_sourceView->verticalScrollBar(), SLOT ( setValue ( int ) ) );
-
-  connect ( m_sourceView, SIGNAL ( check() ), this, SLOT ( check() ) );
-  connect ( m_sourceView, SIGNAL ( format() ), this, SLOT ( format() ) );
-
-  connect ( parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
+  connect ( m_parser, SIGNAL ( showSingleDiagnose ( const QTidy::QTidyDiagnosis & ) ),
             this, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ) );
-
-  if ( m_sourceView->source().isEmpty() )
-    setSource ( "<html>\n<head><title>Start</title></head>\n<body>\n</body>\n</html>\n" );
 }
 
-/**
-* Standard weiterleitung an @ref SourceView::setSource
-*/
+/** TODO Mausmenü aufrufen */
+void SourceWidget::editorMenuEvent ( KTextEditor::View *, QMenu *m )
+{
+  qDebug() << Q_FUNC_INFO << "TODO" << m->objectName();
+//   m->addMenu ( m_menu );
+//   m->show();
+}
+
+/** Standard Dialog für das Speichern des aktuellen Dokumenten Inhaltes. */
+void SourceWidget::saveSource()
+{
+  m_document->documentSaveAs();
+}
+
+/** Öffnet den KDE Internen Editor Config Dialog */
+void SourceWidget::openConfig()
+{
+  m_document->editor()->configDialog ( this );
+}
+
+/** Standard Drucken Dialog für den Dokumenten Quelltext. */
+void SourceWidget::printSource()
+{
+  QString timestamp = QDateTime::currentDateTime().toString ( "yy-dd-mm-zzz" );
+  QPrinter printer ( QPrinter::PrinterResolution );
+  printer.setCreator ( QString ( "XHTMLDBG http://hjcms.de" ) );
+  printer.setColorMode ( QPrinter::GrayScale );
+  printer.setPaperSize ( QPrinter::A4 );
+  printer.setPageMargins ( 10, 10, 10, 10, QPrinter::DevicePixel );
+  printer.setOutputFormat ( QPrinter::PdfFormat );
+  printer.setOutputFileName ( QString::fromUtf8 ( "/tmp/xhtmldbg/html_source_%1.pdf" ).arg ( timestamp ) );
+  printer.setPrintRange ( QPrinter::AllPages );
+#ifdef Q_WS_X11
+  printer.setFontEmbeddingEnabled ( true );
+#endif
+
+  if ( ! printer.isValid() )
+    return;
+
+  QPrintPreviewDialog dialog ( &printer, this );
+  connect ( &dialog, SIGNAL ( paintRequested ( QPrinter * ) ),
+            this, SLOT ( updatePrintPreview ( QPrinter * ) ) );
+
+  dialog.exec();
+}
+
+/** Druckausgabe Zeichnen */
+void SourceWidget::updatePrintPreview ( QPrinter * printer )
+{
+  QPainter painter;
+  if ( ! painter.begin ( printer ) )
+    return;
+
+  // Font
+  QFont font = m_view->font();
+  painter.setFont ( font );
+
+  // metric
+  QFontMetrics metric ( font );
+  QRect pRect = printer->pageRect();
+
+  QRect lineRect = pRect;
+  for ( int l = 0; l < m_document->lines(); l++ )
+  {
+    QRect brect;
+    painter.drawText ( lineRect, Qt::TextWordWrap, m_document->line ( l ), &brect );
+    lineRect.setTopLeft ( brect.bottomLeft() );
+
+    if ( brect.bottomLeft().y() >= ( pRect.height() - metric.height() ) )
+    {
+      if ( ! printer->newPage() )
+        break;
+
+      lineRect = pRect;
+    }
+  }
+  painter.end();
+}
+
+/** ändert die Syntax hervorhebung! */
+void SourceWidget::switchHighlight ( const QString &m )
+{
+  if ( m_document->highlightingModes().contains ( m ) )
+    m_document->setHighlightingMode ( m );
+}
+
+/** Quelltext einfügen */
 void SourceWidget::setSource ( const QString &source )
 {
-  m_sourceView->setSource ( source );
+  m_document->setText ( source );
 }
 
-/**
-* Nehme Meldung für Zeile und Spalte entgegen.
-* @ref SourceView::setCursorToRow
-* @ref ListLines::setCurrentRow
-*/
+/** Nehme Meldung für Zeile und Spalte entgegen. */
 void SourceWidget::fetchBlock ( int row, int column )
 {
-  Q_UNUSED ( column )
-  m_listLines->setCurrentRow ( row );
-  m_sourceView->setCursorToRow ( row, column );
+  KTextEditor::Cursor cursor ( row, column );
+  m_view->setCursorPosition ( cursor );
 }
 
-/**
-* Standard QTidy Quelltextprüfung
-*/
+/** Standard QTidy Quelltextprüfung */
 void SourceWidget::check()
 {
   emit clearMessages();
-  parser->checkContent ( m_sourceView->source() );
+  m_parser->checkContent ( m_document->text() );
 }
 
-/**
-* Standard QTidy Bereinigung und Quelltextprüfung
-*/
+/** Standard QTidy Bereinigung und Quelltextprüfung */
 void SourceWidget::format()
 {
-  QString html = m_sourceView->source();
+  QString html = m_document->text();
   if ( html.isEmpty() )
     return;
 
-  QString valid = parser->cleanContent ( html );
+  QString valid = m_parser->cleanContent ( html );
   if ( valid.isEmpty() )
     return;
 
-  m_sourceView->setSource ( valid );
+  m_document->setText ( valid );
   check();
 }
 
-/**
-* Setzt den Quelltext auf ein Leeres HTML!
-*/
+/** Setzt den Quelltext auf ein Leeres HTML! */
 void SourceWidget::restore()
 {
   setSource ( "<html>\n<head><title>Waiting</title></head>\n<body>\n</body>\n</html>\n" );
 }
 
-/**
-* Nehme die Aktuelle ~/.tidyrc Konfiguration
-* von @ref QTidy::QTidySettings
-*/
+/** Nehme die Aktuelle ~/.tidyrc Konfiguration
+* von @ref QTidy::QTidySettings */
 const QString SourceWidget::getTidyrc()
 {
   QTidy::QTidySettings rc ( tidyrc );
   return rc.TidyConfig();
 }
 
-/**
-* Setze die tidy Konfiguration z.B: ~/.tidyrc
-*/
+/** Setze die tidy Konfiguration z.B: ~/.tidyrc */
 void SourceWidget::setTidyrc ( const QString &rc )
 {
   tidyrc = rc;
 }
 
 SourceWidget::~SourceWidget()
-{}
+{
+  if ( m_menu )
+    delete m_menu;
+
+  if ( m_document )
+    delete m_document;
+}

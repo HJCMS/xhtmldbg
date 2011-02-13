@@ -29,13 +29,20 @@
 
 /* QtGui */
 #include <QtGui/QDockWidget>
+#include <QtGui/QPrinter>
 #include <QtGui/QWidget>
 
 /* QTidy */
 #include <QTidy/QTidyParser>
 
-class SourceView;
-class ListLines;
+/* KDE */
+#ifndef KDE_NO_DEBUG_OUTPUT
+# define KDE_NO_DEBUG_OUTPUT 1
+#endif
+#include <KDE/KTextEditor/Document>
+#include <KDE/KTextEditor/View>
+
+class ContextMenu;
 
 class SourceWidget : public QWidget
 {
@@ -45,10 +52,19 @@ class SourceWidget : public QWidget
     Q_PROPERTY ( QString tidyrc READ getTidyrc WRITE setTidyrc )
 
   private:
-    SourceView* m_sourceView;
-    ListLines* m_listLines;
     QString tidyrc;
-    QTidy::QTidyParser* parser;
+    KTextEditor::Document* m_document;
+    KTextEditor::View* m_view;
+    QTidy::QTidyParser* m_parser;
+    ContextMenu* m_menu;
+
+  private Q_SLOTS:
+    void editorMenuEvent ( KTextEditor::View *, QMenu * );
+    void saveSource();
+    void openConfig();
+    void printSource();
+    void updatePrintPreview ( QPrinter * );
+    void switchHighlight ( const QString & );
 
   Q_SIGNALS:
     void clearMessages ();

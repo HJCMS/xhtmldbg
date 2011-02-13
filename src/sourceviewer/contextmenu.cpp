@@ -23,68 +23,94 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QIcon>
 #include <QtGui/QKeySequence>
 
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 
-ContextMenu::ContextMenu ( QWidget * parent )
-    : QMenu ( parent )
+static inline const QStringList supportedHighLights()
 {
-  setObjectName ( QLatin1String ( "contextmenu" ) );
+  QStringList l;
+  // Markup Languages
+  l << "qml" << "xml" << "html" << "dtd" << "xsl" << "sgml";
+  // Script Languages
+  l << "php" << "perl" << "javascript" << "css" << "yaml" << "json" << "python" << "ruby" << "actionscript";
+  return l;
+}
+
+ContextMenu::ContextMenu ( QWidget * parent )
+    : KMenu ( parent )
+{
+  setObjectName ( "contextmenu" );
   setTitle ( i18n ( "Debugger" ) );
 
   // Debugger Actions
   act_check = addAction ( i18n ( "Check Source" ) );
-  act_check->setObjectName ( "menuactiondebuggercheck" );
   act_check->setStatusTip ( i18n ( "Check Document Source" ) );
-  act_check->setIcon ( KIcon ( QLatin1String ( "document-edit-verify" ) ) );
+  act_check->setIcon ( KIcon ( "document-edit-verify" ) );
   act_check->setShortcut ( Qt::ALT + Qt::Key_C );
   connect ( act_check, SIGNAL ( triggered() ), this, SIGNAL ( sscheck() ) );
 
   act_format = addAction ( i18n ( "Format Source" ) );
-  act_format->setObjectName ( "menuactiondebuggerformat" );
   act_format->setStatusTip ( i18n ( "Format Document Source" ) );
-  act_format->setIcon ( KIcon ( QLatin1String ( "format-list-ordered" ) ) );
+  act_format->setIcon ( KIcon ( "format-list-ordered" ) );
   act_format->setShortcut ( Qt::ALT + Qt::Key_F );
   connect ( act_format, SIGNAL ( triggered() ), this, SIGNAL ( sformat() ) );
 
   // Document Menu
   m_documentMenu = addMenu ( i18n ( "Document" ) );
-  m_documentMenu->setIcon ( KIcon ( QLatin1String ( "documentinfo" ) ) );
+  m_documentMenu->setIcon ( KIcon ( "documentinfo" ) );
   // Document Actions
   act_save = m_documentMenu->addAction ( i18n ( "Save" ) );
-  act_save->setObjectName ( "menuactiondocumentsave" );
   act_save->setStatusTip ( i18n ( "Save Html Source to ..." ) );
-  act_save->setIcon ( KIcon ( QLatin1String ( "document-save" ) ) );
+  act_save->setIcon ( KIcon ( "document-save" ) );
   act_save->setShortcut ( QKeySequence::Save );
   connect ( act_save, SIGNAL ( triggered() ), this, SIGNAL ( ssave() ) );
 
   act_print = m_documentMenu->addAction ( i18n ( "Print" ) );
-  act_print->setObjectName ( "menuactionddocumentprint" );
   act_print->setStatusTip ( i18n ( "Print current Document" ) );
-  act_print->setIcon ( KIcon ( QLatin1String ( "document-print" ) ) );
+  act_print->setIcon ( KIcon ( "document-print" ) );
   act_print->setShortcut ( QKeySequence::Print );
   connect ( act_print, SIGNAL ( triggered() ), this, SIGNAL ( sprint() ) );
 
   // Viewer Menu
-  m_viewMenu = addMenu ( i18n ( "View" ) );
+  m_viewMenu = addMenu ( i18n ( "Editor" ) );
   m_viewMenu->setIcon ( KIcon ( QLatin1String ( "edit-select-all" ) ) );
-  // Viewer Actions @see QTextEdit::setLineWrapMode
-  act_wrap = m_viewMenu->addAction ( i18n ( "Wordwrap" ) );
-  act_wrap->setObjectName ( "menuactionviewrap" );
-  act_wrap->setStatusTip ( i18n ( "enable disable line wrap mode" ) );
-  act_wrap->setIcon ( KIcon ( QLatin1String ( "document-properties" ) ) );
-  act_wrap->setShortcut ( QKeySequence ( Qt::Key_F10 ) );
-  connect ( act_wrap, SIGNAL ( triggered() ), this, SIGNAL ( swrap() ) );
+
+  m_signalMapper = new QSignalMapper ( this );
+
+  // Open Configuration
+  act_config = m_viewMenu->addAction ( i18n ( "Configuration" ) );
+  act_config->setStatusTip ( i18n ( "Show the editor's configuration dialog" ) );
+  act_config->setIcon ( KIcon ( "configure" ) );
+  connect ( act_config, SIGNAL ( triggered() ), this, SIGNAL ( sconfig() ) );
+
+  m_highlightMenue = m_viewMenu->addMenu ( i18n ( "Highlight" ) );
+
+  connect ( m_signalMapper, SIGNAL ( mapped ( const QString & ) ),
+            this, SIGNAL ( updateHighlight ( const QString & ) ) );
+}
+
+void ContextMenu::setHighlightModes ( const QStringList &list )
+{
+  m_highlightMenue->clear();
+  QStringList hl = supportedHighLights();
+  foreach ( QString name, list )
+  {
+    if ( hl.contains ( name.toLower() ) )
+    {
+      QAction* ac = m_highlightMenue->addAction ( name );
+      ac->setIcon ( KIcon ( QLatin1String ( "code-context" ) ) );
+      connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
+      m_signalMapper->setMapping ( ac, name );
+    }
+  }
 }
 
 ContextMenu::~ContextMenu()
 {
+  m_highlightMenue->clear();
 }

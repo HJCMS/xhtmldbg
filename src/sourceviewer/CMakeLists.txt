@@ -2,17 +2,11 @@
 
 SET (sourceviewer_SOURCES
   sourcewidget.cpp
-  sourceview.cpp
-  listlines.cpp
-  highlighter.cpp
   contextmenu.cpp
 )
 
 SET (sourceviewer_HEADERS
   sourcewidget.h
-  sourceview.h
-  listlines.h
-  highlighter.h
   contextmenu.h
 )
 

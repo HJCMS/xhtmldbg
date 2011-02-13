@@ -24,13 +24,19 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QSignalMapper>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QAction>
 #include <QtGui/QMenu>
 #include <QtGui/QWidget>
 
-class ContextMenu : public QMenu
+/* KDE */
+#include <KDE/KMenu>
+
+class ContextMenu : public KMenu
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -44,10 +50,12 @@ class ContextMenu : public QMenu
     QMenu* m_documentMenu;
     QAction* act_save;
     QAction* act_print;
-    // Viewer Menu
+    // Viewer Highlight Mode Menu
+    QSignalMapper* m_signalMapper;
     QMenu* m_viewMenu;
-    // Viewer Actions
-    QAction* act_wrap;
+    QMenu* m_highlightMenue;
+    // Editor Configuration
+    QAction* act_config;
 
   Q_SIGNALS:
     // Debugger Signals
@@ -56,12 +64,15 @@ class ContextMenu : public QMenu
     // Document Signals
     void ssave();
     void sprint();
-    // Viewer Signals
-    void swrap();
+    // Viewer Highlight Mode
+    void updateHighlight ( const QString & );
+    // Editor Configuration
+    void sconfig();
 
   public:
-    ContextMenu ( QWidget * parent = 0 );
-    ~ContextMenu();
+    explicit ContextMenu ( QWidget * parent = 0 );
+    void setHighlightModes ( const QStringList & );
+    virtual ~ContextMenu();
 };
 
 #endif
