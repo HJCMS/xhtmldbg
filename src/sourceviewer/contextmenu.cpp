@@ -46,6 +46,7 @@ ContextMenu::ContextMenu ( QWidget * parent )
 {
   setObjectName ( "contextmenu" );
   setTitle ( i18n ( "Debugger" ) );
+  setIcon ( KIcon ( "xhtmldbg" ) );
 
   // Debugger Actions
   act_check = addAction ( i18n ( "Check Source" ) );
@@ -89,6 +90,7 @@ ContextMenu::ContextMenu ( QWidget * parent )
   connect ( act_config, SIGNAL ( triggered() ), this, SIGNAL ( sconfig() ) );
 
   m_highlightMenue = m_viewMenu->addMenu ( i18n ( "Highlight" ) );
+  m_highlightMenue->setIcon ( KIcon ( QLatin1String ( "code-context" ) ) );
 
   connect ( m_signalMapper, SIGNAL ( mapped ( const QString & ) ),
             this, SIGNAL ( updateHighlight ( const QString & ) ) );
@@ -96,17 +98,27 @@ ContextMenu::ContextMenu ( QWidget * parent )
 
 void ContextMenu::setHighlightModes ( const QStringList &list )
 {
-  m_highlightMenue->clear();
+  if ( list.size() < 1 )
+    return;
+
   QStringList hl = supportedHighLights();
+  QStringList highlights;
   foreach ( QString name, list )
   {
     if ( hl.contains ( name.toLower() ) )
-    {
-      QAction* ac = m_highlightMenue->addAction ( name );
-      ac->setIcon ( KIcon ( QLatin1String ( "code-context" ) ) );
-      connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
-      m_signalMapper->setMapping ( ac, name );
-    }
+      highlights.append ( name );
+  }
+  if ( highlights.size() < 1 )
+    return;
+
+  highlights.sort();
+  m_highlightMenue->clear();
+  foreach ( QString name, highlights )
+  {
+    QAction* ac = m_highlightMenue->addAction ( name );
+    ac->setIcon ( KIcon ( QLatin1String ( "code-context" ) ) );
+    connect ( ac, SIGNAL ( triggered() ), m_signalMapper, SLOT ( map() ) );
+    m_signalMapper->setMapping ( ac, name );
   }
 }
 

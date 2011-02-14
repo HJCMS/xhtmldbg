@@ -26,6 +26,7 @@
 
 /* QtGui */
 #include <QtGui/QVBoxLayout>
+#include <QtGui/QSizePolicy>
 
 ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
     : PageWidget ( i18n ( "User-Agent" ), parent )
@@ -42,6 +43,8 @@ ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
   verticalLayout->addWidget ( m_userAgentEditor );
 
   centralWidget->setLayout ( verticalLayout );
+
+  polishVerticalSpacer ( QSizePolicy::Minimum );
 
   connect ( m_userAgentEditor, SIGNAL ( modified ( bool ) ),
             this, SLOT ( itemModified ( bool ) ) );

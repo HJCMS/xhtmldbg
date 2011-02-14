@@ -49,6 +49,9 @@ class CookiesEditorTable : public QTableWidget
   private Q_SLOTS:
     void cellChanged ( const QModelIndex & );
 
+  protected:
+    virtual void updateHeaderSize () const;
+
   Q_SIGNALS:
     void modified();
 

@@ -49,8 +49,8 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
     : QTableWidget ( parent )
 {
   setObjectName ( QLatin1String ( "editcookiestable" ) );
-  setMinimumHeight ( 250 );
-  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::MinimumExpanding );
+  setMinimumHeight ( 300 );
+  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
   setContextMenuPolicy ( Qt::NoContextMenu );
   setEditTriggers ( QAbstractItemView::DoubleClicked );
   setTabKeyNavigation ( true );
@@ -69,12 +69,12 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
   setColumnCount ( lb.size() );
   setHorizontalHeaderLabels ( lb );
 
-  horizontalHeader()->setDefaultSectionSize ( 125 );
-  horizontalHeader()->setMinimumSectionSize ( 125 );
-  horizontalHeader()->setHighlightSections ( false );
-  horizontalHeader()->setProperty ( "showSortIndicator", QVariant ( false ) );
-  horizontalHeader()->setStretchLastSection ( false );
-  verticalHeader()->setVisible ( false );
+  QHeaderView* headerView = horizontalHeader();
+  headerView->setHighlightSections ( false );
+  headerView->setProperty ( "showSortIndicator", QVariant ( false ) );
+  headerView->setStretchLastSection ( false );
+  headerView->setResizeMode ( QHeaderView::Interactive );
+  headerView->setDefaultSectionSize ( 150 );
 
   connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
             this, SLOT ( cellChanged ( const QModelIndex & ) ) );
@@ -87,6 +87,12 @@ bool CookiesEditorTable::initialDatabase ()
 {
   sql = QSqlDatabase::database ( QString::fromUtf8 ( "xhtmldbg" ), false );
   return ( sql.isOpen() ? true : sql.open() );
+}
+
+/** Nach einer Änderung die Zellen neu Ausrichten */
+void CookiesEditorTable::updateHeaderSize () const
+{
+  horizontalHeader()->resizeSections ( QHeaderView::ResizeToContents );
 }
 
 /**
@@ -156,7 +162,7 @@ void CookiesEditorTable::loadCookieAccess ()
     }
     query.finish();
   }
-  horizontalHeader()->resizeSections ( QHeaderView::ResizeToContents );
+  updateHeaderSize ();
 }
 
 /**
@@ -305,7 +311,7 @@ bool CookiesEditorTable::addCookie ( int t, const QString &h, int rfc )
   connect ( item3, SIGNAL ( itemChanged() ), this, SIGNAL ( modified() ) );
   setCellWidget ( row, 3, item3 );
 
-  horizontalHeader()->resizeSections ( QHeaderView::ResizeToContents );
+  updateHeaderSize ();
   emit modified();
   return true;
 }

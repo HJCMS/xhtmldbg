@@ -78,10 +78,10 @@ SourceWidget::SourceWidget ( QWidget * parent )
   m_view = m_document->createView ( this );
   vLayout->addWidget ( m_view );
 
-  // ContextMenu
-  m_menu = new ContextMenu ( m_view );
+  // Nehme KDE Standard Menü für ContextMenu
+  m_menu = new ContextMenu ( this );
   m_menu->setHighlightModes ( m_document->highlightingModes() );
-  m_view->setContextMenu ( m_menu );
+  m_view->setContextMenu ( m_view->defaultContextMenu ( m_menu ) );
 
   // QTidy::QTidyParser
   m_parser = new QTidy::QTidyParser ( this, getTidyrc() );
@@ -106,12 +106,8 @@ SourceWidget::SourceWidget ( QWidget * parent )
 }
 
 /** TODO Mausmenü aufrufen */
-void SourceWidget::editorMenuEvent ( KTextEditor::View *, QMenu *m )
-{
-  qDebug() << Q_FUNC_INFO << "TODO" << m->objectName();
-//   m->addMenu ( m_menu );
-//   m->show();
-}
+void SourceWidget::editorMenuEvent ( KTextEditor::View *, QMenu * )
+{}
 
 /** Standard Dialog für das Speichern des aktuellen Dokumenten Inhaltes. */
 void SourceWidget::saveSource()
