@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: nomail@nospam.com\n"
-"POT-Creation-Date: 2011-02-12 13:20+0100\n"
-"PO-Revision-Date: 2011-02-12 13:27+0100\n"
+"POT-Creation-Date: 2011-02-14 16:20+0100\n"
+"PO-Revision-Date: 2011-02-14 16:22+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -891,7 +891,7 @@ msgstr "Benutzer Kennung"
 msgid "%1 Configuration options."
 msgstr "%1 Konfigurations Optionen."
 
-#: src/configuration/configuseragents.cpp:31
+#: src/configuration/configuseragents.cpp:32
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:66
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:204
 #, fuzzy
@@ -1744,19 +1744,19 @@ msgstr ""
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr "Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)"
 
-#: src/networker/networkcookie.cpp:288
+#: src/networker/networkcookie.cpp:293
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr "Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!"
 
-#: src/networker/networkcookie.cpp:313
+#: src/networker/networkcookie.cpp:318
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr "Ein blockiertes Cookie für den Hostnamen \"%1\" wurde verworfen!"
 
-#: src/networker/networkcookie.cpp:319
+#: src/networker/networkcookie.cpp:324
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr "Drittanbieter Keks \"%1\" für den Host \"%2\" zurück gewiesen!"
 
-#: src/networker/networkcookie.cpp:377
+#: src/networker/networkcookie.cpp:382
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 "Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS "
@@ -1787,7 +1787,7 @@ msgid "MimeType"
 msgstr "Datentype"
 
 #: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:56 src/viewer.cpp:266 src/window.cpp:155
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:155
 #, fuzzy
 msgid "Source"
 msgstr "Quelle"
@@ -1928,77 +1928,62 @@ msgstr "Setze die Browser weite"
 msgid "Restore"
 msgstr "Zurücksetzen"
 
-#: src/sourceviewer/contextmenu.cpp:41
+#: src/sourceviewer/contextmenu.cpp:48
 msgid "Debugger"
 msgstr "Debugger"
 
-#: src/sourceviewer/contextmenu.cpp:44
+#: src/sourceviewer/contextmenu.cpp:52
 msgid "Check Source"
 msgstr "Quelltext prüfen"
 
-#: src/sourceviewer/contextmenu.cpp:46
+#: src/sourceviewer/contextmenu.cpp:53
 msgid "Check Document Source"
 msgstr "Dokumenten Quelltext Überprüfen"
 
-#: src/sourceviewer/contextmenu.cpp:51
+#: src/sourceviewer/contextmenu.cpp:58
 msgid "Format Source"
 msgstr "Quelltext Formatieren"
 
-#: src/sourceviewer/contextmenu.cpp:53
+#: src/sourceviewer/contextmenu.cpp:59
 msgid "Format Document Source"
 msgstr "Den Dokumenten Quelltext formatieren"
 
-#: src/sourceviewer/contextmenu.cpp:59
+#: src/sourceviewer/contextmenu.cpp:65
 msgid "Document"
 msgstr "Dokument"
 
-#: src/sourceviewer/contextmenu.cpp:62
+#: src/sourceviewer/contextmenu.cpp:68
 msgid "Save"
 msgstr "Speichern"
 
-#: src/sourceviewer/contextmenu.cpp:64
+#: src/sourceviewer/contextmenu.cpp:69
 msgid "Save Html Source to ..."
 msgstr "Speichere das HTML unter ..."
 
-#: src/sourceviewer/contextmenu.cpp:69
+#: src/sourceviewer/contextmenu.cpp:74
 msgid "Print"
 msgstr "Drucken"
 
-#: src/sourceviewer/contextmenu.cpp:71
+#: src/sourceviewer/contextmenu.cpp:75
 msgid "Print current Document"
 msgstr "Drucke aktuelles Dokument"
 
-#: src/sourceviewer/contextmenu.cpp:77
-msgid "View"
-msgstr "Ansicht"
+#: src/sourceviewer/contextmenu.cpp:81
+msgid "Editor"
+msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:80
-msgid "Wordwrap"
-msgstr "Textumbruch"
+#: src/sourceviewer/contextmenu.cpp:87
+#, fuzzy
+msgid "Configuration"
+msgstr "Konfigurieren"
 
-#: src/sourceviewer/contextmenu.cpp:82
-msgid "enable disable line wrap mode"
-msgstr "(De)aktiviere den Textumbruch"
+#: src/sourceviewer/contextmenu.cpp:88
+msgid "Show the editor's configuration dialog"
+msgstr ""
 
-#: src/sourceviewer/sourceview.cpp:216
-msgid "Markup Document %1"
-msgstr "Hypertext Dokument %1"
-
-#: src/sourceviewer/sourceview.cpp:217
-msgid "Text Document %1"
-msgstr "Text Dokument %1"
-
-#: src/sourceviewer/sourceview.cpp:219
-msgid "Save Content to..."
-msgstr "Speichere Inhalt nach ..."
-
-#: src/sourceviewer/sourceview.cpp:241
-msgid "Can't write Source to \"%1\" Permission Denied."
-msgstr "Kann Quelltext nicht nach \"%1\"speichern, Zugriff Verweigert."
-
-#: src/sourceviewer/sourceview.cpp:243
-msgid "To Save Source Operation dropout"
-msgstr "Der Speichern Vorgang wurde abgebrochen"
+#: src/sourceviewer/contextmenu.cpp:92
+msgid "Highlight"
+msgstr "Hervorhebung"
 
 #: src/statusbar.cpp:50
 msgid "Reload Status"

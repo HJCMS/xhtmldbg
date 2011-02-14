@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: nomail@nospam.com\n"
-"POT-Creation-Date: 2011-02-12 13:20+0100\n"
+"POT-Creation-Date: 2011-02-14 16:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -806,7 +806,7 @@ msgstr ""
 msgid "%1 Configuration options."
 msgstr ""
 
-#: src/configuration/configuseragents.cpp:31
+#: src/configuration/configuseragents.cpp:32
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:66
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:204
 msgid "User-Agent"
@@ -1617,19 +1617,19 @@ msgstr ""
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:288
+#: src/networker/networkcookie.cpp:293
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:313
+#: src/networker/networkcookie.cpp:318
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:319
+#: src/networker/networkcookie.cpp:324
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:377
+#: src/networker/networkcookie.cpp:382
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
@@ -1658,7 +1658,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:56 src/viewer.cpp:266 src/window.cpp:155
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:155
 msgid "Source"
 msgstr ""
 
@@ -1797,76 +1797,60 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:41
+#: src/sourceviewer/contextmenu.cpp:48
 msgid "Debugger"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:44
+#: src/sourceviewer/contextmenu.cpp:52
 msgid "Check Source"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:46
+#: src/sourceviewer/contextmenu.cpp:53
 msgid "Check Document Source"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:51
+#: src/sourceviewer/contextmenu.cpp:58
 msgid "Format Source"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:53
+#: src/sourceviewer/contextmenu.cpp:59
 msgid "Format Document Source"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:59
+#: src/sourceviewer/contextmenu.cpp:65
 msgid "Document"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:62
+#: src/sourceviewer/contextmenu.cpp:68
 msgid "Save"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:64
+#: src/sourceviewer/contextmenu.cpp:69
 msgid "Save Html Source to ..."
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:69
+#: src/sourceviewer/contextmenu.cpp:74
 msgid "Print"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:71
+#: src/sourceviewer/contextmenu.cpp:75
 msgid "Print current Document"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:77
-msgid "View"
+#: src/sourceviewer/contextmenu.cpp:81
+msgid "Editor"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:80
-msgid "Wordwrap"
+#: src/sourceviewer/contextmenu.cpp:87
+msgid "Configuration"
 msgstr ""
 
-#: src/sourceviewer/contextmenu.cpp:82
-msgid "enable disable line wrap mode"
+#: src/sourceviewer/contextmenu.cpp:88
+msgid "Show the editor's configuration dialog"
 msgstr ""
 
-#: src/sourceviewer/sourceview.cpp:216
-msgid "Markup Document %1"
-msgstr ""
-
-#: src/sourceviewer/sourceview.cpp:217
-msgid "Text Document %1"
-msgstr ""
-
-#: src/sourceviewer/sourceview.cpp:219
-msgid "Save Content to..."
-msgstr ""
-
-#: src/sourceviewer/sourceview.cpp:241
-msgid "Can't write Source to \"%1\" Permission Denied."
-msgstr ""
-
-#: src/sourceviewer/sourceview.cpp:243
-msgid "To Save Source Operation dropout"
+#: src/sourceviewer/contextmenu.cpp:92
+msgid "Highlight"
 msgstr ""
 
 #: src/statusbar.cpp:50
