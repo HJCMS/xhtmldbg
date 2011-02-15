@@ -20,24 +20,76 @@
 **/
 
 #include "formmanager.h"
+#include "formconstructor.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+// #include <QtCore/QFile>
+// #include <QtCore/QRect>
+// #include <QtCore/QPoint>
 
 /* QtGui */
-// #include <QtGui/QVBoxLayout>
+#include <QtGui/QAction>
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QSizePolicy>
 
-/* QtDBus */
-// #include <QtDBus>
+/* QtXml */
+// #include <QtXml/>
 
-/* QtNetwork */
-// #include <QtNetwork>
+/* QtWebKit */
+#include <QtWebKit/QWebFrame>
 
-FormManager::FormManager ( QObject * parent )
-    : QObject ( parent )
+/* KDE */
+#include <KDE/KLocale>
+
+/**
+* TODO Der FormManager soll vollgendes machen!
+* \li Anzahl der Formulare einer Seite ermitteln
+* \li Einen Unique MD5 Hash aus URL und den Element Namen des Formulares für die Datenbank erstellen!\n
+*     Das komplette einlesen des Forms wird wegen verschiedener Inhalte nicht gehen :-/
+* \li Das Formular in einen Byte String Konvertieren und in die Datenbank Speichern
+*/
+FormManager::FormManager ( QWidget * parent )
+    : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "FormManager" ) );
+  setWindowTitle ( i18n ( "Forms" ) );
+  setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
+  setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+  setContentsMargins ( 1, 1, 1, 1 );
+
+  m_splitter = new QSplitter ( Qt::Vertical, this );
+
+  m_pageWidget = new KPageWidget ( this );
+  m_splitter->insertWidget ( 0, m_pageWidget );
+
+  setWidget ( m_splitter );
+  forms.clear();
+}
+
+/**
+* Suche nach Formularen und erstelle die Suchschlüssel für die Datenbank.
+*/
+void FormManager::setPageContent ( const QUrl &url, const QWebElement &element )
+{
+  QWebElementCollection collection = element.findAll ( "FORM" );
+  if ( collection.count() > 0 )
+  {
+    qDebug() << Q_FUNC_INFO << "Todo db search" << url;
+    foreach ( QWebElement e, collection )
+    {
+      if ( e.hasAttribute ( QLatin1String ( "action" ) ) && e.hasAttribute ( QLatin1String ( "method" ) ) )
+      {
+        if ( e.attribute ( "action", QString::null ).isEmpty() )
+          continue;
+
+        forms.append ( FormConstructor ( e ) );
+      }
+    }
+  }
 }
 
 FormManager::~FormManager()
-{}
+{
+  forms.clear();
+}

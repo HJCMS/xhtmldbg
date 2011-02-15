@@ -131,7 +131,7 @@ namespace xhtmldbg
       QObject* plug = loader.instance();
       if ( plug )
       {
-        Interface* m_interface = static_cast<Interface*> ( plug );
+        Interface* m_interface = qobject_cast<Interface*> ( plug );
         if ( m_interface && ( m_interface->type() == type ) && m_interface->create ( parent ) )
           list << m_interface;
       }

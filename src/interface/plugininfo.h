@@ -58,12 +58,12 @@ namespace xhtmldbg
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Plugin Info" )
-      Q_ENUMS ( PluginType )
       Q_PROPERTY ( QString Name READ getName WRITE setName )
       Q_PROPERTY ( QString GenericName READ getGenericName WRITE setGenericName )
       Q_PROPERTY ( QString Version READ getVersion WRITE setVersion )
       Q_PROPERTY ( QString Description READ getDescription WRITE setDescription )
       Q_PROPERTY ( QString Author READ getAuthor WRITE setAuthor )
+      Q_ENUMS ( PluginType )
 
     public:
       enum PluginType

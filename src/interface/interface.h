@@ -47,7 +47,7 @@ namespace xhtmldbg
   * \class Interface
   * \short xhtmldbg Plugin Interface Class.
   */
-  class Q_DECL_EXPORT Interface : public QObject
+  class Q_DECL_EXPORT Interface : virtual public QObject
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )

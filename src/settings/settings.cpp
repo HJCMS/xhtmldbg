@@ -24,6 +24,10 @@
 #endif
 #include "settings.h"
 
+/* std */
+#include <iostream>
+#include <cstdlib>
+
 /* QtCore */
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
@@ -77,6 +81,10 @@ const QString Settings::tempDir ( const QString &subdir )
   QString p ( QDir::tempPath() );
   p.append ( d.separator() );
   p.append ( xApplicationName() );
+  p.append ( "-" );
+  char* uid = getenv ( "USER" );
+  if ( sizeof ( uid ) > 1 )
+    p.append ( QLatin1String ( uid ) );
 
   if ( ! subdir.isEmpty() )
   {

@@ -169,7 +169,7 @@ void SourceWidget::updatePrintPreview ( QPrinter * printer )
     painter.drawText ( lineRect, Qt::TextWordWrap, m_document->line ( l ), &brect );
     lineRect.setTopLeft ( brect.bottomLeft() );
 
-    if ( brect.bottomLeft().y() >= ( pRect.height() - metric.height() ) )
+    if ( brect.bottomLeft().y() >= ( pRect.height() - ( 2 * metric.height() ) ) )
     {
       if ( ! printer->newPage() )
         break;

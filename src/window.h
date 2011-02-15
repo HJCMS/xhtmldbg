@@ -76,6 +76,7 @@ class AutoReloadMenu;
 class StatusBar;
 class AutoReloader;
 class DomInspector;
+class FormManager;
 class WebInspector;
 class ColorPicker;
 class HeaderDock;
@@ -154,6 +155,8 @@ class Window : public KMainWindow
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
+    // Formular Manager
+    FormManager* m_formManager;
     // WebInspector
     WebInspector* m_webInspector;
     // Source Cache

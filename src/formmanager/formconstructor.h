@@ -19,49 +19,43 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef FORMMANAGER_H
-#define FORMMANAGER_H
+#ifndef FORMCONSTRUCTOR_H
+#define FORMCONSTRUCTOR_H
 
 /* QtCore */
-#include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtCore/QString>
-#include <QtCore/QUrl>
-
-/* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QSplitter>
-#include <QtGui/QWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebElementCollection>
 
-/* KDE */
-#include <KDE/KPageWidget>
-
-class FormConstructor;
-
-class FormManager : public QDockWidget
+class FormConstructor : public QWebElement
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
   private:
-    QSplitter* m_splitter;
-    KPageWidget* m_pageWidget;
-    QList<FormConstructor> forms;
+    QList<QWebElement> items;
+    // Inputs
+    enum InputType { NONE, TEXT, PASSWORD, CHECKBOX, RADIO, HIDDEN };
+    FormConstructor::InputType isInputType ( const QWebElement & );
+    void appendInput ( const QWebElement &, InputType );
+    void findInputs();
+    // TextArea
+    void appendTextArea ( const QWebElement & );
+    void findTextAreas();
+    // Select Boxes
+    void appendSelection ( const QWebElement & );
+    void findSelections();
 
-  Q_SIGNALS:
-    void status ( bool );
-
-  public Q_SLOTS:
-    void setPageContent ( const QUrl &, const QWebElement & );
+  protected:
+    void rebuild();
 
   public:
-    FormManager ( QWidget * parent = 0 );
-    virtual ~FormManager();
+    FormConstructor ( const QWebElement &form );
+
+    /** TODO */
+    const QList<QWebElement> content();
+
+    virtual ~FormConstructor();
 };
 
 #endif

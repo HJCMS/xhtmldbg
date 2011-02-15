@@ -124,10 +124,9 @@ bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
 const QStringList DomInspector::foundStylesheetReferences ( const QWebElement &head ) const
 {
   QStringList list;
-  QString href ( "href" );
   foreach ( QWebElement link, head.findAll ( "LINK[rel~=stylesheet]" ) )
   {
-    if ( link.hasAttribute ( href ) )
+    if ( link.hasAttribute ( QLatin1String ( "href" ) ) )
     {
       QString cssPath = link.attribute ( "href", QString::null );
       if ( cssPath.isEmpty() )

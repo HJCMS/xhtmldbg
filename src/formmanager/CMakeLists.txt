@@ -4,6 +4,7 @@ SET (subproject "FormManager")
 
 SET (target_project_SOURCES
   formmanager.cpp
+  formconstructor.cpp
 )
 
 SET (target_project_HEADERS
@@ -11,6 +12,7 @@ SET (target_project_HEADERS
 )
 
 SET (target_project_NOMOC_HEADERS
+  formconstructor.h
 )
 
 KDE4_MOC_HEADERS (target_project_MOC ${target_project_HEADERS})
