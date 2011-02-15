@@ -32,6 +32,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QSizePolicy>
+#include <QtGui/QTreeWidget>
 
 /* QtXml */
 // #include <QtXml/>
@@ -62,6 +63,8 @@ FormManager::FormManager ( QWidget * parent )
 
   m_pageWidget = new KPageWidget ( this );
   m_splitter->insertWidget ( 0, m_pageWidget );
+
+  m_pageWidget->addPage ( new QTreeWidget ( this ), i18n ( "Forms TEST Widget" ) );
 
   setWidget ( m_splitter );
   forms.clear();

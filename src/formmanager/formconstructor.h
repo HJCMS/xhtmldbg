@@ -28,33 +28,22 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebElementCollection>
 
 class FormConstructor : public QWebElement
 {
   private:
-    QList<QWebElement> items;
     // Inputs
-    enum InputType { NONE, TEXT, PASSWORD, CHECKBOX, RADIO, HIDDEN };
-    FormConstructor::InputType isInputType ( const QWebElement & );
-    void appendInput ( const QWebElement &, InputType );
+    bool isValidInputElement ( const QWebElement & );
+    void appendElement ( const QWebElement & );
+    void appendInputElement ( const QWebElement & );
     void findInputs();
-    // TextArea
-    void appendTextArea ( const QWebElement & );
     void findTextAreas();
-    // Select Boxes
-    void appendSelection ( const QWebElement & );
     void findSelections();
-
-  protected:
-    void rebuild();
 
   public:
     FormConstructor ( const QWebElement &form );
-
-    /** TODO */
-    const QList<QWebElement> content();
-
+    void rebuild();
+    QList<QWebElement> elements;
     virtual ~FormConstructor();
 };
 

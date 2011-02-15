@@ -27,7 +27,7 @@
 #include <QtCore/QStringList>
 
 /* QtWebKit */
-#include <QtWebKit/QWebFrame>
+#include <QtWebKit/QWebElementCollection>
 
 FormConstructor::FormConstructor ( const QWebElement &form )
     : QWebElement ( form )
@@ -36,125 +36,104 @@ FormConstructor::FormConstructor ( const QWebElement &form )
     rebuild();
 }
 
-FormConstructor::InputType FormConstructor::isInputType ( const QWebElement &e )
+bool FormConstructor::isValidInputElement ( const QWebElement &e )
 {
-  if ( e.hasAttribute ( "type" ) )
-  {
-    QString t = e.attribute ( "type", QString::null );
-    if ( t.isEmpty() )
-      return NONE;
+  if ( ! e.hasAttribute ( "type" ) )
+    return false;
 
-    if ( t.contains ( "TEXT", Qt::CaseInsensitive ) )
-      return TEXT;
-    else if ( t.contains ( "PASSWORD", Qt::CaseInsensitive ) )
-      return PASSWORD;
-    else if ( t.contains ( "CHECKBOX", Qt::CaseInsensitive ) )
-      return CHECKBOX;
-    else if ( t.contains ( "RADIO", Qt::CaseInsensitive ) )
-      return RADIO;
-    else if ( t.contains ( "HIDDEN", Qt::CaseInsensitive ) )
-      return HIDDEN;
-    else
-      return NONE;
-  }
-  return NONE;
+  QString t = e.attribute ( "type", QString::null );
+  if ( t.isEmpty() )
+    return false;
+
+  if ( t.contains ( "TEXT", Qt::CaseInsensitive ) )
+    return true;
+  else if ( t.contains ( "PASSWORD", Qt::CaseInsensitive ) )
+    return true;
+  else if ( t.contains ( "CHECKBOX", Qt::CaseInsensitive ) )
+    return true;
+  else if ( t.contains ( "RADIO", Qt::CaseInsensitive ) )
+    return true;
+  else if ( t.contains ( "HIDDEN", Qt::CaseInsensitive ) )
+    return true;
+  else
+    return false;
 }
 
-void FormConstructor::appendInput ( const QWebElement &ele, InputType type )
+void FormConstructor::appendElement ( const QWebElement &ele )
 {
-  QString xml ( "<input type=\"" );
+  QWebElement element ( ele );
+  QStringList restrict;
+  restrict << "name" << "id";
 
-  switch ( type )
+  foreach ( QString name, ele.attributeNames() )
   {
-    case TEXT:
-      xml.append ( ele.attribute ( "type", QLatin1String ( "text" ) ) );
-      break;
-
-    case PASSWORD:
-      xml.append ( ele.attribute ( "type", QLatin1String ( "password" ) ) );
-      break;
-
-    case CHECKBOX:
-      xml.append ( ele.attribute ( "type", QLatin1String ( "checkbox" ) ) );
-      break;
-
-    case RADIO:
-      xml.append ( ele.attribute ( "type", QLatin1String ( "radio" ) ) );
-      break;
-
-    case HIDDEN:
-      xml.append ( ele.attribute ( "type", QLatin1String ( "hidden" ) ) );
-      break;
-
-    default:
-      return;
+    if ( restrict.contains ( name, Qt::CaseInsensitive ) )
+      continue;
+    else if ( element.hasAttribute ( name ) )
+      element.removeAttribute ( name );
   }
 
-  if ( ele.hasAttribute ( "name" ) )
+  elements.append ( element );
+}
+
+/**
+* Liest alle verwendbaren Attributes in ein Neues QWebElement
+* und fügt dieses in die @ref items Liste ein.
+*/
+void FormConstructor::appendInputElement ( const QWebElement &ele )
+{
+  QWebElement element ( ele );
+  QStringList restrict;
+  restrict << "type" << "name" << "id" << "value";
+
+  foreach ( QString name, ele.attributeNames() )
   {
-    xml.append ( "\" name=\"" );
-    xml.append ( ele.attribute ( "name", QLatin1String ( "" ) ) );
+    if ( restrict.contains ( name, Qt::CaseInsensitive ) )
+      continue;
+    else if ( element.hasAttribute ( name ) )
+      element.removeAttribute ( name );
   }
 
-  if ( ele.hasAttribute ( "value" ) )
-  {
-    xml.append ( "\" value=\"" );
-    xml.append ( ele.attribute ( "value", QLatin1String ( "" ) ) );
-  }
+  if ( ! element.hasAttribute ( "value" ) )
+    element.setAttribute ( "value", "" );
 
-  xml.append ( "\" />" );
-
-  QWebElement element;
-  element.setInnerXml ( xml );
-  items.append ( element );
+  elements.append ( element );
 }
 
 void FormConstructor::findInputs()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "INPUT" ) ) )
   {
-    InputType t = isInputType ( e );
-    if ( t != NONE )
-      appendInput ( e, t );
+    if ( isValidInputElement ( e ) )
+      appendInputElement ( e );
   }
 }
-
-void FormConstructor::appendTextArea ( const QWebElement & )
-{}
 
 void FormConstructor::findTextAreas()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "TEXTAREA" ) ) )
   {
-    appendTextArea ( e );
+    appendElement ( e );
   }
 }
-
-void FormConstructor::appendSelection ( const QWebElement & )
-{}
 
 void FormConstructor::findSelections()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "SELECT" ) ) )
   {
-    appendSelection ( e );
+    appendElement ( e );
   }
 }
 
 void FormConstructor::rebuild()
 {
-  items.clear();
+  elements.clear();
   findInputs();
   findTextAreas();
   findSelections();
 }
 
-const QList<QWebElement> FormConstructor::content()
-{
-  return items;
-}
-
 FormConstructor::~FormConstructor()
 {
-  items.clear();
+  elements.clear();
 }
