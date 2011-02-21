@@ -24,7 +24,7 @@ echo 'i18nc("NAME OF TRANSLATORS","Juergen Heinemann");' >> ${TEMPFILE}
 
 pushd ${base}
   echo "Preparing build files"
-  find build -name 'moc*.cpp' -name '*_automoc.cpp' -o -name 'ui*.h' -o -name '*.cxx' | sort > ${TEMPFILE}
+  find build -name 'moc*.cpp' -o -name '*_automoc.cpp' -o -name 'ui*.h' -o -name '*.cxx' | sort > ${TEMPFILE}
 
   echo "Preparing src files"
   find src -name '*.cpp' -o -name '*.h' | sort >> ${TEMPFILE}

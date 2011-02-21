@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 09:56+0100\n"
+"Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
+"POT-Creation-Date: 2011-02-21 10:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgstr ""
 msgid "1 Minute"
 msgstr ""
 
-#: src/bookmark/bookmark.cpp:51 src/window.cpp:488
+#: src/bookmark/bookmark.cpp:51 src/window.cpp:486
 msgid "Bookmarks"
 msgstr ""
 
@@ -510,8 +510,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:56 src/window.cpp:530
-#: src/window.cpp:620
+#: src/configuration/configurationmenu.cpp:56 src/window.cpp:528
+#: src/window.cpp:618
 msgid "Extensions"
 msgstr ""
 
@@ -782,7 +782,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:150
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:148
 msgid "Browser"
 msgstr ""
 
@@ -1012,7 +1012,7 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:525
+#: src/cssvalidator/validatormenu.cpp:57
 msgid "Configure"
 msgstr ""
 
@@ -1056,7 +1056,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:376
+#: src/dialogs/openurldialog.cpp:41
 msgid "Open Url"
 msgstr ""
 
@@ -1165,7 +1165,7 @@ msgstr ""
 msgid "DomTree"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:41 src/window.cpp:545
+#: src/dominspector/domtoolbar.cpp:41 src/window.cpp:543
 msgid "Actions"
 msgstr ""
 
@@ -1670,7 +1670,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:156
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:154
 msgid "Source"
 msgstr ""
 
@@ -1972,11 +1972,11 @@ msgstr ""
 msgid "Inspector"
 msgstr ""
 
-#: src/webviewer.cpp:82 src/window.cpp:476
+#: src/webviewer.cpp:82
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:477
+#: src/webviewer.cpp:84 src/window.cpp:475
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -1984,137 +1984,173 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/window.cpp:372
+#: src/window.cpp:125
+msgctxt "@title:window"
+msgid "XHTML Debugger (v%1)"
+msgstr ""
+
+#: src/window.cpp:370
+msgctxt "@action:inmenu"
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:377
+#: src/window.cpp:374
+msgctxt "@action:inmenu"
+msgid "Open Url"
+msgstr ""
+
+#: src/window.cpp:375
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:383
+#: src/window.cpp:381
+msgctxt "@action:inmenu"
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:384
+#: src/window.cpp:382
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:390
+#: src/window.cpp:388
+msgctxt "@action:inmenu"
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:391
+#: src/window.cpp:389
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:398
+#: src/window.cpp:396
+msgctxt "@action:inmenu"
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:401
+#: src/window.cpp:399
+msgctxt "@action:inmenu"
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:402
+#: src/window.cpp:400
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:408
+#: src/window.cpp:406
+msgctxt "@action:inmenu"
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:409
+#: src/window.cpp:407
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:415
+#: src/window.cpp:413
+msgctxt "@action:inmenu"
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:419
+#: src/window.cpp:417
+msgctxt "@action:inmenu"
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:427
+#: src/window.cpp:425
+msgctxt "@action:inmenu"
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:435 src/zoombar.cpp:52
+#: src/window.cpp:433
+msgctxt "@action:inmenu"
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:448
+#: src/window.cpp:446
+msgctxt "@action:inmenu"
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:455
+#: src/window.cpp:453
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:458
+#: src/window.cpp:456
+msgctxt "@action:inmenu"
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:464
+#: src/window.cpp:462
+msgctxt "@action:inmenu"
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:470
+#: src/window.cpp:468
+msgctxt "@action:inmenu"
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:511
+#: src/window.cpp:474
+msgctxt "@action:inmenu"
+msgid "New Page"
+msgstr ""
+
+#: src/window.cpp:509
+msgctxt "@action:inmenu"
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:517
+#: src/window.cpp:515
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:519
+#: src/window.cpp:517
+msgctxt "@action:inmenu"
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:533
+#: src/window.cpp:523
+msgctxt "@action:inmenu"
+msgid "Configure"
+msgstr ""
+
+#: src/window.cpp:531
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:556
+#: src/window.cpp:554
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:592
+#: src/window.cpp:590
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:602
+#: src/window.cpp:600
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:610
+#: src/window.cpp:608
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:879
+#: src/window.cpp:877
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:998
+#: src/window.cpp:996
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1039
+#: src/window.cpp:1037
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1042
+#: src/window.cpp:1040
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1073
+#: src/window.cpp:1071
 msgid "Download Request: %1"
 msgstr ""
 
@@ -2136,4 +2172,8 @@ msgstr ""
 
 #: src/zoombar.cpp:48
 msgid "ZoomOut"
+msgstr ""
+
+#: src/zoombar.cpp:52
+msgid "Original"
 msgstr ""

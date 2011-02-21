@@ -122,9 +122,7 @@ Window::Window ( Settings * settings )
   setObjectName ( "Window" );
   setWindowIcon ( xhtmldbgIcon );
   setAutoSaveSettings ( "xhtmldbg", false );
-
-  QString winTitle = QString ( "XHTML Debugger (v%1)" ).arg ( XHTMLDBG_VERSION_STRING );
-  setWindowTitle ( winTitle );
+  setWindowTitle ( i18nc ( "@title:window", "XHTML Debugger (v%1)", XHTMLDBG_VERSION_STRING ) );
 
   // Quelltext Zwichen Speicher initialisieren
   m_sourceCache = new SourceCache ( this );
@@ -369,25 +367,25 @@ void Window::createMenus()
   m_menuBar = menuBar ();
 
   // Main Menu
-  m_applicationMenu = m_menuBar->addMenu ( i18n ( "&Application" ) );
+  m_applicationMenu = m_menuBar->addMenu ( i18nc ( "@action:inmenu", "&Application" ) );
   m_applicationMenu ->setObjectName ( QLatin1String ( "applicationmenu" ) );
 
   // Action Open URL Dialog
-  actionOpenUrl = m_applicationMenu->addAction ( i18n ( "Open Url" ) );
+  actionOpenUrl = m_applicationMenu->addAction ( i18nc ( "@action:inmenu", "Open Url" ) );
   actionOpenUrl->setStatusTip ( i18n ( "Load Document from Url" ) );
   actionOpenUrl->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_O );
   actionOpenUrl->setIcon ( KIcon ( "document-open-remote" ) );
   connect ( actionOpenUrl, SIGNAL ( triggered() ), this, SLOT ( openUrlDialog() ) );
 
   // Action Open File from Location
-  actionOpenHtml = m_applicationMenu->addAction ( i18n ( "Open Html File" ) );
+  actionOpenHtml = m_applicationMenu->addAction ( i18nc ( "@action:inmenu", "Open Html File" ) );
   actionOpenHtml->setStatusTip ( i18n ( "Open Html from System" ) );
   actionOpenHtml->setShortcut ( Qt::CTRL + Qt::Key_O );
   actionOpenHtml->setIcon ( KIcon ( "document-open" ) );
   connect ( actionOpenHtml, SIGNAL ( triggered() ), this, SLOT ( openFileDialog() ) );
 
   // Action Application Exit
-  actionQuit = m_applicationMenu->addAction ( i18n ( "Quit" ) );
+  actionQuit = m_applicationMenu->addAction ( i18nc ( "@action:inmenu", "Quit" ) );
   actionQuit->setStatusTip ( i18n ( "Close Debugger" ) );
   actionQuit->setShortcut ( Qt::CTRL + Qt::Key_Q );
   actionQuit->setMenuRole ( QAction::QuitRole );
@@ -395,28 +393,28 @@ void Window::createMenus()
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
 
   // Debugger Menu
-  m_debuggerMenu = m_menuBar->addMenu ( i18n ( "&Debugger" ) );
+  m_debuggerMenu = m_menuBar->addMenu ( i18nc ( "@action:inmenu", "&Debugger" ) );
 
   // Action Parse Document Source
-  actionParse = m_debuggerMenu->addAction ( i18n ( "Parse" ) );
+  actionParse = m_debuggerMenu->addAction ( i18nc ( "@action:inmenu", "Parse" ) );
   actionParse->setStatusTip ( i18n ( "Parse current Document Source" ) );
   actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
   actionParse->setIcon ( KIcon ( "document-edit-verify" ) );
   connect ( actionParse, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( check() ) );
 
   // Action Prepare and Format Document Source
-  actionClean = m_debuggerMenu->addAction ( i18n ( "Format" ) );
+  actionClean = m_debuggerMenu->addAction ( i18nc ( "@action:inmenu", "Format" ) );
   actionClean->setStatusTip ( i18n ( "Prepare and Format Document Source" ) );
   actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
   actionClean->setIcon ( KIcon ( "format-list-ordered" ) );
   connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Ansicht Menu
-  m_mainViewMenu = m_menuBar->addMenu ( i18n ( "&View" ) );
+  m_mainViewMenu = m_menuBar->addMenu ( i18nc ( "@action:inmenu", "&View" ) );
   // Verwende Signal Mapper für die Signale an zoomBrowserContent
   QSignalMapper* zoomSignalMapper = new QSignalMapper ( m_mainViewMenu );
   // Zoom +
-  QAction* actionZoomIn = m_mainViewMenu->addAction ( i18n ( "Zoom +" ) );
+  QAction* actionZoomIn = m_mainViewMenu->addAction ( i18nc ( "@action:inmenu", "Zoom +" ) );
   actionZoomIn->setObjectName ( QLatin1String ( "action_view_zoom_in" ) );
   actionZoomIn->setIcon ( KIcon ( "zoom-in" ) );
   actionZoomIn->setShortcut ( QKeySequence::ZoomIn );
@@ -424,7 +422,7 @@ void Window::createMenus()
   zoomSignalMapper->setMapping ( actionZoomIn, 1 );
 
   // Zoom -
-  QAction* actionZoomOut = m_mainViewMenu->addAction ( i18n ( "Zoom -" ) );
+  QAction* actionZoomOut = m_mainViewMenu->addAction ( i18nc ( "@action:inmenu", "Zoom -" ) );
   actionZoomOut->setObjectName ( QLatin1String ( "action_view_zoom_out" ) );
   actionZoomOut->setIcon ( KIcon ( "zoom-out" ) );
   actionZoomOut->setShortcut ( QKeySequence::ZoomOut );
@@ -432,7 +430,7 @@ void Window::createMenus()
   zoomSignalMapper->setMapping ( actionZoomOut, 2 );
 
   // Zoom zurück Original Ansicht
-  QAction* actionZoomOriginal = m_mainViewMenu->addAction ( i18n ( "Original" ) );
+  QAction* actionZoomOriginal = m_mainViewMenu->addAction ( i18nc ( "@action:inmenu", "Original" ) );
   actionZoomOriginal->setObjectName ( QLatin1String ( "action_view_zoom_original" ) );
   actionZoomOriginal->setIcon ( KIcon ( "zoom-original" ) );
   actionZoomOriginal->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_0 );
@@ -445,7 +443,7 @@ void Window::createMenus()
   m_mainViewMenu->addSeparator();
 
   // Fullansciht Modus
-  QAction* actionFullScreen = m_mainViewMenu->addAction ( i18n ( "Fullscreen" ) );
+  QAction* actionFullScreen = m_mainViewMenu->addAction ( i18nc ( "@action:inmenu", "Fullscreen" ) );
   actionFullScreen->setObjectName ( QLatin1String ( "action_view_full_screen" ) );
   actionFullScreen->setIcon ( KIcon ( "view-fullscreen" ) );
   actionFullScreen->setShortcut ( Qt::Key_F11 );
@@ -455,25 +453,25 @@ void Window::createMenus()
   m_viewMenu = m_menuBar->addMenu ( i18n ( "&Browser" ) );
 
   // Action WebView Reload
-  actionPageReload = m_viewMenu->addAction ( i18n ( "Refresh" ) );
+  actionPageReload = m_viewMenu->addAction ( i18nc ( "@action:inmenu", "Refresh" ) );
   actionPageReload->setShortcut ( QKeySequence::Refresh );
   actionPageReload->setIcon ( KIcon ( "view-refresh" ) );
   connect ( actionPageReload, SIGNAL ( triggered () ), m_webViewer, SLOT ( refresh () ) );
 
   // Action WebView Back
-  actionPageBack = m_viewMenu->addAction ( i18n ( "Back" ) );
+  actionPageBack = m_viewMenu->addAction ( i18nc ( "@action:inmenu", "Back" ) );
   actionPageBack->setShortcut ( QKeySequence::Back );
   actionPageBack->setIcon ( KIcon ( "go-previous-view-page" ) );
   connect ( actionPageBack, SIGNAL ( triggered () ), m_webViewer, SLOT ( back () ) );
 
   // Action WebView Forward
-  actionPageForward = m_viewMenu->addAction ( i18n ( "Forward" ) );
+  actionPageForward = m_viewMenu->addAction ( i18nc ( "@action:inmenu", "Forward" ) );
   actionPageForward->setShortcut ( QKeySequence::Forward );
   actionPageForward->setIcon ( KIcon ( "go-next-view-page" ) );
   connect ( actionPageForward, SIGNAL ( triggered () ), m_webViewer, SLOT ( forward () ) );
 
   // New Empty WebView
-  actionNewEmptyPage = m_viewMenu->addAction ( i18n ( "New Page" ) );
+  actionNewEmptyPage = m_viewMenu->addAction ( i18nc ( "@action:inmenu", "New Page" ) );
   actionNewEmptyPage->setStatusTip ( i18n ( "Add a new empty Tab" ) );
   actionNewEmptyPage->setShortcut ( Qt::CTRL + Qt::Key_N );
   actionNewEmptyPage->setIcon ( KIcon ( "window-new" ) );
@@ -508,7 +506,7 @@ void Window::createMenus()
 
   // Bookmark Manager Action
   QIcon bookEditIcon ( KIcon ( "bookmarks-organize" ) );
-  QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, i18n ( "Organize Bookmarks" ) );
+  QAction* editorAction = m_bookmarkerMenu->addAction ( bookEditIcon, i18nc ( "@action:inmenu", "Organize Bookmarks" ) );
   // NOTICE Qt::CTRL + Qt::Key_B ist von WebView Reserviert!
   editorAction->setShortcut ( Qt::CTRL + Qt::SHIFT + Qt::Key_B );
   connect ( editorAction, SIGNAL ( triggered() ), m_bookmarkMenu, SLOT ( openBookmarkEditor() ) );
@@ -516,13 +514,13 @@ void Window::createMenus()
   // Configuration Menu
   m_configurationMenu = m_menuBar->addMenu ( i18n ( "S&ettings" ) );
   // Action Open qtidyrc
-  actionTidyConfig = m_configurationMenu->addAction ( i18n ( "Configure Tidyrc" ) );
+  actionTidyConfig = m_configurationMenu->addAction ( i18nc ( "@action:inmenu", "Configure Tidyrc" ) );
   actionTidyConfig->setIcon ( KIcon ( "configure-toolbars" ) );
   connect ( actionTidyConfig, SIGNAL ( triggered() ),
             this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
-  actionConfigDialog = m_configurationMenu->addAction ( i18n ( "Configure" ) );
+  actionConfigDialog = m_configurationMenu->addAction ( i18nc ( "@action:inmenu", "Configure" ) );
   actionConfigDialog->setIcon ( KIcon ( "configure" ) );
   connect ( actionConfigDialog, SIGNAL ( triggered() ), this, SLOT ( openConfigDialog() ) );
 
