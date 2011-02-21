@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 11:50+0100\n"
+"POT-Creation-Date: 2011-02-21 12:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1982,10 +1982,6 @@ msgstr ""
 
 #: src/webviewer.cpp:282
 msgid "file"
-msgstr ""
-
-#: src/window.cpp:125
-msgid "XHTML Debugger (v%1)"
 msgstr ""
 
 #: src/window.cpp:370

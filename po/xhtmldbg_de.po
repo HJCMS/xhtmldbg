@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 11:50+0100\n"
+"POT-Creation-Date: 2011-02-21 12:08+0100\n"
 "PO-Revision-Date: 2011-02-21 09:22+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -2131,10 +2131,6 @@ msgstr "Eine Neue leere Seite erstellen"
 #: src/webviewer.cpp:282
 msgid "file"
 msgstr "Datei"
-
-#: src/window.cpp:125
-msgid "XHTML Debugger (v%1)"
-msgstr ""
 
 #: src/window.cpp:370
 #, fuzzy

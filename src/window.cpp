@@ -122,7 +122,7 @@ Window::Window ( Settings * settings )
   setObjectName ( "Window" );
   setWindowIcon ( xhtmldbgIcon );
   setAutoSaveSettings ( "xhtmldbg", false );
-  setWindowTitle ( i18n ( "XHTML Debugger (v%1)", XHTMLDBG_VERSION_STRING ) );
+  setWindowTitle ( i18nc ( "XHTML Debugger (v%1)", XHTMLDBG_VERSION_STRING ) );
 
   // Quelltext Zwichen Speicher initialisieren
   m_sourceCache = new SourceCache ( this );
