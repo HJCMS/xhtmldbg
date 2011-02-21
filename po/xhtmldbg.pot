@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 12:08+0100\n"
+"POT-Creation-Date: 2011-02-21 12:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:126
-msgid "Configure CSS Validation"
-msgstr ""
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:127
-msgid "The CSS profile used for the validation."
-msgstr ""
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:128
-msgid "The language used for the response."
-msgstr ""
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:129
-msgid "The warning level."
-msgstr ""
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:130
-msgid "The medium used for the validation."
-msgstr ""
 
 #: src/about/aboutdata.cpp:44
 msgid "developer"

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 12:08+0100\n"
-"PO-Revision-Date: 2011-02-21 09:22+0100\n"
+"POT-Creation-Date: 2011-02-21 12:31+0100\n"
+"PO-Revision-Date: 2011-02-21 12:29+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -14,26 +14,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:126
-msgid "Configure CSS Validation"
-msgstr "Konfiguriere die CSS Überprüfung"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:127
-msgid "The CSS profile used for the validation."
-msgstr "Das zu verwendende CSS Profil"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:128
-msgid "The language used for the response."
-msgstr "Landessprache für die Ausgabe"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:129
-msgid "The warning level."
-msgstr "Warnstufe"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:130
-msgid "The medium used for the validation."
-msgstr "Name des Mediums für die Validierung"
 
 #: src/about/aboutdata.cpp:44
 msgid "developer"
@@ -103,7 +83,6 @@ msgstr "Adresse:"
 #: src/components/xqpluginwidgets/xpasswordwidget.cpp:91
 #: src/cssvalidator/validatormenu.cpp:61 src/docking/docktreewidget.cpp:98
 #: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61 src/tidymessanger.cpp:100
-#, fuzzy
 msgid "Clear"
 msgstr "Leeren"
 
@@ -122,7 +101,6 @@ msgstr "Aufsteigend"
 
 #: src/appevents.cpp:79 src/cssvalidator/validatormenu.cpp:53
 #: src/jsmessanger.cpp:80 src/tidymessanger.cpp:96
-#, fuzzy
 msgid "Descending"
 msgstr "Absteigend"
 
@@ -131,7 +109,6 @@ msgid "Auto Refresh"
 msgstr "Auto Aktualisierung"
 
 #: src/autoreloadmenu.cpp:45 src/cookiesdatabase/cookiesboolcombobox.cpp:40
-#, fuzzy
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -160,7 +137,6 @@ msgid "1 Minute"
 msgstr "1 Minute"
 
 #: src/bookmark/bookmark.cpp:51 src/window.cpp:486
-#, fuzzy
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -215,9 +191,8 @@ msgstr ""
 "Bitte wähle einen Ordner aus."
 
 #: src/bookmark/bookmarkeditor.cpp:240 src/configuration/configuration.cpp:174
-#, fuzzy
 msgid "Unsaved Changes"
-msgstr "Ungespeicherte Änderungen"
+msgstr "Offene Änderungen"
 
 #: src/bookmark/bookmarkeditor.cpp:241
 msgid ""
@@ -230,7 +205,6 @@ msgstr ""
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:210
 #: src/downloadmanager/downloadstablemodel.cpp:267 src/webviewer.cpp:287
-#, fuzzy
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -329,7 +303,6 @@ msgstr "Gemeinsamer Name (CN)"
 
 #: src/configuration/certissuers/certissuertable.cpp:46
 #: src/networker/certdialog.cpp:206
-#, fuzzy
 msgid "Expires"
 msgstr "Erlischt"
 
@@ -338,7 +311,6 @@ msgid "Client Authentication and Access Control"
 msgstr "Klient Authentifizierung und Zugangs Kontrolle"
 
 #: src/configuration/configaccesscontrol.cpp:68
-#, fuzzy
 msgid ""
 "This Certificate is used by the remote end to verify the local user's "
 "identity against its list of Certification Authorities. For more Information "
@@ -505,7 +477,6 @@ msgstr "Suche nach einem existierenden Keks"
 #: src/configuration/iconthemeselecter/iconthemeslist.cpp:79
 #: src/configuration/useragenteditor/useragentstable.cpp:75
 #: src/downloadmanager/downloadstable.cpp:98
-#, fuzzy
 msgid "Remove"
 msgstr "Entfernen"
 
@@ -539,7 +510,6 @@ msgstr "Immer erlauben"
 
 #: src/configuration/configcookies.cpp:119
 #: src/configuration/useragenteditor/useragentstable.cpp:72
-#, fuzzy
 msgid "Add"
 msgstr "Einfügen"
 
@@ -558,7 +528,6 @@ msgstr "Aktiviere die Rahmen Hervorhebung"
 #: src/configuration/configextras.cpp:41
 #: src/configuration/configurationmenu.cpp:56 src/window.cpp:528
 #: src/window.cpp:618
-#, fuzzy
 msgid "Extensions"
 msgstr "Erweiterungen"
 
@@ -588,19 +557,16 @@ msgstr ""
 
 #: src/configuration/configheaderdefinitions.cpp:57
 #: src/docking/headerdock.cpp:60
-#, fuzzy
 msgid "Parameter"
 msgstr "Parameter"
 
 #: src/configuration/configheaderdefinitions.cpp:58
 #: src/networker/certdialog.cpp:68 src/npploader/nppattributes.cpp:55
-#, fuzzy
 msgid "Values"
 msgstr "Werte"
 
 #: src/configuration/configide.cpp:44
 #: src/configuration/configurationmenu.cpp:47
-#, fuzzy
 msgid "Defaults"
 msgstr "Standards"
 
@@ -674,7 +640,6 @@ msgid "Java-Archive %1"
 msgstr "Java-Archiv %1"
 
 #: src/configuration/configide.cpp:281
-#, fuzzy
 msgid "All %1"
 msgstr "Alles %1"
 
@@ -887,7 +852,7 @@ msgid "Certification"
 msgstr "Zertifizierung"
 
 #: src/configuration/configurationmenu.cpp:55 src/useragentmenu.cpp:36
-#, fuzzy
+
 msgid "User Agent"
 msgstr "Benutzer Kennung"
 
@@ -898,7 +863,7 @@ msgstr "%1 Konfigurations Optionen."
 #: src/configuration/configuseragents.cpp:32
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:66
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:204
-#, fuzzy
+
 msgid "User-Agent"
 msgstr "Benutzer Kennung"
 
@@ -952,7 +917,6 @@ msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:201
 #: src/viewer.cpp:251
-#, fuzzy
 msgid "Bookmark"
 msgstr "Lesezeichen"
 
@@ -1107,7 +1071,6 @@ msgid "Dropout current request"
 msgstr "Aktuelle Anfrage abbrechen"
 
 #: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:523
-#, fuzzy
 msgid "Configure"
 msgstr "Konfigurieren"
 
@@ -1152,7 +1115,6 @@ msgid "Open HTML File"
 msgstr "Öffne HTML Datei"
 
 #: src/dialogs/openurldialog.cpp:41 src/window.cpp:374
-#, fuzzy
 msgid "Open Url"
 msgstr "Öffne Url"
 
@@ -1198,7 +1160,6 @@ msgstr "Datenkopf"
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
 #: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
 #: src/rdfparser/rsstreeview.cpp:50
-#, fuzzy
 msgid "Value"
 msgstr "Wert"
 
@@ -1263,7 +1224,6 @@ msgid "DomTree"
 msgstr "Dom Baum"
 
 #: src/dominspector/domtoolbar.cpp:41 src/window.cpp:543
-#, fuzzy
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1352,12 +1312,12 @@ msgid "Destination"
 msgstr "Ziel"
 
 #: src/formmanager/formdblist.cpp:38
-#, fuzzy
+
 msgid "Formular Database"
 msgstr "Datenbank"
 
 #: src/formmanager/formmanager.cpp:58
-#, fuzzy
+
 msgid "Forms"
 msgstr "Formatiere"
 
@@ -1811,7 +1771,6 @@ msgstr "Datentype"
 
 #: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
 #: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:154
-#, fuzzy
 msgid "Source"
 msgstr "Quelle"
 
@@ -1833,7 +1792,7 @@ msgstr "(x-qt-plugin) ClassID: %1 %2"
 
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:65
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:72
-#, fuzzy
+
 msgid "RFC Document Browser"
 msgstr "RFC Dokumenten Browser"
 
@@ -1997,7 +1956,7 @@ msgid "Editor"
 msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:87
-#, fuzzy
+
 msgid "Configuration"
 msgstr "Konfigurieren"
 
@@ -2119,12 +2078,10 @@ msgid "Inspector"
 msgstr "Kontrolleur"
 
 #: src/webviewer.cpp:82 src/window.cpp:474
-#, fuzzy
 msgid "New Page"
 msgstr "Neue Seite"
 
 #: src/webviewer.cpp:84 src/window.cpp:475
-#, fuzzy
 msgid "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
@@ -2133,7 +2090,6 @@ msgid "file"
 msgstr "Datei"
 
 #: src/window.cpp:370
-#, fuzzy
 msgid "&Application"
 msgstr "&Anwendung"
 
@@ -2142,7 +2098,6 @@ msgid "Load Document from Url"
 msgstr "Lade Dokument von Url"
 
 #: src/window.cpp:381
-#, fuzzy
 msgid "Open Html File"
 msgstr "Öffne HTML Datei"
 
@@ -2151,7 +2106,6 @@ msgid "Open Html from System"
 msgstr "Öffne HTML Datei vom System"
 
 #: src/window.cpp:388
-#, fuzzy
 msgid "Quit"
 msgstr "Beenden"
 
@@ -2160,12 +2114,10 @@ msgid "Close Debugger"
 msgstr "Schliesse den Debugger"
 
 #: src/window.cpp:396
-#, fuzzy
 msgid "&Debugger"
 msgstr "&Debugger"
 
 #: src/window.cpp:399
-#, fuzzy
 msgid "Parse"
 msgstr "Analysieren"
 
@@ -2174,7 +2126,6 @@ msgid "Parse current Document Source"
 msgstr "Analysiere den Dokumenten Quelltext"
 
 #: src/window.cpp:406
-#, fuzzy
 msgid "Format"
 msgstr "Formatiere"
 
@@ -2183,17 +2134,14 @@ msgid "Prepare and Format Document Source"
 msgstr "Formatiere den Dokumenten Quelltext"
 
 #: src/window.cpp:413
-#, fuzzy
 msgid "&View"
 msgstr "A&nsicht"
 
 #: src/window.cpp:417
-#, fuzzy
 msgid "Zoom +"
 msgstr "Zoomen"
 
 #: src/window.cpp:425
-#, fuzzy
 msgid "Zoom -"
 msgstr "Zoomen"
 
@@ -2202,7 +2150,6 @@ msgid "Original"
 msgstr "Original"
 
 #: src/window.cpp:446
-#, fuzzy
 msgid "Fullscreen"
 msgstr "Vollansicht"
 
@@ -2211,22 +2158,18 @@ msgid "&Browser"
 msgstr "&Browser"
 
 #: src/window.cpp:456
-#, fuzzy
 msgid "Refresh"
 msgstr "Auffrischen"
 
 #: src/window.cpp:462
-#, fuzzy
 msgid "Back"
 msgstr "Zurück"
 
 #: src/window.cpp:468
-#, fuzzy
 msgid "Forward"
 msgstr "Vorwärts"
 
 #: src/window.cpp:509
-#, fuzzy
 msgid "Organize Bookmarks"
 msgstr "Lesezeichen Organisieren"
 
@@ -2235,7 +2178,6 @@ msgid "S&ettings"
 msgstr "&Einstellungen"
 
 #: src/window.cpp:517
-#, fuzzy
 msgid "Configure Tidyrc"
 msgstr "Konfiguriere die titdyrc"
 
@@ -2303,22 +2245,17 @@ msgstr "Vergrößern"
 msgid "ZoomOut"
 msgstr "Verkleinern"
 
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "Open Url"
-#~ msgstr "Öffne Url"
+#~ msgid "Configure CSS Validation"
+#~ msgstr "Konfiguriere die CSS Überprüfung"
 
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "Original"
-#~ msgstr "Original"
+#~ msgid "The CSS profile used for the validation."
+#~ msgstr "Das zu verwendende CSS Profil"
 
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "New Page"
-#~ msgstr "Neue Seite"
+#~ msgid "The language used for the response."
+#~ msgstr "Landessprache für die Ausgabe"
 
-#, fuzzy
-#~ msgctxt "@action:inmenu"
-#~ msgid "Configure"
-#~ msgstr "Konfigurieren"
+#~ msgid "The warning level."
+#~ msgstr "Warnstufe"
+
+#~ msgid "The medium used for the validation."
+#~ msgstr "Name des Mediums für die Validierung"
