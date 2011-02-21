@@ -21,6 +21,7 @@
 
 #include "formmanager.h"
 #include "formconstructor.h"
+#include "formdblist.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -60,11 +61,16 @@ FormManager::FormManager ( QWidget * parent )
   setContentsMargins ( 1, 1, 1, 1 );
 
   m_splitter = new QSplitter ( Qt::Vertical, this );
+  m_splitter->setObjectName ( QLatin1String ( "FormManager/Splitter" ) );
 
-  m_pageWidget = new KPageWidget ( this );
+  m_pageWidget = new KPageWidget ( m_splitter );
+  m_pageWidget->setObjectName ( QLatin1String ( "FormManager/Splitter/KPageWidget" ) );
   m_splitter->insertWidget ( 0, m_pageWidget );
 
   m_pageWidget->addPage ( new QTreeWidget ( this ), i18n ( "Forms TEST Widget" ) );
+
+  m_formDBList = new FormDBList ( m_splitter );
+  m_splitter->insertWidget ( 1, m_formDBList );
 
   setWidget ( m_splitter );
   forms.clear();
@@ -75,6 +81,9 @@ FormManager::FormManager ( QWidget * parent )
 */
 void FormManager::setPageContent ( const QUrl &url, const QWebElement &element )
 {
+  if ( ! toggleViewAction()->isChecked() || ! isVisible() )
+    return;
+
   QWebElementCollection collection = element.findAll ( "FORM" );
   if ( collection.count() > 0 )
   {

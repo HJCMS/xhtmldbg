@@ -29,10 +29,13 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
+/**
+* This Class read all given QWebElement::FORM Elements
+* and remove not needet predicates from it
+*/
 class FormConstructor : public QWebElement
 {
   private:
-    // Inputs
     bool isValidInputElement ( const QWebElement & );
     void appendElement ( const QWebElement & );
     void appendInputElement ( const QWebElement & );
@@ -41,9 +44,15 @@ class FormConstructor : public QWebElement
     void findSelections();
 
   public:
+    /** Create a new QWebElement with given FORM Element */
     FormConstructor ( const QWebElement &form );
-    void rebuild();
+
+    /** List with stripped WebElements */
     QList<QWebElement> elements;
+
+    /** rewrite the \ref elements list */
+    void rebuild();
+
     virtual ~FormConstructor();
 };
 

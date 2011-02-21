@@ -169,7 +169,7 @@ Window::Window ( Settings * settings )
   // Browser Fensterbreite Manipulieren
   ResizePortButtons* m_resizePortButtons = new ResizePortButtons ( tabCornerBottomWidget );
   // TODO Resize arbeitet im Moment nicht korrekt, deshalb nur bei mir aktiv :-/
-  m_resizePortButtons->setEnabled ( false );
+  m_resizePortButtons->setEnabled ( true );
   tabCornerBottomWidgetLayout->addWidget ( m_resizePortButtons );
 #endif
 

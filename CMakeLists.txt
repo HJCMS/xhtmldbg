@@ -105,6 +105,10 @@ ENDIF (QT_QTUITOOLS_FOUND)
 
 REMOVE_DEFINITIONS (-DQT3_SUPPORT_WARNINGS -DQT3_SUPPORT)
 
+IF (XHTMLDBG_EXPERIMENTAL)
+  ADD_DEFINITIONS (-D_XHTMLDBG_EXPERIMENTAL)
+ENDIF (XHTMLDBG_EXPERIMENTAL)
+
 ##############################################################
 ## SET Working output Directory
 ##############################################################

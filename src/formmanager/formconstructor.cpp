@@ -29,6 +29,10 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElementCollection>
 
+/**
+* Diese Klasse liest ein Formular in ein neues QWebElement
+* und entfernt dabei alle nicht benötigten Prädikate.
+*/
 FormConstructor::FormConstructor ( const QWebElement &form )
     : QWebElement ( form )
 {
@@ -36,6 +40,9 @@ FormConstructor::FormConstructor ( const QWebElement &form )
     rebuild();
 }
 
+/**
+* Überprüft ob das HTML Element mit in die erlaubte Liste aufgenommen werden kann.
+*/
 bool FormConstructor::isValidInputElement ( const QWebElement &e )
 {
   if ( ! e.hasAttribute ( "type" ) )
@@ -59,11 +66,15 @@ bool FormConstructor::isValidInputElement ( const QWebElement &e )
     return false;
 }
 
+/**
+* Ein neues WebElement anhängen
+* Es werden nur die Prädikate "type,name,id" übernommen!
+*/
 void FormConstructor::appendElement ( const QWebElement &ele )
 {
   QWebElement element ( ele );
   QStringList restrict;
-  restrict << "name" << "id";
+  restrict << "type" << "name" << "id";
 
   foreach ( QString name, ele.attributeNames() )
   {
@@ -79,6 +90,8 @@ void FormConstructor::appendElement ( const QWebElement &ele )
 /**
 * Liest alle verwendbaren Attributes in ein Neues QWebElement
 * und fügt dieses in die @ref items Liste ein.
+* Es werden die Prädikate "type,name,id" übernommen, wenn "value"
+* fehlt wird ein leeres Prädikat value eingefügt!
 */
 void FormConstructor::appendInputElement ( const QWebElement &ele )
 {
@@ -100,6 +113,9 @@ void FormConstructor::appendInputElement ( const QWebElement &ele )
   elements.append ( element );
 }
 
+/**
+* Sucht alle "INPUT" Elemente
+*/
 void FormConstructor::findInputs()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "INPUT" ) ) )
@@ -109,6 +125,9 @@ void FormConstructor::findInputs()
   }
 }
 
+/**
+* Sucht alle "TEXTAREA" Elemente
+*/
 void FormConstructor::findTextAreas()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "TEXTAREA" ) ) )
@@ -117,6 +136,10 @@ void FormConstructor::findTextAreas()
   }
 }
 
+/**
+* Sucht alle "SELECT" Elemente ohne die "OPTION" Element zu
+* berücksichtigen!
+*/
 void FormConstructor::findSelections()
 {
   foreach ( QWebElement e, findAll ( QLatin1String ( "SELECT" ) ) )
@@ -125,6 +148,9 @@ void FormConstructor::findSelections()
   }
 }
 
+/**
+* Leert @ref elements und liest das übergebene Form neu ein.
+*/
 void FormConstructor::rebuild()
 {
   elements.clear();

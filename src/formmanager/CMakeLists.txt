@@ -4,11 +4,13 @@ SET (subproject "FormManager")
 
 SET (target_project_SOURCES
   formmanager.cpp
+  formdblist.cpp
   formconstructor.cpp
 )
 
 SET (target_project_HEADERS
   formmanager.h
+  formdblist.h
 )
 
 SET (target_project_NOMOC_HEADERS

@@ -68,10 +68,6 @@ IF (XULRUNNER_FOUND)
   ADD_DEFINITIONS (-DHAVE_NPPLOADER)
 ENDIF (XULRUNNER_FOUND)
 
-IF (XHTMLDBG_EXPERIMENTAL)
-  ADD_DEFINITIONS ("-D_XHTMLDBG_EXPERIMENTAL")
-ENDIF (XHTMLDBG_EXPERIMENTAL)
-
 ##############################
 ## Extensions and Plugins
 ##############################
@@ -138,7 +134,6 @@ SET (xhtmldbg_HEADERS
   geolocation.h
   javascriptpopup.h
   webinspector.h
-  resizeportbuttons.h
 )
 
 ##############################
@@ -164,6 +159,18 @@ IF (QT_QTUITOOLS_FOUND)
     uitoolsloader.h
   )
 ENDIF (QT_QTUITOOLS_FOUND)
+
+##############################
+## Experimental Code
+##############################
+IF (XHTMLDBG_EXPERIMENTAL)
+  SET (xhtmldbg_SOURCES ${xhtmldbg_SOURCES}
+    resizeportbuttons.cpp
+  )
+  SET (xhtmldbg_HEADERS ${xhtmldbg_HEADERS}
+    resizeportbuttons.h
+  )
+ENDIF (XHTMLDBG_EXPERIMENTAL)
 
 ##############################
 ## generated MOC Files

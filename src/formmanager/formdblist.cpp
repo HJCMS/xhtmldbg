@@ -19,51 +19,32 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef FORMMANAGER_H
-#define FORMMANAGER_H
+#include "formdblist.h"
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QDebug>
+#include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QSplitter>
-#include <QtGui/QWidget>
-
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebElementCollection>
+#include <QtGui/QListWidget>
 
 /* KDE */
-#include <KDE/KPageWidget>
+#include <KDE/KLocale>
 
-class FormConstructor;
-class FormDBList;
-
-class FormManager : public QDockWidget
+FormDBList::FormDBList ( QWidget * parent )
+    : KListWidget ( parent )
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+  setObjectName ( QLatin1String ( "formdatabaselist" ) );
+  addItem ( i18n ( "Formular Database" ) );
 
-  private:
-    QSplitter* m_splitter;
-    KPageWidget* m_pageWidget;
-    FormDBList* m_formDBList;
-    QList<FormConstructor> forms;
+  connect ( this, SIGNAL ( itemDoubleClicked ( QListWidgetItem * ) ),
+            this, SLOT ( openItem ( QListWidgetItem * ) ) );
+}
 
-  Q_SIGNALS:
-    void status ( bool );
+void FormDBList::openItem ( QListWidgetItem * )
+{
+  qDebug() << Q_FUNC_INFO << "TODO";
+}
 
-  public Q_SLOTS:
-    void setPageContent ( const QUrl &, const QWebElement & );
-
-  public:
-    FormManager ( QWidget * parent = 0 );
-    virtual ~FormManager();
-};
-
-#endif
+FormDBList::~FormDBList()
+{}
