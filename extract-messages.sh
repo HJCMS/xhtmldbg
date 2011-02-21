@@ -20,7 +20,7 @@ XGETTEXT_FLAGS_QT="-ktr:1,1t -ktr:1,2c,2t -ktrUtf8:1,1t -kQT_TRANSLATE_NOOP:1c,2
 
 > ${TEMPFILE}
 
-echo 'i18nc("NAME OF TRANSLATORS","Your names");' >> ${TEMPFILE}
+echo 'i18nc("NAME OF TRANSLATORS","Juergen Heinemann");' >> ${TEMPFILE}
 
 pushd ${base}
   echo "Preparing build files"
