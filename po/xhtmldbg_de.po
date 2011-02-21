@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 10:29+0100\n"
+"POT-Creation-Date: 2011-02-21 11:50+0100\n"
 "PO-Revision-Date: 2011-02-21 09:22+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1106,7 +1106,7 @@ msgstr "Abbrechen"
 msgid "Dropout current request"
 msgstr "Aktuelle Anfrage abbrechen"
 
-#: src/cssvalidator/validatormenu.cpp:57
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:523
 #, fuzzy
 msgid "Configure"
 msgstr "Konfigurieren"
@@ -1151,7 +1151,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr "Öffne HTML Datei"
 
-#: src/dialogs/openurldialog.cpp:41
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:374
 #, fuzzy
 msgid "Open Url"
 msgstr "Öffne Url"
@@ -2118,7 +2118,7 @@ msgstr "Bildschirmfoto gespeichert unter %1"
 msgid "Inspector"
 msgstr "Kontrolleur"
 
-#: src/webviewer.cpp:82
+#: src/webviewer.cpp:82 src/window.cpp:474
 #, fuzzy
 msgid "New Page"
 msgstr "Neue Seite"
@@ -2133,21 +2133,13 @@ msgid "file"
 msgstr "Datei"
 
 #: src/window.cpp:125
-msgctxt "@title:window"
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
 #: src/window.cpp:370
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "&Application"
 msgstr "&Anwendung"
-
-#: src/window.cpp:374
-#, fuzzy
-msgctxt "@action:inmenu"
-msgid "Open Url"
-msgstr "Öffne Url"
 
 #: src/window.cpp:375
 msgid "Load Document from Url"
@@ -2155,7 +2147,6 @@ msgstr "Lade Dokument von Url"
 
 #: src/window.cpp:381
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Open Html File"
 msgstr "Öffne HTML Datei"
 
@@ -2165,7 +2156,6 @@ msgstr "Öffne HTML Datei vom System"
 
 #: src/window.cpp:388
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Quit"
 msgstr "Beenden"
 
@@ -2175,13 +2165,11 @@ msgstr "Schliesse den Debugger"
 
 #: src/window.cpp:396
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "&Debugger"
 msgstr "&Debugger"
 
 #: src/window.cpp:399
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Parse"
 msgstr "Analysieren"
 
@@ -2191,7 +2179,6 @@ msgstr "Analysiere den Dokumenten Quelltext"
 
 #: src/window.cpp:406
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Format"
 msgstr "Formatiere"
 
@@ -2201,31 +2188,25 @@ msgstr "Formatiere den Dokumenten Quelltext"
 
 #: src/window.cpp:413
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "&View"
 msgstr "A&nsicht"
 
 #: src/window.cpp:417
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Zoom +"
 msgstr "Zoomen"
 
 #: src/window.cpp:425
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Zoom -"
 msgstr "Zoomen"
 
-#: src/window.cpp:433
-#, fuzzy
-msgctxt "@action:inmenu"
+#: src/window.cpp:433 src/zoombar.cpp:52
 msgid "Original"
 msgstr "Original"
 
 #: src/window.cpp:446
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Fullscreen"
 msgstr "Vollansicht"
 
@@ -2235,31 +2216,21 @@ msgstr "&Browser"
 
 #: src/window.cpp:456
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Refresh"
 msgstr "Auffrischen"
 
 #: src/window.cpp:462
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Back"
 msgstr "Zurück"
 
 #: src/window.cpp:468
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Forward"
 msgstr "Vorwärts"
 
-#: src/window.cpp:474
-#, fuzzy
-msgctxt "@action:inmenu"
-msgid "New Page"
-msgstr "Neue Seite"
-
 #: src/window.cpp:509
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Organize Bookmarks"
 msgstr "Lesezeichen Organisieren"
 
@@ -2269,15 +2240,8 @@ msgstr "&Einstellungen"
 
 #: src/window.cpp:517
 #, fuzzy
-msgctxt "@action:inmenu"
 msgid "Configure Tidyrc"
 msgstr "Konfiguriere die titdyrc"
-
-#: src/window.cpp:523
-#, fuzzy
-msgctxt "@action:inmenu"
-msgid "Configure"
-msgstr "Konfigurieren"
 
 #: src/window.cpp:531
 msgid "Display"
@@ -2343,6 +2307,22 @@ msgstr "Vergrößern"
 msgid "ZoomOut"
 msgstr "Verkleinern"
 
-#: src/zoombar.cpp:52
-msgid "Original"
-msgstr "Original"
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Open Url"
+#~ msgstr "Öffne Url"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Original"
+#~ msgstr "Original"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "New Page"
+#~ msgstr "Neue Seite"
+
+#, fuzzy
+#~ msgctxt "@action:inmenu"
+#~ msgid "Configure"
+#~ msgstr "Konfigurieren"
