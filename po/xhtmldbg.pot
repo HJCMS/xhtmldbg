@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-02-21 12:31+0100\n"
+"POT-Creation-Date: 2011-03-09 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:126
+msgid "Configure CSS Validation"
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:127
+msgid "The CSS profile used for the validation."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:128
+msgid "The language used for the response."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:129
+msgid "The warning level."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:130
+msgid "The medium used for the validation."
+msgstr ""
 
 #: src/about/aboutdata.cpp:44
 msgid "developer"
@@ -456,7 +476,8 @@ msgstr ""
 msgid "Create a new Cookie provision"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:98 src/docking/headerdock.cpp:151
+#: src/configuration/configcookies.cpp:98
+#: src/configuration/configwebsecurity.cpp:127 src/docking/headerdock.cpp:151
 msgid "Hostname"
 msgstr ""
 
@@ -490,7 +511,7 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:56 src/window.cpp:528
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:528
 #: src/window.cpp:618
 msgid "Extensions"
 msgstr ""
@@ -782,7 +803,12 @@ msgstr ""
 msgid "User Agent"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:72
+#: src/configuration/configurationmenu.cpp:56
+#: src/configuration/configwebsecurity.cpp:100
+msgid "HTML 5 Database"
+msgstr ""
+
+#: src/configuration/configurationmenu.cpp:73
 msgid "%1 Configuration options."
 msgstr ""
 
@@ -790,6 +816,78 @@ msgstr ""
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:66
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:204
 msgid "User-Agent"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:57
+msgid "Remove Entry"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:62
+msgid "Host"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:62
+#: src/configuration/configwebsecurity.cpp:144
+msgid "Port"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:62
+#: src/configuration/configwebsecurity.cpp:132
+msgid "Scheme"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:111
+msgid ""
+"The upcoming HTML 5 standard includes support for SQL databases that web "
+"sites can create and access on a local computer through JavaScript."
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:112
+msgid ""
+"Only Web sites with the same security options can access each other's "
+"resources for client-side scripting or databases."
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:113
+msgid ""
+"You need to add a hostname, scheme and port to allow access to your local "
+"computer."
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:124
+msgid "Edit"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:130
+msgid "e.g. domain.tld"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:135
+msgid "World Wide Web HTTP"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:136
+msgid "World Wide Web over TLS/SSL HTTPS"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:139
+msgid "Local File Protocol FILE"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:141
+msgid "e.g. http://, https:// or file://"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:150
+msgid "Aberrantly Port Address from Scheme"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:153
+msgid "Reset"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:156
+msgid "Submit"
 msgstr ""
 
 #: src/configuration/directorychooser/directorydialog.cpp:45
@@ -1637,19 +1735,19 @@ msgstr ""
 msgid "Plugin initialization aborted."
 msgstr ""
 
-#: src/npploader/npploader.cpp:56
+#: src/npploader/npploader.cpp:59
 msgid "Missing Mime-Type Declaration!"
 msgstr ""
 
-#: src/npploader/npploader.cpp:58
+#: src/npploader/npploader.cpp:61
 msgid "Invalid URL for this Plugin Request!"
 msgstr ""
 
-#: src/npploader/npploader.cpp:64
+#: src/npploader/npploader.cpp:67
 msgid "MimeType"
 msgstr ""
 
-#: src/npploader/npploader.cpp:65 src/rdfparser/rssparserdialog.cpp:84
+#: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
 #: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:154
 msgid "Source"
 msgstr ""
