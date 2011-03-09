@@ -53,3 +53,12 @@ ModifyCachingBehavior=false
 
 [Phonon::AudioOutput]
 xhtmldbg_Volume=0.69
+
+[HTML5SecurityOptions]
+size=1
+1\host=xhtmldbg.hjcms.de
+1\port=80
+1\scheme=http
+
+[WebDatabase]
+DefaultQuota=2048

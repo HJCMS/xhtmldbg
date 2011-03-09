@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-09 12:27+0100\n"
+"POT-Creation-Date: 2011-03-09 15:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -890,6 +890,10 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: src/configuration/configwebsecurity.cpp:163
+msgid "Sets the quota for the databases in the security origin to quota bytes."
+msgstr ""
+
 #: src/configuration/directorychooser/directorydialog.cpp:45
 msgid "Directory"
 msgstr ""
@@ -939,7 +943,7 @@ msgid ""
 msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:201
-#: src/viewer.cpp:251
+#: src/viewer.cpp:254
 msgid "Bookmark"
 msgstr ""
 
@@ -1748,23 +1752,23 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:266 src/window.cpp:154
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:269 src/window.cpp:154
 msgid "Source"
 msgstr ""
 
-#: src/page.cpp:111
+#: src/page.cpp:119
 msgid " Line: %1"
 msgstr ""
 
-#: src/page.cpp:114
+#: src/page.cpp:122
 msgid " Document: %1"
 msgstr ""
 
-#: src/page.cpp:136
+#: src/page.cpp:160
 msgid "JavaScript Prompt: "
 msgstr ""
 
-#: src/page.cpp:334
+#: src/page.cpp:358
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -1986,63 +1990,63 @@ msgstr ""
 msgid "(XHTMLDBG) Invalid value for property: %1"
 msgstr ""
 
-#: src/viewer.cpp:258
+#: src/viewer.cpp:261
 msgid "StyleSheet"
 msgstr ""
 
-#: src/viewer.cpp:261
+#: src/viewer.cpp:264
 msgid "Start CSS Validation for this Site."
 msgstr ""
 
-#: src/viewer.cpp:269
+#: src/viewer.cpp:272
 msgid "Show Document Source"
 msgstr ""
 
-#: src/viewer.cpp:274
+#: src/viewer.cpp:277
 msgid "Screenshot"
 msgstr ""
 
-#: src/viewer.cpp:277
+#: src/viewer.cpp:280
 msgid "Screenshot from current Page."
 msgstr ""
 
-#: src/viewer.cpp:281 src/viewer.cpp:499
+#: src/viewer.cpp:284 src/viewer.cpp:502
 msgid "Plugins"
 msgstr ""
 
-#: src/viewer.cpp:284
+#: src/viewer.cpp:287
 msgid "Display initialed Browser-Plugins."
 msgstr ""
 
-#: src/viewer.cpp:378
+#: src/viewer.cpp:381
 msgid "SEO Result for \"%1\" Url: "
 msgstr ""
 
-#: src/viewer.cpp:386
+#: src/viewer.cpp:389
 msgid "Word boundary: "
 msgstr ""
 
-#: src/viewer.cpp:391
+#: src/viewer.cpp:394
 msgid "Case Sensitive: "
 msgstr ""
 
-#: src/viewer.cpp:401
+#: src/viewer.cpp:404
 msgid "Meta Keywords: "
 msgstr ""
 
-#: src/viewer.cpp:407
+#: src/viewer.cpp:410
 msgid "Meta Description: "
 msgstr ""
 
-#: src/viewer.cpp:414
+#: src/viewer.cpp:417
 msgid "Page Title: "
 msgstr ""
 
-#: src/viewer.cpp:419
+#: src/viewer.cpp:422
 msgid "Summary: "
 msgstr ""
 
-#: src/viewer.cpp:516
+#: src/viewer.cpp:519
 msgid "Screenshot saved to %1"
 msgstr ""
 
