@@ -66,7 +66,7 @@ ConfigWebSecurityTable::ConfigWebSecurityTable ( QWidget * parent )
   QHeaderView* headerView = horizontalHeader();
   headerView->setHighlightSections ( false );
   headerView->setProperty ( "showSortIndicator", QVariant ( false ) );
-  headerView->setStretchLastSection ( false );
+  headerView->setStretchLastSection ( true );
   headerView->setResizeMode ( QHeaderView::Interactive );
   headerView->setDefaultSectionSize ( 150 );
 
@@ -113,8 +113,9 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   information << i18n ( "You need to add a hostname, scheme and port to allow access to your local computer." );
 
   QLabel* title = new QLabel ( centralWidget );
-  title->setText ( information.join ( "<br/>" ) );
   title->setWordWrap ( true );
+  title->setTextFormat ( Qt::RichText );
+  title->setText ( information.join ( "<br/>" ) );
   verticalLayout->addWidget ( title );
 
   m_table = new ConfigWebSecurityTable ( centralWidget );
