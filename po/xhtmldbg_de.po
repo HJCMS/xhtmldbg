@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-09 12:16+0100\n"
-"PO-Revision-Date: 2011-03-09 12:25+0100\n"
+"POT-Creation-Date: 2011-03-09 12:27+0100\n"
+"PO-Revision-Date: 2011-03-09 12:30+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -751,7 +751,7 @@ msgstr ""
 #: src/configuration/configproxy.cpp:33
 #: src/configuration/configurationmenu.cpp:53
 msgid "Proxy"
-msgstr ""
+msgstr "Proxy"
 
 #: src/configuration/configproxy.cpp:50
 msgid "The Network Proxy Type:"
@@ -845,7 +845,7 @@ msgstr ""
 
 #: src/configuration/configurationmenu.cpp:48
 msgid "Tidy"
-msgstr ""
+msgstr "Tidy"
 
 #: src/configuration/configurationmenu.cpp:49
 msgid "Dom Inspector"
@@ -873,9 +873,8 @@ msgstr "Benutzer Kennung"
 
 #: src/configuration/configurationmenu.cpp:56
 #: src/configuration/configwebsecurity.cpp:100
-#, fuzzy
 msgid "HTML 5 Database"
-msgstr "Datenbank"
+msgstr "HTML 5 Datenbank"
 
 #: src/configuration/configurationmenu.cpp:73
 msgid "%1 Configuration options."
@@ -888,9 +887,8 @@ msgid "User-Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/configwebsecurity.cpp:57
-#, fuzzy
 msgid "Remove Entry"
-msgstr "Entfernen"
+msgstr "Eintrag Entfernen"
 
 #: src/configuration/configwebsecurity.cpp:62
 #, fuzzy
@@ -900,7 +898,7 @@ msgstr "Hostname"
 #: src/configuration/configwebsecurity.cpp:62
 #: src/configuration/configwebsecurity.cpp:144
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/configuration/configwebsecurity.cpp:62
 #: src/configuration/configwebsecurity.cpp:132
@@ -911,19 +909,26 @@ msgstr "Schema"
 msgid ""
 "The upcoming HTML 5 standard includes support for SQL databases that web "
 "sites can create and access on a local computer through JavaScript."
-msgstr "Der Zukünftige HTML 5 Standard beinhaltet die Unterstützung für SQL Datenbanken. Webseiten können somit Daten mit JavaScript auf Ihrem Computer zwischenspeichern."
+msgstr ""
+"Der Zukünftige HTML 5 Standard beinhaltet die Unterstützung für SQL "
+"Datenbanken. Webseiten können somit Daten mit JavaScript auf Ihrem Computer "
+"zwischenspeichern."
 
 #: src/configuration/configwebsecurity.cpp:112
 msgid ""
 "Only Web sites with the same security options can access each other's "
 "resources for client-side scripting or databases."
-msgstr "Es werden aber nur Webseiten mit den zulässigen Sicherheitseinträgen zugelassen."
+msgstr ""
+"Es werden aber nur Webseiten mit den zulässigen Sicherheitseinträgen "
+"zugelassen."
 
 #: src/configuration/configwebsecurity.cpp:113
 msgid ""
 "You need to add a hostname, scheme and port to allow access to your local "
 "computer."
-msgstr "Damit ein Zugriff gestattet wird müssen Sie hier den Hostnamen, Schema und die Portadresse angeben."
+msgstr ""
+"Damit ein Zugriff gestattet wird müssen Sie hier den Hostnamen, Schema und "
+"die Portadresse angeben."
 
 #: src/configuration/configwebsecurity.cpp:124
 msgid "Edit"
@@ -1447,11 +1452,11 @@ msgstr "Zeige Schlüsselwörter für die Search Engine Optimierung (SEO)"
 
 #: src/keywordstoolbar.cpp:51
 msgid "SEO:"
-msgstr ""
+msgstr "SEO:"
 
 #: src/keywordstoolbar.cpp:52
 msgid "Search Engine Optimisation (SEO)"
-msgstr ""
+msgstr "Suchmaschinen Optimierung (SEO)"
 
 #: src/main.cpp:71
 msgid "Open File from Path or URL"
@@ -1892,7 +1897,7 @@ msgstr "Dursuche RFC Dokumente"
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
 msgid "Jürgen Heinemann (Undefined)"
-msgstr ""
+msgstr "Jürgen Heinemann (Undefined)"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:115
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:116
@@ -1910,7 +1915,7 @@ msgstr "Konfiguriere die SELFHTML Startseite"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:69
 msgid "SELFHTML"
-msgstr ""
+msgstr "SELFHTML"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:71
 msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
@@ -1930,7 +1935,7 @@ msgstr "Dein Name"
 
 #: src/rdfparser/alternatelinkreader.cpp:43
 msgid "RSS/Atom"
-msgstr ""
+msgstr "RSS/Atom"
 
 #: src/rdfparser/rssparserdialog.cpp:61
 msgid "RSS Parser"
@@ -1966,7 +1971,7 @@ msgstr "Syntaxanalyse RSS-%1"
 
 #: src/rdfparser/rsstreeview.cpp:50
 msgid "Element"
-msgstr ""
+msgstr "Element"
 
 #: src/rdfparser/rsstreeview.cpp:50
 msgid "Predicate"
@@ -2038,7 +2043,7 @@ msgstr "Drucke aktuelles Dokument"
 
 #: src/sourceviewer/contextmenu.cpp:81
 msgid "Editor"
-msgstr ""
+msgstr "Editor"
 
 #: src/sourceviewer/contextmenu.cpp:87
 msgid "Configuration"
