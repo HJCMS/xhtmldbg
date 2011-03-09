@@ -53,6 +53,7 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
   insertItem ( c++, i18n ( "Proxy" ), icon.fromTheme ( QLatin1String ( "preferences-system-network-sharing" ) ) );
   insertItem ( c++, i18n ( "Certification" ), icon.fromTheme ( QLatin1String ( "preferences-web-browser-identification" ) ) );
   insertItem ( c++, i18n ( "User Agent" ), icon.fromTheme ( QLatin1String ( "preferences-desktop-user" ) ) );
+  insertItem ( c++, i18n ( "HTML 5 Database" ), icon.fromTheme ( QLatin1String ( "applications-development-web" ) ) );
   insertItem ( c++, i18n ( "Extensions" ), icon.fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
 
   connect ( this, SIGNAL ( itemClicked ( QListWidgetItem * ) ),

@@ -109,6 +109,10 @@ IF (XHTMLDBG_EXPERIMENTAL)
   ADD_DEFINITIONS (-D_XHTMLDBG_EXPERIMENTAL)
 ENDIF (XHTMLDBG_EXPERIMENTAL)
 
+IF (XHTMLDBG_BUILD_VERBOSE)
+  ADD_DEFINITIONS (-DDEBUG_VERBOSE)
+ENDIF (XHTMLDBG_BUILD_VERBOSE)
+
 ##############################################################
 ## SET Working output Directory
 ##############################################################

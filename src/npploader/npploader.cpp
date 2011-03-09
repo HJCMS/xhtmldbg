@@ -51,7 +51,10 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
                              const QStringList &argumentNames,
                              const QStringList &argumentValues ) const
 {
+#ifdef DEBUG_VERBOSE
   qDebug() << Q_FUNC_INFO <<  mimeType;
+#endif
+
   if ( mimeType.isEmpty() )
     return new NPPFailureWidget ( i18n ( "Missing Mime-Type Declaration!" ) );
   else if ( ! url.isValid() )

@@ -43,6 +43,7 @@
 #include "configproxy.h"
 #include "configssl.h"
 #include "configuseragents.h"
+#include "configwebsecurity.h"
 #include "configextras.h"
 
 class StackedWidget : public QStackedWidget
@@ -62,6 +63,7 @@ class StackedWidget : public QStackedWidget
     ConfigProxy* m_configProxy;
     ConfigSSL* m_configSSL;
     ConfigUserAgents* m_configUserAgents;
+    ConfigWebSecurity* m_configWebSecurity;
     ConfigExtras* m_configExtras;
     enum PageIndex
     {
@@ -74,7 +76,8 @@ class StackedWidget : public QStackedWidget
       CONFIG_PROXY =  6,
       CONFIG_SSL =  7,
       CONFIG_USERAGENTS = 8,
-      CONFIG_EXTRAS = 9
+      CONFIG_WEBSECURE = 9,
+      CONFIG_EXTRAS = 10
     };
 
   private Q_SLOTS:

@@ -61,6 +61,9 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   m_configUserAgents = new ConfigUserAgents ( this );
   insertWidget ( CONFIG_USERAGENTS, m_configUserAgents );
 
+  m_configWebSecurity = new ConfigWebSecurity ( this );
+  insertWidget ( CONFIG_WEBSECURE, m_configWebSecurity );
+
   m_configExtras = new ConfigExtras ( this );
   insertWidget ( CONFIG_EXTRAS, m_configExtras );
 
@@ -92,6 +95,9 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
   connect ( m_configUserAgents, SIGNAL ( modified ( bool ) ),
+            this, SIGNAL ( settingsChanged ( bool ) ) );
+
+  connect ( m_configWebSecurity, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
   connect ( m_configExtras, SIGNAL ( modified ( bool ) ),
@@ -165,6 +171,12 @@ void StackedWidget::loadWidgetSettings ( int index )
     }
     break;
 
+    case CONFIG_WEBSECURE:
+    {
+      m_configWebSecurity->load ( cfg );
+    }
+    break;
+
     case CONFIG_EXTRAS:
     {
       m_configExtras->load ( cfg );
@@ -193,6 +205,7 @@ void StackedWidget::loadSettings()
   m_configProxy->load ( cfg );
   m_configSSL->load ( cfg );
   m_configUserAgents->load ( cfg );
+  m_configWebSecurity->load ( cfg );
   m_configExtras->load ( cfg );
   blockSignals ( false );
   // zurück setzen
@@ -230,6 +243,9 @@ void StackedWidget::saveSettings()
 
   if ( m_configUserAgents->isModified () )
     m_configUserAgents->save ( cfg );
+
+  if ( m_configWebSecurity->isModified () )
+    m_configWebSecurity->save ( cfg );
 
   if ( m_configExtras->isModified () )
     m_configExtras->save ( cfg );

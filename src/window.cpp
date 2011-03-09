@@ -124,12 +124,12 @@ Window::Window ( Settings * settings )
   setAutoSaveSettings ( "xhtmldbg", false );
   setWindowTitle ( i18nc ( "XHTML Debugger (v%1)", XHTMLDBG_VERSION_STRING ) );
 
-  // Quelltext Zwichen Speicher initialisieren
+  // Quelltext Zwischen Speicher initialisieren
   m_sourceCache = new SourceCache ( this );
 
   m_netManager = Application::networkAccessManager();
 
-  /* Das lesen aller Web Einstellungen muss vor dem ersten erstellen ein tabs erfolgen. */
+  /* Das lesen aller Web Einstellungen muss vor dem ersten erstellen eines tabs erfolgen. */
   WebSettings websettings ( this );
   websettings.setDefaults();
 

@@ -79,7 +79,7 @@ int main ( int argc, char *argv[] )
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
 
-  KGlobal::locale()->insertCatalog (XHTMLDBG_APPS_NAME );
+  KGlobal::locale()->insertCatalog ( XHTMLDBG_APPS_NAME );
 
   app.newMainWindow();
   return app.exec();

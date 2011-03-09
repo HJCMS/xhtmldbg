@@ -23,6 +23,7 @@ SET (configuration_SOURCES
   configtrustedhosts.cpp
   configaccesscontrol.cpp
   configuseragents.cpp
+  configwebsecurity.cpp
   configextras.cpp
   configutils.cpp
 )
@@ -45,6 +46,7 @@ SET (configuration_HEADERS
   configtrustedhosts.h
   configaccesscontrol.h
   configuseragents.h
+  configwebsecurity.h
   configextras.h
   configutils.h
 )
