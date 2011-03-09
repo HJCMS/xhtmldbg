@@ -86,11 +86,13 @@ class ConfigWebSecurity : public PageWidget
     KIntNumInput* m_port;
     KComboBox* m_scheme;
     QCheckBox* m_checkBox;
+    KIntNumInput* m_dbQuota;
     QTableWidgetItem* createItem ( const QVariant & ) const;
 
   private Q_SLOTS:
     void itemRowChanged ( int );
     void schemeChanged ( int );
+    void quotaChanged ( int );
     void clearInput();
     void itemSubmitted();
     void itemModified ( bool );

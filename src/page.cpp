@@ -56,6 +56,10 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
+/* QtWebKit */
+#include <QtWebKit/QWebDatabase>
+#include <QtWebKit/QWebSecurityOrigin>
+
 Page::Page ( NetworkAccessManager * manager, QObject * parent )
     : KWebPage ( parent )
     , m_netManager ( manager )
@@ -63,6 +67,7 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   setObjectName ( "page" );
   // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
   setForwardUnsupportedContent ( true );
+  setAllowExternalContent ( true );
 
   setNetworkAccessManager ( m_netManager );
 
@@ -94,6 +99,9 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 
   connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
             this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
+
+  connect ( this, SIGNAL ( loadFinished ( bool ) ),
+            this, SLOT ( initWebDatabaseAccess ( bool ) ) );
 }
 
 /**
@@ -114,6 +122,22 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
     message.append ( i18n ( " Document: %1" ).arg ( id ) );
 
   xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( Qt::escape ( message ) );
+}
+
+/**
+* TODO
+*/
+void Page::initWebDatabaseAccess ( bool b )
+{
+  if ( ! b )
+    return;
+
+  foreach ( QWebDatabase db, mainFrame()->securityOrigin().databases () )
+  {
+    QStringList message ( QString::fromUtf8 ( "HTML 5 DB" ) );
+    message << db.origin().host() << db.fileName() << db.name();
+    xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( Qt::escape ( message.join ( " " ) ) );
+  }
 }
 
 /**

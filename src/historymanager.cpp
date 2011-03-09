@@ -42,7 +42,7 @@ HistoryManager::HistoryManager ( QObject * parent )
 */
 const QUrl HistoryManager::toUrl ( const QString &path ) const
 {
-  QUrl url ( path.toLower(), QUrl::StrictMode );
+  QUrl url ( path, QUrl::StrictMode );
   if ( ! url.isValid() )
     return QUrl();
 
@@ -56,7 +56,7 @@ const QUrl HistoryManager::toUrl ( const QString &path ) const
     url.setScheme ( "http" );
 
   url.setPassword ( QString::null );
-  url.setHost ( url.host() );
+  url.setHost ( url.host().toLower() );
   return url;
 }
 

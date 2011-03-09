@@ -159,6 +159,15 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   groupBox->setLayout ( gridLayout );
   verticalLayout->addWidget ( groupBox, Qt::AlignLeft );
 
+  QHBoxLayout* horzontalLayout = new QHBoxLayout;
+  horzontalLayout->addWidget ( new QLabel ( i18n ( "Sets the quota for the databases in the security origin to quota bytes." ), centralWidget ) );
+  m_dbQuota = new KIntNumInput ( ( 3 * 1024 ), centralWidget );
+  m_dbQuota->setRange ( 1024, ( 100 * 1024 ), 5 );
+  m_dbQuota->setSliderEnabled( true );
+  m_dbQuota->setSuffix ( QLatin1String ( " Bytes" ) );
+  horzontalLayout->addWidget ( m_dbQuota );
+  verticalLayout->addLayout ( horzontalLayout );
+
   centralWidget->setLayout ( verticalLayout );
 
   connect ( m_table, SIGNAL ( currentIndexChanged ( int ) ),
@@ -169,6 +178,9 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
 
   connect ( m_scheme, SIGNAL ( currentIndexChanged ( int ) ),
             this, SLOT ( schemeChanged ( int ) ) );
+
+  connect ( m_dbQuota, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( quotaChanged ( int ) ) );
 
   connect ( m_checkBox, SIGNAL ( toggled ( bool ) ), m_port, SLOT ( setEnabled ( bool ) ) );
   connect ( reset, SIGNAL ( clicked () ), this, SLOT ( clearInput() ) );
@@ -204,6 +216,11 @@ void ConfigWebSecurity::schemeChanged ( int index )
   po.append ( 0 ); // file://
   if ( index >= 0 || index <= 3 )
     m_port->setValue ( po[index] );
+}
+
+void ConfigWebSecurity::quotaChanged ( int )
+{
+  itemModified ( true );
 }
 
 void ConfigWebSecurity::clearInput()
@@ -274,6 +291,7 @@ void ConfigWebSecurity::load ( Settings * cfg )
     m_table->setItem ( r, 2, createItem ( cfg->value ( "scheme", "http" ) ) );
   }
   cfg->endArray();
+  m_dbQuota->setValue ( cfg->value ( "WebDatabase/DefaultQuota", ( 3*1024 ) ).toUInt() );
 }
 
 void ConfigWebSecurity::save ( Settings * cfg )
@@ -290,6 +308,7 @@ void ConfigWebSecurity::save ( Settings * cfg )
     cfg->setValue ( "scheme", m_table->item ( r, 2 )->data ( Qt::UserRole ).toString() );
   }
   cfg->endArray();
+  cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
 }
 
 bool ConfigWebSecurity::isModified ()

@@ -197,6 +197,9 @@ void Viewer::cursorFinished ( int p )
 {
   if ( p >= 100 )
   {
+    if ( ! page()->mainFrame() )
+      return;
+
     // Die Maus wieder zurück setzen.
     setCursor ( Qt::ArrowCursor );
     // Signal für den StatusBar

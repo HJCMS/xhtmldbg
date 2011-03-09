@@ -149,6 +149,7 @@ void Settings::setSaveMode()
 
 /**
 * Pfad zur HTML5 Grafiken Datenbank
+* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
 */
 const QString Settings::webIconDatabasePath()
 {
@@ -158,13 +159,37 @@ const QString Settings::webIconDatabasePath()
 }
 
 /**
-* Pfad zur HTML5 Speicher Datenbank
+* Pfad zur HTML5 Daten Speicher Datenbank
+* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
 */
 const QString Settings::webLocalStoragePath()
 {
   QDir d ( cacheLocation() );
   d.mkpath ( QLatin1String ( "storage" ) );
   return QString ( cacheLocation() + d.separator() + QLatin1String ( "storage" ) );
+}
+
+/**
+* Pfad zur HTML5 Offline Speicher Datenbank
+* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
+*/
+const QString Settings::webOfflineStoragePath()
+{
+  QDir d ( cacheLocation() );
+  d.mkpath ( QLatin1String ( "offline" ) );
+  return QString ( cacheLocation() + d.separator() + QLatin1String ( "offline" ) );
+}
+
+/**
+* Pfad zur HTML5 WebAnwendungen Speicher
+* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
+* http://dev.w3.org/html5/spec/Overview.html#appcache
+*/
+const QString Settings::webApplicationCachePath()
+{
+  QDir d ( cacheLocation() );
+  d.mkpath ( QLatin1String ( "applications" ) );
+  return QString ( cacheLocation() + d.separator() + QLatin1String ( "applications" ) );
 }
 
 /**

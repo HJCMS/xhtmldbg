@@ -44,6 +44,7 @@ class WebSettings : public Settings
     QWebSettings* m_ws;
     void setWebinspectorConfig ( bool b = true );
     void setPaths();
+    void setWebSecurity();
     void setAttributes();
     void setFonts();
 

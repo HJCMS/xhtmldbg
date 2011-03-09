@@ -39,6 +39,9 @@
 /* QtGui */
 #include <QtGui/QDesktopServices>
 
+/* QtWebKit */
+#include <QtWebKit/QWebSecurityOrigin>
+
 /**
 * In diesem Kontainer werden alle Auswahl Boxen registriert!
 * Dabei ist der Objektname identisch mit dem Parameter
@@ -67,9 +70,11 @@ static inline const QHash<QString,bool> default_web_settings()
   hash.insert ( "OfflineStorageDatabaseEnabled", true );
   hash.insert ( "OfflineWebApplicationCacheEnabled", true );
   hash.insert ( "LocalStorageEnabled", true );
+  // DEPRECATED LocalStorageDatabaseEnabled
+  hash.insert ( "LocalStorageDatabaseEnabled", true );
 #if QT_VERSION >= 0x040700
   hash.insert ( "LocalContentCanAccessRemoteUrls", true );
-  hash.insert ( "LocalContentCanAccessFileUrls", false );
+  hash.insert ( "LocalContentCanAccessFileUrls", true );
   hash.insert ( "XSSAuditingEnabled", false );
   hash.insert ( "AcceleratedCompositingEnabled", true );
   hash.insert ( "TiledBackingStoreEnabled", false );
@@ -101,6 +106,8 @@ static const inline QHash<QString,QWebSettings::WebAttribute> supported_attribut
   hash.insert ( "OfflineStorageDatabaseEnabled", QWebSettings::OfflineStorageDatabaseEnabled );
   hash.insert ( "OfflineWebApplicationCacheEnabled", QWebSettings::OfflineWebApplicationCacheEnabled );
   hash.insert ( "LocalStorageEnabled", QWebSettings::LocalStorageEnabled );
+  // DEPRECATED LocalStorageDatabaseEnabled
+  hash.insert ( "LocalStorageDatabaseEnabled", QWebSettings::LocalStorageDatabaseEnabled );
 #if QT_VERSION >= 0x040700
   hash.insert ( "LocalContentCanAccessRemoteUrls", QWebSettings::LocalContentCanAccessRemoteUrls );
   hash.insert ( "LocalContentCanAccessFileUrls", QWebSettings::LocalContentCanAccessFileUrls );
@@ -154,6 +161,19 @@ void WebSettings::setPaths()
 {
   m_ws->setLocalStoragePath ( webLocalStoragePath() );
   m_ws->setIconDatabasePath ( webIconDatabasePath() );
+  m_ws->setOfflineStoragePath ( webOfflineStoragePath() );
+  m_ws->setOfflineWebApplicationCachePath ( webApplicationCachePath() );
+}
+
+/**
+* http://www.w3.org/TR/webstorage
+* http://webkit.org/blog/427/webkit-page-cache-i-the-basics/
+*/
+void WebSettings::setWebSecurity()
+{
+  QWebSecurityOrigin::removeLocalScheme ( QString::fromUtf8 ( "qrc" ) );
+  m_ws->setOfflineStorageDefaultQuota ( value ( "WebDatabase/DefaultQuota", ( 5 * 1024 ) ).toUInt() );
+  m_ws->setMaximumPagesInCache ( value ( "WebDatabase/PagesInCache", 5 ).toUInt() );
 }
 
 void WebSettings::setAttributes()
@@ -193,6 +213,7 @@ const QStringList WebSettings::attributeList()
 bool WebSettings::setDefaults()
 {
   setPaths();
+  setWebSecurity();
   setAttributes();
   setFonts();
   return true;

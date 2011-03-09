@@ -34,8 +34,9 @@
 #include <QtCore/QUrl>
 
 /* QtWebKit */
-#include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebFrame>
+#include <QtWebKit/QWebPage>
+#include <QtWebKit/QWebSecurityOrigin>
 
 /* KDE */
 #include <KDE/KWebPage>
@@ -60,6 +61,7 @@ class Page : public KWebPage
     bool prepareContent ( QNetworkReply * );
 
   private Q_SLOTS:
+    void initWebDatabaseAccess ( bool );
     void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
