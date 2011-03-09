@@ -133,16 +133,14 @@ WebSettings::WebSettings ( QObject * parent )
 void WebSettings::setWebinspectorConfig ( bool b )
 {
   static const QString p ( "Qt/QtWebKit/QWebInspector/" );
-  // Resource Tracking
-  setValue ( p + "resourceTrackingEnabled", b );
-  setValue ( p + "resourceTrackingEnabled.type", "bool" );
-  setValue ( p + "resourceTrackingAlwaysEnabled", b );
-  setValue ( p + "resourceTrackingAlwaysEnabled.type", "bool" );
   // Debugger
   setValue ( p + "debuggerEnabled", b );
   setValue ( p + "debuggerEnabled.type", "bool" );
   setValue ( p + "debuggerAlwaysEnabled", b );
   setValue ( p + "debuggerAlwaysEnabled.type", "bool" );
+  // Resource Tracking
+  setValue ( p + "resourceTrackingEnabled", b );
+  setValue ( p + "resourceTrackingEnabled.type", "bool" );
   // Profiler
   setValue ( p + "profilerEnabled", b );
   setValue ( p + "profilerEnabled.type", "bool" );
