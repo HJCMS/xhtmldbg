@@ -153,9 +153,7 @@ void Settings::setSaveMode()
 */
 const QString Settings::webIconDatabasePath()
 {
-  QDir d ( cacheLocation() );
-  d.mkpath ( QLatin1String ( "icons" ) );
-  return QString ( cacheLocation() + d.separator() + QLatin1String ( "icons" ) );
+  return cacheLocation();
 }
 
 /**
@@ -165,8 +163,8 @@ const QString Settings::webIconDatabasePath()
 const QString Settings::webLocalStoragePath()
 {
   QDir d ( cacheLocation() );
-  d.mkpath ( QLatin1String ( "storage" ) );
-  return QString ( cacheLocation() + d.separator() + QLatin1String ( "storage" ) );
+  d.mkpath ( QLatin1String ( "Storage" ) );
+  return QString ( cacheLocation() + d.separator() + QLatin1String ( "Storage" ) );
 }
 
 /**
@@ -175,9 +173,7 @@ const QString Settings::webLocalStoragePath()
 */
 const QString Settings::webOfflineStoragePath()
 {
-  QDir d ( cacheLocation() );
-  d.mkpath ( QLatin1String ( "offline" ) );
-  return QString ( cacheLocation() + d.separator() + QLatin1String ( "offline" ) );
+  return webLocalStoragePath();
 }
 
 /**
@@ -188,8 +184,8 @@ const QString Settings::webOfflineStoragePath()
 const QString Settings::webApplicationCachePath()
 {
   QDir d ( cacheLocation() );
-  d.mkpath ( QLatin1String ( "applications" ) );
-  return QString ( cacheLocation() + d.separator() + QLatin1String ( "applications" ) );
+  d.mkpath ( QLatin1String ( "Databases" ) );
+  return cacheLocation();
 }
 
 /**
