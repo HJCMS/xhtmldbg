@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-09 20:54+0100\n"
-"PO-Revision-Date: 2011-03-09 15:54+0100\n"
+"POT-Creation-Date: 2011-03-12 13:59+0100\n"
+"PO-Revision-Date: 2011-03-12 14:00+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -383,8 +383,7 @@ msgid "Allow HTTP pipelining with requests."
 msgstr "Erlaube HTTP Parallelverarbeitung bei den Anfragen."
 
 #: src/configuration/configbrowser.cpp:93
-msgid ""
-"Indicates whether the HTTP Pipelining was used for receiving data Requests."
+msgid "Indicates whether the HTTP Pipelining was used for receiving data Requests."
 msgstr "Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird."
 
 #: src/configuration/configbrowser.cpp:97
@@ -420,8 +419,7 @@ msgid "JavaScript programs can read or write to the clipboard."
 msgstr "Erlaube JavaScript Programmen den zugriff auf das Clipboard."
 
 #: src/configuration/configbrowser.cpp:129
-msgid ""
-"The background color and images are also drawn when the page is printed."
+msgid "The background color and images are also drawn when the page is printed."
 msgstr "Beim Drucken von Seiten den Hintergund mit übertragen."
 
 #: src/configuration/configbrowser.cpp:133
@@ -700,8 +698,7 @@ msgstr ""
 
 #: src/configuration/confignetwork.cpp:68
 msgid "Controls if the data obtained should be saved to cache for future uses."
-msgstr ""
-"Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
+msgstr "Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
 
 #: src/configuration/confignetwork.cpp:70
 msgid ""
@@ -716,8 +713,7 @@ msgid "Indicates whether incoming data was obtained from cache or not."
 msgstr "Erkenne ob die Daten aus dem Zwichenspeicher entnommenen wurden."
 
 #: src/configuration/confignetwork.cpp:76
-msgid ""
-"If the box is not checked, incoming data will not be automatically checked."
+msgid "If the box is not checked, incoming data will not be automatically checked."
 msgstr ""
 "Wenn die Auswahl nicht aktiviert ist, werden nicht geprüft ob die Daten aus "
 "dem Zwichenspeicher entnommen wurden."
@@ -739,8 +735,7 @@ msgstr ""
 "Netzwerkanfrage)"
 
 #: src/configuration/confignetwork.cpp:86
-msgid ""
-"Prefer Cache (load from cache if available, otherwise load from network)"
+msgid "Prefer Cache (load from cache if available, otherwise load from network)"
 msgstr ""
 "Speicher vorziehen (Lade Adresse vom Speicher. Es wird keine Aktualisierung "
 "geprüft)"
@@ -973,8 +968,7 @@ msgstr "Absenden"
 
 #: src/configuration/configwebsecurity.cpp:163
 msgid "Sets the quota for the databases in the security origin to quota bytes."
-msgstr ""
-"Setze den zugelassenen Anteil für ein erstellen der Datenbank Größe in Byte."
+msgstr "Setze den zugelassenen Anteil für ein erstellen der Datenbank Größe in Byte."
 
 #: src/configuration/directorychooser/directorydialog.cpp:45
 msgid "Directory"
@@ -1426,7 +1420,7 @@ msgstr "Datenbank"
 
 #: src/formmanager/formmanager.cpp:58
 msgid "Forms"
-msgstr "Formatiere"
+msgstr "Formulare"
 
 #: src/formmanager/formmanager.cpp:70
 msgid "Forms TEST Widget"
@@ -1630,8 +1624,7 @@ msgstr "Zeitüberschreitung bei der Anfrage (408)"
 
 #: src/networker/errorsdialog.cpp:116
 msgid "the connection to the remote server \"%1\" timed out"
-msgstr ""
-"Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
+msgstr "Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
 
 #: src/networker/errorsdialog.cpp:128
 msgid ""
@@ -1705,8 +1698,7 @@ msgstr "Nich Autorisiert (401)"
 msgid ""
 "the access to the remote \"%1\" content was denied (similar to HTTP error "
 "401)"
-msgstr ""
-"Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
+msgstr "Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
 
 #: src/networker/errorsdialog.cpp:185
 msgid "the operation requested on the remote \"%1\" content is not permitted"
@@ -1716,8 +1708,7 @@ msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
 msgid ""
 "the remote content \"%1\" was not found at the server (similar to HTTP error "
 "404)"
-msgstr ""
-"Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
+msgstr "Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
 
 #: src/networker/errorsdialog.cpp:197
 msgid "Authentication Required Error"
@@ -1787,13 +1778,12 @@ msgid "an unknown related error was detected"
 msgstr "Ein Unbekannter Inhaltlicher Fehler wurde festgestellt"
 
 #: src/networker/networkaccessmanager.cpp:202
-msgid ""
-"Broken SSL/TLS URL connection, handshake failed and could not be established."
+msgid "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 "SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
 "wurde verworfen."
 
-#: src/networker/networkaccessmanager.cpp:302
+#: src/networker/networkaccessmanager.cpp:305
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -1824,8 +1814,7 @@ msgstr ""
 "zurück gewiesen."
 
 #: src/networker/networkcookie.cpp:125
-msgid ""
-"A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
+msgid "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück "
 "gewiesen."
@@ -1881,17 +1870,21 @@ msgstr "Datentype"
 msgid "Source"
 msgstr "Quelle"
 
-#: src/page.cpp:119
+#: src/page.cpp:116
 msgid " Line: %1"
 msgstr " Zeile: %1"
 
-#: src/page.cpp:122
+#: src/page.cpp:119
 msgid " Document: %1"
 msgstr " Dokument: %1"
 
-#: src/page.cpp:160
+#: src/page.cpp:159
 msgid "JavaScript Prompt: "
 msgstr "JavaScript Anfrage: "
+
+#: src/page.cpp:319
+msgid "Action rejected: HTML form was submitted a second time."
+msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 
 #: src/page.cpp:358
 msgid "(x-qt-plugin) ClassID: %1 %2"
@@ -1934,8 +1927,7 @@ msgstr "SELFHTML"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:71
 msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
-msgstr ""
-"Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
+msgstr "Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
 
 #: src/plugins/template/helloworldplugin.cpp:76
 msgid "Information for this Plugin"
@@ -2349,3 +2341,4 @@ msgstr "Vergrößern"
 #: src/zoombar.cpp:48
 msgid "ZoomOut"
 msgstr "Verkleinern"
+

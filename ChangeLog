@@ -1,4 +1,7 @@
-- 2011/02/02 Juergen Heinemann (Undefined)
+- 2011/03/12 Juergen Heinemann (Undefined)
+  Add: Partial HTML5 DB Support
+  Bugfix: Network AccessManger (Do not open local binary files for SourceViewer)
+  Bugfix: NPP Loader Invalid Mimetypes
   Add: gettext Support for KDE4
   Bugfix: Network Cookie Manager (invalid hostnames)
   Bugfix: Network AccessManger (Source reply)
