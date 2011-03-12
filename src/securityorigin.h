@@ -19,36 +19,27 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef NPPLOADER_H
-#define NPPLOADER_H
+#ifndef SECURITYORIGIN_H
+#define SECURITYORIGIN_H
 
 /* QtCore */
-#include <QtCore/QList>
-#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
-#include <QtCore/QUrl>
+#include <QtCore/QVariant>
 
-/* KDE */
-#include <KDE/KWebPluginFactory>
+/* QtWebKit */
+#include <QtWebKit/QWebFrame>
+#include <QtWebKit/QWebDatabase>
+#include <QtWebKit/QWebSecurityOrigin>
 
-class NPPLoader : public KWebPluginFactory
+class SecurityOrigin : protected QWebSecurityOrigin
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
   private:
-    mutable QList<KWebPluginFactory::Plugin> pluginsList;
-    void registerPlugins();
+    SecurityOrigin ( const QWebSecurityOrigin &parent );
+    const QVariant getParam ( const QString &, const QVariant & ) const;
+    int port() const;
 
   public:
-    NPPLoader ( QObject * parent = 0 );
-    virtual QObject* create ( const QString &, const QUrl &, const QStringList &, const QStringList & ) const;
-    virtual QList<KWebPluginFactory::Plugin> plugins () const;
-    virtual void refreshPlugins();
-    virtual bool supportsExtension (Extension extension) const;
-    virtual ~NPPLoader();
+    static QWebSecurityOrigin origin ( const QWebSecurityOrigin &parent );
 };
 
 #endif

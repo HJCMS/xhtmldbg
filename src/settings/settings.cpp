@@ -33,7 +33,7 @@
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
-#include <QtCore/QFile>
+#include <QtCore/QTextCodec>
 
 /* QtGui */
 #include <QtGui/QIcon>
@@ -63,9 +63,12 @@ static inline const QString xApplicationName()
 */
 Settings::Settings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, xApplicationName(), parent )
+    , DefaultDirPermissons ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
   setCacheDefaults();
+
+  QFile ( fileName () ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner ) );
 }
 
 /** Standard Webspeicher Verzeichnis */
@@ -131,7 +134,7 @@ void Settings::setDataPaths()
   QString path = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::HomeLocation ) );
   if ( d.mkpath ( path ) )
-    QFile ( path ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
+    QFile ( path ).setPermissions ( DefaultDirPermissons );
 }
 
 /**
@@ -149,7 +152,7 @@ void Settings::setSaveMode()
 * Pfad zur HTML5 Grafiken Datenbank
 * @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
 */
-const QString Settings::webIconDatabasePath()
+const QString Settings::webDatabasePath()
 {
   return QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
 }
@@ -160,9 +163,13 @@ const QString Settings::webIconDatabasePath()
 */
 const QString Settings::webLocalStoragePath()
 {
-  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
-  d.mkpath ( QLatin1String ( "Storage" ) );
-  return QString ( d.path() + d.separator() + QLatin1String ( "Storage" ) );
+  QDir d ( webDatabasePath() );
+  QString path = d.path() + d.separator() + QLatin1String ( "Storage" );
+
+  if ( d.mkpath ( QLatin1String ( "Storage" ) ) )
+    QFile ( path ).setPermissions ( DefaultDirPermissons );
+
+  return path;
 }
 
 /**
@@ -171,7 +178,13 @@ const QString Settings::webLocalStoragePath()
 */
 const QString Settings::webOfflineStoragePath()
 {
-  return webLocalStoragePath();
+  QDir d ( webLocalStoragePath() );
+  QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
+
+  if ( d.mkpath ( QLatin1String ( "Databases" ) ) )
+    QFile ( path ).setPermissions ( DefaultDirPermissons );
+
+  return path;
 }
 
 /**
@@ -181,9 +194,7 @@ const QString Settings::webOfflineStoragePath()
 */
 const QString Settings::webApplicationCachePath()
 {
-  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
-  d.mkpath ( QLatin1String ( "Databases" ) );
-  return d.path();
+  return webOfflineStoragePath();
 }
 
 /**

@@ -247,6 +247,9 @@ void NetworkAccessManager::openLocalFile ( const QUrl &url )
   if ( url.path().isEmpty() )
     return;
 
+  if ( ! url.path().contains ( QRegExp ( "\.(html|dtd|txt|xml|xsl[t]?)$", Qt::CaseInsensitive ) ) )
+    return;
+
   LocalSource src = LocalSource::localSource ( url );
   if ( ! src.source().isEmpty() )
     emit localReplySource ( url, src.source() );

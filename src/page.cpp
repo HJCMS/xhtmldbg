@@ -21,6 +21,7 @@
 
 #include "page.h"
 #include "viewer.h"
+#include "securityorigin.h"
 #include "xhtmldbgmain.h"
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
@@ -56,27 +57,23 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
 
-/* QtWebKit */
-#include <QtWebKit/QWebDatabase>
-#include <QtWebKit/QWebSecurityOrigin>
-
 Page::Page ( NetworkAccessManager * manager, QObject * parent )
     : KWebPage ( parent )
     , m_netManager ( manager )
+    , reply ( 0 )
 {
   setObjectName ( "page" );
   // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
   setForwardUnsupportedContent ( true );
   setAllowExternalContent ( true );
-
   setNetworkAccessManager ( m_netManager );
 
 #ifdef HAVE_NPPLOADER
   // NPP Plugin Factory
-  setPluginFactory ( new NPPLoader ( this ) );
+  NPPLoader* factory = new NPPLoader ( this );
+  setPluginFactory ( factory );
+  factory->refreshPlugins();
 #endif
-
-  reply = 0;
 
   // merge ShortCuts with Application Window
   action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
@@ -125,18 +122,20 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
 }
 
 /**
-* TODO
+* Lokale SQLite3 Datenbank Zugriffe bestimmen!
 */
 void Page::initWebDatabaseAccess ( bool b )
 {
   if ( ! b )
     return;
 
-  foreach ( QWebDatabase db, mainFrame()->securityOrigin().databases () )
+  if ( mainFrame() && ! mainFrame()->securityOrigin().host().isEmpty() )
   {
-    QStringList message ( QString::fromUtf8 ( "HTML 5 DB" ) );
-    message << db.origin().host() << db.fileName() << db.name();
-    xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( Qt::escape ( message.join ( " " ) ) );
+    mainFrame()->securityOrigin() = SecurityOrigin::origin ( mainFrame()->securityOrigin() );
+// #ifdef DEBUG_VERBOSE
+//     qDebug() << Q_FUNC_INFO << mainFrame()->securityOrigin().port()
+//     << mainFrame()->securityOrigin().databaseQuota ();
+// #endif
   }
 }
 
@@ -316,13 +315,14 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
       break;
 
     case QWebPage::NavigationTypeFormResubmitted:
-      // An HTML form was submitted a second time.
     {
-      qDebug() << Q_FUNC_INFO << request.url();
+      internalMessanger ( i18n ( "Action rejected: HTML form was submitted a second time." ) );
+#ifdef DEBUG_VERBOSE
       foreach ( QByteArray arr, request.rawHeaderList() )
       {
         qDebug() << Q_FUNC_INFO << arr << request.rawHeader ( arr );
       }
+#endif
     }
     return false;
 

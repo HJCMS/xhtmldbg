@@ -158,7 +158,7 @@ void WebSettings::setWebinspectorConfig ( bool b )
 void WebSettings::setPaths()
 {
   m_ws->setLocalStoragePath ( webLocalStoragePath() );
-  m_ws->setIconDatabasePath ( webIconDatabasePath() );
+  m_ws->setIconDatabasePath ( webDatabasePath() );
   m_ws->setOfflineStoragePath ( webOfflineStoragePath() );
   m_ws->setOfflineWebApplicationCachePath ( webApplicationCachePath() );
 }

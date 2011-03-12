@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QByteArray>
+#include <QtCore/QFile>
 #include <QtCore/QObject>
 #include <QtCore/QSettings>
 #include <QtCore/QSize>
@@ -43,6 +44,9 @@ class Settings : public QSettings
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  protected:
+    const QFile::Permissions DefaultDirPermissons;
 
   public Q_SLOTS:
     /**
@@ -79,7 +83,7 @@ class Settings : public QSettings
     /**
     * Return for \em QWebSettings the path of the icon database.
     */
-    const QString webIconDatabasePath();
+    const QString webDatabasePath();
 
     /**
     * Returns for \em QWebSettings the path for HTML5 local storage.

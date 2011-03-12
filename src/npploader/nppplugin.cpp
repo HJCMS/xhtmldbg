@@ -78,6 +78,12 @@ bool NPPPlugin::load()
 
 void NPPPlugin::unload()
 {
+  if ( m_isLoaded )
+  {
+#ifdef DEBUG_VERBOSE
+    qDebug() << Q_FUNC_INFO << "isLoaded";
+#endif
+  }
 }
 
 bool NPPPlugin::isEnabled() const

@@ -45,7 +45,7 @@ NetworkSettings::NetworkSettings ( QObject * parent )
     , wcfg ( QWebSettings::globalSettings() )
 {
   setObjectName ( QLatin1String ( "networksettings" ) );
-  wcfg->setIconDatabasePath ( webIconDatabasePath() );
+  wcfg->setIconDatabasePath ( webDatabasePath() );
   wcfg->setLocalStoragePath ( webLocalStoragePath() );
   wcfg->setOfflineStoragePath ( webOfflineStoragePath() );
   wcfg->setOfflineWebApplicationCachePath ( webApplicationCachePath() );

@@ -20,6 +20,7 @@
 **/
 
 #include "npploader.h"
+#include "nppplugin.h"
 #include "nppattributes.h"
 #include "nppfailurewidget.h"
 
@@ -31,6 +32,9 @@
 #include <QtGui/QLabel>
 #include <QtGui/QWidget>
 #include <QtGui/QVBoxLayout>
+
+/* QtWebKit */
+#include <QtWebKit/QWebPluginFactory>
 
 /* KDE */
 #include <KDE/KLocale>
@@ -51,10 +55,6 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
                              const QStringList &argumentNames,
                              const QStringList &argumentValues ) const
 {
-#ifdef DEBUG_VERBOSE
-  qDebug() << Q_FUNC_INFO <<  mimeType;
-#endif
-
   if ( mimeType.isEmpty() )
     return new NPPFailureWidget ( i18n ( "Missing Mime-Type Declaration!" ) );
   else if ( ! url.isValid() )
@@ -74,13 +74,17 @@ QObject* NPPLoader::create ( const QString &mimeType, const QUrl &url,
       m_nppAttributes->addItem ( p, it.next() );
   }
 
+#ifdef DEBUG_VERBOSE
+  qDebug() << Q_FUNC_INFO <<  mimeType;
+#endif
+
   return m_nppAttributes;
 }
 
 /**
 * Sende eine Leere Plugin Liste damit FLASH Plugins \b NICHT abgerufen werden!
 */
-QList<QWebPluginFactory::Plugin> NPPLoader::plugins () const
+QList<KWebPluginFactory::Plugin> NPPLoader::plugins () const
 {
   return pluginsList;
 }
@@ -88,7 +92,15 @@ QList<QWebPluginFactory::Plugin> NPPLoader::plugins () const
 void NPPLoader::refreshPlugins()
 {
   registerPlugins();
-  // QWebPluginFactory::refreshPlugins();
+  KWebPluginFactory::refreshPlugins();
+}
+
+bool NPPLoader::supportsExtension (Extension extension) const
+{
+#ifdef DEBUG_VERBOSE
+  qDebug() << Q_FUNC_INFO <<  extension;
+#endif
+  return false;
 }
 
 NPPLoader::~NPPLoader()
