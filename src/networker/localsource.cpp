@@ -25,6 +25,7 @@
 #include <QtCore/QByteArray>
 #include <QtCore/QDebug>
 #include <QtCore/QFileInfo>
+#include <QtCore/QRegExp>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
@@ -51,8 +52,11 @@ const QString LocalSource::source()
   if ( src.isNull() )
     return data;
 
+  if ( ! src.contains ( QRegExp ( "\\.(html|dtd|txt|xml|xsl[t]?)$", Qt::CaseInsensitive ) ) )
+    return data;
+
   QFile fp ( src );
-  if ( fp.open ( QIODevice::ReadOnly ) )
+  if ( fp.open ( ( QIODevice::ReadOnly | QIODevice::Text ) ) )
   {
     QTextStream rc ( &fp );
     QByteArray buffer = rc.device()->readAll();
