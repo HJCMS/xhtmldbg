@@ -101,13 +101,11 @@ const QString Settings::tempDir ( const QString &subdir )
   return p;
 }
 
-/**
-* Wir verwenden keinen Cache!
-*/
+/** Wir verwenden keinen Cache! */
 void Settings::setCacheDefaults()
 {
-  setValue ( "OfflineStorageDatabaseEnabled", false );
-  setValue ( "OfflineWebApplicationCacheEnabled", false );
+  setValue ( "OfflineStorageDatabaseEnabled", true );
+  setValue ( "OfflineWebApplicationCacheEnabled", true );
   setValue ( "SourceIsFromCacheAttribute", false );
   setValue ( "CacheSaveControlAttribute", false );
   setValue ( "DoNotBufferUploadDataAttribute", true );
@@ -153,22 +151,22 @@ void Settings::setSaveMode()
 */
 const QString Settings::webIconDatabasePath()
 {
-  return cacheLocation();
+  return QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
 }
 
 /**
-* Pfad zur HTML5 Daten Speicher Datenbank
+* Pfad zur Temporären Daten Speicherung
 * @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
 */
 const QString Settings::webLocalStoragePath()
 {
-  QDir d ( cacheLocation() );
+  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   d.mkpath ( QLatin1String ( "Storage" ) );
-  return QString ( cacheLocation() + d.separator() + QLatin1String ( "Storage" ) );
+  return QString ( d.path() + d.separator() + QLatin1String ( "Storage" ) );
 }
 
 /**
-* Pfad zur HTML5 Offline Speicher Datenbank
+* Pfad zur Temporären Offline Daten Speicherung
 * @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
 */
 const QString Settings::webOfflineStoragePath()
@@ -183,9 +181,9 @@ const QString Settings::webOfflineStoragePath()
 */
 const QString Settings::webApplicationCachePath()
 {
-  QDir d ( cacheLocation() );
+  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   d.mkpath ( QLatin1String ( "Databases" ) );
-  return cacheLocation();
+  return d.path();
 }
 
 /**
