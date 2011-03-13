@@ -26,6 +26,7 @@
 #include <QtCore/QList>
 #include <QtCore/QMetaType>
 #include <QtCore/QObject>
+#include <QtCore/QRect>
 #include <QtCore/QString>
 
 /* QtGui */
@@ -57,12 +58,15 @@ class DomTree : public QTreeWidget
   private Q_SLOTS:
     void highlightElement ( QTreeWidgetItem *, int );
     void itemSelected ( QTreeWidgetItem *, int );
+    void itemHovered ( QTreeWidgetItem *, int );
     void changeHighlight ();
     void copyPredicate ();
     void visitContent ();
 
   Q_SIGNALS:
     void itemHighlight ( const QWebElement & );
+    void initStyleSheet ( const QWebElement & );
+    void elementRect ( const QString &, const QRect & );
     void errorMessage ( const QString & );
 
   public Q_SLOTS:

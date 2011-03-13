@@ -23,6 +23,7 @@
 #include "domtoolbar.h"
 #include "domtree.h"
 #include "liststylesheet.h"
+#include "paintelement.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -32,8 +33,9 @@
 
 /* QtGui */
 #include <QtGui/QAction>
-#include <QtGui/QVBoxLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QSizePolicy>
+#include <QtGui/QVBoxLayout>
 
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
@@ -42,6 +44,7 @@
 DomInspector::DomInspector ( Settings * settings, QWidget * parent )
     : QDockWidget ( parent )
     , cfg ( settings )
+    , m_paintElement ( 0 )
 {
   Q_INIT_RESOURCE ( dominspector );
   setObjectName ( QLatin1String ( "domviewerdock" ) );
@@ -62,8 +65,14 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
   m_domTree = new DomTree ( layer );
   vLayout->addWidget ( m_domTree );
 
+  QHBoxLayout* hLayout = new QHBoxLayout;
   m_domToolBar = new DomToolBar ( layer );
-  vLayout->addWidget ( m_domToolBar );
+  hLayout->addWidget ( m_domToolBar, 0, Qt::AlignLeft );
+
+  sizeInfo = new QLabel ( layer );
+  hLayout->addWidget ( sizeInfo );
+
+  vLayout->addLayout ( hLayout );
 
   layer->setLayout ( vLayout );
   m_domSplitter->insertWidget ( 0, layer );
@@ -77,10 +86,13 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
 
   setWidget ( m_domSplitter );
 
+  connect ( m_domTree, SIGNAL ( elementRect ( const QString &, const QRect & ) ),
+            this, SLOT ( setSizeInfo ( const QString &, const QRect & ) ) );
+
   connect ( m_domTree, SIGNAL ( itemHighlight ( const QWebElement & ) ),
             this, SLOT ( setElementVisible ( const QWebElement & ) ) );
 
-  connect ( m_domTree, SIGNAL ( itemHighlight ( const QWebElement & ) ),
+  connect ( m_domTree, SIGNAL ( initStyleSheet ( const QWebElement & ) ),
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
 
   connect ( m_domTree, SIGNAL ( errorMessage ( const QString & ) ),
@@ -139,6 +151,32 @@ const QStringList DomInspector::foundStylesheetReferences ( const QWebElement &h
   return list;
 }
 
+void DomInspector::setSizeInfo ( const QString &name, const QRect &rect )
+{
+  sizeInfo->clear();
+  QSize size = rect.size();
+  if ( size.width() < 1 || size.height() < 1 )
+    return;
+
+  QString info ( "Element : <b>&lt;" );
+  info.append ( name );
+  info.append ( "&gt;</b> " );
+  info.append ( i18n ( "Position" ) );
+  info.append ( " : " );
+  info.append ( QString::number ( rect.x() ) );
+  info.append ( "," );
+  info.append ( QString::number ( rect.y() ) );
+
+  info.append ( " " );
+  info.append ( i18n ( "Size" ) );
+  info.append ( " : " );
+  info.append ( QString::number ( size.width() ) );
+  info.append ( "x" );
+  info.append ( QString::number ( size.height() ) );
+
+  sizeInfo->setText ( info );
+}
+
 /**
 * In dieser Methode wird die Hervorhebung für den Browser erstellt.
 * Mit QWebElement::setStyleProperty wird je nach Möglichkeit der Stylesheet verändert.
@@ -168,16 +206,11 @@ void DomInspector::setElementVisible ( const QWebElement &element )
   bool border = cfg->value ( QLatin1String ( "enableHighlightBorder" ), true ).toBool();
   QString highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
   QString backgroundStyle = QString ( "%1 !important" ).arg ( highlightColor );
-  QString highlightBorder = cfg->value ( QLatin1String ( "highlightBorder" ), QLatin1String ( "red" ) ).toString();
-  QString borderStyle = QString ( "1px solid %1 !important" ).arg ( highlightBorder );
 
   if ( lastSelections.size() != 0 )
   {
     if ( lastSelections.first().background )
       lastSelections.first().element.setStyleProperty ( QString::fromUtf8 ( "background-color" ), "" );
-
-    if ( lastSelections.first().border )
-      lastSelections.first().element.setStyleProperty ( QString::fromUtf8 ( "border" ), "none !important" );
 
     lastSelections.removeFirst();
   }
@@ -186,6 +219,14 @@ void DomInspector::setElementVisible ( const QWebElement &element )
   * Wenn gefunden und bei einem anklicken das Element nicht sichtbar ist.
   * Springe mit dem slot setScrollPosition an den Seiten Kopf. */
   QRect elementRect = element.geometry();
+
+  // BorderFrame anzeigen
+  if ( m_paintElement && border )
+  {
+    m_paintElement->setGeometry ( elementRect );
+    m_paintElement->show();
+  }
+
   if ( elementRect.isValid() && element.webFrame() )
   {
     QWebFrame* currentFrame = element.webFrame();
@@ -206,14 +247,6 @@ void DomInspector::setElementVisible ( const QWebElement &element )
   else
     selection.background = false;
 
-  if ( border && ! hasBorderStyleSheet ( element ) )
-  {
-    selection.border = true;
-    ele.setStyleProperty ( QString::fromUtf8 ( "border" ), borderStyle );
-  }
-  else
-    selection.border = false;
-
   lastSelections << selection;
 }
 
@@ -229,8 +262,15 @@ void DomInspector::setDomTree ( const QUrl &url, const QWebElement &element )
   if ( ! element.webFrame() )
     return;
 
+  if ( m_paintElement )
+    delete m_paintElement;
+
+  m_paintElement = new PaintElement ( element.webFrame()->page()->view() );
+  m_paintElement->setObjectName ( url.toString ( QUrl::RemoveScheme ) );
+
   m_domTree->setToolTip ( url.toString ( QUrl::RemoveQuery ) );
   m_domTree->setDomTree ( element );
+
   QStringList css = foundStylesheetReferences ( element.findFirst ( "HEAD" ) );
   if ( css.size() >= 1 )
     emit cascadedStylesHref ( css );
@@ -251,5 +291,8 @@ void DomInspector::findItem ( const QWebElement &element )
 
 DomInspector::~DomInspector()
 {
+  if ( m_paintElement )
+    delete m_paintElement;
+
   lastSelections.clear();
 }

@@ -64,6 +64,7 @@ DomTree::DomTree ( QWidget * parent )
   setContextMenuPolicy ( Qt::ActionsContextMenu );
   setEditTriggers ( QAbstractItemView::NoEditTriggers );
   setFrameStyle ( QFrame::Box );
+  setMouseTracking ( true );
 
   // Actions
   ac_swapHighlight = new QAction ( KIcon ( "edit-clear-list" ), i18n ( "unhighlighted" ), this );
@@ -96,11 +97,14 @@ DomTree::DomTree ( QWidget * parent )
   connect ( ac_setHighlight, SIGNAL ( triggered () ),
             this, SLOT ( changeHighlight() ) );
 
-  connect ( this, SIGNAL ( itemDoubleClicked ( QTreeWidgetItem *, int ) ),
-            this, SLOT ( highlightElement ( QTreeWidgetItem *, int ) ) );
-
   connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
             this, SLOT ( itemSelected ( QTreeWidgetItem *, int ) ) );
+
+  connect ( this, SIGNAL ( itemEntered ( QTreeWidgetItem *, int ) ),
+            this, SLOT ( itemHovered ( QTreeWidgetItem *, int ) ) );
+
+//   connect ( this, SIGNAL ( itemDoubleClicked ( QTreeWidgetItem *, int ) ),
+//             this, SLOT ( highlightElement ( QTreeWidgetItem *, int ) ) );
 }
 
 /**
@@ -252,7 +256,28 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
     ac_copyPredicates->setEnabled ( false );
 
   TreeItem ti = item->data ( 0, Qt::UserRole ).value<TreeItem>();
-  ac_showContent->setEnabled ( ( ti.element.toPlainText().isEmpty() ? false : true ) );
+  if ( ! ti.element.isNull() )
+  {
+    ac_showContent->setEnabled ( ( ti.element.toPlainText().isEmpty() ? false : true ) );
+    emit initStyleSheet ( ti.element );
+  }
+}
+
+/**
+*
+*/
+void DomTree::itemHovered ( QTreeWidgetItem * item, int column )
+{
+  QRect failRect ( 0, 0, 0, 0 );
+  if ( column != 0 )
+    return;
+
+  TreeItem ti = item->data ( column, Qt::UserRole ).value<TreeItem>();
+  QRect rect = ti.element.geometry();
+  if ( rect == failRect )
+    return;
+
+  emit elementRect ( ti.element.localName(), rect );
 }
 
 /**
@@ -262,7 +287,10 @@ void DomTree::changeHighlight()
 {
   TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
   if ( ! ti.element.isNull() )
+  {
+    emit initStyleSheet ( ti.element );
     emit itemHighlight ( ti.element );
+  }
 }
 
 /** Aktion Prädikate in das Clipboard einfügen! */

@@ -30,6 +30,7 @@
 
 /* QtGui */
 #include <QtGui/QDockWidget>
+#include <QtGui/QLabel>
 #include <QtGui/QSplitter>
 #include <QtGui/QWidget>
 
@@ -43,6 +44,7 @@
 class DomTree;
 class DomToolBar;
 class ListStyleSheet;
+class PaintElement;
 
 class DomInspector : public QDockWidget
 {
@@ -52,7 +54,9 @@ class DomInspector : public QDockWidget
 
   private:
     Settings* cfg;
+    PaintElement* m_paintElement;
     DomToolBar* m_domToolBar;
+    QLabel* sizeInfo;
     QSplitter* m_domSplitter;
     DomTree* m_domTree;
     ListStyleSheet* m_listStyleSheet;
@@ -60,12 +64,12 @@ class DomInspector : public QDockWidget
     const QStringList foundStylesheetReferences ( const QWebElement & ) const;
 
   private Q_SLOTS:
+    void setSizeInfo ( const QString &, const QRect & );
     void setElementVisible ( const QWebElement & );
 
   protected:
     struct SelectedItem
     {
-      bool border;
       bool background;
       QWebElement element;
     };
