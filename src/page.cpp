@@ -327,8 +327,6 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     return false;
 
     case QWebPage::NavigationTypeOther:
-      // typically a external reload or header location href request
-      // after this a getRequest is used by WebKit
       break;
 
     default:

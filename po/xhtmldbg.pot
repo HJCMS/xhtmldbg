@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-12 13:59+0100\n"
+"POT-Creation-Date: 2011-03-13 12:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1243,6 +1243,10 @@ msgstr ""
 msgid "Cookie Hostname"
 msgstr ""
 
+#: src/dominspector/contentdialog.cpp:41
+msgid "Element Content"
+msgstr ""
+
 #: src/dominspector/dominspector.cpp:48
 msgid "DomTree"
 msgstr ""
@@ -1273,6 +1277,38 @@ msgstr ""
 
 #: src/dominspector/domtoolbar.cpp:63
 msgid "Deselect Highlights"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:69
+msgid "unhighlighted"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:70
+msgid "unhighlighted current document content"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:73
+msgid "Content"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:75
+msgid "Show current Element Content"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:78
+msgid "Copy"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:80
+msgid "Copy Predicates to Clipboard"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:83
+msgid "Choose"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:84
+msgid "Show current Element Information"
 msgstr ""
 
 #: src/dominspector/liststylesheet.cpp:96
@@ -1680,7 +1716,7 @@ msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:305
+#: src/networker/networkaccessmanager.cpp:302
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -1772,7 +1808,7 @@ msgstr ""
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr ""
 
-#: src/page.cpp:358
+#: src/page.cpp:356
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 

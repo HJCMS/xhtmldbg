@@ -77,10 +77,10 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
 
   setWidget ( m_domSplitter );
 
-  connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
+  connect ( m_domTree, SIGNAL ( itemHighlight ( const QWebElement & ) ),
             this, SLOT ( setElementVisible ( const QWebElement & ) ) );
 
-  connect ( m_domTree, SIGNAL ( itemClicked ( const QWebElement & ) ),
+  connect ( m_domTree, SIGNAL ( itemHighlight ( const QWebElement & ) ),
             m_listStyleSheet, SLOT ( setStyleSheetList ( const QWebElement & ) ) );
 
   connect ( m_domTree, SIGNAL ( errorMessage ( const QString & ) ),

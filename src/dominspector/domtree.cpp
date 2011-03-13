@@ -20,14 +20,18 @@
 **/
 
 #include "domtree.h"
+#include "contentdialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QGlobalStatic>
+#include <QtCore/QPoint>
 #include <QtCore/QRegExp>
 #include <QtCore/QStringList>
 
 /* QtGui */
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
 #include <QtGui/QFrame>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QHeaderView>
@@ -42,6 +46,10 @@
 # include <QtWebKit/qwebkitversion.h>
 #endif
 
+/* KDE */
+#include <KDE/KIcon>
+#include <KDE/KLocale>
+
 DomTree::DomTree ( QWidget * parent )
     : QTreeWidget ( parent )
     , minCellWidth ( 50 )
@@ -53,7 +61,43 @@ DomTree::DomTree ( QWidget * parent )
   setSortingEnabled ( false );
   header()->setResizeMode ( QHeaderView::ResizeToContents );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
+  setContextMenuPolicy ( Qt::ActionsContextMenu );
+  setEditTriggers ( QAbstractItemView::NoEditTriggers );
   setFrameStyle ( QFrame::Box );
+
+  // Actions
+  ac_swapHighlight = new QAction ( KIcon ( "edit-clear-list" ), i18n ( "unhighlighted" ), this );
+  ac_swapHighlight->setStatusTip ( i18n ( "unhighlighted current document content" ) );
+  insertAction ( 0, ac_swapHighlight );
+
+  ac_showContent = new QAction ( KIcon ( "view-choose" ), i18n ( "Content" ), this );
+  ac_showContent->setEnabled ( false );
+  ac_showContent->setStatusTip ( i18n ( "Show current Element Content" ) );
+  insertAction ( ac_swapHighlight, ac_showContent );
+
+  ac_copyPredicates = new QAction ( KIcon ( "edit-copy" ), i18n ( "Copy" ), this );
+  ac_copyPredicates->setEnabled ( false );
+  ac_copyPredicates->setStatusTip ( i18n ( "Copy Predicates to Clipboard" ) );
+  insertAction ( ac_showContent, ac_copyPredicates );
+
+  ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Choose" ), this );
+  ac_setHighlight->setStatusTip ( i18n ( "Show current Element Information" ) );
+  insertAction ( ac_copyPredicates, ac_setHighlight );
+
+  connect ( ac_swapHighlight, SIGNAL ( triggered () ),
+            this, SLOT ( setUnselect() ) );
+
+  connect ( ac_showContent, SIGNAL ( triggered () ),
+            this, SLOT ( visitContent() ) );
+
+  connect ( ac_copyPredicates, SIGNAL ( triggered () ),
+            this, SLOT ( copyPredicate() ) );
+
+  connect ( ac_setHighlight, SIGNAL ( triggered () ),
+            this, SLOT ( changeHighlight() ) );
+
+  connect ( this, SIGNAL ( itemDoubleClicked ( QTreeWidgetItem *, int ) ),
+            this, SLOT ( highlightElement ( QTreeWidgetItem *, int ) ) );
 
   connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
             this, SLOT ( itemSelected ( QTreeWidgetItem *, int ) ) );
@@ -167,17 +211,79 @@ QTreeWidgetItem* DomTree::createChildItem ( const QString &name, QTreeWidgetItem
   return item;
 }
 
+/** Element CDATA Inhalt Anzeigen Dialog öffnen */
+void DomTree::openContentDialog ( const QString &content )
+{
+  if ( content.isEmpty() )
+    return;
+
+  ContentDialog dialog ( content, this );
+  dialog.exec();
+}
+
 /**
-* Bei einer Auswahl mit der Maus wird der Eintrag hier
+* Bei einem Doppelklick der Maus wird der Eintrag hier
 * aufbereitet in dem das struct eingelesen wird und mit
-* dem WebElement ein signal @ref itemClicked angestoßen.
+* dem WebElement ein signal @ref itemHighlight angestoßen.
+* @note Der Grund für diese Änderung ist, das wenn ein Item
+*       ausgwählt wird erst eine Kopie der Prädikate für den Kopieren
+*       Menüeintrag erstellt werden muss. Ansnonsten würde das "background"
+*       Prädikat überschrieben und einen falschen Kopiereintrag erzeugen!
+*/
+void DomTree::highlightElement ( QTreeWidgetItem * item, int column )
+{
+  Q_UNUSED ( column )
+  TreeItem ti = item->data ( 0, Qt::UserRole ).value<TreeItem>();
+  emit itemHighlight ( ti.element );
+}
+
+/**
+* Bei einer Auswahl mit der Maus wird der Eintrag nach
+* Prädikaten durchsucht und die Vorbereitung für die
+* Kopieren Aktionen erstellt!
 */
 void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
 {
-  Q_UNUSED ( column )
+  if ( item->text ( 0 ) == QString::fromUtf8 ( "AttDef" ) )
+    ac_copyPredicates->setEnabled ( true );
+  else if ( item->text ( column ) == QString::fromUtf8 ( "AttDef" ) )
+    ac_copyPredicates->setEnabled ( true );
+  else
+    ac_copyPredicates->setEnabled ( false );
 
   TreeItem ti = item->data ( 0, Qt::UserRole ).value<TreeItem>();
-  emit itemClicked ( ti.element );
+  ac_showContent->setEnabled ( ( ti.element.toPlainText().isEmpty() ? false : true ) );
+}
+
+/**
+* Manuelle Auswahl zum Hervorheben von Elementen im Browser
+*/
+void DomTree::changeHighlight()
+{
+  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
+  if ( ! ti.element.isNull() )
+    emit itemHighlight ( ti.element );
+}
+
+/** Aktion Prädikate in das Clipboard einfügen! */
+void DomTree::copyPredicate ()
+{
+  QTreeWidgetItem* item = currentItem();
+  TreeItem ti = item->data ( 0, Qt::UserRole ).value<TreeItem>();
+  if ( ! ti.element.hasAttributes() )
+    return;
+
+  QString txt = QString::fromUtf8 ( "%1=\"%2\"" ).arg ( item->text ( 1 ), item->text ( 2 ) );
+  qApp->clipboard()->setText ( txt );
+}
+
+/**
+* Wenn das Element ein CDATA Section enthält diese Anzeigen!
+*/
+void DomTree::visitContent ()
+{
+  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
+  openContentDialog ( ti.element.toInnerXml() );
 }
 
 /**
@@ -260,7 +366,7 @@ void DomTree::setPrune()
 void DomTree::setUnselect()
 {
   TreeItem ti = invisibleRootItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
-  emit itemClicked ( ti.element );
+  emit itemHighlight ( ti.element );
 }
 
 DomTree::~DomTree()

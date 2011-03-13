@@ -29,6 +29,7 @@
 #include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 
@@ -43,16 +44,25 @@ class DomTree : public QTreeWidget
 
   private:
     int minCellWidth;
+    QAction* ac_swapHighlight;
+    QAction* ac_showContent;
+    QAction* ac_copyPredicates;
+    QAction* ac_setHighlight;
     QTreeWidgetItem* createTopLevelItem ( const QString & );
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
     void parseElements ( const QWebElement &, QTreeWidgetItem* );
     QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
+    void openContentDialog ( const QString & );
 
   private Q_SLOTS:
+    void highlightElement ( QTreeWidgetItem *, int );
     void itemSelected ( QTreeWidgetItem *, int );
+    void changeHighlight ();
+    void copyPredicate ();
+    void visitContent ();
 
   Q_SIGNALS:
-    void itemClicked ( const QWebElement & );
+    void itemHighlight ( const QWebElement & );
     void errorMessage ( const QString & );
 
   public Q_SLOTS:

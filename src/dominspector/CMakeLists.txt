@@ -5,6 +5,7 @@ SET (dominspector_SOURCES
   domtree.cpp
   liststylesheet.cpp
   domtoolbar.cpp
+  contentdialog.cpp
 )
 
 SET (dominspector_HEADERS
@@ -12,9 +13,8 @@ SET (dominspector_HEADERS
   domtree.h
   liststylesheet.h
   domtoolbar.h
+  contentdialog.h
 )
-
-
 
 KDE4_MOC_HEADERS (dominspector_MOC ${dominspector_HEADERS})
 
@@ -44,6 +44,7 @@ TARGET_LINK_LIBRARIES (DomInspector
   ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QT_QTWEBKIT_LIBRARY}
+  ${XHTMLDBG_KDE_LIBRARIES}
   Settings
 )
 
