@@ -181,7 +181,6 @@ void DomInspector::setSizeInfo ( const QString &name, const QRect &rect )
 * In dieser Methode wird die Hervorhebung für den Browser erstellt.
 * Mit QWebElement::setStyleProperty wird je nach Möglichkeit der Stylesheet verändert.
 * @li background-color @code  background-color: yellow !important; @endcode
-* @li border           @code  border: 1px solid red !important; @endcode
 * @note Es ist Wichtig das "!important" gesetzt ist sonst Ignoriert WebKit die angaben.
 *
 * @note Hier gibt es einige Probleme was das Überschreiben betrifft!
