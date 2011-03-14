@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-14 19:31+0100\n"
-"PO-Revision-Date: 2011-03-14 19:33+0100\n"
+"POT-Creation-Date: 2011-03-14 20:06+0100\n"
+"PO-Revision-Date: 2011-03-14 20:07+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -532,15 +532,15 @@ msgstr "Immer erlauben"
 msgid "Add"
 msgstr "Einfügen"
 
-#: src/configuration/configdomtree.cpp:37
+#: src/configuration/configdomtree.cpp:38
 msgid "DOM Inspector"
 msgstr "DOM Kontrolleur"
 
-#: src/configuration/configdomtree.cpp:51
+#: src/configuration/configdomtree.cpp:52
 msgid "Enable Background Highlight"
 msgstr "Aktiviere die Hintergrund Hervorhebung"
 
-#: src/configuration/configdomtree.cpp:71
+#: src/configuration/configdomtree.cpp:72
 msgid "Enable Border Highlight"
 msgstr "Aktiviere die Rahmen Hervorhebung"
 
@@ -1330,47 +1330,55 @@ msgstr "Element Inhalt"
 msgid "DomTree"
 msgstr "Dom Baum"
 
-#: src/dominspector/dominspector.cpp:209
-#, fuzzy
+#: src/dominspector/dominspector.cpp:212
 msgid "Position"
-msgstr "Ziel"
+msgstr "Position"
 
-#: src/dominspector/dominspector.cpp:215
+#: src/dominspector/dominspector.cpp:218
 #: src/downloadmanager/downloadstablemodel.cpp:253
 msgid "Size"
 msgstr "Größe"
 
-#: src/dominspector/dominspector.cpp:222
+#: src/dominspector/dominspector.cpp:225
 msgid "no visible geometry"
 msgstr "keine Sichtbare Geometrie"
 
-#: src/dominspector/domtoolbar.cpp:41 src/window.cpp:543
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:543
 msgid "Actions"
 msgstr "Aktionen"
 
-#: src/dominspector/domtoolbar.cpp:53
+#: src/dominspector/domtoolbar.cpp:52
 msgid "Collapse"
 msgstr "Ausblenden"
 
-#: src/dominspector/domtoolbar.cpp:55
+#: src/dominspector/domtoolbar.cpp:54
 msgid "Collapse Tree"
 msgstr "Baum Ausblenden"
 
-#: src/dominspector/domtoolbar.cpp:57
+#: src/dominspector/domtoolbar.cpp:56
 msgid "Expand"
 msgstr "Einblenden"
 
-#: src/dominspector/domtoolbar.cpp:59
+#: src/dominspector/domtoolbar.cpp:58
 msgid "Expanding Tree"
 msgstr "Baum Einblenden"
 
-#: src/dominspector/domtoolbar.cpp:61
+#: src/dominspector/domtoolbar.cpp:60
 msgid "Deselect"
 msgstr "Abwählen"
 
-#: src/dominspector/domtoolbar.cpp:63
+#: src/dominspector/domtoolbar.cpp:62
 msgid "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
+
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:84
+#: src/sourceviewer/contextmenu.cpp:92
+msgid "Highlight"
+msgstr "Hervorhebung"
+
+#: src/dominspector/domtoolbar.cpp:66
+msgid "onHover Highlight"
+msgstr "Element beim überfahren der Maus Hervorheben"
 
 #: src/dominspector/domtree.cpp:70
 msgid "unhighlighted"
@@ -1395,10 +1403,6 @@ msgstr "Kopieren"
 #: src/dominspector/domtree.cpp:81
 msgid "Copy Predicates to Clipboard"
 msgstr "Kopiere Prädikat in die Zwischenablage"
-
-#: src/dominspector/domtree.cpp:84 src/sourceviewer/contextmenu.cpp:92
-msgid "Highlight"
-msgstr "Hervorhebung"
 
 #: src/dominspector/domtree.cpp:85
 msgid "Show current Element Information"
