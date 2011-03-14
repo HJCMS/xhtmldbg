@@ -85,8 +85,8 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
 
   setWidget ( m_domSplitter );
 
-  connect ( m_domTree, SIGNAL ( elementRect ( const QString &, const QRect & ) ),
-            this, SLOT ( setSizeInfo ( const QString &, const QRect & ) ) );
+  connect ( m_domTree, SIGNAL ( elementHovered ( const QWebElement & ) ),
+            this, SLOT ( setElementInfo ( const QWebElement & ) ) );
 
   connect ( m_domTree, SIGNAL ( itemHighlight ( const QWebElement & ) ),
             this, SLOT ( setElementVisible ( const QWebElement & ) ) );
@@ -196,15 +196,16 @@ void DomInspector::hideLayer ()
 }
 
 /** Anzeige der Dimensionen im Label */
-void DomInspector::setSizeInfo ( const QString &name, const QRect &rect )
+void DomInspector::setElementInfo ( const QWebElement &element )
 {
   sizeInfo->clear();
-  if ( name.isEmpty() )
+  if ( element.isNull() )
     return;
 
   QString info ( "Element : <b>&lt;" );
-  info.append ( name );
+  info.append ( element.localName() );
   info.append ( "&gt;</b> " );
+  QRect rect = element.geometry();
   if ( rect.isValid() )
   {
     QSize size = rect.size();
@@ -224,6 +225,8 @@ void DomInspector::setSizeInfo ( const QString &name, const QRect &rect )
     info.append ( i18n ( "no visible geometry" ) );
 
   sizeInfo->setText ( info );
+  if ( m_domToolBar->onHoverEnabled() )
+    moveLayer ( element );
 }
 
 /**

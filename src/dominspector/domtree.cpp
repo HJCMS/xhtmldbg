@@ -264,20 +264,18 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
 }
 
 /**
-*
+* Beim Überfahren mit der Maus das Element weiter geben!
 */
 void DomTree::itemHovered ( QTreeWidgetItem * item, int column )
 {
-  QRect failRect ( 0, 0, 0, 0 );
   if ( column != 0 )
     return;
 
   TreeItem ti = item->data ( column, Qt::UserRole ).value<TreeItem>();
-  QRect rect = ti.element.geometry();
-  if ( rect == failRect )
+  if ( ti.element.isNull() )
     return;
 
-  emit elementRect ( ti.element.localName(), rect );
+  emit elementHovered ( ti.element );
 }
 
 /**

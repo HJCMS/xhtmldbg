@@ -67,7 +67,7 @@ class DomTree : public QTreeWidget
     void itemHighlight ( const QWebElement & );
     void unselect ();
     void initStyleSheet ( const QWebElement & );
-    void elementRect ( const QString &, const QRect & );
+    void elementHovered ( const QWebElement & );
     void errorMessage ( const QString & );
 
   public Q_SLOTS:

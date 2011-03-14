@@ -65,7 +65,7 @@ class DomInspector : public QDockWidget
 
   private Q_SLOTS:
     void hideLayer ();
-    void setSizeInfo ( const QString &, const QRect & );
+    void setElementInfo ( const QWebElement & );
     void setElementVisible ( const QWebElement & );
 
   Q_SIGNALS:

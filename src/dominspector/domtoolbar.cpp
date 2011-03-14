@@ -26,7 +26,6 @@
 #include <QtCore/QString>
 
 /* QtGui */
-#include <QtGui/QAction>
 #include <QtGui/QFontMetrics>
 #include <QtGui/QIcon>
 #include <QtGui/QLayout>
@@ -51,20 +50,30 @@ DomToolBar::DomToolBar ( QWidget * parent )
     layout()->setSpacing ( 5 );
 
   QAction* acPrune = addAction ( i18n ( "Collapse" ) );
-  acPrune->setIcon ( KIcon ( QLatin1String ( "view-list-tree" ) ) );
+  acPrune->setIcon ( KIcon ( "view-list-tree" ) );
   acPrune->setToolTip ( i18n ( "Collapse Tree" ) );
 
   QAction* acExpand = addAction ( i18n ( "Expand" ) );
-  acExpand->setIcon ( KIcon ( QLatin1String ( "view-process-all-tree" ) ) );
+  acExpand->setIcon ( KIcon ( "view-process-all-tree" ) );
   acExpand->setToolTip ( i18n ( "Expanding Tree" ) );
 
   QAction* acDeselect = addAction ( i18n ( "Deselect" ) );
-  acDeselect->setIcon ( KIcon ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
+  acDeselect->setIcon ( KIcon ( "view-web-browser-dom-tree" ) );
   acDeselect->setToolTip ( i18n ( "Deselect Highlights" ) );
+
+  acHighlight = addAction ( i18n ( "Highlight" ) );
+  acHighlight->setIcon ( KIcon ( "view-statistics" ) );
+  acHighlight->setToolTip ( i18n ( "onHover Highlight" ) );
+  acHighlight->setCheckable ( true );
 
   connect ( acPrune, SIGNAL ( triggered() ), this, SIGNAL ( prune() ) );
   connect ( acExpand, SIGNAL ( triggered() ), this, SIGNAL ( expand() ) );
   connect ( acDeselect, SIGNAL ( triggered() ), this, SIGNAL ( unselect() ) );
+}
+
+bool DomToolBar::onHoverEnabled()
+{
+  return acHighlight->isChecked();
 }
 
 DomToolBar::~DomToolBar()

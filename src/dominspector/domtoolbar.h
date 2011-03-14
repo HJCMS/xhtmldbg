@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
@@ -35,6 +36,9 @@ class DomToolBar : public QToolBar
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
+  private:
+    QAction* acHighlight;
+
   Q_SIGNALS:
     void prune();
     void expand();
@@ -42,6 +46,7 @@ class DomToolBar : public QToolBar
 
   public:
     DomToolBar ( QWidget * patent = 0 );
+    bool onHoverEnabled();
     ~DomToolBar();
 };
 
