@@ -81,7 +81,7 @@ DomTree::DomTree ( QWidget * parent )
   ac_copyPredicates->setStatusTip ( i18n ( "Copy Predicates to Clipboard" ) );
   insertAction ( ac_showContent, ac_copyPredicates );
 
-  ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Choose" ), this );
+  ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Highlight" ), this );
   ac_setHighlight->setStatusTip ( i18n ( "Show current Element Information" ) );
   insertAction ( ac_copyPredicates, ac_setHighlight );
 
@@ -384,17 +384,6 @@ void DomTree::setPrune()
     if ( invisibleRootItem()->child ( t ) )
       invisibleRootItem()->child ( t )->setExpanded ( true );
   }
-}
-
-/**
-* Damit die farbliche Hervorhebung im Browser wieder
-* entfernt wird setze den Zeiger auf eines der Elemente.
-* Die kein struct @ref TreeItem enthalten.
-*/
-void DomTree::setUnselect()
-{
-  TreeItem ti = invisibleRootItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
-  emit itemHighlight ( ti.element );
 }
 
 DomTree::~DomTree()

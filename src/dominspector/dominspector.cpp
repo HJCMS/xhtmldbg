@@ -23,13 +23,13 @@
 #include "domtoolbar.h"
 #include "domtree.h"
 #include "liststylesheet.h"
-#include "paintelement.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QRect>
 #include <QtCore/QPoint>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QAction>
@@ -44,7 +44,6 @@
 DomInspector::DomInspector ( Settings * settings, QWidget * parent )
     : QDockWidget ( parent )
     , cfg ( settings )
-    , m_paintElement ( 0 )
 {
   Q_INIT_RESOURCE ( dominspector );
   setObjectName ( QLatin1String ( "domviewerdock" ) );
@@ -100,31 +99,65 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
 
   connect ( m_domToolBar, SIGNAL ( prune() ), m_domTree, SLOT ( setPrune() ) );
   connect ( m_domToolBar, SIGNAL ( expand() ), m_domTree, SLOT ( expandAll() ) );
-  connect ( m_domToolBar, SIGNAL ( unselect() ), m_domTree, SLOT ( setUnselect() ) );
+  connect ( m_domToolBar, SIGNAL ( unselect() ), this, SLOT ( hideLayer() ) );
 }
 
 /**
-* Versuche hier bei dem WebElement heraus zu finden ob nicht
-* schon (z.B: fieldset) ein Rahmen enthalten ist.
+* Dies ist der Hover Layer zum anzeigen der WebElemente
+* Siehe @ref moveLayer für die Manipulation des Layers
+* @li Erstelle mit JabaScript Code eine div Layer
+* @li Hänge ihn mit QWebElement::evaluateJavaScript an den BODY an!
+* @note Im Moment ist es \b NICHT Möglich mit QWebElement neue Element zu
+*       erzeugen und diese in das Dokument einzufügen :-/
 */
-bool DomInspector::hasBorderStyleSheet ( const QWebElement &element ) const
+void DomInspector::appendLayer ( const QWebElement &element )
 {
-  if ( element.tagName().contains ( "fieldset", Qt::CaseInsensitive ) )
-    return true;
+  QWebElement body = element.findFirst ( "BODY" );
+  if ( body.isNull() )
+    return;
 
-  QStringList styles ( "solid" );
-  styles << "dashed" << "dotted" << "double" << "groove" << "ridge" << "inset" << "outset";
-  QString pattern = QString ( "\\b(%1)\\b" ).arg ( styles.join ( "|" ) );
+  QString color = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
+  QString border = cfg->value ( QLatin1String ( "highlightBorder" ), QLatin1String ( "red" ) ).toString();
+  QStringList html ( "var div = document.createElement('div');" );
+  html << "div.id='xhtmldbg_inspector_layer';";
+  html << "div.style.position='absolute';";
+  html << "div.style.left='1px';";
+  html << "div.style.top='1px';";
+  html << "div.style.width='1px';";
+  html << "div.style.height='1px';";
+  html << QString::fromUtf8 ( "div.style.border='1px solid %1';" ).arg ( border );
+  html << QString::fromUtf8 ( "div.style.backgroundColor='%1';" ).arg ( color );
+  html << "div.style.zIndex=6;";
+  html << "div.style.display='none';";
+  html << "this.appendChild(div);";
+  /* Leider Verursacht evaluateJavaScript eine Initialisierung der
+  * Plugins weil wohl ein evaluateJavaScript bereits in @ref Viewer::displayPlugins
+  * vorhanden ist wird dieses dann Anscheinnet auch Initialisiert. ???? */
+  body.evaluateJavaScript ( html.join ( "" ) );
+}
 
-  QStringList cssAttributes ( "border-color" );
-  cssAttributes << "border-style" << "border";
-  foreach ( QString attr, cssAttributes )
+/**
+* Den Layer auf einem Element abbilden
+*/
+void DomInspector::moveLayer ( const QWebElement &element, bool visible ) const
+{
+  QRect rect = element.geometry();
+  QWebElement layer = element.document().findAll ( "DIV[id~=xhtmldbg_inspector_layer]" ).first();
+  if ( !visible || !rect.isValid() )
   {
-    QString value = element.styleProperty ( attr, QWebElement::CascadedStyle );
-    if ( ! value.isEmpty() )
-      return value.contains ( QRegExp ( pattern, Qt::CaseInsensitive ) );
+    layer.setStyleProperty ( "display", "none" );
+    layer.setStyleProperty ( "left", "1px" );
+    layer.setStyleProperty ( "top", "1px" );
+    layer.setStyleProperty ( "width", "1px" );
+    layer.setStyleProperty ( "height", "1px" );
+    return;
   }
-  return false;
+  layer.setStyleProperty ( "display", "inline" );
+  layer.setStyleProperty ( "left", QString::number ( rect.x() ) + "px" );
+  layer.setStyleProperty ( "top", QString::number ( rect.y() ) + "px" );
+  layer.setStyleProperty ( "width", QString::number ( rect.width() - 2 ) + "px" );
+  layer.setStyleProperty ( "height", QString::number ( rect.height() - 2 ) + "px" );
+  layer.setStyleProperty ( "opacity", "0.5" );
 }
 
 /**
@@ -151,81 +184,57 @@ const QStringList DomInspector::foundStylesheetReferences ( const QWebElement &h
   return list;
 }
 
+/** Slot zum verbergen des Layers */
+void DomInspector::hideLayer ()
+{
+  if ( currentElement.size() < 1 )
+    return;
+
+  moveLayer ( currentElement.last(), false );
+}
+
+/** Anzeige der Dimensionen im Label */
 void DomInspector::setSizeInfo ( const QString &name, const QRect &rect )
 {
   sizeInfo->clear();
-  QSize size = rect.size();
-  if ( size.width() < 1 || size.height() < 1 )
+  if ( name.isEmpty() )
     return;
 
   QString info ( "Element : <b>&lt;" );
   info.append ( name );
   info.append ( "&gt;</b> " );
-  info.append ( i18n ( "Position" ) );
-  info.append ( " : " );
-  info.append ( QString::number ( rect.x() ) );
-  info.append ( "," );
-  info.append ( QString::number ( rect.y() ) );
-
-  info.append ( " " );
-  info.append ( i18n ( "Size" ) );
-  info.append ( " : " );
-  info.append ( QString::number ( size.width() ) );
-  info.append ( "x" );
-  info.append ( QString::number ( size.height() ) );
+  if ( rect.isValid() )
+  {
+    QSize size = rect.size();
+    info.append ( i18n ( "Position" ) );
+    info.append ( " : " );
+    info.append ( QString::number ( rect.x() ) );
+    info.append ( "," );
+    info.append ( QString::number ( rect.y() ) );
+    info.append ( " " );
+    info.append ( i18n ( "Size" ) );
+    info.append ( " : " );
+    info.append ( QString::number ( size.width() ) );
+    info.append ( "x" );
+    info.append ( QString::number ( size.height() ) );
+  }
+  else
+    info.append ( i18n ( "no visible geometry" ) );
 
   sizeInfo->setText ( info );
 }
 
 /**
 * In dieser Methode wird die Hervorhebung für den Browser erstellt.
-* Mit QWebElement::setStyleProperty wird je nach Möglichkeit der Stylesheet verändert.
-* @li background-color @code  background-color: yellow !important; @endcode
-* @note Es ist Wichtig das "!important" gesetzt ist sonst Ignoriert WebKit die angaben.
-*
-* @note Hier gibt es einige Probleme was das Überschreiben betrifft!
-* 1) Hat ein Element schon einen Rahmen und kann QWebElement diesen finden!
-*    Bestes Beispiel ist das "fieldset" Element.
-* 2) Wenn ich hier hingehe und ein WebElement Neu Schreibe dann werden dieses
-*    in @class DomTree wegen der neuen Speicher Adresse nicht mehr gefunden.
-*    Es kann auch keine Kopie eines WebElementes z.B. in einem struct zwischen
-*    gelagert werden weil sonst der Pointer auf das Element verloren geht.
-*    Klar - Ich könnte jetzt auch ein Vector mit den Pointern befüllen
-*    aber mal ehrlich, das ist in meinen Augen sinnloses Speicherfressen.
-*
-* Aus diesem Grund habe ich mich nun so entschieden.
-* Bei Änderungen kopiere die Informationen in das QList @ref lastSelections
-* und halte immer das zuletzt verwendete Element in diesem struct fest.
-* Wenn ein erneuter Aufruf dieser Methode erfolgt erst nachsehen ob in
-* @ref lastSelections Inhalte enthalten sind, welche noch bereinigt werden müssen.
+* Wenn das Element nicht Sichtbar ist Springe mit setScrollPosition
+* Zum Sichtbaren teil des WebElementes. Siehe auch @ref moveLayer
 */
 void DomInspector::setElementVisible ( const QWebElement &element )
 {
-  bool background = cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool();
-  bool border = cfg->value ( QLatin1String ( "enableHighlightBorder" ), true ).toBool();
-  QString highlightColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
-  QString backgroundStyle = QString ( "%1 !important" ).arg ( highlightColor );
-
-  if ( lastSelections.size() != 0 )
-  {
-    if ( lastSelections.first().background )
-      lastSelections.first().element.setStyleProperty ( QString::fromUtf8 ( "background-color" ), "" );
-
-    lastSelections.removeFirst();
-  }
-
   /* Hole für das Element den dazu gehörigen QWebFrame.
   * Wenn gefunden und bei einem anklicken das Element nicht sichtbar ist.
   * Springe mit dem slot setScrollPosition an den Seiten Kopf. */
   QRect elementRect = element.geometry();
-
-  // BorderFrame anzeigen
-  if ( m_paintElement && border )
-  {
-    m_paintElement->setGeometry ( elementRect );
-    m_paintElement->show();
-  }
-
   if ( elementRect.isValid() && element.webFrame() )
   {
     QWebFrame* currentFrame = element.webFrame();
@@ -234,19 +243,7 @@ void DomInspector::setElementVisible ( const QWebElement &element )
     if ( ! topRect.contains ( elementRect ) )
       currentFrame->setScrollPosition ( elementRect.topLeft() );
   }
-
-  QWebElement ele ( element );
-  SelectedItem selection;
-  selection.element = ele;
-  if ( background )
-  {
-    selection.background = true;
-    ele.setStyleProperty ( QString::fromUtf8 ( "background-color" ), backgroundStyle );
-  }
-  else
-    selection.background = false;
-
-  lastSelections << selection;
+  moveLayer ( element );
 }
 
 /**
@@ -261,12 +258,7 @@ void DomInspector::setDomTree ( const QUrl &url, const QWebElement &element )
   if ( ! element.webFrame() )
     return;
 
-  if ( m_paintElement )
-    delete m_paintElement;
-
-  m_paintElement = new PaintElement ( element.webFrame()->page()->view() );
-  m_paintElement->setObjectName ( url.toString ( QUrl::RemoveScheme ) );
-
+  currentElement.clear();
   m_domTree->setToolTip ( url.toString ( QUrl::RemoveQuery ) );
   m_domTree->setDomTree ( element );
 
@@ -274,7 +266,9 @@ void DomInspector::setDomTree ( const QUrl &url, const QWebElement &element )
   if ( css.size() >= 1 )
     emit cascadedStylesHref ( css );
 
+  appendLayer ( element );
   m_listStyleSheet->clear();
+  currentElement.append ( element );
 }
 
 /**
@@ -290,8 +284,5 @@ void DomInspector::findItem ( const QWebElement &element )
 
 DomInspector::~DomInspector()
 {
-  if ( m_paintElement )
-    delete m_paintElement;
-
-  lastSelections.clear();
+  currentElement.clear();
 }

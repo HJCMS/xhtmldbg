@@ -25,7 +25,7 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QtCore/QList>
 #include <QtCore/QUrl>
 
 /* QtGui */
@@ -44,7 +44,6 @@
 class DomTree;
 class DomToolBar;
 class ListStyleSheet;
-class PaintElement;
 
 class DomInspector : public QDockWidget
 {
@@ -54,26 +53,20 @@ class DomInspector : public QDockWidget
 
   private:
     Settings* cfg;
-    PaintElement* m_paintElement;
     DomToolBar* m_domToolBar;
     QLabel* sizeInfo;
     QSplitter* m_domSplitter;
     DomTree* m_domTree;
     ListStyleSheet* m_listStyleSheet;
-    bool hasBorderStyleSheet ( const QWebElement & ) const;
+    QList<QWebElement> currentElement;
+    void appendLayer ( const QWebElement &element );
+    void moveLayer ( const QWebElement &element, bool visible = true ) const;
     const QStringList foundStylesheetReferences ( const QWebElement & ) const;
 
   private Q_SLOTS:
+    void hideLayer ();
     void setSizeInfo ( const QString &, const QRect & );
     void setElementVisible ( const QWebElement & );
-
-  protected:
-    struct SelectedItem
-    {
-      bool background;
-      QWebElement element;
-    };
-    QList<SelectedItem> lastSelections;
 
   Q_SIGNALS:
     void cascadedStylesHref ( const QStringList & );

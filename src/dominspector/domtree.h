@@ -71,7 +71,6 @@ class DomTree : public QTreeWidget
 
   public Q_SLOTS:
     void setPrune();
-    void setUnselect();
 
   public:
     struct TreeItem
