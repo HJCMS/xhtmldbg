@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-13 12:24+0100\n"
-"PO-Revision-Date: 2011-03-13 12:28+0100\n"
+"POT-Creation-Date: 2011-03-14 19:31+0100\n"
+"PO-Revision-Date: 2011-03-14 19:33+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1326,9 +1326,23 @@ msgstr "Cookie Hostname"
 msgid "Element Content"
 msgstr "Element Inhalt"
 
-#: src/dominspector/dominspector.cpp:48
+#: src/dominspector/dominspector.cpp:50
 msgid "DomTree"
 msgstr "Dom Baum"
+
+#: src/dominspector/dominspector.cpp:209
+#, fuzzy
+msgid "Position"
+msgstr "Ziel"
+
+#: src/dominspector/dominspector.cpp:215
+#: src/downloadmanager/downloadstablemodel.cpp:253
+msgid "Size"
+msgstr "Größe"
+
+#: src/dominspector/dominspector.cpp:222
+msgid "no visible geometry"
+msgstr "keine Sichtbare Geometrie"
 
 #: src/dominspector/domtoolbar.cpp:41 src/window.cpp:543
 msgid "Actions"
@@ -1358,35 +1372,35 @@ msgstr "Abwählen"
 msgid "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
 
-#: src/dominspector/domtree.cpp:69
+#: src/dominspector/domtree.cpp:70
 msgid "unhighlighted"
 msgstr "Hervorhebung abwählen"
 
-#: src/dominspector/domtree.cpp:70
+#: src/dominspector/domtree.cpp:71
 msgid "unhighlighted current document content"
 msgstr "Aktuelle Dokument Hervorhebung entfernen"
 
-#: src/dominspector/domtree.cpp:73
+#: src/dominspector/domtree.cpp:74
 msgid "Content"
 msgstr "Inhalt"
 
-#: src/dominspector/domtree.cpp:75
+#: src/dominspector/domtree.cpp:76
 msgid "Show current Element Content"
 msgstr "Zeige den aktuellen Element Inhalt"
 
-#: src/dominspector/domtree.cpp:78
+#: src/dominspector/domtree.cpp:79
 msgid "Copy"
 msgstr "Kopieren"
 
-#: src/dominspector/domtree.cpp:80
+#: src/dominspector/domtree.cpp:81
 msgid "Copy Predicates to Clipboard"
 msgstr "Kopiere Prädikat in die Zwischenablage"
 
-#: src/dominspector/domtree.cpp:83
-msgid "Choose"
-msgstr "Auswählen"
+#: src/dominspector/domtree.cpp:84 src/sourceviewer/contextmenu.cpp:92
+msgid "Highlight"
+msgstr "Hervorhebung"
 
-#: src/dominspector/domtree.cpp:84
+#: src/dominspector/domtree.cpp:85
 msgid "Show current Element Information"
 msgstr "Zeige Informationen zum Aktuellen Element."
 
@@ -1437,10 +1451,6 @@ msgstr "Fortschritt"
 #: src/downloadmanager/downloadstablemodel.cpp:248
 msgid "Time"
 msgstr "Zeit"
-
-#: src/downloadmanager/downloadstablemodel.cpp:253
-msgid "Size"
-msgstr "Größe"
 
 #: src/downloadmanager/downloadstablemodel.cpp:258
 msgid "Url"
@@ -2096,10 +2106,6 @@ msgstr "Konfigurieren"
 #: src/sourceviewer/contextmenu.cpp:88
 msgid "Show the editor's configuration dialog"
 msgstr "Zeige den Editor Konfigurations Dialog"
-
-#: src/sourceviewer/contextmenu.cpp:92
-msgid "Highlight"
-msgstr "Hervorhebung"
 
 #: src/statusbar.cpp:50
 msgid "Reload Status"

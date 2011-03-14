@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-13 12:24+0100\n"
+"POT-Creation-Date: 2011-03-14 19:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1247,8 +1247,21 @@ msgstr ""
 msgid "Element Content"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:48
+#: src/dominspector/dominspector.cpp:50
 msgid "DomTree"
+msgstr ""
+
+#: src/dominspector/dominspector.cpp:209
+msgid "Position"
+msgstr ""
+
+#: src/dominspector/dominspector.cpp:215
+#: src/downloadmanager/downloadstablemodel.cpp:253
+msgid "Size"
+msgstr ""
+
+#: src/dominspector/dominspector.cpp:222
+msgid "no visible geometry"
 msgstr ""
 
 #: src/dominspector/domtoolbar.cpp:41 src/window.cpp:543
@@ -1279,35 +1292,35 @@ msgstr ""
 msgid "Deselect Highlights"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:69
+#: src/dominspector/domtree.cpp:70
 msgid "unhighlighted"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:70
+#: src/dominspector/domtree.cpp:71
 msgid "unhighlighted current document content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:73
+#: src/dominspector/domtree.cpp:74
 msgid "Content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:75
+#: src/dominspector/domtree.cpp:76
 msgid "Show current Element Content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:78
+#: src/dominspector/domtree.cpp:79
 msgid "Copy"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:80
+#: src/dominspector/domtree.cpp:81
 msgid "Copy Predicates to Clipboard"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:83
-msgid "Choose"
+#: src/dominspector/domtree.cpp:84 src/sourceviewer/contextmenu.cpp:92
+msgid "Highlight"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:84
+#: src/dominspector/domtree.cpp:85
 msgid "Show current Element Information"
 msgstr ""
 
@@ -1357,10 +1370,6 @@ msgstr ""
 
 #: src/downloadmanager/downloadstablemodel.cpp:248
 msgid "Time"
-msgstr ""
-
-#: src/downloadmanager/downloadstablemodel.cpp:253
-msgid "Size"
 msgstr ""
 
 #: src/downloadmanager/downloadstablemodel.cpp:258
@@ -1981,10 +1990,6 @@ msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:88
 msgid "Show the editor's configuration dialog"
-msgstr ""
-
-#: src/sourceviewer/contextmenu.cpp:92
-msgid "Highlight"
 msgstr ""
 
 #: src/statusbar.cpp:50
