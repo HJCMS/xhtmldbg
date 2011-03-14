@@ -97,6 +97,7 @@ DomInspector::DomInspector ( Settings * settings, QWidget * parent )
   connect ( m_domTree, SIGNAL ( errorMessage ( const QString & ) ),
             this, SIGNAL ( errorMessage ( const QString & ) ) );
 
+  connect ( m_domTree, SIGNAL ( unselect () ), this, SLOT ( hideLayer () ) );
   connect ( m_domToolBar, SIGNAL ( prune() ), m_domTree, SLOT ( setPrune() ) );
   connect ( m_domToolBar, SIGNAL ( expand() ), m_domTree, SLOT ( expandAll() ) );
   connect ( m_domToolBar, SIGNAL ( unselect() ), this, SLOT ( hideLayer() ) );
@@ -157,6 +158,7 @@ void DomInspector::moveLayer ( const QWebElement &element, bool visible ) const
   layer.setStyleProperty ( "top", QString::number ( rect.y() ) + "px" );
   layer.setStyleProperty ( "width", QString::number ( rect.width() - 2 ) + "px" );
   layer.setStyleProperty ( "height", QString::number ( rect.height() - 2 ) + "px" );
+  layer.setStyleProperty ( "border-radius", "5px" );
   layer.setStyleProperty ( "opacity", "0.5" );
 }
 

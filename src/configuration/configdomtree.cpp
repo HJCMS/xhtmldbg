@@ -28,6 +28,7 @@
 
 /* QtGui */
 #include <QtGui/QColor>
+#include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QIcon>
 #include <QtGui/QToolButton>
@@ -48,10 +49,10 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
   verticalLayout->setObjectName ( QLatin1String ( "config_page_domtree_vertical_layout" ) );
 
-  m_backgroundColorGroup = new QGroupBox ( i18n ( "Enable Background Highlight" ), centralWidget );
+  QGroupBox* m_backgroundColorGroup = new QGroupBox ( i18n ( "Enable Background Highlight" ), centralWidget );
   m_backgroundColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_background" ) );
   m_backgroundColorGroup->setFlat ( true );
-  m_backgroundColorGroup->setCheckable ( true );
+  m_backgroundColorGroup->setCheckable ( false );
   verticalLayout->addWidget ( m_backgroundColorGroup );
 
   QHBoxLayout* hLayoutOne = new QHBoxLayout ( m_backgroundColorGroup );
@@ -68,9 +69,9 @@ ConfigDomTree::ConfigDomTree ( QWidget * parent )
 
   m_backgroundColorGroup->setLayout ( hLayoutOne );
 
-  m_borderColorGroup = new QGroupBox ( i18n ( "Enable Border Highlight" ), centralWidget );
+  QGroupBox* m_borderColorGroup = new QGroupBox ( i18n ( "Enable Border Highlight" ), centralWidget );
   m_borderColorGroup->setObjectName ( QLatin1String ( "config_page_domtree_group_border" ) );
-  m_borderColorGroup->setCheckable ( true );
+  m_borderColorGroup->setCheckable ( false );
   m_borderColorGroup->setFlat ( true );
   verticalLayout->addWidget ( m_borderColorGroup );
 
@@ -115,8 +116,9 @@ void ConfigDomTree::setBorderColor()
 
 void ConfigDomTree::load ( Settings * cfg )
 {
-  m_backgroundColorGroup->setChecked ( cfg->value ( QLatin1String ( "enableHighlightBackground" ), true ).toBool() );
-  m_borderColorGroup->setChecked ( cfg->value ( QLatin1String ( "enableHighlightBorder" ), false ).toBool() );
+  // DEPRECATED enableHighlightBackground enableHighlightBorder
+  cfg->remove ( "enableHighlightBackground" );
+  cfg->remove ( "enableHighlightBorder" );
 
   highlightBackgroundColor = cfg->value ( QLatin1String ( "highlightColor" ), highlightBackgroundColor ).toString();
   previewBackground->setStyleSheet ( QString ( "background-color: %1;" ).arg ( highlightBackgroundColor ) );
@@ -127,8 +129,6 @@ void ConfigDomTree::load ( Settings * cfg )
 
 void ConfigDomTree::save ( Settings * cfg )
 {
-  cfg->setValue ( QLatin1String ( "enableHighlightBackground" ), m_backgroundColorGroup->isChecked() );
-  cfg->setValue ( QLatin1String ( "enableHighlightBorder" ), m_borderColorGroup->isChecked() );
   cfg->setValue ( QLatin1String ( "highlightColor" ), highlightBackgroundColor );
   cfg->setValue ( QLatin1String ( "highlightBorder" ), highlightBorderColor );
 }

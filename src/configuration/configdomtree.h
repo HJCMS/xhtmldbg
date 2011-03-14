@@ -26,7 +26,6 @@
 #include <QtCore/QObject>
 
 /* QtGui */
-#include <QtGui/QGroupBox>
 #include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
@@ -42,9 +41,7 @@ class ConfigDomTree : public PageWidget
     bool mod;
     QString highlightBackgroundColor;
     QString highlightBorderColor;
-    QGroupBox* m_backgroundColorGroup;
     QLabel* previewBackground;
-    QGroupBox* m_borderColorGroup;
     QLabel* previewBorder;
 
   private Q_SLOTS:

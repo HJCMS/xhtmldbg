@@ -65,6 +65,7 @@ class DomTree : public QTreeWidget
 
   Q_SIGNALS:
     void itemHighlight ( const QWebElement & );
+    void unselect ();
     void initStyleSheet ( const QWebElement & );
     void elementRect ( const QString &, const QRect & );
     void errorMessage ( const QString & );

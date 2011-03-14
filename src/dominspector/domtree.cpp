@@ -86,7 +86,7 @@ DomTree::DomTree ( QWidget * parent )
   insertAction ( ac_copyPredicates, ac_setHighlight );
 
   connect ( ac_swapHighlight, SIGNAL ( triggered () ),
-            this, SLOT ( setUnselect() ) );
+            this, SIGNAL ( unselect() ) );
 
   connect ( ac_showContent, SIGNAL ( triggered () ),
             this, SLOT ( visitContent() ) );
