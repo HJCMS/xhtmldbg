@@ -210,9 +210,9 @@ void DomInspector::setElementInfo ( const QWebElement &element )
   {
     QSize size = rect.size();
     info.append ( i18n ( "Position" ) );
-    info.append ( " : " );
+    info.append ( " x:" );
     info.append ( QString::number ( rect.x() ) );
-    info.append ( "," );
+    info.append ( " y:" );
     info.append ( QString::number ( rect.y() ) );
     info.append ( " " );
     info.append ( i18n ( "Size" ) );
@@ -220,6 +220,7 @@ void DomInspector::setElementInfo ( const QWebElement &element )
     info.append ( QString::number ( size.width() ) );
     info.append ( "x" );
     info.append ( QString::number ( size.height() ) );
+    info.append ( " Pixel" );
   }
   else
     info.append ( i18n ( "no visible geometry" ) );
@@ -284,7 +285,10 @@ void DomInspector::setDomTree ( const QUrl &url, const QWebElement &element )
 void DomInspector::findItem ( const QWebElement &element )
 {
   if ( m_domTree->findItem ( element ) )
+  {
     m_listStyleSheet->setStyleSheetList ( element );
+    setElementInfo ( element );
+  }
 }
 
 DomInspector::~DomInspector()
