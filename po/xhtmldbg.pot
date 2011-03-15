@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-15 16:47+0100\n"
+"POT-Creation-Date: 2011-03-15 17:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -204,7 +204,7 @@ msgid ""
 msgstr ""
 
 #: src/bookmark/bookmarktreereader.cpp:98
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:210
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr ""
@@ -813,8 +813,7 @@ msgid "%1 Configuration options."
 msgstr ""
 
 #: src/configuration/configuseragents.cpp:32
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:66
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:204
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:172
 msgid "User-Agent"
 msgstr ""
 
@@ -929,25 +928,12 @@ msgstr ""
 msgid "Move Selected row Down"
 msgstr ""
 
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:60
-msgid "Bookmark Entry for Context Menue"
-msgstr ""
-
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:72
-msgid ""
-"Product tokens are used to allow communicating applications to identify "
-"themselves by software name and version. Most fields using product tokens "
-"also allow sub-products which form a significant part of the application to "
-"be listed, separated by white space. By convention, the products are listed "
-"in order of their significance for identifying the application."
-msgstr ""
-
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:201
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:169
 #: src/viewer.cpp:254
 msgid "Bookmark"
 msgstr ""
 
-#: src/configuration/useragenteditor/useragentstablemodel.cpp:207
+#: src/configuration/useragenteditor/useragentstablemodel.cpp:175
 msgid "Product Tokens"
 msgstr ""
 

@@ -56,9 +56,6 @@ class UserAgentsTableModel : public QAbstractTableModel
     QStringList mimeTypes () const;
     QMimeData* mimeData ( const QModelIndexList & ) const;
 
-  private Q_SLOTS:
-    void displayHeaderInfo ( const QModelIndex & );
-
   Q_SIGNALS:
     void update ( const QModelIndex & );
     void agentChanged ( bool );

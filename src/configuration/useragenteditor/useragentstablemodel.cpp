@@ -47,38 +47,6 @@ UserAgentsTableModel::UserAgentsTableModel ( QTableView * parent )
   m_tableHeader->setMinimumSectionSize ( metrics.boundingRect ( "Product Tokens" ).width() );
   m_tableHeader->setDefaultAlignment ( Qt::AlignLeft );
   m_tableHeader->setResizeMode ( QHeaderView::ResizeToContents );
-  connect ( m_tableHeader, SIGNAL ( entered ( const QModelIndex & ) ),
-            this, SLOT ( displayHeaderInfo ( const QModelIndex & ) ) );
-}
-
-void UserAgentsTableModel::displayHeaderInfo ( const QModelIndex &index )
-{
-  switch ( index.column() )
-  {
-    case 0:
-    {
-      m_tableHeader->setToolTip ( i18n ( "Bookmark Entry for Context Menue" ) );
-      return;
-    }
-
-    case 1:
-    {
-      m_tableHeader->setToolTip ( i18n ( "User-Agent" ) );
-      return;
-    }
-
-    case 2:
-    {
-      m_tableHeader->setToolTip ( i18n ( "Product tokens are used to allow communicating applications to identify themselves by software name and version. Most fields using product tokens also allow sub-products which form a significant part of the application to be listed, separated by white space. By convention, the products are listed in order of their significance for identifying the application." ) );
-      return;
-    }
-
-    default:
-    {
-      m_tableHeader->setToolTip ( QString() );
-      return;
-    }
-  }
 }
 
 Qt::DropActions UserAgentsTableModel::supportedDragActions() const
