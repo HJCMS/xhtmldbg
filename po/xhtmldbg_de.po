@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-14 20:06+0100\n"
-"PO-Revision-Date: 2011-03-14 20:07+0100\n"
+"POT-Creation-Date: 2011-03-15 16:47+0100\n"
+"PO-Revision-Date: 2011-03-15 17:14+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1016,7 +1016,7 @@ msgid ""
 "also allow sub-products which form a significant part of the application to "
 "be listed, separated by white space. By convention, the products are listed "
 "in order of their significance for identifying the application."
-msgstr ""
+msgstr "So genannte Produktmarken werden verwendet um anderen Anwendungen bei einer Kommunikation den Namen und Ihre Version mitzuteilen. Vieler der Felder werden auch von Unterprojekten verwendet und sind ein signifikanter Teil dieser Marken. Sie werden mit Leerzeichen getrennt Dargestellt."
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:201
 #: src/viewer.cpp:254
@@ -1339,7 +1339,7 @@ msgstr "Position"
 msgid "Size"
 msgstr "Größe"
 
-#: src/dominspector/dominspector.cpp:225
+#: src/dominspector/dominspector.cpp:226
 msgid "no visible geometry"
 msgstr "keine Sichtbare Geometrie"
 
@@ -2231,6 +2231,10 @@ msgstr "Eine Neue leere Seite erstellen"
 #: src/webviewer.cpp:282
 msgid "file"
 msgstr "Datei"
+
+#: src/window.cpp:125
+msgid "XHTML Debugger (v%1)"
+msgstr "XHTML Debugger (v%1)"
 
 #: src/window.cpp:370
 msgid "&Application"

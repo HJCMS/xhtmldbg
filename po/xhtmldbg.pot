@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-14 20:06+0100\n"
+"POT-Creation-Date: 2011-03-15 16:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1260,7 +1260,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:225
+#: src/dominspector/dominspector.cpp:226
 msgid "no visible geometry"
 msgstr ""
 
@@ -2114,6 +2114,10 @@ msgstr ""
 
 #: src/webviewer.cpp:282
 msgid "file"
+msgstr ""
+
+#: src/window.cpp:125
+msgid "XHTML Debugger (v%1)"
 msgstr ""
 
 #: src/window.cpp:370
