@@ -74,7 +74,7 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
   headerView->setProperty ( "showSortIndicator", QVariant ( false ) );
   headerView->setStretchLastSection ( false );
   headerView->setResizeMode ( QHeaderView::Interactive );
-  headerView->setDefaultSectionSize ( 150 );
+  headerView->setMinimumSectionSize ( 150 );
 
   connect ( this, SIGNAL ( doubleClicked ( const QModelIndex & ) ),
             this, SLOT ( cellChanged ( const QModelIndex & ) ) );
