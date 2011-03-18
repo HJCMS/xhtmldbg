@@ -12,7 +12,7 @@
 #   ADD_EXECUTABLE(myexe main.cpp)
 #   TARGET_LINK_LIBRARIES(myexe ${QTIDY_LIBRARIES})
 #
-# Copyright (c) 2007-2010, Juergen Heinemann (Undefined) <nospam (AT) hjcms (DOT) de>
+# Copyright (c) 2007-2011, Juergen Heinemann (Undefined) <nospam (AT) hjcms (DOT) de>
 #
 # See COPYING file that comes with this distribution
 #
