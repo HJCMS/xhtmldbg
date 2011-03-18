@@ -35,6 +35,9 @@
 #include <QtGui/QWidget>
 
 /* xhtmldbg */
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "settings.h"
 
 class PageWidget : public QScrollArea

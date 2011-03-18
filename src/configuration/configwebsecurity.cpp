@@ -20,13 +20,16 @@
 **/
 
 #include "configwebsecurity.h"
+#include "dbmanager.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QFileInfo>
 #include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QAbstractItemView>
+#include <QtGui/QDesktopServices>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
@@ -34,6 +37,17 @@
 #include <QtGui/QLabel>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
+
+/* QtSql */
+#include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlError>
+#include <QtSql/QSqlRecord>
+#include <QtSql/QSqlQuery>
+
+/* QtWebKit */
+#include <QtWebKit/QWebDatabase>
+#include <QtWebKit/QWebSettings>
+#include <QtWebKit/QWebSecurityOrigin>
 
 /* KDE */
 #include <KDE/KIcon>
@@ -59,7 +73,7 @@ ConfigWebSecurityTable::ConfigWebSecurityTable ( QWidget * parent )
   insertAction ( 0, m_remove );
 
   QStringList labels;
-  labels << i18n ( "Host" ) << i18n ( "Port" ) << i18n ( "Scheme" );
+  labels << i18n ( "Host" ) << i18n ( "Port" ) << i18n ( "Scheme" ) << i18n ( "Quota" );
   setColumnCount ( labels.size() );
   setHorizontalHeaderLabels ( labels );
 
@@ -163,7 +177,7 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   horzontalLayout->addWidget ( new QLabel ( i18n ( "Sets the quota for the databases in the security origin to quota bytes." ), centralWidget ) );
   m_dbQuota = new KIntNumInput ( ( 3 * 1024 ), centralWidget );
   m_dbQuota->setRange ( 1024, ( 100 * 1024 ), 5 );
-  m_dbQuota->setSliderEnabled( true );
+  m_dbQuota->setSliderEnabled ( true );
   m_dbQuota->setSuffix ( QLatin1String ( " Bytes" ) );
   horzontalLayout->addWidget ( m_dbQuota );
   verticalLayout->addLayout ( horzontalLayout );
@@ -197,14 +211,16 @@ QTableWidgetItem* ConfigWebSecurity::createItem ( const QVariant &data ) const
 void ConfigWebSecurity::itemRowChanged ( int r )
 {
   QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
-  if ( scheme == QString::fromUtf8 ( "file" ) )
+  int port = m_table->item ( r, 1 )->data ( Qt::UserRole ).toUInt();
+  if ( scheme == QString::fromUtf8 ( "file" ) || port == 0 )
     m_scheme->setCurrentIndex ( 2 );
   else if ( scheme == QString::fromUtf8 ( "https" ) )
     m_scheme->setCurrentIndex ( 1 );
   else
     m_scheme->setCurrentIndex ( 0 );
 
-  m_port->setValue ( m_table->item ( r, 1 )->data ( Qt::UserRole ).toUInt() );
+  m_dbQuota->setValue ( m_table->item ( r, 3 )->data ( Qt::UserRole ).toUInt() );
+  m_port->setValue ( port );
   m_hostname->setText ( m_table->item ( r, 0 )->data ( Qt::UserRole ).toString() );
 }
 
@@ -252,6 +268,8 @@ void ConfigWebSecurity::itemSubmitted()
       m_table->item ( row, 1 )->setData ( Qt::UserRole, port );
       m_table->item ( row, 2 )->setData ( Qt::DisplayRole, scheme );
       m_table->item ( row, 2 )->setData ( Qt::UserRole, scheme );
+      m_table->item ( row, 3 )->setData ( Qt::DisplayRole, m_dbQuota->value() );
+      m_table->item ( row, 3 )->setData ( Qt::UserRole, m_dbQuota->value() );
       m_table->update();
       itemModified ( true );
       return; // wenn gefunden hier aussteigen
@@ -263,6 +281,7 @@ void ConfigWebSecurity::itemSubmitted()
   m_table->setItem ( row, 0, createItem ( hostname ) );
   m_table->setItem ( row, 1, createItem ( port ) );
   m_table->setItem ( row, 2, createItem ( scheme ) );
+  m_table->setItem ( row, 3, createItem ( m_dbQuota->value() ) );
   itemModified ( true );
 }
 
@@ -272,43 +291,102 @@ void ConfigWebSecurity::itemModified ( bool b )
   emit modified ( b );
 }
 
+/**
+* Lade aus der QWebSettings::offlineStoragePath ()+"/Databases.db"
+* Datei die HTML 5 Datenbank Sicherheits Einstellungen und schreibe
+* diese in das TableModel.
+* Es gibt hier Einschränkungen!
+* Leider kann ich nicht eine Instance von DBManager nehmen weil dies ein
+* Unterprojekt ist und zu einem Undefined Symbols führen würde!
+* Deshalb ist das hier ziemlich doppelt gemoppelt :-/
+*/
 void ConfigWebSecurity::load ( Settings * cfg )
 {
-  if ( m_table->rowCount() > 0 )
-    m_table->clearContents();
+  qint64 defaultQuota = cfg->value ( "WebDatabase/DefaultQuota", ( 3*1024 ) ).toUInt();
+  m_dbQuota->setValue ( defaultQuota );
 
-  int size = cfg->beginReadArray ( cfgGroup );
-  for ( int r = 0; r < size; ++r )
+  // Dieser Pfad wird von Qt vorgegeben!
+  QString webDatabase ( "/Databases.db" );
+  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
+
+  QFileInfo info ( webDatabase );
+  if ( info.exists() )
   {
-    cfg->setArrayIndex ( r );
-    QString h = cfg->value ( "host" ).toString();
-    if ( h.isEmpty() )
-      continue;
+    QSqlDatabase db = QSqlDatabase::database ( DBManager::connectionName(), false );
+    db.setDatabaseName ( webDatabase ); // switch Database
+    if ( db.open() && db.tables().contains ( QString::fromUtf8 ( "Origins" ) ) )
+    {
+      QSqlQuery query = db.exec ( "SELECT origin,quota FROM Origins WHERE ( origin IS NOT NULL);" );
+      if ( query.lastError().isValid() )
+      {
+        qDebug() << Q_FUNC_INFO << db.lastError().text();
+        return;
+      }
 
-    m_table->setRowCount ( ( m_table->rowCount() + 1 ) );
-    m_table->setItem ( r, 0, createItem ( h ) );
-    m_table->setItem ( r, 1, createItem ( cfg->value ( "port", 80 ) ) );
-    m_table->setItem ( r, 2, createItem ( cfg->value ( "scheme", "http" ) ) );
+      QSqlRecord rec = query.record();
+      if ( rec.count() >= 1 )
+      {
+        if ( m_table->rowCount() > 0 )
+          m_table->clearContents();
+
+        while ( query.next() )
+        {
+          QStringList data = query.value ( rec.indexOf ( "origin" ) ).toString().split ( "_" );
+          m_table->setRowCount ( ( m_table->rowCount() + 1 ) );
+          int r = m_table->rowCount() - 1;
+          m_table->setItem ( r, 0, createItem ( data.at ( 1 ) ) );
+          m_table->setItem ( r, 1, createItem ( data.last() ) );
+          m_table->setItem ( r, 2, createItem ( data.first() ) );
+          m_table->setItem ( r, 3, createItem ( query.value ( rec.indexOf ( "quota" ) ).toUInt() ) );
+        }
+        query.finish();
+      }
+    }
+    // Datenbank Zeiger zurücksetzen!
+    db.setDatabaseName ( DBManager::defaultDatabase() );
+    db.open();
   }
-  cfg->endArray();
-  m_dbQuota->setValue ( cfg->value ( "WebDatabase/DefaultQuota", ( 3*1024 ) ).toUInt() );
 }
 
+/**
+* Aktuelle in QWebSettings::offlineStoragePath ()+"/Databases.db" speichern!
+*/
 void ConfigWebSecurity::save ( Settings * cfg )
 {
-  cfg->remove ( cfgGroup );
-  cfg->beginWriteArray ( cfgGroup );
-  int size = m_table->rowCount();
-  cfg->setValue ( "size", size );
-  for ( int r = 0; r < size; ++r )
-  {
-    cfg->setArrayIndex ( r );
-    cfg->setValue ( "host", m_table->item ( r, 0 )->data ( Qt::UserRole ).toString() );
-    cfg->setValue ( "port", m_table->item ( r, 1 )->data ( Qt::UserRole ).toUInt() );
-    cfg->setValue ( "scheme", m_table->item ( r, 2 )->data ( Qt::UserRole ).toString() );
-  }
-  cfg->endArray();
   cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
+
+  // Dieser Pfad wird von Qt vorgegeben!
+  QString webDatabase ( "/Databases.db" );
+  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
+
+  QFileInfo info ( webDatabase );
+  if ( info.exists() )
+  {
+    QSqlDatabase db = QSqlDatabase::database ( DBManager::connectionName(), false );
+    db.setDatabaseName ( webDatabase ); // switch Database
+    if ( db.open() && db.tables().contains ( QString::fromUtf8 ( "Origins" ) ) )
+    {
+      QSqlQuery query = db.exec ( "DELETE FROM Origins;" );
+      if ( query.lastError().isValid() )
+        return;
+
+      int size = m_table->rowCount();
+      for ( int r = 0; r < size; ++r )
+      {
+        QString host = m_table->item ( r, 0 )->data ( Qt::UserRole ).toString();
+        QString port = m_table->item ( r, 1 )->data ( Qt::UserRole ).toString();
+        QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
+        QString quota = m_table->item ( r, 3 )->data ( Qt::UserRole ).toString();
+        QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1_%2_%3',%4);" )
+                      .arg ( scheme,host,port,quota );
+        db.exec ( sql );
+      }
+      query.finish();
+    }
+    // Datenbank Zeiger zurücksetzen!
+    db.setDatabaseName ( DBManager::defaultDatabase() );
+    db.open();
+  }
 }
 
 bool ConfigWebSecurity::isModified ()

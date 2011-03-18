@@ -44,12 +44,26 @@
 
 DBManager::DBManager ( QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", XHTMLDBG_DATABASE_NAME ) )
+    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", QLatin1String ( XHTMLDBG_APPS_NAME ) ) )
 {
   setObjectName ( QLatin1String ( "xhtmldbg_database_manager" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_OPEN_READONLY=0" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
   sql.setDatabaseName ( QLatin1String ( XHTMLDBG_DATABASE_NAME ) );
+}
+
+const QString DBManager::connectionName()
+{
+  return QLatin1String ( XHTMLDBG_APPS_NAME );
+}
+
+const QString DBManager::defaultDatabase()
+{
+  QString path = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  path.append ( QDir::separator() );
+  path.append ( QLatin1String ( XHTMLDBG_DATABASE_NAME ) );
+  path.append ( ".db" );
+  return path;
 }
 
 /** Nachrichten verarbeiten! */

@@ -88,7 +88,7 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
 */
 bool CookiesEditorTable::initialDatabase ()
 {
-  sql = QSqlDatabase::database ( QLatin1String ( XHTMLDBG_DATABASE_NAME ), false );
+  sql = QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false );
   return ( sql.isOpen() ? true : sql.open() );
 }
 

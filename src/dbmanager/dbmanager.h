@@ -53,7 +53,14 @@ class DBManager : public QObject
     void error ( const QString & );
 
   public:
+
     explicit DBManager ( QObject * parent = 0 );
+
+    /** Static SQL Connection Name for switch Databases */
+    static const QString connectionName();
+
+    /** The Default SQL Databases File Name */
+    static const QString defaultDatabase();
 
     /** Initial Databases */
     bool init();

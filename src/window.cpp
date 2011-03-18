@@ -669,8 +669,8 @@ void Window::savePageHistory()
 */
 bool Window::unregisterDatabases ()
 {
-  if ( QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).isOpen() )
-    QSqlDatabase::database ( QString::fromUtf8 ( "cookies" ), false ).close();
+  if ( QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false ).isOpen() )
+    QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false ).close();
 
   return true;
 }

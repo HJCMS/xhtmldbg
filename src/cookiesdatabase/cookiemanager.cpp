@@ -38,7 +38,7 @@
 
 CookieManager::CookieManager ( QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::database ( QLatin1String ( XHTMLDBG_DATABASE_NAME ), false ) )
+    , sql ( QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false ) )
 {
   setObjectName ( QLatin1String ( "cookiemanager" ) );
 }
