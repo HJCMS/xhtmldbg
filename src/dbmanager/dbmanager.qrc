@@ -5,6 +5,7 @@
     <file>cookieshandle.sql</file>
     <file>networkblocker.sql</file>
     <file>pwmanager.sql</file>
-    <file>ItemTable.sql</file>
+    <file>origins.sql</file>
+    <file>databases.sql</file>
   </qresource>
 </RCC>

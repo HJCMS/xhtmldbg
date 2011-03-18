@@ -286,6 +286,22 @@ INSTALL (FILES ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.conf
 )
 
 ##############################################################
+## QDoc3
+##############################################################
+
+SET (QT_DOC_PATH "")
+EXECUTE_PROCESS(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_DOCS
+  OUTPUT_VARIABLE QT_DOC_PATH
+  RESULT_VARIABLE _qt_doc_path_result
+  ERROR_VARIABLE _qt_doc_path_error
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+CONFIGURE_FILE (xhtmldbg.qdocconf.cmake
+  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.qdocconf
+)
+
+##############################################################
 ## SUBDIRECTORIES
 ##############################################################
 ADD_SUBDIRECTORY (src)

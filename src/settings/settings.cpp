@@ -173,31 +173,6 @@ const QString Settings::webLocalStoragePath()
 }
 
 /**
-* Pfad zur Temporären Offline Daten Speicherung
-* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
-*/
-const QString Settings::webOfflineStoragePath()
-{
-  QDir d ( webLocalStoragePath() );
-  QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
-
-  if ( d.mkpath ( QLatin1String ( "Databases" ) ) )
-    QFile ( path ).setPermissions ( DefaultDirPermissons );
-
-  return path;
-}
-
-/**
-* Pfad zur HTML5 WebAnwendungen Speicher
-* @note Dieses Verzeichnis muss vorhanden sein damit diese Abhängigkeit Funktioniert!
-* http://dev.w3.org/html5/spec/Overview.html#appcache
-*/
-const QString Settings::webApplicationCachePath()
-{
-  return webOfflineStoragePath();
-}
-
-/**
 * Url Pfad zur Historien XML Datei
 */
 const QUrl Settings::historyXml()

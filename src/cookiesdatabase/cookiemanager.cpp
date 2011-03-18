@@ -19,6 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "cookiemanager.h"
 
 /* QtCore */
@@ -35,7 +38,7 @@
 
 CookieManager::CookieManager ( QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::database ( QString::fromUtf8 ( "xhtmldbg" ), false ) )
+    , sql ( QSqlDatabase::database ( XHTMLDBG_DATABASE_NAME, false ) )
 {
   setObjectName ( QLatin1String ( "cookiemanager" ) );
 }

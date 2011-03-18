@@ -52,6 +52,11 @@
 #define XHTMLDBG_APPS_NAME "xhtmldbg"
 
 /**
+* Current XHTMLDBG SQLite3 Database Name
+*/
+#define XHTMLDBG_DATABASE_NAME "xhtmldbg_08"
+
+/**
 * OrganizationDomain
 */
 #define XHTMLDBG_DOMAIN "hjcms.de"

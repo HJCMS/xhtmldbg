@@ -51,6 +51,7 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
   setApplicationName ( XHTMLDBG_APPS_NAME );
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( "xhtmldbgmain" );
+  setGraphicsSystem ( "raster" );
   Q_UNUSED ( argv )
 
   // Settings

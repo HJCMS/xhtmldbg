@@ -159,8 +159,9 @@ void WebSettings::setPaths()
 {
   m_ws->setLocalStoragePath ( webLocalStoragePath() );
   m_ws->setIconDatabasePath ( webDatabasePath() );
-  m_ws->setOfflineStoragePath ( webOfflineStoragePath() );
-  m_ws->setOfflineWebApplicationCachePath ( webApplicationCachePath() );
+  m_ws->setOfflineStoragePath ( webDatabasePath() );
+  m_ws->setOfflineWebApplicationCachePath ( webDatabasePath() );
+  QWebSettings::enablePersistentStorage ( webDatabasePath() );
 }
 
 /**

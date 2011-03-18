@@ -41,14 +41,11 @@
 #include <QtNetwork/QSslKey>
 
 NetworkSettings::NetworkSettings ( QObject * parent )
-    : Settings ( parent )
+    : WebSettings ( parent )
     , wcfg ( QWebSettings::globalSettings() )
 {
   setObjectName ( QLatin1String ( "networksettings" ) );
-  wcfg->setIconDatabasePath ( webDatabasePath() );
-  wcfg->setLocalStoragePath ( webLocalStoragePath() );
-  wcfg->setOfflineStoragePath ( webOfflineStoragePath() );
-  wcfg->setOfflineWebApplicationCachePath ( webApplicationCachePath() );
+  setDefaults ();
 }
 
 /**

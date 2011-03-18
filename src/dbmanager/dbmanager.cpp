@@ -19,6 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "dbmanager.h"
 #include "dblocator.h"
 
@@ -41,10 +44,12 @@
 
 DBManager::DBManager ( QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", "xhtmldbg" ) )
+    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", XHTMLDBG_DATABASE_NAME ) )
 {
   setObjectName ( QLatin1String ( "xhtmldbg_database_manager" ) );
+  sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_OPEN_READONLY=0" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
+  sql.setDatabaseName ( QLatin1String ( XHTMLDBG_DATABASE_NAME ) );
 }
 
 /** Nachrichten verarbeiten! */
@@ -64,31 +69,31 @@ void DBManager::setError ( QueryType t, int l, const QString &m )
       break;
 
     case CREATE:
-      emit error ( i18n ( "SQL Create Table: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Create Table: %1 %2" ).arg ( line, m ) );
       break;
 
     case SELECT:
-      emit error ( i18n ( "SQL Select: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Select: %1 %2" ).arg ( line, m ) );
       break;
 
     case DELETE:
-      emit error ( i18n ( "SQL Delete: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Delete: %1 %2" ).arg ( line, m ) );
       break;
 
     case UPDATE:
-      emit error ( i18n ( "SQL Update: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Update: %1 %2" ).arg ( line, m ) );
       break;
 
     case INSERT:
-      emit error ( i18n ( "SQL Insert: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Insert: %1 %2" ).arg ( line, m ) );
       break;
 
     case QUERY:
-      emit error ( i18n ( "SQL Query: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL Query: %1 %2" ).arg ( line, m ) );
       break;
 
     default:
-      emit error ( i18n ( "SQL: %1 %2" ).arg ( line, m ) );
+      emit error ( QString::fromUtf8 ( "SQL: %1 %2" ).arg ( line, m ) );
       break;
   }
 }
@@ -170,7 +175,7 @@ QSqlQuery DBManager::select ( const QString &query )
 
   result = sql.exec ( query );
   if ( result.lastError().type() != QSqlError::NoError )
-    setError ( SELECT, __LINE__, sql.lastError().text() );
+    setError ( SELECT, __LINE__, result.lastError().text() );
 
   return result;
 }

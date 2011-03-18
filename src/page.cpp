@@ -130,10 +130,12 @@ void Page::initWebDatabaseAccess ( bool b )
   if ( mainFrame() && ! mainFrame()->securityOrigin().host().isEmpty() )
   {
     mainFrame()->securityOrigin() = SecurityOrigin::origin ( mainFrame()->securityOrigin() );
-// #ifdef DEBUG_VERBOSE
-//     qDebug() << Q_FUNC_INFO << mainFrame()->securityOrigin().port()
-//     << mainFrame()->securityOrigin().databaseQuota ();
-// #endif
+#ifdef DEBUG_VERBOSE
+    foreach ( QWebDatabase db, mainFrame()->securityOrigin().databases () )
+    {
+      qDebug() << Q_FUNC_INFO << db.displayName() << db.fileName();
+    }
+#endif
   }
 }
 

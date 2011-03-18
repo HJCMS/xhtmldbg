@@ -39,7 +39,8 @@ static inline const QStringList xhtmldbg_sql_databases()
   tbs << "cookieshandle"; // Cookie Hostnamen
   tbs << "networkblocker"; // geblockte Host Adressen
   tbs << "pwmanager"; // Passwörter
-  tbs << "ItemTable"; // HTML5 ItemTable
+  tbs << "Origins"; // HTML 5 Origins
+  tbs << "Databases"; // HTML 5 Databases
   return tbs;
 }
 
@@ -58,7 +59,7 @@ const QString DBLocator::sqlTableStatement ( const QString &dbName ) const
 {
   QString statement;
   Q_INIT_RESOURCE ( dbmanager );
-  QFile file ( QString ( ":/%1.sql" ).arg ( dbName ) );
+  QFile file ( QString ( ":/%1.sql" ).arg ( dbName.toLower() ) );
   if ( file.open ( QIODevice::ReadOnly ) )
   {
     QTextStream out ( &file );
@@ -116,7 +117,7 @@ bool DBLocator::initDatabase ( const QSqlDatabase &driver )
       if ( query.lastError().type() == QSqlError::StatementError )
       {
         // Wenn die Tabelle schon angelegt ist - ist alles OK!
-        if ( ! query.lastError().text().contains ( "already exists" ) )
+        if ( ! query.lastError().text().contains ( "already exists", Qt::CaseInsensitive ) )
           qWarning ( "(XHTMLDBG) SQL DB CREATE %s", qPrintable ( query.lastError().text() ) );
       }
       db.commit();
@@ -126,8 +127,9 @@ bool DBLocator::initDatabase ( const QSqlDatabase &driver )
     return true;
   }
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
-  qWarning ( "(XHTMLDBG) SQL ERROR %s", qPrintable ( db.lastError().text() ) );
+#ifdef DEBUG_VERBOSE
+  if ( ! db.lastError().text().isEmpty() )
+    qWarning ( "(XHTMLDBG) SQL %s", qPrintable ( db.lastError().text() ) );
 #endif
 
   return false;

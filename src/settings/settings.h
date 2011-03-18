@@ -91,16 +91,6 @@ class Settings : public QSettings
     const QString webLocalStoragePath();
 
     /**
-    * Returns for \em QWebSettings the path for HTML5 offline storage.
-    */
-    const QString webOfflineStoragePath();
-
-    /**
-    * Returns for \em QWebSettings the path for HTML5 Application Cache storage path.
-    */
-    const QString webApplicationCachePath();
-
-    /**
     * Url Path to History XML File
     */
     const QUrl historyXml();

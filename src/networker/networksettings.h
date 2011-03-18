@@ -40,8 +40,9 @@
 
 /* xhtmldbg */
 #include "settings.h"
+#include "websettings.h"
 
-class NetworkSettings : public Settings
+class NetworkSettings : public WebSettings
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
