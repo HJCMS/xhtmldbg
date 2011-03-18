@@ -3,7 +3,7 @@ Makefile
 *.txt
 *.cmake
 *.spec
-*.conf
+*conf
 *.service
 *.xml
 CMakeFiles/
@@ -11,4 +11,5 @@ app/
 data/
 po/
 src/
+html/
 CMakeTmp
