@@ -1,6 +1,6 @@
 ####################################################################
 ## RPM Specfile template for xhtmldbg
-## Author: Juergen Heinemann http://www.hjcms.de, (C) 2007-2009
+## Author: Juergen Heinemann http://www.hjcms.de, (C) 2007-2011
 ## Copyright: See COPYING file that comes with this distribution
 ####################################################################
 
@@ -8,11 +8,18 @@
 
 ## !!! Willst du dir den Tag versauen - mußt du auf OpenSuSE Build Service Pakete bauen !!!
 
-%define devdepend  libtidy-0_99-0-devel libqt4-devel >= 4.7.0 libQtWebKit-devel >= 4.7.0 QTidy-devel >= 0.8.2 libraptor-devel >= 1.4.20 libGeoIP-devel >= 1.4.5 mozilla-xulrunner192-devel libqjson-devel >= 0.7.0 kde4-filesystem kdebase4-workspace-devel >= 4.6.0 phonon-devel >= 4.4.4
+################################
+## set enviroment variables
+################################
+%define _kde4_prefix    %{_prefix}
 
 ## @set package name suffix and pkgname
 ################################
 %define lt_version  -1_0-0
+
+## @set package dependeces
+################################
+%define devdepend  libtidy-0_99-0-devel libqt4-devel >= 4.7.0 libQtWebKit-devel >= 4.7.0 QTidy-devel >= 0.8.2 libraptor-devel >= 1.4.20 libGeoIP-devel >= 1.4.5 mozilla-xulrunner192-devel libqjson-devel >= 0.7.0 kde4-filesystem kdebase4-workspace-devel >= 4.6.0 phonon-devel >= 4.4.4
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
@@ -31,13 +38,7 @@ BuildRequires:  update-desktop-files brp-check-suse desktop-file-utils qtidyrc >
 BuildRequires:  oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3 desktop-data-openSUSE
 Vendor:         Heinemann Juergen (Undefined) http://www.hjcms.de
 ## This package ist not relocatable
-Prefix:         /usr
-
-################################
-## set enviroment variables
-################################
-%define _qt_prefix    %{_prefix}
-%define _qt_transdir  %{_prefix}/share/qt4/translations
+Prefix:         %{_kde4_prefix}
 
 %description
 Tidy HTML/XML Validator and Debugger.
@@ -47,7 +48,7 @@ Author:
   Juergen Heinemann (Undefined)
 
 %package -n libxhtmldbg%{lt_version}
-Summary:     The xhtmldbg Plugin Interface Library
+Summary:     The xhtmldbg Interface Library
 License:     LGPLv3
 Group:       System/Libraries
 AutoReqProv: on
@@ -60,7 +61,7 @@ Author:
   Juergen Heinemann (Undefined)
 
 %package -n libxhtmldbg-devel
-Summary:     Development Package for xhtmldbg Plugin Interface Library
+Summary:     Development Package for xhtmldbg Interface Library
 License:     LGPLv3
 Group:       Development/Languages/C and C++
 AutoReqProv: on
@@ -86,7 +87,7 @@ pushd build
 cmake -Wno-dev \
   -DCMAKE_CXX_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_C_FLAGS:STRING="$RPM_OPT_FLAGS" \
-  -DCMAKE_INSTALL_PREFIX:PATH=%{_qt_prefix} \
+  -DCMAKE_INSTALL_PREFIX:PATH=%{_kde4_prefix} \
   -DCMAKE_BUILD_TYPE:STRING=Debug \
   -DCMAKE_SKIP_RPATH:BOOL=ON \
   -DPHONON_INCLUDE_DIR:PATH=/usr/include/phonon \
@@ -109,9 +110,6 @@ pushd build
   %makeinstall
 popd
 
-## Update Desktop Files
-%suse_update_desktop_file -u -i %{name}
-
 %find_lang %{name}
 
 %find_lang XQPluginWidgets
@@ -127,7 +125,6 @@ popd
 %dir /etc/xdg/hjcms.de
 %config /etc/xdg/hjcms.de/%{name}.conf
 %{_bindir}/%{name}
-%{_qt_transdir}/xhtmldbg*.qm
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib*.so
 %dir %{_libdir}/%{name}/browser
@@ -147,7 +144,7 @@ popd
 %dir %{_datadir}/%{name}/html
 %{_datadir}/%{name}/html/*.html
 %{_datadir}/%{name}/html/*.css
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/kde4/%{name}.desktop
 %dir %{_datadir}/icons/oxygen/128x128
 %dir %{_datadir}/icons/oxygen/128x128/apps
 %dir %{_datadir}/icons/oxygen/16x16
@@ -212,7 +209,7 @@ test -d "$RPM_BUILD_ROOT" && rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Mar 14 2011 - Heinemann Juergen (Undefined) http://www.hjcms.de
-- Update to 0.8.12.rc17
+- Update to 0.8.12.rc18
 
 * Thu Feb 03 2011 - Heinemann Juergen (Undefined) http://www.hjcms.de
 - Update to 0.8.12.rc1

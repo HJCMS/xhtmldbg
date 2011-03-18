@@ -1,5 +1,5 @@
 ## file:///xhtmldbg.ebuild
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -18,13 +18,16 @@ IUSE="debug doc"
 
 DEPEND=">=x11-libs/qt-core-4.7.0
 		>=x11-libs/qt-gui-4.7.0
+		>=x11-libs/qt-webkit-4.7.0
 		>=app-text/htmltidy-20090325
 		>=dev-util/cmake-2.8.0
 		>=dev-libs/libQTidy-0.8.2
 		>=dev-libs/libqjson-0.7.1
 		net-dns/bind-tools
 		>=kde-base/oxygen-icons-4.4.0
+		>=kde-base/kdelibs-4.6.0
 		>=media-libs/raptor-1.4.19
+		>=media-sound/phonon-4.3.80
 		>=dev-libs/geoip-1.4.5
 		>=dev-libs/nss-3.12.8
 		>=dev-libs/nspr-4.8.6

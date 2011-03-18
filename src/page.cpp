@@ -101,9 +101,7 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
             this, SLOT ( initWebDatabaseAccess ( bool ) ) );
 }
 
-/**
-* Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster
-*/
+/** Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster */
 void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id )
 {
   if ( m.isEmpty() || id.isEmpty() )
