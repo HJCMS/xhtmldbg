@@ -65,9 +65,8 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
 
   /* NOTE init Database Manager muss nach Settings::setDataPaths Initialisiert
   * werden und vor NetworkAccessManager aufgerufen sein!
-  * Klasse NetworkCookie braucht diesem Pointer!
-  */
-  dbManager()->init();
+  * WARNING Die Klasse NetworkCookie braucht diesen Pointer! */
+  dbManager();
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );

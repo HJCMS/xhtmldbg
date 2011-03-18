@@ -41,6 +41,7 @@ class DBManager : public QObject
   private:
     QSqlDatabase sql;
     enum QueryType { ACTION, OPEN, CREATE, SELECT, DELETE, UPDATE, QUERY, INSERT };
+    explicit DBManager ( const QSqlDatabase &driver, QObject * parent = 0 );
 
   private Q_SLOTS:
     void setError ( QueryType t, int l, const QString &m );
@@ -53,8 +54,8 @@ class DBManager : public QObject
     void error ( const QString & );
 
   public:
-
-    explicit DBManager ( QObject * parent = 0 );
+    /** Start the default SQL Connection */
+    static DBManager* createConnection ( const QString &name, QObject * parent = 0 );
 
     /** Static SQL Connection Name for switch Databases */
     static const QString connectionName();
@@ -66,7 +67,7 @@ class DBManager : public QObject
     bool init();
 
     /** SQLite Databases handle */
-    const QSqlDatabase handle();
+    const QSqlDatabase handle ( const QString &copyName = QString() );
 
     /** SQL SELECT Statements */
     QSqlQuery select ( const QString &query );

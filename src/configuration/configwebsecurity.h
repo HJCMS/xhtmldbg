@@ -68,7 +68,7 @@ class ConfigWebSecurityTable : public QTableWidget
 
   public:
     ConfigWebSecurityTable ( QWidget * parent = 0 );
-    virtual ~ConfigWebSecurityTable();
+    ~ConfigWebSecurityTable();
 };
 
 /** \class ConfigWebSecurity */
@@ -88,6 +88,8 @@ class ConfigWebSecurity : public PageWidget
     QCheckBox* m_checkBox;
     KIntNumInput* m_dbQuota;
     QTableWidgetItem* createItem ( const QVariant & ) const;
+    void loadSQLData();
+    void saveSQLData();
 
   private Q_SLOTS:
     void itemRowChanged ( int );
@@ -102,7 +104,7 @@ class ConfigWebSecurity : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
-    ~ConfigWebSecurity();
+    virtual ~ConfigWebSecurity();
 };
 
 #endif

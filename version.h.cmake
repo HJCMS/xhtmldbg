@@ -34,12 +34,12 @@
 /**
 * Plugin Directory for Extensions and UI Designer Components
 */
-#define XHTMLDBG_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg"
+#define XHTMLDBG_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/@PROJECT_NAME@"
 
 /**
 * XHTMLDBG NPP Plugin Path
 */
-#define XHTMLDBG_NPP_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/xhtmldbg/browser-plugins"
+#define XHTMLDBG_NPP_PLUGIN_PATH "@CMAKE_INSTALL_PREFIX@/lib@LIB_SUFFIX@/@PROJECT_NAME@/browser-plugins"
 
 /**
 * GeoIP Database Location
@@ -47,14 +47,9 @@
 #define GEOIP_DATABASE_PATH "@GEOIP_DATABASE_PATH@"
 
 /**
-* ApplicationName
+* Application and SQLite3 Database Connection Name
 */
-#define XHTMLDBG_APPS_NAME "xhtmldbg"
-
-/**
-* Current XHTMLDBG SQLite3 Database Name
-*/
-#define XHTMLDBG_DATABASE_NAME "xhtmldbg_08"
+#define XHTMLDBG_APPS_NAME "@PROJECT_NAME@"
 
 /**
 * OrganizationDomain
@@ -64,6 +59,6 @@
 /**
 * Static Paths for HTML Pages
 */
-#define XHTMLDBG_TEMPLATE_DIR "@CMAKE_INSTALL_PREFIX@/share/xhtmldbg/html"
+#define XHTMLDBG_TEMPLATE_DIR "@CMAKE_INSTALL_PREFIX@/share/@PROJECT_NAME@/html"
 
 #endif

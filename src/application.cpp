@@ -168,7 +168,7 @@ bool Application::isRunning() const
 DBManager* Application::dbManager()
 {
   if ( ! p_dbManager )
-    p_dbManager = new DBManager();
+    p_dbManager = DBManager::createConnection ( applicationName() );
 
   return p_dbManager;
 }

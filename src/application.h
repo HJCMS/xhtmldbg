@@ -70,7 +70,6 @@ class Application : public KApplication
     bool startUniqueServer();
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
     bool isRunning() const;
-    void busEventHandler ( const QString &type, const QString &str );
     static DBManager* dbManager();
     static DownloadManager* downloadManager();
     static HistoryManager* historyManager();

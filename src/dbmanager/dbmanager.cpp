@@ -42,14 +42,24 @@
 /* KDE */
 #include <KDE/KLocale>
 
-DBManager::DBManager ( QObject * parent )
+DBManager::DBManager ( const QSqlDatabase &driver, QObject * parent )
     : QObject ( parent )
-    , sql ( QSqlDatabase::addDatabase ( "QSQLITE", QLatin1String ( XHTMLDBG_APPS_NAME ) ) )
+    , sql ( driver )
 {
   setObjectName ( QLatin1String ( "xhtmldbg_database_manager" ) );
-  sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_OPEN_READONLY=0" ) );
   sql.setConnectOptions ( QString::fromUtf8 ( "QSQLITE_ENABLE_SHARED_CACHE=1" ) );
-  sql.setDatabaseName ( QLatin1String ( XHTMLDBG_DATABASE_NAME ) );
+}
+
+DBManager* DBManager::createConnection ( const QString &name, QObject * parent )
+{
+  QSqlDatabase db = QSqlDatabase::database ( name, false );
+  if ( ! db.isValid() || ! db.isOpen() )
+    db = QSqlDatabase::addDatabase ( "QSQLITE", name );
+
+  DBManager* handle = new DBManager ( db, parent );
+  handle->open();
+
+  return handle;
 }
 
 const QString DBManager::connectionName()
@@ -61,7 +71,7 @@ const QString DBManager::defaultDatabase()
 {
   QString path = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
   path.append ( QDir::separator() );
-  path.append ( QLatin1String ( XHTMLDBG_DATABASE_NAME ) );
+  path.append ( QLatin1String ( XHTMLDBG_APPS_NAME ) );
   path.append ( ".db" );
   return path;
 }
@@ -146,9 +156,12 @@ bool DBManager::init()
 }
 
 /** SQLite Databases handle */
-const QSqlDatabase DBManager::handle()
+const QSqlDatabase DBManager::handle ( const QString &copyName )
 {
-  return sql;
+  if ( copyName.isEmpty() )
+    return sql;
+  else
+    return QSqlDatabase::cloneDatabase ( sql, copyName );
 }
 
 /** SQL INSERT Statements */

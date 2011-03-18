@@ -208,6 +208,92 @@ QTableWidgetItem* ConfigWebSecurity::createItem ( const QVariant &data ) const
   return item;
 }
 
+/**
+* BUG QT enlädt nicht den SQL Treiber und schreibt zusätliche Zeilen in das Table!
+*/
+void ConfigWebSecurity::loadSQLData()
+{
+  m_table->clearContents();
+  // Dieser Pfad wird von Qt vorgegeben!
+  QString webDatabase ( "/Databases.db" );
+  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
+
+  QFileInfo info ( webDatabase );
+  if ( info.exists() )
+  {
+    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", cfgGroup );
+    if ( db.isValid() )
+    {
+      db.setDatabaseName ( webDatabase );
+      if ( db.open() )
+      {
+        QSqlQuery query = db.exec ( "SELECT origin,quota FROM Origins WHERE ( origin IS NOT NULL);" );
+        if ( query.lastError().isValid() )
+        {
+          qDebug() << Q_FUNC_INFO << db.lastError().text();
+          return;
+        }
+
+        QSqlRecord rec = query.record();
+        if ( rec.count() >= 1 )
+        {
+          while ( query.next() )
+          {
+            QStringList data = query.value ( rec.indexOf ( "origin" ) ).toString().split ( "_" );
+            m_table->setRowCount ( ( m_table->rowCount() + 1 ) );
+            int r = m_table->rowCount() - 1;
+            m_table->setItem ( r, 0, createItem ( data.at ( 1 ) ) );
+            m_table->setItem ( r, 1, createItem ( data.last() ) );
+            m_table->setItem ( r, 2, createItem ( data.first() ) );
+            m_table->setItem ( r, 3, createItem ( query.value ( rec.indexOf ( "quota" ) ).toUInt() ) );
+          }
+          query.finish();
+        }
+      }
+      db.close();
+    }
+  }
+  QSqlDatabase::removeDatabase ( cfgGroup );
+}
+
+void ConfigWebSecurity::saveSQLData()
+{
+  // Dieser Pfad wird von Qt vorgegeben!
+  QString webDatabase ( "/Databases.db" );
+  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
+
+  QFileInfo info ( webDatabase );
+  if ( info.exists() )
+  {
+    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", cfgGroup );
+    if ( db.isValid() )
+    {
+      db.setDatabaseName ( webDatabase );
+      if ( db.open() )
+      {
+        QSqlQuery query = db.exec ( "DELETE FROM Origins;" );
+        if ( query.lastError().isValid() )
+          return;
+
+        int size = m_table->rowCount();
+        for ( int r = 0; r < size; ++r )
+        {
+          QString host = m_table->item ( r, 0 )->data ( Qt::UserRole ).toString();
+          QString port = m_table->item ( r, 1 )->data ( Qt::UserRole ).toString();
+          QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
+          QString quota = m_table->item ( r, 3 )->data ( Qt::UserRole ).toString();
+          QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1_%2_%3',%4);" )
+                        .arg ( scheme,host,port,quota );
+          db.exec ( sql );
+        }
+        query.finish();
+      }
+      db.close();
+    }
+  }
+  QSqlDatabase::removeDatabase ( cfgGroup );
+}
+
 void ConfigWebSecurity::itemRowChanged ( int r )
 {
   QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
@@ -255,7 +341,9 @@ void ConfigWebSecurity::itemSubmitted()
     m_hostname->setFocus();
     return;
   }
+
   int port  = m_port->value();
+  int quota  = m_dbQuota->value();
   QString scheme = m_scheme->itemData ( m_scheme->currentIndex () ).toString();
   // Wenn ein Datensatz ausgewählt, die Hostnamen Identisch sind, dann Updaten!
   int row = m_table->currentRow();
@@ -268,11 +356,11 @@ void ConfigWebSecurity::itemSubmitted()
       m_table->item ( row, 1 )->setData ( Qt::UserRole, port );
       m_table->item ( row, 2 )->setData ( Qt::DisplayRole, scheme );
       m_table->item ( row, 2 )->setData ( Qt::UserRole, scheme );
-      m_table->item ( row, 3 )->setData ( Qt::DisplayRole, m_dbQuota->value() );
-      m_table->item ( row, 3 )->setData ( Qt::UserRole, m_dbQuota->value() );
+      m_table->item ( row, 3 )->setData ( Qt::DisplayRole, quota );
+      m_table->item ( row, 3 )->setData ( Qt::UserRole, quota );
       m_table->update();
       itemModified ( true );
-      return; // wenn gefunden hier aussteigen
+      return;
     }
   }
   // Einen Neuen Eintrag erzeugen!
@@ -291,61 +379,11 @@ void ConfigWebSecurity::itemModified ( bool b )
   emit modified ( b );
 }
 
-/**
-* Lade aus der QWebSettings::offlineStoragePath ()+"/Databases.db"
-* Datei die HTML 5 Datenbank Sicherheits Einstellungen und schreibe
-* diese in das TableModel.
-* Es gibt hier Einschränkungen!
-* Leider kann ich nicht eine Instance von DBManager nehmen weil dies ein
-* Unterprojekt ist und zu einem Undefined Symbols führen würde!
-* Deshalb ist das hier ziemlich doppelt gemoppelt :-/
-*/
 void ConfigWebSecurity::load ( Settings * cfg )
 {
   qint64 defaultQuota = cfg->value ( "WebDatabase/DefaultQuota", ( 3*1024 ) ).toUInt();
   m_dbQuota->setValue ( defaultQuota );
-
-  // Dieser Pfad wird von Qt vorgegeben!
-  QString webDatabase ( "/Databases.db" );
-  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
-
-  QFileInfo info ( webDatabase );
-  if ( info.exists() )
-  {
-    QSqlDatabase db = QSqlDatabase::database ( DBManager::connectionName(), false );
-    db.setDatabaseName ( webDatabase ); // switch Database
-    if ( db.open() && db.tables().contains ( QString::fromUtf8 ( "Origins" ) ) )
-    {
-      QSqlQuery query = db.exec ( "SELECT origin,quota FROM Origins WHERE ( origin IS NOT NULL);" );
-      if ( query.lastError().isValid() )
-      {
-        qDebug() << Q_FUNC_INFO << db.lastError().text();
-        return;
-      }
-
-      QSqlRecord rec = query.record();
-      if ( rec.count() >= 1 )
-      {
-        if ( m_table->rowCount() > 0 )
-          m_table->clearContents();
-
-        while ( query.next() )
-        {
-          QStringList data = query.value ( rec.indexOf ( "origin" ) ).toString().split ( "_" );
-          m_table->setRowCount ( ( m_table->rowCount() + 1 ) );
-          int r = m_table->rowCount() - 1;
-          m_table->setItem ( r, 0, createItem ( data.at ( 1 ) ) );
-          m_table->setItem ( r, 1, createItem ( data.last() ) );
-          m_table->setItem ( r, 2, createItem ( data.first() ) );
-          m_table->setItem ( r, 3, createItem ( query.value ( rec.indexOf ( "quota" ) ).toUInt() ) );
-        }
-        query.finish();
-      }
-    }
-    // Datenbank Zeiger zurücksetzen!
-    db.setDatabaseName ( DBManager::defaultDatabase() );
-    db.open();
-  }
+  loadSQLData();
 }
 
 /**
@@ -354,39 +392,7 @@ void ConfigWebSecurity::load ( Settings * cfg )
 void ConfigWebSecurity::save ( Settings * cfg )
 {
   cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
-
-  // Dieser Pfad wird von Qt vorgegeben!
-  QString webDatabase ( "/Databases.db" );
-  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
-
-  QFileInfo info ( webDatabase );
-  if ( info.exists() )
-  {
-    QSqlDatabase db = QSqlDatabase::database ( DBManager::connectionName(), false );
-    db.setDatabaseName ( webDatabase ); // switch Database
-    if ( db.open() && db.tables().contains ( QString::fromUtf8 ( "Origins" ) ) )
-    {
-      QSqlQuery query = db.exec ( "DELETE FROM Origins;" );
-      if ( query.lastError().isValid() )
-        return;
-
-      int size = m_table->rowCount();
-      for ( int r = 0; r < size; ++r )
-      {
-        QString host = m_table->item ( r, 0 )->data ( Qt::UserRole ).toString();
-        QString port = m_table->item ( r, 1 )->data ( Qt::UserRole ).toString();
-        QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
-        QString quota = m_table->item ( r, 3 )->data ( Qt::UserRole ).toString();
-        QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1_%2_%3',%4);" )
-                      .arg ( scheme,host,port,quota );
-        db.exec ( sql );
-      }
-      query.finish();
-    }
-    // Datenbank Zeiger zurücksetzen!
-    db.setDatabaseName ( DBManager::defaultDatabase() );
-    db.open();
-  }
+  saveSQLData();
 }
 
 bool ConfigWebSecurity::isModified ()
@@ -395,4 +401,6 @@ bool ConfigWebSecurity::isModified ()
 }
 
 ConfigWebSecurity::~ConfigWebSecurity()
-{}
+{
+  m_table->clearContents();
+}
