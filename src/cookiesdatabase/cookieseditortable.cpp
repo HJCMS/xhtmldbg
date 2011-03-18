@@ -19,6 +19,9 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "cookieseditortable.h"
 #include "cookieaccesscombobox.h"
 #include "cookiesboolcombobox.h"
@@ -85,7 +88,7 @@ CookiesEditorTable::CookiesEditorTable ( QWidget * parent )
 */
 bool CookiesEditorTable::initialDatabase ()
 {
-  sql = QSqlDatabase::database ( QString::fromUtf8 ( "xhtmldbg" ), false );
+  sql = QSqlDatabase::database ( QLatin1String ( XHTMLDBG_DATABASE_NAME ), false );
   return ( sql.isOpen() ? true : sql.open() );
 }
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-15 17:34+0100\n"
+"POT-Creation-Date: 2011-03-18 14:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -965,20 +965,20 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: src/cookiesdatabase/cookieseditortable.cpp:67
+#: src/cookiesdatabase/cookieseditortable.cpp:70
 #: src/docking/headerdock.cpp:298
 msgid "Domain"
 msgstr ""
 
-#: src/cookiesdatabase/cookieseditortable.cpp:67
+#: src/cookiesdatabase/cookieseditortable.cpp:70
 msgid "Arrangement"
 msgstr ""
 
-#: src/cookiesdatabase/cookieseditortable.cpp:68
+#: src/cookiesdatabase/cookieseditortable.cpp:71
 msgid "Allow third party"
 msgstr ""
 
-#: src/cookiesdatabase/cookieseditortable.cpp:68
+#: src/cookiesdatabase/cookieseditortable.cpp:71
 msgid "rfc2109"
 msgstr ""
 
@@ -1084,40 +1084,12 @@ msgstr ""
 msgid "Configure"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:59
+#: src/dbmanager/dbmanager.cpp:64
 msgid "SQL Invalid Operation: %1 %2"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:63
+#: src/dbmanager/dbmanager.cpp:68
 msgid "SQL Open Database: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:67
-msgid "SQL Create Table: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:71
-msgid "SQL Select: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:75
-msgid "SQL Delete: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:79
-msgid "SQL Update: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:83
-msgid "SQL Insert: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:87
-msgid "SQL Query: %1 %2"
-msgstr ""
-
-#: src/dbmanager/dbmanager.cpp:91
-msgid "SQL: %1 %2"
 msgstr ""
 
 #: src/dialogs/openfiledialog.cpp:43
@@ -1792,11 +1764,11 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
-#: src/page.cpp:116
+#: src/page.cpp:114
 msgid " Line: %1"
 msgstr ""
 
-#: src/page.cpp:119
+#: src/page.cpp:117
 msgid " Document: %1"
 msgstr ""
 
