@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 10:46+0100\n"
-"PO-Revision-Date: 2011-03-19 10:48+0100\n"
+"POT-Creation-Date: 2011-03-19 16:10+0100\n"
+"PO-Revision-Date: 2011-03-19 16:19+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -265,9 +265,20 @@ msgstr "Topografische Farben"
 msgid "Color preview"
 msgstr "Farben-Vorschau"
 
-#: src/colorpicker/colorpicker.cpp:105
-msgid "Color tapping"
-msgstr "Farbe abgreifen"
+#: src/colorpicker/colorpicker.cpp:93
+msgid "hexcolor:"
+msgstr "Hexadezimale Farbe:"
+
+#: src/colorpicker/colorpicker.cpp:98
+msgid "rgbcolor:"
+msgstr "RGB Farbe:"
+
+#: src/colorpicker/colorpicker.cpp:111
+msgid ""
+"There is a constraint on the color that it must have either 3 or 6 hex-"
+"digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
+"\" is not."
+msgstr "Für die Hexadezimale Farbeinangabe liegen folgende Einschränkungen vor. Es müssen 3 oder 6 Ziffern (das heißt, [0-9a-fA-F]) nach der Route \"#\";  stehen. z.B.: \"#000\" ist OK aber \"#abcd\" wäre falsch."
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45
 msgid "Video Player"
@@ -511,7 +522,7 @@ msgid "Create a new Cookie provision"
 msgstr "Erstelle eine neue Cookie Regelung"
 
 #: src/configuration/configcookies.cpp:97
-#: src/configuration/configwebsecurity.cpp:86 src/docking/headerdock.cpp:151
+#: src/configuration/configwebsecurity.cpp:81 src/docking/headerdock.cpp:151
 msgid "Hostname"
 msgstr "Hostname"
 
@@ -872,7 +883,7 @@ msgid "User Agent"
 msgstr "Benutzer Kennung"
 
 #: src/configuration/configurationmenu.cpp:56
-#: src/configuration/configwebsecurity.cpp:60
+#: src/configuration/configwebsecurity.cpp:54
 msgid "HTML 5 Database"
 msgstr "HTML 5 Datenbank"
 
@@ -885,7 +896,7 @@ msgstr "%1 Konfigurations Optionen."
 msgid "User-Agent"
 msgstr "Benutzer Kennung"
 
-#: src/configuration/configwebsecurity.cpp:70
+#: src/configuration/configwebsecurity.cpp:65
 msgid ""
 "The upcoming HTML 5 standard includes support for SQL databases that web "
 "sites can create and access on a local computer through JavaScript."
@@ -894,7 +905,7 @@ msgstr ""
 "Datenbanken. Webseiten können somit Daten mit JavaScript auf Ihrem Computer "
 "zwischenspeichern."
 
-#: src/configuration/configwebsecurity.cpp:71
+#: src/configuration/configwebsecurity.cpp:66
 msgid ""
 "Only Web sites with the same security options can access each other's "
 "resources for client-side scripting or databases."
@@ -902,7 +913,7 @@ msgstr ""
 "Es werden aber nur Webseiten mit den zulässigen Sicherheitseinträgen "
 "zugelassen."
 
-#: src/configuration/configwebsecurity.cpp:72
+#: src/configuration/configwebsecurity.cpp:67
 msgid ""
 "You need to add a hostname, scheme and port to allow access to your local "
 "computer."
@@ -910,53 +921,53 @@ msgstr ""
 "Damit ein Zugriff gestattet wird müssen Sie hier den Hostnamen, Schema und "
 "die Portadresse angeben."
 
-#: src/configuration/configwebsecurity.cpp:83
+#: src/configuration/configwebsecurity.cpp:78
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: src/configuration/configwebsecurity.cpp:89
+#: src/configuration/configwebsecurity.cpp:84
 msgid "e.g. domain.tld"
 msgstr "z.B. doamin.tld"
 
-#: src/configuration/configwebsecurity.cpp:91
-#: src/configuration/websecuritytable.cpp:60
+#: src/configuration/configwebsecurity.cpp:86
+#: src/websecurity/websecuritytable.cpp:60
 msgid "Scheme"
 msgstr "Schema"
 
-#: src/configuration/configwebsecurity.cpp:94
+#: src/configuration/configwebsecurity.cpp:89
 msgid "World Wide Web HTTP"
 msgstr "World Wide Web HTTP"
 
-#: src/configuration/configwebsecurity.cpp:95
+#: src/configuration/configwebsecurity.cpp:90
 msgid "World Wide Web over TLS/SSL HTTPS"
 msgstr "World Wide Web über TLS/SSL HTTPS"
 
-#: src/configuration/configwebsecurity.cpp:98
+#: src/configuration/configwebsecurity.cpp:93
 msgid "Local File Protocol FILE"
 msgstr "Lokales Datensystem Protokoll FILE"
 
-#: src/configuration/configwebsecurity.cpp:100
+#: src/configuration/configwebsecurity.cpp:95
 msgid "e.g. http://, https:// or file://"
 msgstr "z.B.. http://, https:// oder file://"
 
-#: src/configuration/configwebsecurity.cpp:103
-#: src/configuration/websecuritytable.cpp:60
+#: src/configuration/configwebsecurity.cpp:98
+#: src/websecurity/websecuritytable.cpp:60
 msgid "Port"
 msgstr "Port"
 
-#: src/configuration/configwebsecurity.cpp:109
+#: src/configuration/configwebsecurity.cpp:104
 msgid "Aberrantly Port Address from Scheme"
 msgstr "Vom Schema abweichende Port Adresse"
 
-#: src/configuration/configwebsecurity.cpp:112
+#: src/configuration/configwebsecurity.cpp:107
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: src/configuration/configwebsecurity.cpp:115
+#: src/configuration/configwebsecurity.cpp:110
 msgid "Submit"
 msgstr "Absenden"
 
-#: src/configuration/configwebsecurity.cpp:122
+#: src/configuration/configwebsecurity.cpp:117
 msgid "Sets the quota for the databases in the security origin to quota bytes."
 msgstr "Setze den zugelassenen Anteil für ein erstellen der Datenbank Größe in Byte."
 
@@ -1003,19 +1014,6 @@ msgstr "Lesezeichen"
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:175
 msgid "Product Tokens"
 msgstr "Produkt Umschreibung"
-
-#: src/configuration/websecuritytable.cpp:55
-msgid "Remove Entry"
-msgstr "Eintrag Entfernen"
-
-#: src/configuration/websecuritytable.cpp:60
-#, fuzzy
-msgid "Host"
-msgstr "Hostname"
-
-#: src/configuration/websecuritytable.cpp:60
-msgid "Quota"
-msgstr "Speicheranteil"
 
 #: src/cookieacceptdialog.cpp:44
 msgid "URL Cookie Requirement"
@@ -2181,6 +2179,19 @@ msgstr "Bildschirmfoto gespeichert unter %1"
 #: src/webinspector.cpp:41
 msgid "Inspector"
 msgstr "Kontrolleur"
+
+#: src/websecurity/websecuritytable.cpp:55
+msgid "Remove Entry"
+msgstr "Eintrag Entfernen"
+
+#: src/websecurity/websecuritytable.cpp:60
+#, fuzzy
+msgid "Host"
+msgstr "Hostname"
+
+#: src/websecurity/websecuritytable.cpp:60
+msgid "Quota"
+msgstr "Speicheranteil"
 
 #: src/webviewer.cpp:82 src/window.cpp:474
 msgid "New Page"

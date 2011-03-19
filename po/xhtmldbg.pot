@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 10:46+0100\n"
+"POT-Creation-Date: 2011-03-19 16:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,8 +246,19 @@ msgstr ""
 msgid "Color preview"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:105
-msgid "Color tapping"
+#: src/colorpicker/colorpicker.cpp:93
+msgid "hexcolor:"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:98
+msgid "rgbcolor:"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:111
+msgid ""
+"There is a constraint on the color that it must have either 3 or 6 hex-"
+"digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
+"\" is not."
 msgstr ""
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45
@@ -477,7 +488,7 @@ msgid "Create a new Cookie provision"
 msgstr ""
 
 #: src/configuration/configcookies.cpp:97
-#: src/configuration/configwebsecurity.cpp:86 src/docking/headerdock.cpp:151
+#: src/configuration/configwebsecurity.cpp:81 src/docking/headerdock.cpp:151
 msgid "Hostname"
 msgstr ""
 
@@ -804,7 +815,7 @@ msgid "User Agent"
 msgstr ""
 
 #: src/configuration/configurationmenu.cpp:56
-#: src/configuration/configwebsecurity.cpp:60
+#: src/configuration/configwebsecurity.cpp:54
 msgid "HTML 5 Database"
 msgstr ""
 
@@ -817,71 +828,71 @@ msgstr ""
 msgid "User-Agent"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:70
+#: src/configuration/configwebsecurity.cpp:65
 msgid ""
 "The upcoming HTML 5 standard includes support for SQL databases that web "
 "sites can create and access on a local computer through JavaScript."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:71
+#: src/configuration/configwebsecurity.cpp:66
 msgid ""
 "Only Web sites with the same security options can access each other's "
 "resources for client-side scripting or databases."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:72
+#: src/configuration/configwebsecurity.cpp:67
 msgid ""
 "You need to add a hostname, scheme and port to allow access to your local "
 "computer."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:83
+#: src/configuration/configwebsecurity.cpp:78
 msgid "Edit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:89
+#: src/configuration/configwebsecurity.cpp:84
 msgid "e.g. domain.tld"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:91
-#: src/configuration/websecuritytable.cpp:60
+#: src/configuration/configwebsecurity.cpp:86
+#: src/websecurity/websecuritytable.cpp:60
 msgid "Scheme"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:94
+#: src/configuration/configwebsecurity.cpp:89
 msgid "World Wide Web HTTP"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:95
+#: src/configuration/configwebsecurity.cpp:90
 msgid "World Wide Web over TLS/SSL HTTPS"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:98
+#: src/configuration/configwebsecurity.cpp:93
 msgid "Local File Protocol FILE"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:100
+#: src/configuration/configwebsecurity.cpp:95
 msgid "e.g. http://, https:// or file://"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:103
-#: src/configuration/websecuritytable.cpp:60
+#: src/configuration/configwebsecurity.cpp:98
+#: src/websecurity/websecuritytable.cpp:60
 msgid "Port"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:109
+#: src/configuration/configwebsecurity.cpp:104
 msgid "Aberrantly Port Address from Scheme"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:112
+#: src/configuration/configwebsecurity.cpp:107
 msgid "Reset"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:115
+#: src/configuration/configwebsecurity.cpp:110
 msgid "Submit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:122
+#: src/configuration/configwebsecurity.cpp:117
 msgid "Sets the quota for the databases in the security origin to quota bytes."
 msgstr ""
 
@@ -927,18 +938,6 @@ msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:175
 msgid "Product Tokens"
-msgstr ""
-
-#: src/configuration/websecuritytable.cpp:55
-msgid "Remove Entry"
-msgstr ""
-
-#: src/configuration/websecuritytable.cpp:60
-msgid "Host"
-msgstr ""
-
-#: src/configuration/websecuritytable.cpp:60
-msgid "Quota"
 msgstr ""
 
 #: src/cookieacceptdialog.cpp:44
@@ -2064,6 +2063,18 @@ msgstr ""
 
 #: src/webinspector.cpp:41
 msgid "Inspector"
+msgstr ""
+
+#: src/websecurity/websecuritytable.cpp:55
+msgid "Remove Entry"
+msgstr ""
+
+#: src/websecurity/websecuritytable.cpp:60
+msgid "Host"
+msgstr ""
+
+#: src/websecurity/websecuritytable.cpp:60
+msgid "Quota"
 msgstr ""
 
 #: src/webviewer.cpp:82 src/window.cpp:474

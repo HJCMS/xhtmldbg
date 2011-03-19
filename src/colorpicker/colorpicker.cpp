@@ -90,12 +90,12 @@ ColorPicker::ColorPicker ( QWidget * parent )
   // Text Ausgabe
   QVBoxLayout* verticalBoxLayout = new QVBoxLayout;
   // Ausgabe Hex
-  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "hexcolor" ), groupBox1 ) );
+  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "hexcolor:" ), groupBox1 ) );
   m_hexEdit = new QLineEdit ( groupBox1 );
   verticalBoxLayout->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
 
   // Ausgabe RGB
-  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "rgbcolor" ), groupBox1 ) );
+  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "rgbcolor:" ), groupBox1 ) );
   m_rgbEdit = new QLineEdit ( groupBox1 );
   verticalBoxLayout->addWidget ( m_rgbEdit, 0, Qt::AlignLeft );
   hLayout1->addLayout ( verticalBoxLayout );
