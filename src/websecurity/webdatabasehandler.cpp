@@ -40,7 +40,9 @@
 #include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebSecurityOrigin>
 
-/** NOTE Dieser Pfad wird von QtWebKit vorgegeben! */
+/** NOTE Dieser Pfad wird von QtWebKit vorgegeben!
+* Kann deshalb nicht geändert werden!
+*/
 static inline const QString webkitDatbasePath()
 {
   QString p ( "/Databases.db" );
@@ -48,8 +50,8 @@ static inline const QString webkitDatbasePath()
   return p;
 }
 
-/** Suche nach Exitierender Datenbank Verbindung!
-* Wenn nicht gefunden lege eine Kopie von der Übergebenen an! */
+/** Suche nach Existierender Datenbank Verbindung!
+* Wenn nicht gefunden lege eine Kopie von der Übergebenen Verbindung an! */
 static inline const QSqlDatabase uniqueSQLConnection ( const QSqlDatabase &d, const QString &n )
 {
   QSqlDatabase db = QSqlDatabase::database ( n, false );
@@ -59,6 +61,11 @@ static inline const QSqlDatabase uniqueSQLConnection ( const QSqlDatabase &d, co
   return QSqlDatabase::cloneDatabase ( d, n );
 }
 
+/**
+* Erstellt ein Neues Datenbank Objekt mit der Bestehenden @b xhtmldbg Verbindung an.
+* @li Setzt Gleichzeitig die Rechte der Datenbank auf Paranoid!
+* @li Wenn nicht gefunden wird eine Warnung auf dem Terminal ausgegeben!
+*/
 WebDatabaseHandler::WebDatabaseHandler ( const QSqlDatabase &other, const QString &name )
     : db ( uniqueSQLConnection ( other, name ) )
     , database ( webkitDatbasePath() )
@@ -66,18 +73,22 @@ WebDatabaseHandler::WebDatabaseHandler ( const QSqlDatabase &other, const QStrin
   QFileInfo info ( database );
   if ( info.exists() )
   {
-    db.setDatabaseName ( database );
+    QFile ( info.absoluteFilePath() ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner ) );
+    db.setDatabaseName ( info.absoluteFilePath() );
     db.open();
   }
   else
     qWarning ( "(XHTMLDBG) Database \"%s\" does not exists!", qPrintable ( database ) );
 }
 
+/**
+* Erstelle von jeder Konfigurierten "Origin" ein Verzeichnis im Datenbank Verzeichnis an!
+* NOTE Normalerweise sollte das QtWebKit machen - weiss auch nicht was das soll :-/
+*/
 void WebDatabaseHandler::initDatabaseDirectories ( const QStringList &origins )
 {
   QDir dir ( QWebSettings::offlineStoragePath () );
   QFile::Permissions perms = ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner );
-  QFile ( dir.absolutePath() ).setPermissions ( perms );
   foreach ( QString name, origins )
   {
     if ( dir.mkpath ( name ) )
@@ -85,6 +96,10 @@ void WebDatabaseHandler::initDatabaseDirectories ( const QStringList &origins )
   }
 }
 
+/**
+* Lese alle "Origin's" aus der Tabelle @b "Origins" und schreibe diese
+* in QList&lt;WebSecurityItem*&gt;
+*/
 const QList<WebSecurityItem*> WebDatabaseHandler::getOrigins()
 {
   QList<WebSecurityItem*> list;
@@ -112,6 +127,10 @@ const QList<WebSecurityItem*> WebDatabaseHandler::getOrigins()
   return list;
 }
 
+/**
+* Alle @b "Origins" aus der Liste Speichern!
+* @note Es wird zuvor die Tabelle geleert!
+*/
 void WebDatabaseHandler::saveOrigins ( const QList<WebSecurityItem*> &list )
 {
   QStringList dirs;
@@ -130,13 +149,18 @@ void WebDatabaseHandler::saveOrigins ( const QList<WebSecurityItem*> &list )
     QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1',%2);" )
                   .arg ( set, QString::number ( it->quota() ) );
 
-    dirs.append ( set );
+    if ( it->port() >= 80 ) // NOTE Port "0" bedeuted LocalStorage !!!
+      dirs.append ( set );
+
     db.exec ( sql );
   }
   query.finish();
   initDatabaseDirectories ( dirs );
 }
 
+/**
+* Sucht an Hand des @e hostnamen nach einem @b "Origin", gibt bei Erfolg @b true zurück!
+*/
 bool WebDatabaseHandler::hasOrigin ( const QString &hostname )
 {
   bool out = false;
@@ -153,6 +177,10 @@ bool WebDatabaseHandler::hasOrigin ( const QString &hostname )
   return out;
 }
 
+/**
+* Hole mit @e hostnamen einen @b "Origin"
+* @note Wenn nicht gefunden wird ein dummy mit @b "file_localhost_0" erstellt!
+*/
 WebSecurityItem* WebDatabaseHandler::getOrigin ( const QString &hostname )
 {
   WebSecurityItem* item = new  WebSecurityItem ( "file_localhost_0", ( 3 * 1024 ) );
@@ -181,6 +209,9 @@ WebSecurityItem* WebDatabaseHandler::getOrigin ( const QString &hostname )
   return item;
 }
 
+/**
+* Offene SQL Verbindung schließen!
+*/
 void WebDatabaseHandler::close()
 {
   if ( db.isOpen() )

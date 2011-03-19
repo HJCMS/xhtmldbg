@@ -163,12 +163,16 @@ const QString Settings::webDatabasePath()
 */
 const QString Settings::webLocalStoragePath()
 {
+  QStringList subdirs;
+  subdirs << "Databases" << "LocalStorage" << "Storage";
   QDir d ( webDatabasePath() );
   QString path = d.path() + d.separator() + QLatin1String ( "Storage" );
-
-  if ( d.mkpath ( QLatin1String ( "Storage" ) ) )
-    QFile ( path ).setPermissions ( DefaultDirPermissons );
-
+  // Schreibe gleichzeitig alle anderen Unter Verzeichnisse!
+  foreach(QString n, subdirs)
+  {
+    if ( d.mkpath ( n ) )
+      QFile ( d.absoluteFilePath ( n ) ).setPermissions ( DefaultDirPermissons );
+  }
   return path;
 }
 

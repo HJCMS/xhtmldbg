@@ -29,6 +29,10 @@
 /* QtGui */
 #include <QtGui/QTableWidgetItem>
 
+/**
+* \class WebSecurityItem
+* This Class Provides the http://www.w3.org/TR/webdatabase/ 
+*/
 class WebSecurityItem
 {
   private:

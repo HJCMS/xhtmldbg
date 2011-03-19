@@ -41,10 +41,21 @@ class WebDatabaseHandler
 
   public:
     WebDatabaseHandler ( const QSqlDatabase &other, const QString &name = QLatin1String ( "WebSecurity" ) );
+
+    /** get all \b "Origins" from SQLite3:Databases:Origins */
     const QList<WebSecurityItem*> getOrigins();
+
+    /** clear SQLite3:Databases:Origins and INSERT this \param list */
     void saveOrigins ( const QList<WebSecurityItem*> &list );
+
+    /** Find \b "Origin" with given \param hostname */
     bool hasOrigin ( const QString &hostname );
+
+    /** Find \b "Origin" with given \param hostname
+    * @note If not found, a dummy Item with \b "file_localhost_0" content returned */
     WebSecurityItem* getOrigin ( const QString &hostname );
+
+    /** close activ db connection */
     void close();
 };
 

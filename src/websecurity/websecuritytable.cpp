@@ -81,6 +81,7 @@ void WebSecurityTable::rowChanged ( QTableWidgetItem * item )
   emit currentIndexChanged ( item->row() );
 }
 
+/** Ausgewählte Zeile entfernen */
 void WebSecurityTable::removeSelectedRow()
 {
   if ( selectedItems().size() < 1 )
