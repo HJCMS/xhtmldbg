@@ -19,44 +19,32 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef WEBSECURITYITEM_H
-#define WEBSECURITYITEM_H
+#ifndef WEBDATABASEHANDLER_H
+#define WEBDATABASEHANDLER_H
 
 /* QtCore */
+#include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QVariant>
 
-/* QtGui */
-#include <QtGui/QTableWidgetItem>
+/* QtSql */
+#include <QtSql/QSqlDatabase>
 
-class WebSecurityItem
+/* websecurity */
+#include "websecurityitem.h"
+
+class WebDatabaseHandler
 {
   private:
-    QVariant p_scheme;
-    QVariant p_host;
-    QVariant p_port;
-    QVariant p_quota;
-
-  protected:
-    void setScheme ( const QVariant & );
-    void setHost ( const QVariant & );
-    void setPort ( const QVariant & );
-    void setQuota ( const QVariant & );
+    QSqlDatabase db;
+    const QString database;
 
   public:
-    WebSecurityItem ( const QString &origin, qint64 quotadata );
-
-    const QString scheme();
-    QTableWidgetItem* schemeItem();
-
-    const QString host();
-    QTableWidgetItem* hostItem();
-
-    qint64 port();
-    QTableWidgetItem* portItem();
-
-    qint64 quota();
-    QTableWidgetItem* quotaItem();
+    WebDatabaseHandler ( const QSqlDatabase &other, const QString &name = QLatin1String ( "WebSecurity" ) );
+    const QList<WebSecurityItem*> getOrigins();
+    void saveOrigins ( const QList<WebSecurityItem*> &list );
+    bool hasOrigin ( const QString &hostname );
+    WebSecurityItem* getOrigin ( const QString &hostname );
+    void close();
 };
 
 #endif

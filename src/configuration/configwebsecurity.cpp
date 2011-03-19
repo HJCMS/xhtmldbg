@@ -19,8 +19,11 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include "configwebsecurity.h"
-
+#include "webdatabasehandler.h"
 #include "dbmanager.h"
 
 /* QtCore */
@@ -41,13 +44,8 @@
 
 /* QtSql */
 #include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlError>
-#include <QtSql/QSqlRecord>
-#include <QtSql/QSqlQuery>
 
 /* QtWebKit */
-#include <QtWebKit/QWebDatabase>
-#include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebSecurityOrigin>
 
 /* KDE */
@@ -59,6 +57,7 @@
 ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
     : PageWidget ( i18n ( "HTML 5 Database" ), parent )
     , dbConnectionName ( QLatin1String ( "HTML5SecurityOptions" ) )
+    , defaultQuota ( ( 3 * 1024 ) )
 {
   setObjectName ( QLatin1String ( "config_web_security" ) );
   setNotice ( false );
@@ -175,86 +174,35 @@ void ConfigWebSecurity::fillTable ( QList<WebSecurityItem*> &list )
 /**  SQL Daten in Tabelle schreiben! */
 void ConfigWebSecurity::loadSQLData()
 {
-  QList<WebSecurityItem*> origins;
-  // Dieser Pfad wird von Qt vorgegeben!
-  QString webDatabase ( "/Databases.db" );
-  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
-
-  QFileInfo info ( webDatabase );
-  if ( info.exists() )
-  {
-    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", dbConnectionName );
-    if ( db.isValid() )
-    {
-      db.setDatabaseName ( webDatabase );
-      if ( db.open() )
-      {
-        QSqlQuery query = db.exec ( "SELECT origin,quota FROM Origins WHERE ( origin IS NOT NULL);" );
-        if ( query.lastError().isValid() )
-        {
-          qDebug() << Q_FUNC_INFO << db.lastError().text();
-          return;
-        }
-
-        QSqlRecord rec = query.record();
-        if ( rec.count() >= 1 )
-        {
-          while ( query.next() )
-          {
-            QString origin = query.value ( rec.indexOf ( "origin" ) ).toString();
-            if ( origin.isEmpty() )
-              continue;
-
-            qint64 quota = query.value ( rec.indexOf ( "quota" ) ).toUInt();
-            origins.append ( new WebSecurityItem ( origin, quota ) );
-          }
-          query.finish();
-        }
-      }
-      db.close();
-    }
-  }
-  QSqlDatabase::removeDatabase ( dbConnectionName );
+  WebDatabaseHandler db ( QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false )
+                          , dbConnectionName );
+  QList<WebSecurityItem*> origins = db.getOrigins();
   fillTable ( origins );
+  db.close();
+  origins.clear();
   sighted = true;
 }
 
 void ConfigWebSecurity::saveSQLData()
 {
-  // Dieser Pfad wird von Qt vorgegeben!
-  QString webDatabase ( "/Databases.db" );
-  webDatabase.prepend ( QWebSettings::offlineStoragePath () );
+  int size = m_table->rowCount();
+  if ( size < 1 )
+    return;
 
-  QFileInfo info ( webDatabase );
-  if ( info.exists() )
+  QList<WebSecurityItem*> origins;
+  for ( int r = 0; r < size; ++r )
   {
-    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", dbConnectionName );
-    if ( db.isValid() )
-    {
-      db.setDatabaseName ( webDatabase );
-      if ( db.open() )
-      {
-        QSqlQuery query = db.exec ( "DELETE FROM Origins;" );
-        if ( query.lastError().isValid() )
-          return;
-
-        int size = m_table->rowCount();
-        for ( int r = 0; r < size; ++r )
-        {
-          QString host = m_table->item ( r, 0 )->data ( Qt::UserRole ).toString();
-          QString port = m_table->item ( r, 1 )->data ( Qt::UserRole ).toString();
-          QString scheme = m_table->item ( r, 2 )->data ( Qt::UserRole ).toString();
-          QString quota = m_table->item ( r, 3 )->data ( Qt::UserRole ).toString();
-          QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1_%2_%3',%4);" )
-                        .arg ( scheme,host,port,quota );
-          db.exec ( sql );
-        }
-        query.finish();
-      }
-      db.close();
-    }
+    WebSecurityItem* it = new WebSecurityItem ( "dummy", defaultQuota );
+    it->setHost ( m_table->item ( r, 0 )->data ( Qt::UserRole ) );
+    it->setPort ( m_table->item ( r, 1 )->data ( Qt::UserRole ) );
+    it->setScheme ( m_table->item ( r, 2 )->data ( Qt::UserRole ) );
+    it->setQuota ( m_table->item ( r, 3 )->data ( Qt::UserRole ) );
+    origins.append ( it );
   }
-  QSqlDatabase::removeDatabase ( dbConnectionName );
+  WebDatabaseHandler db ( QSqlDatabase::database ( QLatin1String ( XHTMLDBG_APPS_NAME ), false )
+                          , dbConnectionName );
+  db.saveOrigins ( origins );
+  db.close();
 }
 
 void ConfigWebSecurity::itemRowChanged ( int r )
@@ -344,8 +292,8 @@ void ConfigWebSecurity::itemModified ( bool b )
 
 void ConfigWebSecurity::load ( Settings * cfg )
 {
-  qint64 defaultQuota = cfg->value ( "WebDatabase/DefaultQuota", ( 3*1024 ) ).toUInt();
-  m_dbQuota->setValue ( defaultQuota );
+  qint64 quota = cfg->value ( "WebDatabase/DefaultQuota", defaultQuota ).toUInt();
+  m_dbQuota->setValue ( quota );
   loadSQLData();
 }
 
@@ -371,4 +319,5 @@ bool ConfigWebSecurity::isSighted ()
 ConfigWebSecurity::~ConfigWebSecurity()
 {
   m_table->clearContents();
+  QSqlDatabase::removeDatabase ( dbConnectionName );
 }

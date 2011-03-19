@@ -41,45 +41,15 @@ WebSecurityItem::WebSecurityItem ( const QString &origin, qint64 quotadata )
   }
 }
 
-void WebSecurityItem::setScheme ( const QVariant &val )
+const QString WebSecurityItem::host()
 {
-  if ( val.isValid() )
-    p_scheme = val;
+  return p_host.toString();
 }
 
 void WebSecurityItem::setHost ( const QVariant &val )
 {
   if ( val.isValid() )
     p_host = val;
-}
-
-void WebSecurityItem::setPort ( const QVariant &val )
-{
-  if ( val.isValid() )
-    p_port = val;
-}
-
-void WebSecurityItem::setQuota ( const QVariant &val )
-{
-  if ( val.isValid() )
-    p_quota = val;
-}
-
-const QString WebSecurityItem::scheme()
-{
-  return p_scheme.toString();
-}
-
-QTableWidgetItem* WebSecurityItem::schemeItem()
-{
-  QTableWidgetItem* item = new QTableWidgetItem ( p_scheme.toString(), QTableWidgetItem::UserType );
-  item->setData ( Qt::UserRole, p_scheme );
-  return item;
-}
-
-const QString WebSecurityItem::host()
-{
-  return p_host.toString();
 }
 
 QTableWidgetItem* WebSecurityItem::hostItem()
@@ -94,6 +64,12 @@ qint64 WebSecurityItem::port()
   return p_port.toUInt();
 }
 
+void WebSecurityItem::setPort ( const QVariant &val )
+{
+  if ( val.isValid() )
+    p_port = val;
+}
+
 QTableWidgetItem* WebSecurityItem::portItem()
 {
   QTableWidgetItem* item = new QTableWidgetItem ( p_port.toString(), QTableWidgetItem::UserType );
@@ -101,9 +77,33 @@ QTableWidgetItem* WebSecurityItem::portItem()
   return item;
 }
 
+const QString WebSecurityItem::scheme()
+{
+  return p_scheme.toString();
+}
+
+void WebSecurityItem::setScheme ( const QVariant &val )
+{
+  if ( val.isValid() )
+    p_scheme = val;
+}
+
+QTableWidgetItem* WebSecurityItem::schemeItem()
+{
+  QTableWidgetItem* item = new QTableWidgetItem ( p_scheme.toString(), QTableWidgetItem::UserType );
+  item->setData ( Qt::UserRole, p_scheme );
+  return item;
+}
+
 qint64 WebSecurityItem::quota()
 {
   return p_quota.toUInt();
+}
+
+void WebSecurityItem::setQuota ( const QVariant &val )
+{
+  if ( val.isValid() )
+    p_quota = val;
 }
 
 QTableWidgetItem* WebSecurityItem::quotaItem()

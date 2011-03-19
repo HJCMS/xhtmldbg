@@ -57,6 +57,7 @@ class ConfigWebSecurity : public PageWidget
 
   private:
     const QString dbConnectionName;
+    qint64 defaultQuota;
     WebSecurityTable* m_table;
     KLineEdit* m_hostname;
     KIntNumInput* m_port;
