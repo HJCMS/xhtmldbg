@@ -23,17 +23,23 @@
 #include "colors.h"
 #include "colortable.h"
 #include "grabberwindow.h"
+#include "hexinput.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QRegExp>
+#include <QtCore/QStringList>
+#include <QtCore/QVariant>
 
 /* QtGui */
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QGroupBox>
-#include <QtGui/QHBoxLayout>
+#include <QtGui/QGridLayout>
 #include <QtGui/QImage>
 #include <QtGui/QPixmap>
+#include <QtGui/QPushButton>
+#include <QtGui/QRegExpValidator>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QVBoxLayout>
@@ -44,6 +50,7 @@
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KIcon>
+#include <KDE/KColorDialog>
 
 ColorPicker::ColorPicker ( QWidget * parent )
     : QDockWidget ( parent )
@@ -80,41 +87,66 @@ ColorPicker::ColorPicker ( QWidget * parent )
   QGroupBox* groupBox1 = new QGroupBox ( i18n ( "Color preview" ), layer );
   verticalLayout->addWidget ( groupBox1 );
 
-  QHBoxLayout* hLayout1 = new QHBoxLayout ( groupBox1 );
-  groupBox1->setLayout ( hLayout1 );
+  QGridLayout* gridLayout1 = new QGridLayout ( groupBox1 );
+  groupBox1->setLayout ( gridLayout1 );
 
-  // Fraben Abgreifen
+  // Farben Abgreifen
   m_grabberWindow = new GrabberWindow ( groupBox1 );
-  hLayout1->addWidget ( m_grabberWindow );
+  gridLayout1->addWidget ( m_grabberWindow, 0, 0, 4, 1 );
 
-  // Text Ausgabe
-  QVBoxLayout* verticalBoxLayout = new QVBoxLayout;
   // Ausgabe Hex
-  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "hexcolor:" ), groupBox1 ) );
+  gridLayout1->addWidget ( new QLabel ( i18n ( "hexcolor:" ), groupBox1 ), 0, 1, 1, 1 );
   m_hexEdit = new QLineEdit ( groupBox1 );
-  verticalBoxLayout->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
+  gridLayout1->addWidget ( m_hexEdit, 1, 1, 1, 1, Qt::AlignLeft );
 
   // Ausgabe RGB
-  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "rgbcolor:" ), groupBox1 ) );
+  gridLayout1->addWidget ( new QLabel ( i18n ( "rgbcolor:" ), groupBox1 ), 2, 1, 1, 1 );
   m_rgbEdit = new QLineEdit ( groupBox1 );
-  verticalBoxLayout->addWidget ( m_rgbEdit, 0, Qt::AlignLeft );
-  hLayout1->addLayout ( verticalBoxLayout );
+  gridLayout1->addWidget ( m_rgbEdit, 3, 1, 1, 1, Qt::AlignLeft );
 
   // Farb-Vorschau
   m_preview = new QLabel ( groupBox1 );
   m_preview->setStyleSheet ( "*{border:1px ridge black;background-color:#FFFFFF;}" );
   m_preview->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
-  hLayout1->addWidget ( m_preview );
+  gridLayout1->addWidget ( m_preview, 0, 2, 4, 1 );
 
+  // Hinweis
+  verticalLayout->addWidget ( new QLabel ( i18n ( "Note:" ), layer ), 0, Qt::AlignLeft );
   QLabel* hexinfo = new QLabel ( layer );
   hexinfo->setWordWrap ( true );
   hexinfo->setText ( i18n ( "There is a constraint on the color that it must have either 3 or 6 hex-digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd\" is not." ) );
   verticalLayout->addWidget ( hexinfo );
 
-  QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
-  verticalLayout->addItem ( spacer );
+  // Farben Testen
+  QGroupBox* groupBox2 = new QGroupBox ( i18n ( "Testing" ), layer );
+  verticalLayout->addWidget ( groupBox2 );
+
+  // Zusätzliche Manuelle Eingaben
+  QGridLayout* gridLayout2 = new QGridLayout ( groupBox2 );
+  groupBox2->setLayout ( gridLayout2 );
+
+  gridLayout2->addWidget ( new QLabel ( i18n ( "hexcolor tester:" ), groupBox2 ), 0, 0, 1, 1, Qt::AlignRight );
+
+  m_hexInput = new HexInput ( groupBox2 );
+  gridLayout2->addWidget ( m_hexInput, 0, 1, 1, 1 );
+
+  QPushButton* manualTestButton = new QPushButton ( groupBox2 );
+  manualTestButton->setText ( i18n ( "Test" ) );
+  manualTestButton->setIcon ( KIcon ( "preferences-desktop-color" ) );
+  gridLayout2->addWidget ( manualTestButton, 0, 2, 1, 1 );
+
+  QSpacerItem* horizontalSpacer = new QSpacerItem ( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+  gridLayout2->addItem ( horizontalSpacer, 0, 3, 1, 1 );
+
+  QPushButton* openColorEditor = new QPushButton ( groupBox2 );
+  openColorEditor->setText ( i18n ( "Color Editor" ) );
+  openColorEditor->setIcon ( KIcon ( "preferences-desktop-color" ) );
+  gridLayout2->addWidget ( openColorEditor, 0, 4, 1, 1 );
 
   // Layout abschliessen
+  QSpacerItem* verticalSpacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
+  verticalLayout->addItem ( verticalSpacer );
+
   layer->setLayout ( verticalLayout );
   setWidget ( layer );
 
@@ -129,6 +161,15 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   connect ( m_grabberWindow, SIGNAL ( recording ( bool ) ),
             this, SIGNAL ( recording ( bool ) ) );
+
+  connect ( m_hexInput, SIGNAL ( editingFinished() ),
+            this, SLOT ( colorInput() ) );
+
+  connect ( manualTestButton, SIGNAL ( clicked() ),
+            this, SLOT ( colorInput() ) );
+
+  connect ( openColorEditor, SIGNAL ( clicked() ),
+            this, SLOT ( colorDialog() ) );
 }
 
 void ColorPicker::findPixelColor ( const QPoint &p )
@@ -146,6 +187,32 @@ void ColorPicker::findPixelColor ( const QPoint &p )
 
   color.setRgba ( img.pixel ( 0, 0 ) );
   colorChanged ( color );
+}
+
+void ColorPicker::openColorEditor()
+{
+  KColorDialog* cDialog = new KColorDialog ( this );
+  connect ( cDialog, SIGNAL ( colorSelected ( const QColor & ) ),
+            this, SLOT ( colorChanged ( const QColor & ) ) );
+
+  cDialog->exec();
+  delete cDialog;
+}
+
+/** Signal Verarbeitung für die Manuelle Test Farbeingabe */
+void ColorPicker::colorInput()
+{
+  QColor col ( m_hexInput->text() );
+  if ( col.isValid() )
+    colorChanged ( col );
+  else
+    qWarning ( "(XHTMLDBG) Can not read this Color Definition!", qPrintable ( m_hexInput->text() ) );
+}
+
+/** Signal Verarbeitung für den Farben Dialog */
+void ColorPicker::colorDialog()
+{
+  openColorEditor();
 }
 
 /**

@@ -39,6 +39,7 @@
 
 class ColorTable;
 class GrabberWindow;
+class HexInput;
 
 class ColorPicker : public QDockWidget
 {
@@ -53,9 +54,13 @@ class ColorPicker : public QDockWidget
     QLabel* m_preview;
     QLineEdit* m_rgbEdit;
     GrabberWindow* m_grabberWindow;
+    HexInput* m_hexInput;
     void findPixelColor ( const QPoint & );
+    void openColorEditor();
 
   private Q_SLOTS:
+    void colorInput();
+    void colorDialog();
     void colorMapChanged ( int );
     void colorChanged ( const QColor & );
     void pointerChanged ( const QPoint & );

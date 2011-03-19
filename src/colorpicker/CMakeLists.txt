@@ -6,6 +6,7 @@ SET(colorpicker_SOURCES
   colortable.cpp
   colorpickerbutton.cpp
   grabberwindow.cpp
+  hexinput.cpp
 )
 
 SET(colorpicker_HEADERS
@@ -13,6 +14,7 @@ SET(colorpicker_HEADERS
   colortable.h
   colorpickerbutton.h
   grabberwindow.h
+  hexinput.h
 )
 
 SET(colorpicker_NOMOC_HEADERS

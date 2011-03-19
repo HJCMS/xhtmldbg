@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 16:10+0100\n"
+"POT-Creation-Date: 2011-03-19 18:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,47 +218,67 @@ msgstr ""
 msgid "Color picker"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:52
+#: src/colorpicker/colorpicker.cpp:59
 msgid "Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:66
+#: src/colorpicker/colorpicker.cpp:73
 msgid "Web Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:67
+#: src/colorpicker/colorpicker.cpp:74
 msgid "Royal Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:68
+#: src/colorpicker/colorpicker.cpp:75
 msgid "Rainbow Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:69
+#: src/colorpicker/colorpicker.cpp:76
 msgid "Gray Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:70
+#: src/colorpicker/colorpicker.cpp:77
 msgid "Topographic Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:80
+#: src/colorpicker/colorpicker.cpp:87
 msgid "Color preview"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:93
+#: src/colorpicker/colorpicker.cpp:98
 msgid "hexcolor:"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:98
+#: src/colorpicker/colorpicker.cpp:103
 msgid "rgbcolor:"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:111
+#: src/colorpicker/colorpicker.cpp:114
+msgid "Note:"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:117
 msgid ""
 "There is a constraint on the color that it must have either 3 or 6 hex-"
 "digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
 "\" is not."
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:121
+msgid "Testing"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:128
+msgid "hexcolor tester:"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:134
+msgid "Test"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:142
+msgid "Color Editor"
 msgstr ""
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45

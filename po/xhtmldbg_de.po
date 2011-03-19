@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 16:10+0100\n"
-"PO-Revision-Date: 2011-03-19 16:19+0100\n"
+"POT-Creation-Date: 2011-03-19 18:31+0100\n"
+"PO-Revision-Date: 2011-03-19 18:33+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -237,48 +237,72 @@ msgstr "Die Lesezeichen Datei besitzt kein Valides XBEL Schema!"
 msgid "Color picker"
 msgstr "Farbauswahl"
 
-#: src/colorpicker/colorpicker.cpp:52
+#: src/colorpicker/colorpicker.cpp:59
 msgid "Colors"
 msgstr "Farben"
 
-#: src/colorpicker/colorpicker.cpp:66
+#: src/colorpicker/colorpicker.cpp:73
 msgid "Web Colors"
 msgstr "Web Farben"
 
-#: src/colorpicker/colorpicker.cpp:67
+#: src/colorpicker/colorpicker.cpp:74
 msgid "Royal Colors"
 msgstr "Royal Farben"
 
-#: src/colorpicker/colorpicker.cpp:68
+#: src/colorpicker/colorpicker.cpp:75
 msgid "Rainbow Colors"
 msgstr "Regenbogen Farben"
 
-#: src/colorpicker/colorpicker.cpp:69
+#: src/colorpicker/colorpicker.cpp:76
 msgid "Gray Colors"
 msgstr "Graustufen"
 
-#: src/colorpicker/colorpicker.cpp:70
+#: src/colorpicker/colorpicker.cpp:77
 msgid "Topographic Colors"
 msgstr "Topografische Farben"
 
-#: src/colorpicker/colorpicker.cpp:80
+#: src/colorpicker/colorpicker.cpp:87
 msgid "Color preview"
 msgstr "Farben-Vorschau"
 
-#: src/colorpicker/colorpicker.cpp:93
+#: src/colorpicker/colorpicker.cpp:98
 msgid "hexcolor:"
 msgstr "Hexadezimale Farbe:"
 
-#: src/colorpicker/colorpicker.cpp:98
+#: src/colorpicker/colorpicker.cpp:103
 msgid "rgbcolor:"
 msgstr "RGB Farbe:"
 
-#: src/colorpicker/colorpicker.cpp:111
+#: src/colorpicker/colorpicker.cpp:114
+msgid "Note:"
+msgstr "Hinweis:"
+
+#: src/colorpicker/colorpicker.cpp:117
 msgid ""
 "There is a constraint on the color that it must have either 3 or 6 hex-"
 "digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
 "\" is not."
-msgstr "Für die Hexadezimale Farbeinangabe liegen folgende Einschränkungen vor. Es müssen 3 oder 6 Ziffern (das heißt, [0-9a-fA-F]) nach der Route \"#\";  stehen. z.B.: \"#000\" ist OK aber \"#abcd\" wäre falsch."
+msgstr ""
+"Für die Hexadezimale Farbeinangabe liegen folgende Einschränkungen vor. Es "
+"müssen 3 oder 6 Ziffern (das heißt, [0-9a-fA-F]) nach der Route \"#\";  "
+"stehen. z.B.: \"#000\" ist OK aber \"#abcd\" wäre falsch."
+
+#: src/colorpicker/colorpicker.cpp:121
+msgid "Testing"
+msgstr "Prüfung"
+
+#: src/colorpicker/colorpicker.cpp:128
+#, fuzzy
+msgid "hexcolor tester:"
+msgstr "Hexadezimale Farbe:"
+
+#: src/colorpicker/colorpicker.cpp:134
+msgid "Test"
+msgstr "Test"
+
+#: src/colorpicker/colorpicker.cpp:142
+msgid "Color Editor"
+msgstr "Farben Editor"
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45
 msgid "Video Player"
