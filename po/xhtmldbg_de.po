@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
 "POT-Creation-Date: 2011-03-19 18:31+0100\n"
-"PO-Revision-Date: 2011-03-19 18:33+0100\n"
+"PO-Revision-Date: 2011-03-19 18:54+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -283,7 +283,7 @@ msgid ""
 "digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
 "\" is not."
 msgstr ""
-"Für die Hexadezimale Farbeinangabe liegen folgende Einschränkungen vor. Es "
+"Für die Hexadezimale Farbeingabe liegen folgende Einschränkungen vor. Es "
 "müssen 3 oder 6 Ziffern (das heißt, [0-9a-fA-F]) nach der Route \"#\";  "
 "stehen. z.B.: \"#000\" ist OK aber \"#abcd\" wäre falsch."
 
@@ -292,9 +292,8 @@ msgid "Testing"
 msgstr "Prüfung"
 
 #: src/colorpicker/colorpicker.cpp:128
-#, fuzzy
 msgid "hexcolor tester:"
-msgstr "Hexadezimale Farbe:"
+msgstr "Hexadezimal Farbentest:"
 
 #: src/colorpicker/colorpicker.cpp:134
 msgid "Test"
