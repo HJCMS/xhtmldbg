@@ -69,24 +69,41 @@ DomTree::DomTree ( QWidget * parent )
   // Actions
   ac_swapHighlight = new QAction ( KIcon ( "edit-clear-list" ), i18n ( "unhighlighted" ), this );
   ac_swapHighlight->setStatusTip ( i18n ( "unhighlighted current document content" ) );
-  insertAction ( 0, ac_swapHighlight );
+
+  ac_setColorBackground = new QAction ( KIcon ( "preferences-desktop-color" ), i18n ( "Background Color" ), this );
+  ac_setColorBackground->setStatusTip ( i18n ( "Edit Element background color" ) );
+
+  ac_setColorForeground = new QAction ( KIcon ( "preferences-desktop-color" ), i18n ( "Foreground Color" ), this );
+  ac_setColorForeground->setStatusTip ( i18n ( "Edit Element foreground color" ) );
 
   ac_showContent = new QAction ( KIcon ( "view-choose" ), i18n ( "Content" ), this );
   ac_showContent->setEnabled ( false );
   ac_showContent->setStatusTip ( i18n ( "Show current Element Content" ) );
-  insertAction ( ac_swapHighlight, ac_showContent );
 
   ac_copyPredicates = new QAction ( KIcon ( "edit-copy" ), i18n ( "Copy" ), this );
   ac_copyPredicates->setEnabled ( false );
   ac_copyPredicates->setStatusTip ( i18n ( "Copy Predicates to Clipboard" ) );
-  insertAction ( ac_showContent, ac_copyPredicates );
 
   ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Highlight" ), this );
   ac_setHighlight->setStatusTip ( i18n ( "Show current Element Information" ) );
+
+  // Insert Actions
+  insertAction ( 0, ac_swapHighlight );
+  insertAction ( ac_swapHighlight, ac_setColorBackground );
+  insertAction ( ac_setColorBackground, ac_setColorForeground );
+  insertAction ( ac_setColorForeground, ac_showContent );
+  insertAction ( ac_showContent, ac_copyPredicates );
   insertAction ( ac_copyPredicates, ac_setHighlight );
 
+  // Signals
   connect ( ac_swapHighlight, SIGNAL ( triggered () ),
             this, SIGNAL ( unselect() ) );
+
+  connect ( ac_setColorBackground, SIGNAL ( triggered() ),
+            this, SLOT ( colorBackgroundClicked () ) );
+
+  connect ( ac_setColorForeground, SIGNAL ( triggered() ),
+            this, SLOT ( colorForegroundClicked () ) );
 
   connect ( ac_showContent, SIGNAL ( triggered () ),
             this, SLOT ( visitContent() ) );
@@ -102,9 +119,6 @@ DomTree::DomTree ( QWidget * parent )
 
   connect ( this, SIGNAL ( itemEntered ( QTreeWidgetItem *, int ) ),
             this, SLOT ( itemHovered ( QTreeWidgetItem *, int ) ) );
-
-//   connect ( this, SIGNAL ( itemDoubleClicked ( QTreeWidgetItem *, int ) ),
-//             this, SLOT ( highlightElement ( QTreeWidgetItem *, int ) ) );
 }
 
 /**
@@ -225,6 +239,17 @@ void DomTree::openContentDialog ( const QString &content )
   dialog.exec();
 }
 
+/** Öffnet den Dialog zum Manipulieren des WebElement Hintergrundes
+* Wird dieser Dialog geschlossen, schrebe die Textfarbe in den Clipper!
+*/
+void DomTree::openColorElementDialog ( const QWebElement &element, ColorElement::Type type )
+{
+  ColorElement* dialog = new ColorElement ( element, type, this );
+  dialog->exec();
+  qApp->clipboard()->setText ( dialog->color().name() );
+  delete dialog;
+}
+
 /**
 * Bei einem Doppelklick der Maus wird der Eintrag hier
 * aufbereitet in dem das struct eingelesen wird und mit
@@ -261,6 +286,28 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
     ac_showContent->setEnabled ( ( ti.element.toPlainText().isEmpty() ? false : true ) );
     emit initStyleSheet ( ti.element );
   }
+}
+
+/**
+* Slot zum Suchen des Aktuell ausgewählten Elements
+* und rufe dann @ref openColorElementDialog auf.
+*/
+void DomTree::colorBackgroundClicked ()
+{
+  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
+  if ( ! ti.element.isNull() )
+    openColorElementDialog ( ti.element, ColorElement::BACKGROUND );
+}
+
+/**
+* Slot zum Suchen des Aktuell ausgewählten Elements
+* und rufe dann @ref openColorElementDialog auf.
+*/
+void DomTree::colorForegroundClicked ()
+{
+  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
+  if ( ! ti.element.isNull() )
+    openColorElementDialog ( ti.element, ColorElement::FOREGROUND );
 }
 
 /**

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 18:31+0100\n"
-"PO-Revision-Date: 2011-03-19 18:54+0100\n"
+"POT-Creation-Date: 2011-03-19 20:30+0100\n"
+"PO-Revision-Date: 2011-03-19 20:31+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1354,7 +1354,7 @@ msgstr "Abwählen"
 msgid "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:84
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:87
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr "Hervorhebung"
@@ -1371,23 +1371,39 @@ msgstr "Hervorhebung abwählen"
 msgid "unhighlighted current document content"
 msgstr "Aktuelle Dokument Hervorhebung entfernen"
 
+#: src/dominspector/domtree.cpp:73
+msgid "Background Color"
+msgstr "Hintergrund Farbe"
+
 #: src/dominspector/domtree.cpp:74
+msgid "Edit Element background color"
+msgstr "Editiere die Hintergrund Farbe"
+
+#: src/dominspector/domtree.cpp:76
+msgid "Foreground Color"
+msgstr "Vordergrund Farbe"
+
+#: src/dominspector/domtree.cpp:77
+msgid "Edit Element foreground color"
+msgstr "Editiere die Vordergrund Farbe"
+
+#: src/dominspector/domtree.cpp:79
 msgid "Content"
 msgstr "Inhalt"
 
-#: src/dominspector/domtree.cpp:76
+#: src/dominspector/domtree.cpp:81
 msgid "Show current Element Content"
 msgstr "Zeige den aktuellen Element Inhalt"
 
-#: src/dominspector/domtree.cpp:79
+#: src/dominspector/domtree.cpp:83
 msgid "Copy"
 msgstr "Kopieren"
 
-#: src/dominspector/domtree.cpp:81
+#: src/dominspector/domtree.cpp:85
 msgid "Copy Predicates to Clipboard"
 msgstr "Kopiere Prädikat in die Zwischenablage"
 
-#: src/dominspector/domtree.cpp:85
+#: src/dominspector/domtree.cpp:88
 msgid "Show current Element Information"
 msgstr "Zeige Informationen zum Aktuellen Element."
 

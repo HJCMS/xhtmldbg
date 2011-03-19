@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 18:31+0100\n"
+"POT-Creation-Date: 2011-03-19 20:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1273,7 +1273,7 @@ msgstr ""
 msgid "Deselect Highlights"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:84
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:87
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr ""
@@ -1290,23 +1290,39 @@ msgstr ""
 msgid "unhighlighted current document content"
 msgstr ""
 
+#: src/dominspector/domtree.cpp:73
+msgid "Background Color"
+msgstr ""
+
 #: src/dominspector/domtree.cpp:74
-msgid "Content"
+msgid "Edit Element background color"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:76
-msgid "Show current Element Content"
+msgid "Foreground Color"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:77
+msgid "Edit Element foreground color"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:79
-msgid "Copy"
+msgid "Content"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:81
-msgid "Copy Predicates to Clipboard"
+msgid "Show current Element Content"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:83
+msgid "Copy"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:85
+msgid "Copy Predicates to Clipboard"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:88
 msgid "Show current Element Information"
 msgstr ""
 
