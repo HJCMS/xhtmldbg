@@ -28,16 +28,12 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QFileInfo>
 #include <QtCore/QStringList>
 
 /* QtGui */
-#include <QtGui/QAbstractItemView>
-#include <QtGui/QDesktopServices>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
-#include <QtGui/QItemSelectionModel>
 #include <QtGui/QLabel>
 #include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>

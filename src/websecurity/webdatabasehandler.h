@@ -37,6 +37,7 @@ class WebDatabaseHandler
   private:
     QSqlDatabase db;
     const QString database;
+    void initDatabaseDirectories ( const QStringList &origins );
 
   public:
     WebDatabaseHandler ( const QSqlDatabase &other, const QString &name = QLatin1String ( "WebSecurity" ) );

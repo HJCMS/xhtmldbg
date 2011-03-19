@@ -23,8 +23,13 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QDir>
+#include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QStringList>
+
+/* QtGui */
+#include <QtGui/QDesktopServices>
 
 /* QtSql */
 #include <QtSql/QSqlError>
@@ -35,17 +40,28 @@
 #include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebSecurityOrigin>
 
-static inline const QString dbPath()
+/** NOTE Dieser Pfad wird von QtWebKit vorgegeben! */
+static inline const QString webkitDatbasePath()
 {
-  // Dieser Pfad wird von Qt vorgegeben!
   QString p ( "/Databases.db" );
   p.prepend ( QWebSettings::offlineStoragePath () );
   return p;
 }
 
+/** Suche nach Exitierender Datenbank Verbindung!
+* Wenn nicht gefunden lege eine Kopie von der Übergebenen an! */
+static inline const QSqlDatabase uniqueSQLConnection ( const QSqlDatabase &d, const QString &n )
+{
+  QSqlDatabase db = QSqlDatabase::database ( n, false );
+  if ( db.isValid() )
+    return db;
+
+  return QSqlDatabase::cloneDatabase ( d, n );
+}
+
 WebDatabaseHandler::WebDatabaseHandler ( const QSqlDatabase &other, const QString &name )
-    : db ( QSqlDatabase::cloneDatabase ( other, name ) )
-    , database ( dbPath() )
+    : db ( uniqueSQLConnection ( other, name ) )
+    , database ( webkitDatbasePath() )
 {
   QFileInfo info ( database );
   if ( info.exists() )
@@ -55,6 +71,18 @@ WebDatabaseHandler::WebDatabaseHandler ( const QSqlDatabase &other, const QStrin
   }
   else
     qWarning ( "(XHTMLDBG) Database \"%s\" does not exists!", qPrintable ( database ) );
+}
+
+void WebDatabaseHandler::initDatabaseDirectories ( const QStringList &origins )
+{
+  QDir dir ( QWebSettings::offlineStoragePath () );
+  QFile::Permissions perms = ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner );
+  QFile ( dir.absolutePath() ).setPermissions ( perms );
+  foreach ( QString name, origins )
+  {
+    if ( dir.mkpath ( name ) )
+      QFile ( dir.absoluteFilePath ( name ) ).setPermissions ( perms );
+  }
 }
 
 const QList<WebSecurityItem*> WebDatabaseHandler::getOrigins()
@@ -86,6 +114,7 @@ const QList<WebSecurityItem*> WebDatabaseHandler::getOrigins()
 
 void WebDatabaseHandler::saveOrigins ( const QList<WebSecurityItem*> &list )
 {
+  QStringList dirs;
   if ( list.size() < 1 )
     return;
 
@@ -97,11 +126,15 @@ void WebDatabaseHandler::saveOrigins ( const QList<WebSecurityItem*> &list )
   for ( int r = 0; r < size; ++r )
   {
     WebSecurityItem* it = list.at ( r );
-    QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1_%2_%3',%4);" )
-                  .arg ( it->scheme(), it->host(), QString::number ( it->port() ), QString::number ( it->quota() ) );
+    QString set = QString::fromUtf8 ( "%1_%2_%3" ).arg ( it->scheme(), it->host(), QString::number ( it->port() ) );
+    QString sql = QString::fromUtf8 ( "INSERT INTO Origins (origin,quota) VALUES ('%1',%2);" )
+                  .arg ( set, QString::number ( it->quota() ) );
+
+    dirs.append ( set );
     db.exec ( sql );
   }
   query.finish();
+  initDatabaseDirectories ( dirs );
 }
 
 bool WebDatabaseHandler::hasOrigin ( const QString &hostname )
