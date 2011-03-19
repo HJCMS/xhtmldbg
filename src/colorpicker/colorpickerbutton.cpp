@@ -42,11 +42,9 @@ ColorPickerButton::ColorPickerButton ( QWidget * parent )
   setContentsMargins ( 0, 0, 0, 0 );
 
   QVBoxLayout* layout = new QVBoxLayout ( this );
-  layout->setObjectName ( QLatin1String ( "colorpickerbutton.layout" ) );
   layout->setContentsMargins ( 0, 0, 0, 0 );
 
   QToolButton* button = new QToolButton ( this );
-  button->setObjectName ( QLatin1String ( "colorpickerbutton.layout.button" ) );
   button->setCheckable ( false );
   button->setAutoRaise ( true );
   button->setIcon ( KIcon ( "color-picker" ) );
@@ -54,8 +52,7 @@ ColorPickerButton::ColorPickerButton ( QWidget * parent )
 
   setLayout ( layout );
 
-  connect ( button, SIGNAL ( clicked() ),
-            this,SLOT ( clicked() ) );
+  connect ( button, SIGNAL ( clicked() ), this, SLOT ( clicked() ) );
 }
 
 void ColorPickerButton::clicked()

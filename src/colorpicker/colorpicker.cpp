@@ -50,7 +50,7 @@ ColorPicker::ColorPicker ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "colorpicker" ) );
   setWindowTitle ( i18n ( "Colors" ) );
-  setMouseTracking ( true ); // wird für grabMouse benötigt
+  setMouseTracking ( false );
 
   QDBusConnection dbus = QDBusConnection::sessionBus();
 
@@ -72,47 +72,44 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   // Farbpaletten Ausgeben
   m_colorTable = new ColorTable ( layer );
-  m_colorTable->setObjectName ( "colorpicker.layer.vlayout.colortable" );
+  m_colorTable->setMouseTracking ( true ); // wird für grabMouse benötigt
   m_colorTable->insertColors ( Colors::webColors() );
   verticalLayout->addWidget ( m_colorTable );
 
   // Vorschau Gruppe
   QGroupBox* groupBox1 = new QGroupBox ( i18n ( "Color preview" ), layer );
-  groupBox1->setObjectName ( "colorpicker.layer.vlayout.groupbox1" );
   verticalLayout->addWidget ( groupBox1 );
 
   QHBoxLayout* hLayout1 = new QHBoxLayout ( groupBox1 );
-  hLayout1->setObjectName ( "colorpicker.layer.vlayout.groupbox.hlayout" );
   groupBox1->setLayout ( hLayout1 );
 
+  // Fraben Abgreifen
+  m_grabberWindow = new GrabberWindow ( groupBox1 );
+  hLayout1->addWidget ( m_grabberWindow );
+
+  // Text Ausgabe
+  QVBoxLayout* verticalBoxLayout = new QVBoxLayout;
   // Ausgabe Hex
+  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "hexcolor" ), groupBox1 ) );
   m_hexEdit = new QLineEdit ( groupBox1 );
-  m_hexEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.hexedit" );
-  hLayout1->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
+  verticalBoxLayout->addWidget ( m_hexEdit, 0, Qt::AlignLeft );
+
+  // Ausgabe RGB
+  verticalBoxLayout->addWidget ( new QLabel ( i18n ( "rgbcolor" ), groupBox1 ) );
+  m_rgbEdit = new QLineEdit ( groupBox1 );
+  verticalBoxLayout->addWidget ( m_rgbEdit, 0, Qt::AlignLeft );
+  hLayout1->addLayout ( verticalBoxLayout );
 
   // Farb-Vorschau
   m_preview = new QLabel ( groupBox1 );
-  m_preview->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.preview" );
-  m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
+  m_preview->setStyleSheet ( "*{border:1px ridge black;background-color:#FFFFFF;}" );
+  m_preview->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
   hLayout1->addWidget ( m_preview );
 
-  // Ausgabe RGB
-  m_rgbEdit = new QLineEdit ( groupBox1 );
-  m_rgbEdit->setObjectName ( "colorpicker.layer.vlayout.groupbox1.hlayout1.rgbedit" );
-  hLayout1->addWidget ( m_rgbEdit, 0, Qt::AlignRight );
-
-  // Abgreifen von Farben aus dem QWebView Fenster
-  QGroupBox* groupBox2 = new QGroupBox ( i18n ( "Color tapping" ), layer );
-  groupBox2->setObjectName ( "colorpicker.layer.vlayout.groupbox2" );
-  verticalLayout->addWidget ( groupBox2 );
-
-  QHBoxLayout* hLayout2 = new QHBoxLayout ( groupBox2 );
-  hLayout2->setObjectName ( "colorpicker.layer.vlayout.groupbox2.hlayout2" );
-  groupBox2->setLayout ( hLayout2 );
-
-  m_grabberWindow = new GrabberWindow ( groupBox2 );
-  m_grabberWindow->setObjectName ( "colorpicker.layer.vlayout.groupbox2.hlayout2.grabberwindow" );
-  hLayout2->addWidget ( m_grabberWindow );
+  QLabel* hexinfo = new QLabel ( layer );
+  hexinfo->setWordWrap ( true );
+  hexinfo->setText ( i18n ( "There is a constraint on the color that it must have either 3 or 6 hex-digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd\" is not." ) );
+  verticalLayout->addWidget ( hexinfo );
 
   QSpacerItem* spacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
   verticalLayout->addItem ( spacer );
@@ -221,9 +218,9 @@ void ColorPicker::pointerChanged ( const QPoint &p )
 */
 void ColorPicker::mousePressEvent ( QMouseEvent * event )
 {
-  setCursor ( Qt::ArrowCursor );
   pointerChanged ( event->globalPos() );
   releaseMouse();
+  setCursor ( Qt::ArrowCursor );
   QDockWidget::mousePressEvent ( event );
 }
 

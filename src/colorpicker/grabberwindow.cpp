@@ -57,7 +57,9 @@ GrabberWindow::GrabberWindow ( QWidget * parent )
 */
 void GrabberWindow::timerEvent ( QTimerEvent * event )
 {
-  if ( event->timerId() == intervalId )
+  if ( intervalId == -1 )
+    return;
+  else if ( event->timerId() == intervalId )
     listener();
 }
 
@@ -101,7 +103,10 @@ void GrabberWindow::startRecording ( bool b )
   if ( b )
     intervalId = startTimer ( 30 );
   else if ( intervalId != -1 )
+  {
     killTimer ( intervalId );
+    intervalId = -1;
+  }
 }
 
 GrabberWindow::~GrabberWindow()
