@@ -20,6 +20,7 @@
 **/
 
 #include "configwebsecurity.h"
+
 #include "dbmanager.h"
 
 /* QtCore */
@@ -52,68 +53,12 @@
 /* KDE */
 #include <KDE/KIcon>
 #include <KDE/KPushButton>
-
-/** \class ConfigWebSecurityTable */
-ConfigWebSecurityTable::ConfigWebSecurityTable ( QWidget * parent )
-    : QTableWidget ( 0, 0, parent )
-{
-  setObjectName ( QLatin1String ( "config_web_security_table" ) );
-  setMinimumHeight ( 200 );
-  setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
-  setContextMenuPolicy ( Qt::ActionsContextMenu );
-  setEditTriggers ( QAbstractItemView::NoEditTriggers );
-  setAlternatingRowColors ( true );
-  setSelectionMode ( QAbstractItemView::SingleSelection );
-  setSelectionBehavior ( QAbstractItemView::SelectRows );
-  setGridStyle ( Qt::DashLine );
-  setWordWrap ( false );
-
-  m_remove = new QAction ( i18n ( "Remove Entry" ), this );
-  m_remove->setIcon ( KIcon ( "list-remove" ) );
-  insertAction ( 0, m_remove );
-
-  QStringList labels;
-  labels << i18n ( "Host" ) << i18n ( "Port" ) << i18n ( "Scheme" ) << i18n ( "Quota" );
-  setColumnCount ( labels.size() );
-  setHorizontalHeaderLabels ( labels );
-
-  QHeaderView* headerView = horizontalHeader();
-  headerView->setHighlightSections ( false );
-  headerView->setProperty ( "showSortIndicator", QVariant ( false ) );
-  headerView->setStretchLastSection ( true );
-  headerView->setResizeMode ( QHeaderView::Interactive );
-  headerView->setDefaultSectionSize ( 150 );
-
-  connect ( m_remove, SIGNAL ( triggered () ),
-            this, SLOT ( removeSelectedRow () ) );
-
-  connect ( this, SIGNAL ( itemClicked ( QTableWidgetItem * ) ),
-            this, SLOT ( rowChanged ( QTableWidgetItem * ) ) );
-}
-
-/** Auswahl auf Spalte weitergeben! */
-void ConfigWebSecurityTable::rowChanged ( QTableWidgetItem * item )
-{
-  emit currentIndexChanged ( item->row() );
-}
-
-void ConfigWebSecurityTable::removeSelectedRow()
-{
-  if ( selectedItems().size() < 1 )
-    return;
-
-  removeRow ( currentRow() );
-  emit modified ( true );
-}
-
-ConfigWebSecurityTable::~ConfigWebSecurityTable()
-{}
+#include <KDE/KLocale>
 
 /** @class ConfigWebSecurity */
 ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
     : PageWidget ( i18n ( "HTML 5 Database" ), parent )
-    , mod ( false )
-    , cfgGroup ( "HTML5SecurityOptions" )
+    , dbConnectionName ( QLatin1String ( "HTML5SecurityOptions" ) )
 {
   setObjectName ( QLatin1String ( "config_web_security" ) );
   setNotice ( false );
@@ -132,7 +77,7 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   title->setText ( information.join ( "<br/>" ) );
   verticalLayout->addWidget ( title );
 
-  m_table = new ConfigWebSecurityTable ( centralWidget );
+  m_table = new WebSecurityTable ( centralWidget );
   verticalLayout->addWidget ( m_table );
 
   QGroupBox* groupBox = new QGroupBox ( i18n ( "Edit" ), centralWidget );
@@ -208,12 +153,29 @@ QTableWidgetItem* ConfigWebSecurity::createItem ( const QVariant &data ) const
   return item;
 }
 
-/**
-* BUG QT enlädt nicht den SQL Treiber und schreibt zusätliche Zeilen in das Table!
-*/
+void ConfigWebSecurity::fillTable ( QList<WebSecurityItem*> &list )
+{
+  int size = list.size();
+  if ( size < 1 )
+    return;
+
+  m_table->clearContents();
+  m_table->setRowCount ( size );
+  for ( int r = 0; r < size; ++r )
+  {
+    WebSecurityItem* it = list.at ( r );
+    m_table->setItem ( r, 0, it->hostItem() );
+    m_table->setItem ( r, 1, it->portItem() );
+    m_table->setItem ( r, 2, it->schemeItem() );
+    m_table->setItem ( r, 3, it->quotaItem() );
+  }
+  list.clear();
+}
+
+/**  SQL Daten in Tabelle schreiben! */
 void ConfigWebSecurity::loadSQLData()
 {
-  m_table->clearContents();
+  QList<WebSecurityItem*> origins;
   // Dieser Pfad wird von Qt vorgegeben!
   QString webDatabase ( "/Databases.db" );
   webDatabase.prepend ( QWebSettings::offlineStoragePath () );
@@ -221,7 +183,7 @@ void ConfigWebSecurity::loadSQLData()
   QFileInfo info ( webDatabase );
   if ( info.exists() )
   {
-    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", cfgGroup );
+    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", dbConnectionName );
     if ( db.isValid() )
     {
       db.setDatabaseName ( webDatabase );
@@ -239,13 +201,12 @@ void ConfigWebSecurity::loadSQLData()
         {
           while ( query.next() )
           {
-            QStringList data = query.value ( rec.indexOf ( "origin" ) ).toString().split ( "_" );
-            m_table->setRowCount ( ( m_table->rowCount() + 1 ) );
-            int r = m_table->rowCount() - 1;
-            m_table->setItem ( r, 0, createItem ( data.at ( 1 ) ) );
-            m_table->setItem ( r, 1, createItem ( data.last() ) );
-            m_table->setItem ( r, 2, createItem ( data.first() ) );
-            m_table->setItem ( r, 3, createItem ( query.value ( rec.indexOf ( "quota" ) ).toUInt() ) );
+            QString origin = query.value ( rec.indexOf ( "origin" ) ).toString();
+            if ( origin.isEmpty() )
+              continue;
+
+            qint64 quota = query.value ( rec.indexOf ( "quota" ) ).toUInt();
+            origins.append ( new WebSecurityItem ( origin, quota ) );
           }
           query.finish();
         }
@@ -253,7 +214,9 @@ void ConfigWebSecurity::loadSQLData()
       db.close();
     }
   }
-  QSqlDatabase::removeDatabase ( cfgGroup );
+  QSqlDatabase::removeDatabase ( dbConnectionName );
+  fillTable ( origins );
+  sighted = true;
 }
 
 void ConfigWebSecurity::saveSQLData()
@@ -265,7 +228,7 @@ void ConfigWebSecurity::saveSQLData()
   QFileInfo info ( webDatabase );
   if ( info.exists() )
   {
-    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", cfgGroup );
+    QSqlDatabase db = QSqlDatabase::addDatabase ( "QSQLITE", dbConnectionName );
     if ( db.isValid() )
     {
       db.setDatabaseName ( webDatabase );
@@ -291,7 +254,7 @@ void ConfigWebSecurity::saveSQLData()
       db.close();
     }
   }
-  QSqlDatabase::removeDatabase ( cfgGroup );
+  QSqlDatabase::removeDatabase ( dbConnectionName );
 }
 
 void ConfigWebSecurity::itemRowChanged ( int r )
@@ -398,6 +361,11 @@ void ConfigWebSecurity::save ( Settings * cfg )
 bool ConfigWebSecurity::isModified ()
 {
   return mod;
+}
+
+bool ConfigWebSecurity::isSighted ()
+{
+  return sighted;
 }
 
 ConfigWebSecurity::~ConfigWebSecurity()

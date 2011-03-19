@@ -34,7 +34,6 @@
 
 ConfigTidy::ConfigTidy ( QWidget * parent )
     : PageWidget ( i18n ( "QTidy Source Parser" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_tidy" ) );
   setNotice ( false );
@@ -90,6 +89,8 @@ void ConfigTidy::load ( Settings * cfg )
     m_radioFormat->setChecked ( true );
   else
     m_radioDisabled->setChecked ( true );
+
+  sighted = true;
 }
 
 void ConfigTidy::save ( Settings * cfg )
@@ -102,6 +103,11 @@ void ConfigTidy::save ( Settings * cfg )
 bool ConfigTidy::isModified ()
 {
   return mod;
+}
+
+bool ConfigTidy::isSighted ()
+{
+  return sighted;
 }
 
 ConfigTidy::~ConfigTidy()

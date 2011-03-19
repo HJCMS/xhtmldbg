@@ -19,41 +19,44 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef WEBSECURITYITEM_H
+#define WEBSECURITYITEM_H
 
 /* QtCore */
-#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
 
 /* QtGui */
-#include <QtGui/QWidget>
+#include <QtGui/QTableWidgetItem>
 
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
-
-class ConfigSSL : public PageWidget
+class WebSecurityItem
 {
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
   private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
+    QVariant p_scheme;
+    QVariant p_host;
+    QVariant p_port;
+    QVariant p_quota;
 
-  private Q_SLOTS:
-    void itemModified ( bool );
+  protected:
+    void setScheme ( const QVariant & );
+    void setHost ( const QVariant & );
+    void setPort ( const QVariant & );
+    void setQuota ( const QVariant & );
 
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( Settings * );
-    void save ( Settings * );
-    bool isModified ();
-    bool isSighted ();
-    virtual ~ConfigSSL();
+    WebSecurityItem ( const QString &origin, qint64 quotadata );
+
+    const QString scheme();
+    QTableWidgetItem* schemeItem();
+
+    const QString host();
+    QTableWidgetItem* hostItem();
+
+    qint64 port();
+    QTableWidgetItem* portItem();
+
+    qint64 quota();
+    QTableWidgetItem* quotaItem();
 };
 
 #endif

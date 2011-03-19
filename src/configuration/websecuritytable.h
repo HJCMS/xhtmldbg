@@ -19,41 +19,41 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef CONFIGSSL_H
-#define CONFIGSSL_H
+#ifndef WEBSECURITYTABLE_H
+#define WEBSECURITYTABLE_H
 
 /* QtCore */
 #include <QtCore/QObject>
 
 /* QtGui */
+#include <QtGui/QAction>
+#include <QtGui/QTableWidget>
+#include <QtGui/QTableWidgetItem>
 #include <QtGui/QWidget>
 
-#include "pagewidget.h"
-#include "certissuers.h"
-#include "configtrustedhosts.h"
-#include "configaccesscontrol.h"
+/* configuration */
+#include "websecurityitem.h"
 
-class ConfigSSL : public PageWidget
+class WebSecurityTable : public QTableWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    CertIssuers* m_certIssuers;
-    ConfigTrustedHosts* m_configTrustedHosts;
-    ConfigAccessControl* m_configAccessControl;
+    QAction* m_remove;
 
   private Q_SLOTS:
-    void itemModified ( bool );
+    void rowChanged ( QTableWidgetItem * );
+    void removeSelectedRow();
+
+  Q_SIGNALS:
+    void modified ( bool );
+    void currentIndexChanged ( int );
 
   public:
-    ConfigSSL ( QWidget * parent = 0 );
-    void load ( Settings * );
-    void save ( Settings * );
-    bool isModified ();
-    bool isSighted ();
-    virtual ~ConfigSSL();
+    WebSecurityTable ( QWidget * parent = 0 );
+    virtual ~WebSecurityTable();
 };
 
 #endif

@@ -35,40 +35,40 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   setContentsMargins ( 0, 0, 0, 0 );
 
   m_configIDE = new  ConfigIDE ( this );
-  insertWidget ( CONFIG_IDE, m_configIDE );
+  insertWidget ( ITEM_CONFIG_IDE, m_configIDE );
 
   m_configTidy = new ConfigTidy ( this );
-  insertWidget ( CONFIG_TIDY, m_configTidy );
+  insertWidget ( ITEM_CONFIG_TIDY, m_configTidy );
 
   m_configDomTree = new ConfigDomTree ( this );
-  insertWidget ( CONFIG_DOMTREE, m_configDomTree );
+  insertWidget ( ITEM_CONFIG_DOMTREE, m_configDomTree );
 
   m_configBrowser = new ConfigBrowser ( this );
-  insertWidget ( CONFIG_BROWSER, m_configBrowser );
+  insertWidget ( ITEM_CONFIG_BROWSER, m_configBrowser );
 
   m_configNetwork = new ConfigNetwork ( this );
-  insertWidget ( CONFIG_NETWORK, m_configNetwork );
+  insertWidget ( ITEM_CONFIG_NETWORK, m_configNetwork );
 
   m_configCookies = new ConfigCookies ( this );
-  insertWidget ( CONFIG_COOKIES, m_configCookies );
+  insertWidget ( ITEM_CONFIG_COOKIES, m_configCookies );
 
   m_configProxy = new ConfigProxy ( this );
-  insertWidget ( CONFIG_PROXY, m_configProxy );
+  insertWidget ( ITEM_CONFIG_PROXY, m_configProxy );
 
   m_configSSL = new ConfigSSL ( this );
-  insertWidget ( CONFIG_SSL, m_configSSL );
+  insertWidget ( ITEM_CONFIG_SSL, m_configSSL );
 
   m_configUserAgents = new ConfigUserAgents ( this );
-  insertWidget ( CONFIG_USERAGENTS, m_configUserAgents );
+  insertWidget ( ITEM_CONFIG_USERAGENTS, m_configUserAgents );
 
   m_configWebSecurity = new ConfigWebSecurity ( this );
-  insertWidget ( CONFIG_WEBSECURE, m_configWebSecurity );
+  insertWidget ( ITEM_CONFIG_WEBSECURE, m_configWebSecurity );
 
   m_configExtras = new ConfigExtras ( this );
-  insertWidget ( CONFIG_EXTRAS, m_configExtras );
+  insertWidget ( ITEM_CONFIG_EXTRAS, m_configExtras );
 
-  setCurrentIndex ( CONFIG_IDE );
-  loadWidgetSettings ( CONFIG_IDE );
+  setCurrentIndex ( ITEM_CONFIG_IDE );
+  loadWidgetSettings ( ITEM_CONFIG_IDE );
 
   connect ( m_configIDE, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
@@ -117,75 +117,87 @@ void StackedWidget::loadWidgetSettings ( int index )
   blockSignals ( true );
   switch ( index )
   {
-    case CONFIG_IDE:
+    case ITEM_CONFIG_IDE:
     {
-      m_configIDE->load ( cfg );
+      if ( ! m_configIDE->isSighted () )
+        m_configIDE->load ( cfg );
     }
     break;
 
-    case CONFIG_TIDY:
+    case ITEM_CONFIG_TIDY:
     {
-      m_configTidy->load ( cfg );
+      if ( ! m_configTidy->isSighted () )
+        m_configTidy->load ( cfg );
     }
     break;
 
-    case CONFIG_DOMTREE:
+    case ITEM_CONFIG_DOMTREE:
     {
-      m_configDomTree->load ( cfg );
+      if ( ! m_configDomTree->isSighted () )
+        m_configDomTree->load ( cfg );
     }
     break;
 
-    case CONFIG_BROWSER:
+    case ITEM_CONFIG_BROWSER:
     {
-      m_configBrowser->load ( cfg );
+      if ( ! m_configBrowser->isSighted () )
+        m_configBrowser->load ( cfg );
     }
     break;
 
-    case CONFIG_NETWORK:
+    case ITEM_CONFIG_NETWORK:
     {
-      m_configNetwork->load ( cfg );
+      if ( ! m_configNetwork->isSighted () )
+        m_configNetwork->load ( cfg );
     }
     break;
 
-    case CONFIG_COOKIES:
+    case ITEM_CONFIG_COOKIES:
     {
-      m_configCookies->load ( cfg );
+      if ( ! m_configCookies->isSighted () )
+        m_configCookies->load ( cfg );
     }
     break;
 
-    case CONFIG_PROXY:
+    case ITEM_CONFIG_PROXY:
     {
-      m_configProxy->load ( cfg );
+      if ( ! m_configProxy->isSighted () )
+        m_configProxy->load ( cfg );
     }
     break;
 
-    case CONFIG_SSL:
+    case ITEM_CONFIG_SSL:
     {
-      m_configSSL->load ( cfg );
+      if ( ! m_configSSL->isSighted () )
+        m_configSSL->load ( cfg );
     }
     break;
 
-    case CONFIG_USERAGENTS:
+    case ITEM_CONFIG_USERAGENTS:
     {
-      m_configUserAgents->load ( cfg );
+      if ( ! m_configUserAgents->isSighted () )
+        m_configUserAgents->load ( cfg );
     }
     break;
 
-    case CONFIG_WEBSECURE:
+    case ITEM_CONFIG_WEBSECURE:
     {
-      m_configWebSecurity->load ( cfg );
+      if ( ! m_configWebSecurity->isSighted () )
+        m_configWebSecurity->load ( cfg );
     }
     break;
 
-    case CONFIG_EXTRAS:
+    case ITEM_CONFIG_EXTRAS:
     {
-      m_configExtras->load ( cfg );
+      if ( ! m_configExtras->isSighted () )
+        m_configExtras->load ( cfg );
     }
     break;
 
     default:
     {
-      m_configIDE->load ( cfg );
+      if ( ! m_configIDE->isSighted () )
+        m_configIDE->load ( cfg );
     }
     break;
   }

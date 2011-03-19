@@ -39,7 +39,6 @@
 
 ConfigExtras::ConfigExtras ( QWidget * parent )
     : PageWidget ( i18n ( "Extensions" ), parent )
-    , mod ( false )
     , databasePath ( QString ( GEOIP_DATABASE_PATH ) )
 {
   setObjectName ( QLatin1String ( "config_page_geo" ) );
@@ -127,6 +126,7 @@ void ConfigExtras::setDatabasePath ( const QString &p )
 void ConfigExtras::load ( Settings * cfg )
 {
   m_lineEditGeoIP->setText ( cfg->value ( QLatin1String ( "GeoIP_Database" ), absoluteDatabasePath() ).toString() );
+  sighted = true;
 }
 
 void ConfigExtras::save ( Settings * cfg )
@@ -137,6 +137,11 @@ void ConfigExtras::save ( Settings * cfg )
 bool ConfigExtras::isModified ()
 {
   return mod;
+}
+
+bool ConfigExtras::isSighted ()
+{
+  return sighted;
 }
 
 ConfigExtras::~ConfigExtras()

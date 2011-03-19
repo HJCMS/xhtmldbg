@@ -40,7 +40,6 @@
 
 ConfigCookies::ConfigCookies ( QWidget * parent )
     : PageWidget ( i18n ( "Cookie Management" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_cookies" ) );
   setNotice ( false );
@@ -182,6 +181,7 @@ void ConfigCookies::load ( Settings * cfg )
 {
   Q_UNUSED ( cfg )
   cookiesTable->loadCookieAccess ();
+  sighted = true;
 }
 
 void ConfigCookies::save ( Settings * cfg )
@@ -193,6 +193,11 @@ void ConfigCookies::save ( Settings * cfg )
 bool ConfigCookies::isModified ()
 {
   return mod;
+}
+
+bool ConfigCookies::isSighted ()
+{
+  return sighted;
 }
 
 ConfigCookies::~ConfigCookies()

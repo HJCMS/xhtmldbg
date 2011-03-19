@@ -38,7 +38,6 @@ class ConfigUserAgents : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    bool mod;
     UserAgentEditor* m_userAgentEditor;
 
   private Q_SLOTS:
@@ -49,7 +48,8 @@ class ConfigUserAgents : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
-    ~ConfigUserAgents();
+    bool isSighted ();
+    virtual ~ConfigUserAgents();
 };
 
 #endif

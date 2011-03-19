@@ -40,7 +40,6 @@ class ConfigCookies : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    bool mod;
     CookiesEditorTable *cookiesTable;
     QLineEdit* cookieEdit;
     QComboBox* selectedArrangementType;
@@ -54,7 +53,8 @@ class ConfigCookies : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
-    ~ConfigCookies();
+    bool isSighted ();
+    virtual ~ConfigCookies();
 };
 
 #endif

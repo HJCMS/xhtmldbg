@@ -30,7 +30,6 @@
 
 ConfigUserAgents::ConfigUserAgents ( QWidget * parent )
     : PageWidget ( i18n ( "User-Agent" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_user_agents" ) );
   setNotice ( false );
@@ -59,6 +58,7 @@ void ConfigUserAgents::itemModified ( bool b )
 void ConfigUserAgents::load ( Settings * cfg )
 {
   m_userAgentEditor->loadUserAgents ( cfg );
+  sighted = true;
 }
 
 void ConfigUserAgents::save ( Settings * cfg )
@@ -69,6 +69,11 @@ void ConfigUserAgents::save ( Settings * cfg )
 bool ConfigUserAgents::isModified ()
 {
   return mod;
+}
+
+bool ConfigUserAgents::isSighted ()
+{
+  return sighted;
 }
 
 ConfigUserAgents::~ConfigUserAgents()

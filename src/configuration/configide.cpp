@@ -42,7 +42,6 @@
 
 ConfigIDE::ConfigIDE ( QWidget * parent )
     : PageWidget ( i18n ( "Defaults" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_ide" ) );
   setNotice ( true );
@@ -340,6 +339,7 @@ void ConfigIDE::load ( Settings * cfg )
   m_iconThemeSelecter->findThemeIndexes ( m_iconThemesList->iconPaths() );
   m_iconThemeSelecter->setTheme ( cfg->value ( QLatin1String ( "icontheme" ), QLatin1String ( "oxygen" ) ).toString() );
   checkCSSValidator();
+  sighted = true;
 }
 
 void ConfigIDE::save ( Settings * cfg )
@@ -359,6 +359,11 @@ void ConfigIDE::save ( Settings * cfg )
 bool ConfigIDE::isModified ()
 {
   return mod;
+}
+
+bool ConfigIDE::isSighted ()
+{
+  return sighted;
 }
 
 ConfigIDE::~ConfigIDE()

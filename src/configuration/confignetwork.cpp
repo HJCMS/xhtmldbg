@@ -40,7 +40,6 @@
 
 ConfigNetwork::ConfigNetwork ( QWidget * parent )
     : PageWidget ( i18n ( "Network Settings" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_network_settings" ) );
   setNotice ( true );
@@ -135,6 +134,7 @@ void ConfigNetwork::load ( Settings * cfg )
     m_cb2->setChecked ( true );
     m_comboBox->setCurrentIndex ( 1 );
   }
+  sighted = true;
 }
 
 void ConfigNetwork::save ( Settings * cfg )
@@ -158,6 +158,11 @@ void ConfigNetwork::save ( Settings * cfg )
 bool ConfigNetwork::isModified ()
 {
   return mod;
+}
+
+bool ConfigNetwork::isSighted ()
+{
+  return sighted;
 }
 
 ConfigNetwork::~ConfigNetwork()

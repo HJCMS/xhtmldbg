@@ -41,7 +41,6 @@ class ConfigNetwork : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    bool mod;
     QGroupBox* m_groupBox;
     FeatureBox* m_cb1;
     FeatureBox* m_cb2;
@@ -56,7 +55,8 @@ class ConfigNetwork : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
-    ~ConfigNetwork();
+    bool isSighted ();
+    virtual ~ConfigNetwork();
 };
 
 #endif

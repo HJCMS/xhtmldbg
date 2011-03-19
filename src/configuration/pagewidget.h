@@ -53,6 +53,8 @@ class PageWidget : public QScrollArea
     QSpacerItem* verticalBottomSpacer;
 
   protected:
+    bool mod;
+    bool sighted;
     QWidget* centralWidget;
     void setNotice ( bool b = false );
     void setCheckable ( bool b = true );
@@ -73,7 +75,13 @@ class PageWidget : public QScrollArea
 
   public:
     PageWidget ( const QString &title, QWidget * parent = 0 );
+
+    /** getStatVariable if this Widget has changes */
     virtual bool isModified () = 0;
+
+    /** getStatVariable if this Widget already sighted and all Data loaded */
+    virtual bool isSighted () = 0;
+
     virtual ~PageWidget();
 };
 

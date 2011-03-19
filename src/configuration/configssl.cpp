@@ -29,7 +29,6 @@
 
 ConfigSSL::ConfigSSL ( QWidget * parent )
     : PageWidget ( i18n ( "SSL Certification" ), parent )
-    , mod ( false )
 {
   setObjectName ( QLatin1String ( "config_page_ssl" ) );
   setNotice ( false );
@@ -94,6 +93,7 @@ void ConfigSSL::load ( Settings * cfg )
   m_configAccessControl->setPublicKeyPath ( cfg->value ( QLatin1String ( "sslPublicKey" ) ).toString() );
   m_configAccessControl->setPrivateKeyPath ( cfg->value ( QLatin1String ( "sslPrivateKey" ) ).toString() );
   m_configAccessControl->setPassPhrase ( cfg->value ( QLatin1String ( "sslPassPhrase" ) ).toByteArray() );
+  sighted = true;
 }
 
 void ConfigSSL::save ( Settings * cfg )
@@ -120,6 +120,11 @@ void ConfigSSL::save ( Settings * cfg )
 bool ConfigSSL::isModified ()
 {
   return mod;
+}
+
+bool ConfigSSL::isSighted ()
+{
+  return sighted;
 }
 
 ConfigSSL::~ConfigSSL()

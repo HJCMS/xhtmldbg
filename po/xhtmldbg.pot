@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-18 14:13+0100\n"
+"POT-Creation-Date: 2011-03-19 10:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,65 +350,65 @@ msgstr ""
 msgid "Browser Settings"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:85
+#: src/configuration/configbrowser.cpp:84
 msgid "Do Not Buffer Upload Data when doing a HTTP POST request."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:89
+#: src/configuration/configbrowser.cpp:88
 msgid "Allow HTTP pipelining with requests."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:93
+#: src/configuration/configbrowser.cpp:92
 msgid ""
 "Indicates whether the HTTP Pipelining was used for receiving data Requests."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:97
+#: src/configuration/configbrowser.cpp:96
 msgid "Enable AutoLoad Images"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:101
+#: src/configuration/configbrowser.cpp:100
 msgid "Enable Javascript"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:105
+#: src/configuration/configbrowser.cpp:104
 msgid "Enable Plugins"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:109
+#: src/configuration/configbrowser.cpp:108
 msgid "Enable Java"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:113
+#: src/configuration/configbrowser.cpp:112
 msgid "Zoom only text"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:117
+#: src/configuration/configbrowser.cpp:116
 msgid "Fetch DNS entries to speed up browsing."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:121
+#: src/configuration/configbrowser.cpp:120
 msgid "JavaScript programs can open new windows."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:125
+#: src/configuration/configbrowser.cpp:124
 msgid "JavaScript programs can read or write to the clipboard."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:129
+#: src/configuration/configbrowser.cpp:128
 msgid ""
 "The background color and images are also drawn when the page is printed."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:133
+#: src/configuration/configbrowser.cpp:132
 msgid "Locally loaded documents are allowed to access remote urls."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:137
+#: src/configuration/configbrowser.cpp:136
 msgid "Locally loaded documents are allowed to access other local urls."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:141
+#: src/configuration/configbrowser.cpp:140
 msgid ""
 "Specifies whether load requests should be monitored for cross-site scripting "
 "attempts. Suspicious scripts will be blocked and reported in the inspector's "
@@ -416,14 +416,14 @@ msgid ""
 "performance."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:145
+#: src/configuration/configbrowser.cpp:144
 msgid ""
 "If enabled - CSS animations of the transform and opacity properties will be "
 "rendered\n"
 "by composing the cached content of the animated elements."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:149
+#: src/configuration/configbrowser.cpp:148
 msgid ""
 "This setting enables the tiled backing store feature for Graphics rendering. "
 "When enabled, the web page contents in and around the current visible area "
@@ -433,19 +433,19 @@ msgid ""
 "temporarily freeze the contents of the backing store."
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:163
+#: src/configuration/configbrowser.cpp:162
 msgid "Font Settings"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:170
+#: src/configuration/configbrowser.cpp:169
 msgid "Default Font Size:"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:181
+#: src/configuration/configbrowser.cpp:180
 msgid "Fixed Font Size:"
 msgstr ""
 
-#: src/configuration/configbrowser.cpp:200
+#: src/configuration/configbrowser.cpp:199
 msgid "Plugins Directory"
 msgstr ""
 
@@ -453,47 +453,47 @@ msgstr ""
 msgid "Cookie Management"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:67
+#: src/configuration/configcookies.cpp:66
 msgid "Search for existing Cookies"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:77
+#: src/configuration/configcookies.cpp:76
 #: src/configuration/iconthemeselecter/iconthemeslist.cpp:79
 #: src/configuration/useragenteditor/useragentstable.cpp:75
 #: src/downloadmanager/downloadstable.cpp:98
 msgid "Remove"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:78
+#: src/configuration/configcookies.cpp:77
 msgid "Remove Selected Cookie"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:84
+#: src/configuration/configcookies.cpp:83
 msgid "Clear Cookies Table"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:88
+#: src/configuration/configcookies.cpp:87
 msgid "Create a new Cookie provision"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:98
-#: src/configuration/configwebsecurity.cpp:127 src/docking/headerdock.cpp:151
+#: src/configuration/configcookies.cpp:97
+#: src/configuration/configwebsecurity.cpp:86 src/docking/headerdock.cpp:151
 msgid "Hostname"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:109
+#: src/configuration/configcookies.cpp:108
 msgid "Merely current Session"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:110
+#: src/configuration/configcookies.cpp:109
 msgid "Always Blocked"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:111
+#: src/configuration/configcookies.cpp:110
 msgid "Always Allowed"
 msgstr ""
 
-#: src/configuration/configcookies.cpp:119
+#: src/configuration/configcookies.cpp:118
 #: src/configuration/useragenteditor/useragentstable.cpp:72
 msgid "Add"
 msgstr ""
@@ -502,11 +502,11 @@ msgstr ""
 msgid "DOM Inspector"
 msgstr ""
 
-#: src/configuration/configdomtree.cpp:52
+#: src/configuration/configdomtree.cpp:51
 msgid "Enable Background Highlight"
 msgstr ""
 
-#: src/configuration/configdomtree.cpp:72
+#: src/configuration/configdomtree.cpp:71
 msgid "Enable Border Highlight"
 msgstr ""
 
@@ -516,15 +516,15 @@ msgstr ""
 msgid "Extensions"
 msgstr ""
 
-#: src/configuration/configextras.cpp:53
+#: src/configuration/configextras.cpp:52
 msgid "Geological IP Resolver"
 msgstr ""
 
-#: src/configuration/configextras.cpp:61
+#: src/configuration/configextras.cpp:60
 msgid "Database"
 msgstr ""
 
-#: src/configuration/configextras.cpp:102
+#: src/configuration/configextras.cpp:101
 msgid "*.dat *.DAT|GeoIP Database File"
 msgstr ""
 
@@ -553,37 +553,37 @@ msgstr ""
 msgid "Defaults"
 msgstr ""
 
-#: src/configuration/configide.cpp:60
+#: src/configuration/configide.cpp:59
 msgid ""
 "Load this URL as default on start, if empty xhtmldbg will use recently "
 "viewed Url."
 msgstr ""
 
-#: src/configuration/configide.cpp:88
+#: src/configuration/configide.cpp:87
 msgid "Do not open Downloadmanager on Application start."
 msgstr ""
 
-#: src/configuration/configide.cpp:95
+#: src/configuration/configide.cpp:94
 msgid "W3C CSS Validator Settings"
 msgstr ""
 
-#: src/configuration/configide.cpp:106
+#: src/configuration/configide.cpp:105
 msgid "Java Application"
 msgstr ""
 
-#: src/configuration/configide.cpp:123
+#: src/configuration/configide.cpp:122
 msgid "Path to W3C Validator file"
 msgstr ""
 
-#: src/configuration/configide.cpp:140
+#: src/configuration/configide.cpp:139
 msgid "W3C Validator CLASSPATH"
 msgstr ""
 
-#: src/configuration/configide.cpp:167
+#: src/configuration/configide.cpp:166
 msgid "Application Theme Settings"
 msgstr ""
 
-#: src/configuration/configide.cpp:177
+#: src/configuration/configide.cpp:176
 msgid ""
 "On Application start, Qt are trying to search with all Icon Theme paths on "
 "your System and read them recursively for Theme Icons used by xhtmldbg. On "
@@ -592,38 +592,38 @@ msgid ""
 "sure where your Selected Icon Theme located."
 msgstr ""
 
-#: src/configuration/configide.cpp:189
+#: src/configuration/configide.cpp:188
 msgid "Default Icon Theme"
 msgstr ""
 
-#: src/configuration/configide.cpp:195
+#: src/configuration/configide.cpp:194
 msgid "The Default Icon Theme is (Oxygen)"
 msgstr ""
 
-#: src/configuration/configide.cpp:247
+#: src/configuration/configide.cpp:246
 msgid ""
 "<div style=\"color:red;\">W3C CSS Validator not found!</div><div>You can "
 "download it from <a href=\"http://xhtmldbg.hjcms.de\">xhtmldbg</a> Homepage."
 "</div>"
 msgstr ""
 
-#: src/configuration/configide.cpp:280
+#: src/configuration/configide.cpp:279
 msgid "Java-Archive %1"
 msgstr ""
 
-#: src/configuration/configide.cpp:281
+#: src/configuration/configide.cpp:280
 msgid "All %1"
 msgstr ""
 
-#: src/configuration/configide.cpp:283
+#: src/configuration/configide.cpp:282
 msgid "W3C CSS Validator"
 msgstr ""
 
-#: src/configuration/configide.cpp:299
+#: src/configuration/configide.cpp:298
 msgid "W3C CSS Validator Java-Archive"
 msgstr ""
 
-#: src/configuration/configide.cpp:313
+#: src/configuration/configide.cpp:312
 msgid "Icon Theme path"
 msgstr ""
 
@@ -631,11 +631,11 @@ msgstr ""
 msgid "Network Settings"
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:58
+#: src/configuration/confignetwork.cpp:57
 msgid "modify caching behavior"
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:65
+#: src/configuration/confignetwork.cpp:64
 msgid ""
 "Warning: “xhtmldbg” always manage the best way for caching network "
 "connections with debugging.\n"
@@ -645,43 +645,43 @@ msgid ""
 "has been send."
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:68
+#: src/configuration/confignetwork.cpp:67
 msgid "Controls if the data obtained should be saved to cache for future uses."
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:70
+#: src/configuration/confignetwork.cpp:69
 msgid ""
 "If the box is not checked, the data obtained will not be automatically "
 "cached."
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:74
+#: src/configuration/confignetwork.cpp:73
 msgid "Indicates whether incoming data was obtained from cache or not."
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:76
+#: src/configuration/confignetwork.cpp:75
 msgid ""
 "If the box is not checked, incoming data will not be automatically checked."
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:82
+#: src/configuration/confignetwork.cpp:81
 msgid ""
 "Always Network (always load from network and do not check if the cache has a "
 "valid entry)"
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:84
+#: src/configuration/confignetwork.cpp:83
 msgid ""
 "Prefer Network (load from the network if the cached entry is older than the "
 "network entry)"
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:86
+#: src/configuration/confignetwork.cpp:85
 msgid ""
 "Prefer Cache (load from cache if available, otherwise load from network)"
 msgstr ""
 
-#: src/configuration/confignetwork.cpp:88
+#: src/configuration/confignetwork.cpp:87
 msgid ""
 "Always Cache (only load from cache, indicating error if the item was not "
 "cached)"
@@ -692,39 +692,39 @@ msgstr ""
 msgid "Proxy"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:50
+#: src/configuration/configproxy.cpp:49
 msgid "The Network Proxy Type:"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:60
+#: src/configuration/configproxy.cpp:59
 msgid "Socks 5 (Based on RFC 1928 and RFC 1929)"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:62
+#: src/configuration/configproxy.cpp:61
 msgid "HTTP Transparent Proxying (Default)"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:64
+#: src/configuration/configproxy.cpp:63
 msgid "Caching-only HTTP (Only for HTTP Requests)"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:66
+#: src/configuration/configproxy.cpp:65
 msgid "Caching FTP (Only for FTP Requests)"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:72
+#: src/configuration/configproxy.cpp:71
 msgid "Hostname of the Proxy:"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:85
+#: src/configuration/configproxy.cpp:84
 msgid "Proxy Port Number:"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:100
+#: src/configuration/configproxy.cpp:99
 msgid "Authentication Username:"
 msgstr ""
 
-#: src/configuration/configproxy.cpp:113
+#: src/configuration/configproxy.cpp:112
 msgid "Authentication Password:"
 msgstr ""
 
@@ -736,15 +736,15 @@ msgstr ""
 msgid "QTidy Source Parser"
 msgstr ""
 
-#: src/configuration/configtidy.cpp:47
+#: src/configuration/configtidy.cpp:46
 msgid "Enable Auto Source Check"
 msgstr ""
 
-#: src/configuration/configtidy.cpp:51
+#: src/configuration/configtidy.cpp:50
 msgid "Enable Autoformat and Check Source"
 msgstr ""
 
-#: src/configuration/configtidy.cpp:55
+#: src/configuration/configtidy.cpp:54
 msgid "Disable autoformat and autocheck"
 msgstr ""
 
@@ -804,7 +804,7 @@ msgid "User Agent"
 msgstr ""
 
 #: src/configuration/configurationmenu.cpp:56
-#: src/configuration/configwebsecurity.cpp:100
+#: src/configuration/configwebsecurity.cpp:60
 msgid "HTML 5 Database"
 msgstr ""
 
@@ -817,79 +817,71 @@ msgstr ""
 msgid "User-Agent"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:57
-msgid "Remove Entry"
-msgstr ""
-
-#: src/configuration/configwebsecurity.cpp:62
-msgid "Host"
-msgstr ""
-
-#: src/configuration/configwebsecurity.cpp:62
-#: src/configuration/configwebsecurity.cpp:144
-msgid "Port"
-msgstr ""
-
-#: src/configuration/configwebsecurity.cpp:62
-#: src/configuration/configwebsecurity.cpp:132
-msgid "Scheme"
-msgstr ""
-
-#: src/configuration/configwebsecurity.cpp:111
+#: src/configuration/configwebsecurity.cpp:70
 msgid ""
 "The upcoming HTML 5 standard includes support for SQL databases that web "
 "sites can create and access on a local computer through JavaScript."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:112
+#: src/configuration/configwebsecurity.cpp:71
 msgid ""
 "Only Web sites with the same security options can access each other's "
 "resources for client-side scripting or databases."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:113
+#: src/configuration/configwebsecurity.cpp:72
 msgid ""
 "You need to add a hostname, scheme and port to allow access to your local "
 "computer."
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:124
+#: src/configuration/configwebsecurity.cpp:83
 msgid "Edit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:130
+#: src/configuration/configwebsecurity.cpp:89
 msgid "e.g. domain.tld"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:135
+#: src/configuration/configwebsecurity.cpp:91
+#: src/configuration/websecuritytable.cpp:60
+msgid "Scheme"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:94
 msgid "World Wide Web HTTP"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:136
+#: src/configuration/configwebsecurity.cpp:95
 msgid "World Wide Web over TLS/SSL HTTPS"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:139
+#: src/configuration/configwebsecurity.cpp:98
 msgid "Local File Protocol FILE"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:141
+#: src/configuration/configwebsecurity.cpp:100
 msgid "e.g. http://, https:// or file://"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:150
+#: src/configuration/configwebsecurity.cpp:103
+#: src/configuration/websecuritytable.cpp:60
+msgid "Port"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:109
 msgid "Aberrantly Port Address from Scheme"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:153
+#: src/configuration/configwebsecurity.cpp:112
 msgid "Reset"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:156
+#: src/configuration/configwebsecurity.cpp:115
 msgid "Submit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:163
+#: src/configuration/configwebsecurity.cpp:122
 msgid "Sets the quota for the databases in the security origin to quota bytes."
 msgstr ""
 
@@ -905,7 +897,7 @@ msgstr ""
 msgid "Adding"
 msgstr ""
 
-#: src/configuration/pagewidget.cpp:87
+#: src/configuration/pagewidget.cpp:89
 msgid "Application restart required."
 msgstr ""
 
@@ -935,6 +927,18 @@ msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:175
 msgid "Product Tokens"
+msgstr ""
+
+#: src/configuration/websecuritytable.cpp:55
+msgid "Remove Entry"
+msgstr ""
+
+#: src/configuration/websecuritytable.cpp:60
+msgid "Host"
+msgstr ""
+
+#: src/configuration/websecuritytable.cpp:60
+msgid "Quota"
 msgstr ""
 
 #: src/cookieacceptdialog.cpp:44
@@ -1084,11 +1088,11 @@ msgstr ""
 msgid "Configure"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:64
+#: src/dbmanager/dbmanager.cpp:88
 msgid "SQL Invalid Operation: %1 %2"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:68
+#: src/dbmanager/dbmanager.cpp:92
 msgid "SQL Open Database: %1 %2"
 msgstr ""
 

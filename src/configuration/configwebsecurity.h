@@ -47,31 +47,8 @@
 
 /* configuration */
 #include "pagewidget.h"
+#include "websecuritytable.h"
 
-/** \class ConfigWebSecurityTable */
-class ConfigWebSecurityTable : public QTableWidget
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-
-  private:
-    QAction* m_remove;
-
-  private Q_SLOTS:
-    void rowChanged ( QTableWidgetItem * );
-    void removeSelectedRow();
-
-  Q_SIGNALS:
-    void modified ( bool );
-    void currentIndexChanged ( int );
-
-  public:
-    ConfigWebSecurityTable ( QWidget * parent = 0 );
-    ~ConfigWebSecurityTable();
-};
-
-/** \class ConfigWebSecurity */
 class ConfigWebSecurity : public PageWidget
 {
     Q_OBJECT
@@ -79,15 +56,15 @@ class ConfigWebSecurity : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    bool mod;
-    const QString cfgGroup;
-    ConfigWebSecurityTable* m_table;
+    const QString dbConnectionName;
+    WebSecurityTable* m_table;
     KLineEdit* m_hostname;
     KIntNumInput* m_port;
     KComboBox* m_scheme;
     QCheckBox* m_checkBox;
     KIntNumInput* m_dbQuota;
     QTableWidgetItem* createItem ( const QVariant & ) const;
+    void fillTable ( QList<WebSecurityItem*> & );
     void loadSQLData();
     void saveSQLData();
 
@@ -104,6 +81,7 @@ class ConfigWebSecurity : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
+    bool isSighted ();
     virtual ~ConfigWebSecurity();
 };
 

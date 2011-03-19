@@ -31,6 +31,8 @@
 
 PageWidget::PageWidget ( const QString &title, QWidget * parent )
     : QScrollArea ( parent )
+    , mod ( false )
+    , sighted ( false )
 {
   setObjectName ( QLatin1String ( "config_page_widget" ) );
   setAlignment ( ( Qt::AlignLeft | Qt::AlignTop ) );

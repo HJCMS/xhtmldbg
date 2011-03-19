@@ -38,7 +38,6 @@ class ConfigTidy : public PageWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    bool mod;
     QRadioButton* m_radioCheck;
     QRadioButton* m_radioFormat;
     QRadioButton* m_radioDisabled;
@@ -51,7 +50,8 @@ class ConfigTidy : public PageWidget
     void load ( Settings * );
     void save ( Settings * );
     bool isModified ();
-    ~ConfigTidy();
+    bool isSighted ();
+    virtual ~ConfigTidy();
 };
 
 #endif

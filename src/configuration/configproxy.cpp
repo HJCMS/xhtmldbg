@@ -31,7 +31,6 @@
 
 ConfigProxy::ConfigProxy ( QWidget * parent )
     : PageWidget ( i18n ( "Proxy" ), parent )
-    , mod ( false )
     , HostName ( QString::null )
     , User ( QString::null )
     , Password ( QString::null )
@@ -190,6 +189,7 @@ void ConfigProxy::load ( Settings * cfg )
   proxyPassword->setText ( p );
 
   setChecked ( cfg->value ( QLatin1String ( "enableProxy" ), false ).toBool() );
+  sighted = true;
 }
 
 void ConfigProxy::save ( Settings * cfg )
@@ -277,6 +277,11 @@ const QString ConfigProxy::getPassword ()
 bool ConfigProxy::isModified ()
 {
   return mod;
+}
+
+bool ConfigProxy::isSighted ()
+{
+  return sighted;
 }
 
 ConfigProxy::~ConfigProxy()

@@ -23,6 +23,8 @@ SET (configuration_SOURCES
   configtrustedhosts.cpp
   configaccesscontrol.cpp
   configuseragents.cpp
+  websecurityitem.cpp
+  websecuritytable.cpp
   configwebsecurity.cpp
   configextras.cpp
   configutils.cpp
@@ -46,14 +48,17 @@ SET (configuration_HEADERS
   configtrustedhosts.h
   configaccesscontrol.h
   configuseragents.h
+  websecuritytable.h
   configwebsecurity.h
   configextras.h
   configutils.h
 )
 
+SET (configuration_NOMOC_HEADERS
+  websecurityitem.h
+)
+
 KDE4_MOC_HEADERS (configuration_MOC ${configuration_HEADERS})
-
-
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -71,6 +76,7 @@ INCLUDE_DIRECTORIES (
 
 KDE4_ADD_LIBRARY (Configuration STATIC
   ${configuration_MOC}
+  ${configuration_NOMOC_HEADERS}
   ${configuration_HEADERS}
   ${configuration_SOURCES}
 )

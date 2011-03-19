@@ -67,17 +67,17 @@ class StackedWidget : public QStackedWidget
     ConfigExtras* m_configExtras;
     enum PageIndex
     {
-      CONFIG_IDE = 0,
-      CONFIG_TIDY =  1,
-      CONFIG_DOMTREE =  2,
-      CONFIG_BROWSER =  3,
-      CONFIG_NETWORK =  4,
-      CONFIG_COOKIES =  5,
-      CONFIG_PROXY =  6,
-      CONFIG_SSL =  7,
-      CONFIG_USERAGENTS = 8,
-      CONFIG_WEBSECURE = 9,
-      CONFIG_EXTRAS = 10
+      ITEM_CONFIG_IDE = 0,
+      ITEM_CONFIG_TIDY =  1,
+      ITEM_CONFIG_DOMTREE =  2,
+      ITEM_CONFIG_BROWSER =  3,
+      ITEM_CONFIG_NETWORK =  4,
+      ITEM_CONFIG_COOKIES =  5,
+      ITEM_CONFIG_PROXY =  6,
+      ITEM_CONFIG_SSL =  7,
+      ITEM_CONFIG_USERAGENTS = 8,
+      ITEM_CONFIG_WEBSECURE = 9,
+      ITEM_CONFIG_EXTRAS = 10
     };
 
   private Q_SLOTS:
