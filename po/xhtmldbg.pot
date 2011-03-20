@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-20 12:22+0100\n"
+"POT-Creation-Date: 2011-03-20 13:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1228,20 +1228,20 @@ msgstr ""
 msgid "Element Content"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:50
+#: src/dominspector/dominspector.cpp:49
 msgid "DomTree"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:212
+#: src/dominspector/dominspector.cpp:211
 msgid "Position"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:218
+#: src/dominspector/dominspector.cpp:217
 #: src/downloadmanager/downloadstablemodel.cpp:253
 msgid "Size"
 msgstr ""
 
-#: src/dominspector/dominspector.cpp:226
+#: src/dominspector/dominspector.cpp:225
 msgid "no visible geometry"
 msgstr ""
 

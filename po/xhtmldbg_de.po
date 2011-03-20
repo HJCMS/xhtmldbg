@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-20 12:22+0100\n"
-"PO-Revision-Date: 2011-03-20 12:24+0100\n"
+"POT-Creation-Date: 2011-03-20 13:20+0100\n"
+"PO-Revision-Date: 2011-03-20 13:22+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1309,20 +1309,20 @@ msgstr "Cookie Hostname"
 msgid "Element Content"
 msgstr "Element Inhalt"
 
-#: src/dominspector/dominspector.cpp:50
+#: src/dominspector/dominspector.cpp:49
 msgid "DomTree"
 msgstr "Dom Baum"
 
-#: src/dominspector/dominspector.cpp:212
+#: src/dominspector/dominspector.cpp:211
 msgid "Position"
 msgstr "Position"
 
-#: src/dominspector/dominspector.cpp:218
+#: src/dominspector/dominspector.cpp:217
 #: src/downloadmanager/downloadstablemodel.cpp:253
 msgid "Size"
 msgstr "Größe"
 
-#: src/dominspector/dominspector.cpp:226
+#: src/dominspector/dominspector.cpp:225
 msgid "no visible geometry"
 msgstr "keine Sichtbare Geometrie"
 
@@ -1377,7 +1377,7 @@ msgstr "StyleSheet"
 
 #: src/dominspector/domtree.cpp:75
 msgid "modify the element stylesheet"
-msgstr "Verändere den Element StyleSheet"
+msgstr "Ändere den Element Stylesheet"
 
 #: src/dominspector/domtree.cpp:77
 msgid "Content"
@@ -1393,11 +1393,11 @@ msgstr "Kopiere Prädikat"
 
 #: src/dominspector/domtree.cpp:83
 msgid "copy predicate to clipboard"
-msgstr "Kopiere Prädikat in die Zwischenablage"
+msgstr "Kopiere das Prädikat in die Zwischenablage"
 
 #: src/dominspector/domtree.cpp:86
 msgid "show current element information"
-msgstr "Zeige Informationen zum Aktuellen Element."
+msgstr "Zeige Informationen des Aktuellen Elementes."
 
 #: src/dominspector/liststylesheet.cpp:96
 msgid "Rendered from Stylesheet Document"
@@ -1465,7 +1465,7 @@ msgstr "Formulare"
 
 #: src/formmanager/formmanager.cpp:70
 msgid "Forms TEST Widget"
-msgstr ""
+msgstr "Formular Test Widget"
 
 #: src/geolocation.cpp:50 src/geolocation.cpp:51
 msgid "country code from host address."
