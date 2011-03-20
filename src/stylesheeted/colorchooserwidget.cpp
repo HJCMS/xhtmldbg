@@ -19,38 +19,21 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "colorelement.h"
+#include "colorchooserwidget.h"
 
 /* QtCore */
-#include <QtCore/QDebug>
+#include <QtCore/QString>
 
-/* QtDBus */
-#include <QtDBus/QDBusConnection>
+/* KDE */
+#include <KDE/KDialog>
 
-ColorElement::ColorElement ( const QWebElement &element, Type type, QWidget * parent )
+ColorChooserWidget::ColorChooserWidget ( QWidget * parent )
     : KColorDialog ( parent )
-    , colorType ( type )
-    , htmlElement ( element )
 {
-  setObjectName ( QLatin1String ( "ColorElement" ) );
-
-  connect ( this, SIGNAL ( colorSelected ( const QColor & ) ),
-            this, SLOT ( manipBackground ( const QColor & ) ) );
+  setObjectName ( QLatin1String ( "ColorChooserWidget" ) );
+  setWindowFlags ( Qt::Widget );
+  setButtons ( KDialog::None );
 }
 
-void ColorElement::manipBackground ( const QColor &color )
-{
-  switch ( colorType )
-  {
-    case FOREGROUND:
-      htmlElement.setStyleProperty ( "color", color.name() );
-      break;
-
-    default:
-      htmlElement.setStyleProperty ( "background-color", color.name() );
-      break;
-  };
-}
-
-ColorElement::~ColorElement()
+ColorChooserWidget::~ColorChooserWidget()
 {}

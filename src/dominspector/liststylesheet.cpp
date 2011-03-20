@@ -57,7 +57,7 @@ ListStyleSheet::ListStyleSheet ( QWidget * parent, Settings * settings )
                    QString::number ( color.blue() )
                );
 
-  QFile fp ( QString::fromUtf8 ( ":/css.list" ) );
+  QFile fp ( QString::fromUtf8 ( ":/css/css.list" ) );
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
     QString attributesList ( fp.readAll() );

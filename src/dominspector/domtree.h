@@ -37,9 +37,6 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
-/* dominspector */
-#include "colorelement.h"
-
 class DomTree : public QTreeWidget
 {
     Q_OBJECT
@@ -52,21 +49,19 @@ class DomTree : public QTreeWidget
     QAction* ac_showContent;
     QAction* ac_copyPredicates;
     QAction* ac_setHighlight;
-    QAction* ac_setColorBackground;
-    QAction* ac_setColorForeground;
+    QAction* ac_setStyleSheet;
     QTreeWidgetItem* createTopLevelItem ( const QString & );
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
     void parseElements ( const QWebElement &, QTreeWidgetItem* );
     QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
     void openContentDialog ( const QString & );
-    void openColorElementDialog ( const QWebElement &element, ColorElement::Type type );
+    void openStyleSheetDialog ( const QWebElement &element );
 
   private Q_SLOTS:
     void highlightElement ( QTreeWidgetItem *, int );
     void itemSelected ( QTreeWidgetItem *, int );
     void itemHovered ( QTreeWidgetItem *, int );
-    void colorBackgroundClicked ();
-    void colorForegroundClicked ();
+    void editStyleClicked ();
     void changeHighlight ();
     void copyPredicate ();
     void visitContent ();

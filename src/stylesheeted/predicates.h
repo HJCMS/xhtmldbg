@@ -19,41 +19,46 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef COLORELEMENT_H
-#define COLORELEMENT_H
+#ifndef PREDICATES_H
+#define PREDICATES_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QString>
+#include <QtCore/QList>
+#include <QtCore/QVariant>
+#include <QtCore/QVector>
 
 /* QtGui */
 #include <QtGui/QWidget>
-#include <QtGui/QColor>
-
-/* KDE */
-#include <KDE/KColorDialog>
+#include <QtGui/QListWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
-class ColorElement : public KColorDialog
+/* KDE */
+#include <KDE/KIcon>
+
+class Predicates : public QListWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
-    Q_ENUMS ( Type )
 
   private:
-    int colorType;
-    QWebElement htmlElement;
+    const KIcon cascadedStyle;
+    const KIcon inlineStyle;
+    const QListWidgetItem constructItem();
 
-  private Q_SLOTS:
-    void manipBackground ( const QColor & );
+  Q_SIGNALS:
+    void className ( const QString &cl );
+
+  public Q_SLOTS:
+    void predicateChanged ( const QString &pa, const QString &va );
 
   public:
-    enum Type { BACKGROUND = 0, FOREGROUND = 1 };
-    ColorElement ( const QWebElement &element, Type type = BACKGROUND, QWidget * parent = 0 );
-    virtual ~ColorElement();
+    explicit Predicates ( QWidget * parent = 0 );
+    void setElement ( const QWebElement & );
+    virtual ~Predicates();
 };
 
 #endif

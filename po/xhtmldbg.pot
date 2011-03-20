@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 20:30+0100\n"
+"POT-Creation-Date: 2011-03-20 12:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1273,7 +1273,7 @@ msgstr ""
 msgid "Deselect Highlights"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:87
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:85
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr ""
@@ -1282,48 +1282,40 @@ msgstr ""
 msgid "onHover Highlight"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:70
+#: src/dominspector/domtree.cpp:71
 msgid "unhighlighted"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:71
+#: src/dominspector/domtree.cpp:72
 msgid "unhighlighted current document content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:73
-msgid "Background Color"
+#: src/dominspector/domtree.cpp:74 src/viewer.cpp:261
+msgid "StyleSheet"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:74
-msgid "Edit Element background color"
-msgstr ""
-
-#: src/dominspector/domtree.cpp:76
-msgid "Foreground Color"
+#: src/dominspector/domtree.cpp:75
+msgid "modify the element stylesheet"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:77
-msgid "Edit Element foreground color"
-msgstr ""
-
-#: src/dominspector/domtree.cpp:79
 msgid "Content"
 msgstr ""
 
+#: src/dominspector/domtree.cpp:79
+msgid "show current element content"
+msgstr ""
+
 #: src/dominspector/domtree.cpp:81
-msgid "Show current Element Content"
+msgid "Copy Predicate"
 msgstr ""
 
 #: src/dominspector/domtree.cpp:83
-msgid "Copy"
+msgid "copy predicate to clipboard"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:85
-msgid "Copy Predicates to Clipboard"
-msgstr ""
-
-#: src/dominspector/domtree.cpp:88
-msgid "Show current Element Information"
+#: src/dominspector/domtree.cpp:86
+msgid "show current element information"
 msgstr ""
 
 #: src/dominspector/liststylesheet.cpp:96
@@ -2014,6 +2006,22 @@ msgstr ""
 msgid "Browser %1x%2 px"
 msgstr ""
 
+#: src/stylesheeted/actiontoolbar.cpp:36
+msgid "Color"
+msgstr ""
+
+#: src/stylesheeted/actiontoolbar.cpp:41
+msgid "Background"
+msgstr ""
+
+#: src/stylesheeted/actiontoolbar.cpp:45
+msgid "Foreground"
+msgstr ""
+
+#: src/stylesheeted/stylesheeted.cpp:47
+msgid "Edit Element StyleSheet for %1"
+msgstr ""
+
 #: src/tidymessanger.cpp:47
 msgid "HTML/XHTML Impartations"
 msgstr ""
@@ -2035,10 +2043,6 @@ msgstr ""
 
 #: src/uitoolsloader.cpp:203
 msgid "(XHTMLDBG) Invalid value for property: %1"
-msgstr ""
-
-#: src/viewer.cpp:261
-msgid "StyleSheet"
 msgstr ""
 
 #: src/viewer.cpp:264

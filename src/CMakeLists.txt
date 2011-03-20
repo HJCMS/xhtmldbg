@@ -23,6 +23,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/settings
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
+  ${CMAKE_CURRENT_SOURCE_DIR}/stylesheeted
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
@@ -46,6 +47,7 @@ ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (dialogs)
 ADD_SUBDIRECTORY (websecurity)
 ADD_SUBDIRECTORY (settings)
+ADD_SUBDIRECTORY (stylesheeted)
 ## to predicate on certain conditions
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (configuration)
@@ -222,6 +224,7 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Settings
   CSSValidator
   Configuration
+  StyleSheeted
   DomInspector
   DBManager
   Networker

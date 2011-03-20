@@ -257,4 +257,7 @@
     <file>icons/flags/zm.png</file>
     <file>icons/flags/zw.png</file>
   </qresource>
+  <qresource prefix="/css" >
+    <file>css.list</file>
+  </qresource>
 </RCC>

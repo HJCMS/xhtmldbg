@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-19 20:30+0100\n"
-"PO-Revision-Date: 2011-03-19 20:31+0100\n"
+"POT-Creation-Date: 2011-03-20 12:22+0100\n"
+"PO-Revision-Date: 2011-03-20 12:24+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1354,7 +1354,7 @@ msgstr "Abwählen"
 msgid "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:87
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:85
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr "Hervorhebung"
@@ -1363,48 +1363,43 @@ msgstr "Hervorhebung"
 msgid "onHover Highlight"
 msgstr "Element beim überfahren der Maus Hervorheben"
 
-#: src/dominspector/domtree.cpp:70
+#: src/dominspector/domtree.cpp:71
 msgid "unhighlighted"
 msgstr "Hervorhebung abwählen"
 
-#: src/dominspector/domtree.cpp:71
+#: src/dominspector/domtree.cpp:72
 msgid "unhighlighted current document content"
 msgstr "Aktuelle Dokument Hervorhebung entfernen"
 
-#: src/dominspector/domtree.cpp:73
-msgid "Background Color"
-msgstr "Hintergrund Farbe"
+#: src/dominspector/domtree.cpp:74 src/viewer.cpp:261
+msgid "StyleSheet"
+msgstr "StyleSheet"
 
-#: src/dominspector/domtree.cpp:74
-msgid "Edit Element background color"
-msgstr "Editiere die Hintergrund Farbe"
-
-#: src/dominspector/domtree.cpp:76
-msgid "Foreground Color"
-msgstr "Vordergrund Farbe"
+#: src/dominspector/domtree.cpp:75
+msgid "modify the element stylesheet"
+msgstr "Verändere den Element StyleSheet"
 
 #: src/dominspector/domtree.cpp:77
-msgid "Edit Element foreground color"
-msgstr "Editiere die Vordergrund Farbe"
-
-#: src/dominspector/domtree.cpp:79
 msgid "Content"
 msgstr "Inhalt"
 
-#: src/dominspector/domtree.cpp:81
-msgid "Show current Element Content"
+#: src/dominspector/domtree.cpp:79
+#, fuzzy
+msgid "show current element content"
 msgstr "Zeige den aktuellen Element Inhalt"
 
-#: src/dominspector/domtree.cpp:83
-msgid "Copy"
-msgstr "Kopieren"
+#: src/dominspector/domtree.cpp:81
+msgid "Copy Predicate"
+msgstr "Kopiere Prädikat"
 
-#: src/dominspector/domtree.cpp:85
-msgid "Copy Predicates to Clipboard"
+#: src/dominspector/domtree.cpp:83
+#, fuzzy
+msgid "copy predicate to clipboard"
 msgstr "Kopiere Prädikat in die Zwischenablage"
 
-#: src/dominspector/domtree.cpp:88
-msgid "Show current Element Information"
+#: src/dominspector/domtree.cpp:86
+#, fuzzy
+msgid "show current element information"
 msgstr "Zeige Informationen zum Aktuellen Element."
 
 #: src/dominspector/liststylesheet.cpp:96
@@ -2130,6 +2125,24 @@ msgstr "Zeige Browser Dimensionen Breit x Hoch in Pixel an."
 msgid "Browser %1x%2 px"
 msgstr "Browser %1x%2 px"
 
+#: src/stylesheeted/actiontoolbar.cpp:36
+msgid "Color"
+msgstr "Farbe"
+
+#: src/stylesheeted/actiontoolbar.cpp:41
+msgid "Background"
+msgstr "Hintergrund Farbe"
+
+#: src/stylesheeted/actiontoolbar.cpp:45
+#, fuzzy
+msgid "Foreground"
+msgstr "Vordergrund Farbe"
+
+#: src/stylesheeted/stylesheeted.cpp:47
+#, fuzzy
+msgid "Edit Element StyleSheet for %1"
+msgstr "Prüfe den Stylesheet für %1"
+
 #: src/tidymessanger.cpp:47
 msgid "HTML/XHTML Impartations"
 msgstr "HTML/XHTML Mitteilungen"
@@ -2154,10 +2167,6 @@ msgstr "Fehler bei der Element Initialisierung."
 #: src/uitoolsloader.cpp:203
 msgid "(XHTMLDBG) Invalid value for property: %1"
 msgstr "(XHTMLDBG) Ungültiger Wert oder Parameter: %1"
-
-#: src/viewer.cpp:261
-msgid "StyleSheet"
-msgstr "StyleSheet"
 
 #: src/viewer.cpp:264
 msgid "Start CSS Validation for this Site."

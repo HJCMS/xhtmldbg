@@ -7,7 +7,6 @@ SET (dominspector_SOURCES
   domtoolbar.cpp
   contentdialog.cpp
   paintelement.cpp
-  colorelement.cpp
 )
 
 SET (dominspector_HEADERS
@@ -17,12 +16,9 @@ SET (dominspector_HEADERS
   domtoolbar.h
   contentdialog.h
   paintelement.h
-  colorelement.h
 )
 
 KDE4_MOC_HEADERS (dominspector_MOC ${dominspector_HEADERS})
-
-QT4_ADD_RESOURCES (dominspector_RESRC dominspector.qrc)
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -31,7 +27,6 @@ INCLUDE_DIRECTORIES (
 
 KDE4_ADD_LIBRARY (DomInspector STATIC
   ${dominspector_MOC}
-  ${dominspector_RESRC}
   ${dominspector_HEADERS}
   ${dominspector_STATIC_HEADERS}
   ${dominspector_SOURCES}
@@ -50,6 +45,7 @@ TARGET_LINK_LIBRARIES (DomInspector
   ${QT_QTWEBKIT_LIBRARY}
   ${XHTMLDBG_KDE_LIBRARIES}
   Settings
+  StyleSheeted
 )
 
 ## EOF
