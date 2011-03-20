@@ -1384,7 +1384,6 @@ msgid "Content"
 msgstr "Inhalt"
 
 #: src/dominspector/domtree.cpp:79
-#, fuzzy
 msgid "show current element content"
 msgstr "Zeige den aktuellen Element Inhalt"
 
@@ -1393,12 +1392,10 @@ msgid "Copy Predicate"
 msgstr "Kopiere Prädikat"
 
 #: src/dominspector/domtree.cpp:83
-#, fuzzy
 msgid "copy predicate to clipboard"
 msgstr "Kopiere Prädikat in die Zwischenablage"
 
 #: src/dominspector/domtree.cpp:86
-#, fuzzy
 msgid "show current element information"
 msgstr "Zeige Informationen zum Aktuellen Element."
 
@@ -2134,12 +2131,10 @@ msgid "Background"
 msgstr "Hintergrund Farbe"
 
 #: src/stylesheeted/actiontoolbar.cpp:45
-#, fuzzy
 msgid "Foreground"
 msgstr "Vordergrund Farbe"
 
 #: src/stylesheeted/stylesheeted.cpp:47
-#, fuzzy
 msgid "Edit Element StyleSheet for %1"
 msgstr "Prüfe den Stylesheet für %1"
 
@@ -2233,7 +2228,6 @@ msgid "Remove Entry"
 msgstr "Eintrag Entfernen"
 
 #: src/websecurity/websecuritytable.cpp:60
-#, fuzzy
 msgid "Host"
 msgstr "Hostname"
 
