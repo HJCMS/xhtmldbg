@@ -62,7 +62,7 @@ class IconThemesList : public QListWidget
     IconThemesList ( QWidget * parent = 0 );
     const QStringList iconPaths();
     void insertPaths ( const QStringList & );
-    virtual ~IconThemesList();
+    ~IconThemesList();
 };
 
 #endif

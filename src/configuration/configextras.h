@@ -55,7 +55,7 @@ class ConfigExtras : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigExtras();
+    ~ConfigExtras();
 };
 
 #endif

@@ -6,6 +6,8 @@ SET (target_project_SOURCES
   actiontoolbar.cpp
   colorchooserwidget.cpp
   predicates.cpp
+  borderstyle.cpp
+  fontstyle.cpp
   stylesheeted.cpp
 )
 
@@ -13,6 +15,8 @@ SET (target_project_HEADERS
   actiontoolbar.h
   colorchooserwidget.h
   predicates.h
+  borderstyle.h
+  fontstyle.h
   stylesheeted.h
 )
 

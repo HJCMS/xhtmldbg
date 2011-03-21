@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-20 13:20+0100\n"
+"POT-Creation-Date: 2011-03-21 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,7 +218,7 @@ msgstr ""
 msgid "Color picker"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:59
+#: src/colorpicker/colorpicker.cpp:59 src/stylesheeted/stylesheeted.cpp:72
 msgid "Colors"
 msgstr ""
 
@@ -2018,8 +2018,72 @@ msgstr ""
 msgid "Foreground"
 msgstr ""
 
-#: src/stylesheeted/stylesheeted.cpp:47
+#: src/stylesheeted/fontstyle.cpp:55
+msgid "CSS-Extras"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:57
+msgid "font-size-adjust"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:64
+msgid "CSS3"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:66
+msgid "font-stretch"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:69
+msgid "Ultra Condensed"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:70
+msgid "Extra Condensed"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:71
+msgid "Condensed"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:72
+msgid "Semi Condensed"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:73
+msgid "Normal"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:74
+msgid "Semi Expanded"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:75
+msgid "Expanded"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:76
+msgid "Extra Expanded"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:77
+msgid "Ultra Expanded"
+msgstr ""
+
+#: src/stylesheeted/fontstyle.cpp:80
+msgid "CSS2 Only"
+msgstr ""
+
+#: src/stylesheeted/stylesheeted.cpp:51
 msgid "Edit Element StyleSheet for %1"
+msgstr ""
+
+#: src/stylesheeted/stylesheeted.cpp:78
+msgid "Border"
+msgstr ""
+
+#: src/stylesheeted/stylesheeted.cpp:86
+msgid "Font"
 msgstr ""
 
 #: src/tidymessanger.cpp:47

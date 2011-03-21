@@ -55,7 +55,7 @@ class WebInspector : public QDockWidget
 
   public:
     WebInspector ( QWebPage * startPage, QWidget * parent = 0 );
-    virtual ~WebInspector();
+    ~WebInspector();
 };
 
 #endif

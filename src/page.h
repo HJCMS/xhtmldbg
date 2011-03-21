@@ -70,18 +70,18 @@ class Page : public KWebPage
     void replyFinished();
 
   protected:
-    virtual void javaScriptConsoleMessage ( const QString &, int, const QString & );
-    virtual bool javaScriptPrompt ( QWebFrame *, const QString &, const QString &, QString * );
-    virtual void javaScriptAlert ( QWebFrame *, const QString & );
-    virtual bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
+    void javaScriptConsoleMessage ( const QString &, int, const QString & );
+    bool javaScriptPrompt ( QWebFrame *, const QString &, const QString &, QString * );
+    void javaScriptAlert ( QWebFrame *, const QString & );
+    bool acceptNavigationRequest ( QWebFrame *, const QNetworkRequest &, QWebPage::NavigationType );
 #ifdef HAVE_QTUITOOLS
-    virtual QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
+    QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
 #endif
 
   public:
     Page ( NetworkAccessManager * manager, QObject* parent = 0 );
     const QStringList keywordMetaTagItems();
-    virtual ~Page();
+    ~Page();
 };
 
 #endif

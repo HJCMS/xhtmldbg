@@ -52,7 +52,7 @@ class IconThemeModel : public QAbstractItemModel
     int rowCount ( const QModelIndex & ) const;
     int columnCount ( const QModelIndex & ) const;
     QVariant data ( const QModelIndex &, int ) const;
-    virtual ~IconThemeModel();
+    ~IconThemeModel();
 };
 
 #endif

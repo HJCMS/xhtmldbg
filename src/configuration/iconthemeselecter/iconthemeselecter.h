@@ -55,7 +55,7 @@ class IconThemeSelecter : public QComboBox
   public:
     IconThemeSelecter ( QWidget * parent = 0 );
     const QString selectedTheme();
-    virtual ~IconThemeSelecter();
+    ~IconThemeSelecter();
 };
 
 #endif

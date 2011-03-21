@@ -72,7 +72,7 @@ class AutoSaver : public QObject
   public:
     AutoSaver ( QObject * parent );
     void saveIfNeccessary();
-    ~AutoSaver();
+    virtual ~AutoSaver();
 };
 
 #endif // AUTOSAVER_H

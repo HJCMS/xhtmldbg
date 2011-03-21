@@ -88,7 +88,7 @@ class AddressToolBar : public QToolBar
 
   public:
     AddressToolBar ( QWidget * parent = 0 );
-    virtual ~AddressToolBar();
+    ~AddressToolBar();
 };
 
 #endif

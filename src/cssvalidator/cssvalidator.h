@@ -82,8 +82,8 @@ class CSSValidator : public QDockWidget
     void shutdownProcess();
 
   protected:
-    virtual void contextMenuEvent ( QContextMenuEvent * );
-    virtual void mouseMoveEvent ( QMouseEvent * );
+    void contextMenuEvent ( QContextMenuEvent * );
+    void mouseMoveEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void itemsChanged();

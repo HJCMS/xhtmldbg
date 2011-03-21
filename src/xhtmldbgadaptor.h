@@ -39,11 +39,6 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
   private:
     const QString service;
 
-  public:
-    XHtmldbgAdaptor ( QObject *parent = 0 );
-    const QString busService();
-    virtual ~XHtmldbgAdaptor();
-
   public Q_SLOTS:
     Q_NOREPLY void message ( const QString &mess );
     /** \return true if URL accepted otherwise false */
@@ -56,6 +51,11 @@ class XHtmldbgAdaptor : public QDBusAbstractAdaptor
     bool setSource ( const QString &url, const QString &xhtml );
     /** \return true if URL accepted otherwise false */
     bool checkStyleSheet ( const QString &url );
+
+  public:
+    XHtmldbgAdaptor ( QObject *parent = 0 );
+    const QString busService();
+    ~XHtmldbgAdaptor();
 
 };
 

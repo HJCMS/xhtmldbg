@@ -56,7 +56,7 @@ class ConfigNetwork : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigNetwork();
+    ~ConfigNetwork();
 };
 
 #endif

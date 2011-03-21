@@ -24,6 +24,7 @@
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QStringList>
 #include <QtCore/QVector>
 
 /* QtGui */
@@ -37,6 +38,7 @@ class Colors : public QObject
     static const QVector<QColor> rainbowColors();
     static const QVector<QColor> grayColors();
     static const QVector<QColor> topographicColors();
+    static const QStringList namedSVGColors();
 };
 
 #endif

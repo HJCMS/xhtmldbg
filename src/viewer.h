@@ -79,10 +79,10 @@ class Viewer : public KWebView
     void screenshot();
 
   protected:
-    virtual Viewer* createWindow ( QWebPage::WebWindowType );
-    virtual void keyPressEvent ( QKeyEvent * );
-    virtual void contextMenuEvent ( QContextMenuEvent * );
-    virtual void mousePressEvent ( QMouseEvent * );
+    Viewer* createWindow ( QWebPage::WebWindowType );
+    void keyPressEvent ( QKeyEvent * );
+    void contextMenuEvent ( QContextMenuEvent * );
+    void mousePressEvent ( QMouseEvent * );
 
   Q_SIGNALS:
     void totalBytes ( qint64 );
@@ -100,7 +100,7 @@ class Viewer : public KWebView
   public:
     Viewer ( QWidget * parent = 0 );
     const QString bodyContent();
-    virtual ~Viewer();
+    ~Viewer();
 };
 
 #endif

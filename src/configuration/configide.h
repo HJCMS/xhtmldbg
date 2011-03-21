@@ -67,7 +67,7 @@ class ConfigIDE : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigIDE();
+    ~ConfigIDE();
 };
 
 #endif

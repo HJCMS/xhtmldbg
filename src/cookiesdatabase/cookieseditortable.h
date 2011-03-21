@@ -65,7 +65,7 @@ class CookiesEditorTable : public QTableWidget
   public:
     CookiesEditorTable ( QWidget * parent = 0 );
     bool addCookie ( int, const QString &, int rfc = 1 );
-    virtual ~CookiesEditorTable();
+    ~CookiesEditorTable();
 };
 
 #endif

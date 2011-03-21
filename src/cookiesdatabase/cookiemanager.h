@@ -80,7 +80,7 @@ class CookieManager : public QObject
     const QList<QNetworkCookie> getCookiesForDomain ( const QString &,
             const QString &path = QString ( "/" ) );
 
-    virtual ~CookieManager();
+    ~CookieManager();
 };
 
 Q_DECLARE_METATYPE ( CookieManager::CookiesAccessItem )

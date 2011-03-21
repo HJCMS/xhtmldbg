@@ -38,7 +38,7 @@ class JavaScriptPopup : public QDialog
 
   public:
     JavaScriptPopup ( QWidget * parent = 0 );
-    virtual ~JavaScriptPopup();
+    ~JavaScriptPopup();
 };
 
 #endif

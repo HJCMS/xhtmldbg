@@ -65,7 +65,7 @@ class Configuration : public QDialog
 
   public:
     Configuration ( QWidget * parent = 0, Settings * settings = 0 );
-    virtual ~Configuration();
+    ~Configuration();
 };
 
 #endif

@@ -59,7 +59,7 @@ class DockTreeWidget : public QTreeWidget
 
   public:
     DockTreeWidget ( QWidget * parent = 0 );
-    virtual ~DockTreeWidget();
+    ~DockTreeWidget();
 };
 
 #endif

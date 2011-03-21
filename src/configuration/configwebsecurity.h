@@ -83,7 +83,7 @@ class ConfigWebSecurity : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigWebSecurity();
+    ~ConfigWebSecurity();
 };
 
 #endif

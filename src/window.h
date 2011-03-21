@@ -212,9 +212,9 @@ class Window : public KMainWindow
     void toggleWindowFullScreen();
 
   protected:
-    virtual void closeEvent ( QCloseEvent * );
-    virtual void paintEvent ( QPaintEvent * );
-    virtual void showAboutApplication();
+    void closeEvent ( QCloseEvent * );
+    void paintEvent ( QPaintEvent * );
+    void showAboutApplication();
 
   public Q_SLOTS:
     void setJavaScriptMessage ( const QString & );

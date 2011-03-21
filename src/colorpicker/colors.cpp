@@ -922,3 +922,35 @@ const QVector<QColor> Colors::topographicColors()
   }
   return map;
 }
+
+/** Named SVG Colors */
+const QStringList Colors::namedSVGColors()
+{
+  QStringList list;
+  list << "aliceblue" << "antiquewhite" << "aqua" << "aquamarine" << "azure" << "beige";
+  list << "bisque" << "black" << "blanchedalmond" << "blue" << "blueviolet" << "brown";
+  list << "burlywood" << "cadetblue" << "chartreuse" << "chocolate" << "coral";
+  list << "cornflowerblue" << "cornsilk" << "crimson" << "cyan" << "darkblue" << "darkcyan";
+  list << "darkgoldenrod" << "darkgray" << "darkgreen" << "darkgrey" << "darkkhaki";
+  list << "darkmagenta" << "darkolivegreen" << "darkorange" << "darkorchid" << "darkred";
+  list << "darksalmon" << "darkseagreen" << "darkslateblue" << "darkslategray" << "darkslategrey";
+  list << "darkturquoise" << "darkviolet" << "deeppink" << "deepskyblue" << "dimgray" << "dimgrey";
+  list << "dodgerblue" << "firebrick" << "floralwhite" << "forestgreen" << "fuchsia" << "gainsboro";
+  list << "ghostwhite" << "gold" << "goldenrod" << "gray" << "green" << "greenyellow" << "grey";
+  list << "honeydew" << "hotpink" << "indianred" << "indigo" << "ivory" << "khaki" << "lavender";
+  list << "lavenderblush" << "lawngreen" << "lemonchiffon" << "lightblue" << "lightcoral";
+  list << "lightcyan" << "lightgoldenrodyellow" << "lightgray" << "lightgreen" << "lightgrey";
+  list << "lightpink" << "lightsalmon" << "lightseagreen" << "lightskyblue" << "lightslategray";
+  list << "lightslategrey" << "lightsteelblue" << "lightyellow" << "lime" << "limegreen" << "linen";
+  list << "magenta" << "maroon" << "mediumaquamarine" << "mediumblue" << "mediumorchid" << "mediumpurple";
+  list << "mediumseagreen" << "mediumslateblue" << "mediumspringgreen" << "mediumturquoise";
+  list << "mediumvioletred" << "midnightblue" << "mintcream" << "mistyrose" << "moccasin" << "navajowhite";
+  list << "navy" << "oldlace" << "olive" << "olivedrab" << "orange" << "orangered" << "orchid";
+  list << "palegoldenrod" << "palegreen" << "paleturquoise" << "palevioletred" << "papayawhip";
+  list << "peachpuff" << "peru" << "pink" << "plum" << "powderblue" << "purple" << "red" << "rosybrown";
+  list << "royalblue" << "saddlebrown" << "salmon" << "sandybrown" << "seagreen" << "seashell" << "sienna";
+  list << "silver" << "skyblue" << "slateblue" << "slategray" << "slategrey" << "snow" << "springgreen";
+  list << "steelblue" << "tan" << "teal" << "thistle" << "tomato" << "turquoise" << "violet" << "wheat";
+  list << "white" << "whitesmoke" << "yellow" << "yellowgreen";
+  return list;
+}

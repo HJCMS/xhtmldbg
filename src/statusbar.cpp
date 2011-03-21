@@ -146,5 +146,4 @@ void StatusBar::displayBrowserWidth ( const QSize &s )
 }
 
 StatusBar::~StatusBar()
-{
-}
+{}

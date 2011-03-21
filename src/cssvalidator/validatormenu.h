@@ -58,7 +58,7 @@ class ValidatorMenu : public QMenu
 
   public:
     ValidatorMenu ( QWidget * parent = 0 );
-    virtual ~ValidatorMenu ();
+    ~ValidatorMenu ();
 };
 
 #endif

@@ -206,7 +206,7 @@ void ColorPicker::colorInput()
   if ( col.isValid() )
     colorChanged ( col );
   else
-    qWarning ( "(XHTMLDBG) Can not read this Color Definition!", qPrintable ( m_hexInput->text() ) );
+    qWarning ( "(XHTMLDBG) Can not read this \"%s\" Color Definition!", qPrintable ( m_hexInput->text() ) );
 }
 
 /** Signal Verarbeitung für den Farben Dialog */

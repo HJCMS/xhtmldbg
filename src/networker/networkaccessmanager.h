@@ -63,7 +63,7 @@ class NetworkAccessManager : public QNetworkAccessManager
     ErrorsDialog* m_errorsDialog;
     NetworkCache* m_networkCache;
 
-    QNetworkReply* m_networkReply;
+    mutable QNetworkReply* m_networkReply;
     // QSharedPointer<QNetworkReply> m_replyPointer;
     QByteArray peekPostData;
     QList<QString> trustedCertsHostsList;

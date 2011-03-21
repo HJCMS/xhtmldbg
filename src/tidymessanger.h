@@ -54,7 +54,7 @@ class TidyMessanger : public QDockWidget
     void sortDescending();
 
   protected:
-    virtual void contextMenuEvent ( QContextMenuEvent * );
+    void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void marking ( int, int );

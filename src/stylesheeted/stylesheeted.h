@@ -27,18 +27,22 @@
 
 /* QtGui */
 #include <QtGui/QColor>
+#include <QtGui/QFont>
 #include <QtGui/QWidget>
 
 /* KDE */
 #include <KDE/KColorDialog>
 #include <KDE/KDialog>
+#include <KDE/KTabWidget>
 
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
 class ColorChooserWidget;
+class BorderStyle;
 class ActionToolBar;
 class Predicates;
+class FontStyle;
 
 class StyleSheeted : public KDialog
 {
@@ -49,17 +53,22 @@ class StyleSheeted : public KDialog
   private:
     const QWebElement origElement;
     QWebElement htmlElement;
+    KTabWidget* m_tabWidget;
     ColorChooserWidget* m_colorChooserWidget;
+    BorderStyle* m_borderStyle;
+    FontStyle* m_fontStyle;
     ActionToolBar* m_actionToolBar;
     Predicates* m_predicates;
 
   private Q_SLOTS:
     void colorChanged ( const QColor & );
+    void fontChanged ( const QFont & );
+    void fontSizeAdjust ( double );
     void reset();
 
   public:
     StyleSheeted ( const QWebElement &element, QWidget * parent = 0 );
-    virtual ~StyleSheeted();
+    ~StyleSheeted();
 };
 
 #endif

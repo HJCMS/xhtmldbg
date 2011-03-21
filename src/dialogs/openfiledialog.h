@@ -47,7 +47,7 @@ class OpenFileDialog : public KFileDialog
     OpenFileDialog ( const QString &target, QWidget * parent = 0 );
     const QString getDirectory();
     const QUrl getFileUrl();
-    virtual ~OpenFileDialog();
+    ~OpenFileDialog();
 };
 
 #endif

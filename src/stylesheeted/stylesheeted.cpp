@@ -23,13 +23,17 @@
 #include "colorchooserwidget.h"
 #include "actiontoolbar.h"
 #include "predicates.h"
+#include "borderstyle.h"
+#include "fontstyle.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QString>
 
 /* QtGui */
+#include <QtGui/QFontInfo>
+// #include <QtGui/QTextEdit>
 #include <QtGui/QVBoxLayout>
-#include <QtGui/QTextEdit>
 
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
@@ -47,26 +51,60 @@ StyleSheeted::StyleSheeted ( const QWebElement &element, QWidget * parent )
   setCaption ( i18n ( "Edit Element StyleSheet for %1" ).arg ( element.localName() ), false );
   setButtons ( ( KDialog::Ok | KDialog::Cancel ) );
 
-  m_colorChooserWidget = new ColorChooserWidget ( this );
-  setMainWidget ( m_colorChooserWidget );
+  m_tabWidget = new KTabWidget ( this );
+  m_tabWidget->setAutomaticResizeTabs ( true );
+  m_tabWidget->setCloseButtonEnabled ( false );
+  m_tabWidget->setTabPosition ( KTabWidget::South );
 
-  QWidget* layer = new QWidget ( this );
-  QVBoxLayout* verticalLayout = new QVBoxLayout ( layer );
+  // ColorWidget {
+  QWidget* colorWidget = new QWidget ( m_tabWidget );
+  colorWidget->setObjectName ( QLatin1String ( "ColorLayerWidget" ) );
 
-  m_actionToolBar = new ActionToolBar ( layer );
-  verticalLayout->addWidget ( m_actionToolBar );
+  QVBoxLayout* verticalColorLayout = new QVBoxLayout ( colorWidget );
 
-  m_predicates = new Predicates ( layer );
+  m_colorChooserWidget = new ColorChooserWidget ( colorWidget );
+  verticalColorLayout->addWidget ( m_colorChooserWidget );
+
+  m_actionToolBar = new ActionToolBar ( colorWidget );
+  verticalColorLayout->addWidget ( m_actionToolBar, Qt::AlignLeft );
+
+  colorWidget->setLayout ( verticalColorLayout );
+  m_tabWidget->insertTab ( 0, colorWidget, i18n ( "Colors" ) );
+  m_tabWidget->setTabIcon ( 0, KIcon ( "preferences-desktop-color" ) );
+  // } ColorWidget
+
+  // BorderStyle {
+  m_borderStyle = new  BorderStyle ( m_tabWidget );
+  m_tabWidget->insertTab ( 1, m_borderStyle, i18n ( "Border" ) );
+  m_tabWidget->setTabIcon ( 1, KIcon ( "edit-text-frame-update" ) );
+  // m_borderStyle->();
+  // } BorderStyle
+
+  // FontStyle {
+  m_fontStyle = new  FontStyle ( m_tabWidget );
+  m_fontStyle->readFontAttributes ( htmlElement );
+  m_tabWidget->insertTab ( 2, m_fontStyle, i18n ( "Font" ) );
+  m_tabWidget->setTabIcon ( 2, KIcon ( "preferences-desktop-font" ) );
+  // } FontStyle
+
+  // Predicates {
+  m_predicates = new Predicates ( this );
   m_predicates->setElement ( element );
-  verticalLayout->addWidget ( m_predicates );
-
-  layer->setLayout ( verticalLayout );
-
-  setDetailsWidget ( layer );
+  setDetailsWidget ( m_predicates );
   setDetailsWidgetVisible ( true );
+  // } Predicates
+
+  // add Central Widget
+  setMainWidget ( m_tabWidget );
 
   connect ( m_colorChooserWidget, SIGNAL ( colorSelected ( const QColor & ) ),
             this, SLOT ( colorChanged ( const QColor & ) ) );
+
+  connect ( m_fontStyle, SIGNAL ( fontChanged ( const QFont & ) ),
+            this, SLOT ( fontChanged ( const QFont & ) ) );
+
+  connect ( m_fontStyle, SIGNAL ( fontAdjust ( double ) ),
+            this, SLOT ( fontSizeAdjust ( double ) ) );
 
   connect ( this, SIGNAL ( rejected () ), this, SLOT ( reset () ) );
 }
@@ -92,6 +130,63 @@ void StyleSheeted::colorChanged ( const QColor &color )
       break;
   };
   htmlElement.setStyleProperty ( param, value );
+}
+
+void StyleSheeted::fontChanged ( const QFont &font )
+{
+  QFontInfo info ( font );
+  htmlElement.setStyleProperty ( "font-family", info.family() );
+  QString size = QString::fromUtf8 ( "%1px" ).arg ( QString::number ( info.pixelSize() ) );
+  htmlElement.setStyleProperty ( "font-size", size );
+  htmlElement.setStyleProperty ( "font-weight", ( info.bold() ? "bold" : "normal" ) );
+  htmlElement.setStyleProperty ( "font-style", ( info.italic() ? "italic" : "normal" ) );
+  switch ( font.stretch() )
+  {
+    case QFont::UltraCondensed:
+      htmlElement.setStyleProperty ( "font-stretch", "ultra-condensed" );
+      break;
+
+    case QFont::ExtraCondensed:
+      htmlElement.setStyleProperty ( "font-stretch", "extra-condensed" );
+      break;
+
+    case QFont::Condensed:
+      htmlElement.setStyleProperty ( "font-stretch", "condensed" );
+      break;
+
+    case QFont::SemiCondensed:
+      htmlElement.setStyleProperty ( "font-stretch", "semi-condensed" );
+      break;
+
+    case QFont::Unstretched:
+      htmlElement.setStyleProperty ( "font-stretch", "normal" );
+      break;
+
+    case QFont::SemiExpanded:
+      htmlElement.setStyleProperty ( "font-stretch", "semi-expanded" );
+      break;
+
+    case QFont::Expanded:
+      htmlElement.setStyleProperty ( "font-stretch", "expanded" );
+      break;
+
+    case QFont::ExtraExpanded:
+      htmlElement.setStyleProperty ( "font-stretch", "extra-expanded" );
+      break;
+
+    case QFont::UltraExpanded:
+      htmlElement.setStyleProperty ( "font-stretch", "extra-expanded" );
+      break;
+
+    default:
+      htmlElement.setStyleProperty ( "font-stretch", "normal" );
+      break;
+  }
+}
+
+void StyleSheeted::fontSizeAdjust ( double d )
+{
+  htmlElement.setStyleProperty ( "font-size-adjust", QString::number ( d ) );
 }
 
 void StyleSheeted::reset()

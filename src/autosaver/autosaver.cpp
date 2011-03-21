@@ -54,12 +54,6 @@ AutoSaver::AutoSaver ( QObject *parent ) : QObject ( parent )
   Q_ASSERT ( parent );
 }
 
-AutoSaver::~AutoSaver()
-{
-  if ( m_timer.isActive() )
-    qWarning() << "AutoSaver: still active when destroyed, changes not saved.";
-}
-
 void AutoSaver::changeOccurred()
 {
   if ( m_firstChange.isNull() )
@@ -91,10 +85,17 @@ void AutoSaver::saveIfNeccessary()
 {
   if ( !m_timer.isActive() )
     return;
+
   m_timer.stop();
   m_firstChange = QTime();
   if ( !QMetaObject::invokeMethod ( parent(), "save", Qt::DirectConnection ) )
   {
     qWarning() << "AutoSaver: error invoking slot save() on parent";
   }
+}
+
+AutoSaver::~AutoSaver()
+{
+  if ( m_timer.isActive() )
+    qWarning() << "AutoSaver: still active when destroyed, changes not saved.";
 }

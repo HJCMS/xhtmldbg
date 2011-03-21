@@ -39,7 +39,7 @@ class About : public KAboutApplicationDialog
 
   public:
     About ( QWidget * parent = 0 );
-    virtual ~About();
+    ~About();
 };
 
 #endif

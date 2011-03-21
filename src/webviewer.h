@@ -66,7 +66,7 @@ class WebViewer : public QTabWidget
     void setFavicon ( int index = -1 );
 
   protected:
-    virtual void tabInserted ( int index );
+    void tabInserted ( int index );
 
   Q_SIGNALS:
     void loadStarted ();
@@ -101,7 +101,7 @@ class WebViewer : public QTabWidget
     const QList<QUrl> getPageUrls();
     const QString blank();
     Q_SCRIPTABLE void setAboutPage ( const QString & );
-    virtual ~WebViewer();
+    ~WebViewer();
 };
 
 #endif

@@ -47,7 +47,7 @@ class DBLocator : public QObject
     DBLocator ( const QString &storageDirectory, QObject * parent = 0 );
     const QString databasePath ( const QString & );
     bool initDatabase ( const QSqlDatabase & );
-    virtual ~DBLocator();
+    ~DBLocator();
 };
 
 #endif

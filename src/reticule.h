@@ -45,14 +45,14 @@ class Reticule : public QRubberBand
     const QBrush currentBrush();
 
   protected:
-    virtual void paintEvent ( QPaintEvent * );
+    void paintEvent ( QPaintEvent * );
 
   public Q_SLOTS:
     void setRegion ( const QRect & );
 
   public:
     Reticule ( QWidget * parent = 0 );
-    virtual ~Reticule();
+    ~Reticule();
 };
 
 #endif

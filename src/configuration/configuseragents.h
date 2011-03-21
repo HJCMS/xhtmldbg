@@ -49,7 +49,7 @@ class ConfigUserAgents : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigUserAgents();
+    ~ConfigUserAgents();
 };
 
 #endif

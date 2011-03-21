@@ -51,7 +51,7 @@ class ConfigTidy : public PageWidget
     void save ( Settings * );
     bool isModified ();
     bool isSighted ();
-    virtual ~ConfigTidy();
+    ~ConfigTidy();
 };
 
 #endif
