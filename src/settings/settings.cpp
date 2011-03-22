@@ -110,7 +110,7 @@ void Settings::setCacheDefaults()
   setValue ( "OfflineStorageDatabaseEnabled", true );
   setValue ( "OfflineWebApplicationCacheEnabled", true );
   setValue ( "SourceIsFromCacheAttribute", false );
-  setValue ( "CacheSaveControlAttribute", false );
+  setValue ( "CacheSaveControlAttribute", true );
   setValue ( "DoNotBufferUploadDataAttribute", true );
 }
 
@@ -154,7 +154,12 @@ void Settings::setSaveMode()
 */
 const QString Settings::webDatabasePath()
 {
-  return QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
+  QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
+  if ( d.mkpath ( path ) )
+    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( DefaultDirPermissons );
+
+  return path;
 }
 
 /**
@@ -163,16 +168,11 @@ const QString Settings::webDatabasePath()
 */
 const QString Settings::webLocalStoragePath()
 {
-  QStringList subdirs;
-  subdirs << "Databases" << "LocalStorage" << "Storage";
-  QDir d ( webDatabasePath() );
-  QString path = d.path() + d.separator() + QLatin1String ( "Storage" );
-  // Schreibe gleichzeitig alle anderen Unter Verzeichnisse!
-  foreach(QString n, subdirs)
-  {
-    if ( d.mkpath ( n ) )
-      QFile ( d.absoluteFilePath ( n ) ).setPermissions ( DefaultDirPermissons );
-  }
+  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
+  QString path = d.path() + d.separator() + QLatin1String ( "LocalStorage" );
+  if ( d.mkpath ( path ) )
+    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( DefaultDirPermissons );
+
   return path;
 }
 

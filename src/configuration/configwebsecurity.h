@@ -64,6 +64,7 @@ class ConfigWebSecurity : public PageWidget
     KComboBox* m_scheme;
     QCheckBox* m_checkBox;
     KIntNumInput* m_dbQuota;
+    QCheckBox* m_persistentStorage;
     QTableWidgetItem* createItem ( const QVariant & ) const;
     void fillTable ( QList<WebSecurityItem*> & );
     void loadSQLData();

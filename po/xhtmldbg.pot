@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-21 20:19+0100\n"
+"POT-Creation-Date: 2011-03-22 19:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -916,6 +916,10 @@ msgstr ""
 msgid "Sets the quota for the databases in the security origin to quota bytes."
 msgstr ""
 
+#: src/configuration/configwebsecurity.cpp:126
+msgid "Enable Persistent Storage"
+msgstr ""
+
 #: src/configuration/directorychooser/directorydialog.cpp:45
 msgid "Directory"
 msgstr ""
@@ -1273,7 +1277,7 @@ msgstr ""
 msgid "Deselect Highlights"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:85
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:86
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr ""
@@ -1294,27 +1298,27 @@ msgstr ""
 msgid "StyleSheet"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:75
+#: src/dominspector/domtree.cpp:76
 msgid "modify the element stylesheet"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:77
+#: src/dominspector/domtree.cpp:78
 msgid "Content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:79
+#: src/dominspector/domtree.cpp:80
 msgid "show current element content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:81
+#: src/dominspector/domtree.cpp:82
 msgid "Copy Predicate"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:83
+#: src/dominspector/domtree.cpp:84
 msgid "copy predicate to clipboard"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:86
+#: src/dominspector/domtree.cpp:87
 msgid "show current element information"
 msgstr ""
 
@@ -2018,60 +2022,56 @@ msgstr ""
 msgid "Foreground"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:55
+#: src/stylesheeted/fontstyle.cpp:57
 msgid "CSS-Extras"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:57
+#: src/stylesheeted/fontstyle.cpp:59
 msgid "font-size-adjust"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:64
+#: src/stylesheeted/fontstyle.cpp:62 src/stylesheeted/fontstyle.cpp:67
 msgid "CSS3"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:66
-msgid "font-stretch"
+#: src/stylesheeted/fontstyle.cpp:64
+msgid "font-weigth"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:69
-msgid "Ultra Condensed"
+#: src/stylesheeted/fontweight/fontweight.cpp:37
+msgid "Thin"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:70
-msgid "Extra Condensed"
+#: src/stylesheeted/fontweight/fontweight.cpp:38
+msgid "Extra Light (Ultra Light)"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:71
-msgid "Condensed"
+#: src/stylesheeted/fontweight/fontweight.cpp:39
+msgid "Light"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:72
-msgid "Semi Condensed"
-msgstr ""
-
-#: src/stylesheeted/fontstyle.cpp:73
+#: src/stylesheeted/fontweight/fontweight.cpp:40
 msgid "Normal"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:74
-msgid "Semi Expanded"
+#: src/stylesheeted/fontweight/fontweight.cpp:41
+msgid "Medium"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:75
-msgid "Expanded"
+#: src/stylesheeted/fontweight/fontweight.cpp:42
+msgid "Semi Bold (Demi Bold)"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:76
-msgid "Extra Expanded"
+#: src/stylesheeted/fontweight/fontweight.cpp:43
+msgid "Bold"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:77
-msgid "Ultra Expanded"
+#: src/stylesheeted/fontweight/fontweight.cpp:44
+msgid "Extra Bold (Ultra Bold)"
 msgstr ""
 
-#: src/stylesheeted/fontstyle.cpp:80
-msgid "CSS2 Only"
+#: src/stylesheeted/fontweight/fontweight.cpp:45
+msgid "Black (Heavy)"
 msgstr ""
 
 #: src/stylesheeted/stylesheeted.cpp:51

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-21 20:19+0100\n"
-"PO-Revision-Date: 2011-03-21 20:22+0100\n"
+"POT-Creation-Date: 2011-03-22 19:31+0100\n"
+"PO-Revision-Date: 2011-03-22 19:35+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -994,6 +994,10 @@ msgstr "Absenden"
 msgid "Sets the quota for the databases in the security origin to quota bytes."
 msgstr "Setze den zugelassenen Anteil für ein erstellen der Datenbank Größe in Byte."
 
+#: src/configuration/configwebsecurity.cpp:126
+msgid "Enable Persistent Storage"
+msgstr "Aktiviere immer das erstellen der Datenbank."
+
 #: src/configuration/directorychooser/directorydialog.cpp:45
 msgid "Directory"
 msgstr "Verzeichnis"
@@ -1354,7 +1358,7 @@ msgstr "Abwählen"
 msgid "Deselect Highlights"
 msgstr "Hervorhebung Abwählen"
 
-#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:85
+#: src/dominspector/domtoolbar.cpp:64 src/dominspector/domtree.cpp:86
 #: src/sourceviewer/contextmenu.cpp:92
 msgid "Highlight"
 msgstr "Hervorhebung"
@@ -1375,27 +1379,27 @@ msgstr "Aktuelle Dokument Hervorhebung entfernen"
 msgid "StyleSheet"
 msgstr "StyleSheet"
 
-#: src/dominspector/domtree.cpp:75
+#: src/dominspector/domtree.cpp:76
 msgid "modify the element stylesheet"
 msgstr "Ändere den Element Stylesheet"
 
-#: src/dominspector/domtree.cpp:77
+#: src/dominspector/domtree.cpp:78
 msgid "Content"
 msgstr "Inhalt"
 
-#: src/dominspector/domtree.cpp:79
+#: src/dominspector/domtree.cpp:80
 msgid "show current element content"
 msgstr "Zeige den aktuellen Element Inhalt"
 
-#: src/dominspector/domtree.cpp:81
+#: src/dominspector/domtree.cpp:82
 msgid "Copy Predicate"
 msgstr "Kopiere Prädikat"
 
-#: src/dominspector/domtree.cpp:83
+#: src/dominspector/domtree.cpp:84
 msgid "copy predicate to clipboard"
 msgstr "Kopiere das Prädikat in die Zwischenablage"
 
-#: src/dominspector/domtree.cpp:86
+#: src/dominspector/domtree.cpp:87
 msgid "show current element information"
 msgstr "Zeige Informationen des Aktuellen Elementes."
 
@@ -2134,61 +2138,57 @@ msgstr "Hintergrund Farbe"
 msgid "Foreground"
 msgstr "Vordergrund Farbe"
 
-#: src/stylesheeted/fontstyle.cpp:55
+#: src/stylesheeted/fontstyle.cpp:57
 msgid "CSS-Extras"
 msgstr "CSS Extras"
 
-#: src/stylesheeted/fontstyle.cpp:57
+#: src/stylesheeted/fontstyle.cpp:59
 msgid "font-size-adjust"
 msgstr "font-size-adjust"
 
-#: src/stylesheeted/fontstyle.cpp:64
+#: src/stylesheeted/fontstyle.cpp:62 src/stylesheeted/fontstyle.cpp:67
 msgid "CSS3"
 msgstr "CSS3"
 
-#: src/stylesheeted/fontstyle.cpp:66
-msgid "font-stretch"
-msgstr "font-stretch"
+#: src/stylesheeted/fontstyle.cpp:64
+msgid "font-weigth"
+msgstr "font-weigth"
 
-#: src/stylesheeted/fontstyle.cpp:69
-msgid "Ultra Condensed"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:37
+msgid "Thin"
+msgstr "Dünn"
 
-#: src/stylesheeted/fontstyle.cpp:70
-msgid "Extra Condensed"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:38
+msgid "Extra Light (Ultra Light)"
+msgstr "Extra Leicht (Ultra Leicht)"
 
-#: src/stylesheeted/fontstyle.cpp:71
-msgid "Condensed"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:39
+msgid "Light"
+msgstr "Leicht"
 
-#: src/stylesheeted/fontstyle.cpp:72
-msgid "Semi Condensed"
-msgstr ""
-
-#: src/stylesheeted/fontstyle.cpp:73
+#: src/stylesheeted/fontweight/fontweight.cpp:40
 msgid "Normal"
-msgstr ""
+msgstr "Normal"
 
-#: src/stylesheeted/fontstyle.cpp:74
-msgid "Semi Expanded"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:41
+msgid "Medium"
+msgstr "Mittel"
 
-#: src/stylesheeted/fontstyle.cpp:75
-msgid "Expanded"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:42
+msgid "Semi Bold (Demi Bold)"
+msgstr "Halb Fett"
 
-#: src/stylesheeted/fontstyle.cpp:76
-msgid "Extra Expanded"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:43
+msgid "Bold"
+msgstr "Fett"
 
-#: src/stylesheeted/fontstyle.cpp:77
-msgid "Ultra Expanded"
-msgstr ""
+#: src/stylesheeted/fontweight/fontweight.cpp:44
+msgid "Extra Bold (Ultra Bold)"
+msgstr "Extra Fett (Ultra Fett)"
 
-#: src/stylesheeted/fontstyle.cpp:80
-msgid "CSS2 Only"
-msgstr "Nur CSS2"
+#: src/stylesheeted/fontweight/fontweight.cpp:45
+msgid "Black (Heavy)"
+msgstr "Schwer Fett"
 
 #: src/stylesheeted/stylesheeted.cpp:51
 msgid "Edit Element StyleSheet for %1"

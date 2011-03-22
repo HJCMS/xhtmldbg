@@ -56,7 +56,7 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
     , defaultQuota ( ( 3 * 1024 ) )
 {
   setObjectName ( QLatin1String ( "config_web_security" ) );
-  setNotice ( false );
+  setNotice ( true );
   setCheckable ( false );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
@@ -121,6 +121,10 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   m_dbQuota->setSuffix ( QLatin1String ( " Bytes" ) );
   horzontalLayout->addWidget ( m_dbQuota );
   verticalLayout->addLayout ( horzontalLayout );
+
+  // QWebSettings::enablePersistentStorage
+  m_persistentStorage = new QCheckBox ( i18n ( "Enable Persistent Storage" ), this );
+  verticalLayout->addWidget ( m_persistentStorage );
 
   centralWidget->setLayout ( verticalLayout );
 
@@ -290,6 +294,7 @@ void ConfigWebSecurity::load ( Settings * cfg )
 {
   qint64 quota = cfg->value ( "WebDatabase/DefaultQuota", defaultQuota ).toUInt();
   m_dbQuota->setValue ( quota );
+  m_persistentStorage->setChecked ( cfg->value ( "WebDatabase/EnablePersistentStorage", false ).toBool() );
   loadSQLData();
 }
 
@@ -299,6 +304,7 @@ void ConfigWebSecurity::load ( Settings * cfg )
 void ConfigWebSecurity::save ( Settings * cfg )
 {
   cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
+  cfg->setValue ( "WebDatabase/EnablePersistentStorage", m_persistentStorage->isChecked() );
   saveSQLData();
 }
 
