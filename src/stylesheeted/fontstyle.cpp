@@ -20,6 +20,8 @@
 **/
 
 #include "fontstyle.h"
+#include "fontsizeadjust.h"
+#include "fontweight.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -55,29 +57,14 @@ FontStyle::FontStyle ( QWidget * parent )
   QGroupBox* groupBox = new QGroupBox ( i18n ( "CSS-Extras" ), this );
   QGridLayout* gridLayout = new QGridLayout ( groupBox );
   gridLayout->addWidget ( new QLabel ( i18n ( "font-size-adjust" ), groupBox ), 0, 0, 1, 1 );
-  // http://www.w3.org/TR/css3-fonts/#relative-sizing-the-font-size-adjust-pro
-  m_adjustFactor = new KDoubleNumInput ( this );
-  m_adjustFactor->setRange ( 0.1, 1.0 );
-  m_adjustFactor->setValue ( 0.1 );
-  m_adjustFactor->setSliderEnabled ( true );
-  gridLayout->addWidget ( m_adjustFactor, 0, 1, 1, 1 );
+  m_fontSizeAdjust = new FontSizeAdjust ( groupBox );
+  gridLayout->addWidget ( m_fontSizeAdjust, 0, 1, 1, 1 );
   gridLayout->addWidget ( new QLabel ( i18n ( "CSS3" ), groupBox ), 0, 2, 1, 1 );
 
-  gridLayout->addWidget ( new QLabel ( i18n ( "font-stretch" ), groupBox ), 1, 0, 1, 1 );
-  m_fontStretch = new  QComboBox ( groupBox );
-  KIcon icon ( "list-add-font" );
-  m_fontStretch->insertItem ( 0, icon, i18n ( "Ultra Condensed" ), QFont::UltraCondensed );
-  m_fontStretch->insertItem ( 1, icon, i18n ( "Extra Condensed" ), QFont::ExtraCondensed );
-  m_fontStretch->insertItem ( 2, icon, i18n ( "Condensed" ), QFont::Condensed );
-  m_fontStretch->insertItem ( 3, icon, i18n ( "Semi Condensed" ), QFont::SemiCondensed );
-  m_fontStretch->insertItem ( 4, icon, i18n ( "Normal" ), QFont::Unstretched );
-  m_fontStretch->insertItem ( 5, icon, i18n ( "Semi Expanded" ), QFont::SemiExpanded );
-  m_fontStretch->insertItem ( 6, icon, i18n ( "Expanded" ), QFont::Expanded );
-  m_fontStretch->insertItem ( 7, icon, i18n ( "Extra Expanded" ), QFont::ExtraExpanded );
-  m_fontStretch->insertItem ( 8, icon, i18n ( "Ultra Expanded" ), QFont::UltraExpanded );
-  m_fontStretch->setCurrentIndex ( 4 );
-  gridLayout->addWidget ( m_fontStretch, 1, 1, 1, 1 );
-  gridLayout->addWidget ( new QLabel ( i18n ( "CSS2 Only" ), groupBox ), 1, 2, 1, 1 );
+  gridLayout->addWidget ( new QLabel ( i18n ( "font-weigth" ), groupBox ), 1, 0, 1, 1 );
+  m_fontWeight = new  FontWeight ( groupBox );
+  gridLayout->addWidget ( m_fontWeight, 1, 1, 1, 1 );
+  gridLayout->addWidget ( new QLabel ( i18n ( "CSS3" ), groupBox ), 1, 2, 1, 1 );
   groupBox->setLayout ( gridLayout );
 
   vLayout->addWidget ( groupBox );
@@ -87,11 +74,11 @@ FontStyle::FontStyle ( QWidget * parent )
   connect ( m_fontWidget, SIGNAL ( fontSelected ( const QFont & ) ),
             this, SIGNAL ( fontChanged ( const QFont & ) ) );
 
-  connect ( m_adjustFactor, SIGNAL ( valueChanged ( double ) ),
+  connect ( m_fontSizeAdjust, SIGNAL ( valueChanged ( double ) ),
             this, SIGNAL ( fontAdjust ( double ) ) );
 
-  connect ( m_fontStretch, SIGNAL ( currentIndexChanged ( int ) ),
-            this, SLOT ( setFontStrech ( int ) ) );
+  connect ( m_fontWeight, SIGNAL ( weightChanged ( const QVariant & ) ),
+            this, SIGNAL ( fontWeight ( const QVariant & ) ) );
 }
 
 /**
@@ -173,20 +160,13 @@ const QFont FontStyle::fetchFont ( const QString &family, const QString &value )
   return fo;
 }
 
-void FontStyle::setFontStrech ( int index )
-{
-  QFont font = m_fontWidget->font();
-  font.setStretch ( m_fontStretch->itemData ( index ).toUInt() );
-  m_fontWidget->setFont ( font );
-  emit fontChanged ( font );
-}
-
 const QStringList FontStyle::getAttributes() const
 {
   QStringList list;
-  list << "font-effect" << "font-emphasize" << "font-emphasize-position";
-  list << "font-emphasize-style" << "font-family" << "font-size" << "font-size-adjust";
-  list << "font-smooth" << "font-stretch" << "font-style" << "font-variant" << "font-weight";
+  // list << "font-effect" << "font-emphasize" << "font-emphasize-position";
+  // list << "font-emphasize-style" << "font-smooth";
+  list << "font-family" << "font-size" << "font-size-adjust";
+  list << "font-style" << "font-variant" << "font-weight";
   return list;
 }
 
@@ -202,15 +182,9 @@ void FontStyle::readFontAttributes ( const QWebElement &element )
     if ( value.isEmpty() )
       continue;
 
+    // qDebug() << Q_FUNC_INFO << p << value;
     hash.insert ( p, value );
   }
-
-  /*
-    qDebug() << Q_FUNC_INFO << hash.value ( "font-family" )
-    << "font-size " << hash.value ( "font-size" )
-    << "font-weight " << hash.value ( "font-weight" )
-    << "font-style " << hash.value ( "font-style" );
-  */
 
   QFont f = fetchFont ( hash.value ( "font-family" ).toString(), hash.value ( "font-size" ).toString() );
   if ( hash.value ( "font-variant" ).toString().contains ( "small-caps", Qt::CaseInsensitive ) )

@@ -106,6 +106,9 @@ StyleSheeted::StyleSheeted ( const QWebElement &element, QWidget * parent )
   connect ( m_fontStyle, SIGNAL ( fontAdjust ( double ) ),
             this, SLOT ( fontSizeAdjust ( double ) ) );
 
+  connect ( m_fontStyle, SIGNAL ( fontWeight ( const QVariant & ) ),
+            this, SLOT ( fontWeight ( const QVariant & ) ) );
+
   connect ( this, SIGNAL ( rejected () ), this, SLOT ( reset () ) );
 }
 
@@ -138,55 +141,20 @@ void StyleSheeted::fontChanged ( const QFont &font )
   htmlElement.setStyleProperty ( "font-family", info.family() );
   QString size = QString::fromUtf8 ( "%1px" ).arg ( QString::number ( info.pixelSize() ) );
   htmlElement.setStyleProperty ( "font-size", size );
-  htmlElement.setStyleProperty ( "font-weight", ( info.bold() ? "bold" : "normal" ) );
+  if ( info.bold() )
+    htmlElement.setStyleProperty ( "font-weight", "bold" );
+
   htmlElement.setStyleProperty ( "font-style", ( info.italic() ? "italic" : "normal" ) );
-  switch ( font.stretch() )
-  {
-    case QFont::UltraCondensed:
-      htmlElement.setStyleProperty ( "font-stretch", "ultra-condensed" );
-      break;
-
-    case QFont::ExtraCondensed:
-      htmlElement.setStyleProperty ( "font-stretch", "extra-condensed" );
-      break;
-
-    case QFont::Condensed:
-      htmlElement.setStyleProperty ( "font-stretch", "condensed" );
-      break;
-
-    case QFont::SemiCondensed:
-      htmlElement.setStyleProperty ( "font-stretch", "semi-condensed" );
-      break;
-
-    case QFont::Unstretched:
-      htmlElement.setStyleProperty ( "font-stretch", "normal" );
-      break;
-
-    case QFont::SemiExpanded:
-      htmlElement.setStyleProperty ( "font-stretch", "semi-expanded" );
-      break;
-
-    case QFont::Expanded:
-      htmlElement.setStyleProperty ( "font-stretch", "expanded" );
-      break;
-
-    case QFont::ExtraExpanded:
-      htmlElement.setStyleProperty ( "font-stretch", "extra-expanded" );
-      break;
-
-    case QFont::UltraExpanded:
-      htmlElement.setStyleProperty ( "font-stretch", "extra-expanded" );
-      break;
-
-    default:
-      htmlElement.setStyleProperty ( "font-stretch", "normal" );
-      break;
-  }
 }
 
 void StyleSheeted::fontSizeAdjust ( double d )
 {
   htmlElement.setStyleProperty ( "font-size-adjust", QString::number ( d ) );
+}
+
+void StyleSheeted::fontWeight ( const QVariant &w )
+{
+  htmlElement.setStyleProperty ( "font-weight", w.toString() );
 }
 
 void StyleSheeted::reset()

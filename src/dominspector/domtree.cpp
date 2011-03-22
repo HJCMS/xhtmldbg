@@ -72,6 +72,7 @@ DomTree::DomTree ( QWidget * parent )
   ac_swapHighlight->setStatusTip ( i18n ( "unhighlighted current document content" ) );
 
   ac_setStyleSheet = new QAction ( KIcon ( "preferences-desktop-color" ), i18n ( "StyleSheet" ), this );
+  ac_setStyleSheet->setEnabled ( false );
   ac_setStyleSheet->setStatusTip ( i18n ( "modify the element stylesheet" ) );
 
   ac_showContent = new QAction ( KIcon ( "view-choose" ), i18n ( "Content" ), this );
@@ -301,6 +302,10 @@ void DomTree::itemHovered ( QTreeWidgetItem * item, int column )
   TreeItem ti = item->data ( column, Qt::UserRole ).value<TreeItem>();
   if ( ti.element.isNull() )
     return;
+
+  /* Wenn eine Sichtbare Geometrie vorhanden ist dann den
+  * StyleSheet Editor Aktivieren. */
+  ac_setStyleSheet->setEnabled ( ti.element.geometry().isValid() );
 
   emit elementHovered ( ti.element );
 }

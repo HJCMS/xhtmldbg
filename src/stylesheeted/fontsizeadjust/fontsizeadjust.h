@@ -19,57 +19,30 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef STYLESHEETED_H
-#define STYLESHEETED_H
+#ifndef FONTSIZEADJUST_H
+#define FONTSIZEADJUST_H
 
 /* QtCore */
 #include <QtCore/QObject>
 
 /* QtGui */
-#include <QtGui/QColor>
-#include <QtGui/QFont>
 #include <QtGui/QWidget>
 
 /* KDE */
-#include <KDE/KColorDialog>
-#include <KDE/KDialog>
-#include <KDE/KTabWidget>
+#include <KDE/KDoubleNumInput>
 
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
-
-class ColorChooserWidget;
-class BorderStyle;
-class ActionToolBar;
-class Predicates;
-class FontStyle;
-
-class StyleSheeted : public KDialog
+/**
+* \link http://www.w3.org/TR/css3-fonts/#relative-sizing-the-font-size-adjust-pro
+*/
+class FontSizeAdjust : public KDoubleNumInput
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private:
-    const QWebElement origElement;
-    QWebElement htmlElement;
-    KTabWidget* m_tabWidget;
-    ColorChooserWidget* m_colorChooserWidget;
-    BorderStyle* m_borderStyle;
-    FontStyle* m_fontStyle;
-    ActionToolBar* m_actionToolBar;
-    Predicates* m_predicates;
-
-  private Q_SLOTS:
-    void colorChanged ( const QColor & );
-    void fontChanged ( const QFont & );
-    void fontSizeAdjust ( double );
-    void fontWeight ( const QVariant & );
-    void reset();
-
   public:
-    StyleSheeted ( const QWebElement &element, QWidget * parent = 0 );
-    ~StyleSheeted();
+    FontSizeAdjust ( QWidget * parent = 0 );
+    ~FontSizeAdjust();
 };
 
 #endif

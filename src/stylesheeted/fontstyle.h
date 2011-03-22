@@ -40,6 +40,9 @@
 /* QtWebKit */
 #include <QtWebKit/QWebElement>
 
+class FontSizeAdjust;
+class FontWeight;
+
 class FontStyle : public QWidget
 {
     Q_OBJECT
@@ -48,17 +51,15 @@ class FontStyle : public QWidget
 
   private:
     KFontDialog* m_fontWidget;
-    KDoubleNumInput* m_adjustFactor;
-    QComboBox* m_fontStretch;
+    FontSizeAdjust* m_fontSizeAdjust;
+    FontWeight* m_fontWeight;
     QHash<QString,QVariant> hash;
     const QFont fetchFont ( const QString &family, const QString & ) const;
-
-  private Q_SLOTS:
-    void setFontStrech ( int );
 
   Q_SIGNALS:
     void fontChanged ( const QFont & );
     void fontAdjust ( double );
+    void fontWeight ( const QVariant & );
 
   public:
     FontStyle ( QWidget * parent = 0 );
