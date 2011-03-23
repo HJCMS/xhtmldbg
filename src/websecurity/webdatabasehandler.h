@@ -29,7 +29,7 @@
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
-/* websecurity */
+/* WebSecurity */
 #include "websecurityitem.h"
 
 class WebDatabaseHandler
@@ -57,6 +57,9 @@ class WebDatabaseHandler
 
     /** close activ db connection */
     void close();
+
+    /** remove all LocalStorage Database */
+    static void removeAllDatabases();
 };
 
 #endif

@@ -72,10 +72,20 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   title->setText ( information.join ( "<br/>" ) );
   verticalLayout->addWidget ( title );
 
-  m_table = new WebSecurityTable ( centralWidget );
-  verticalLayout->addWidget ( m_table );
+  m_localStorage = new QCheckBox ( i18n ( "enable auto create local storage databases" ), centralWidget );
+  verticalLayout->addWidget ( m_localStorage );
 
-  QGroupBox* groupBox = new QGroupBox ( i18n ( "Edit" ), centralWidget );
+  m_databaseEditing = new QGroupBox ( i18n ( "enable offline storage database support" ), centralWidget );
+  m_databaseEditing->setCheckable ( true );
+  verticalLayout->addWidget ( m_databaseEditing );
+
+  QVBoxLayout* editorLayout = new QVBoxLayout ( m_databaseEditing );
+
+  // Editor Tabelle
+  m_table = new WebSecurityTable ( m_databaseEditing );
+  editorLayout->addWidget ( m_table );
+
+  QGroupBox* groupBox = new QGroupBox ( i18n ( "Edit" ), m_databaseEditing );
   QGridLayout* gridLayout = new QGridLayout ( groupBox );
 
   gridLayout->addWidget ( new QLabel ( i18n ( "Hostname" ), groupBox ), 0, 0, 1, 1, Qt::AlignRight );
@@ -103,37 +113,41 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   // CheckBox
   m_differentPorts = new QCheckBox ( i18n ( "Aberrantly Port Address from Scheme" ), groupBox );
   gridLayout->addWidget ( m_differentPorts, 2, 2, 1, 1, Qt::AlignLeft );
-
-  KPushButton* reset = new KPushButton ( i18n ( "Reset" ), groupBox );
-  gridLayout->addWidget ( reset, 3, 0, 1, 1, Qt::AlignLeft );
-
-  KPushButton* submit = new KPushButton ( i18n ( "Submit" ), groupBox );
-  gridLayout->addWidget ( submit, 3, 2, 1, 1, Qt::AlignRight );
-
-  groupBox->setLayout ( gridLayout );
-  verticalLayout->addWidget ( groupBox, Qt::AlignLeft );
-
-  QHBoxLayout* horzontalLayout = new QHBoxLayout;
-  horzontalLayout->addWidget ( new QLabel ( i18n ( "Sets the quota for the databases in the security origin to quota bytes." ), centralWidget ) );
-  m_dbQuota = new KIntNumInput ( ( 3 * 1024 ), centralWidget );
+  // Quota Einstellungen
+  gridLayout->addWidget ( new QLabel ( i18n ( "Quota" ), groupBox ), 3, 0, 1, 1, Qt::AlignRight );
+  m_dbQuota = new KIntNumInput ( defaultQuota, groupBox );
   m_dbQuota->setRange ( 1024, ( 100 * 1024 ), 5 );
   m_dbQuota->setSliderEnabled ( true );
   m_dbQuota->setSuffix ( QLatin1String ( " Bytes" ) );
-  horzontalLayout->addWidget ( m_dbQuota );
+  gridLayout->addWidget ( m_dbQuota, 3, 1, 1, 2 );
+
+  // Aktionen
+  KPushButton* reset = new KPushButton ( i18n ( "Reset" ), groupBox );
+  gridLayout->addWidget ( reset, 4, 0, 1, 1, Qt::AlignLeft );
+
+  KPushButton* submit = new KPushButton ( i18n ( "Submit" ), groupBox );
+  gridLayout->addWidget ( submit, 4, 2, 1, 1, Qt::AlignRight );
+
+  // Zusatz Optionen
+  m_offlineWebApplicationCache = new QCheckBox ( i18n ( "enable web application cache feature" ), groupBox );
+  gridLayout->addWidget ( m_offlineWebApplicationCache, 5, 0, 1, 3 );
+
+  m_removeDatabases = new QCheckBox ( i18n ( "remove databases on application exit (Warning all table setting lost)" ), groupBox );
+  gridLayout->addWidget ( m_removeDatabases, 6, 0, 1, 3 );
+
+  // GroupBox Layout abschliessen
+  groupBox->setLayout ( gridLayout );
+
+  editorLayout->addWidget ( groupBox );
+
+  QHBoxLayout* horzontalLayout = new QHBoxLayout;
+  horzontalLayout->addWidget ( new QLabel ( i18n ( "default security origin quota for new databases" ), centralWidget ) );
+  m_defaultQuota = new KIntNumInput ( defaultQuota, centralWidget );
+  m_defaultQuota->setRange ( 1024, ( 100 * 1024 ), 5 );
+  m_defaultQuota->setSliderEnabled ( true );
+  m_defaultQuota->setSuffix ( QLatin1String ( " Bytes" ) );
+  horzontalLayout->addWidget ( m_defaultQuota );
   verticalLayout->addLayout ( horzontalLayout );
-
-  // QWebSettings::enablePersistentStorage
-  m_localStorage = new QCheckBox ( i18n ( "enable local storage feature" ), this );
-  verticalLayout->addWidget ( m_localStorage );
-
-  m_offlineStorageDatabase = new QCheckBox ( i18n ( "enable offline storage feature" ), this );
-  verticalLayout->addWidget ( m_offlineStorageDatabase );
-
-  m_offlineWebApplicationCache = new QCheckBox ( i18n ( "enable web application cache feature" ), this );
-  verticalLayout->addWidget ( m_offlineWebApplicationCache );
-
-  m_removeDatabases = new QCheckBox ( i18n ( "on application exit remove all databases" ), this );
-  verticalLayout->addWidget ( m_removeDatabases );
 
   centralWidget->setLayout ( verticalLayout );
 
@@ -149,10 +163,13 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   connect ( m_dbQuota, SIGNAL ( valueChanged ( int ) ),
             this, SLOT ( quotaChanged ( int ) ) );
 
+  connect ( m_defaultQuota, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( quotaChanged ( int ) ) );
+
   // CheckBoxes
   connect ( m_differentPorts, SIGNAL ( toggled ( bool ) ), m_port, SLOT ( setEnabled ( bool ) ) );
   connect ( m_localStorage, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
-  connect ( m_offlineStorageDatabase, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
+  connect ( m_databaseEditing, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
   connect ( m_offlineWebApplicationCache, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
   connect ( m_removeDatabases, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
 
@@ -313,12 +330,13 @@ void ConfigWebSecurity::boxToggled ( bool )
 void ConfigWebSecurity::load ( Settings * cfg )
 {
   qint64 quota = cfg->value ( "WebDatabase/DefaultQuota", defaultQuota ).toUInt();
-  m_dbQuota->setValue ( quota );
+  m_defaultQuota->setValue ( quota );
   m_localStorage->setChecked ( cfg->value ( "LocalStorageEnabled", false ).toBool() );
-  m_offlineStorageDatabase->setChecked ( cfg->value ( "OfflineStorageDatabaseEnabled", false ).toBool() );
+  m_databaseEditing->setChecked ( cfg->value ( "OfflineStorageDatabaseEnabled", false ).toBool() );
   m_offlineWebApplicationCache->setChecked ( cfg->value ( "OfflineWebApplicationCacheEnabled", false ).toBool() );
   m_removeDatabases->setChecked ( cfg->value ( "RemoveHTML5Databases", false ).toBool() );
-  loadSQLData();
+  if ( m_databaseEditing->isChecked() )
+    loadSQLData();
 }
 
 /**
@@ -326,12 +344,13 @@ void ConfigWebSecurity::load ( Settings * cfg )
 */
 void ConfigWebSecurity::save ( Settings * cfg )
 {
-  cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
+  cfg->setValue ( "WebDatabase/DefaultQuota", m_defaultQuota->value() );
   cfg->setValue ( "LocalStorageEnabled", m_localStorage->isChecked() );
-  cfg->setValue ( "OfflineStorageDatabaseEnabled", m_offlineStorageDatabase->isChecked() );
+  cfg->setValue ( "OfflineStorageDatabaseEnabled", m_databaseEditing->isChecked() );
   cfg->setValue ( "OfflineWebApplicationCacheEnabled", m_offlineWebApplicationCache->isChecked() );
   cfg->setValue ( "RemoveHTML5Databases", m_removeDatabases->isChecked() );
-  saveSQLData();
+  if ( m_databaseEditing->isChecked() )
+    saveSQLData();
 }
 
 bool ConfigWebSecurity::isModified ()

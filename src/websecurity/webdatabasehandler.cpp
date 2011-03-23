@@ -20,6 +20,7 @@
 **/
 
 #include "webdatabasehandler.h"
+#include "settings.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -37,6 +38,7 @@
 #include <QtSql/QSqlQuery>
 
 /* QtWebKit */
+#include <QtWebKit/QWebDatabase>
 #include <QtWebKit/QWebSettings>
 #include <QtWebKit/QWebSecurityOrigin>
 
@@ -216,4 +218,22 @@ void WebDatabaseHandler::close()
 {
   if ( db.isOpen() )
     db.close();
+}
+
+/**
+* Komplett aufräumen!
+* @li Es werden zuerst alle *.localstorage Datenbank Dateien entfernt.
+* @li Danach wird QWebDatabase::removeAllDatabases aufgerufen.
+*/
+void WebDatabaseHandler::removeAllDatabases()
+{
+  QDir d ( Settings::webLocalStoragePath(), QLatin1String ( "*.localstorage" ), QDir::IgnoreCase );
+  foreach ( QString db, d.entryList ( QDir::Files ) )
+  {
+    QString fp ( Settings::webLocalStoragePath() );
+    fp.append ( d.separator() );
+    fp.append ( db );
+    QFile ( fp ).remove();
+  }
+  QWebDatabase::removeAllDatabases ();
 }

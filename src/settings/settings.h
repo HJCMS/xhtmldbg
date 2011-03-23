@@ -86,12 +86,12 @@ class Settings : public QSettings
     /**
     * Return for \em QWebSettings the path of the icon database.
     */
-    const QString webDatabasePath();
+    static const QString webDatabasePath();
 
     /**
     * Returns for \em QWebSettings the path for HTML5 local storage.
     */
-    const QString webLocalStoragePath();
+    static const QString webLocalStoragePath();
 
     /**
     * Url Path to History XML File

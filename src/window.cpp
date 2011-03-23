@@ -23,46 +23,47 @@
 # include "version.h"
 #endif
 #include "window.h"
+#include "about.h"
+#include "addresstoolbar.h"
+#include "alternatelinkreader.h"
+#include "appevents.h"
 #include "application.h"
+#include "autoreloader.h"
+#include "autoreloadmenu.h"
+#include "bookmark.h"
+#include "colorpickerbutton.h"
+#include "colorpicker.h"
+#include "configuration.h"
+#include "cssvalidator.h"
+#include "dominspector.h"
+#include "downloadmanager.h"
+#include "formmanager.h"
+#include "geolocation.h"
+#include "headerdock.h"
+#include "historyitem.h"
+#include "historymanager.h"
+#include "historymenu.h"
+#include "jsmessanger.h"
+#include "keywordstoolbar.h"
 #include "networkaccessmanager.h"
 #include "networkcookie.h"
-#include "downloadmanager.h"
-#include "addresstoolbar.h"
-#include "keywordstoolbar.h"
-#include "zoombar.h"
-#include "webviewer.h"
-#include "sourcecache.h"
-#include "sourcewidget.h"
-#include "alternatelinkreader.h"
-#include "tidymessanger.h"
-#include "jsmessanger.h"
-#include "appevents.h"
-#include "cssvalidator.h"
-#include "bookmark.h"
-#include "pagehistory.h"
-#include "historymanager.h"
-#include "historyitem.h"
-#include "historymenu.h"
 #include "openfiledialog.h"
-#include "settargetdialog.h"
 #include "openurldialog.h"
-#include "about.h"
-#include "configuration.h"
-#include "statusbar.h"
-#include "dominspector.h"
-#include "formmanager.h"
-#include "webinspector.h"
-#include "headerdock.h"
-#include "autoreloadmenu.h"
-#include "autoreloader.h"
-#include "colorpicker.h"
-#include "colorpickerbutton.h"
-#include "geolocation.h"
-#include "websettings.h"
+#include "pagehistory.h"
 /* Experimental */
 #ifdef _XHTMLDBG_EXPERIMENTAL
 # include "resizeportbuttons.h"
 #endif
+#include "settargetdialog.h"
+#include "sourcecache.h"
+#include "sourcewidget.h"
+#include "statusbar.h"
+#include "tidymessanger.h"
+#include "webdatabasehandler.h"
+#include "webinspector.h"
+#include "websettings.h"
+#include "webviewer.h"
+#include "zoombar.h"
 /* Interface */
 #include "plugger.h"
 #include "plugininfo.h"
@@ -750,8 +751,9 @@ void Window::closeEvent ( QCloseEvent *event )
   unregisterPlugins ();
 
   // HTML 5 SQLite Datenbanken entfernen?
-//   if ( m_settings->value( "RemoveHTML5Databases" ).toBool() )
-//     QWebDatabase::removeAllDatabases();
+  if ( m_settings->value ( "RemoveHTML5Databases", false ).toBool()
+          && m_settings->value ( "OfflineStorageDatabaseEnabled", false ).toBool() )
+    WebDatabaseHandler::removeAllDatabases();
 
   // Jetzt den Fenster Status Speichern
   m_settings->setValue ( "Window/MainWindowState", saveState() );

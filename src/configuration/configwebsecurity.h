@@ -64,8 +64,9 @@ class ConfigWebSecurity : public PageWidget
     KComboBox* m_scheme;
     QCheckBox* m_differentPorts;
     KIntNumInput* m_dbQuota;
+    QGroupBox* m_databaseEditing;
+    KIntNumInput* m_defaultQuota;
     QCheckBox* m_localStorage;
-    QCheckBox* m_offlineStorageDatabase;
     QCheckBox* m_offlineWebApplicationCache;
     QCheckBox* m_removeDatabases;
     QTableWidgetItem* createItem ( const QVariant & ) const;

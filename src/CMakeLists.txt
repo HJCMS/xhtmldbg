@@ -92,7 +92,6 @@ SET (xhtmldbg_SOURCES
   jsmessanger.cpp
   webviewer.cpp
   viewer.cpp
-  securityorigin.cpp
   page.cpp
   pagehistory.cpp
   historymanager.cpp
@@ -125,7 +124,6 @@ SET (xhtmldbg_HEADERS
   jsmessanger.h
   webviewer.h
   viewer.h
-  securityorigin.h
   page.h
   historymanager.h
   historymenu.h

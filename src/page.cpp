@@ -21,7 +21,6 @@
 
 #include "page.h"
 #include "viewer.h"
-#include "securityorigin.h"
 #include "xhtmldbgmain.h"
 #include "networkaccessmanager.h"
 #include "downloadmanager.h"
@@ -52,6 +51,10 @@
 #include <QtGui/QInputDialog>
 #include <QtGui/QMessageBox>
 #include <QtGui/QTextDocument>
+
+/* QtWebKit */
+#include <QtWebKit/QWebDatabase>
+#include <QtWebKit/QWebSecurityOrigin>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkAccessManager>
@@ -129,7 +132,6 @@ void Page::initWebDatabaseAccess ( bool b )
 
   if ( mainFrame() && ! mainFrame()->securityOrigin().host().isEmpty() )
   {
-    mainFrame()->securityOrigin() = SecurityOrigin::origin ( mainFrame()->securityOrigin() );
 #ifdef DEBUG_VERBOSE
     foreach ( QWebDatabase db, mainFrame()->securityOrigin().databases () )
     {

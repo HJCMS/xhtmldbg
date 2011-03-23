@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-22 19:31+0100\n"
+"POT-Creation-Date: 2011-03-23 17:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,7 @@ msgstr ""
 msgid "1 Minute"
 msgstr ""
 
-#: src/bookmark/bookmark.cpp:51 src/window.cpp:486
+#: src/bookmark/bookmark.cpp:51 src/window.cpp:488
 msgid "Bookmarks"
 msgstr ""
 
@@ -508,7 +508,7 @@ msgid "Create a new Cookie provision"
 msgstr ""
 
 #: src/configuration/configcookies.cpp:97
-#: src/configuration/configwebsecurity.cpp:81 src/docking/headerdock.cpp:151
+#: src/configuration/configwebsecurity.cpp:91 src/docking/headerdock.cpp:151
 msgid "Hostname"
 msgstr ""
 
@@ -542,8 +542,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:528
-#: src/window.cpp:618
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:530
+#: src/window.cpp:620
 msgid "Extensions"
 msgstr ""
 
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:148
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:150
 msgid "Browser"
 msgstr ""
 
@@ -866,58 +866,75 @@ msgid ""
 "computer."
 msgstr ""
 
+#: src/configuration/configwebsecurity.cpp:75
+msgid "enable auto create local storage databases"
+msgstr ""
+
 #: src/configuration/configwebsecurity.cpp:78
+msgid "enable offline storage database support"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:88
 msgid "Edit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:84
+#: src/configuration/configwebsecurity.cpp:94
 msgid "e.g. domain.tld"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:86
+#: src/configuration/configwebsecurity.cpp:96
 #: src/websecurity/websecuritytable.cpp:60
 msgid "Scheme"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:89
+#: src/configuration/configwebsecurity.cpp:99
 msgid "World Wide Web HTTP"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:90
+#: src/configuration/configwebsecurity.cpp:100
 msgid "World Wide Web over TLS/SSL HTTPS"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:93
+#: src/configuration/configwebsecurity.cpp:103
 msgid "Local File Protocol FILE"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:95
+#: src/configuration/configwebsecurity.cpp:105
 msgid "e.g. http://, https:// or file://"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:98
+#: src/configuration/configwebsecurity.cpp:108
 #: src/websecurity/websecuritytable.cpp:60
 msgid "Port"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:104
+#: src/configuration/configwebsecurity.cpp:114
 msgid "Aberrantly Port Address from Scheme"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:107
+#: src/configuration/configwebsecurity.cpp:117
+#: src/websecurity/websecuritytable.cpp:60
+msgid "Quota"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:125
 msgid "Reset"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:110
+#: src/configuration/configwebsecurity.cpp:128
 msgid "Submit"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:117
-msgid "Sets the quota for the databases in the security origin to quota bytes."
+#: src/configuration/configwebsecurity.cpp:132
+msgid "enable web application cache feature"
 msgstr ""
 
-#: src/configuration/configwebsecurity.cpp:126
-msgid "Enable Persistent Storage"
+#: src/configuration/configwebsecurity.cpp:135
+msgid "remove databases on application exit (Warning all table setting lost)"
+msgstr ""
+
+#: src/configuration/configwebsecurity.cpp:144
+msgid "default security origin quota for new databases"
 msgstr ""
 
 #: src/configuration/directorychooser/directorydialog.cpp:45
@@ -1107,7 +1124,7 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:523
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:525
 msgid "Configure"
 msgstr ""
 
@@ -1123,7 +1140,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:374
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:376
 msgid "Open Url"
 msgstr ""
 
@@ -1249,7 +1266,7 @@ msgstr ""
 msgid "no visible geometry"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:543
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:545
 msgid "Actions"
 msgstr ""
 
@@ -1795,27 +1812,27 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:269 src/window.cpp:154
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:269 src/window.cpp:156
 msgid "Source"
 msgstr ""
 
-#: src/page.cpp:114
+#: src/page.cpp:117
 msgid " Line: %1"
 msgstr ""
 
-#: src/page.cpp:117
+#: src/page.cpp:120
 msgid " Document: %1"
 msgstr ""
 
-#: src/page.cpp:159
+#: src/page.cpp:161
 msgid "JavaScript Prompt: "
 msgstr ""
 
-#: src/page.cpp:319
+#: src/page.cpp:321
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr ""
 
-#: src/page.cpp:356
+#: src/page.cpp:358
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -2177,15 +2194,11 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/websecurity/websecuritytable.cpp:60
-msgid "Quota"
-msgstr ""
-
-#: src/webviewer.cpp:82 src/window.cpp:474
+#: src/webviewer.cpp:82 src/window.cpp:476
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:475
+#: src/webviewer.cpp:84 src/window.cpp:477
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -2193,141 +2206,141 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/window.cpp:125
+#: src/window.cpp:127
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
-#: src/window.cpp:370
+#: src/window.cpp:372
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:375
+#: src/window.cpp:377
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:381
+#: src/window.cpp:383
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:382
+#: src/window.cpp:384
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:388
+#: src/window.cpp:390
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:389
+#: src/window.cpp:391
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:396
+#: src/window.cpp:398
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:399
+#: src/window.cpp:401
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:400
+#: src/window.cpp:402
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:406
+#: src/window.cpp:408
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:407
+#: src/window.cpp:409
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:413
+#: src/window.cpp:415
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:417
+#: src/window.cpp:419
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:425
+#: src/window.cpp:427
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:433 src/zoombar.cpp:52
+#: src/window.cpp:435 src/zoombar.cpp:52
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:446
+#: src/window.cpp:448
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:453
+#: src/window.cpp:455
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:456
+#: src/window.cpp:458
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:462
+#: src/window.cpp:464
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:468
+#: src/window.cpp:470
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:509
+#: src/window.cpp:511
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:515
+#: src/window.cpp:517
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:517
+#: src/window.cpp:519
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:531
+#: src/window.cpp:533
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:554
+#: src/window.cpp:556
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:590
+#: src/window.cpp:592
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:600
+#: src/window.cpp:602
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:608
+#: src/window.cpp:610
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:877
+#: src/window.cpp:884
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:996
+#: src/window.cpp:1003
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1037
+#: src/window.cpp:1044
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1040
+#: src/window.cpp:1047
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1071
+#: src/window.cpp:1078
 msgid "Download Request: %1"
 msgstr ""
 

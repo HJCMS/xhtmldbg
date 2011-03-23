@@ -146,7 +146,7 @@ const QString Settings::webDatabasePath()
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
   if ( d.mkpath ( path ) )
-    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( DefaultDirPermissons );
+    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 
   return path;
 }
@@ -160,7 +160,7 @@ const QString Settings::webLocalStoragePath()
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   QString path = d.path() + d.separator() + QLatin1String ( "LocalStorage" );
   if ( d.mkpath ( path ) )
-    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( DefaultDirPermissons );
+    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
 
   return path;
 }
