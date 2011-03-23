@@ -62,9 +62,12 @@ class ConfigWebSecurity : public PageWidget
     KLineEdit* m_hostname;
     KIntNumInput* m_port;
     KComboBox* m_scheme;
-    QCheckBox* m_checkBox;
+    QCheckBox* m_differentPorts;
     KIntNumInput* m_dbQuota;
-    QCheckBox* m_persistentStorage;
+    QCheckBox* m_localStorage;
+    QCheckBox* m_offlineStorageDatabase;
+    QCheckBox* m_offlineWebApplicationCache;
+    QCheckBox* m_removeDatabases;
     QTableWidgetItem* createItem ( const QVariant & ) const;
     void fillTable ( QList<WebSecurityItem*> & );
     void loadSQLData();
@@ -77,6 +80,7 @@ class ConfigWebSecurity : public PageWidget
     void clearInput();
     void itemSubmitted();
     void itemModified ( bool );
+    void boxToggled ( bool );
 
   public:
     ConfigWebSecurity ( QWidget * parent = 0 );

@@ -41,31 +41,15 @@
 #include <QtGui/QX11Info>
 
 /**
-* Wenn der Klient Desktop ein Xinerama/TwinView ist.
-* Dann - An den Programm-Namen die Screen Nummer anhängen!
-*/
-static inline const QString xApplicationName()
-{
-  QString name ( XHTMLDBG_APPS_NAME );
-  int screen = QX11Info::appScreen();
-  if ( screen != 0 )
-  {
-    qWarning ( "(XHTMLDBG) Xinerama detected generate configuration with suffix -<num>" );
-    name.append ( "-" );
-    name.append ( QString::number ( screen ) );
-  }
-  return name;
-}
-
-/**
 * @class Settings
 * Hauptklasse für alle Einstellungen ab zu fragen!
 */
 Settings::Settings ( QObject * parent )
-    : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, xApplicationName(), parent )
+    : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, XHTMLDBG_APPS_NAME, parent )
     , DefaultDirPermissons ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
+  setDataPaths();
   setCacheDefaults();
 
   QFile ( fileName () ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner ) );
@@ -77,13 +61,20 @@ const QString Settings::cacheLocation()
   return QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
 }
 
+/** Default Data Location */
+const QString Settings::dataLocation()
+{
+  QFileInfo p ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
+  return p.absoluteFilePath ();
+}
+
 /** Temporäres Verzeichnis für die LogDateien */
 const QString Settings::tempDir ( const QString &subdir )
 {
   QDir d ( QDir::tempPath() );
   QString p ( QDir::tempPath() );
   p.append ( d.separator() );
-  p.append ( xApplicationName() );
+  p.append ( QLatin1String ( XHTMLDBG_APPS_NAME ) );
   p.append ( "-" );
   char* uid = getenv ( "USER" );
   if ( sizeof ( uid ) > 1 )
@@ -107,8 +98,6 @@ const QString Settings::tempDir ( const QString &subdir )
 /** Wir verwenden keinen Cache! */
 void Settings::setCacheDefaults()
 {
-  setValue ( "OfflineStorageDatabaseEnabled", true );
-  setValue ( "OfflineWebApplicationCacheEnabled", true );
   setValue ( "SourceIsFromCacheAttribute", false );
   setValue ( "CacheSaveControlAttribute", true );
   setValue ( "DoNotBufferUploadDataAttribute", true );

@@ -29,6 +29,10 @@
 /* QtCore */
 #include <QtCore/QtPlugin>
 
+/* KDE */
+#include <KDE/KGlobal>
+#include <KDE/KLocale>
+
 WidgetCollection::WidgetCollection ( QObject * parent )
     : QObject ( parent )
 {
@@ -43,6 +47,7 @@ WidgetCollection::WidgetCollection ( QObject * parent )
 
 QList<QDesignerCustomWidgetInterface *> WidgetCollection::customWidgets() const
 {
+  KGlobal::locale()->insertCatalog ( objectName() );
   return m_plugins;
 }
 

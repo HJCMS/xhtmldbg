@@ -101,8 +101,8 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   m_port->setEnabled ( false );
   gridLayout->addWidget ( m_port, 2, 1, 1, 1, Qt::AlignLeft );
   // CheckBox
-  m_checkBox = new QCheckBox ( i18n ( "Aberrantly Port Address from Scheme" ), groupBox );
-  gridLayout->addWidget ( m_checkBox, 2, 2, 1, 1, Qt::AlignLeft );
+  m_differentPorts = new QCheckBox ( i18n ( "Aberrantly Port Address from Scheme" ), groupBox );
+  gridLayout->addWidget ( m_differentPorts, 2, 2, 1, 1, Qt::AlignLeft );
 
   KPushButton* reset = new KPushButton ( i18n ( "Reset" ), groupBox );
   gridLayout->addWidget ( reset, 3, 0, 1, 1, Qt::AlignLeft );
@@ -123,8 +123,17 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   verticalLayout->addLayout ( horzontalLayout );
 
   // QWebSettings::enablePersistentStorage
-  m_persistentStorage = new QCheckBox ( i18n ( "Enable Persistent Storage" ), this );
-  verticalLayout->addWidget ( m_persistentStorage );
+  m_localStorage = new QCheckBox ( i18n ( "enable local storage feature" ), this );
+  verticalLayout->addWidget ( m_localStorage );
+
+  m_offlineStorageDatabase = new QCheckBox ( i18n ( "enable offline storage feature" ), this );
+  verticalLayout->addWidget ( m_offlineStorageDatabase );
+
+  m_offlineWebApplicationCache = new QCheckBox ( i18n ( "enable web application cache feature" ), this );
+  verticalLayout->addWidget ( m_offlineWebApplicationCache );
+
+  m_removeDatabases = new QCheckBox ( i18n ( "on application exit remove all databases" ), this );
+  verticalLayout->addWidget ( m_removeDatabases );
 
   centralWidget->setLayout ( verticalLayout );
 
@@ -140,7 +149,13 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   connect ( m_dbQuota, SIGNAL ( valueChanged ( int ) ),
             this, SLOT ( quotaChanged ( int ) ) );
 
-  connect ( m_checkBox, SIGNAL ( toggled ( bool ) ), m_port, SLOT ( setEnabled ( bool ) ) );
+  // CheckBoxes
+  connect ( m_differentPorts, SIGNAL ( toggled ( bool ) ), m_port, SLOT ( setEnabled ( bool ) ) );
+  connect ( m_localStorage, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
+  connect ( m_offlineStorageDatabase, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
+  connect ( m_offlineWebApplicationCache, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
+  connect ( m_removeDatabases, SIGNAL ( toggled ( bool ) ), this, SLOT ( boxToggled ( bool ) ) );
+
   connect ( reset, SIGNAL ( clicked () ), this, SLOT ( clearInput() ) );
   connect ( submit, SIGNAL ( clicked () ), this, SLOT ( itemSubmitted() ) );
 }
@@ -241,7 +256,7 @@ void ConfigWebSecurity::clearInput()
   m_hostname->clear();
   m_port->setValue ( 80 );
   m_scheme->setCurrentIndex ( 0 );
-  m_checkBox->setChecked ( false );
+  m_differentPorts->setChecked ( false );
 }
 
 void ConfigWebSecurity::itemSubmitted()
@@ -290,11 +305,19 @@ void ConfigWebSecurity::itemModified ( bool b )
   emit modified ( b );
 }
 
+void ConfigWebSecurity::boxToggled ( bool )
+{
+  itemModified ( true );
+}
+
 void ConfigWebSecurity::load ( Settings * cfg )
 {
   qint64 quota = cfg->value ( "WebDatabase/DefaultQuota", defaultQuota ).toUInt();
   m_dbQuota->setValue ( quota );
-  m_persistentStorage->setChecked ( cfg->value ( "WebDatabase/EnablePersistentStorage", false ).toBool() );
+  m_localStorage->setChecked ( cfg->value ( "LocalStorageEnabled", false ).toBool() );
+  m_offlineStorageDatabase->setChecked ( cfg->value ( "OfflineStorageDatabaseEnabled", false ).toBool() );
+  m_offlineWebApplicationCache->setChecked ( cfg->value ( "OfflineWebApplicationCacheEnabled", false ).toBool() );
+  m_removeDatabases->setChecked ( cfg->value ( "RemoveHTML5Databases", false ).toBool() );
   loadSQLData();
 }
 
@@ -304,7 +327,10 @@ void ConfigWebSecurity::load ( Settings * cfg )
 void ConfigWebSecurity::save ( Settings * cfg )
 {
   cfg->setValue ( "WebDatabase/DefaultQuota", m_dbQuota->value() );
-  cfg->setValue ( "WebDatabase/EnablePersistentStorage", m_persistentStorage->isChecked() );
+  cfg->setValue ( "LocalStorageEnabled", m_localStorage->isChecked() );
+  cfg->setValue ( "OfflineStorageDatabaseEnabled", m_offlineStorageDatabase->isChecked() );
+  cfg->setValue ( "OfflineWebApplicationCacheEnabled", m_offlineWebApplicationCache->isChecked() );
+  cfg->setValue ( "RemoveHTML5Databases", m_removeDatabases->isChecked() );
   saveSQLData();
 }
 

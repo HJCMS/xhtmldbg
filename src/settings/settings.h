@@ -57,6 +57,9 @@ class Settings : public QSettings
   public:
     Settings ( QObject * parent = 0 );
 
+    /** Default Data Location */
+    static const QString dataLocation();
+
     /** Default Cache Location */
     static const QString cacheLocation();
 

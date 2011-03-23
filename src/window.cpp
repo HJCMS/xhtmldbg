@@ -98,6 +98,7 @@
 #include <QtNetwork/QAbstractNetworkCache>
 
 /* QtWebKit */
+#include <QtWebKit/QWebDatabase>
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebPage>
 
@@ -747,6 +748,10 @@ void Window::closeEvent ( QCloseEvent *event )
   // Plugins entladen
   unregisterDatabases ();
   unregisterPlugins ();
+
+  // HTML 5 SQLite Datenbanken entfernen?
+//   if ( m_settings->value( "RemoveHTML5Databases" ).toBool() )
+//     QWebDatabase::removeAllDatabases();
 
   // Jetzt den Fenster Status Speichern
   m_settings->setValue ( "Window/MainWindowState", saveState() );

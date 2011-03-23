@@ -53,9 +53,7 @@ static inline const QHash<QString,bool> default_web_settings()
 {
   QHash<QString,bool> hash;
   hash.insert ( "AutoLoadImages", true );
-#if QT_VERSION >= 0x040600
   hash.insert ( "DnsPrefetchEnabled", true );
-#endif
   hash.insert ( "JavascriptEnabled", true );
   hash.insert ( "JavaEnabled", false );
   hash.insert ( "PluginsEnabled", false );
@@ -67,12 +65,6 @@ static inline const QHash<QString,bool> default_web_settings()
   hash.insert ( "LinksIncludedInFocusChain", false );
   hash.insert ( "ZoomTextOnly", true );
   hash.insert ( "PrintElementBackgrounds", false );
-  hash.insert ( "OfflineStorageDatabaseEnabled", true );
-  hash.insert ( "OfflineWebApplicationCacheEnabled", true );
-  hash.insert ( "LocalStorageEnabled", true );
-  // DEPRECATED LocalStorageDatabaseEnabled
-  hash.insert ( "LocalStorageDatabaseEnabled", true );
-#if QT_VERSION >= 0x040700
   hash.insert ( "LocalContentCanAccessRemoteUrls", true );
   hash.insert ( "LocalContentCanAccessFileUrls", true );
   hash.insert ( "XSSAuditingEnabled", false );
@@ -81,7 +73,10 @@ static inline const QHash<QString,bool> default_web_settings()
   hash.insert ( "FrameFlatteningEnabled", false );
   hash.insert ( "SiteSpecificQuirksEnabled", false );
   hash.insert ( "TiledBackingStoreEnabled", false );
-#endif
+// NOTE Wird in WebSettings::setAttributes() gesetzt!
+//   hash.insert ( "LocalStorageEnabled", false );
+//   hash.insert ( "OfflineStorageDatabaseEnabled", false );
+//   hash.insert ( "OfflineWebApplicationCacheEnabled", false );
   return hash;
 }
 
@@ -89,9 +84,7 @@ static const inline QHash<QString,QWebSettings::WebAttribute> supported_attribut
 {
   QHash<QString,QWebSettings::WebAttribute> hash;
   hash.insert ( "AutoLoadImages", QWebSettings::AutoLoadImages );
-#if QT_VERSION >= 0x040600
   hash.insert ( "DnsPrefetchEnabled", QWebSettings::DnsPrefetchEnabled );
-#endif
   hash.insert ( "JavascriptEnabled", QWebSettings::JavascriptEnabled );
   hash.insert ( "JavaEnabled", QWebSettings::JavaEnabled );
   hash.insert ( "PluginsEnabled", QWebSettings::PluginsEnabled );
@@ -103,12 +96,6 @@ static const inline QHash<QString,QWebSettings::WebAttribute> supported_attribut
   hash.insert ( "LinksIncludedInFocusChain", QWebSettings::LinksIncludedInFocusChain );
   hash.insert ( "ZoomTextOnly", QWebSettings::ZoomTextOnly );
   hash.insert ( "PrintElementBackgrounds", QWebSettings::PrintElementBackgrounds );
-  hash.insert ( "OfflineStorageDatabaseEnabled", QWebSettings::OfflineStorageDatabaseEnabled );
-  hash.insert ( "OfflineWebApplicationCacheEnabled", QWebSettings::OfflineWebApplicationCacheEnabled );
-  hash.insert ( "LocalStorageEnabled", QWebSettings::LocalStorageEnabled );
-  // DEPRECATED LocalStorageDatabaseEnabled
-  hash.insert ( "LocalStorageDatabaseEnabled", QWebSettings::LocalStorageDatabaseEnabled );
-#if QT_VERSION >= 0x040700
   hash.insert ( "LocalContentCanAccessRemoteUrls", QWebSettings::LocalContentCanAccessRemoteUrls );
   hash.insert ( "LocalContentCanAccessFileUrls", QWebSettings::LocalContentCanAccessFileUrls );
   hash.insert ( "XSSAuditingEnabled", QWebSettings::XSSAuditingEnabled );
@@ -117,8 +104,6 @@ static const inline QHash<QString,QWebSettings::WebAttribute> supported_attribut
   hash.insert ( "FrameFlatteningEnabled", QWebSettings::FrameFlatteningEnabled );
   hash.insert ( "SiteSpecificQuirksEnabled", QWebSettings::SiteSpecificQuirksEnabled );
   hash.insert ( "TiledBackingStoreEnabled", QWebSettings::TiledBackingStoreEnabled );
-#endif
-
   return hash;
 }
 
@@ -147,22 +132,19 @@ void WebSettings::setWebinspectorConfig ( bool b )
   // Panel
   setValue ( p + "panelEnablerView", b );
   setValue ( p + "panelEnablerView.type", "bool" );
-
-#if QT_VERSION >= 0x040700
   // Audits
   setValue ( p + "auditsPanelEnabled", b );
   setValue ( p + "auditsPanelEnabled.type", "bool" );
-#endif
 }
 
 void WebSettings::setPaths()
 {
+  // NOTE Muss vor Storage,Icon und Offline stehen!
+  QWebSettings::enablePersistentStorage ( dataLocation() );
   m_ws->setLocalStoragePath ( webLocalStoragePath() );
   m_ws->setIconDatabasePath ( webDatabasePath() );
   m_ws->setOfflineStoragePath ( webDatabasePath() );
   m_ws->setOfflineWebApplicationCachePath ( webDatabasePath() );
-  if ( value ( "WebDatabase/EnablePersistentStorage" ).toBool() )
-    QWebSettings::enablePersistentStorage ( webDatabasePath() );
 }
 
 /**
@@ -186,6 +168,10 @@ void WebSettings::setAttributes()
     bool fallback = defaults[ it.key() ];
     m_ws->setAttribute ( it.value(), value ( it.key(), fallback ).toBool() );
   }
+  // HTML 5 Extras Verarbeiten
+  m_ws->setAttribute ( QWebSettings::LocalStorageEnabled, value ( "LocalStorageEnabled" ).toBool() );
+  m_ws->setAttribute ( QWebSettings::OfflineStorageDatabaseEnabled, value ( "OfflineStorageDatabaseEnabled" ).toBool() );
+  m_ws->setAttribute ( QWebSettings::OfflineWebApplicationCacheEnabled, value ( "OfflineWebApplicationCacheEnabled" ).toBool() );
 }
 
 void WebSettings::setFonts()
