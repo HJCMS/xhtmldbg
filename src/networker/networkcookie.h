@@ -48,11 +48,12 @@ class NetworkCookie : public QNetworkCookieJar
     NetworkSettings* m_netcfg;
     AutoSaver* m_autoSaver;
     CookieManager* m_cookieManager;
+    mutable QUrl currentUrl;
     QStringList inProgress;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;
     bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
-    const QDateTime cookieLifeTime();
+    inline const QDateTime cookieLifeTime();
     void load();
     bool isThirdPartyDomain ( const QString &, const QUrl & ) const;
 

@@ -46,6 +46,7 @@ NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
     , m_cookieManager ( new CookieManager ( this ) )
+    , currentUrl ( "http://localhost" )
 {
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
@@ -187,10 +188,12 @@ void NetworkCookie::save()
 }
 
 /**
-* DEPRECATED Diese Methode wird nicht mehr benötigt!
+* Diese Methode wird nicht mehr benötigt!
 */
 void NetworkCookie::setUrl ( const QUrl &url )
-{}
+{
+  currentUrl = url;
+}
 
 /**
 * Versucht an hand der aktuellen Anfrage URL und
@@ -328,7 +331,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
-  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
+  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
 
   // Eine Kopie von "url" erstellen und bereinigen
   QUrl cookieUrl;
