@@ -3,6 +3,7 @@
 
 ADD_SUBDIRECTORY (selfhtmlsidebar)
 ADD_SUBDIRECTORY (rfcbrowser)
+ADD_SUBDIRECTORY (keywordeditor)
 
 ## Development Template Data
 INSTALL (FILES

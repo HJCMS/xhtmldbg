@@ -65,6 +65,7 @@ RFCBrowser::RFCBrowser ( QObject * parent )
   dialog->setWindowTitle ( i18n ( "RFC Document Browser" ) );
 
   QVBoxLayout* vLayout = new QVBoxLayout ( dialog );
+  dialog->setLayout ( vLayout );
 
   rfcselecter = new QComboBox ( dialog );
   rfcselecter->setObjectName ( QLatin1String ( "rfcselecter" ) );
