@@ -28,16 +28,16 @@
 /* QtGui */
 #include <QtGui/QWidget>
 
-class KeywordsDom;
+class KeywordsTable;
 
-class KeywordsWidget : public QWidget
+class Q_DECL_EXPORT KeywordsWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    KeywordsDom* xml;
+    KeywordsTable* m_table;
 
   public:
     KeywordsWidget ( QWidget * parent = 0 );

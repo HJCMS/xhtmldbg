@@ -19,28 +19,43 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef KEYWORDSDOM_H
-#define KEYWORDSDOM_H
+#ifndef KEYWORDSTABLE_H
+#define KEYWORDSTABLE_H
 
 /* QtCore */
+#include <QtCore/QModelIndex>
 #include <QtCore/QObject>
-#include <QtCore/QStringList>
+#include <QtCore/QString>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-#include <QtXml/QDomNode>
-#include <QtXml/QDomNodeList>
+/* QtGui */
+#include <QtGui/QAction>
+#include <QtGui/QTableView>
+#include <QtGui/QWidget>
 
-class Q_DECL_EXPORT KeywordsDom : public QDomDocument
+class KeywordsDom;
+class KeywordsTableModel;
+
+class Q_DECL_EXPORT KeywordsTable : public QTableView
 {
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private:
+    KeywordsTableModel* m_model;
+    QAction* m_insert;
+    QAction* m_remove;
+
+  private Q_SLOTS:
+    void prepareModelIndex ( const QModelIndex &index );
+
+  Q_SIGNALS:
+    void itemClicked ( const QModelIndex &index );
+
   public:
-    explicit KeywordsDom ();
-    explicit KeywordsDom ( const QDomDocument & );
-    const QDomNode rootNode() const;
-    const QDomNode defaultNode() const;
-    const QDomNodeList keywordNodes() const;
-    const QStringList fileNamesList() const;
+    KeywordsTable ( QWidget * parent = 0 );
+    void setDomDocument ( const KeywordsDom &dom );
+    ~KeywordsTable();
 };
 
 #endif

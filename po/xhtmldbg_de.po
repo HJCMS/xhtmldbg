@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-23 17:21+0100\n"
-"PO-Revision-Date: 2011-03-23 17:27+0100\n"
+"POT-Creation-Date: 2011-03-25 18:01+0100\n"
+"PO-Revision-Date: 2011-03-25 18:04+0100\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -224,7 +224,8 @@ msgstr ""
 
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
-#: src/downloadmanager/downloadstablemodel.cpp:267 src/webviewer.cpp:287
+#: src/downloadmanager/downloadstablemodel.cpp:267
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:76 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -1009,7 +1010,9 @@ msgstr "Aktiviere die Unterstützung für Web- Anwendungen"
 
 #: src/configuration/configwebsecurity.cpp:135
 msgid "remove databases on application exit (Warning all table setting lost)"
-msgstr "Entferne Datenbanken beim Programmende (Warnung alle Tabellen Inhalte gehen verloren)"
+msgstr ""
+"Entferne Datenbanken beim Programmende (Warnung alle Tabellen Inhalte gehen "
+"verloren)"
 
 #: src/configuration/configwebsecurity.cpp:144
 msgid "default security origin quota for new databases"
@@ -1509,6 +1512,7 @@ msgid "JavaScript Impartations"
 msgstr "JavaScript Mitteilungen"
 
 #: src/keywordstoolbar.cpp:45 src/keywordstoolbar.cpp:64
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:73
 msgid "Keywords"
 msgstr "Schlüsselwörter"
 
@@ -1853,7 +1857,7 @@ msgstr ""
 "Mehrere Möglichkeiten mit Content-Location header bei POST anfragen "
 "erhalten. Achtung - Viele Webserver steht es frei dies zu Ignorieren. (300)"
 
-#: src/networker/networkcookie.cpp:105
+#: src/networker/networkcookie.cpp:106
 msgid ""
 "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by "
 "RFC 2109."
@@ -1861,7 +1865,7 @@ msgstr ""
 "Unzulässiges Cookie Format für \"%1\" und Keks Domäne \"%2\", zurückgewiesen "
 "wegen RFC 2109."
 
-#: src/networker/networkcookie.cpp:113
+#: src/networker/networkcookie.cpp:114
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
@@ -1869,35 +1873,35 @@ msgstr ""
 "Das setzen eines Cookies mit der Domäne=%1, wird zurück gewiesen. Weil die "
 "Domäne nicht mit einem Punkt beginnt."
 
-#: src/networker/networkcookie.cpp:119
+#: src/networker/networkcookie.cpp:120
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
 "Das setzen eines Cookies mit einem Punkt am Ende der Domäne=%1, wird immer "
 "zurück gewiesen."
 
-#: src/networker/networkcookie.cpp:125
+#: src/networker/networkcookie.cpp:126
 msgid "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück "
 "gewiesen."
 
-#: src/networker/networkcookie.cpp:154
+#: src/networker/networkcookie.cpp:155
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr "Unterschiede bei Cookie/Domäne und Hostname %1 (Zurück gewiesen)"
 
-#: src/networker/networkcookie.cpp:293
+#: src/networker/networkcookie.cpp:296
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr "Wegen einer fehlerhaften URL wurde ein Cookie - zurückgewiesen!"
 
-#: src/networker/networkcookie.cpp:318
+#: src/networker/networkcookie.cpp:321
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr "Ein blockiertes Cookie für den Hostnamen \"%1\" wurde verworfen!"
 
-#: src/networker/networkcookie.cpp:324
+#: src/networker/networkcookie.cpp:327
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr "Drittanbieter Keks \"%1\" für den Host \"%2\" zurück gewiesen!"
 
-#: src/networker/networkcookie.cpp:382
+#: src/networker/networkcookie.cpp:385
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 "Vermisse das Optionale setzen des Cookie/Secure prädikats bei einer HTTPS "
@@ -1952,22 +1956,79 @@ msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
+#: src/plugins/keywordeditor/firstpagewidget.cpp:45
+msgid ""
+"This Editor will Help you to Build a individual list of keywords for your "
+"website"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:50
+msgid "open Keywordfile or click next for create a new file"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:70
+msgid "Open Keywords File"
+msgstr "Öffne Schlüsselwörter Datei"
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:60
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:73
+msgid "SEO Keyword Editor"
+msgstr "SEO Schlüsselwort Editor"
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:65
+msgid "Keyword Editor"
+msgstr "Schlüsselwort Editor"
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:69
+#: src/sourceviewer/contextmenu.cpp:81
+msgid "Editor"
+msgstr "Editor"
+
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:75
+msgid "Editor for creating SEO Keywords"
+msgstr "Ein Editor zum erstellen von SEO Schlüsselwörtern"
+
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
+msgid "Jürgen Heinemann (Undefined)"
+msgstr "Jürgen Heinemann (Undefined)"
+
+#: src/plugins/keywordeditor/keywordstable.cpp:52
+msgid "Insert"
+msgstr "Einfügen"
+
+#: src/plugins/keywordeditor/keywordstable.cpp:53
+msgid "insert row below"
+msgstr "Ein neue Zeile einfügen"
+
+#: src/plugins/keywordeditor/keywordstable.cpp:55
+msgid "Delete"
+msgstr "Entfernen"
+
+#: src/plugins/keywordeditor/keywordstable.cpp:56
+msgid "delete row"
+msgstr "Die Ausgewählte Zeile entfernen"
+
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:67
+msgid "Identifier"
+msgstr "Bezeichner"
+
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:70
+msgid "Filename"
+msgstr "Dateiname"
+
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:65
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:72
 msgid "RFC Document Browser"
 msgstr "RFC Dokumenten Browser"
 
-#: src/plugins/rfcbrowser/rfcbrowser.cpp:72
+#: src/plugins/rfcbrowser/rfcbrowser.cpp:73
 msgid "Change RFC Document"
 msgstr "Wähle ein RFC Dokument"
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:74
 msgid "Browse RFC Documents"
 msgstr "Dursuche RFC Dokumente"
-
-#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
-msgid "Jürgen Heinemann (Undefined)"
-msgstr "Jürgen Heinemann (Undefined)"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:115
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:116
@@ -2110,10 +2171,6 @@ msgstr "Drucken"
 #: src/sourceviewer/contextmenu.cpp:75
 msgid "Print current Document"
 msgstr "Drucke aktuelles Dokument"
-
-#: src/sourceviewer/contextmenu.cpp:81
-msgid "Editor"
-msgstr "Editor"
 
 #: src/sourceviewer/contextmenu.cpp:87
 msgid "Configuration"

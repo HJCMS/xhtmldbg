@@ -51,29 +51,27 @@ FirstPageWidget::FirstPageWidget ( QWidget * parent )
   label2->setWordWrap ( true );
   gridLayout->addWidget ( label2, 1, 0, 1, 2 );
 
-  QString t ( "/tmp/meta-keywords.xml" );
-  m_fileEdit = new QLineEdit ( t, this );
+  m_fileEdit = new QLineEdit ( this );
   gridLayout->addWidget ( m_fileEdit, 2, 0, 1, 1 );
 
   QToolButton* m_openFile =  new QToolButton ( this );
-  m_openFile->setIcon ( KIcon ( "quickopen-file" ) );
+  m_openFile->setIcon ( KIcon ( "document-open" ) );
   gridLayout->addWidget ( m_openFile, 2, 1, 1, 1 );
 
   setLayout ( gridLayout );
 
   connect ( m_openFile, SIGNAL ( clicked() ),
-            this, SLOT ( triggerFileDialog() ) );
+            this, SLOT ( triggerFileOpenDialog() ) );
 }
 
-void FirstPageWidget::triggerFileDialog()
+void FirstPageWidget::triggerFileOpenDialog()
 {
-  QString fp;
-  fp = KFileDialog::getOpenFileName ( KUrl (), QLatin1String ( "text/xml" ),
-                                      this, i18n ( "Open Keywords File" ) );
-  if ( !fp.isEmpty() )
+  QString f;
+  f = KFileDialog::getOpenFileName ( KUrl (), QLatin1String ( "text/xml" ), this, i18n ( "Open Keywords File" ) );
+  if ( !f.isEmpty() )
   {
-    m_fileEdit->setText ( fp );
-    emit fileChanged ( fp );
+    m_fileEdit->setText ( f );
+    emit fileChanged ( f );
   }
 }
 

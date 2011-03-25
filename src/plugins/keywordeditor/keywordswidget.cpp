@@ -21,6 +21,7 @@
 
 #include "keywordswidget.h"
 #include "keywordsdom.h"
+#include "keywordstable.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -29,6 +30,12 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 #include <QtCore/QVariant>
+
+/* QtGui */
+// #include <QtGui/QLabel>
+// #include <QtGui/QHBoxLayout>
+// #include <QtGui/QStandardItem>
+#include <QtGui/QVBoxLayout>
 
 /* QtXml */
 #include <QtXml/QDomDocument>
@@ -39,9 +46,12 @@
 
 KeywordsWidget::KeywordsWidget ( QWidget * parent )
     : QWidget ( parent )
-    , xml ( 0 )
 {
   setObjectName ( QLatin1String ( "KeywordsWidget" ) );
+  QVBoxLayout* vLayout = new QVBoxLayout ( this );
+  m_table = new KeywordsTable ( this );
+  vLayout->addWidget ( m_table );
+  setLayout ( vLayout );
 }
 
 bool KeywordsWidget::setContent ( const QString &filePath )
@@ -54,8 +64,12 @@ bool KeywordsWidget::setContent ( const QString &filePath )
     int errorLine;
     if ( dom.setContent ( &fp, true, &errorMsg, &errorLine ) )
     {
-      xml = new KeywordsDom ( dom );
-      return true;
+      KeywordsDom xml( dom );
+      if ( ! xml.isNull() )
+      {
+        m_table->setDomDocument ( xml );
+        return true;
+      }
     }
     else
       qWarning ( "(XHTMLDBG) Can not open Keyword File \"%s\" %d.", qPrintable ( errorMsg ), errorLine );

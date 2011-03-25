@@ -19,28 +19,14 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef KEYWORDSDOM_H
-#define KEYWORDSDOM_H
+#include "keywordstableitem.h"
 
 /* QtCore */
-#include <QtCore/QObject>
-#include <QtCore/QStringList>
+#include <QtCore/QDebug>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-#include <QtXml/QDomNode>
-#include <QtXml/QDomNodeList>
-
-class Q_DECL_EXPORT KeywordsDom : public QDomDocument
-{
-  public:
-    explicit KeywordsDom ();
-    explicit KeywordsDom ( const QDomDocument & );
-    const QDomNode rootNode() const;
-    const QDomNode defaultNode() const;
-    const QDomNodeList keywordNodes() const;
-    const QStringList fileNamesList() const;
-};
-
-#endif
+KeywordsTableItem::KeywordsTableItem ( const QString &identifier, const QString &filename,
+                                       const QStringList &keywords )
+    : id ( identifier )
+    , file ( filename )
+    , words ( keywords )
+{}

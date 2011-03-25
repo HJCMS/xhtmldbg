@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-23 17:21+0100\n"
+"POT-Creation-Date: 2011-03-25 18:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -205,7 +205,8 @@ msgstr ""
 
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
-#: src/downloadmanager/downloadstablemodel.cpp:267 src/webviewer.cpp:287
+#: src/downloadmanager/downloadstablemodel.cpp:267
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:76 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr ""
 
@@ -1428,6 +1429,7 @@ msgid "JavaScript Impartations"
 msgstr ""
 
 #: src/keywordstoolbar.cpp:45 src/keywordstoolbar.cpp:64
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:73
 msgid "Keywords"
 msgstr ""
 
@@ -1746,44 +1748,44 @@ msgid ""
 "Webservers are free to ignore this. (300)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:105
+#: src/networker/networkcookie.cpp:106
 msgid ""
 "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by "
 "RFC 2109."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:113
+#: src/networker/networkcookie.cpp:114
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:119
+#: src/networker/networkcookie.cpp:120
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:125
+#: src/networker/networkcookie.cpp:126
 msgid ""
 "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:154
+#: src/networker/networkcookie.cpp:155
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:293
+#: src/networker/networkcookie.cpp:296
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:318
+#: src/networker/networkcookie.cpp:321
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:324
+#: src/networker/networkcookie.cpp:327
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:382
+#: src/networker/networkcookie.cpp:385
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
@@ -1836,21 +1838,78 @@ msgstr ""
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
+#: src/plugins/keywordeditor/firstpagewidget.cpp:45
+msgid ""
+"This Editor will Help you to Build a individual list of keywords for your "
+"website"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:50
+msgid "open Keywordfile or click next for create a new file"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:70
+msgid "Open Keywords File"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:60
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:73
+msgid "SEO Keyword Editor"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:65
+msgid "Keyword Editor"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:69
+#: src/sourceviewer/contextmenu.cpp:81
+msgid "Editor"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:75
+msgid "Editor for creating SEO Keywords"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
+msgid "Jürgen Heinemann (Undefined)"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstable.cpp:52
+msgid "Insert"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstable.cpp:53
+msgid "insert row below"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstable.cpp:55
+msgid "Delete"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstable.cpp:56
+msgid "delete row"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:67
+msgid "Identifier"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:70
+msgid "Filename"
+msgstr ""
+
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:65
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:72
 msgid "RFC Document Browser"
 msgstr ""
 
-#: src/plugins/rfcbrowser/rfcbrowser.cpp:72
+#: src/plugins/rfcbrowser/rfcbrowser.cpp:73
 msgid "Change RFC Document"
 msgstr ""
 
 #: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:74
 msgid "Browse RFC Documents"
-msgstr ""
-
-#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
-msgid "Jürgen Heinemann (Undefined)"
 msgstr ""
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebar.cpp:115
@@ -1993,10 +2052,6 @@ msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:75
 msgid "Print current Document"
-msgstr ""
-
-#: src/sourceviewer/contextmenu.cpp:81
-msgid "Editor"
 msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:87

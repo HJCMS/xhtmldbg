@@ -40,11 +40,6 @@ KeywordsDom::KeywordsDom () : QDomDocument ()
 KeywordsDom::KeywordsDom ( const QDomDocument &parent )  : QDomDocument ( parent )
 {}
 
-KeywordsDom& KeywordsDom::operator= ( const KeywordsDom &x )
-{
-  return static_cast<KeywordsDom&> ( QDomDocument::operator= ( x ) );
-}
-
 const QDomNode KeywordsDom::rootNode() const
 {
   return firstChildElement ( "tags" );
@@ -55,7 +50,7 @@ const QDomNode KeywordsDom::defaultNode() const
   return rootNode().firstChildElement ( "default" );
 }
 
-const QDomNodeList KeywordsDom::keywordNodes()
+const QDomNodeList KeywordsDom::keywordNodes() const
 {
   if ( rootNode().hasChildNodes() )
     return elementsByTagName ( QLatin1String ( "keywords" ) );
@@ -63,7 +58,7 @@ const QDomNodeList KeywordsDom::keywordNodes()
     return QDomNodeList();
 }
 
-const QStringList KeywordsDom::fileNamesList()
+const QStringList KeywordsDom::fileNamesList() const
 {
   QStringList list;
   QDomNodeList nodes = keywordNodes();

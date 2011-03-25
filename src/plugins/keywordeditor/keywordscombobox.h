@@ -19,28 +19,34 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef KEYWORDSDOM_H
-#define KEYWORDSDOM_H
+#ifndef KEYWORDSCOMBOBOX_H
+#define KEYWORDSCOMBOBOX_H
 
 /* QtCore */
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-#include <QtXml/QDomNode>
-#include <QtXml/QDomNodeList>
+/* QtGui */
+#include <QtGui/QComboBox>
+#include <QtGui/QWidget>
 
-class Q_DECL_EXPORT KeywordsDom : public QDomDocument
+class Q_DECL_EXPORT KeywordsComboBox : public QComboBox
 {
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+
+  private Q_SLOTS:
+    void updateItemList ( const QString & );
+
+  public Q_SLOTS:
+    void setText ( const QString & );
+
   public:
-    explicit KeywordsDom ();
-    explicit KeywordsDom ( const QDomDocument & );
-    const QDomNode rootNode() const;
-    const QDomNode defaultNode() const;
-    const QDomNodeList keywordNodes() const;
-    const QStringList fileNamesList() const;
+    explicit KeywordsComboBox ( QWidget * parent = 0 );
+    const QString text();
+    ~KeywordsComboBox();
 };
 
 #endif

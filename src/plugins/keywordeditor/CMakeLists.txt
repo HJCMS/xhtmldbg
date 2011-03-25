@@ -10,6 +10,11 @@ SET(plugin_SOURCES
   keywordeditor.cpp
   keywordsdom.cpp
   firstpagewidget.cpp
+  keywordstableitem.cpp
+  keywordstable.cpp
+  keywordstablemodel.cpp
+  keywordscombobox.cpp
+  keywordstabledelegation.cpp
   keywordswidget.cpp
   keywordeditorplugin.cpp
 )
@@ -17,11 +22,16 @@ SET(plugin_SOURCES
 SET(plugin_HEADERS
   keywordeditor.h
   firstpagewidget.h
+  keywordstable.h
+  keywordstablemodel.h
+  keywordscombobox.h
+  keywordstabledelegation.h
   keywordswidget.h
   keywordeditorplugin.h
 )
 
 SET(plugin_NOMOC_HEADERS
+  keywordstableitem.h
   keywordsdom.h
 )
 
