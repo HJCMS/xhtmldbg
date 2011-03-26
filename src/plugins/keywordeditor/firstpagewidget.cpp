@@ -50,7 +50,7 @@ FirstPageWidget::FirstPageWidget ( QWidget * parent )
   QLabel* sourceLabel = new QLabel ( this );
   sourceLabel->setStyleSheet ( "*{background-color:white;padding:5px 5px 5px 5px;}" );
   sourceLabel->setWordWrap ( true );
-  sourceLabel->setText ( QString::fromUtf8 ( "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;<br />&lt;tags xmlns=\"http://www.w3.org/2001/XMLSchema/\"&gt;<br /> &lt;default&gt;&lt;![CDATA[fallback,keyword,list]]&gt;&lt;/default&gt;<br /> &lt;keywords id=\"identifier\" file=\"filename.html\"&gt;&lt;![CDATA[xhtmldbg,debugger]]&gt;&lt;/keywords&gt;<br />&lt;/tags&gt;<br />" ) );
+  sourceLabel->setText ( QString::fromUtf8 ( "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;<br />&lt;tags xmlns:xml=\"http://www.w3.org/2001/XMLSchema/\"&gt;<br /> &lt;default&gt;&lt;![CDATA[fallback,keyword,list]]&gt;&lt;/default&gt;<br /> &lt;keywords id=\"identifier\" file=\"filename.html\"&gt;&lt;![CDATA[xhtmldbg,debugger]]&gt;&lt;/keywords&gt;<br />&lt;/tags&gt;<br />" ) );
   gridLayout->addWidget ( sourceLabel, 1, 0, 1, 2 );
 
   gridLayout->setRowStretch ( 2, 1 ); //Spacer

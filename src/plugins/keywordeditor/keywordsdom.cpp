@@ -36,7 +36,7 @@ KeywordsDom::KeywordsDom () : QDomDocument ()
 {
   appendChild ( createProcessingInstruction ( "xml", "version=\"1.0\" encoding=\"utf-8\"" ) );
   QDomElement rootNode = createElement ( "tags" );
-  rootNode.setAttribute ( "xmlns", "http://www.w3.org/2001/XMLSchema/" );
+  rootNode.setAttribute ( "xmlns:xml", "http://www.w3.org/2001/XMLSchema/" );
   rootNode.appendChild ( createElement ( "default" ) );
   appendChild ( rootNode );
 }
