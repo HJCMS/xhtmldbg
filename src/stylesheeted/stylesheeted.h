@@ -39,7 +39,6 @@
 #include <QtWebKit/QWebElement>
 
 class ColorChooserWidget;
-class BorderStyle;
 class ActionToolBar;
 class Predicates;
 class FontStyle;
@@ -55,7 +54,6 @@ class StyleSheeted : public KDialog
     QWebElement htmlElement;
     KTabWidget* m_tabWidget;
     ColorChooserWidget* m_colorChooserWidget;
-    BorderStyle* m_borderStyle;
     FontStyle* m_fontStyle;
     ActionToolBar* m_actionToolBar;
     Predicates* m_predicates;

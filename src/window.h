@@ -76,12 +76,14 @@ class AutoReloadMenu;
 class StatusBar;
 class AutoReloader;
 class DomInspector;
-class FormManager;
 class WebInspector;
 class ColorPicker;
 class HeaderDock;
 class CSSValidator;
 class xhtmldbgplugger;
+#ifdef _XHTMLDBG_EXPERIMENTAL
+class FormManager;
+#endif
 
 namespace xhtmldbg
 {
@@ -155,8 +157,10 @@ class Window : public KMainWindow
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
+#ifdef _XHTMLDBG_EXPERIMENTAL
     // Formular Manager
     FormManager* m_formManager;
+#endif
     // WebInspector
     WebInspector* m_webInspector;
     // Source Cache

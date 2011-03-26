@@ -23,7 +23,6 @@
 #include "colorchooserwidget.h"
 #include "actiontoolbar.h"
 #include "predicates.h"
-#include "borderstyle.h"
 #include "fontstyle.h"
 
 /* QtCore */
@@ -73,13 +72,6 @@ StyleSheeted::StyleSheeted ( const QWebElement &element, QWidget * parent )
   m_tabWidget->setTabIcon ( 0, KIcon ( "preferences-desktop-color" ) );
   // } ColorWidget
 
-  // BorderStyle {
-  m_borderStyle = new  BorderStyle ( m_tabWidget );
-  m_tabWidget->insertTab ( 1, m_borderStyle, i18n ( "Border" ) );
-  m_tabWidget->setTabIcon ( 1, KIcon ( "edit-text-frame-update" ) );
-  // m_borderStyle->();
-  // } BorderStyle
-
   // FontStyle {
   m_fontStyle = new  FontStyle ( m_tabWidget );
   m_fontStyle->readFontAttributes ( htmlElement );
@@ -122,10 +114,6 @@ void StyleSheeted::colorChanged ( const QColor &color )
   {
     case ActionToolBar::FOREGROUND:
       param = QLatin1String ( "color" );
-      break;
-
-    case ActionToolBar::BORDER:
-      param = QLatin1String ( "border-color" );
       break;
 
     default:

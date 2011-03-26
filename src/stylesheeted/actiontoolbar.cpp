@@ -45,6 +45,7 @@ ColorGroup::ColorGroup ( KToolBar * parent )
   m_foreground = new QRadioButton ( i18n ( "Foreground" ), this );
   layout->addWidget ( m_foreground );
 
+  layout->addStretch ( 1 );
   setLayout ( layout );
 }
 
