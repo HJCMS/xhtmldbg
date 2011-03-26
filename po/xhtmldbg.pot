@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-25 18:01+0100\n"
+"POT-Creation-Date: 2011-03-26 11:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,7 +206,7 @@ msgstr ""
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267
-#: src/plugins/keywordeditor/keywordstablemodel.cpp:76 src/webviewer.cpp:287
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr ""
 
@@ -1429,7 +1429,7 @@ msgid "JavaScript Impartations"
 msgstr ""
 
 #: src/keywordstoolbar.cpp:45 src/keywordstoolbar.cpp:64
-#: src/plugins/keywordeditor/keywordstablemodel.cpp:73
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:76
 msgid "Keywords"
 msgstr ""
 
@@ -1838,32 +1838,40 @@ msgstr ""
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:45
+#: src/plugins/keywordeditor/firstpagewidget.cpp:46
 msgid ""
-"This Editor will Help you to Build a individual list of keywords for your "
-"website"
+"This editor will help you to build an individual keywords listing for your "
+"website.<br/>It create an XML Document with following sheme:"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:50
-msgid "open Keywordfile or click next for create a new file"
+#: src/plugins/keywordeditor/firstpagewidget.cpp:59
+msgid ""
+"Open existing keyword file or click next to create a new keyword listing:"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:70
+#: src/plugins/keywordeditor/firstpagewidget.cpp:79
 msgid "Open Keywords File"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditor.cpp:60
+#: src/plugins/keywordeditor/keywordeditor.cpp:63
 #: src/plugins/keywordeditor/keywordeditorplugin.cpp:73
 msgid "SEO Keyword Editor"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditor.cpp:65
-msgid "Keyword Editor"
+#: src/plugins/keywordeditor/keywordeditor.cpp:68
+msgid "Open Keyword File"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditor.cpp:69
-#: src/sourceviewer/contextmenu.cpp:81
-msgid "Editor"
+#: src/plugins/keywordeditor/keywordeditor.cpp:72
+msgid "Edit Keyword File"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:76
+msgid "Document Preview"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordeditor.cpp:96
+msgid "Save Keywords File"
 msgstr ""
 
 #: src/plugins/keywordeditor/keywordeditorplugin.cpp:75
@@ -1891,12 +1899,16 @@ msgstr ""
 msgid "delete row"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordstablemodel.cpp:67
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:70
 msgid "Identifier"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordstablemodel.cpp:70
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:73
 msgid "Filename"
+msgstr ""
+
+#: src/plugins/keywordeditor/keywordswidget.cpp:66
+msgid "fallback keywords for missing sites"
 msgstr ""
 
 #: src/plugins/rfcbrowser/rfcbrowser.cpp:65
@@ -2052,6 +2064,10 @@ msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:75
 msgid "Print current Document"
+msgstr ""
+
+#: src/sourceviewer/contextmenu.cpp:81
+msgid "Editor"
 msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:87

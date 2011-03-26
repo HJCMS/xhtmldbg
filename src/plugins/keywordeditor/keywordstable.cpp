@@ -59,8 +59,8 @@ KeywordsTable::KeywordsTable ( QWidget * parent )
   insertAction ( m_insert, m_remove );
 
   // Signals
-  connect ( m_insert, SIGNAL ( triggered () ), m_model, SLOT ( actionInsertRow() ) );
-  connect ( m_remove, SIGNAL ( triggered() ), m_model, SLOT ( actionDeleteRow() ) );
+  connect ( m_insert, SIGNAL ( triggered () ), this, SLOT ( actionInsertRow() ) );
+  connect ( m_remove, SIGNAL ( triggered() ), this, SLOT ( actionDeleteRow() ) );
 
   connect ( this, SIGNAL ( clicked ( const QModelIndex & ) ),
             this, SLOT ( prepareModelIndex ( const QModelIndex & ) ) );
@@ -73,17 +73,42 @@ void KeywordsTable::prepareModelIndex ( const QModelIndex &index )
     emit itemClicked ( index );
 }
 
+void KeywordsTable::actionInsertRow()
+{
+  if ( m_model->insertRow ( 0, QModelIndex() ) )
+    showRow ( 0 );
+}
+
+void KeywordsTable::actionDeleteRow()
+{
+  if ( currentIndex ().isValid() )
+  {
+    QModelIndex index = currentIndex();
+    m_model->removeRow ( index.row(), index.parent() );
+  }
+}
+
 void KeywordsTable::setDomDocument ( const KeywordsDom &dom )
 {
-  QDomNodeList nodes = dom.keywordNodes();
-  int size = nodes.size();
+  QList<KeywordsTableItem*> list = dom.keywordsItemList();
+  int size = list.size();
   for ( int i = 0; i < size; ++i )
   {
-    QDomElement element = nodes.at ( i ).toElement();
-    m_model->insertRowItem ( new KeywordsTableItem ( element.attribute ( "id",QString::number ( i ) ),
-                             element.attribute ( "file","index" ),
-                             element.text().split ( "," ) ) );
+    m_model->insertRowItem ( list.at ( i ) );
   }
+}
+
+const QList<KeywordsTableItem*> KeywordsTable::keywords()
+{
+  QList<KeywordsTableItem*> keys;
+  int rows = m_model->rowCount();
+  for ( int r = 0; r < rows; ++r )
+  {
+    KeywordsTableItem* item = m_model->rowItem ( r );
+    if ( item )
+      keys.append ( item );
+  }
+  return keys;
 }
 
 KeywordsTable::~KeywordsTable()

@@ -17,6 +17,7 @@ SET(plugin_SOURCES
   keywordstabledelegation.cpp
   keywordswidget.cpp
   keywordeditorplugin.cpp
+  finaliseswidget.cpp
 )
 
 SET(plugin_HEADERS
@@ -28,6 +29,7 @@ SET(plugin_HEADERS
   keywordstabledelegation.h
   keywordswidget.h
   keywordeditorplugin.h
+  finaliseswidget.h
 )
 
 SET(plugin_NOMOC_HEADERS
@@ -54,9 +56,7 @@ TARGET_LINK_LIBRARIES (${target_plugin}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QT_QTDBUS_LIBRARY}
-  ${KDE4_KDECORE_LIBRARY}
-  ${KDE4_KDEUI_LIBRARY}
-  ${KDE4_KFILE_LIBRARY}
+  ${XHTMLDBG_KDE_LIBRARIES}
   xhtmldbginterface
 )
 

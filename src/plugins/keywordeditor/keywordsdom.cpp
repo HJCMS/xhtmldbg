@@ -20,10 +20,14 @@
 **/
 
 #include "keywordsdom.h"
+#include "keywordstableitem.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QFile>
+#include <QtCore/QIODevice>
 #include <QtCore/QString>
+#include <QtCore/QTextStream>
 
 /* QtXml */
 #include <QtXml/QDomProcessingInstruction>
@@ -37,37 +41,84 @@ KeywordsDom::KeywordsDom () : QDomDocument ()
   appendChild ( rootNode );
 }
 
-KeywordsDom::KeywordsDom ( const QDomDocument &parent )  : QDomDocument ( parent )
-{}
-
-const QDomNode KeywordsDom::rootNode() const
+QDomNode KeywordsDom::rootNode()
 {
   return firstChildElement ( "tags" );
 }
 
-const QDomNode KeywordsDom::defaultNode() const
-{
-  return rootNode().firstChildElement ( "default" );
-}
-
 const QDomNodeList KeywordsDom::keywordNodes() const
 {
-  if ( rootNode().hasChildNodes() )
+  if ( documentElement().hasChildNodes() )
     return elementsByTagName ( QLatin1String ( "keywords" ) );
   else
     return QDomNodeList();
 }
 
-const QStringList KeywordsDom::fileNamesList() const
+const QString KeywordsDom::defaultKeywords() const
 {
-  QStringList list;
+  return documentElement().firstChildElement ( "default" ).toElement().text();
+}
+
+void KeywordsDom::setDefaults ( const QStringList &keys )
+{
+  if ( keys.size() < 1 )
+    return;
+
+  QStringList buffer;
+  foreach ( QString k, keys )
+  {
+    QString key = k.trimmed();
+    if ( !key.isEmpty() )
+      buffer.append ( key );
+  }
+  buffer.sort();
+  rootNode().firstChildElement ( "default" ).appendChild ( createCDATASection ( buffer.join ( "," ) ) );
+}
+
+const QList<KeywordsTableItem*> KeywordsDom::keywordsItemList() const
+{
+  QList<KeywordsTableItem*> list;
   QDomNodeList nodes = keywordNodes();
-  for ( int i = 0; i < nodes.size(); ++i )
+  int size = nodes.size();
+  for ( int i = 0; i < size; ++i )
   {
     QDomElement element = nodes.at ( i ).toElement();
-    if ( element.hasAttribute ( QLatin1String ( "file" ) ) )
-      list.append ( element.attribute ( QLatin1String ( "file" ), QString::null ) );
+    list.append ( new KeywordsTableItem ( element.attribute ( "id",QString::number ( i ) ),
+                                          element.attribute ( "file","index" ),
+                                          element.text().split ( "," ) ) );
   }
   return list;
 }
 
+void KeywordsDom::setKeywords ( const QList<KeywordsTableItem*> &list )
+{
+  if ( list.size() < 1 )
+    return;
+
+  foreach ( KeywordsTableItem* item, list )
+  {
+    QDomElement keywords = createElement ( QLatin1String ( "keywords" ) );
+    keywords.setAttribute ( QLatin1String ( "id" ), item->id );
+    keywords.setAttribute ( QLatin1String ( "file" ), item->file );
+    keywords.appendChild ( createCDATASection ( item->words.join ( "," ) ) );
+    rootNode().appendChild ( keywords );
+  }
+}
+
+const QString KeywordsDom::dump() const
+{
+  return toString ( 1 );
+}
+
+bool KeywordsDom::saveDocument ( const QString &path ) const
+{
+  QFile fp ( path );
+  if ( fp.open ( QIODevice::WriteOnly ) )
+  {
+    QTextStream stream ( &fp );
+    stream << toString ( 1 );
+    fp.close();
+    return true;
+  }
+  return false;
+}

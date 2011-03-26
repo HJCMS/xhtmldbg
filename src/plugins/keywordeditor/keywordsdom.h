@@ -23,7 +23,9 @@
 #define KEYWORDSDOM_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QStringList>
 
 /* QtXml */
@@ -32,15 +34,24 @@
 #include <QtXml/QDomNode>
 #include <QtXml/QDomNodeList>
 
+class KeywordsTableItem;
+
 class Q_DECL_EXPORT KeywordsDom : public QDomDocument
 {
+  private:
+    QDomNode rootNode();
+    const QDomNodeList keywordNodes() const;
+
   public:
     explicit KeywordsDom ();
-    explicit KeywordsDom ( const QDomDocument & );
-    const QDomNode rootNode() const;
-    const QDomNode defaultNode() const;
-    const QDomNodeList keywordNodes() const;
-    const QStringList fileNamesList() const;
+    const QString defaultKeywords() const;
+    void setDefaults ( const QStringList &keys );
+
+    const QList<KeywordsTableItem*> keywordsItemList() const;
+    void setKeywords ( const QList<KeywordsTableItem*> &list );
+
+    const QString dump() const;
+    bool saveDocument ( const QString &path ) const;
 };
 
 #endif

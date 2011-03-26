@@ -23,12 +23,17 @@
 #define KeywordsWidget_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
+#include <QtGui/QTextEdit>
 #include <QtGui/QWidget>
 
 class KeywordsTable;
+class KeywordsDom;
 
 class Q_DECL_EXPORT KeywordsWidget : public QWidget
 {
@@ -38,10 +43,12 @@ class Q_DECL_EXPORT KeywordsWidget : public QWidget
 
   private:
     KeywordsTable* m_table;
+    QTextEdit* m_defaultKeywords;
 
   public:
     KeywordsWidget ( QWidget * parent = 0 );
     bool setContent ( const QString &filePath );
+    const KeywordsDom getDocument();
     ~KeywordsWidget();
 };
 

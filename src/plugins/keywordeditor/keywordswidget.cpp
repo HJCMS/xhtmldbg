@@ -22,6 +22,7 @@
 #include "keywordswidget.h"
 #include "keywordsdom.h"
 #include "keywordstable.h"
+#include "keywordstableitem.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -32,9 +33,9 @@
 #include <QtCore/QVariant>
 
 /* QtGui */
-// #include <QtGui/QLabel>
-// #include <QtGui/QHBoxLayout>
-// #include <QtGui/QStandardItem>
+#include <QtGui/QLabel>
+#include <QtGui/QSplitter>
+#include <QtGui/QSizePolicy>
 #include <QtGui/QVBoxLayout>
 
 /* QtXml */
@@ -49,8 +50,28 @@ KeywordsWidget::KeywordsWidget ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "KeywordsWidget" ) );
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
-  m_table = new KeywordsTable ( this );
-  vLayout->addWidget ( m_table );
+
+  QSplitter* m_splitter = new QSplitter ( Qt::Vertical, this );
+
+  // Schlüsselwort Tabelle
+  m_table = new KeywordsTable ( m_splitter );
+  m_splitter->insertWidget ( 0, m_table );
+
+  // Standard Schlüsselwörter
+  QWidget* defaultsWidget = new QWidget ( m_splitter );
+  defaultsWidget->setMinimumHeight ( 60 );
+  QVBoxLayout* subLayout = new QVBoxLayout ( defaultsWidget );
+  defaultsWidget->setLayout ( subLayout );
+
+  subLayout->addWidget ( new QLabel ( i18n ( "fallback keywords for missing sites" ), defaultsWidget ) );
+  m_defaultKeywords = new QTextEdit ( defaultsWidget );
+  subLayout->addWidget ( m_defaultKeywords );
+
+  m_splitter->insertWidget ( 1, defaultsWidget );
+  m_splitter->setCollapsible ( 1, true );
+
+  vLayout->addWidget ( m_splitter );
+
   setLayout ( vLayout );
 }
 
@@ -59,15 +80,15 @@ bool KeywordsWidget::setContent ( const QString &filePath )
   QFile fp ( filePath );
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
-    QDomDocument dom;
+    KeywordsDom dom;
     QString errorMsg;
     int errorLine;
     if ( dom.setContent ( &fp, true, &errorMsg, &errorLine ) )
     {
-      KeywordsDom xml( dom );
-      if ( ! xml.isNull() )
+      if ( ! dom.isNull() )
       {
-        m_table->setDomDocument ( xml );
+        m_table->setDomDocument ( dom );
+        m_defaultKeywords->setPlainText ( dom.defaultKeywords() );
         return true;
       }
     }
@@ -77,6 +98,14 @@ bool KeywordsWidget::setContent ( const QString &filePath )
     return false;
   }
   return false;
+}
+
+const KeywordsDom KeywordsWidget::getDocument()
+{
+  KeywordsDom dom;
+  dom.setDefaults ( m_defaultKeywords->toPlainText().split ( "," ) );
+  dom.setKeywords ( m_table->keywords() );
+  return dom;
 }
 
 KeywordsWidget::~KeywordsWidget()

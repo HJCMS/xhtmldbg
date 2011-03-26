@@ -38,8 +38,11 @@ KeywordsTableModel::KeywordsTableModel ( QTableView * parent )
     , items ()
 {
   setObjectName ( QLatin1String ( "KeywordsTableModel" ) );
+
   QHeaderView* header = parent->horizontalHeader ();
   header->setResizeMode ( QHeaderView::ResizeToContents );
+  header->setMovable ( false );
+  header->setDefaultAlignment ( Qt::AlignLeft );
   header->setStretchLastSection ( true );
 
   m_tableDelegation = new KeywordsTableDelegation ( parent );
@@ -153,16 +156,30 @@ QModelIndex KeywordsTableModel::index ( int row, int column, const QModelIndex &
   return createIndex ( row, column, items.size() );
 }
 
-void KeywordsTableModel::actionInsertRow()
+bool KeywordsTableModel::insertRow ( int row, const QModelIndex &parent )
 {
-  beginInsertRows ( QModelIndex(), items.size(), items.size() );
-  items.append ( new KeywordsTableItem ( "index", "index.html", QStringList ( "XHTMLDBG" ) ) );
+  if ( ( row < 0 ) || ( row > items.size() ) )
+    return false;
+
+  beginInsertRows ( parent, items.size(), items.size() );
+  items.prepend ( new KeywordsTableItem () );
   endInsertRows();
+  return true;
 }
 
-void KeywordsTableModel::actionDeleteRow()
+bool KeywordsTableModel::removeRow ( int row, const QModelIndex &parent )
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  if ( ( row < 0 ) || ( row > items.size() ) )
+    return false;
+
+  beginRemoveRows ( parent, row, row );
+  KeywordsTableItem* item = items.takeAt ( row );
+  endRemoveRows();
+
+  if ( item )
+    delete item;
+
+  return true;
 }
 
 void KeywordsTableModel::insertRowItem ( KeywordsTableItem * item )

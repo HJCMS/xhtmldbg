@@ -19,47 +19,35 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef KEYWORDEDITOR_H
-#define KEYWORDEDITOR_H
+#ifndef FINALISESWIDGET_H
+#define FINALISESWIDGET_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
+/* QtGui */
+#include <QtGui/QWidget>
+
 /* KDE */
-#include <KDE/KDialog>
-#include <KDE/KAssistantDialog>
-#include <KDE/KPageWidgetItem>
+#ifndef KDE_NO_DEBUG_OUTPUT
+# define KDE_NO_DEBUG_OUTPUT 1
+#endif
+#include <KDE/KTextEditor/Document>
 
-class FirstPageWidget;
-class KeywordsWidget;
-class FinalisesWidget;
-
-class Q_DECL_EXPORT KeywordEditor : public QObject
+class Q_DECL_EXPORT FinalisesWidget : public QWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    KAssistantDialog* dialog;
-    FirstPageWidget* m_firstPageWidget;
-    KeywordsWidget* m_keywordsWidget;
-    FinalisesWidget* m_finalisesWidget;
-    KPageWidgetItem* page1;
-    KPageWidgetItem* page2;
-    KPageWidgetItem* page3;
-    void saveKeywordFile();
-
-  private Q_SLOTS:
-    void currentPageChanged ( KPageWidgetItem *, KPageWidgetItem * );
-    void isClicked ( KDialog::ButtonCode );
-    void fileSelected ( const QString & );
+    KTextEditor::Document* m_document;
 
   public:
-    KeywordEditor ( QObject * parent = 0 );
-    Q_SCRIPTABLE void open();
-    ~KeywordEditor();
+    FinalisesWidget ( QWidget * parent = 0 );
+    void setContent ( const QString & );
+    ~FinalisesWidget();
 };
 
 #endif

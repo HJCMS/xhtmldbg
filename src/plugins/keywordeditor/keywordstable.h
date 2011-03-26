@@ -23,6 +23,7 @@
 #define KEYWORDSTABLE_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QModelIndex>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -34,6 +35,7 @@
 
 class KeywordsDom;
 class KeywordsTableModel;
+class KeywordsTableItem;
 
 class Q_DECL_EXPORT KeywordsTable : public QTableView
 {
@@ -48,6 +50,8 @@ class Q_DECL_EXPORT KeywordsTable : public QTableView
 
   private Q_SLOTS:
     void prepareModelIndex ( const QModelIndex &index );
+    void actionInsertRow();
+    void actionDeleteRow();
 
   Q_SIGNALS:
     void itemClicked ( const QModelIndex &index );
@@ -55,6 +59,7 @@ class Q_DECL_EXPORT KeywordsTable : public QTableView
   public:
     KeywordsTable ( QWidget * parent = 0 );
     void setDomDocument ( const KeywordsDom &dom );
+    const QList<KeywordsTableItem*> keywords();
     ~KeywordsTable();
 };
 
