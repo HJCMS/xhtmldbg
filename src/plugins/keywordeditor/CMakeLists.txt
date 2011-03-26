@@ -8,6 +8,7 @@ SET (LIBRARY_OUTPUT_PATH
 
 SET(plugin_SOURCES
   keywordeditor.cpp
+  keywordeditordialog.cpp
   keywordsdom.cpp
   firstpagewidget.cpp
   keywordstableitem.cpp
@@ -22,6 +23,7 @@ SET(plugin_SOURCES
 
 SET(plugin_HEADERS
   keywordeditor.h
+  keywordeditordialog.h
   firstpagewidget.h
   keywordstable.h
   keywordstablemodel.h

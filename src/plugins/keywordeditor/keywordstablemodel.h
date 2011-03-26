@@ -56,6 +56,9 @@ class Q_DECL_EXPORT KeywordsTableModel : public QAbstractTableModel
   Q_SIGNALS:
     void modified ( bool );
 
+  public Q_SLOTS:
+    void clearTableContents();
+
   public:
     KeywordsTableModel ( QTableView * parent = 0 );
     int columnCount ( const QModelIndex & parent = QModelIndex() ) const;
@@ -65,7 +68,7 @@ class Q_DECL_EXPORT KeywordsTableModel : public QAbstractTableModel
     bool removeRow ( int row, const QModelIndex &parent = QModelIndex() );
     void insertRowItem ( KeywordsTableItem * item );
     KeywordsTableItem* rowItem ( int row );
-    ~KeywordsTableModel();
+    virtual ~KeywordsTableModel();
 };
 
 #endif

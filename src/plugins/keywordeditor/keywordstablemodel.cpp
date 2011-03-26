@@ -189,10 +189,23 @@ void KeywordsTableModel::insertRowItem ( KeywordsTableItem * item )
   endInsertRows();
 }
 
+
+void KeywordsTableModel::clearTableContents()
+{
+  if ( items.size() > 0 )
+  {
+    beginResetModel();
+    items.clear();
+    endResetModel();
+  }
+}
+
 KeywordsTableItem* KeywordsTableModel::rowItem ( int row )
 {
   return items.at ( row );
 }
 
 KeywordsTableModel::~KeywordsTableModel()
-{}
+{
+  clearTableContents();
+}

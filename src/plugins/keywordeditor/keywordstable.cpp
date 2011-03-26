@@ -90,6 +90,7 @@ void KeywordsTable::actionDeleteRow()
 
 void KeywordsTable::setDomDocument ( const KeywordsDom &dom )
 {
+  m_model->clearTableContents();
   QList<KeywordsTableItem*> list = dom.keywordsItemList();
   int size = list.size();
   for ( int i = 0; i < size; ++i )
