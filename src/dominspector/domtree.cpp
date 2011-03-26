@@ -22,6 +22,7 @@
 #include "domtree.h"
 #include "contentdialog.h"
 #include "stylesheeted.h"
+#include "luminancedialog.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -62,12 +63,11 @@ DomTree::DomTree ( QWidget * parent )
   setSortingEnabled ( false );
   header()->setResizeMode ( QHeaderView::ResizeToContents );
   setSizePolicy ( QSizePolicy::Preferred, QSizePolicy::Expanding );
-  setContextMenuPolicy ( Qt::ActionsContextMenu );
   setEditTriggers ( QAbstractItemView::NoEditTriggers );
   setFrameStyle ( QFrame::Box );
   setMouseTracking ( true );
 
-  // Actions
+  // Actions siehe \ref contextMenuEvent
   ac_swapHighlight = new QAction ( KIcon ( "edit-clear-list" ), i18n ( "unhighlighted" ), this );
   ac_swapHighlight->setStatusTip ( i18n ( "unhighlighted current document content" ) );
 
@@ -86,12 +86,13 @@ DomTree::DomTree ( QWidget * parent )
   ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Highlight" ), this );
   ac_setHighlight->setStatusTip ( i18n ( "show current element information" ) );
 
-  // Insert Actions
-  insertAction ( 0, ac_setStyleSheet );
-  insertAction ( ac_setStyleSheet, ac_showContent );
-  insertAction ( ac_showContent, ac_copyPredicates );
-  insertAction ( ac_copyPredicates, ac_swapHighlight );
-  insertAction ( ac_swapHighlight, ac_setHighlight );
+  m_wcag = new QMenu ( QString::fromUtf8 ( "WCAG 2.0" ) );
+  m_wcag->setIcon ( KIcon ( "validators" ) );
+  m_wcag->setStatusTip ( i18n ( "Web Content Accessibility Guidelines" ) );
+  ac_wcagLuminance = m_wcag->addAction ( KIcon ( "validators" ), i18n ( "relative luminance" ) );
+  // TODO http://www.w3.org/TR/WCAG20/#contrast-ratiodef
+  ac_wcagContrastRatio = m_wcag->addAction ( KIcon ( "validators" ), i18n ( "contrast ratio" ) );
+  ac_wcagContrastRatio->setEnabled ( false );
 
   // Signals
   connect ( ac_swapHighlight, SIGNAL ( triggered () ),
@@ -108,6 +109,9 @@ DomTree::DomTree ( QWidget * parent )
 
   connect ( ac_setHighlight, SIGNAL ( triggered () ),
             this, SLOT ( changeHighlight() ) );
+
+  connect ( ac_wcagLuminance, SIGNAL ( triggered () ),
+            this, SLOT ( checkLuminance() ) );
 
   connect ( this, SIGNAL ( itemClicked ( QTreeWidgetItem *, int ) ),
             this, SLOT ( itemSelected ( QTreeWidgetItem *, int ) ) );
@@ -129,6 +133,12 @@ QTreeWidgetItem* DomTree::createTopLevelItem ( const QString &name )
   item->setData ( 0, Qt::DisplayRole, name );
   addTopLevelItem ( item );
   return item;
+}
+
+/** Zeiger auf das Aktuell ausgewählte Element */
+const QWebElement DomTree::currentElement()
+{
+  return currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>().element;
 }
 
 /**
@@ -286,9 +296,8 @@ void DomTree::itemSelected ( QTreeWidgetItem * item, int column )
 */
 void DomTree::editStyleClicked ()
 {
-  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
-  if ( ! ti.element.isNull() )
-    openStyleSheetDialog ( ti.element );
+  if ( ! currentElement().isNull() )
+    openStyleSheetDialog ( currentElement() );
 }
 
 /**
@@ -315,11 +324,11 @@ void DomTree::itemHovered ( QTreeWidgetItem * item, int column )
 */
 void DomTree::changeHighlight()
 {
-  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
-  if ( ! ti.element.isNull() )
+  QWebElement element = currentElement();
+  if ( ! element.isNull() )
   {
-    emit initStyleSheet ( ti.element );
-    emit itemHighlight ( ti.element );
+    emit initStyleSheet ( element );
+    emit itemHighlight ( element );
   }
 }
 
@@ -338,10 +347,39 @@ void DomTree::copyPredicate ()
 /**
 * Wenn das Element ein CDATA Section enthält diese Anzeigen!
 */
-void DomTree::visitContent ()
+void DomTree::visitContent()
 {
-  TreeItem ti = currentItem()->data ( 0, Qt::UserRole ).value<TreeItem>();
-  openContentDialog ( ti.element.toInnerXml() );
+  QWebElement element = currentElement();
+  if ( ! element.isNull() )
+    openContentDialog ( element.toInnerXml() );
+}
+
+/**
+* TODO http://www.w3.org/TR/WCAG20/#relativeluminancedef
+*/
+void DomTree::checkLuminance()
+{
+  QWebElement element = currentElement();
+  if ( ! element.isNull() )
+  {
+    LuminanceDialog dialog ( element, this );
+    if ( dialog.isValid() )
+      dialog.exec();
+  }
+}
+
+/** Maus Menü Aktionen verarbeiten */
+void DomTree::contextMenuEvent ( QContextMenuEvent * event )
+{
+  QMenu* menu = new QMenu ( this );
+  menu->addAction ( ac_setHighlight );
+  menu->addAction ( ac_swapHighlight );
+  menu->addAction ( ac_copyPredicates );
+  menu->addAction ( ac_showContent );
+  menu->addAction ( ac_setStyleSheet );
+  menu->addMenu ( m_wcag );
+  menu->exec ( event->globalPos() );
+  delete menu;
 }
 
 /**

@@ -63,6 +63,10 @@
 #include <QtWebKit/QWebPluginFactory>
 #include <QtWebKit/QWebView>
 
+/* KDE */
+#include <KDE/KIcon>
+#include <KDE/KLocale>
+
 Viewer::Viewer ( QWidget * parent )
     : KWebView ( parent )
 {
@@ -253,14 +257,14 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   // Lesezeichen
   QAction* add = menu->addAction ( i18n ( "Bookmark" ) );
   add->setObjectName ( QLatin1String ( "ac_context_addbookmarkaction" ) );
-  add->setIcon ( QIcon::fromTheme ( QLatin1String ( "bookmark-new" ) ) );
+  add->setIcon ( KIcon ( QLatin1String ( "bookmark-new" ) ) );
   add->setShortcut ( QKeySequence::Bold );
   connect ( add, SIGNAL ( triggered() ), this, SLOT ( bookmark() ) );
 
   // Stylesheet Überprüfung
   QAction* style = menu->addAction ( i18n ( "StyleSheet" ) );
   style->setObjectName ( QLatin1String ( "ac_context_stylesheet" ) );
-  style->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-web-browser-stylesheets" ) ) );
+  style->setIcon ( KIcon ( QLatin1String ( "cssvalidator" ) ) );
   style->setToolTip ( i18n ( "Start CSS Validation for this Site." ) );
   style->setShortcut ( QKeySequence::Italic );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
@@ -268,7 +272,7 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   // Zur Quelltext Ansicht wechseln
   QAction* source = menu->addAction ( i18n ( "Source" ) );
   source->setObjectName ( QLatin1String ( "ac_context_source" ) );
-  source->setIcon ( QIcon::fromTheme ( QLatin1String ( "text-html" ) ) );
+  source->setIcon ( KIcon ( QLatin1String ( "text-html" ) ) );
   source->setToolTip ( i18n ( "Show Document Source" ) );
   source->setShortcut ( QKeySequence::Underline );
   connect ( source, SIGNAL ( triggered() ), this, SLOT ( showPageSource() ) );
@@ -276,14 +280,14 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   // Einen Screenshot erstellen
   QAction* screenshot = menu->addAction ( i18n ( "Screenshot" ) );
   screenshot->setObjectName ( QLatin1String ( "ac_context_screenshot" ) );
-  screenshot->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
+  screenshot->setIcon ( KIcon ( QLatin1String ( "preferences-desktop-screensaver" ) ) );
   screenshot->setToolTip ( i18n ( "Screenshot from current Page." ) );
   connect ( screenshot, SIGNAL ( triggered() ), this, SLOT ( screenshot() ) );
 
   // Plugins Anzeigen
   QAction* plugins = menu->addAction ( i18n ( "Plugins" ) );
   plugins->setObjectName ( QLatin1String ( "ac_context_plugins" ) );
-  plugins->setIcon ( QIcon::fromTheme ( QLatin1String ( "preferences-plugin" ) ) );
+  plugins->setIcon ( KIcon ( QLatin1String ( "preferences-plugin" ) ) );
   plugins->setToolTip ( i18n ( "Display initialed Browser-Plugins." ) );
   connect ( plugins, SIGNAL ( triggered() ), this, SLOT ( displayPlugins() ) );
 

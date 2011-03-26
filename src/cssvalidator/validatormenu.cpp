@@ -34,7 +34,7 @@ ValidatorMenu::ValidatorMenu ( QWidget * parent )
   setObjectName ( QLatin1String ( "validatormenu" ) );
 
   // Aktuelle Url Überprüfen
-  aCheck = addAction ( KIcon ( QLatin1String ( "system-run" ) ), i18n ( "Check" ) );
+  aCheck = addAction ( KIcon ( QLatin1String ( "cssvalidator" ) ), i18n ( "Check" ) );
   aCheck->setToolTip ( i18n ( "Checking last changed url" ) );
   aCheck->setEnabled ( false );
   connect ( aCheck, SIGNAL ( triggered() ), this, SIGNAL ( check() ) );

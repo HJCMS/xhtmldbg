@@ -43,6 +43,10 @@
 #include <QtGui/QMenu>
 #include <QtGui/QSizePolicy>
 
+/* KDE */
+#include <KDE/KIcon>
+#include <KDE/KLocale>
+
 CSSValidator::CSSValidator ( QWidget * parent, Settings * settings )
     : QDockWidget ( parent )
     , cfg ( settings )
@@ -52,6 +56,7 @@ CSSValidator::CSSValidator ( QWidget * parent, Settings * settings )
 {
   setObjectName ( QLatin1String ( "cssvalidator" ) );
   setWindowTitle ( i18n ( "CSS Validation" ) );
+  setWindowIcon ( KIcon ( QLatin1String ( "cssvalidator" ) ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 0, 0, 0, 0 );
 

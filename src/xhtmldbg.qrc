@@ -7,6 +7,7 @@
     <file>icons/notice.png</file>
     <file>icons/qtidy.png</file>
     <file>icons/warning.png</file>
+    <file>icons/w3c_home.png</file>
   </qresource>
   <qresource prefix="/flags" >
     <file>icons/flags/ad.png</file>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-26 12:56+0100\n"
+"POT-Creation-Date: 2011-03-26 18:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -974,7 +974,7 @@ msgid "Move Selected row Down"
 msgstr ""
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:169
-#: src/viewer.cpp:254
+#: src/viewer.cpp:258
 msgid "Bookmark"
 msgstr ""
 
@@ -1043,51 +1043,51 @@ msgstr ""
 msgid "Save && Exit"
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:54
+#: src/cssvalidator/cssvalidator.cpp:58
 msgid "CSS Validation"
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:152
+#: src/cssvalidator/cssvalidator.cpp:157
 msgid "Rejected - CSS Validator is busy ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:198
+#: src/cssvalidator/cssvalidator.cpp:203
 msgid "CSS Validator says: Invalid Url and denies this request."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:211
+#: src/cssvalidator/cssvalidator.cpp:216
 msgid "Checking (%1). Please wait a little!"
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:333
+#: src/cssvalidator/cssvalidator.cpp:338
 msgid "To take in \"%1\" for Validation."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:355
+#: src/cssvalidator/cssvalidator.cpp:360
 msgid "FailedToStart (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:359
+#: src/cssvalidator/cssvalidator.cpp:364
 msgid "Crashed (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:363
+#: src/cssvalidator/cssvalidator.cpp:368
 msgid "Timedout (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:367
+#: src/cssvalidator/cssvalidator.cpp:372
 msgid "WriteError (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:371
+#: src/cssvalidator/cssvalidator.cpp:376
 msgid "ReadError (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:375
+#: src/cssvalidator/cssvalidator.cpp:380
 msgid "UnknownError (%1) ..."
 msgstr ""
 
-#: src/cssvalidator/cssvalidator.cpp:408
+#: src/cssvalidator/cssvalidator.cpp:413
 msgid "Crashed see logfiles"
 msgstr ""
 
@@ -1312,7 +1312,7 @@ msgstr ""
 msgid "unhighlighted current document content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:74 src/viewer.cpp:261
+#: src/dominspector/domtree.cpp:74 src/viewer.cpp:265
 msgid "StyleSheet"
 msgstr ""
 
@@ -1340,12 +1340,36 @@ msgstr ""
 msgid "show current element information"
 msgstr ""
 
+#: src/dominspector/domtree.cpp:91
+msgid "Web Content Accessibility Guidelines"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:92
+msgid "relative luminance"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:94
+msgid "contrast ratio"
+msgstr ""
+
 #: src/dominspector/liststylesheet.cpp:96
 msgid "Rendered from Stylesheet Document"
 msgstr ""
 
 #: src/dominspector/liststylesheet.cpp:98
 msgid "Contained \"style\" Attribute"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:42
+msgid "WCAG Relative Luminance"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:48
+msgid "Foreground Color"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:49
+msgid "Background Color"
 msgstr ""
 
 #: src/downloadmanager/downloadmanager.cpp:50
@@ -1814,7 +1838,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:269 src/window.cpp:156
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:156
 msgid "Source"
 msgstr ""
 
@@ -2193,59 +2217,59 @@ msgstr ""
 msgid "(XHTMLDBG) Invalid value for property: %1"
 msgstr ""
 
-#: src/viewer.cpp:264
+#: src/viewer.cpp:268
 msgid "Start CSS Validation for this Site."
 msgstr ""
 
-#: src/viewer.cpp:272
+#: src/viewer.cpp:276
 msgid "Show Document Source"
 msgstr ""
 
-#: src/viewer.cpp:277
+#: src/viewer.cpp:281
 msgid "Screenshot"
 msgstr ""
 
-#: src/viewer.cpp:280
+#: src/viewer.cpp:284
 msgid "Screenshot from current Page."
 msgstr ""
 
-#: src/viewer.cpp:284 src/viewer.cpp:502
+#: src/viewer.cpp:288 src/viewer.cpp:506
 msgid "Plugins"
 msgstr ""
 
-#: src/viewer.cpp:287
+#: src/viewer.cpp:291
 msgid "Display initialed Browser-Plugins."
 msgstr ""
 
-#: src/viewer.cpp:381
+#: src/viewer.cpp:385
 msgid "SEO Result for \"%1\" Url: "
 msgstr ""
 
-#: src/viewer.cpp:389
+#: src/viewer.cpp:393
 msgid "Word boundary: "
 msgstr ""
 
-#: src/viewer.cpp:394
+#: src/viewer.cpp:398
 msgid "Case Sensitive: "
 msgstr ""
 
-#: src/viewer.cpp:404
+#: src/viewer.cpp:408
 msgid "Meta Keywords: "
 msgstr ""
 
-#: src/viewer.cpp:410
+#: src/viewer.cpp:414
 msgid "Meta Description: "
 msgstr ""
 
-#: src/viewer.cpp:417
+#: src/viewer.cpp:421
 msgid "Page Title: "
 msgstr ""
 
-#: src/viewer.cpp:422
+#: src/viewer.cpp:426
 msgid "Summary: "
 msgstr ""
 
-#: src/viewer.cpp:519
+#: src/viewer.cpp:523
 msgid "Screenshot saved to %1"
 msgstr ""
 

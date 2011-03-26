@@ -31,6 +31,7 @@
             <dd><a href="http://www.w3.org/TR/xpath/" type="text/html">XML Path Language (XPATH)</a></dd>
             <dd><a href="http://www.w3.org/Protocols/rfc2616/rfc2616.html" type="text/html">Hypertext Transfer Protocol (HTTP)</a></dd>
             <dd><a href="http://www.w3.org/TR/DOM-Level-3-Core/" type="text/html">Document Object Model (DOM) Level 3</a></dd>
+            <dd><a href="http://www.w3.org/TR/WCAG20/" type="text/html">Web Content Accessibility Guidelines (WCAG) 2.0</a></dd>
             <dd><a href="http://www.php.net/manual/en/">PHP Manual</a></dd>
          </dl>
       </div>

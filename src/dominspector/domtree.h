@@ -31,6 +31,8 @@
 
 /* QtGui */
 #include <QtGui/QAction>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QMenu>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QTreeWidgetItem>
 
@@ -50,7 +52,11 @@ class DomTree : public QTreeWidget
     QAction* ac_copyPredicates;
     QAction* ac_setHighlight;
     QAction* ac_setStyleSheet;
+    QMenu* m_wcag;
+    QAction* ac_wcagLuminance;
+    QAction* ac_wcagContrastRatio;
     QTreeWidgetItem* createTopLevelItem ( const QString & );
+    const QWebElement currentElement();
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );
     void parseElements ( const QWebElement &, QTreeWidgetItem* );
     QTreeWidgetItem* createChildItem ( const QString &, QTreeWidgetItem* );
@@ -65,6 +71,10 @@ class DomTree : public QTreeWidget
     void changeHighlight ();
     void copyPredicate ();
     void visitContent ();
+    void checkLuminance ();
+
+  protected:
+    void contextMenuEvent ( QContextMenuEvent * );
 
   Q_SIGNALS:
     void itemHighlight ( const QWebElement & );

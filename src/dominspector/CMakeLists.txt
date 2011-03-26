@@ -7,6 +7,7 @@ SET (dominspector_SOURCES
   domtoolbar.cpp
   contentdialog.cpp
   paintelement.cpp
+  luminancedialog.cpp
 )
 
 SET (dominspector_HEADERS
@@ -16,6 +17,7 @@ SET (dominspector_HEADERS
   domtoolbar.h
   contentdialog.h
   paintelement.h
+  luminancedialog.h
 )
 
 KDE4_MOC_HEADERS (dominspector_MOC ${dominspector_HEADERS})
