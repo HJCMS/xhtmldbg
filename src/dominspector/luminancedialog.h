@@ -28,6 +28,9 @@
 
 /* QtGui */
 #include <QtGui/QColor>
+#include <QtGui/QComboBox>
+#include <QtGui/QLabel>
+#include <QtGui/QProgressBar>
 #include <QtGui/QWidget>
 
 /* KDE */
@@ -45,10 +48,20 @@ class LuminanceDialog : public KDialog
 
   private:
     const QWebElement htmlElement;
-    const QColor toColor ( const QString &str ) const;
-    const QColor findForegroundColor() const;
-    const QColor findBackgroundColor() const;
     bool valid;
+    QLabel* m_foregroundColor;
+    QLabel* m_backgroundColor;
+    QLabel* m_foregroundName;
+    QLabel* m_backgroundName;
+    QLabel* m_foregroundContrastRatio;
+    QLabel* m_backgroundContrastRatio;
+    QProgressBar* m_differenceBar;
+    QProgressBar* m_brightnessBar;
+    QComboBox* m_messanger;
+    double contrastRatio ( const QColor &col ) const;
+    const QColor toColor ( const QString &str ) const;
+    const QColor getStyleColor ( const QString &property ) const;
+    void setRange ( const QColor &front, const QColor &back );
 
   public:
     LuminanceDialog ( const QWebElement &element, QWidget * parent = 0 );

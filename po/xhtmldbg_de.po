@@ -1429,7 +1429,7 @@ msgstr "Richtlinien für barrierefreie Webinhalte"
 
 #: src/dominspector/domtree.cpp:92
 msgid "relative luminance"
-msgstr "Relative Luminanz"
+msgstr "Relative Helligkeit"
 
 #: src/dominspector/domtree.cpp:94
 msgid "contrast ratio"

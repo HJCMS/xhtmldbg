@@ -21,33 +21,19 @@
 
 #include "luminancedialog.h"
 
+/* std */
+#include <cmath>
+
 /* QtCore */
 #include <QtCore/QDebug>
 #include <QtCore/QRegExp>
 
 /* QtGui */
 #include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
 
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KIcon>
-
-/*
-Die relative Helligkeit irgendeines Punktes in einem Farbraum,
-normalisiert zu 0 für das dunkelste Schwarz und 1 für das hellste Weiß.
-Anmerkung 1: Für den sRGB-Farbraum wird die relative Luminanz einer Farbe
-definiert als L = 0.2126 * R + 0.7152 * G + 0.0722 * B, wobei R, G und B definiert sind als:
-
-wenn RsRGB <= 0.03928 dann R = RsRGB/12.92 sonst R = ((RsRGB+0.055)/1.055) ^ 2.4
-wenn GsRGB <= 0.03928 dann G = GsRGB/12.92 sonst G = ((GsRGB+0.055)/1.055) ^ 2.4
-wenn BsRGB <= 0.03928 dann B = BsRGB/12.92 sonst B = ((BsRGB+0.055)/1.055) ^ 2.4
-und RsRGB, GsRGB, und BsRGB definiert sind als:
-
-RsRGB = R8bit/255
-GsRGB = G8bit/255
-BsRGB = B8bit/255
-*/
 
 LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent )
     : KDialog ( parent )
@@ -61,37 +47,99 @@ LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent 
   setSizeGripEnabled ( true );
 
   QGridLayout* gridLayout = new QGridLayout ( mainWidget() );
-  gridLayout->addWidget ( new QLabel ( i18n ( "Foreground Color" ) ), 0, 0, 1, 1 );
-  gridLayout->addWidget ( new QLabel ( i18n ( "Background Color" ) ), 0, 1, 1, 1 );
 
-  QLabel* labelForeground = new QLabel ( mainWidget() );
-  gridLayout->addWidget ( labelForeground, 1, 0, 1, 1 );
+  int row = 0;
+  gridLayout->addWidget ( new QLabel ( i18n ( "Foreground Color" ) ), row, 0, 1, 1 );
+  gridLayout->addWidget ( new QLabel ( i18n ( "Background Color" ) ), row, 1, 1, 1 );
 
-  QLabel* labelBackground = new QLabel ( mainWidget() );
-  gridLayout->addWidget ( labelBackground, 1, 1, 1, 1 );
+  m_foregroundColor = new QLabel ( mainWidget() );
+  m_foregroundColor->setFrameStyle ( QFrame::StyledPanel );
+  gridLayout->addWidget ( m_foregroundColor, ++row, 0, 1, 1 );
 
-  QLabel* labelForegroundName = new QLabel ( mainWidget() );
-  gridLayout->addWidget ( labelForegroundName, 2, 0, 1, 1 );
+  m_backgroundColor = new QLabel ( mainWidget() );
+  m_backgroundColor->setFrameStyle ( QFrame::StyledPanel );
+  gridLayout->addWidget ( m_backgroundColor, row, 1, 1, 1 );
 
-  QLabel* labelBackgroundName = new QLabel ( mainWidget() );
-  gridLayout->addWidget ( labelBackgroundName, 2, 1, 1, 1 );
+  m_foregroundName = new QLabel ( mainWidget() );
+  gridLayout->addWidget ( m_foregroundName, ++row, 0, 1, 1 );
+
+  m_backgroundName = new QLabel ( mainWidget() );
+  gridLayout->addWidget ( m_backgroundName, row, 1, 1, 1 );
+
+  // Contrast Ratio
+  m_foregroundContrastRatio = new QLabel ( mainWidget() );
+  m_foregroundContrastRatio->setToolTip ( i18n ( "Contrast Ratio" ) );
+  gridLayout->addWidget ( m_foregroundContrastRatio, ++row, 0, 1, 1 );
+
+  m_backgroundContrastRatio = new QLabel ( mainWidget() );
+  m_backgroundContrastRatio->setToolTip ( i18n ( "Contrast Ratio" ) );
+  gridLayout->addWidget ( m_backgroundContrastRatio, row, 1, 1, 1 );
+
+  m_messanger = new QComboBox ( mainWidget() );
+  m_messanger->insertItem ( 0, KIcon ( "task-complete" ), i18n ( "The difference in colour between the two colours is sufficient." ) );
+  m_messanger->insertItem ( 1, KIcon ( "task-attention" ), i18n ( "The difference in colour between the two colours is not sufficient." ) );
+  m_messanger->insertItem ( 2, KIcon ( "task-reminder" ), i18n ( "The difference in colour between the two colours is not sufficient." ) );
+  gridLayout->addWidget ( m_messanger, ++row, 0, 1, 2 );
+
+  m_differenceBar = new QProgressBar ( mainWidget() );
+  m_differenceBar->setFormat ( i18n ( "Colour Difference %p%" ) );
+  m_differenceBar->setTextVisible ( true );
+  // Der Maximale Differenz Wert im RGB Bereich liegt bei Schwarz und Weiss auf 765
+  m_differenceBar->setRange ( 0, 765 );
+  m_differenceBar->setValue ( 0 );
+  gridLayout->addWidget ( m_differenceBar, ++row, 0, 1, 2 );
+
+  m_brightnessBar = new QProgressBar ( mainWidget() );
+  m_brightnessBar->setFormat ( i18n ( "Colour Brightness %p%" ) );
+  m_brightnessBar->setTextVisible ( true );
+  m_brightnessBar->setRange ( 0, 125 );
+  m_brightnessBar->setValue ( 0 );
+  gridLayout->addWidget ( m_brightnessBar, ++row, 0, 1, 2 );
 
   mainWidget()->setLayout ( gridLayout );
-
-  QString front = findForegroundColor().name();
-  QString back = findBackgroundColor().name();
-  if ( front.isEmpty() || back.isEmpty() )
-    return;
-
-  labelForeground->setStyleSheet ( QString::fromUtf8 ( "*{background-color:%1;}" ).arg ( front ) );
-  labelBackground->setStyleSheet ( QString::fromUtf8 ( "*{background-color:%1;}" ).arg ( back ) );
-
-  labelForegroundName->setText ( front );
-  labelBackgroundName->setText ( back );
-
-  valid = true;
 }
 
+/**
+* Ermittle den relativen Helligkeit Wert eines Punktes in einem Farbraum
+* \note 0 für das dunkelste Schwarz und 1 für das hellste Weiß!
+*/
+double LuminanceDialog::contrastRatio ( const QColor &col ) const
+{
+  double R,G,B;
+  double RsRGB = ( col.red() / 255.0 );
+  if ( RsRGB <= 0.03928 )
+    R = ( RsRGB / 12.92 );
+  else
+    R = pow ( ( ( RsRGB + 0.055 ) / 1.055 ), 2.4 );
+
+  double GsRGB = ( col.green() / 255.0 );
+  if ( GsRGB <= 0.03928 )
+    G = ( GsRGB / 12.92 );
+  else
+    G = pow ( ( ( GsRGB + 0.055 ) / 1.055 ), 2.4 );
+
+  double BsRGB = ( col.blue() / 255.0 );
+  if ( BsRGB <= 0.03928 )
+    B = ( BsRGB / 12.92 );
+  else
+    B = pow ( ( ( BsRGB + 0.055 ) / 1.055 ), 2.4 );
+
+  double L = ( ( 0.2126 * R ) + ( 0.7152 * G ) + ( 0.0722 * B ) );
+
+  /*
+    qDebug() << Q_FUNC_INFO
+    << " r:" << col.red() << RsRGB << R
+    << " g:" << col.green() << GsRGB << G
+    << " b:" << col.blue() << BsRGB << B
+    << " L=" << L;
+  */
+  return L;
+}
+
+/**
+* Zerlege eine "rgb(\d{1,3},\d{1,3},\d{1,3})" Zeichenkette
+* in seine Bestanteile und Konvertieren zu einem QColor
+*/
 const QColor LuminanceDialog::toColor ( const QString &str ) const
 {
   QString buf ( str );
@@ -122,21 +170,17 @@ const QColor LuminanceDialog::toColor ( const QString &str ) const
   return col;
 }
 
-const QColor LuminanceDialog::findForegroundColor() const
-{
-  QString rgb = htmlElement.styleProperty ( QLatin1String ( "color" ), QWebElement::ComputedStyle );
-  QColor col = toColor ( rgb );
-  if ( col.isValid() )
-    return col;
-  else
-    return QColor ( Qt::white );
-}
-
-const QColor LuminanceDialog::findBackgroundColor() const
+/**
+* Suche im Element mit dem StyleSheet \param property nach den
+* Werten, wenn im aktuell ausgewähltem Element diese \b nicht vorhanden
+* sind gehe Schrittweise weiter zum Eltern Element und steige bei erfolg
+* mit dem gefunden StyleSheet aus.
+* \note bei einem Fehler wird Schwarz zurück gegeben!
+*/
+const QColor LuminanceDialog::getStyleColor ( const QString &property ) const
 {
   QColor col;
   QString rgb;
-  QString property ( "background-color" );
   QString transparent ( "transparent" );
   rgb = htmlElement.styleProperty ( property, QWebElement::ComputedStyle );
   if ( rgb == transparent )
@@ -163,9 +207,75 @@ const QColor LuminanceDialog::findBackgroundColor() const
     return QColor ( Qt::black );
 }
 
+/** Set den ProgressBar und die ComboBox für die Meldungen */
+void LuminanceDialog::setRange ( const QColor &fr, const QColor &bg )
+{
+  /* The difference between the background colour and the foreground colour should be greater than 500. */
+  int diff = ( qMax ( fr.red(), bg.red() ) - qMin ( fr.red(), bg.red() ) ) + ( qMax ( fr.green(), bg.green() ) - qMin ( fr.green(), bg.green() ) ) + ( qMax ( fr.blue(), bg.blue() ) - qMin ( fr.blue(), bg.blue() ) );
+  // qDebug() << Q_FUNC_INFO << "Colour Difference:" << diff;
+  if ( diff >= m_differenceBar->maximum() )
+  {
+    m_messanger->setCurrentIndex ( 0 );
+    m_differenceBar->setValue ( m_differenceBar->maximum() );
+  }
+  else if ( diff <= m_differenceBar->maximum() && diff >= 0 )
+    m_differenceBar->setValue ( diff );
+  else
+    m_differenceBar->setValue ( 0 );
+
+  if ( diff >= ( ( m_differenceBar->maximum() / 4 ) * 3 ) ) // 3¼ von Maximum
+    m_messanger->setCurrentIndex ( 0 );
+  else if ( diff >= ( m_differenceBar->maximum() / 2 ) ) // ½ von Maximum
+    m_messanger->setCurrentIndex ( 1 );
+  else
+    m_messanger->setCurrentIndex ( 2 );
+
+  /* The difference between the background brightness, and the foreground brightness should be greater than 125. */
+  double fr_bright = ( ( ( fr.red() * 299 ) + ( fr.green() * 587 ) + ( fr.blue() * 114 ) ) / 1000 );
+  double bg_bright = ( ( ( bg.red() * 299 ) + ( bg.green() * 587 ) + ( bg.blue() * 114 ) ) / 1000 );
+  int bright = 0;
+  if ( bg_bright == 255 && fr_bright == 0 )
+    bright = m_brightnessBar->maximum();
+  else if ( bg_bright == 0 && fr_bright == 255 )
+    bright = m_brightnessBar->maximum();
+  else if ( bg_bright > fr_bright )
+    bright = ceil ( fmod ( bg_bright, fr_bright ) );
+  else
+    bright = ceil ( fmod ( fr_bright, bg_bright ) );
+
+  // qDebug() << Q_FUNC_INFO << bg_bright << fr_bright << bright;
+  if ( bright >= 125.0 )
+    m_brightnessBar->setValue ( 125 );
+  else
+    m_brightnessBar->setValue ( ( 125 - bright ) );
+
+  // Contrast Ratio
+  m_foregroundContrastRatio->setText ( QString::number ( contrastRatio ( fr ) ) );
+  m_backgroundContrastRatio->setText ( QString::number ( contrastRatio ( bg ) ) );
+}
+
 bool LuminanceDialog::isValid()
 {
-  return valid;
+  QColor front = getStyleColor ( "color" );
+  QColor back = getStyleColor ( "background-color" );
+  if ( ! front.isValid() || ! back.isValid() )
+    return false;
+
+  m_foregroundColor->setStyleSheet ( QString::fromUtf8 ( "*{background-color:%1;}" ).arg ( front.name() ) );
+  m_backgroundColor->setStyleSheet ( QString::fromUtf8 ( "*{background-color:%1;}" ).arg ( back.name() ) );
+
+  QString frontRGB = QString::fromUtf8 ( "rgb(%1,%2,%3)" )
+                     .arg ( QString::number ( front.red() ), QString::number ( front.green() ), QString::number ( front.blue() ) );
+  QString colorText = QString::fromUtf8 ( "%1 %2" ).arg ( front.name(), frontRGB );
+  m_foregroundName->setText ( colorText );
+
+  QString backRGB = QString::fromUtf8 ( "rgb(%1,%2,%3)" )
+                    .arg ( QString::number ( back.red() ), QString::number ( back.green() ), QString::number ( back.blue() ) );
+  QString backText = QString::fromUtf8 ( "%1 %2" ).arg ( back.name(), backRGB );
+  m_backgroundName->setText ( backText );
+
+  setRange ( front, back );
+  return true;
 }
 
 LuminanceDialog::~LuminanceDialog()
