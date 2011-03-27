@@ -52,9 +52,7 @@ class DomTree : public QTreeWidget
     QAction* ac_copyPredicates;
     QAction* ac_setHighlight;
     QAction* ac_setStyleSheet;
-    QMenu* m_wcag;
     QAction* ac_wcagLuminance;
-    QAction* ac_wcagContrastRatio;
     QTreeWidgetItem* createTopLevelItem ( const QString & );
     const QWebElement currentElement();
     void parseAttributes ( const QWebElement &, QTreeWidgetItem* );

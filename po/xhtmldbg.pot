@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-27 14:37+0200\n"
+"POT-Creation-Date: 2011-03-27 14:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1340,16 +1340,12 @@ msgstr ""
 msgid "show current element information"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:91
+#: src/dominspector/domtree.cpp:89
+msgid "Luminance && Contrast"
+msgstr ""
+
+#: src/dominspector/domtree.cpp:90
 msgid "Web Content Accessibility Guidelines"
-msgstr ""
-
-#: src/dominspector/domtree.cpp:92
-msgid "relative luminance"
-msgstr ""
-
-#: src/dominspector/domtree.cpp:94
-msgid "contrast ratio"
 msgstr ""
 
 #: src/dominspector/liststylesheet.cpp:96

@@ -86,13 +86,8 @@ DomTree::DomTree ( QWidget * parent )
   ac_setHighlight = new QAction ( KIcon ( "view-statistics" ), i18n ( "Highlight" ), this );
   ac_setHighlight->setStatusTip ( i18n ( "show current element information" ) );
 
-  m_wcag = new QMenu ( QString::fromUtf8 ( "WCAG 2.0" ) );
-  m_wcag->setIcon ( KIcon ( "validators" ) );
-  m_wcag->setStatusTip ( i18n ( "Web Content Accessibility Guidelines" ) );
-  ac_wcagLuminance = m_wcag->addAction ( KIcon ( "validators" ), i18n ( "relative luminance" ) );
-  // TODO http://www.w3.org/TR/WCAG20/#contrast-ratiodef
-  ac_wcagContrastRatio = m_wcag->addAction ( KIcon ( "validators" ), i18n ( "contrast ratio" ) );
-  ac_wcagContrastRatio->setEnabled ( false );
+  ac_wcagLuminance = new QAction ( KIcon ( "validators" ), i18n ( "Luminance && Contrast" ), this );
+  ac_wcagLuminance->setStatusTip ( i18n ( "Web Content Accessibility Guidelines" ) );
 
   // Signals
   connect ( ac_swapHighlight, SIGNAL ( triggered () ),
@@ -377,7 +372,7 @@ void DomTree::contextMenuEvent ( QContextMenuEvent * event )
   menu->addAction ( ac_copyPredicates );
   menu->addAction ( ac_showContent );
   menu->addAction ( ac_setStyleSheet );
-  menu->addMenu ( m_wcag );
+  menu->addAction ( ac_wcagLuminance );
   menu->exec ( event->globalPos() );
   delete menu;
 }
