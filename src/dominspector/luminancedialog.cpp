@@ -79,9 +79,9 @@ LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent 
   gridLayout->addWidget ( m_backgroundContrastRatio, row, 1, 1, 1 );
 
   m_messanger = new QComboBox ( mainWidget() );
-  m_messanger->insertItem ( 0, KIcon ( "task-complete" ), i18n ( "The difference in colour between the two colours is sufficient." ) );
-  m_messanger->insertItem ( 1, KIcon ( "task-attention" ), i18n ( "The difference in colour between the two colours is not sufficient." ) );
-  m_messanger->insertItem ( 2, KIcon ( "task-reminder" ), i18n ( "The difference in colour between the two colours is not sufficient." ) );
+  m_messanger->insertItem ( 0, KIcon ( "task-complete" ), i18n ( "The difference in colour between the two colours looks good." ) );
+  m_messanger->insertItem ( 1, KIcon ( "task-attention" ), i18n ( "The difference in colour between the two colours is insufficient." ) );
+  m_messanger->insertItem ( 2, KIcon ( "task-reminder" ), i18n ( "The difference in colour between the two colours is imperfect." ) );
   gridLayout->addWidget ( m_messanger, ++row, 0, 1, 2 );
 
   m_differenceBar = new QProgressBar ( mainWidget() );
