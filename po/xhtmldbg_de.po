@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-26 18:40+0100\n"
-"PO-Revision-Date: 2011-03-26 18:43+0100\n"
+"POT-Creation-Date: 2011-03-27 14:03+0200\n"
+"PO-Revision-Date: 2011-03-27 14:08+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1443,17 +1443,40 @@ msgstr "Abgegeben vom StyleSheet Dokument"
 msgid "Contained \"style\" Attribute"
 msgstr "Enthält ein \"style\" Prädikat"
 
-#: src/dominspector/luminancedialog.cpp:42
+#: src/dominspector/luminancedialog.cpp:44
 msgid "WCAG Relative Luminance"
-msgstr "WCAG Relative Luminanz"
+msgstr "WCAG Relative Helligkeit"
 
-#: src/dominspector/luminancedialog.cpp:48
+#: src/dominspector/luminancedialog.cpp:52
 msgid "Foreground Color"
 msgstr "Vordergrund Farbe"
 
-#: src/dominspector/luminancedialog.cpp:49
+#: src/dominspector/luminancedialog.cpp:53
 msgid "Background Color"
 msgstr "Hintergrund Farbe"
+
+#: src/dominspector/luminancedialog.cpp:71
+#: src/dominspector/luminancedialog.cpp:75
+#, fuzzy
+msgid "Contrast Ratio"
+msgstr "Kontrastverhältnis"
+
+#: src/dominspector/luminancedialog.cpp:79
+msgid "The difference in colour between the two colours is sufficient."
+msgstr "Der Unterschied beider Farben ist ausreichend."
+
+#: src/dominspector/luminancedialog.cpp:80
+#: src/dominspector/luminancedialog.cpp:81
+msgid "The difference in colour between the two colours is not sufficient."
+msgstr "Der Unterschied beider Farben ist schlecht."
+
+#: src/dominspector/luminancedialog.cpp:85
+msgid "Colour Difference %p%"
+msgstr "Farben Unterschied %p%"
+
+#: src/dominspector/luminancedialog.cpp:93
+msgid "Colour Brightness %p%"
+msgstr "Farben Helligkeit %p%"
 
 #: src/downloadmanager/downloadmanager.cpp:50
 msgid "Downloads"

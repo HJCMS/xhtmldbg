@@ -35,6 +35,9 @@
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 
+/**
+* \link http://www.w3.org/TR/2007/WD-WCAG20-TECHS-20070517/Overview.html#G18
+*/
 LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent )
     : KDialog ( parent )
     , htmlElement ( element )
