@@ -70,15 +70,6 @@ LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent 
   m_backgroundName = new QLabel ( mainWidget() );
   gridLayout->addWidget ( m_backgroundName, row, 1, 1, 1 );
 
-  // Contrast Ratio
-  m_foregroundContrastRatio = new QLabel ( mainWidget() );
-  m_foregroundContrastRatio->setToolTip ( i18n ( "Contrast Ratio" ) );
-  gridLayout->addWidget ( m_foregroundContrastRatio, ++row, 0, 1, 1 );
-
-  m_backgroundContrastRatio = new QLabel ( mainWidget() );
-  m_backgroundContrastRatio->setToolTip ( i18n ( "Contrast Ratio" ) );
-  gridLayout->addWidget ( m_backgroundContrastRatio, row, 1, 1, 1 );
-
   m_messanger = new QComboBox ( mainWidget() );
   m_messanger->insertItem ( 0, KIcon ( "task-complete" ), i18n ( "The difference in colour between the two colours looks good." ) );
   m_messanger->insertItem ( 1, KIcon ( "task-attention" ), i18n ( "The difference in colour between the two colours is sufficient." ) );
@@ -89,8 +80,9 @@ LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent 
   m_differenceBar->setToolTip ( i18n ( "difference between the background and foreground colour" ) );
   m_differenceBar->setTextVisible ( true );
   m_differenceBar->setFormat ( i18n ( "Colour Difference %p%" ) );
-  // Der Maximale Differenz Wert im RGB Bereich liegt bei Schwarz und Weiss auf 765
-  m_differenceBar->setRange ( 0, 765 );
+  /* Der Maximale Differenz Wert im RGB Bereich liegt bei Schwarz und Weiss auf 765
+  * Für die 100% Darstellung begint der beste Wert bei 500 */
+  m_differenceBar->setRange ( 0, 500 );
   m_differenceBar->setValue ( 0 );
   gridLayout->addWidget ( m_differenceBar, ++row, 0, 1, 2 );
 
@@ -101,6 +93,15 @@ LuminanceDialog::LuminanceDialog ( const QWebElement &element, QWidget * parent 
   m_brightnessBar->setRange ( 0, 255 );
   m_brightnessBar->setValue ( 0 );
   gridLayout->addWidget ( m_brightnessBar, ++row, 0, 1, 2 );
+
+  // Contrast Ratio
+  m_contrastRatioBar = new QProgressBar ( mainWidget() );
+  m_contrastRatioBar->setToolTip ( i18n ( "commonly written 1:1 to 21:1" ) );
+  m_contrastRatioBar->setTextVisible ( true );
+  m_contrastRatioBar->setFormat ( i18n ( "Contrast Ratio %p%" ) );
+  m_contrastRatioBar->setRange ( 0, 21 );
+  m_contrastRatioBar->setValue ( 0 );
+  gridLayout->addWidget ( m_contrastRatioBar, ++row, 0, 1, 2 );
 
   mainWidget()->setLayout ( gridLayout );
 }
@@ -248,9 +249,17 @@ void LuminanceDialog::setRange ( const QColor &fr, const QColor &bg )
   else
     m_brightnessBar->setValue ( bright );
 
-  // Contrast Ratio
-  m_foregroundContrastRatio->setText ( QString::number ( contrastRatio ( fr ) ) );
-  m_backgroundContrastRatio->setText ( QString::number ( contrastRatio ( bg ) ) );
+  /* Contrast ratios can range from 1 to 21 (commonly written 1:1 to 21:1). */
+  double rf = ( contrastRatio ( fr ) + 0.05 );
+  double rb = ( contrastRatio ( bg ) + 0.05 );
+  int ratio = 1;
+  if ( rf>rb )
+    ratio = qRound ( rf / rb );
+  else
+    ratio = qRound ( rb / rf );
+
+  // qDebug() << Q_FUNC_INFO << rf << rb << ratio;
+  m_contrastRatioBar->setValue ( ratio );
 }
 
 bool LuminanceDialog::isValid()

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-27 15:16+0200\n"
+"POT-Creation-Date: 2011-03-28 16:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1356,41 +1356,49 @@ msgstr ""
 msgid "Contained \"style\" Attribute"
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:47
+#: src/dominspector/luminancedialog.cpp:48
 msgid "WCAG Relative Luminance"
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:55
+#: src/dominspector/luminancedialog.cpp:56
 msgid "Foreground Color"
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:56
+#: src/dominspector/luminancedialog.cpp:57
 msgid "Background Color"
 msgstr ""
 
 #: src/dominspector/luminancedialog.cpp:74
-#: src/dominspector/luminancedialog.cpp:78
-msgid "Contrast Ratio"
-msgstr ""
-
-#: src/dominspector/luminancedialog.cpp:82
 msgid "The difference in colour between the two colours looks good."
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:83
+#: src/dominspector/luminancedialog.cpp:75
 msgid "The difference in colour between the two colours is sufficient."
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:84
+#: src/dominspector/luminancedialog.cpp:76
 msgid "The difference in colour between the two colours is imperfect."
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:88
+#: src/dominspector/luminancedialog.cpp:80
+#: src/dominspector/luminancedialog.cpp:90
+msgid "difference between the background and foreground colour"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:82
 msgid "Colour Difference %p%"
 msgstr ""
 
-#: src/dominspector/luminancedialog.cpp:96
+#: src/dominspector/luminancedialog.cpp:92
 msgid "Colour Brightness %p%"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:99
+msgid "commonly written 1:1 to 21:1"
+msgstr ""
+
+#: src/dominspector/luminancedialog.cpp:101
+msgid "Contrast Ratio %p%"
 msgstr ""
 
 #: src/downloadmanager/downloadmanager.cpp:50
@@ -1903,19 +1911,19 @@ msgstr ""
 msgid "SEO Keyword Editor"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditordialog.cpp:52
+#: src/plugins/keywordeditor/keywordeditordialog.cpp:53
 msgid "Open Keyword File"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditordialog.cpp:56
+#: src/plugins/keywordeditor/keywordeditordialog.cpp:57
 msgid "Edit Keyword File"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditordialog.cpp:60
+#: src/plugins/keywordeditor/keywordeditordialog.cpp:61
 msgid "Document Preview"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordeditordialog.cpp:80
+#: src/plugins/keywordeditor/keywordeditordialog.cpp:81
 msgid "Save Keywords File"
 msgstr ""
 

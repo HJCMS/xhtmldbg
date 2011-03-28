@@ -47,6 +47,7 @@ KeywordEditorDialog::KeywordEditorDialog ( QWidget * parent )
   setPlainCaption ( i18n ( "SEO Keyword Editor" ) );
   showButton ( KAssistantDialog::Help, false );
   setSizeGripEnabled ( true );
+  setWindowModality ( Qt::NonModal );
 
   m_firstPageWidget = new FirstPageWidget ( this );
   page1 = addPage ( m_firstPageWidget, i18n ( "Open Keyword File" ) );

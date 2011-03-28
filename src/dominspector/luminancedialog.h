@@ -53,10 +53,9 @@ class LuminanceDialog : public KDialog
     QLabel* m_backgroundColor;
     QLabel* m_foregroundName;
     QLabel* m_backgroundName;
-    QLabel* m_foregroundContrastRatio;
-    QLabel* m_backgroundContrastRatio;
     QProgressBar* m_differenceBar;
     QProgressBar* m_brightnessBar;
+    QProgressBar* m_contrastRatioBar;
     QComboBox* m_messanger;
     double contrastRatio ( const QColor &col ) const;
     const QColor toColor ( const QString &str ) const;
