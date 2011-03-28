@@ -285,37 +285,39 @@ void NetworkAccessManager::peekReplyProcess()
   * FIXME 2011/01/27 Crash with invalid page Size
   * Wenn eine Seitengröße sehr groß ist produziert WebKit
   * zwichendurch einen unzulässigen leeren Header,
-  * das wird jetzt an dieser Stelle abgefangen.
-  */
-  if ( m_networkReply && m_networkReply->size() >= 1 )
+  * das wird jetzt an dieser Stelle abgefangen. */
+  if ( ! m_networkReply )
+    return;
+
+  if ( m_networkReply->size() < 1 )
+    return;
+
+  QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );
+  if ( ! contentTypeHeader.isValid() )
+    return;
+
+  QString mimeType = contentTypeHeader.toString();
+  if ( ! mimeType.contains ( "text/html" ) )
+    return;
+
+  if ( m_networkReply->hasRawHeader ( QByteArray ( "location" ) ) )
   {
-    QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );
-    if ( ! contentTypeHeader.isValid() )
-      return;
+    emit netNotify ( i18n ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
+    peekPostData.clear();
+  }
 
-    QString mimeType = contentTypeHeader.toString();
-    if ( ! mimeType.contains ( "text/html" ) )
-      return;
+  QIODevice* copyDevice = m_networkReply;
+  if ( ! copyDevice || ! m_networkReply->isOpen() )
+    return;
 
-    if ( m_networkReply->hasRawHeader ( QByteArray ( "location" ) ) )
-    {
-      emit netNotify ( i18n ( "Multiple Content-Location header from POST Request received. Note - Many Webservers are free to ignore this. (300)" ) );
-      peekPostData.clear();
-    }
+  peekPostData.append ( peekDeviceData ( copyDevice ) );
 
-    QIODevice* copyDevice = m_networkReply;
-    if ( ! copyDevice || ! m_networkReply->isOpen() )
-      return;
-
-    peekPostData.append ( peekDeviceData ( copyDevice ) );
-
-    // FIXME I know this is a very difficult hack :-/
-    if ( peekPostData.contains ( QByteArray ( "</html>" ) ) )
-    {
-      QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( m_networkReply ) );
-      // qDebug() << codec->toUnicode ( peekPostData );
-      emit postReplySource ( m_networkReply->url(), codec->toUnicode ( peekPostData ) );
-    }
+  // FIXME I know this is a very difficult hack :-/
+  if ( peekPostData.contains ( QByteArray ( "</html>" ) ) )
+  {
+    QTextCodec* codec = QTextCodec::codecForHtml ( peekPostData, fetchHeaderEncoding ( m_networkReply ) );
+    // qDebug() << codec->toUnicode ( peekPostData );
+    emit postReplySource ( m_networkReply->url(), codec->toUnicode ( peekPostData ) );
   }
 }
 

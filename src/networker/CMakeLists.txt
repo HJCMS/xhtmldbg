@@ -1,5 +1,10 @@
 # CMakeLists.txt
 
+## NOTE Exeptions needed by NetworkAccessManager::peekReplyProcess
+# REMOVE_DEFINITIONS ("-DQT_NO_EXCEPTIONS")
+# STRING (REGEX REPLACE "\\-fno\\-exceptions" "-fexceptions" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+##
+
 SET (networker_SOURCES
   networkaccessmanager.cpp
   networksettings.cpp
