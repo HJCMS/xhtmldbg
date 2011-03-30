@@ -46,15 +46,15 @@ QWidget* FormTableDelegation::createEditor ( QWidget *editor,
         const QStyleOptionViewItem &option, const QModelIndex &index ) const
 {
   Q_UNUSED ( option );
-  if ( index.column() == 1 )
-    return new QLabel ( editor );
-  else
+  if ( index.column() == 4 )
     return new QLineEdit ( editor );
+  else
+    return new QLabel ( editor );
 }
 
 void FormTableDelegation::setEditorData ( QWidget *editor, const QModelIndex &index ) const
 {
-  if ( index.column() > 0 ) // TODO Element TagName ist Gesperrt!
+  if ( index.column() == 4 ) // TODO Element TagName,id und type sind Gesperrt!
   {
     QLineEdit* sw = static_cast<QLineEdit*> ( editor );
     sw->setText ( index.model()->data ( index ).toString() );
@@ -64,7 +64,7 @@ void FormTableDelegation::setEditorData ( QWidget *editor, const QModelIndex &in
 void FormTableDelegation::setModelData ( QWidget *editor,
         QAbstractItemModel *model, const QModelIndex &index ) const
 {
-  if ( index.column() > 0 ) // TODO Element TagName ist Gesperrt!
+  if ( index.column() == 4 ) // TODO Element TagName,id und type sind Gesperrt!
   {
     QLineEdit* sw = static_cast<QLineEdit*> ( editor );
     model->setData ( index, QVariant ( sw->text() ), Qt::EditRole );

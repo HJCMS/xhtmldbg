@@ -65,12 +65,18 @@ QVariant FormTableModel::headerData ( int section, Qt::Orientation orient, int r
     switch ( section )
     {
       case 0:
-        return QVariant ( i18n ( "Name" ) );
+        return QVariant ( i18n ( "Element" ) );
 
       case 1:
         return QVariant ( i18n ( "Type" ) );
 
       case 2:
+        return QVariant ( i18n ( "Name" ) );
+
+      case 3:
+        return QVariant ( i18n ( "Id" ) );
+
+      case 4:
         return QVariant ( i18n ( "Value" ) );
 
       default:
@@ -96,8 +102,12 @@ QVariant FormTableModel::data ( const QModelIndex & index, int role ) const
     if ( index.column() == 0 )
       return QVariant ( element.tagName() );
     if ( ( index.column() == 1 ) && ( element.hasAttribute ( "type" ) ) )
-      return QVariant ( element.attribute ( "type", i18n ( "Unknown" ) ) );
-    if ( ( index.column() == 2 ) && element.hasAttribute ( "value" ) )
+      return QVariant ( element.attribute ( "type", "" ) );
+    if ( ( index.column() == 2 ) && element.hasAttribute ( "name" ) )
+      return QVariant ( element.attribute ( "name", "" ) );
+    if ( ( index.column() == 3 ) && element.hasAttribute ( "id" ) )
+      return QVariant ( element.attribute ( "id", "" ) );
+    if ( ( index.column() == 4 ) && element.hasAttribute ( "value" ) )
       return QVariant ( element.attribute ( "value", "" ) );
   }
   return QVariant();
@@ -116,12 +126,7 @@ bool FormTableModel::setData ( const QModelIndex &index, const QVariant &value, 
   if ( ! items.at ( row ).isNull() )
   {
     QWebElement element = items.at ( row );
-    if ( ( index.column() == 1 ) && ( element.hasAttribute ( "type" ) ) )
-    {
-      element.setAttribute ( "type", value.toString() );
-      retval = true;
-    }
-    else if ( ( index.column() == 2 ) && element.hasAttribute ( "value" ) )
+    if ( ( index.column() == 4 ) && element.hasAttribute ( "value" ) )
     {
       element.setAttribute ( "value", value.toString() );
       retval = true;
@@ -132,7 +137,7 @@ bool FormTableModel::setData ( const QModelIndex &index, const QVariant &value, 
 
 int FormTableModel::columnCount ( const QModelIndex &/*parent*/ ) const
 {
-  return 3;
+  return 5;
 }
 
 int FormTableModel::rowCount ( const QModelIndex &/*parent*/ ) const
