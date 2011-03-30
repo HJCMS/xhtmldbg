@@ -103,7 +103,8 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
 
   QString host1 = cookieDomainFromUrl ( url );
   QString host2 = cookieHostnameFromUrl ( url );
-  QString rejectMessage = i18n ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." ).arg ( url.host(), domain );
+  QString rejectMessage = i18n ( "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by RFC 2109." )
+                          .arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
   if ( rfc && ! domain.contains ( QRegExp ( "^\\." ) ) )
@@ -121,7 +122,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     emit cookieRejected ( rejectMessage );
     return false;
   }
-  else if ( !domain.contains ( QRegExp ( "([\\w\\d]+)\\.(\\w{2,})$" ) ) )
+  else if ( ! domain.contains ( QRegExp ( "([\\w\\d\\-]+)\\.(\\w{2,})$" ) ) )
   {
     rejectMessage.append ( i18n ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
     emit cookieRejected ( rejectMessage );
@@ -143,7 +144,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
     // Accepted: host.tld == .domain.tld
     return true;
   }
-  else if ( !rfc )
+  else if ( ! rfc )
   {
 #ifdef XHTMLDBG_DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) Accepted NONE RFC2109:" << domain;
@@ -229,7 +230,7 @@ bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &ur
 
     bool status = ( domain.contains ( hostname ) ? false : true );
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << "(XHTMLDBG) Cookie isThirdPartyDomain:" << hostname << " : " << status;
+    qDebug() << "(XHTMLDBG) Cookie isThirdPartyDomain:" << hostname << " : " << status;
 #endif
     // Wenn hostname vorhanden sollte es kein 3. Anbieter
     return status;

@@ -19,60 +19,44 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef FORMMANAGER_H
-#define FORMMANAGER_H
+#ifndef FORMTABLEDELEGATION_H
+#define FORMTABLEDELEGATION_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QList>
-#include <QtCore/QString>
-#include <QtCore/QUrl>
+#include <QtCore/QModelIndex>
 
 /* QtGui */
-#include <QtGui/QDockWidget>
-#include <QtGui/QScrollArea>
-#include <QtGui/QSplitter>
+#include <QtGui/QItemDelegate>
 #include <QtGui/QWidget>
+#include <QtGui/QStyleOptionViewItem>
+#include <QtGui/QTableView>
 
-/* QtWebKit */
-#include <QtWebKit/QWebElement>
-#include <QtWebKit/QWebElementCollection>
-
-/* KDE */
-#include <KDE/KTabWidget>
-
-/* DBManager */
-#include "dbmanager.h"
-
-class FormConstructor;
-class FormBookmarks;
-class FormTable;
-
-class FormManager : public QDockWidget
+class FormTableDelegation : public QItemDelegate
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    DBManager* m_dbManager;
-    QScrollArea* m_scrollArea;
-    QSplitter* m_splitter;
-    KTabWidget* m_tabWidget;
-    FormBookmarks* m_formBookmarks;
+    QWidget* createEditor ( QWidget * parent,
+                            const QStyleOptionViewItem &option,
+                            const QModelIndex &index ) const;
 
-    void createBookmarkItems();
-    void addFormTable ( const QUrl &url, const FormConstructor & );
+    void setEditorData ( QWidget * editor,
+                         const QModelIndex &index ) const;
 
-  Q_SIGNALS:
-    void status ( bool );
+    void setModelData ( QWidget * editor,
+                        QAbstractItemModel *model,
+                        const QModelIndex &index ) const;
 
-  public Q_SLOTS:
-    void setPageContent ( const QUrl &, const QWebElement & );
+    void updateEditorGeometry ( QWidget * editor,
+                                const QStyleOptionViewItem &option,
+                                const QModelIndex &index ) const;
 
   public:
-    FormManager ( DBManager* db, QWidget * parent = 0 );
-    virtual ~FormManager();
+    FormTableDelegation ( QTableView * parent = 0 );
+    ~FormTableDelegation();
 };
 
 #endif

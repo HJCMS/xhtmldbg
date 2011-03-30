@@ -47,10 +47,6 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
     : QGroupBox ( i18n ( "Client Authentication and Access Control" ), parent )
 {
   setObjectName ( QLatin1String ( "configaccesscontrol" ) );
-  setFlat ( true );
-  /** TODO Im Moment noch nicht Integriert,
-  * siehe @class NetworkSettings::sslConfiguration */
-  setEnabled ( true );
 
   Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
@@ -65,11 +61,8 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   lr0->setOpenExternalLinks ( true );
   lr0->setTextInteractionFlags ( Qt::TextBrowserInteraction );
   // Certification Authorities Info
-  QString info = i18n ( "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when" );
-  info.append ( "<a href=\"http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org\">" );
-  info.append ( i18n ( "I know all my clients" ) );
-  info.append ( "</a>?" );
-  lr0->setText ( info );
+  lr0->setText ( i18n ( "This Certificate is used by the remote end to verify the local user's identity against its list of Certification Authorities. For more Information about Client Authentication and Access Control  with Certificates please refer the  Apache SSL FAQ. How can I authenticate clients based on certificates when <a href=\"%1\">I know all my clients</a>?" )
+                 .arg ( "http://www.google.de/search?q=apache2+client+authentication+access+control%20site:httpd.apache.org" ) );
   gridLayout->addWidget ( lr0, 0, 0, 1, 3 );
 
   QLabel* lr1 = new QLabel ( this );
@@ -128,12 +121,10 @@ ConfigAccessControl::ConfigAccessControl ( QWidget * parent )
   connect ( btn3, SIGNAL ( clicked() ), sslPrivatePass, SLOT ( clear() ) );
 }
 
-/**
-* Dialog für die Suche nach dem Privaten Schlüssel.
-*/
+/** Dialog für die Suche nach dem Privaten Schlüssel. */
 void ConfigAccessControl::getPrivKeyDialog()
 {
-  QString path ( sslPrivateKey->text() );
+  QString path ( ( sslPrivateKey->text().isEmpty() ? "kfiledialog:///" : sslPrivateKey->text() ) );
   path = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-pkcs12" ),
                                         this, i18n ( "Open Private Certificate" ) );
 
@@ -142,12 +133,10 @@ void ConfigAccessControl::getPrivKeyDialog()
     sslPrivateKey->setText ( db.absoluteFilePath() );
 }
 
-/**
-* Dialog für die Suche nach dem Öffentlichen Schlüssel
-*/
+/** Dialog für die Suche nach dem Öffentlichen Schlüssel */
 void ConfigAccessControl::getPupKeyDialog()
 {
-  QString path ( sslPublicKey->text() );
+  QString path ( ( sslPublicKey->text().isEmpty() ? "kfiledialog:///" : sslPublicKey->text() ) );
   path = KFileDialog::getOpenFileName ( KUrl ( path ), QString ( "application/x-x509-ca-cert" ),
                                         this, i18n ( "Open Public Certificate" ) );
 

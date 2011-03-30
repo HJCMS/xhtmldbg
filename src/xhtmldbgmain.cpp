@@ -42,6 +42,9 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 /* construct */
 xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
     : Application ()

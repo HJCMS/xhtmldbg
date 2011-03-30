@@ -1,16 +1,18 @@
 # CMakeLists.txt
 
-SET (dbmanager_SOURCES
+SET (subproject "DBManager")
+
+SET (subproject_SOURCES
   dbmanager.cpp
   dblocator.cpp
 )
 
-SET (dbmanager_HEADERS
+SET (subproject_HEADERS
   dbmanager.h
   dblocator.h
 )
 
-SET (dbmanager_NOMOC_HEADERS
+SET (subproject_NOMOC_HEADERS
 )
 
 INCLUDE_DIRECTORIES (
@@ -19,24 +21,24 @@ INCLUDE_DIRECTORIES (
   ${XHTMLDBG_INCLUDE_INTERFACE}
 )
 
-KDE4_MOC_HEADERS (dbmanager_MOC ${dbmanager_HEADERS})
+KDE4_MOC_HEADERS (subproject_MOC ${subproject_HEADERS})
 
-QT4_ADD_RESOURCES (dbmanager_QRC dbmanager.qrc)
+QT4_ADD_RESOURCES (subproject_QRC dbmanager.qrc)
 
-KDE4_ADD_LIBRARY (DBManager STATIC
-  ${dbmanager_QRC}
-  ${dbmanager_MOC}
-  ${dbmanager_NOMOC_HEADERS}
-  ${dbmanager_HEADERS}
-  ${dbmanager_SOURCES}
+KDE4_ADD_LIBRARY (${subproject} STATIC
+  ${subproject_QRC}
+  ${subproject_MOC}
+  ${subproject_NOMOC_HEADERS}
+  ${subproject_HEADERS}
+  ${subproject_SOURCES}
 )
 
-SET_TARGET_PROPERTIES (DBManager PROPERTIES
+SET_TARGET_PROPERTIES (${subproject} PROPERTIES
   LINKER_LANGUAGE CXX
   COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS}"
 )
 
-TARGET_LINK_LIBRARIES (DBManager
+TARGET_LINK_LIBRARIES (${subproject}
   ${QT_QTCORE_LIBRARY}
   ${QT_QTSQL_LIBRARY}
   ${QT_QTDBUS_LIBRARY}

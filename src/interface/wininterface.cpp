@@ -21,18 +21,35 @@
 
 #include "wininterface.h"
 
+/* QtCore */
 #include <QtCore/QRegExp>
 
-#define IFACE QString::fromUtf8("de.hjcms.xhtmldbg")
+/* QtDBus */
+#include <QtDBus/QDBusConnectionInterface>
+
+#define XHTMLDBG_SERVICE QString::fromUtf8 ("de.hjcms.xhtmldbg")
+#define XHTMLDBG_INTERFACE QString::fromUtf8 ("de.hjcms.xhtmldbg.Window")
 
 namespace xhtmldbg
 {
+  static inline const QString xhtmldbgService ( const QDBusConnection &bus )
+  {
+    if ( ! bus.isConnected() )
+      return XHTMLDBG_SERVICE;
+
+    foreach ( QString srv, bus.interface()->registeredServiceNames().value() )
+    {
+      if ( srv.contains ( XHTMLDBG_SERVICE ) )
+        return srv;
+    }
+    return XHTMLDBG_SERVICE;
+  }
 
   WinInterface::WinInterface ( const QDBusConnection &dbus, QObject* parent )
-      : QDBusInterface ( "de.hjcms.xhtmldbg", "/xhtmldbg", IFACE, dbus, parent )
-      , interface ( IFACE ), bus ( dbus )
+      : QDBusInterface ( xhtmldbgService ( dbus ), "/xhtmldbg/Window", XHTMLDBG_INTERFACE, dbus, parent )
+      , interface ( XHTMLDBG_INTERFACE ), bus ( dbus )
   {
-    setObjectName ( "de.hjcms.xhtmldbg" );
+    setObjectName ( "de.hjcms.xhtmldbg.interface" );
   }
 
   void WinInterface::hasErrors ()

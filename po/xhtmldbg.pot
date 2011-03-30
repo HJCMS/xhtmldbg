@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-28 16:42+0200\n"
+"POT-Creation-Date: 2011-03-30 11:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,7 +141,8 @@ msgstr ""
 msgid "1 Minute"
 msgstr ""
 
-#: src/bookmark/bookmark.cpp:51 src/window.cpp:492
+#: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
+#: src/window.cpp:493
 msgid "Bookmarks"
 msgstr ""
 
@@ -206,6 +207,7 @@ msgstr ""
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267
+#: src/formmanager/formtablemodel.cpp:77 src/formmanager/formtablemodel.cpp:99
 #: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr ""
@@ -343,37 +345,33 @@ msgstr ""
 msgid "Client Authentication and Access Control"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:68
+#: src/configuration/configaccesscontrol.cpp:64
 msgid ""
 "This Certificate is used by the remote end to verify the local user's "
 "identity against its list of Certification Authorities. For more Information "
 "about Client Authentication and Access Control  with Certificates please "
 "refer the  Apache SSL FAQ. How can I authenticate clients based on "
-"certificates when"
+"certificates when <a href=\"%1\">I know all my clients</a>?"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:70
-msgid "I know all my clients"
-msgstr ""
-
-#: src/configuration/configaccesscontrol.cpp:76
+#: src/configuration/configaccesscontrol.cpp:69
 msgid "Public Keyfile:"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:90
+#: src/configuration/configaccesscontrol.cpp:83
 msgid "Private Keyfile:"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:104
+#: src/configuration/configaccesscontrol.cpp:97
 msgid "Private Key Password:"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:138
+#: src/configuration/configaccesscontrol.cpp:129
 #: src/configuration/configutils.cpp:119
 msgid "Open Private Certificate"
 msgstr ""
 
-#: src/configuration/configaccesscontrol.cpp:152
+#: src/configuration/configaccesscontrol.cpp:141
 #: src/configuration/configutils.cpp:135
 msgid "Open Public Certificate"
 msgstr ""
@@ -543,8 +541,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:534
-#: src/window.cpp:626
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:535
+#: src/window.cpp:627
 msgid "Extensions"
 msgstr ""
 
@@ -815,7 +813,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:150
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:151
 msgid "Browser"
 msgstr ""
 
@@ -1125,15 +1123,15 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:529
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:530
 msgid "Configure"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:88
+#: src/dbmanager/dbmanager.cpp:92
 msgid "SQL Invalid Operation: %1 %2"
 msgstr ""
 
-#: src/dbmanager/dbmanager.cpp:92
+#: src/dbmanager/dbmanager.cpp:96
 msgid "SQL Open Database: %1 %2"
 msgstr ""
 
@@ -1141,7 +1139,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:380
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:381
 msgid "Open Url"
 msgstr ""
 
@@ -1186,7 +1184,7 @@ msgstr ""
 
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
 #: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
-#: src/rdfparser/rsstreeview.cpp:50
+#: src/formmanager/formtablemodel.cpp:74 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr ""
 
@@ -1194,7 +1192,7 @@ msgstr ""
 msgid "POST Variables"
 msgstr ""
 
-#: src/docking/headerdock.cpp:70
+#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:68
 msgid "Name"
 msgstr ""
 
@@ -1267,7 +1265,7 @@ msgstr ""
 msgid "no visible geometry"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:549
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:550
 msgid "Actions"
 msgstr ""
 
@@ -1449,16 +1447,16 @@ msgstr ""
 msgid "Destination"
 msgstr ""
 
-#: src/formmanager/formdblist.cpp:38
-msgid "Formular Database"
+#: src/formmanager/formmanager.cpp:71
+msgid "Form Manager"
 msgstr ""
 
-#: src/formmanager/formmanager.cpp:58
-msgid "Forms"
+#: src/formmanager/formmanager.cpp:111
+msgid "Default"
 msgstr ""
 
-#: src/formmanager/formmanager.cpp:70
-msgid "Forms TEST Widget"
+#: src/formmanager/formtablemodel.cpp:71
+msgid "Type"
 msgstr ""
 
 #: src/geolocation.cpp:50 src/geolocation.cpp:51
@@ -1795,7 +1793,7 @@ msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:302
+#: src/networker/networkaccessmanager.cpp:305
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -1807,38 +1805,38 @@ msgid ""
 "RFC 2109."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:114
+#: src/networker/networkcookie.cpp:115
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:120
+#: src/networker/networkcookie.cpp:121
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:126
+#: src/networker/networkcookie.cpp:127
 msgid ""
 "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:155
+#: src/networker/networkcookie.cpp:156
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:296
+#: src/networker/networkcookie.cpp:297
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:321
+#: src/networker/networkcookie.cpp:322
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:327
+#: src/networker/networkcookie.cpp:328
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:385
+#: src/networker/networkcookie.cpp:386
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
@@ -1867,7 +1865,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:156
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:157
 msgid "Source"
 msgstr ""
 
@@ -2314,11 +2312,11 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/webviewer.cpp:82 src/window.cpp:480
+#: src/webviewer.cpp:82 src/window.cpp:481
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:481
+#: src/webviewer.cpp:84 src/window.cpp:482
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -2326,141 +2324,141 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/window.cpp:127
+#: src/window.cpp:128
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
-#: src/window.cpp:376
+#: src/window.cpp:377
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:381
+#: src/window.cpp:382
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:387
+#: src/window.cpp:388
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:388
+#: src/window.cpp:389
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:394
+#: src/window.cpp:395
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:395
+#: src/window.cpp:396
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:402
+#: src/window.cpp:403
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:405
+#: src/window.cpp:406
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:406
+#: src/window.cpp:407
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:412
+#: src/window.cpp:413
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:413
+#: src/window.cpp:414
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:419
+#: src/window.cpp:420
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:423
+#: src/window.cpp:424
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:431
+#: src/window.cpp:432
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:439 src/zoombar.cpp:52
+#: src/window.cpp:440 src/zoombar.cpp:52
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:452
+#: src/window.cpp:453
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:459
+#: src/window.cpp:460
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:462
+#: src/window.cpp:463
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:468
+#: src/window.cpp:469
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:474
+#: src/window.cpp:475
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:515
+#: src/window.cpp:516
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:521
+#: src/window.cpp:522
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:523
+#: src/window.cpp:524
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:537
+#: src/window.cpp:538
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:560
+#: src/window.cpp:561
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:596
+#: src/window.cpp:597
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:606
+#: src/window.cpp:607
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:614
+#: src/window.cpp:615
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:890
+#: src/window.cpp:891
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:1009
+#: src/window.cpp:1010
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1050
+#: src/window.cpp:1051
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1053
+#: src/window.cpp:1054
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1084
+#: src/window.cpp:1085
 msgid "Download Request: %1"
 msgstr ""
 

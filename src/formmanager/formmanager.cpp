@@ -21,7 +21,8 @@
 
 #include "formmanager.h"
 #include "formconstructor.h"
-#include "formdblist.h"
+#include "formbookmarks.h"
+#include "formtable.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -35,14 +36,14 @@
 #include <QtGui/QSizePolicy>
 #include <QtGui/QTreeWidget>
 
-/* QtXml */
-// #include <QtXml/>
-
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
 
 /* KDE */
 #include <KDE/KLocale>
+
+/* QtSql */
+#include <QtSql/QSqlError>
 
 /**
 * TODO Der FormManager soll vollgendes machen!
@@ -50,30 +51,82 @@
 * \li Einen Unique MD5 Hash aus URL und den Element Namen des Formulares für die Datenbank erstellen!\n
 *     Das komplette einlesen des Forms wird wegen verschiedener Inhalte nicht gehen :-/
 * \li Das Formular in einen Byte String Konvertieren und in die Datenbank Speichern
+* \code
+* CREATE TABLE formmanager (
+*   url TEXT UNIQUE NOT NULL ON CONFLICT FAIL,
+*   project TEXT NOT NULL DEFAULT 'Form 0',
+*   autoinsert INTEGER default 0
+* );
+* CREATE TABLE forms (
+*   ident TEXT UNIQUE NOT NULL ON CONFLICT FAIL,
+*   formdata TEXT
+* );
+* \endcode
 */
-FormManager::FormManager ( QWidget * parent )
+FormManager::FormManager ( DBManager* db, QWidget * parent )
     : QDockWidget ( parent )
+    , m_dbManager ( db )
 {
   setObjectName ( QLatin1String ( "FormManager" ) );
-  setWindowTitle ( i18n ( "Forms" ) );
+  setWindowTitle ( i18n ( "Form Manager" ) );
   setAllowedAreas ( ( allowedAreas() & ~Qt::TopDockWidgetArea ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
   setContentsMargins ( 1, 1, 1, 1 );
 
-  m_splitter = new QSplitter ( Qt::Vertical, this );
+  m_scrollArea = new QScrollArea ( this );
+  m_scrollArea->setWidgetResizable ( true );
+
+  m_splitter = new QSplitter ( Qt::Horizontal, m_scrollArea );
   m_splitter->setObjectName ( QLatin1String ( "FormManager/Splitter" ) );
+  m_scrollArea->setWidget ( m_splitter );
 
-  m_pageWidget = new KPageWidget ( m_splitter );
-  m_pageWidget->setObjectName ( QLatin1String ( "FormManager/Splitter/KPageWidget" ) );
-  m_splitter->insertWidget ( 0, m_pageWidget );
+  m_formBookmarks = new FormBookmarks ( m_splitter );
+  m_splitter->insertWidget ( 0, m_formBookmarks );
 
-  m_pageWidget->addPage ( new QTreeWidget ( this ), i18n ( "Forms TEST Widget" ) );
+  m_tabWidget = new KTabWidget ( m_splitter );
+  m_tabWidget->setObjectName ( QLatin1String ( "FormManager/Splitter/KTabWidget" ) );
+  m_splitter->insertWidget ( 1, m_tabWidget );
 
-  m_formDBList = new FormDBList ( m_splitter );
-  m_splitter->insertWidget ( 1, m_formDBList );
+  setWidget ( m_scrollArea );
 
-  setWidget ( m_splitter );
-  forms.clear();
+  // Alle bestehenden Lesezeichen einfügen
+  createBookmarkItems();
+}
+
+/** Lesezeichen Einträge erstellen  */
+void FormManager::createBookmarkItems()
+{
+  QSqlQuery q = m_dbManager->select ( "SELECT url,project,autoinsert FROM formmanager WHERE (url IS NOT NULL) GROUP BY project;" );
+  QSqlRecord r = q.record();
+  if ( r.count() > 0 )
+  {
+    while ( q.next() )
+    {
+      QUrl url = q.value ( r.indexOf ( "url" ) ).toUrl();
+      if ( url.isValid() )
+      {
+        QString prj = q.value ( r.indexOf ( "project" ) ).toString();
+        FormBookmarkItem* item = new FormBookmarkItem ( url );
+        item->setAutoinsert ( q.value ( r.indexOf ( "autoinsert" ) ).toBool() );
+        m_formBookmarks->addItem ( ( prj.isEmpty() ? i18n ( "Default" ) : prj ), item );
+      }
+    }
+    q.finish();
+  }
+}
+
+void FormManager::addFormTable ( const QUrl &url, const FormConstructor &form )
+{
+  if ( form.elements.size() > 0 )
+  {
+    FormTable* table = new FormTable ( m_tabWidget );
+    table->setTableContent ( form.elements );
+    m_tabWidget->insertTab ( m_tabWidget->count(), table, url.toString ( ( QUrl::RemoveScheme | QUrl::RemoveQuery ) ) );
+    return;
+  }
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qDebug() << Q_FUNC_INFO << url << "form.elements.size() = " << form.elements.size();
+#endif
 }
 
 /**
@@ -84,10 +137,10 @@ void FormManager::setPageContent ( const QUrl &url, const QWebElement &element )
   if ( ! toggleViewAction()->isChecked() || ! isVisible() )
     return;
 
+  m_tabWidget->clear();
   QWebElementCollection collection = element.findAll ( "FORM" );
   if ( collection.count() > 0 )
   {
-    qDebug() << Q_FUNC_INFO << "Todo db search" << url;
     foreach ( QWebElement e, collection )
     {
       if ( e.hasAttribute ( QLatin1String ( "action" ) ) && e.hasAttribute ( QLatin1String ( "method" ) ) )
@@ -95,7 +148,7 @@ void FormManager::setPageContent ( const QUrl &url, const QWebElement &element )
         if ( e.attribute ( "action", QString::null ).isEmpty() )
           continue;
 
-        forms.append ( FormConstructor ( e ) );
+        addFormTable ( url, FormConstructor ( e ) );
       }
     }
   }
@@ -103,5 +156,5 @@ void FormManager::setPageContent ( const QUrl &url, const QWebElement &element )
 
 FormManager::~FormManager()
 {
-  forms.clear();
+  m_tabWidget->clear();
 }

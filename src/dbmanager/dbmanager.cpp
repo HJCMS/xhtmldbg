@@ -79,47 +79,52 @@ const QString DBManager::defaultDatabase()
 /** Nachrichten verarbeiten! */
 void DBManager::setError ( QueryType t, int l, const QString &m )
 {
-  qWarning ( "SQL Error Line %d (%s)", l, qPrintable ( m ) );
-
+  QString message;
   QString line = QString::number ( l );
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+  qWarning ( "SQL Error Line %d (%s)", l, qPrintable ( m ) );
+#endif
+
   switch ( t )
   {
     case ACTION:
-      emit error ( i18n ( "SQL Invalid Operation: %1 %2" ).arg ( line, m ) );
+      message = i18n ( "SQL Invalid Operation: %1 %2" ).arg ( line, m );
       break;
 
     case OPEN:
-      emit error ( i18n ( "SQL Open Database: %1 %2" ).arg ( line, m ) );
+      message = i18n ( "SQL Open Database: %1 %2" ).arg ( line, m );
       break;
 
     case CREATE:
-      emit error ( QString::fromUtf8 ( "SQL Create Table: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Create Table: %1 %2" ).arg ( line, m );
       break;
 
     case SELECT:
-      emit error ( QString::fromUtf8 ( "SQL Select: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Select: %1 %2" ).arg ( line, m );
       break;
 
     case DELETE:
-      emit error ( QString::fromUtf8 ( "SQL Delete: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Delete: %1 %2" ).arg ( line, m );
       break;
 
     case UPDATE:
-      emit error ( QString::fromUtf8 ( "SQL Update: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Update: %1 %2" ).arg ( line, m );
       break;
 
     case INSERT:
-      emit error ( QString::fromUtf8 ( "SQL Insert: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Insert: %1 %2" ).arg ( line, m );
       break;
 
     case QUERY:
-      emit error ( QString::fromUtf8 ( "SQL Query: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL Query: %1 %2" ).arg ( line, m );
       break;
 
     default:
-      emit error ( QString::fromUtf8 ( "SQL: %1 %2" ).arg ( line, m ) );
+      message = QString::fromUtf8 ( "SQL: %1 %2" ).arg ( line, m );
       break;
   }
+  emit error ( message );
 }
 
 /** Datenbank öffnen */
@@ -194,7 +199,7 @@ bool DBManager::insert ( const QStringList &queries )
 QSqlQuery DBManager::select ( const QString &query )
 {
   QSqlQuery result;
-  if ( ! query.contains ( "SELECT FROM ", Qt::CaseInsensitive ) )
+  if ( ! query.contains ( "SELECT ", Qt::CaseInsensitive ) )
   {
     setError ( ACTION, __LINE__, query );
     return result;

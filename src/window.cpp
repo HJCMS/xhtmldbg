@@ -35,6 +35,7 @@
 #include "colorpicker.h"
 #include "configuration.h"
 #include "cssvalidator.h"
+#include "dbmanager.h"
 #include "dominspector.h"
 #include "downloadmanager.h"
 #include "geolocation.h"
@@ -208,7 +209,7 @@ Window::Window ( Settings * settings )
 
 #ifdef _XHTMLDBG_EXPERIMENTAL
   // FormManager {
-  m_formManager = new FormManager ( this );
+  m_formManager = new FormManager ( Application::dbManager(), this );
   addDockWidget ( Qt::RightDockWidgetArea, m_formManager );
   // } FormManager
 #endif

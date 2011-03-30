@@ -67,7 +67,7 @@ bool FormConstructor::isValidInputElement ( const QWebElement &e )
 }
 
 /**
-* Ein neues WebElement anhängen
+* Ein neues \b nicht \e INPUT WebElement anhängen
 * Es werden nur die Prädikate "type,name,id" übernommen!
 */
 void FormConstructor::appendElement ( const QWebElement &ele )

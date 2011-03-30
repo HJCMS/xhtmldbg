@@ -19,32 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "formdblist.h"
+#include "formtable.h"
+#include "formtablemodel.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QStringList>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
 
 /* QtGui */
-#include <QtGui/QListWidget>
+#include <QtGui/QAbstractItemView>
+#include <QtGui/QHeaderView>
 
 /* KDE */
 #include <KDE/KLocale>
+#include <KDE/KIcon>
 
-FormDBList::FormDBList ( QWidget * parent )
-    : KListWidget ( parent )
+FormTable::FormTable ( QWidget * parent )
+    : QTableView ( parent )
+    , m_model ( new FormTableModel ( this ) )
 {
-  setObjectName ( QLatin1String ( "formdatabaselist" ) );
-  addItem ( i18n ( "Formular Database" ) );
-
-  connect ( this, SIGNAL ( itemDoubleClicked ( QListWidgetItem * ) ),
-            this, SLOT ( openItem ( QListWidgetItem * ) ) );
+  setObjectName ( QLatin1String ( "FormTable" ) );
+  setEditTriggers ( QAbstractItemView::DoubleClicked );
+  setModel ( m_model );
 }
 
-void FormDBList::openItem ( QListWidgetItem * )
+void FormTable::setTableContent ( const QList<QWebElement> &list )
 {
-  qDebug() << Q_FUNC_INFO << "TODO";
+  foreach ( QWebElement e, list )
+  {
+    m_model->insertRowItem ( e );
+  }
 }
 
-FormDBList::~FormDBList()
+FormTable::~FormTable()
 {}

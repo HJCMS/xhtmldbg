@@ -39,8 +39,8 @@ static inline const QStringList xhtmldbg_sql_databases()
   tbs << "cookieshandle"; // Cookie Hostnamen
   tbs << "networkblocker"; // geblockte Host Adressen
   tbs << "pwmanager"; // Passwörter
-//   tbs << "Origins"; // HTML 5 Origins
-//   tbs << "Databases"; // HTML 5 Databases
+  tbs << "formmanager"; // Formular Index Tabelle
+  tbs << "forms"; // Formulare
   return tbs;
 }
 
@@ -127,7 +127,7 @@ bool DBLocator::initDatabase ( const QSqlDatabase &driver )
     return true;
   }
 
-#ifdef DEBUG_VERBOSE
+#ifdef XHTMLDBG_DEBUG_VERBOSE
   if ( ! db.lastError().text().isEmpty() )
     qWarning ( "(XHTMLDBG) SQL %s", qPrintable ( db.lastError().text() ) );
 #endif

@@ -19,32 +19,49 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef FORMDBLIST_H
-#define FORMDBLIST_H
+#ifndef FORMBOOKMARKS_H
+#define FORMBOOKMARKS_H
 
 /* QtCore */
+#include <QtCore/QList>
+#include <QtCore/QModelIndex>
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 
 /* QtGui */
 #include <QtGui/QWidget>
-#include <QtGui/QListWidgetItem>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
 
-/* KDE */
-#include <KDE/KListWidget>
+/* FormManager */
+#include "formbookmarkitem.h"
 
-class FormDBList : public KListWidget
+class FormBookmarks : public QTreeWidget
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
+  private:
+    QTreeWidgetItem* m_rootItem;
+    QTreeWidgetItem* addProjectItem ( const QString &project );
+    QTreeWidgetItem* findTopLevelItem ( const QString &project );
+
   private Q_SLOTS:
-    void openItem ( QListWidgetItem * );
+    void itemClicked ( const QModelIndex & );
+    void itemDoubleClicked ( const QModelIndex & );
+
+  Q_SIGNALS:
+    void bookmarkClicked ( FormBookmarkItem * item, int column );
+    void bookmarkDoubleClicked ( FormBookmarkItem * item, int column );
+
+  public Q_SLOTS:
+    void addItem ( const QString &project, FormBookmarkItem * item );
 
   public:
-    FormDBList ( QWidget * parent = 0 );
-    virtual ~FormDBList();
+    FormBookmarks ( QWidget * parent = 0 );
+    virtual ~FormBookmarks();
 };
 
 #endif

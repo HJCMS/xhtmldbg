@@ -1,0 +1,4 @@
+CREATE TABLE forms (
+  ident TEXT UNIQUE NOT NULL ON CONFLICT FAIL,
+  formdata TEXT
+);

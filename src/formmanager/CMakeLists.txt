@@ -4,17 +4,25 @@ SET (subproject "FormManager")
 
 SET (target_project_SOURCES
   formmanager.cpp
-  formdblist.cpp
+  formbookmarks.cpp
   formconstructor.cpp
+  formbookmarkitem.cpp
+  formtable.cpp
+  formtablemodel.cpp
+  formtabledelegation.cpp
 )
 
 SET (target_project_HEADERS
   formmanager.h
-  formdblist.h
+  formbookmarks.h
+  formtable.h
+  formtablemodel.h
+  formtabledelegation.h
 )
 
 SET (target_project_NOMOC_HEADERS
   formconstructor.h
+  formbookmarkitem.h
 )
 
 KDE4_MOC_HEADERS (target_project_MOC ${target_project_HEADERS})

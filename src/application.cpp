@@ -54,6 +54,8 @@ Application::Application ()
     , m_server ( 0 )
 {
   setObjectName ( "application" );
+  // NOTE Wir verwenden nicht den KSessionManager
+  disableSessionManagement();
   Q_INIT_RESOURCE ( xhtmldbg );
 }
 
