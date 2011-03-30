@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-30 11:13+0200\n"
-"PO-Revision-Date: 2011-03-30 11:14+0200\n"
+"POT-Creation-Date: 2011-03-30 11:47+0200\n"
+"PO-Revision-Date: 2011-03-30 11:47+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -226,7 +226,7 @@ msgstr ""
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267
-#: src/formmanager/formtablemodel.cpp:77 src/formmanager/formtablemodel.cpp:99
+#: src/formmanager/formtablemodel.cpp:83
 #: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr "Unbekannt"
@@ -1267,7 +1267,7 @@ msgstr "Datenkopf"
 
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
 #: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
-#: src/formmanager/formtablemodel.cpp:74 src/rdfparser/rsstreeview.cpp:50
+#: src/formmanager/formtablemodel.cpp:80 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr "Wert"
 
@@ -1275,7 +1275,7 @@ msgstr "Wert"
 msgid "POST Variables"
 msgstr "POST Variablen"
 
-#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:68
+#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:74
 msgid "Name"
 msgstr "Name"
 
@@ -1534,13 +1534,21 @@ msgstr "Ziel"
 msgid "Form Manager"
 msgstr "Formular Manager"
 
-#: src/formmanager/formmanager.cpp:111
+#: src/formmanager/formmanager.cpp:112
 msgid "Default"
 msgstr "Standard"
+
+#: src/formmanager/formtablemodel.cpp:68 src/rdfparser/rsstreeview.cpp:50
+msgid "Element"
+msgstr "Element"
 
 #: src/formmanager/formtablemodel.cpp:71
 msgid "Type"
 msgstr "Type"
+
+#: src/formmanager/formtablemodel.cpp:77
+msgid "Id"
+msgstr "ID"
 
 #: src/geolocation.cpp:50 src/geolocation.cpp:51
 msgid "country code from host address."
@@ -2166,10 +2174,6 @@ msgstr "Syntaxanalyse ATOM-%1"
 #: src/rdfparser/rssparserdialog.cpp:177
 msgid "Parsing RSS-%1"
 msgstr "Syntaxanalyse RSS-%1"
-
-#: src/rdfparser/rsstreeview.cpp:50
-msgid "Element"
-msgstr "Element"
 
 #: src/rdfparser/rsstreeview.cpp:50
 msgid "Predicate"

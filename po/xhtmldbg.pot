@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-30 11:13+0200\n"
+"POT-Creation-Date: 2011-03-30 11:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr ""
 #: src/bookmark/bookmarktreereader.cpp:98
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267
-#: src/formmanager/formtablemodel.cpp:77 src/formmanager/formtablemodel.cpp:99
+#: src/formmanager/formtablemodel.cpp:83
 #: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:287
 msgid "Unknown"
 msgstr ""
@@ -1184,7 +1184,7 @@ msgstr ""
 
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
 #: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
-#: src/formmanager/formtablemodel.cpp:74 src/rdfparser/rsstreeview.cpp:50
+#: src/formmanager/formtablemodel.cpp:80 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr ""
 
@@ -1192,7 +1192,7 @@ msgstr ""
 msgid "POST Variables"
 msgstr ""
 
-#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:68
+#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:74
 msgid "Name"
 msgstr ""
 
@@ -1451,12 +1451,20 @@ msgstr ""
 msgid "Form Manager"
 msgstr ""
 
-#: src/formmanager/formmanager.cpp:111
+#: src/formmanager/formmanager.cpp:112
 msgid "Default"
+msgstr ""
+
+#: src/formmanager/formtablemodel.cpp:68 src/rdfparser/rsstreeview.cpp:50
+msgid "Element"
 msgstr ""
 
 #: src/formmanager/formtablemodel.cpp:71
 msgid "Type"
+msgstr ""
+
+#: src/formmanager/formtablemodel.cpp:77
+msgid "Id"
 msgstr ""
 
 #: src/geolocation.cpp:50 src/geolocation.cpp:51
@@ -2043,10 +2051,6 @@ msgstr ""
 
 #: src/rdfparser/rssparserdialog.cpp:177
 msgid "Parsing RSS-%1"
-msgstr ""
-
-#: src/rdfparser/rsstreeview.cpp:50
-msgid "Element"
 msgstr ""
 
 #: src/rdfparser/rsstreeview.cpp:50
