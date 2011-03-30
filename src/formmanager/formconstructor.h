@@ -50,6 +50,9 @@ class FormConstructor : public QWebElement
     /** List with stripped WebElements */
     QList<QWebElement> elements;
 
+    /** Unique Form Attribute id|name */
+    const QString uniqueId() const;
+
     /** rewrite the \ref elements list */
     void rebuild();
 

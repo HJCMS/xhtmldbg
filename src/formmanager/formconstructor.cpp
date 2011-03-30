@@ -22,6 +22,7 @@
 #include "formconstructor.h"
 
 /* QtCore */
+#include <QtCore/QCryptographicHash>
 #include <QtCore/QDebug>
 #include <QtCore/QVariant>
 #include <QtCore/QStringList>
@@ -146,6 +147,28 @@ void FormConstructor::findSelections()
   {
     appendElement ( e );
   }
+}
+
+/** Sieht nach ob das Form Element ein id oder name Prädikat besitzt,
+* \li Wenn kein Prädikat vorhanden wird eine hash erstellt.
+*/
+const QString FormConstructor::uniqueId() const
+{
+  // Erster Versucht
+  QString id = attribute ( "id", QString::null );
+
+  // zweiter Versuch
+  if ( id.isEmpty() )
+    id = attribute ( "name", QString::null );
+
+  // hardcore :-/
+  if ( id.isEmpty() )
+  {
+    QCryptographicHash hash ( QCryptographicHash::Md5 );
+    hash.addData ( toPlainText().toUtf8() );
+    id = QString ( hash.result().toHex() );
+  }
+  return id;
 }
 
 /**

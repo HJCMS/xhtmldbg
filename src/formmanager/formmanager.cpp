@@ -22,7 +22,7 @@
 #include "formmanager.h"
 #include "formconstructor.h"
 #include "formbookmarks.h"
-#include "formtable.h"
+#include "formentry.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -40,6 +40,7 @@
 #include <QtWebKit/QWebFrame>
 
 /* KDE */
+#include <KDE/KIcon>
 #include <KDE/KLocale>
 
 /* QtSql */
@@ -120,13 +121,14 @@ void FormManager::addFormTable ( const QUrl &url, const FormConstructor &form )
 {
   if ( form.elements.size() > 0 )
   {
-    FormTable* table = new FormTable ( m_tabWidget );
-    table->setTableContent ( form.elements );
-    m_tabWidget->insertTab ( m_tabWidget->count(), table, url.toString ( ( QUrl::RemoveScheme | QUrl::RemoveQuery ) ) );
+    FormEntry* entry = new FormEntry ( form, url, m_tabWidget );
+    entry->setUniqueId ( form.uniqueId() );
+    entry->setObjectName ( form.uniqueId() );
+    m_tabWidget->insertTab ( m_tabWidget->count(), entry, KIcon ( "xhtmldbg" ), form.uniqueId() );
     return;
   }
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-  qDebug() << Q_FUNC_INFO << url << "form.elements.size() = " << form.elements.size();
+  qDebug() << Q_FUNC_INFO << url << "form.elements.size() = " << form.elements.size() << form.uniqueId();
 #endif
 }
 

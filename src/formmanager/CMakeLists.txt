@@ -7,6 +7,7 @@ SET (target_project_SOURCES
   formbookmarks.cpp
   formconstructor.cpp
   formbookmarkitem.cpp
+  formentry.cpp
   formtable.cpp
   formtablemodel.cpp
   formtabledelegation.cpp
@@ -15,6 +16,7 @@ SET (target_project_SOURCES
 SET (target_project_HEADERS
   formmanager.h
   formbookmarks.h
+  formentry.h
   formtable.h
   formtablemodel.h
   formtabledelegation.h

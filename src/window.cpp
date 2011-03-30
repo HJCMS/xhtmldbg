@@ -38,6 +38,7 @@
 #include "dbmanager.h"
 #include "dominspector.h"
 #include "downloadmanager.h"
+#include "formmanager.h"
 #include "geolocation.h"
 #include "headerdock.h"
 #include "historyitem.h"
@@ -52,7 +53,6 @@
 #include "pagehistory.h"
 /* Experimental */
 #ifdef _XHTMLDBG_EXPERIMENTAL
-# include "formmanager.h"
 # include "resizeportbuttons.h"
 #endif
 #include "settargetdialog.h"
@@ -207,12 +207,10 @@ Window::Window ( Settings * settings )
   m_domInspector = new DomInspector ( m_settings, this );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
-#ifdef _XHTMLDBG_EXPERIMENTAL
   // FormManager {
   m_formManager = new FormManager ( Application::dbManager(), this );
   addDockWidget ( Qt::RightDockWidgetArea, m_formManager );
   // } FormManager
-#endif
 
   // WebInspector
   // NOTE Bitte sicher stellen das eine Page vorhanden ist!!!
@@ -265,10 +263,8 @@ Window::Window ( Settings * settings )
   connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
             m_domInspector, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
 
-#ifdef _XHTMLDBG_EXPERIMENTAL
   connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
             m_formManager, SLOT ( setPageContent ( const QUrl &, const QWebElement & ) ) );
-#endif
 
   connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
             m_alternateLinkReader, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
@@ -615,9 +611,7 @@ void Window::createToolBars()
   QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( i18n ( "Inspectors" ) );
   inspectorsMenu->setIcon ( icon );
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
-#ifdef _XHTMLDBG_EXPERIMENTAL
   inspectorsMenu->addAction ( m_formManager->toggleViewAction() );
-#endif
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
   inspectorsMenu->addAction ( m_colorPicker->toggleViewAction() );
