@@ -27,8 +27,14 @@
 #include <QtCore/QRegExp>
 
 /* QtGui */
+#include <QtGui/QApplication>
+#include <QtGui/QClipboard>
 #include <QtGui/QColor>
 #include <QtGui/QListWidgetItem>
+
+/* KDE */
+#include <KDE/KIcon>
+#include <KDE/KLocale>
 
 ListStyleSheet::ListStyleSheet ( QWidget * parent, Settings * settings )
     : QListWidget ( parent )
@@ -45,8 +51,11 @@ ListStyleSheet::ListStyleSheet ( QWidget * parent, Settings * settings )
   setEditTriggers ( QAbstractItemView::NoEditTriggers );
   setBackgroundRole ( QPalette::AlternateBase );
   setAlternatingRowColors ( true );
-  setContextMenuPolicy ( Qt::NoContextMenu );
+  setContextMenuPolicy ( Qt::ActionsContextMenu );
   setMinimumHeight ( 80 );
+
+  ac_copyPredicates = new QAction ( KIcon ( "edit-copy" ), i18n ( "Copy Predicate" ), this );
+  ac_copyPredicates->setStatusTip ( i18n ( "copy predicate to clipboard" ) );
 
   QString strColor = cfg->value ( QLatin1String ( "highlightColor" ), QLatin1String ( "yellow" ) ).toString();
   QColor color ( strColor );
@@ -68,6 +77,18 @@ ListStyleSheet::ListStyleSheet ( QWidget * parent, Settings * settings )
         cssAttributes.append ( p );
     }
   }
+
+  connect ( ac_copyPredicates, SIGNAL ( triggered () ),
+            this, SLOT ( copyPredicate() ) );
+
+  insertAction ( 0, ac_copyPredicates );
+}
+
+/** Inhalt in das Clipboard Kopieren */
+void ListStyleSheet::copyPredicate ()
+{
+  if ( currentItem() )
+    qApp->clipboard()->setText ( currentItem()->text () );
 }
 
 /**

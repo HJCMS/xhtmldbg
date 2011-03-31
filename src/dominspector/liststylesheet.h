@@ -28,6 +28,7 @@
 #include <QtCore/QVector>
 
 /* QtGui */
+#include <QtGui/QAction>
 #include <QtGui/QIcon>
 #include <QtGui/QListWidget>
 #include <QtGui/QListWidgetItem>
@@ -48,10 +49,14 @@ class ListStyleSheet : public QListWidget
     Settings* cfg;
     const QIcon cascadedStyle;
     const QIcon inlineStyle;
+    QAction* ac_copyPredicates;
     QString excludeRgb;
     QVector<QString> cssAttributes;
     bool exclude ( const QString &, const QString & );
     void addStyleItem ( const QString &, const QString &, bool cascaded = true );
+
+  private Q_SLOTS:
+    void copyPredicate ();
 
   public Q_SLOTS:
     void setStyleSheetList ( const QWebElement & );
