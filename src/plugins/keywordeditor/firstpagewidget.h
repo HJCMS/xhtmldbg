@@ -28,6 +28,7 @@
 
 /* QtGui */
 #include <QtGui/QLineEdit>
+#include <QtGui/QRadioButton>
 #include <QtGui/QWidget>
 
 class Q_DECL_EXPORT FirstPageWidget : public QWidget
@@ -38,6 +39,7 @@ class Q_DECL_EXPORT FirstPageWidget : public QWidget
 
   private:
     QLineEdit* m_fileEdit;
+    QRadioButton* m_radioKeywords;
 
   private Q_SLOTS:
     void triggerFileOpenDialog();
@@ -48,6 +50,8 @@ class Q_DECL_EXPORT FirstPageWidget : public QWidget
   public:
     FirstPageWidget ( QWidget * parent = 0 );
     const QString keywordFile();
+    /** keywords|description */
+    const QString metaType();
     ~FirstPageWidget();
 };
 

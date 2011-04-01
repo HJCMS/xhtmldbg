@@ -104,7 +104,7 @@ void KeywordEditorDialog::fileSelected ( const QString &path )
   if ( path.isEmpty() )
     return;
 
-  if ( m_keywordsWidget->setContent ( path ) )
+  if ( m_keywordsWidget->setContent ( path, m_firstPageWidget->metaType() ) )
     setCurrentPage ( page2 );
 }
 

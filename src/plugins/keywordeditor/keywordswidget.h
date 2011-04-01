@@ -43,11 +43,12 @@ class Q_DECL_EXPORT KeywordsWidget : public QWidget
 
   private:
     KeywordsTable* m_table;
+    QString siblingName;
     QTextEdit* m_defaultKeywords;
 
   public:
     KeywordsWidget ( QWidget * parent = 0 );
-    bool setContent ( const QString &filePath );
+    bool setContent ( const QString &filePath, const QString &type );
     const KeywordsDom getDocument();
     ~KeywordsWidget();
 };

@@ -39,11 +39,12 @@ class KeywordsTableItem;
 class Q_DECL_EXPORT KeywordsDom : public QDomDocument
 {
   private:
+    const QString keysName;
     QDomNode rootNode();
     const QDomNodeList keywordNodes() const;
 
   public:
-    explicit KeywordsDom ();
+    explicit KeywordsDom ( const QString &siblings = QString::fromUtf8 ( "keywords" ) );
     const QString defaultKeywords() const;
     void setDefaults ( const QStringList &keys );
 

@@ -47,6 +47,7 @@
 
 KeywordsWidget::KeywordsWidget ( QWidget * parent )
     : QWidget ( parent )
+    , siblingName ( QString::fromUtf8 ( "keywords" ) )
 {
   setObjectName ( QLatin1String ( "KeywordsWidget" ) );
   QVBoxLayout* vLayout = new QVBoxLayout ( this );
@@ -75,12 +76,13 @@ KeywordsWidget::KeywordsWidget ( QWidget * parent )
   setLayout ( vLayout );
 }
 
-bool KeywordsWidget::setContent ( const QString &filePath )
+bool KeywordsWidget::setContent ( const QString &filePath, const QString &type )
 {
   QFile fp ( filePath );
   if ( fp.open ( QIODevice::ReadOnly ) )
   {
-    KeywordsDom dom;
+    siblingName = type;
+    KeywordsDom dom ( type );
     QString errorMsg;
     int errorLine;
     if ( dom.setContent ( &fp, true, &errorMsg, &errorLine ) )
@@ -102,7 +104,7 @@ bool KeywordsWidget::setContent ( const QString &filePath )
 
 const KeywordsDom KeywordsWidget::getDocument()
 {
-  KeywordsDom dom;
+  KeywordsDom dom ( siblingName );
   dom.setDefaults ( m_defaultKeywords->toPlainText().split ( "," ) );
   dom.setKeywords ( m_table->keywords() );
   return dom;

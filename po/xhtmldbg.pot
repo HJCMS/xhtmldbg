@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-03-30 14:06+0200\n"
+"POT-Creation-Date: 2011-04-01 18:48+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1326,11 +1326,11 @@ msgstr ""
 msgid "show current element content"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:82
+#: src/dominspector/domtree.cpp:82 src/dominspector/liststylesheet.cpp:57
 msgid "Copy Predicate"
 msgstr ""
 
-#: src/dominspector/domtree.cpp:84
+#: src/dominspector/domtree.cpp:84 src/dominspector/liststylesheet.cpp:58
 msgid "copy predicate to clipboard"
 msgstr ""
 
@@ -1346,11 +1346,11 @@ msgstr ""
 msgid "Web Content Accessibility Guidelines"
 msgstr ""
 
-#: src/dominspector/liststylesheet.cpp:96
+#: src/dominspector/liststylesheet.cpp:117
 msgid "Rendered from Stylesheet Document"
 msgstr ""
 
-#: src/dominspector/liststylesheet.cpp:98
+#: src/dominspector/liststylesheet.cpp:119
 msgid "Contained \"style\" Attribute"
 msgstr ""
 
@@ -1918,18 +1918,30 @@ msgstr ""
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:46
+#: src/plugins/keywordeditor/firstpagewidget.cpp:48
 msgid ""
 "This editor will help you to build an individual keywords listing for your "
 "website.<br/>It create an XML Document with following sheme:"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:59
+#: src/plugins/keywordeditor/firstpagewidget.cpp:58
+msgid "Generate Output Type"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:60
+msgid "Meta Keywords"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:64
+msgid "Meta Description"
+msgstr ""
+
+#: src/plugins/keywordeditor/firstpagewidget.cpp:73
 msgid ""
 "Open existing keyword file or click next to create a new keyword listing:"
 msgstr ""
 
-#: src/plugins/keywordeditor/firstpagewidget.cpp:79
+#: src/plugins/keywordeditor/firstpagewidget.cpp:93
 msgid "Open Keywords File"
 msgstr ""
 
@@ -1983,7 +1995,7 @@ msgstr ""
 msgid "Filename"
 msgstr ""
 
-#: src/plugins/keywordeditor/keywordswidget.cpp:66
+#: src/plugins/keywordeditor/keywordswidget.cpp:67
 msgid "fallback keywords for missing sites"
 msgstr ""
 

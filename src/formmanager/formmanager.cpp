@@ -86,7 +86,7 @@ FormManager::FormManager ( DBManager* db, QWidget * parent )
 
   m_tabWidget = new KTabWidget ( m_splitter );
   m_tabWidget->setObjectName ( QLatin1String ( "FormManager/Splitter/KTabWidget" ) );
-  m_tabWidget->setMinimumWidth ( 250 );
+  m_tabWidget->setMinimumWidth ( 350 );
   m_splitter->insertWidget ( 1, m_tabWidget );
 
   setWidget ( m_scrollArea );

@@ -27,6 +27,8 @@
 
 /* QtGui */
 #include <QtGui/QGridLayout>
+#include <QtGui/QGroupBox>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QSpacerItem>
 #include <QtGui/QToolButton>
@@ -50,22 +52,34 @@ FirstPageWidget::FirstPageWidget ( QWidget * parent )
   QLabel* sourceLabel = new QLabel ( this );
   sourceLabel->setStyleSheet ( "*{background-color:white;padding:5px 5px 5px 5px;}" );
   sourceLabel->setWordWrap ( true );
-  sourceLabel->setText ( QString::fromUtf8 ( "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;<br />&lt;tags&gt;<br /> &lt;default&gt;&lt;![CDATA[fallback,keyword,list]]&gt;&lt;/default&gt;<br /> &lt;keywords id=\"identifier\" file=\"filename.html\"&gt;&lt;![CDATA[xhtmldbg,debugger]]&gt;&lt;/keywords&gt;<br />&lt;/tags&gt;<br />" ) );
+  sourceLabel->setText ( QString::fromUtf8 ( "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;<br />&lt;tags&gt;<br /> &lt;default&gt;&lt;![CDATA[fallback,keyword,list]]&gt;&lt;/default&gt;<br /> &lt;{keywords|description} id=\"identifier\" file=\"filename.html\"&gt;&lt;![CDATA[xhtmldbg,debugger]]&gt;&lt;/keywords&gt;<br />&lt;/tags&gt;<br />" ) );
   gridLayout->addWidget ( sourceLabel, 1, 0, 1, 2 );
 
-  gridLayout->setRowStretch ( 2, 1 ); //Spacer
+  QGroupBox* groupBox = new QGroupBox ( i18n ( "Generate Output Type" ), this );
+  QHBoxLayout* boxLayout = new QHBoxLayout ( groupBox );
+  m_radioKeywords = new QRadioButton ( i18n ( "Meta Keywords" ), groupBox );
+  m_radioKeywords->setChecked ( true );
+  boxLayout->addWidget ( m_radioKeywords );
+
+  QRadioButton* m_radioDescription = new QRadioButton ( i18n ( "Meta Description" ), groupBox );
+  boxLayout->addWidget ( m_radioDescription );
+
+  groupBox->setLayout ( boxLayout );
+  gridLayout->addWidget ( groupBox, 2, 0, 1, 2 );
+
+  gridLayout->setRowStretch ( 3, 1 ); //Spacer
 
   QLabel* label2 = new QLabel ( this );
   label2->setText ( i18n ( "Open existing keyword file or click next to create a new keyword listing:" ) );
   label2->setWordWrap ( true );
-  gridLayout->addWidget ( label2, 3, 0, 1, 2 );
+  gridLayout->addWidget ( label2, 4, 0, 1, 2 );
 
   m_fileEdit = new QLineEdit ( this );
-  gridLayout->addWidget ( m_fileEdit, 4, 0, 1, 1 );
+  gridLayout->addWidget ( m_fileEdit, 5, 0, 1, 1 );
 
   QToolButton* m_openFile =  new QToolButton ( this );
   m_openFile->setIcon ( KIcon ( "document-open" ) );
-  gridLayout->addWidget ( m_openFile, 4, 1, 1, 1 );
+  gridLayout->addWidget ( m_openFile, 5, 1, 1, 1 );
 
   setLayout ( gridLayout );
 
@@ -87,6 +101,11 @@ void FirstPageWidget::triggerFileOpenDialog()
 const QString FirstPageWidget::keywordFile()
 {
   return m_fileEdit->text();
+}
+
+const QString FirstPageWidget::metaType()
+{
+  return ( m_radioKeywords->isChecked() ) ? QString::fromUtf8 ( "keywords" ) : QString::fromUtf8 ( "description" );
 }
 
 FirstPageWidget::~FirstPageWidget()

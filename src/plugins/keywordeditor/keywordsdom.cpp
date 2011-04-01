@@ -32,7 +32,7 @@
 /* QtXml */
 #include <QtXml/QDomProcessingInstruction>
 
-KeywordsDom::KeywordsDom () : QDomDocument ()
+KeywordsDom::KeywordsDom ( const QString &siblings ) : QDomDocument (), keysName ( siblings )
 {
   appendChild ( createProcessingInstruction ( "xml", "version=\"1.0\" encoding=\"utf-8\"" ) );
   QDomElement rootNode = createElement ( "tags" );
@@ -48,7 +48,7 @@ QDomNode KeywordsDom::rootNode()
 const QDomNodeList KeywordsDom::keywordNodes() const
 {
   if ( documentElement().hasChildNodes() )
-    return elementsByTagName ( QLatin1String ( "keywords" ) );
+    return elementsByTagName ( keysName );
   else
     return QDomNodeList();
 }
@@ -96,11 +96,11 @@ void KeywordsDom::setKeywords ( const QList<KeywordsTableItem*> &list )
 
   foreach ( KeywordsTableItem* item, list )
   {
-    QDomElement keywords = createElement ( QLatin1String ( "keywords" ) );
-    keywords.setAttribute ( QLatin1String ( "id" ), item->id );
-    keywords.setAttribute ( QLatin1String ( "file" ), item->file );
-    keywords.appendChild ( createCDATASection ( item->words.join ( "," ) ) );
-    rootNode().appendChild ( keywords );
+    QDomElement node = createElement ( keysName );
+    node.setAttribute ( QLatin1String ( "id" ), item->id );
+    node.setAttribute ( QLatin1String ( "file" ), item->file );
+    node.appendChild ( createCDATASection ( item->words.join ( "," ) ) );
+    rootNode().appendChild ( node );
   }
 }
 
