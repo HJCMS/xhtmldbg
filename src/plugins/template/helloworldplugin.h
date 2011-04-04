@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HELLOWORLDPLUGIN_H
-#define HELLOWORLDPLUGIN_H
+#ifndef @TEMPLATE@PLUGIN_H
+#define @TEMPLATE@PLUGIN_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -28,24 +28,23 @@
 #include <QtCore/QUrl>
 
 /* QtGui */
+#include <QtGui/QDialog>
 #include <QtGui/QDockWidget>
 #include <QtGui/QWidget>
 
 /* xhtmldbg */
-#include <xhtmldbgplugininfo.h>
-#include <xhtmldbginterface.h>
+#include <plugininfo.h>
+#include <interface.h>
 
-class HelloWorld;
+class @TEMPLATE@;
 
-class XHTMLDBG_EXPORT HelloWorldPlugin : public xhtmldbg::Interface
+class Q_DECL_EXPORT @TEMPLATE@Plugin : public xhtmldbg::Interface
 {
     Q_OBJECT
     Q_INTERFACES ( xhtmldbg::Interface )
 
-  public:
-    HelloWorld* m_helloWorld;
-    QUrl p_url;
-    QString p_content;
+  private:
+    @TEMPLATE@* m_editor;
 
   public Q_SLOTS:
     void proccess ();

@@ -4,6 +4,7 @@
 ADD_SUBDIRECTORY (selfhtmlsidebar)
 ADD_SUBDIRECTORY (rfcbrowser)
 ADD_SUBDIRECTORY (keywordeditor)
+ADD_SUBDIRECTORY (apachelogger)
 
 ## Development Template Data
 INSTALL (FILES

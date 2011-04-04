@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "helloworldplugin.h"
-#include "helloworld.h"
+#include "@TEMPLATE@plugin.h"
+#include "@TEMPLATE@.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -29,32 +29,32 @@
 /* KDE */
 #include <KDE/KLocale>
 
-bool HelloWorldPlugin::create ( QWidget * parent )
+bool @TEMPLATE@Plugin::create ( QWidget * parent )
 {
   if ( parent )
   {
-    m_helloWorld = new HelloWorld ( parent );
+    m_helloWorld = new @TEMPLATE@ ( parent );
     return true;
   }
   return false;
 }
 
-QDockWidget* HelloWorldPlugin::dockwidget()
+QDockWidget* @TEMPLATE@Plugin::dockwidget()
 {
   return new QDockWidget;
 }
 
-void HelloWorldPlugin::setContent ( const QString &source )
+void @TEMPLATE@Plugin::setContent ( const QString &source )
 {
   p_content = source;
 }
 
-void HelloWorldPlugin::setUrl ( const QUrl &url )
+void @TEMPLATE@Plugin::setUrl ( const QUrl &url )
 {
   p_url = url;
 }
 
-void HelloWorldPlugin::proccess ()
+void @TEMPLATE@Plugin::proccess ()
 {
   if ( m_helloWorld && p_url.scheme().contains ( "http" ) )
   {
@@ -64,15 +64,15 @@ void HelloWorldPlugin::proccess ()
   }
 }
 
-xhtmldbg::PluginInfo::PluginType HelloWorldPlugin::type ()
+xhtmldbg::PluginInfo::PluginType @TEMPLATE@Plugin::type ()
 {
   return xhtmldbg::PluginInfo::PopUp;
 }
 
-xhtmldbg::PluginInfo* HelloWorldPlugin::pluginInfo ()
+xhtmldbg::PluginInfo* @TEMPLATE@Plugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
-  inf->setName ( QLatin1String ( "HelloWorld" ) );
+  inf->setName ( QLatin1String ( "@TEMPLATE@" ) );
   inf->setGenericName ( i18n ( "Information for this Plugin" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
   inf->setDescription ( i18n ( "long description for this plugin" ) );
@@ -80,4 +80,4 @@ xhtmldbg::PluginInfo* HelloWorldPlugin::pluginInfo ()
   return inf;
 }
 
-Q_EXPORT_PLUGIN2 ( HelloWorld, HelloWorldPlugin )
+Q_EXPORT_PLUGIN2 ( @TEMPLATE@, @TEMPLATE@Plugin )

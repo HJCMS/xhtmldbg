@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-01 18:48+0200\n"
+"POT-Creation-Date: 2011-04-04 18:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,7 +87,8 @@ msgstr ""
 #: src/components/xqpluginwidgets/xpasswordwidget.cpp:76
 #: src/components/xqpluginwidgets/xpasswordwidget.cpp:91
 #: src/cssvalidator/validatormenu.cpp:61 src/docking/docktreewidget.cpp:98
-#: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61 src/tidymessanger.cpp:100
+#: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61
+#: src/plugins/apachelogger/listmessages.cpp:42 src/tidymessanger.cpp:100
 msgid "Clear"
 msgstr ""
 
@@ -1525,11 +1526,11 @@ msgstr ""
 msgid "Search Engine Optimisation (SEO)"
 msgstr ""
 
-#: src/main.cpp:71
+#: src/main.cpp:72
 msgid "Open File from Path or URL"
 msgstr ""
 
-#: src/main.cpp:72
+#: src/main.cpp:73
 msgid "Disable Plugins and loading the Default Url"
 msgstr ""
 
@@ -1918,6 +1919,28 @@ msgstr ""
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
+#: src/plugins/apachelogger/apachelogger.cpp:99
+msgid "Open Logfile"
+msgstr ""
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:71
+msgid "logging apache errors plugin"
+msgstr ""
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:73
+msgid "logging apache errors"
+msgstr ""
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:74
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
+msgid "Jürgen Heinemann (Undefined)"
+msgstr ""
+
+#: src/plugins/apachelogger/loglistener.cpp:86
+msgid "Permission Denied"
+msgstr ""
+
 #: src/plugins/keywordeditor/firstpagewidget.cpp:48
 msgid ""
 "This editor will help you to build an individual keywords listing for your "
@@ -1968,11 +1991,6 @@ msgstr ""
 
 #: src/plugins/keywordeditor/keywordeditorplugin.cpp:75
 msgid "Editor for creating SEO Keywords"
-msgstr ""
-
-#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
-#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
-msgid "Jürgen Heinemann (Undefined)"
 msgstr ""
 
 #: src/plugins/keywordeditor/keywordstable.cpp:53

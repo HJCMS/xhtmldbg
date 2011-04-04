@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-01 18:48+0200\n"
-"PO-Revision-Date: 2011-04-01 18:49+0200\n"
+"POT-Creation-Date: 2011-04-04 18:21+0200\n"
+"PO-Revision-Date: 2011-04-04 18:23+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -102,7 +102,8 @@ msgstr "Adresse:"
 #: src/components/xqpluginwidgets/xpasswordwidget.cpp:76
 #: src/components/xqpluginwidgets/xpasswordwidget.cpp:91
 #: src/cssvalidator/validatormenu.cpp:61 src/docking/docktreewidget.cpp:98
-#: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61 src/tidymessanger.cpp:100
+#: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61
+#: src/plugins/apachelogger/listmessages.cpp:42 src/tidymessanger.cpp:100
 msgid "Clear"
 msgstr "Leeren"
 
@@ -1608,11 +1609,11 @@ msgstr "SEO:"
 msgid "Search Engine Optimisation (SEO)"
 msgstr "Suchmaschinen Optimierung (SEO)"
 
-#: src/main.cpp:71
+#: src/main.cpp:72
 msgid "Open File from Path or URL"
 msgstr "Öffne Datei Lokal oder mit Url"
 
-#: src/main.cpp:72
+#: src/main.cpp:73
 msgid "Disable Plugins and loading the Default Url"
 msgstr "Deaktiviere Plugins und starte mit der Standard Adresse"
 
@@ -2036,6 +2037,28 @@ msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
+#: src/plugins/apachelogger/apachelogger.cpp:99
+msgid "Open Logfile"
+msgstr "Öffne Logdatei Datei"
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:71
+msgid "logging apache errors plugin"
+msgstr "Apache Fehler Report Plugin"
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:73
+msgid "logging apache errors"
+msgstr "Erfasse Apache Fehler"
+
+#: src/plugins/apachelogger/apacheloggerplugin.cpp:74
+#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
+#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
+msgid "Jürgen Heinemann (Undefined)"
+msgstr "Jürgen Heinemann (Undefined)"
+
+#: src/plugins/apachelogger/loglistener.cpp:86
+msgid "Permission Denied"
+msgstr "Zugriff verweigert"
+
 #: src/plugins/keywordeditor/firstpagewidget.cpp:48
 msgid ""
 "This editor will help you to build an individual keywords listing for your "
@@ -2091,11 +2114,6 @@ msgstr "Speichere Schlüsselwort Datei"
 #: src/plugins/keywordeditor/keywordeditorplugin.cpp:75
 msgid "Editor for creating SEO Keywords"
 msgstr "Ein Editor zum erstellen von SEO Schlüsselwörtern"
-
-#: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
-#: src/plugins/rfcbrowser/rfcbrowserplugin.cpp:75
-msgid "Jürgen Heinemann (Undefined)"
-msgstr "Jürgen Heinemann (Undefined)"
 
 #: src/plugins/keywordeditor/keywordstable.cpp:53
 msgid "insert row below"

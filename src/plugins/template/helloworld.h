@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef HELLOWORLD_H
-#define HELLOWORLD_H
+#ifndef @TEMPLATE@_H
+#define @TEMPLATE@_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -32,7 +32,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QWidget>
 
-class HelloWorld : public QDialog
+class @TEMPLATE@ : public QDialog
 {
     Q_OBJECT
 
@@ -41,10 +41,10 @@ class HelloWorld : public QDialog
     QTextEdit* m_Content;
 
   public:
-    HelloWorld ( QWidget * parent = 0 );
+    @TEMPLATE@ ( QWidget * parent = 0 );
     void setLabelUrl ( const QString & );
     void setLabelContent ( const QString & );
-    virtual ~HelloWorld();
+    virtual ~@TEMPLATE@();
 };
 
 #endif

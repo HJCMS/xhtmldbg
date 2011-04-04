@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "helloworld.h"
+#include "@TEMPLATE@.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -32,11 +32,11 @@
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 
-HelloWorld::HelloWorld ( QWidget * parent )
+@TEMPLATE@::@TEMPLATE@ ( QWidget * parent )
     : QDialog ( parent )
 {
-  setObjectName ( QLatin1String ( "HelloWorldPlugin" ) );
-  setWindowTitle ( QLatin1String ( "Template HelloWorld Plugin" ) );
+  setObjectName ( QLatin1String ( "@TEMPLATE@Plugin" ) );
+  setWindowTitle ( QLatin1String ( "Template @TEMPLATE@ Plugin" ) );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( this );
 
@@ -56,15 +56,15 @@ HelloWorld::HelloWorld ( QWidget * parent )
   connect ( box, SIGNAL ( accepted() ), this, SLOT ( accept() ) );
 }
 
-void HelloWorld::setLabelUrl ( const QString &text )
+void @TEMPLATE@::setLabelUrl ( const QString &text )
 {
   m_labelUrl->setText ( text );
 }
 
-void HelloWorld::setLabelContent ( const QString &text )
+void @TEMPLATE@::setLabelContent ( const QString &text )
 {
   m_Content->setPlainText ( text );
 }
 
-HelloWorld::~HelloWorld()
+@TEMPLATE@::~@TEMPLATE@()
 {}
