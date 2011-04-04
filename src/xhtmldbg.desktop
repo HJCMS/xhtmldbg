@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=xhtmldbg
+Name=xhtmldbg -o "%u"
 GenericName=XHTML/HTML Debugger
 GenericName[br]=XHTML/HTML Dizraener
 GenericName[da]=XHTML/HTML Afluser

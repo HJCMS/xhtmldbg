@@ -51,13 +51,12 @@ class xhtmldbgmain : public Application
     QList<QPointer<Window> > m_windows;
     void setWindowFocus();
     void cleanWindows();
-    const QString getArgumentUrl ( const QString & ) const;
 
   private Q_SLOTS:
     void sMessageReceived ( QLocalSocket* socket );
 
   public:
-    xhtmldbgmain ( int &argc, char **argv, bool failsafe = false );
+    xhtmldbgmain ( bool failsafe = false );
     static xhtmldbgmain* instance();
     Window* mainWindow();
     virtual ~xhtmldbgmain();

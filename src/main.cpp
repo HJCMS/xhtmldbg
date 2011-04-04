@@ -28,6 +28,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
@@ -68,19 +69,25 @@ int main ( int argc, char *argv[] )
 
   // Define the command line options
   KCmdLineOptions options;
-  options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ) );
+  options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
   options.add ( "f" ).add ( "failsafe", ki18n ( "Disable Plugins and loading the Default Url" ) );
 
   // Register the supported options
   KCmdLineArgs::addCmdLineOptions ( options );
 
   // start application
-  xhtmldbgmain app ( argc, argv );
+  xhtmldbgmain app;
   if ( ! app.isRunning() )
     return EXIT_SUCCESS;
 
   KGlobal::locale()->insertCatalog ( XHTMLDBG_APPS_NAME );
 
-  app.newMainWindow();
+  Window* win = app.newMainWindow();
+  if ( win && ( argc > 2 ) )
+  {
+    QUrl url ( KCmdLineArgs::allArguments().last(), QUrl::StrictMode );
+    if ( url.isValid() )
+      win->openUrl ( url, false );
+  }
   return app.exec();
 }

@@ -45,8 +45,11 @@
 /* QtDBus */
 #include <QtDBus/QDBusConnection>
 
+/* KDE */
+#include <KDE/KCmdLineArgs>
+
 /* construct */
-xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
+xhtmldbgmain::xhtmldbgmain ( bool failsafe )
     : Application ()
     , activeWindow ( 0 )
 {
@@ -55,7 +58,6 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( "xhtmldbgmain" );
   setGraphicsSystem ( "raster" );
-  Q_UNUSED ( argv )
 
   // Settings
   m_settings = new Settings ( this );
@@ -73,13 +75,6 @@ xhtmldbgmain::xhtmldbgmain ( int &argc, char **argv, bool failsafe )
 
   connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
             this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
-
-  if ( argc > 1 )
-  {
-    QStringList args = arguments();
-    QString message = getArgumentUrl ( args.last() );
-    sendMessage ( message.toUtf8() );
-  }
 
   QString message = QString ( QLatin1String ( "xhtmldbg://getwinid" ) );
   if ( sendMessage ( message.toUtf8(), 500 ) )
@@ -201,19 +196,6 @@ Window* xhtmldbgmain::mainWindow()
   }
 
   return activeWindow;
-}
-
-/**
-* Sucht nach der existens einer file:// URL Datei
-*/
-const QString xhtmldbgmain::getArgumentUrl ( const QString &str ) const
-{
-  if ( QFile::exists ( str ) )
-  {
-    QFileInfo info ( str );
-    return info.canonicalFilePath();
-  }
-  return str;
 }
 
 xhtmldbgmain::~xhtmldbgmain()
