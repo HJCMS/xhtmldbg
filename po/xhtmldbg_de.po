@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-04 18:21+0200\n"
-"PO-Revision-Date: 2011-04-04 18:23+0200\n"
+"POT-Creation-Date: 2011-04-05 20:50+0200\n"
+"PO-Revision-Date: 2011-04-05 20:53+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -2037,17 +2037,25 @@ msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
-#: src/plugins/apachelogger/apachelogger.cpp:99
-msgid "Open Logfile"
-msgstr "Öffne Logdatei Datei"
+#: src/plugins/apachelogger/apachelogger.cpp:44
+msgid "Apache Logfile watcher"
+msgstr "Apache Datenlogger"
+
+#: src/plugins/apachelogger/apachelogger.cpp:58
+msgid "open configuration"
+msgstr "Öffne Konfiguration"
+
+#: src/plugins/apachelogger/apachelogger.cpp:63
+msgid "reopen logfile"
+msgstr "Öffne Logdatei Datei erneut"
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:71
-msgid "logging apache errors plugin"
-msgstr "Apache Fehler Report Plugin"
+msgid "watch apache logs"
+msgstr "Überwache Apache Protokolle"
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:73
-msgid "logging apache errors"
-msgstr "Erfasse Apache Fehler"
+msgid "logging apache error.log and other"
+msgstr "Protokolliere Apache eeror.log und andere"
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:74
 #: src/plugins/keywordeditor/keywordeditorplugin.cpp:76
@@ -2055,7 +2063,20 @@ msgstr "Erfasse Apache Fehler"
 msgid "Jürgen Heinemann (Undefined)"
 msgstr "Jürgen Heinemann (Undefined)"
 
-#: src/plugins/apachelogger/loglistener.cpp:86
+#: src/plugins/apachelogger/configurelogfiles.cpp:45
+msgid "Configure logfiles"
+msgstr "Konfiguriere Protokoll Dateien"
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:56
+#: src/plugins/keywordeditor/keywordstable.cpp:55
+msgid "Delete"
+msgstr "Entfernen"
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:121
+msgid "Open Logfile"
+msgstr "Öffne Logdatei Datei"
+
+#: src/plugins/apachelogger/loglistener.cpp:61
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
@@ -2118,10 +2139,6 @@ msgstr "Ein Editor zum erstellen von SEO Schlüsselwörtern"
 #: src/plugins/keywordeditor/keywordstable.cpp:53
 msgid "insert row below"
 msgstr "Ein neue Zeile einfügen"
-
-#: src/plugins/keywordeditor/keywordstable.cpp:55
-msgid "Delete"
-msgstr "Entfernen"
 
 #: src/plugins/keywordeditor/keywordstable.cpp:56
 msgid "delete row"

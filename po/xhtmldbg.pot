@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-04 18:21+0200\n"
+"POT-Creation-Date: 2011-04-05 20:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1919,16 +1919,24 @@ msgstr ""
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
-#: src/plugins/apachelogger/apachelogger.cpp:99
-msgid "Open Logfile"
+#: src/plugins/apachelogger/apachelogger.cpp:44
+msgid "Apache Logfile watcher"
+msgstr ""
+
+#: src/plugins/apachelogger/apachelogger.cpp:58
+msgid "open configuration"
+msgstr ""
+
+#: src/plugins/apachelogger/apachelogger.cpp:63
+msgid "reopen logfile"
 msgstr ""
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:71
-msgid "logging apache errors plugin"
+msgid "watch apache logs"
 msgstr ""
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:73
-msgid "logging apache errors"
+msgid "logging apache error.log and other"
 msgstr ""
 
 #: src/plugins/apachelogger/apacheloggerplugin.cpp:74
@@ -1937,7 +1945,20 @@ msgstr ""
 msgid "Jürgen Heinemann (Undefined)"
 msgstr ""
 
-#: src/plugins/apachelogger/loglistener.cpp:86
+#: src/plugins/apachelogger/configurelogfiles.cpp:45
+msgid "Configure logfiles"
+msgstr ""
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:56
+#: src/plugins/keywordeditor/keywordstable.cpp:55
+msgid "Delete"
+msgstr ""
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:121
+msgid "Open Logfile"
+msgstr ""
+
+#: src/plugins/apachelogger/loglistener.cpp:61
 msgid "Permission Denied"
 msgstr ""
 
@@ -1995,10 +2016,6 @@ msgstr ""
 
 #: src/plugins/keywordeditor/keywordstable.cpp:53
 msgid "insert row below"
-msgstr ""
-
-#: src/plugins/keywordeditor/keywordstable.cpp:55
-msgid "Delete"
 msgstr ""
 
 #: src/plugins/keywordeditor/keywordstable.cpp:56

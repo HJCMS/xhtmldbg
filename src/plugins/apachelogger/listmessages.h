@@ -38,7 +38,7 @@ class ListMessages : public QListWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   public Q_SLOTS:
-    void addLogMessage ( const QString & );
+    void addLogMessage ( const QString &name, const QString &log );
 
   public:
     ListMessages ( QWidget * parent = 0 );

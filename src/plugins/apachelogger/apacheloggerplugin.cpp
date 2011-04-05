@@ -68,9 +68,9 @@ xhtmldbg::PluginInfo* ApacheLoggerPlugin::pluginInfo ()
 {
   xhtmldbg::PluginInfo* inf = new xhtmldbg::PluginInfo ( this, type() );
   inf->setName ( QLatin1String ( "ApacheLogger" ) );
-  inf->setGenericName ( i18n ( "logging apache errors plugin" ) );
+  inf->setGenericName ( i18n ( "watch apache logs" ) );
   inf->setVersion ( XHTMLDBG_VERSION );
-  inf->setDescription ( i18n ( "logging apache errors" ) );
+  inf->setDescription ( i18n ( "logging apache error.log and other" ) );
   inf->setAuthor ( i18n ( "Jürgen Heinemann (Undefined)" ) );
   return inf;
 }

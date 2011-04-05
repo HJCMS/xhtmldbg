@@ -45,15 +45,13 @@ ListMessages::ListMessages ( QWidget * parent )
   connect ( m_clear, SIGNAL ( triggered() ), this, SLOT ( clear() ) );
 }
 
-void ListMessages::addLogMessage ( const QString &m )
+void ListMessages::addLogMessage ( const QString &name, const QString &log )
 {
-  QListWidgetItem* item = new QListWidgetItem ( m, this, QListWidgetItem::UserType );
-  item->setData ( Qt::DisplayRole, m );
-  item->setData ( Qt::EditRole, m );
-
-  if ( m.contains ( "[warning]" ) )
+  QListWidgetItem* item = new QListWidgetItem ( log, this, QListWidgetItem::UserType );
+  item->setData ( Qt::ToolTipRole, name );
+  if ( log.contains ( "[warning]" ) )
     item->setData ( Qt::DecorationRole, KIcon ( "dialog-warning" ) );
-  else if ( m.contains ( "[error]" ) )
+  else if ( log.contains ( "[error]" ) )
     item->setData ( Qt::DecorationRole, KIcon ( "dialog-error" ) );
   else
     item->setData ( Qt::DecorationRole,  KIcon ( "dialog-information" ) );

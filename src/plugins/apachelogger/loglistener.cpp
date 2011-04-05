@@ -30,6 +30,7 @@
 #include <QtCore/QFile>
 #include <QtCore/QFileInfo>
 #include <QtCore/QIODevice>
+#include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 
 /* KDE */
@@ -37,13 +38,48 @@
 
 LogListener::LogListener ( QObject * parent )
     : KDirWatch ( parent )
+    , config ( parent )
 {
   setObjectName ( QLatin1String ( "LogListener" ) );
-  logFilePath.clear();
   connect ( this, SIGNAL ( dirty ( const QString & ) ),
             this, SLOT ( hasChanged ( const QString & ) ) );
+
+  setListener();
 }
 
+/**
+* Setze das Basis Verzeichnis von der Letzten Datei aus der Log!
+* TODO Mehrere Verschiedene Verzeichnisse Möglich?
+*/
+void LogListener::setListener()
+{
+  QStringList logs = config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList();
+  QFileInfo info ( logs.last() );
+  if ( info.permission ( QFile::ReadUser ) )
+    addDir ( info.path(), KDirWatch::WatchFiles );
+  else
+    emit logChanged ( info.path(), i18n ( "Permission Denied" ) );
+}
+
+/**
+* Alle Verzeichnisse entfernen und KDirWatch beenden
+*/
+void LogListener::destroyListener()
+{
+  QString logfile = config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().last();
+  QFileInfo info ( logfile );
+  if ( info.exists () )
+  {
+    stopDirScan ( info.path() );
+    removeDir ( info.path() );
+  }
+}
+
+/**
+* Öffne die übergebene Logdatei und sende die Letzte Zeile
+* mit dem Signal \ref logChanged
+* TODO Halte ich nicht für besondern Performant :-/
+*/
 void LogListener::openLogFileJob ( const QString &logfile )
 {
   QFile log ( logfile );
@@ -56,63 +92,38 @@ void LogListener::openLogFileJob ( const QString &logfile )
   do
   {
     buffer = stream.readLine();
-    if ( !buffer.isEmpty() )
+    if ( ! buffer.isEmpty() )
       str = buffer;
   }
   while ( ! buffer.isNull() );
   log.close();
 
   if ( ! str.isEmpty() )
-    emit logChanged ( str );
+    emit logChanged ( log.fileName(), str );
 }
 
-bool LogListener::setLogfile ( const QString &logfile )
-{
-  if ( ! logFilePath.isEmpty() )
-    destroyLogfile();
-
-  logFilePath = logfile;
-  QFileInfo info ( logFilePath );
-  if ( info.permission ( QFile::ReadUser ) )
-  {
-    addDir ( info.path(), KDirWatch::WatchFiles );
-    addFile ( info.fileName() );
-    setDirty ( info.absoluteFilePath() );
-    return true;
-  }
-  else
-    logFilePath.clear();
-
-  emit logChanged ( i18n ( "Permission Denied" ) );
-  return false;
-}
-
-void LogListener::destroyLogfile()
-{
-  QFileInfo info ( logFilePath );
-  if ( info.exists () )
-  {
-    removeFile ( info.fileName() );
-    stopDirScan ( info.path() );
-    removeDir ( info.path() );
-  }
-}
-
+/**
+* Wenn eine Logdatei geändert wurde!
+*/
 void LogListener::hasChanged ( const QString &fd )
 {
-  if ( fd == logFilePath )
+  if ( config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().contains ( fd ) )
     openLogFileJob ( fd );
 }
 
-void LogListener::toggle ()
+void LogListener::restart()
 {
-  if ( ! logFilePath.isEmpty() )
-    restartDirScan ( logFilePath );
+  destroyListener();
+  if ( config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().size() >  0 )
+    setListener();
 }
 
+/**
+* Sauber Herunterfahren
+*/
 void LogListener::shutdown()
 {
-  destroyLogfile();
+  destroyListener();
 }
 
 LogListener::~LogListener()

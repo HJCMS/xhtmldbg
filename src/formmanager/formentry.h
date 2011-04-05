@@ -59,6 +59,7 @@ class FormEntry : public QWidget
     QPushButton* btn_remove;
     QPushButton* btn_insert;
 
+  private Q_SLOTS:
     void removeBookmark();
     void createBookmark();
 

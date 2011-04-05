@@ -22,10 +22,10 @@
 #include "apachelogger.h"
 #include "listmessages.h"
 #include "loglistener.h"
+#include "configurelogfiles.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
-#include <QtCore/QFileInfo>
 
 /* QtGui */
 #include <QtGui/QColor>
@@ -34,7 +34,6 @@
 #include <QtGui/QToolButton>
 
 /* KDE */
-#include <KDE/KFileDialog>
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 
@@ -42,7 +41,7 @@ ApacheLogger::ApacheLogger ( QWidget * parent )
     : QDockWidget ( parent )
 {
   setObjectName ( QLatin1String ( "ApacheLogger" ) );
-  setWindowTitle ( QLatin1String ( "Logging" ) );
+  setWindowTitle ( i18n ( "Apache Logfile watcher" ) );
 
   QWidget* layer = new QWidget ( this );
   layer->setContentsMargins ( 1, 2, 1, 2 );
@@ -52,16 +51,16 @@ ApacheLogger::ApacheLogger ( QWidget * parent )
   m_list = new ListMessages ( layer );
   gridLayout->addWidget ( m_list, 0, 0, 1, 3 );
 
-  m_fileEdit = new  QLineEdit ( layer );
-  m_fileEdit->setText ( QLatin1String ( "/var/log/apache/error_log" ) );
-  gridLayout->addWidget ( m_fileEdit, 1, 0, 1, 1 );
+  gridLayout->setRowStretch ( 1, 0 );
 
-  QToolButton* openbtn = new  QToolButton ( layer );
-  openbtn->setIcon ( KIcon ( "document-open" ) );
-  gridLayout->addWidget ( openbtn, 1, 1, 1, 1 );
+  QToolButton* configbtn = new  QToolButton ( layer );
+  configbtn->setIcon ( KIcon ( "configure" ) );
+  configbtn->setToolTip ( i18n ( "open configuration" ) );
+  gridLayout->addWidget ( configbtn, 1, 1, 1, 1 );
 
   QToolButton* watchbtn = new  QToolButton ( layer );
   watchbtn->setIcon ( KIcon ( "view-refresh" ) );
+  watchbtn->setToolTip ( i18n ( "reopen logfile" ) );
   gridLayout->addWidget ( watchbtn, 1, 2, 1, 1 );
 
   layer->setLayout ( gridLayout );
@@ -69,36 +68,20 @@ ApacheLogger::ApacheLogger ( QWidget * parent )
 
   m_listener = new LogListener ( this );
 
-  connect ( m_fileEdit, SIGNAL ( textChanged ( const QString & ) ),
-            this, SLOT ( createListener ( const QString & ) ) );
-
-  connect ( openbtn, SIGNAL ( clicked() ),
-            this, SLOT ( logOpenDialog() ) );
+  connect ( configbtn, SIGNAL ( clicked() ),
+            this, SLOT ( openConfiguration() ) );
 
   connect ( watchbtn, SIGNAL ( clicked() ),
-            m_listener, SLOT ( toggle() ) );
+            m_listener, SLOT ( restart() ) );
 
-  connect ( m_listener, SIGNAL ( logChanged ( const QString & ) ),
-            m_list, SLOT ( addLogMessage ( const QString & ) ) );
-
-  createListener ( "dummy" );
+  connect ( m_listener, SIGNAL ( logChanged ( const QString &, const QString & ) ),
+            m_list, SLOT ( addLogMessage ( const QString &, const QString & ) ) );
 }
 
-void ApacheLogger::createListener ( const QString & )
+void ApacheLogger::openConfiguration()
 {
-  QFileInfo info ( m_fileEdit->text() );
-  if ( ! info.exists() )
-    return;
-
-  m_listener->setLogfile ( info.absoluteFilePath() );
-}
-
-void ApacheLogger::logOpenDialog()
-{
-  QString f = KFileDialog::getOpenFileName ( KUrl ( "kfiledialog:///" ),
-              QLatin1String ( "text/plain" ), this, i18n ( "Open Logfile" ) );
-  if ( ! f.isEmpty() )
-    m_fileEdit->setText ( f );
+  ConfigureLogFiles dialog ( this );
+  dialog.exec();
 }
 
 ApacheLogger::~ApacheLogger()

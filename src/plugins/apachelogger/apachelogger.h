@@ -28,7 +28,6 @@
 
 /* QtGui */
 #include <QtGui/QDockWidget>
-#include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
 
 class ListMessages;
@@ -43,11 +42,9 @@ class Q_DECL_EXPORT ApacheLogger : public QDockWidget
   private:
     LogListener* m_listener;
     ListMessages* m_list;
-    QLineEdit* m_fileEdit;
 
   private Q_SLOTS:
-    void createListener ( const QString & );
-    void logOpenDialog();
+    void openConfiguration();
 
   public:
     ApacheLogger ( QWidget * parent = 0 );

@@ -25,7 +25,8 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
-
+#include <QtCore/QSettings>
+  
 /* KDE */
 #include <KDE/KDirWatch>
 
@@ -36,23 +37,23 @@ class LogListener : public KDirWatch
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QString logFilePath;
+    const QSettings config;
+    void setListener();
+    void destroyListener();
     void openLogFileJob ( const QString & );
 
   private Q_SLOTS:
     void hasChanged ( const QString & );
 
   Q_SIGNALS:
-    void logChanged ( const QString & );
+    void logChanged ( const QString &name, const QString &log );
 
   public Q_SLOTS:
-    void toggle();
+    void restart();
+    void shutdown();
 
   public:
     LogListener ( QObject * parent = 0 );
-    bool setLogfile ( const QString & );
-    void destroyLogfile();
-    void shutdown();
     virtual ~LogListener();
 };
 

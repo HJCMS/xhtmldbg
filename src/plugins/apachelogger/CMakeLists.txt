@@ -11,6 +11,7 @@ SET(plugin_SOURCES
   apacheloggerplugin.cpp
   listmessages.cpp
   loglistener.cpp
+  configurelogfiles.cpp
 )
 
 SET(plugin_HEADERS
@@ -18,6 +19,7 @@ SET(plugin_HEADERS
   apacheloggerplugin.h
   listmessages.h
   loglistener.h
+  configurelogfiles.h
 )
 
 SET(plugin_NOMOC_HEADERS
