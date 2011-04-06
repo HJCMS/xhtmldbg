@@ -53,12 +53,15 @@ LogListener::LogListener ( QObject * parent )
 */
 void LogListener::setListener()
 {
-  QStringList logs = config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList();
-  QFileInfo info ( logs.last() );
+  QString scdir = config.value ( "ApacheLoggerPlugin/scandir" ).toString();
+  if ( scdir.isEmpty() )
+    return;
+
+  QFileInfo info ( scdir );
   if ( info.permission ( QFile::ReadUser ) )
-    addDir ( info.path(), KDirWatch::WatchFiles );
+    addDir ( info.absoluteFilePath(), KDirWatch::WatchFiles );
   else
-    emit logChanged ( info.path(), i18n ( "Permission Denied" ) );
+    emit logChanged ( info.absoluteFilePath(), i18n ( "Permission Denied" ) );
 }
 
 /**
@@ -66,12 +69,15 @@ void LogListener::setListener()
 */
 void LogListener::destroyListener()
 {
-  QString logfile = config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().last();
-  QFileInfo info ( logfile );
+  QString scdir = config.value ( "ApacheLoggerPlugin/scandir" ).toString();
+  if ( scdir.isEmpty() )
+    return;
+
+  QFileInfo info ( scdir );
   if ( info.exists () )
   {
-    stopDirScan ( info.path() );
-    removeDir ( info.path() );
+    stopDirScan ( info.absoluteFilePath() );
+    removeDir ( info.absoluteFilePath() );
   }
 }
 
@@ -107,14 +113,14 @@ void LogListener::openLogFileJob ( const QString &logfile )
 */
 void LogListener::hasChanged ( const QString &fd )
 {
-  if ( config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().contains ( fd ) )
+  if ( config.value ( "ApacheLoggerPlugin/logs" ).toStringList().contains ( fd ) )
     openLogFileJob ( fd );
 }
 
 void LogListener::restart()
 {
   destroyListener();
-  if ( config.value ( "ApacheLoggerPlugin/logfiles" ).toStringList().size() >  0 )
+  if ( ! config.value ( "ApacheLoggerPlugin/scandir" ).toString().isEmpty() )
     setListener();
 }
 

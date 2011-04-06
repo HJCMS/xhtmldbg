@@ -23,6 +23,7 @@
 #define CONFIGURELOGFILES_H
 
 /* QtCore */
+#include <QtCore/QFileInfo>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -30,8 +31,8 @@
 /* QtGui */
 #include <QtGui/QWidget>
 #include <QtGui/QLineEdit>
-#include <QtGui/QListWidget>
-#include <QtGui/QListWidgetItem>
+#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeWidgetItem>
 
 /* KDE */
 #include <KDE/KDialog>
@@ -43,19 +44,27 @@ class ConfigureLogFiles : public KDialog
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QListWidget* m_listWidget;
+    QTreeWidget* m_treeWidget;
     QLineEdit* m_lineEdit;
-    void insertLogFileItem ( const QString & );
+    const QStringList directories();
+    bool isScanDirectory ( const QString & );
+    void toggleScanDirectory ( const QString &path );
+    QTreeWidgetItem* logDirItem ( const QString & );
+    void insertDirItem ( const QString &, bool checked = false );
+    void insertFileItems ( QTreeWidgetItem* parent, const QFileInfo & ) const;
+    void setChecked ( const QString & );
 
   private Q_SLOTS:
     void readConfiguration();
     void writeConfiguration();
     void openLogFileDialog();
     void insertClicked();
+    void removeItemClicked();
+    void itemChecked ( QTreeWidgetItem *, int );
 
   public:
     ConfigureLogFiles ( QWidget * parent = 0 );
-    const QStringList logFiles();
+    const QStringList logFiles ( const QString &path );
     ~ConfigureLogFiles();
 };
 

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-05 20:50+0200\n"
-"PO-Revision-Date: 2011-04-05 20:53+0200\n"
+"POT-Creation-Date: 2011-04-06 12:21+0200\n"
+"PO-Revision-Date: 2011-04-06 12:23+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -1018,6 +1018,7 @@ msgid "default security origin quota for new databases"
 msgstr "Standard Speicheranteil Einstellung für neue Datenbanken"
 
 #: src/configuration/directorychooser/directorydialog.cpp:45
+#: src/plugins/apachelogger/configurelogfiles.cpp:61
 msgid "Directory"
 msgstr "Verzeichnis"
 
@@ -2063,20 +2064,36 @@ msgstr "Protokolliere Apache eeror.log und andere"
 msgid "Jürgen Heinemann (Undefined)"
 msgstr "Jürgen Heinemann (Undefined)"
 
-#: src/plugins/apachelogger/configurelogfiles.cpp:45
+#: src/plugins/apachelogger/configurelogfiles.cpp:50
 msgid "Configure logfiles"
 msgstr "Konfiguriere Protokoll Dateien"
 
-#: src/plugins/apachelogger/configurelogfiles.cpp:56
+#: src/plugins/apachelogger/configurelogfiles.cpp:61
+msgid "Logfile"
+msgstr "Logdatei"
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:68
 #: src/plugins/keywordeditor/keywordstable.cpp:55
 msgid "Delete"
 msgstr "Entfernen"
 
-#: src/plugins/apachelogger/configurelogfiles.cpp:121
-msgid "Open Logfile"
-msgstr "Öffne Logdatei Datei"
+#: src/plugins/apachelogger/configurelogfiles.cpp:80
+msgid "Open Apache Logfiles Directory"
+msgstr "Öffne Apache Protokoll Dateien Verzeichnis"
 
-#: src/plugins/apachelogger/loglistener.cpp:61
+#: src/plugins/apachelogger/configurelogfiles.cpp:264
+msgid "Open Apache Log-directory"
+msgstr "Öffne Apache Protokoll Verzeichnis"
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:283
+msgid "Failure"
+msgstr "Fehler"
+
+#: src/plugins/apachelogger/configurelogfiles.cpp:283
+msgid "You can not remove a selected scan directory!"
+msgstr "Sie können ein Ausgewähltes Verzeichnis nicht entfernen!"
+
+#: src/plugins/apachelogger/loglistener.cpp:64
 msgid "Permission Denied"
 msgstr "Zugriff verweigert"
 
