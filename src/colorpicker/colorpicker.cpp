@@ -36,6 +36,7 @@
 #include <QtGui/QDesktopWidget>
 #include <QtGui/QGroupBox>
 #include <QtGui/QGridLayout>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QImage>
 #include <QtGui/QPixmap>
 #include <QtGui/QPushButton>
@@ -110,13 +111,6 @@ ColorPicker::ColorPicker ( QWidget * parent )
   m_preview->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
   gridLayout1->addWidget ( m_preview, 0, 2, 4, 1 );
 
-  // Hinweis
-  verticalLayout->addWidget ( new QLabel ( i18n ( "Note:" ), layer ), 0, Qt::AlignLeft );
-  QLabel* hexinfo = new QLabel ( layer );
-  hexinfo->setWordWrap ( true );
-  hexinfo->setText ( i18n ( "There is a constraint on the color that it must have either 3 or 6 hex-digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd\" is not." ) );
-  verticalLayout->addWidget ( hexinfo );
-
   // Farben Testen
   QGroupBox* groupBox2 = new QGroupBox ( i18n ( "Testing" ), layer );
   verticalLayout->addWidget ( groupBox2 );
@@ -142,6 +136,35 @@ ColorPicker::ColorPicker ( QWidget * parent )
   openColorEditor->setText ( i18n ( "Color Editor" ) );
   openColorEditor->setIcon ( KIcon ( "preferences-desktop-color" ) );
   gridLayout2->addWidget ( openColorEditor, 0, 4, 1, 1 );
+
+  // Hinweis
+  gridLayout2->addWidget ( new QLabel ( i18n ( "Note:" ), groupBox2 ), 1, 0, 1, 1, ( Qt::AlignRight | Qt::AlignTop ) );
+  QLabel* hexinfo = new QLabel ( groupBox2 );
+  hexinfo->setWordWrap ( true );
+  hexinfo->setText ( i18n ( "There is a constraint on the color that it must have either 3 or 6 hex-digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd\" is not." ) );
+  gridLayout2->addWidget ( hexinfo, 1, 1, 1, 4 );
+
+  // RGB Manipulator
+  QHBoxLayout* rgbLayout = new QHBoxLayout;
+  rgb_red = new KIntNumInput ( groupBox2 );
+  rgb_red->setRange ( 0, 255, 1 );
+  rgb_red->setSliderEnabled ( true );
+  rgb_red->setPrefix ( QLatin1String ( "R " ) );
+  rgbLayout->addWidget ( rgb_red );
+
+  rgb_green = new KIntNumInput ( groupBox2 );
+  rgb_green->setRange ( 0, 255, 1 );
+  rgb_green->setSliderEnabled ( true );
+  rgb_green->setPrefix ( QLatin1String ( "G " ) );
+  rgbLayout->addWidget ( rgb_green );
+
+  rgb_blue = new KIntNumInput ( groupBox2 );
+  rgb_blue->setRange ( 0, 255, 1 );
+  rgb_blue->setSliderEnabled ( true );
+  rgb_blue->setPrefix ( QLatin1String ( "B " ) );
+  rgbLayout->addWidget ( rgb_blue );
+
+  gridLayout2->addLayout ( rgbLayout, 2, 0, 1, 5 );
 
   // Layout abschliessen
   QSpacerItem* verticalSpacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
@@ -170,6 +193,15 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   connect ( openColorEditor, SIGNAL ( clicked() ),
             this, SLOT ( colorDialog() ) );
+
+  connect ( rgb_red, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( rgbChanged ( int ) ) );
+
+  connect ( rgb_green, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( rgbChanged ( int ) ) );
+
+  connect ( rgb_blue, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( rgbChanged ( int ) ) );
 }
 
 void ColorPicker::findPixelColor ( const QPoint &p )
@@ -264,8 +296,21 @@ void ColorPicker::colorChanged ( const QColor &c )
                 );
   m_rgbEdit->setText ( rgb );
 
+  rgb_red->setValue ( c.red() );
+  rgb_green->setValue ( c.green() );
+  rgb_blue->setValue ( c.blue() );
+
   // Vorschau erzeugen
   m_preview->setStyleSheet ( QString ( "*{background:%1; border:1px ridge black;}" ).arg ( c.name() ) );
+}
+
+/**
+* Wenn einer der RGB Eingaben verändert wird
+*/
+void ColorPicker::rgbChanged ( int )
+{
+  QColor color ( rgb_red->value(), rgb_green->value(), rgb_blue->value() );
+  colorChanged ( color );
 }
 
 /**
@@ -281,14 +326,21 @@ void ColorPicker::pointerChanged ( const QPoint &p )
 /**
 * Wenn Maustaste gedrückt wird und MouseTracking eingeschaltet ist!
 * Ein Signal mit der aktuellen Position zurück geben!
+* @note Weil grabMouse eine globale Funktion ist kann dieses Widget nicht
+*       wissen das der Event abgeschlossen ist! Deshalb habe ich in tapping()
+*       den Cursor auch auf CrossCursor gesetzt! Und stelle hier die Abfrage
+*       auf den shape() um ein falsches Auslösen des Events zu verhindern!
 * @see tapping
 */
 void ColorPicker::mousePressEvent ( QMouseEvent * event )
 {
-  pointerChanged ( event->globalPos() );
-  releaseMouse();
-  setCursor ( Qt::ArrowCursor );
-  QDockWidget::mousePressEvent ( event );
+  if ( cursor().shape() == Qt::CrossCursor )
+  {
+    pointerChanged ( event->globalPos() );
+    releaseMouse();
+    setCursor ( Qt::ArrowCursor );
+    QDockWidget::mousePressEvent ( event );
+  }
 }
 
 /**
@@ -298,8 +350,11 @@ void ColorPicker::mousePressEvent ( QMouseEvent * event )
 void ColorPicker::tapping ( bool b )
 {
   if ( b )
+  {
+    // IMPORTENT @see mousePressEvent
+    setCursor ( Qt::CrossCursor );
     grabMouse ( Qt::CrossCursor );
-
+  }
   m_grabberWindow->startRecording ( b );
 }
 

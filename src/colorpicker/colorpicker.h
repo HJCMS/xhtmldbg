@@ -37,6 +37,9 @@
 #include <QtGui/QMouseEvent>
 #include <QtGui/QWidget>
 
+/* KDE */
+#include <KDE/KIntNumInput>
+
 class ColorTable;
 class GrabberWindow;
 class HexInput;
@@ -55,6 +58,9 @@ class ColorPicker : public QDockWidget
     QLineEdit* m_rgbEdit;
     GrabberWindow* m_grabberWindow;
     HexInput* m_hexInput;
+    KIntNumInput* rgb_red;
+    KIntNumInput* rgb_green;
+    KIntNumInput* rgb_blue;
     void findPixelColor ( const QPoint & );
     void openColorEditor();
 
@@ -63,6 +69,7 @@ class ColorPicker : public QDockWidget
     void colorDialog();
     void colorMapChanged ( int );
     void colorChanged ( const QColor & );
+    void rgbChanged ( int );
     void pointerChanged ( const QPoint & );
 
   protected:
