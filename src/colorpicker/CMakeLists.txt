@@ -1,6 +1,7 @@
 ## Resolv Host Information Plugin
 
 SET(colorpicker_SOURCES
+  colorpreviewer.cpp
   colorpicker.cpp
   colors.cpp
   colortable.cpp
@@ -10,6 +11,7 @@ SET(colorpicker_SOURCES
 )
 
 SET(colorpicker_HEADERS
+  colorpreviewer.h
   colorpicker.h
   colortable.h
   colorpickerbutton.h

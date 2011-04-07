@@ -20,10 +20,14 @@
 **/
 
 #include "colorpicker.h"
+#include "colorpreviewer.h"
 #include "colors.h"
 #include "colortable.h"
 #include "grabberwindow.h"
 #include "hexinput.h"
+
+/* std */
+#include <cmath>
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -34,6 +38,7 @@
 /* QtGui */
 #include <QtGui/QApplication>
 #include <QtGui/QDesktopWidget>
+#include <QtGui/QFrame>
 #include <QtGui/QGroupBox>
 #include <QtGui/QGridLayout>
 #include <QtGui/QHBoxLayout>
@@ -106,10 +111,8 @@ ColorPicker::ColorPicker ( QWidget * parent )
   gridLayout1->addWidget ( m_rgbEdit, 3, 1, 1, 1, Qt::AlignLeft );
 
   // Farb-Vorschau
-  m_preview = new QLabel ( groupBox1 );
-  m_preview->setStyleSheet ( "*{border:1px ridge black;background-color:#FFFFFF;}" );
-  m_preview->setSizePolicy ( QSizePolicy::Expanding, QSizePolicy::Preferred );
-  gridLayout1->addWidget ( m_preview, 0, 2, 4, 1 );
+  m_previewer = new ColorPreviewer ( groupBox1 );
+  gridLayout1->addWidget ( m_previewer, 0, 2, 4, 1 );
 
   // Farben Testen
   QGroupBox* groupBox2 = new QGroupBox ( i18n ( "Testing" ), layer );
@@ -166,6 +169,21 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   gridLayout2->addLayout ( rgbLayout, 2, 0, 1, 5 );
 
+  // Opacity
+  QHBoxLayout* opacitylayout = new QHBoxLayout;
+
+  m_opacityEdit = new QLineEdit ( QString::fromUtf8 ( "opacity:1.0;" ), groupBox2 );
+  opacitylayout->addWidget ( m_opacityEdit, 0, Qt::AlignRight );
+
+  rgb_alpha = new KIntNumInput ( groupBox2 );
+  rgb_alpha->setRange ( 0, 255, 1 );
+  rgb_alpha->setValue ( 255 );
+  rgb_alpha->setSliderEnabled ( true );
+  rgb_alpha->setPrefix ( QLatin1String ( "A " ) );
+  opacitylayout->addWidget ( rgb_alpha );
+
+  gridLayout2->addLayout ( opacitylayout, 3, 0, 1, 5 );
+
   // Layout abschliessen
   QSpacerItem* verticalSpacer = new QSpacerItem ( 2, 2, QSizePolicy::Preferred, QSizePolicy::Expanding );
   verticalLayout->addItem ( verticalSpacer );
@@ -202,6 +220,9 @@ ColorPicker::ColorPicker ( QWidget * parent )
 
   connect ( rgb_blue, SIGNAL ( valueChanged ( int ) ),
             this, SLOT ( rgbChanged ( int ) ) );
+
+  connect ( rgb_alpha, SIGNAL ( valueChanged ( int ) ),
+            this, SLOT ( rgbChanged ( int ) ) );
 }
 
 void ColorPicker::findPixelColor ( const QPoint &p )
@@ -212,7 +233,7 @@ void ColorPicker::findPixelColor ( const QPoint &p )
   if ( img.isNull() )
   {
     m_hexEdit->clear();
-    m_preview->setStyleSheet ( "*{border:1px ridge black;}" );
+    // m_previewer->setStyleSheet ( "*{border:1px ridge black;}" );
     m_rgbEdit->clear();
     return;
   }
@@ -299,9 +320,25 @@ void ColorPicker::colorChanged ( const QColor &c )
   rgb_red->setValue ( c.red() );
   rgb_green->setValue ( c.green() );
   rgb_blue->setValue ( c.blue() );
+  rgb_alpha->setValue ( c.alpha() );
+
+  // Opacity Text einfügen
+  // 0.0 (fully transparent) to 1.0 (fully opaque)
+  QString opacity ( "1" );
+  double f = ( ( c.alpha() / 2.5 ) / 100.0 );
+  if ( f < 1.0 )
+  {
+    QString buf;
+    opacity = buf.sprintf ( "%0.1f", ( f ) );
+  }
 
   // Vorschau erzeugen
-  m_preview->setStyleSheet ( QString ( "*{background:%1; border:1px ridge black;}" ).arg ( c.name() ) );
+  QString ocy = QString::fromUtf8 ( "opacity:%2;" ).arg ( opacity );
+  m_opacityEdit->setText ( ocy );
+
+  QString style = QString::fromUtf8 ( "*{background:%1;%2}" ).arg ( c.name(), ocy );
+  m_previewer->setStyleSheet ( style );
+  m_previewer->preview ( c );
 }
 
 /**
@@ -309,7 +346,7 @@ void ColorPicker::colorChanged ( const QColor &c )
 */
 void ColorPicker::rgbChanged ( int )
 {
-  QColor color ( rgb_red->value(), rgb_green->value(), rgb_blue->value() );
+  QColor color ( rgb_red->value(), rgb_green->value(), rgb_blue->value(), rgb_alpha->value() );
   colorChanged ( color );
 }
 

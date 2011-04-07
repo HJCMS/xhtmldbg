@@ -40,6 +40,7 @@
 /* KDE */
 #include <KDE/KIntNumInput>
 
+class ColorPreviewer;
 class ColorTable;
 class GrabberWindow;
 class HexInput;
@@ -54,13 +55,15 @@ class ColorPicker : public QDockWidget
     QComboBox* m_colorComboBox;
     ColorTable* m_colorTable;
     QLineEdit* m_hexEdit;
-    QLabel* m_preview;
+    ColorPreviewer* m_previewer;
     QLineEdit* m_rgbEdit;
     GrabberWindow* m_grabberWindow;
     HexInput* m_hexInput;
     KIntNumInput* rgb_red;
     KIntNumInput* rgb_green;
     KIntNumInput* rgb_blue;
+    QLineEdit* m_opacityEdit;
+    KIntNumInput* rgb_alpha;
     void findPixelColor ( const QPoint & );
     void openColorEditor();
 
