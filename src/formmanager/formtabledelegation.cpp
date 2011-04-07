@@ -20,6 +20,7 @@
 **/
 
 #include "formtabledelegation.h"
+#include "lineeditor.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -27,10 +28,14 @@
 #include <QtCore/QRegExp>
 
 /* QtGui */
+#include <QtGui/QFont>
 #include <QtGui/QLabel>
 #include <QtGui/QWidget>
-#include <QtGui/QLineEdit>
+#include <QtGui/QPalette>
 #include <QtGui/QStyleOptionViewItem>
+
+#include <QtGui/QLineEdit>
+
 
 /* KDE */
 #include <KDE/KLocale>
@@ -47,7 +52,7 @@ QWidget* FormTableDelegation::createEditor ( QWidget *editor,
 {
   Q_UNUSED ( option );
   if ( index.column() == 4 )
-    return new QLineEdit ( editor );
+    return new LineEditor ( editor );
   else
     return new QLabel ( editor );
 }
@@ -56,8 +61,8 @@ void FormTableDelegation::setEditorData ( QWidget *editor, const QModelIndex &in
 {
   if ( index.column() == 4 ) // TODO Element TagName,id und type sind Gesperrt!
   {
-    QLineEdit* sw = static_cast<QLineEdit*> ( editor );
-    sw->setText ( index.model()->data ( index ).toString() );
+    LineEditor* sw = static_cast<LineEditor*> ( editor );
+    sw->setData ( index.model()->data ( index ).toString() );
   }
 }
 
@@ -66,7 +71,7 @@ void FormTableDelegation::setModelData ( QWidget *editor,
 {
   if ( index.column() == 4 ) // TODO Element TagName,id und type sind Gesperrt!
   {
-    QLineEdit* sw = static_cast<QLineEdit*> ( editor );
+    LineEditor* sw = static_cast<LineEditor*> ( editor );
     model->setData ( index, QVariant ( sw->text() ), Qt::EditRole );
   }
 }

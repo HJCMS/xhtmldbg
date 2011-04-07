@@ -11,6 +11,7 @@ SET (target_project_SOURCES
   formtable.cpp
   formtablemodel.cpp
   formtabledelegation.cpp
+  lineeditor.cpp
 )
 
 SET (target_project_HEADERS
@@ -20,6 +21,7 @@ SET (target_project_HEADERS
   formtable.h
   formtablemodel.h
   formtabledelegation.h
+  lineeditor.h
 )
 
 SET (target_project_NOMOC_HEADERS

@@ -166,7 +166,9 @@ const QString FormConstructor::uniqueId() const
   {
     QCryptographicHash hash ( QCryptographicHash::Md5 );
     hash.addData ( toPlainText().toUtf8() );
-    id = QString ( hash.result().toHex() );
+    id = "md5{";
+    id.append ( QString ( hash.result().toHex() ) );
+    id.append ( "}" );
   }
   return id;
 }

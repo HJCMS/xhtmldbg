@@ -47,6 +47,7 @@
 #include <QtNetwork/QNetworkReply>
 
 class NetworkAccessManager;
+class Wallet;
 
 class Page : public KWebPage
 {
@@ -56,12 +57,13 @@ class Page : public KWebPage
 
   private:
     NetworkAccessManager* m_netManager;
+    Wallet* m_wallet;
     QNetworkReply* reply;
-    QTextCodec* fetchHeaderEncoding ( QNetworkReply * );
+    QTextCodec* fetchHeaderEncoding ( QNetworkReply * ) const;
     bool prepareContent ( QNetworkReply * );
 
   private Q_SLOTS:
-    void initWebDatabaseAccess ( bool );
+    void onReadyLoadPage ( bool );
     void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );

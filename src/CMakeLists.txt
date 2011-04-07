@@ -93,6 +93,7 @@ SET (xhtmldbg_SOURCES
   webviewer.cpp
   viewer.cpp
   page.cpp
+  wallet.cpp
   pagehistory.cpp
   historymanager.cpp
   historyitem.cpp
@@ -125,6 +126,7 @@ SET (xhtmldbg_HEADERS
   webviewer.h
   viewer.h
   page.h
+  wallet.h
   historymanager.h
   historymenu.h
   statusbar.h

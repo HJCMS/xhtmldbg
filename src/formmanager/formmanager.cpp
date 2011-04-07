@@ -42,6 +42,8 @@
 /* KDE */
 #include <KDE/KIcon>
 #include <KDE/KLocale>
+#include <KDE/KWebWallet>
+#include <KDE/KWebPage>
 
 /* QtSql */
 #include <QtSql/QSqlError>

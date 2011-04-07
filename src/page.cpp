@@ -26,6 +26,7 @@
 #include "downloadmanager.h"
 #include "jsmessanger.h"
 #include "javascriptpopup.h"
+#include "wallet.h"
 /* QtUiTools */
 #ifdef HAVE_QTUITOOLS
 # include "uitoolsloader.h"
@@ -54,7 +55,8 @@
 
 /* QtWebKit */
 #include <QtWebKit/QWebDatabase>
-#include <QtWebKit/QWebSecurityOrigin>
+#include <QtWebKit/QWebElement>
+#include <QtWebKit/QWebElementCollection>
 
 /* QtNetwork */
 #include <QtNetwork/QNetworkAccessManager>
@@ -85,8 +87,9 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
-  // TODO KWebWallet
-  wallet ();
+  // KWebWallet
+  m_wallet = new Wallet ( this );
+  setWallet ( m_wallet );
 
   // NOTE localReplySource muss in @class Window gesetzt werden!
   connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
@@ -101,7 +104,52 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
             this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
 
   connect ( this, SIGNAL ( loadFinished ( bool ) ),
-            this, SLOT ( initWebDatabaseAccess ( bool ) ) );
+            this, SLOT ( onReadyLoadPage ( bool ) ) );
+}
+
+/**
+* Versuche mit dem Datenkopf Content-Type den Zeichensatz zu ermitteln.
+*/
+QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply ) const
+{
+  QString encoding ( "UTF-8" );
+  if ( reply )
+  {
+    QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
+    if ( ! cType.isEmpty() )
+    {
+      QString Charset ( cType );
+      foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
+      {
+        param.trimmed();
+        if ( param.contains ( "charset", Qt::CaseInsensitive ) )
+        {
+          QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
+          encoding = buf.toUpper();
+          break;
+        }
+      }
+    }
+  }
+  return QTextCodec::codecForName ( encoding.toAscii() );
+}
+
+/**
+* Hier wird der Datenstrom ausgelesen und in den
+* passenden Zeichnsatz gesetzt. Danach geht es
+* weiter an @ref Window::setSource
+* @note Diese Methode Reagiert nur bei einem onClick oder laden innerhalb
+*       dieser Seite.
+*/
+bool Page::prepareContent ( QNetworkReply * dev )
+{
+  QByteArray data = dev->readAll();
+  if ( data.isEmpty() )
+    return false;
+
+  QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
+  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
+  return true;
 }
 
 /** Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster */
@@ -123,17 +171,21 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
 }
 
 /**
-* Lokale SQLite3 Datenbank Zugriffe bestimmen!
+* Wenn die Seite fertig geladen ist
 */
-void Page::initWebDatabaseAccess ( bool b )
+void Page::onReadyLoadPage ( bool b )
 {
   if ( ! b )
     return;
 
-  if ( mainFrame() && ! mainFrame()->securityOrigin().host().isEmpty() )
+  QWebFrame* frame = mainFrame();
+  if ( frame->documentElement().findAll ( "FORM" ).count() > 0 )
+    m_wallet->fillFormData ( frame );
+
+  if ( ! frame->securityOrigin().host().isEmpty() )
   {
 #ifdef DEBUG_VERBOSE
-    foreach ( QWebDatabase db, mainFrame()->securityOrigin().databases () )
+    foreach ( QWebDatabase db, frame->securityOrigin().databases () )
     {
       qDebug() << Q_FUNC_INFO << db.displayName() << db.fileName();
     }
@@ -179,51 +231,6 @@ void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
   QString path = frame->requestedUrl().path();
   javaScriptConsoleMessage ( message, 0, path );
   QMessageBox::warning ( view(), path, Qt::escape ( message ) );
-}
-
-/**
-* Versuche mit dem Datenkopf Content-Type den Zeichensatz zu ermitteln.
-*/
-QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply )
-{
-  QString encoding ( "UTF-8" );
-  if ( reply )
-  {
-    QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
-    if ( ! cType.isEmpty() )
-    {
-      QString Charset ( cType );
-      foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
-      {
-        param.trimmed();
-        if ( param.contains ( "charset", Qt::CaseInsensitive ) )
-        {
-          QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
-          encoding = buf.toUpper();
-          break;
-        }
-      }
-    }
-  }
-  return QTextCodec::codecForName ( encoding.toAscii() );
-}
-
-/**
-* Hier wird der Datenstrom ausgelesen und in den
-* passenden Zeichnsatz gesetzt. Danach geht es
-* weiter an @ref Window::setSource
-* @note Diese Methode Reagiert nur bei einem onClick oder laden innerhalb
-*       dieser Seite.
-*/
-bool Page::prepareContent ( QNetworkReply * dev )
-{
-  QByteArray data = dev->readAll();
-  if ( data.isEmpty() )
-    return false;
-
-  QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
-  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
-  return true;
 }
 
 /**
@@ -313,8 +320,11 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     break;
 
     case QWebPage::NavigationTypeFormSubmitted:
-      // The user activated a submit button for an HTML form.
-      break;
+    {
+      if ( mainFrame()->documentElement().findAll ( "FORM" ).count() > 0 )
+        m_wallet->saveFormData ( mainFrame(), true, true );
+    }
+    break;
 
     case QWebPage::NavigationTypeFormResubmitted:
     {
