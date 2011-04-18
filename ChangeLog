@@ -1,3 +1,7 @@
+- 2011/04/18 Juergen Heinemann (Undefined)
+  Version: New features included - The usual bugfixes and a lot of code cleanup and refactoring were done.
+  BUGFIX: brocken support for xulrunner >= 2.0.0 fixed
+
 - 2011/03/26 Juergen Heinemann (Undefined)
   Add: Keyword Editor Plugin
   Bugfix: ColorPicker Unresolved Timer ThreadID

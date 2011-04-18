@@ -42,8 +42,8 @@ INCLUDE (KDE4Defaults)
 
 SET (XHTMLDBG_VERSION_MAJOR 0)
 SET (XHTMLDBG_VERSION_MINOR 8)
-SET (XHTMLDBG_VERSION_RELEASE 12)
-SET (XHTMLDBG_PATCHLEVEL ".rc20")
+SET (XHTMLDBG_VERSION_RELEASE 13)
+SET (XHTMLDBG_PATCHLEVEL "")
 SET (XHTMLDBG_VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
 SET (XHTMLDBG_DISTRIBUTION_TEXT "compiled sources" CACHE STRING "Indicate the distribution in bug reports")
 SET (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
@@ -161,9 +161,11 @@ FIND_FILE (CA_BUNDLE_FILE
   NAMES ca-bundle.pem ca-certificates.crt
   PATHS
     /var/lib/ca-certificates
+    /var/lib64/ca-certificates
     /etc/ssl/certs
     /etc/ca-certificates
     /usr/lib/ca-certificates
+    /usr/lib64/ca-certificates
     /usr/share/ca-certificates
     /usr/local/share/ca-certificates
   DOC "Find SSL Certificate verify location (CAfile)" NO_CMAKE_PATH
@@ -178,12 +180,12 @@ FIND_FILE (CSS_VALIDATOR_JAR
   PATHS
     /usr/share/java
     /usr/share/java/w3c-css-validator
-    /usr/local/share
-    /usr/local/share/w3c-css-validator
-    /usr/lib/java
-    /var/lib/java
+    /usr/local/share/java
+    /usr/local/share/java/w3c-css-validator
+    /usr/lib/java/w3c-css-validator
+    /var/lib64/java/w3c-css-validator
     /opt/w3c-css-validator
-    /usr/local/w3c-css-validator
+    /usr/local/share/w3c-css-validator
   DOC "Find W3C CSS Validator File" NO_CMAKE_PATH
 )
 
