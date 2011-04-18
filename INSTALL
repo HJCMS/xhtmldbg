@@ -19,6 +19,11 @@ General "xhtmldbg" Requirements:
   -  GeoIP >= 1.4.5 (Required) http://www.maxmind.com/download/geoip/
   -  Mozilla Xulrunner >= 1.9.0 (Required) http://www.mozilla.org
 
+*** OpenSuSE ***
+Install Dependeces with:
+   zypper in libqjson-devel libGeoIP-devel libQtWebKit-devel libkde4-devel phonon-devel mozilla-nss-devel mozilla-nspr-devel mozilla-xulrunner20-devel
+   zypper in --repo http://download.opensuse.org/repositories/home:/Undefineds/openSUSE_11.4/home:Undefineds.repo QTidy-devel
+
 For Mac OS X Cocoa, the binary package requires Mac OS X 10.5 (Leopard) or later
 and GCC 4.0.1 to develop applications.
 

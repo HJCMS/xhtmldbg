@@ -42,8 +42,6 @@ class NPPPlugin
     int m_loadCount;
     const QFileInfo m_pluginInfo;
 
-    NPP_ShutdownProcPtr m_shutdownProcPtr;
-    NPPluginFuncs m_pluginFuncs;
     NPNetscapeFuncs m_browserFuncs;
     void initializeBrowserFuncs();
 
