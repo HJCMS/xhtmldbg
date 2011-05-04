@@ -90,15 +90,13 @@ void GeoLocation::setFlag ( const QString &code )
 * In diser Methode wird mit GeoIP der Ländercode ermittelt und
 * bei Erfolgreicher auflösung das Icon gesetzt!
 */
-void GeoLocation::setGeoAddress ( const QString &address )
+void GeoLocation::setGeoAddress ( const char* ipaddress )
 {
-  const char* addr = address.toAscii().data();
-  GeoIP* m_geoip;
-
-  QByteArray path = databasePath.toAscii();
+  QByteArray db_path = databasePath.toAscii();
+  // qDebug() << Q_FUNC_INFO << db_path << ipaddress;
 
   /* Read from filesystem, check for updated file */
-  m_geoip = GeoIP_open ( path.constData(), ( GEOIP_STANDARD | GEOIP_CHECK_CACHE ) );
+  GeoIP* m_geoip = GeoIP_open ( db_path.constData(), ( GEOIP_STANDARD | GEOIP_CHECK_CACHE ) );
   if ( m_geoip == NULL )
   {
     qWarning ( "(XHTMLDBG) Can not open GeoIP Database from %s", GEOIP_DATABASE_PATH );
@@ -106,7 +104,7 @@ void GeoLocation::setGeoAddress ( const QString &address )
     return;
   }
 
-  const char* retval = GeoIP_country_code_by_addr ( m_geoip, addr );
+  const char* retval = GeoIP_country_code_by_addr ( m_geoip, ipaddress );
   if ( retval == NULL )
   {
     GeoIP_delete ( m_geoip );
@@ -132,7 +130,8 @@ void GeoLocation::fetchFromHost ( const QHostInfo &host )
 
     if ( address.toIPv4Address() )
     {
-      setGeoAddress ( address.toString() );
+      QByteArray array = address.toString().toAscii();
+      setGeoAddress ( array.constData() );
       break;
     }
   }

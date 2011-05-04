@@ -51,7 +51,7 @@ class GeoLocation : public QWidget
     QString databasePath;
     QToolButton* m_toolButton;
     void setFlag ( const QString & );
-    void setGeoAddress ( const QString & );
+    void setGeoAddress ( const char* ipaddress );
 
   private Q_SLOTS:
     void fetchFromHost ( const QHostInfo & );
