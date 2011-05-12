@@ -19,42 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef RESIZEPORTBUTTONS_H
-#define RESIZEPORTBUTTONS_H
+#ifndef XWALLET_H
+#define XWALLET_H
 
 /* QtCore */
 #include <QtCore/QObject>
-#include <QtCore/QSignalMapper>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QIcon>
-#include <QtGui/QMenu>
 #include <QtGui/QToolButton>
 #include <QtGui/QWidget>
 
-class ResizePortButtons : public QWidget
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+/* KDE */
+#include <KDE/KWallet/Wallet>
 
-  private:
-    const QIcon icon;
-    QDesktopWidget* m_desktopWidget;
-    QSignalMapper* m_signalMapper;
-    QToolButton* m_ToolButton;
-    QMenu* m_menu;
+class XWallet : public QWidget
+  {
+      Q_OBJECT
+      Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+      Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private Q_SLOTS:
-    void createSelections ( int );
+    private:
+      KWallet::Wallet* m_wallet;
+      QToolButton* m_button;
+      void initWalletFolder();
 
-  Q_SIGNALS:
-    void itemClicked ( int );
+    private Q_SLOTS:
+      void displayWalletIconStatus ( bool b = false );
 
-  public:
-    ResizePortButtons ( QWidget * parent = 0 );
-    virtual ~ResizePortButtons();
-};
+    public:
+      XWallet ( QWidget * parent = 0 );
+      virtual ~XWallet();
+  };
 
 #endif

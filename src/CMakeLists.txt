@@ -82,34 +82,34 @@ ADD_SUBDIRECTORY (components)
 ## SOURCES
 ##############################
 SET (xhtmldbg_SOURCES
-  main.cpp
-  xhtmldbgmain.cpp
-  application.cpp
-  window.cpp
-  addresstoolbar.cpp
-  keywordstoolbar.cpp
-  tidymessanger.cpp
-  jsmessanger.cpp
-  webviewer.cpp
-  viewer.cpp
-  page.cpp
-  wallet.cpp
-  pagehistory.cpp
-  historymanager.cpp
-  historyitem.cpp
-  historymenu.cpp
-  statusbar.cpp
-  cookieacceptdialog.cpp
-  appevents.cpp
-  autoreloader.cpp
-  autoreloadmenu.cpp
-  useragentmenu.cpp
-  xhtmldbgadaptor.cpp
-  zoombar.cpp
-  geolocation.cpp
-  javascriptpopup.cpp
-  webinspector.cpp
-  resizeportbuttons.cpp
+	main.cpp
+	xhtmldbgmain.cpp
+	application.cpp
+	window.cpp
+	addresstoolbar.cpp
+	keywordstoolbar.cpp
+	tidymessanger.cpp
+	jsmessanger.cpp
+	webviewer.cpp
+	viewer.cpp
+	page.cpp
+	xwallet.cpp
+	webwallet.cpp
+	pagehistory.cpp
+	historymanager.cpp
+	historyitem.cpp
+	historymenu.cpp
+	statusbar.cpp
+	cookieacceptdialog.cpp
+	appevents.cpp
+	autoreloader.cpp
+	autoreloadmenu.cpp
+	useragentmenu.cpp
+	xhtmldbgadaptor.cpp
+	zoombar.cpp
+	geolocation.cpp
+	javascriptpopup.cpp
+	webinspector.cpp
 )
 
 ##############################
@@ -126,7 +126,8 @@ SET (xhtmldbg_HEADERS
   webviewer.h
   viewer.h
   page.h
-  wallet.h
+  xwallet.h
+  webwallet.h
   historymanager.h
   historymenu.h
   statusbar.h
@@ -169,14 +170,8 @@ ENDIF (QT_QTUITOOLS_FOUND)
 ##############################
 ## Experimental Code
 ##############################
-IF (XHTMLDBG_EXPERIMENTAL)
-  SET (xhtmldbg_SOURCES ${xhtmldbg_SOURCES}
-    resizeportbuttons.cpp
-  )
-  SET (xhtmldbg_HEADERS ${xhtmldbg_HEADERS}
-    resizeportbuttons.h
-  )
-ENDIF (XHTMLDBG_EXPERIMENTAL)
+# IF (XHTMLDBG_EXPERIMENTAL)
+# ENDIF (XHTMLDBG_EXPERIMENTAL)
 
 ##############################
 ## generated MOC Files

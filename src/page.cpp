@@ -26,7 +26,7 @@
 #include "downloadmanager.h"
 #include "jsmessanger.h"
 #include "javascriptpopup.h"
-#include "wallet.h"
+#include "webwallet.h"
 /* QtUiTools */
 #ifdef HAVE_QTUITOOLS
 # include "uitoolsloader.h"
@@ -63,48 +63,48 @@
 #include <QtNetwork/QNetworkReply>
 
 Page::Page ( NetworkAccessManager * manager, QObject * parent )
-    : KWebPage ( parent )
-    , m_netManager ( manager )
-    , reply ( 0 )
+        : KWebPage ( parent )
+        , m_netManager ( manager )
+        , reply ( 0 )
 {
-  setObjectName ( "page" );
-  // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
-  setForwardUnsupportedContent ( true );
-  setAllowExternalContent ( true );
-  setNetworkAccessManager ( m_netManager );
+    setObjectName ( "page" );
+    // Nicht bekannte Datentypen an SIGNAL unsupportedContent übergeben.
+    setForwardUnsupportedContent ( true );
+    setAllowExternalContent ( true );
+    setNetworkAccessManager ( m_netManager );
 
 #ifdef HAVE_NPPLOADER
-  // NPP Plugin Factory
-  NPPLoader* factory = new NPPLoader ( this );
-  setPluginFactory ( factory );
-  factory->refreshPlugins();
+    // NPP Plugin Factory
+    NPPLoader* factory = new NPPLoader ( this );
+    setPluginFactory ( factory );
+    factory->refreshPlugins();
 #endif
 
-  // merge ShortCuts with Application Window
-  action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
-  action ( QWebPage::Back )->setShortcut ( QKeySequence::Back );
-  action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
-  action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
-  action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
+    // merge ShortCuts with Application Window
+    action ( QWebPage::Reload )->setShortcut ( QKeySequence::Refresh );
+    action ( QWebPage::Back )->setShortcut ( QKeySequence::Back );
+    action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
+    action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
+    action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
-  // KWebWallet
-  m_wallet = new Wallet ( this );
-  setWallet ( m_wallet );
+    // KWebWallet
+    m_webWallet = new WebWallet ( this );
+    setWallet ( m_webWallet );
 
-  // NOTE localReplySource muss in @class Window gesetzt werden!
-  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
-            this, SLOT ( readPostResponse ( const QUrl &, const QString & ) ) );
+    // NOTE localReplySource muss auch in @class Window gesetzt werden!
+    connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
+              this, SLOT ( readPostResponse ( const QUrl &, const QString & ) ) );
 
-  connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
+    connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
 
-  connect ( this, SIGNAL ( unsupportedContent ( QNetworkReply * ) ),
-            this, SLOT ( unsupportedContentRequest ( QNetworkReply * ) ) );
+    connect ( this, SIGNAL ( unsupportedContent ( QNetworkReply * ) ),
+              this, SLOT ( unsupportedContentRequest ( QNetworkReply * ) ) );
 
-  connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
-            this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
+    connect ( this, SIGNAL ( downloadRequested ( const QNetworkRequest & ) ),
+              this, SLOT ( downloadContentRequest ( const QNetworkRequest & ) ) );
 
-  connect ( this, SIGNAL ( loadFinished ( bool ) ),
-            this, SLOT ( onReadyLoadPage ( bool ) ) );
+    connect ( this, SIGNAL ( loadFinished ( bool ) ),
+              this, SLOT ( onReadyLoadPage ( bool ) ) );
 }
 
 /**
@@ -112,85 +112,90 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
 */
 QTextCodec* Page::fetchHeaderEncoding ( QNetworkReply * reply ) const
 {
-  QString encoding ( "UTF-8" );
-  if ( reply )
-  {
-    QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
-    if ( ! cType.isEmpty() )
+    QString encoding ( "UTF-8" );
+    if ( reply )
     {
-      QString Charset ( cType );
-      foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
-      {
-        param.trimmed();
-        if ( param.contains ( "charset", Qt::CaseInsensitive ) )
+        QByteArray cType = reply->rawHeader ( QByteArray ( "Content-Type" ) );
+        if ( ! cType.isEmpty() )
         {
-          QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
-          encoding = buf.toUpper();
-          break;
+            QString Charset ( cType );
+            foreach ( QString param, Charset.split ( QRegExp ( "[\\s ]?;[\\s ]?" ) ) )
+            {
+                param.trimmed();
+                if ( param.contains ( "charset", Qt::CaseInsensitive ) )
+                {
+                    QString buf = param.split ( QRegExp ( "[\\s ]?=[\\s ]?" ) ).last();
+                    encoding = buf.toUpper();
+                    break;
+                }
+            }
         }
-      }
     }
-  }
-  return QTextCodec::codecForName ( encoding.toAscii() );
+    return QTextCodec::codecForName ( encoding.toAscii() );
 }
 
 /**
-* Hier wird der Datenstrom ausgelesen und in den
-* passenden Zeichnsatz gesetzt. Danach geht es
-* weiter an @ref Window::setSource
-* @note Diese Methode Reagiert nur bei einem onClick oder laden innerhalb
-*       dieser Seite.
+* Hier wird der Datenstrom ausgelesen und in den passenden Zeichnsatz gesetzt.
+* Danach geht es weiter an @ref Window::setSource
+* @note Diese Methode reagiert nur bei einem onClick oder laden innerhalb dieser Seite.
 */
 bool Page::prepareContent ( QNetworkReply * dev )
 {
-  QByteArray data = dev->readAll();
-  if ( data.isEmpty() )
-    return false;
+    QByteArray data = dev->readAll();
+    if ( data.isEmpty() )
+        return false;
 
-  QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
-  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
-  return true;
+    QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
+    xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
+    return true;
 }
 
 /** Sende alle von Webkit generierten JavaScript Meldungen an das Hauptfenster */
 void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id )
 {
-  if ( m.isEmpty() || id.isEmpty() )
-    return;
+    if ( m.isEmpty() || id.isEmpty() )
+        return;
 
-  QString message ( m.trimmed() );
-  message.remove ( QRegExp ( "[\r\n]+" ) );
+    QString message ( m.trimmed() );
+    message.remove ( QRegExp ( "[\r\n]+" ) );
 
-  if ( l > 0 )
-    message.append ( i18n ( " Line: %1" ).arg ( QString::number ( l ) ) );
+    if ( l > 0 )
+        message.append ( i18n ( " Line: %1" ).arg ( QString::number ( l ) ) );
 
-  if ( ! id.isEmpty() )
-    message.append ( i18n ( " Document: %1" ).arg ( id ) );
+    if ( ! id.isEmpty() )
+        message.append ( i18n ( " Document: %1" ).arg ( id ) );
 
-  xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( Qt::escape ( message ) );
+    xhtmldbgmain::instance()->mainWindow()->setJavaScriptMessage ( Qt::escape ( message ) );
 }
 
 /**
-* Wenn die Seite fertig geladen ist
+* Wenn die Seite fertig geladen ist...
+* \li Suche nach Formularen für KWebWallet und starte KWebWallet::fillFormData
+* \li Suche \b Testweise nach HTML5 Datenbank restriktionen
 */
 void Page::onReadyLoadPage ( bool b )
 {
-  if ( ! b )
-    return;
+    if ( ! b )
+        return;
 
-  QWebFrame* frame = mainFrame();
-  if ( frame->documentElement().findAll ( "FORM" ).count() > 0 )
-    m_wallet->fillFormData ( frame );
-
-  if ( ! frame->securityOrigin().host().isEmpty() )
-  {
-#ifdef DEBUG_VERBOSE
-    foreach ( QWebDatabase db, frame->securityOrigin().databases () )
+    QWebFrame* frame = mainFrame();
+    if ( frame->documentElement().findAll ( "FORM" ).count() > 0 )
     {
-      qDebug() << Q_FUNC_INFO << db.displayName() << db.fileName();
-    }
+#ifdef DEBUG_VERBOSE
+        qDebug() << Q_FUNC_INFO << "m_wallet->fillFormData";
 #endif
-  }
+        m_webWallet->fillFormData ( frame, true );
+    }
+
+    if ( ! frame->securityOrigin().host().isEmpty() )
+    {
+#ifdef DEBUG_VERBOSE
+        foreach ( QWebDatabase db, frame->securityOrigin().databases () )
+        {
+            qDebug() << Q_FUNC_INFO << db.displayName() << db.fileName();
+        }
+#endif
+    }
 }
 
 /**
@@ -209,18 +214,18 @@ void Page::onReadyLoadPage ( bool b )
 */
 bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QString &val, QString * inp )
 {
-  bool b = false;
-  QString status = i18n ( "JavaScript Prompt: " );
-  QString path = Qt::escape ( frame->requestedUrl().path() );
-  status.append ( Qt::escape ( text ) );
+    bool b = false;
+    QString status = i18n ( "JavaScript Prompt: " );
+    QString path = Qt::escape ( frame->requestedUrl().path() );
+    status.append ( Qt::escape ( text ) );
 
-  QString x = QInputDialog::getText ( view(), path, Qt::escape ( text ), QLineEdit::Normal, val, &b );
-  if ( b && inp )
-  {
-    status.append ( " ("+ Qt::escape ( x ) + ")" );
-    *inp = x;
-  }
-  return b;
+    QString x = QInputDialog::getText ( view(), path, Qt::escape ( text ), QLineEdit::Normal, val, &b );
+    if ( b && inp )
+    {
+        status.append ( " ("+ Qt::escape ( x ) + ")" );
+        *inp = x;
+    }
+    return b;
 }
 
 /**
@@ -228,9 +233,9 @@ bool Page::javaScriptPrompt ( QWebFrame * frame, const QString &text, const QStr
 */
 void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
 {
-  QString path = frame->requestedUrl().path();
-  javaScriptConsoleMessage ( message, 0, path );
-  QMessageBox::warning ( view(), path, Qt::escape ( message ) );
+    QString path = frame->requestedUrl().path();
+    javaScriptConsoleMessage ( message, 0, path );
+    QMessageBox::warning ( view(), path, Qt::escape ( message ) );
 }
 
 /**
@@ -238,7 +243,7 @@ void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
 */
 void Page::readPostResponse ( const QUrl &url, const QString &source )
 {
-  xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
+    xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
 }
 
 /**
@@ -248,9 +253,9 @@ void Page::readPostResponse ( const QUrl &url, const QString &source )
 */
 void Page::unsupportedContentRequest ( QNetworkReply * nr )
 {
-  QUrl url ( nr->request().url().toString ( QUrl::RemovePassword ), QUrl::StrictMode );
-  if ( nr->hasRawHeader ( "Content-Type" ) && url.isValid() )
-    downloadContentRequest ( nr->request() );
+    QUrl url ( nr->request().url().toString ( QUrl::RemovePassword ), QUrl::StrictMode );
+    if ( nr->hasRawHeader ( "Content-Type" ) && url.isValid() )
+        downloadContentRequest ( nr->request() );
 }
 
 /**
@@ -259,7 +264,7 @@ void Page::unsupportedContentRequest ( QNetworkReply * nr )
 */
 void Page::downloadContentRequest ( const QNetworkRequest &request )
 {
-  xhtmldbgmain::instance()->mainWindow()->downloadRequest ( request );
+    xhtmldbgmain::instance()->mainWindow()->downloadRequest ( request );
 }
 
 /**
@@ -269,12 +274,12 @@ void Page::downloadContentRequest ( const QNetworkRequest &request )
 */
 void Page::replyFinished()
 {
-  if ( reply )
-  {
-    QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
-    if ( mimeType.contains ( "text/html" ) )
-      prepareContent ( reply );
-  }
+    if ( reply )
+    {
+        QString mimeType = reply->header ( QNetworkRequest::ContentTypeHeader ).toString();
+        if ( mimeType.contains ( "text/html" ) )
+            prepareContent ( reply );
+    }
 }
 
 /**
@@ -284,67 +289,67 @@ void Page::replyFinished()
 bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &request,
                                      QWebPage::NavigationType type )
 {
-  bool b = QWebPage::acceptNavigationRequest ( frame, request, type );
-  if ( ! b )
-    return b;
+    bool b = QWebPage::acceptNavigationRequest ( frame, request, type );
+    if ( ! b )
+        return b;
 
-  switch ( type )
-  {
+    switch ( type )
+    {
     case QWebPage::NavigationTypeLinkClicked:
     {
-      reply = m_netManager->get ( request );
-      connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      b = true;
+        reply = m_netManager->get ( request );
+        connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
+        b = true;
     }
     break;
 
     case QWebPage::NavigationTypeBackOrForward:
     {
-      // Navigation to a previously shown document in the back or forward history is requested.
-      reply = m_netManager->get ( request );
-      connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      b = true;
+        // Navigation to a previously shown document in the back or forward history is requested.
+        reply = m_netManager->get ( request );
+        connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
+        b = true;
     }
     break;
 
     case QWebPage::NavigationTypeReload:
     {
-      // The user activated the reload action.
-      if ( request.url().toString().contains ( "about:" ) )
-        return false;
+        // The user activated the reload action.
+        if ( request.url().toString().contains ( "about:" ) )
+            return false;
 
-      reply = m_netManager->get ( request );
-      connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
-      b = true;
+        reply = m_netManager->get ( request );
+        connect ( reply, SIGNAL ( finished() ), this, SLOT ( replyFinished() ) );
+        b = true;
     }
     break;
 
     case QWebPage::NavigationTypeFormSubmitted:
     {
-      if ( mainFrame()->documentElement().findAll ( "FORM" ).count() > 0 )
-        m_wallet->saveFormData ( mainFrame(), true, true );
+        if ( mainFrame()->documentElement().findAll ( "FORM" ).count() > 0 )
+            m_webWallet->triggerRequest ( mainFrame(), request.url() );
     }
     break;
 
     case QWebPage::NavigationTypeFormResubmitted:
     {
-      internalMessanger ( i18n ( "Action rejected: HTML form was submitted a second time." ) );
+        internalMessanger ( i18n ( "Action rejected: HTML form was submitted a second time." ) );
 #ifdef DEBUG_VERBOSE
-      foreach ( QByteArray arr, request.rawHeaderList() )
-      {
-        qDebug() << Q_FUNC_INFO << arr << request.rawHeader ( arr );
-      }
+        foreach ( QByteArray arr, request.rawHeaderList() )
+        {
+            qDebug() << Q_FUNC_INFO << arr << request.rawHeader ( arr );
+        }
 #endif
     }
     return false;
 
     case QWebPage::NavigationTypeOther:
-      break;
+        break;
 
     default:
-      break;
-  }
-  return b;
+        break;
+    }
+    return b;
 }
 
 #ifdef HAVE_QTUITOOLS
@@ -354,21 +359,21 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
 QObject* Page::createPlugin ( const QString &id, const QUrl &url,
                               const QStringList &params, const QStringList &values )
 {
-  UiToolsLoader* loader = new UiToolsLoader ( id, url, view() );
-  connect ( loader, SIGNAL ( message ( const QString & ) ),
-            this, SLOT ( internalMessanger ( const QString & ) ) );
+    UiToolsLoader* loader = new UiToolsLoader ( id, url, view() );
+    connect ( loader, SIGNAL ( message ( const QString & ) ),
+              this, SLOT ( internalMessanger ( const QString & ) ) );
 
-  if ( ! params.contains ( "classid" ) || ! params.contains ( "name" ) )
-    return loader->displayFailWidget ( view() );
+    if ( ! params.contains ( "classid" ) || ! params.contains ( "name" ) )
+        return loader->displayFailWidget ( view() );
 
-  // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
-  // und Gültigkeit der Parameter und ihrer Werte geprüft!
-  if ( loader->setConfiguration ( params, values ) )
-  {
-    QString message = i18n ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
-    internalMessanger ( message );
-  }
-  return loader->getUiComponent ( view() );
+    // Zuerst die Konfiguration setzen, denn es werden auch die Anzahl
+    // und Gültigkeit der Parameter und ihrer Werte geprüft!
+    if ( loader->setConfiguration ( params, values ) )
+    {
+        QString message = i18n ( "(x-qt-plugin) ClassID: %1 %2" ).arg ( id, url.toString() );
+        internalMessanger ( message );
+    }
+    return loader->getUiComponent ( view() );
 }
 #endif
 
@@ -377,7 +382,7 @@ QObject* Page::createPlugin ( const QString &id, const QUrl &url,
 */
 void Page::internalMessanger ( const QString &m )
 {
-  xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( m );
+    xhtmldbgmain::instance()->mainWindow()->setApplicationMessage ( m );
 }
 
 /**
@@ -385,11 +390,11 @@ void Page::internalMessanger ( const QString &m )
 */
 void Page::triggerSelections()
 {
-  QString txt = selectedText();
-  if ( txt.isEmpty() )
-    return;
+    QString txt = selectedText();
+    if ( txt.isEmpty() )
+        return;
 
-  QApplication::clipboard()->setText ( txt );
+    QApplication::clipboard()->setText ( txt );
 }
 
 /**
@@ -401,19 +406,19 @@ void Page::triggerSelections()
 */
 const QStringList Page::keywordMetaTagItems()
 {
-  QStringList words;
-  QMultiMap<QString, QString> map = currentFrame()->metaData ();
-  if ( map.values ( "keywords" ).isEmpty() )
-    words << "0";
-  else
-    words << map.values ( "keywords" );
+    QStringList words;
+    QMultiMap<QString, QString> map = currentFrame()->metaData ();
+    if ( map.values ( "keywords" ).isEmpty() )
+        words << "0";
+    else
+        words << map.values ( "keywords" );
 
-  if ( map.values ( "description" ).isEmpty() )
-    words << "0";
-  else
-    words << map.values ( "description" );
+    if ( map.values ( "description" ).isEmpty() )
+        words << "0";
+    else
+        words << map.values ( "description" );
 
-  return words;
+    return words;
 }
 
 Page::~Page()

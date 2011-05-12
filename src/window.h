@@ -81,7 +81,7 @@ class ColorPicker;
 class HeaderDock;
 class CSSValidator;
 class xhtmldbgplugger;
-class FormManager;
+class XWallet;
 
 namespace xhtmldbg
 {
@@ -156,7 +156,7 @@ class Window : public KMainWindow
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
     // Formular Manager
-    FormManager* m_formManager;
+    XWallet* m_xWallet;
     // WebInspector
     WebInspector* m_webInspector;
     // Source Cache

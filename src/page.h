@@ -47,7 +47,7 @@
 #include <QtNetwork/QNetworkReply>
 
 class NetworkAccessManager;
-class Wallet;
+class WebWallet;
 
 class Page : public KWebPage
 {
@@ -55,14 +55,14 @@ class Page : public KWebPage
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
-  private:
+private:
     NetworkAccessManager* m_netManager;
-    Wallet* m_wallet;
+    WebWallet* m_webWallet;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * ) const;
     bool prepareContent ( QNetworkReply * );
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void onReadyLoadPage ( bool );
     void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
@@ -71,7 +71,7 @@ class Page : public KWebPage
     void triggerSelections();
     void replyFinished();
 
-  protected:
+protected:
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
     bool javaScriptPrompt ( QWebFrame *, const QString &, const QString &, QString * );
     void javaScriptAlert ( QWebFrame *, const QString & );
@@ -80,7 +80,7 @@ class Page : public KWebPage
     QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
 #endif
 
-  public:
+public:
     Page ( NetworkAccessManager * manager, QObject* parent = 0 );
     const QStringList keywordMetaTagItems();
     ~Page();

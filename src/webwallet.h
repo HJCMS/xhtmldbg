@@ -19,29 +19,40 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef WALLET_H
-#define WALLET_H
+#ifndef WEBWALLET_H
+#define WEBWALLET_H
 
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
+#include <QtCore/QUrl>
+
+/* QtWebKit */
+#include <QtWebKit/QWebFrame>
 
 /* KDE */
 #include <KDE/KWebWallet>
 #include <KDE/KWebPage>
 
-class Wallet : public KWebWallet
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+class WebWallet : public KWebWallet
+  {
+      Q_OBJECT
+      Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+      Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  private Q_SLOTS:
-    void operationComplete ( bool );
+    private:
+      const QString createWalletKey ( const QString & ) const;
 
-  public:
-    Wallet ( QObject * parent = 0 );
-    ~Wallet();
-};
+    private Q_SLOTS:
+      void operationComplete ( bool );
+      void savePostFormDataRequest ( const QString &, const QUrl & );
+
+    public Q_SLOTS:
+      void triggerRequest ( QWebFrame * frame, const QUrl & );
+
+    public:
+      WebWallet ( QObject * parent = 0 );
+      ~WebWallet();
+  };
 
 #endif

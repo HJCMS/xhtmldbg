@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-06 12:21+0200\n"
+"Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
+"POT-Creation-Date: 2011-05-12 09:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,7 +143,7 @@ msgid "1 Minute"
 msgstr ""
 
 #: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
-#: src/window.cpp:489
+#: src/window.cpp:468
 msgid "Bookmarks"
 msgstr ""
 
@@ -222,67 +222,67 @@ msgstr ""
 msgid "Color picker"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:59 src/stylesheeted/stylesheeted.cpp:71
+#: src/colorpicker/colorpicker.cpp:65 src/stylesheeted/stylesheeted.cpp:71
 msgid "Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:73
+#: src/colorpicker/colorpicker.cpp:79
 msgid "Web Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:74
+#: src/colorpicker/colorpicker.cpp:80
 msgid "Royal Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:75
+#: src/colorpicker/colorpicker.cpp:81
 msgid "Rainbow Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:76
+#: src/colorpicker/colorpicker.cpp:82
 msgid "Gray Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:77
+#: src/colorpicker/colorpicker.cpp:83
 msgid "Topographic Colors"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:87
+#: src/colorpicker/colorpicker.cpp:93
 msgid "Color preview"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:98
+#: src/colorpicker/colorpicker.cpp:104
 msgid "hexcolor:"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:103
+#: src/colorpicker/colorpicker.cpp:109
 msgid "rgbcolor:"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:114
+#: src/colorpicker/colorpicker.cpp:118
+msgid "Testing"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:125
+msgid "hexcolor tester:"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:131
+msgid "Test"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:139
+msgid "Color Editor"
+msgstr ""
+
+#: src/colorpicker/colorpicker.cpp:144
 msgid "Note:"
 msgstr ""
 
-#: src/colorpicker/colorpicker.cpp:117
+#: src/colorpicker/colorpicker.cpp:147
 msgid ""
 "There is a constraint on the color that it must have either 3 or 6 hex-"
 "digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
 "\" is not."
-msgstr ""
-
-#: src/colorpicker/colorpicker.cpp:121
-msgid "Testing"
-msgstr ""
-
-#: src/colorpicker/colorpicker.cpp:128
-msgid "hexcolor tester:"
-msgstr ""
-
-#: src/colorpicker/colorpicker.cpp:134
-msgid "Test"
-msgstr ""
-
-#: src/colorpicker/colorpicker.cpp:142
-msgid "Color Editor"
 msgstr ""
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45
@@ -542,8 +542,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:531
-#: src/window.cpp:621
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:510
+#: src/window.cpp:599
 msgid "Extensions"
 msgstr ""
 
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:151
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:147
 msgid "Browser"
 msgstr ""
 
@@ -1125,7 +1125,7 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:526
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:505
 msgid "Configure"
 msgstr ""
 
@@ -1141,7 +1141,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:377
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:356
 msgid "Open Url"
 msgstr ""
 
@@ -1267,7 +1267,7 @@ msgstr ""
 msgid "no visible geometry"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:546
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:525
 msgid "Actions"
 msgstr ""
 
@@ -1470,11 +1470,11 @@ msgstr ""
 msgid "Insert"
 msgstr ""
 
-#: src/formmanager/formmanager.cpp:72
+#: src/formmanager/formmanager.cpp:74
 msgid "Form Manager"
 msgstr ""
 
-#: src/formmanager/formmanager.cpp:113
+#: src/formmanager/formmanager.cpp:115
 msgid "Default"
 msgstr ""
 
@@ -1896,27 +1896,27 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:157
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:153
 msgid "Source"
 msgstr ""
 
-#: src/page.cpp:117
+#: src/page.cpp:163
 msgid " Line: %1"
 msgstr ""
 
-#: src/page.cpp:120
+#: src/page.cpp:166
 msgid " Document: %1"
 msgstr ""
 
-#: src/page.cpp:161
+#: src/page.cpp:218
 msgid "JavaScript Prompt: "
 msgstr ""
 
-#: src/page.cpp:321
+#: src/page.cpp:336
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr ""
 
-#: src/page.cpp:358
+#: src/page.cpp:373
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -2148,18 +2148,6 @@ msgstr ""
 
 #: src/rdfparser/xsdparser.cpp:117
 msgid "Document is Valid"
-msgstr ""
-
-#: src/resizeportbuttons.cpp:43
-msgid "Viewer Width"
-msgstr ""
-
-#: src/resizeportbuttons.cpp:55
-msgid "Resize Browser to fixed width"
-msgstr ""
-
-#: src/resizeportbuttons.cpp:95
-msgid "Restore"
 msgstr ""
 
 #: src/sourceviewer/contextmenu.cpp:48
@@ -2397,11 +2385,11 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/webviewer.cpp:82 src/window.cpp:477
+#: src/webviewer.cpp:82 src/window.cpp:456
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:478
+#: src/webviewer.cpp:84 src/window.cpp:457
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -2409,146 +2397,150 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/window.cpp:128
+#: src/window.cpp:124
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
-#: src/window.cpp:373
+#: src/window.cpp:352
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:378
+#: src/window.cpp:357
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:384
+#: src/window.cpp:363
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:385
+#: src/window.cpp:364
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:391
+#: src/window.cpp:370
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:392
+#: src/window.cpp:371
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:399
+#: src/window.cpp:378
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:402
+#: src/window.cpp:381
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:403
+#: src/window.cpp:382
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:409
+#: src/window.cpp:388
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:410
+#: src/window.cpp:389
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:416
+#: src/window.cpp:395
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:420
+#: src/window.cpp:399
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:428
+#: src/window.cpp:407
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:436 src/zoombar.cpp:52
+#: src/window.cpp:415 src/zoombar.cpp:52
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:449
+#: src/window.cpp:428
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:456
+#: src/window.cpp:435
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:459
+#: src/window.cpp:438
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:465
+#: src/window.cpp:444
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:471
+#: src/window.cpp:450
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:512
+#: src/window.cpp:491
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:518
+#: src/window.cpp:497
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:520
+#: src/window.cpp:499
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:534
+#: src/window.cpp:513
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:557
+#: src/window.cpp:536
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:593
+#: src/window.cpp:572
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:603
+#: src/window.cpp:582
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:611
+#: src/window.cpp:590
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:885
+#: src/window.cpp:875
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:1004
+#: src/window.cpp:998
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1045
+#: src/window.cpp:1039
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1048
+#: src/window.cpp:1044
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1079
+#: src/window.cpp:1075
 msgid "Download Request: %1"
 msgstr ""
 
 #: src/xhtmldbgadaptor.cpp:80
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
+msgstr ""
+
+#: src/xwallet.cpp:44
+msgid "Wallet"
 msgstr ""
 
 #: src/zoombar.cpp:40

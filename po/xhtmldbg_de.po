@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
-"Report-Msgid-Bugs-To: xhtmldbg@hjcms.de\n"
-"POT-Creation-Date: 2011-04-06 12:21+0200\n"
+"Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
+"POT-Creation-Date: 2011-05-12 09:44+0200\n"
 "PO-Revision-Date: 2011-04-06 12:23+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -158,7 +158,7 @@ msgid "1 Minute"
 msgstr "1 Minute"
 
 #: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
-#: src/window.cpp:489
+#: src/window.cpp:468
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -241,47 +241,63 @@ msgstr "Die Lesezeichen Datei besitzt kein Valides XBEL Schema!"
 msgid "Color picker"
 msgstr "Farbauswahl"
 
-#: src/colorpicker/colorpicker.cpp:59 src/stylesheeted/stylesheeted.cpp:71
+#: src/colorpicker/colorpicker.cpp:65 src/stylesheeted/stylesheeted.cpp:71
 msgid "Colors"
 msgstr "Farben"
 
-#: src/colorpicker/colorpicker.cpp:73
+#: src/colorpicker/colorpicker.cpp:79
 msgid "Web Colors"
 msgstr "Web Farben"
 
-#: src/colorpicker/colorpicker.cpp:74
+#: src/colorpicker/colorpicker.cpp:80
 msgid "Royal Colors"
 msgstr "Royal Farben"
 
-#: src/colorpicker/colorpicker.cpp:75
+#: src/colorpicker/colorpicker.cpp:81
 msgid "Rainbow Colors"
 msgstr "Regenbogen Farben"
 
-#: src/colorpicker/colorpicker.cpp:76
+#: src/colorpicker/colorpicker.cpp:82
 msgid "Gray Colors"
 msgstr "Graustufen"
 
-#: src/colorpicker/colorpicker.cpp:77
+#: src/colorpicker/colorpicker.cpp:83
 msgid "Topographic Colors"
 msgstr "Topografische Farben"
 
-#: src/colorpicker/colorpicker.cpp:87
+#: src/colorpicker/colorpicker.cpp:93
 msgid "Color preview"
 msgstr "Farben-Vorschau"
 
-#: src/colorpicker/colorpicker.cpp:98
+#: src/colorpicker/colorpicker.cpp:104
 msgid "hexcolor:"
 msgstr "Hexadezimale Farbe:"
 
-#: src/colorpicker/colorpicker.cpp:103
+#: src/colorpicker/colorpicker.cpp:109
 msgid "rgbcolor:"
 msgstr "RGB Farbe:"
 
-#: src/colorpicker/colorpicker.cpp:114
+#: src/colorpicker/colorpicker.cpp:118
+msgid "Testing"
+msgstr "Prüfung"
+
+#: src/colorpicker/colorpicker.cpp:125
+msgid "hexcolor tester:"
+msgstr "Hexadezimal Farbentest:"
+
+#: src/colorpicker/colorpicker.cpp:131
+msgid "Test"
+msgstr "Test"
+
+#: src/colorpicker/colorpicker.cpp:139
+msgid "Color Editor"
+msgstr "Farben Editor"
+
+#: src/colorpicker/colorpicker.cpp:144
 msgid "Note:"
 msgstr "Hinweis:"
 
-#: src/colorpicker/colorpicker.cpp:117
+#: src/colorpicker/colorpicker.cpp:147
 msgid ""
 "There is a constraint on the color that it must have either 3 or 6 hex-"
 "digits (i.e., [0-9a-fA-F]) after the \"#\"; e.g., \"#000\" is OK, but \"#abcd"
@@ -290,22 +306,6 @@ msgstr ""
 "Für die Hexadezimale Farbeingabe liegen folgende Einschränkungen vor. Es "
 "müssen 3 oder 6 Ziffern (das heißt, [0-9a-fA-F]) nach der Route \"#\";  "
 "stehen. z.B.: \"#000\" ist OK aber \"#abcd\" wäre falsch."
-
-#: src/colorpicker/colorpicker.cpp:121
-msgid "Testing"
-msgstr "Prüfung"
-
-#: src/colorpicker/colorpicker.cpp:128
-msgid "hexcolor tester:"
-msgstr "Hexadezimal Farbentest:"
-
-#: src/colorpicker/colorpicker.cpp:134
-msgid "Test"
-msgstr "Test"
-
-#: src/colorpicker/colorpicker.cpp:142
-msgid "Color Editor"
-msgstr "Farben Editor"
 
 #: src/components/xqpluginwidgets/xoggvideo.cpp:45
 msgid "Video Player"
@@ -417,7 +417,8 @@ msgid "Allow HTTP pipelining with requests."
 msgstr "Erlaube HTTP Parallelverarbeitung bei den Anfragen."
 
 #: src/configuration/configbrowser.cpp:92
-msgid "Indicates whether the HTTP Pipelining was used for receiving data Requests."
+msgid ""
+"Indicates whether the HTTP Pipelining was used for receiving data Requests."
 msgstr "Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird."
 
 #: src/configuration/configbrowser.cpp:96
@@ -453,7 +454,8 @@ msgid "JavaScript programs can read or write to the clipboard."
 msgstr "Erlaube JavaScript Programmen den zugriff auf das Clipboard."
 
 #: src/configuration/configbrowser.cpp:128
-msgid "The background color and images are also drawn when the page is printed."
+msgid ""
+"The background color and images are also drawn when the page is printed."
 msgstr "Beim Drucken von Seiten den Hintergund mit übertragen."
 
 #: src/configuration/configbrowser.cpp:132
@@ -579,8 +581,8 @@ msgid "Enable Border Highlight"
 msgstr "Aktiviere die Rahmen Hervorhebung"
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:531
-#: src/window.cpp:621
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:510
+#: src/window.cpp:599
 msgid "Extensions"
 msgstr "Erweiterungen"
 
@@ -732,7 +734,8 @@ msgstr ""
 
 #: src/configuration/confignetwork.cpp:67
 msgid "Controls if the data obtained should be saved to cache for future uses."
-msgstr "Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
+msgstr ""
+"Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
 
 #: src/configuration/confignetwork.cpp:69
 msgid ""
@@ -747,7 +750,8 @@ msgid "Indicates whether incoming data was obtained from cache or not."
 msgstr "Erkenne ob die Daten aus dem Zwichenspeicher entnommenen wurden."
 
 #: src/configuration/confignetwork.cpp:75
-msgid "If the box is not checked, incoming data will not be automatically checked."
+msgid ""
+"If the box is not checked, incoming data will not be automatically checked."
 msgstr ""
 "Wenn die Auswahl nicht aktiviert ist, werden nicht geprüft ob die Daten aus "
 "dem Zwichenspeicher entnommen wurden."
@@ -769,7 +773,8 @@ msgstr ""
 "Netzwerkanfrage)"
 
 #: src/configuration/confignetwork.cpp:85
-msgid "Prefer Cache (load from cache if available, otherwise load from network)"
+msgid ""
+"Prefer Cache (load from cache if available, otherwise load from network)"
 msgstr ""
 "Speicher vorziehen (Lade Adresse vom Speicher. Es wird keine Aktualisierung "
 "geprüft)"
@@ -885,7 +890,7 @@ msgstr "Tidy"
 msgid "Dom Inspector"
 msgstr "DOM Kontrolleur"
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:151
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:147
 msgid "Browser"
 msgstr "Browser"
 
@@ -1208,7 +1213,7 @@ msgstr "Abbrechen"
 msgid "Dropout current request"
 msgstr "Aktuelle Anfrage abbrechen"
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:526
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:505
 msgid "Configure"
 msgstr "Konfigurieren"
 
@@ -1224,7 +1229,7 @@ msgstr "SQL Fehler beim öffnen der Datenbank: %1 %2"
 msgid "Open HTML File"
 msgstr "Öffne HTML Datei"
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:377
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:356
 msgid "Open Url"
 msgstr "Öffne Url"
 
@@ -1350,7 +1355,7 @@ msgstr "Größe"
 msgid "no visible geometry"
 msgstr "keine Sichtbare Geometrie"
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:546
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:525
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1553,11 +1558,11 @@ msgstr "Formular Daten Automatisch einfügen."
 msgid "Insert"
 msgstr "Einfügen"
 
-#: src/formmanager/formmanager.cpp:72
+#: src/formmanager/formmanager.cpp:74
 msgid "Form Manager"
 msgstr "Formular Manager"
 
-#: src/formmanager/formmanager.cpp:113
+#: src/formmanager/formmanager.cpp:115
 msgid "Default"
 msgstr "Standard"
 
@@ -1772,7 +1777,8 @@ msgstr "Zeitüberschreitung bei der Anfrage (408)"
 
 #: src/networker/errorsdialog.cpp:116
 msgid "the connection to the remote server \"%1\" timed out"
-msgstr "Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
+msgstr ""
+"Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
 
 #: src/networker/errorsdialog.cpp:128
 msgid ""
@@ -1846,7 +1852,8 @@ msgstr "Nich Autorisiert (401)"
 msgid ""
 "the access to the remote \"%1\" content was denied (similar to HTTP error "
 "401)"
-msgstr "Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
+msgstr ""
+"Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
 
 #: src/networker/errorsdialog.cpp:185
 msgid "the operation requested on the remote \"%1\" content is not permitted"
@@ -1856,7 +1863,8 @@ msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
 msgid ""
 "the remote content \"%1\" was not found at the server (similar to HTTP error "
 "404)"
-msgstr "Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
+msgstr ""
+"Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
 
 #: src/networker/errorsdialog.cpp:197
 msgid "Authentication Required Error"
@@ -1926,7 +1934,8 @@ msgid "an unknown related error was detected"
 msgstr "Ein Unbekannter Inhaltlicher Fehler wurde festgestellt"
 
 #: src/networker/networkaccessmanager.cpp:202
-msgid "Broken SSL/TLS URL connection, handshake failed and could not be established."
+msgid ""
+"Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 "SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
 "wurde verworfen."
@@ -1962,7 +1971,8 @@ msgstr ""
 "zurück gewiesen."
 
 #: src/networker/networkcookie.cpp:127
-msgid "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
+msgid ""
+"A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück "
 "gewiesen."
@@ -2014,27 +2024,27 @@ msgid "MimeType"
 msgstr "Datentype"
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:157
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:153
 msgid "Source"
 msgstr "Quelle"
 
-#: src/page.cpp:117
+#: src/page.cpp:163
 msgid " Line: %1"
 msgstr " Zeile: %1"
 
-#: src/page.cpp:120
+#: src/page.cpp:166
 msgid " Document: %1"
 msgstr " Dokument: %1"
 
-#: src/page.cpp:161
+#: src/page.cpp:218
 msgid "JavaScript Prompt: "
 msgstr "JavaScript Anfrage: "
 
-#: src/page.cpp:321
+#: src/page.cpp:336
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 
-#: src/page.cpp:358
+#: src/page.cpp:373
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
@@ -2119,7 +2129,8 @@ msgid "Meta Description"
 msgstr "Meta Beschreibung"
 
 #: src/plugins/keywordeditor/firstpagewidget.cpp:73
-msgid "Open existing keyword file or click next to create a new keyword listing:"
+msgid ""
+"Open existing keyword file or click next to create a new keyword listing:"
 msgstr ""
 "Öffne eine existierende Schlüsselwortdatei oder zum erstellen einer neuen "
 "Liste klicke auf weiter:"
@@ -2206,7 +2217,8 @@ msgstr "SELFHTML"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:71
 msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
-msgstr "Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
+msgstr ""
+"Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
 
 #: src/plugins/template/helloworldplugin.cpp:76
 msgid "Information for this Plugin"
@@ -2271,18 +2283,6 @@ msgstr "Dokumenten Zeile %1 (%2)"
 #: src/rdfparser/xsdparser.cpp:117
 msgid "Document is Valid"
 msgstr "Das Dokument ist Valide"
-
-#: src/resizeportbuttons.cpp:43
-msgid "Viewer Width"
-msgstr "Anzeigebreite"
-
-#: src/resizeportbuttons.cpp:55
-msgid "Resize Browser to fixed width"
-msgstr "Setze die Browser weite"
-
-#: src/resizeportbuttons.cpp:95
-msgid "Restore"
-msgstr "Zurücksetzen"
 
 #: src/sourceviewer/contextmenu.cpp:48
 msgid "Debugger"
@@ -2521,11 +2521,11 @@ msgstr "Eintrag Entfernen"
 msgid "Host"
 msgstr "Hostname"
 
-#: src/webviewer.cpp:82 src/window.cpp:477
+#: src/webviewer.cpp:82 src/window.cpp:456
 msgid "New Page"
 msgstr "Neue Seite"
 
-#: src/webviewer.cpp:84 src/window.cpp:478
+#: src/webviewer.cpp:84 src/window.cpp:457
 msgid "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
@@ -2533,131 +2533,131 @@ msgstr "Eine Neue leere Seite erstellen"
 msgid "file"
 msgstr "Datei"
 
-#: src/window.cpp:128
+#: src/window.cpp:124
 msgid "XHTML Debugger (v%1)"
 msgstr "XHTML Debugger (v%1)"
 
-#: src/window.cpp:373
+#: src/window.cpp:352
 msgid "&Application"
 msgstr "&Anwendung"
 
-#: src/window.cpp:378
+#: src/window.cpp:357
 msgid "Load Document from Url"
 msgstr "Lade Dokument von Url"
 
-#: src/window.cpp:384
+#: src/window.cpp:363
 msgid "Open Html File"
 msgstr "Öffne HTML Datei"
 
-#: src/window.cpp:385
+#: src/window.cpp:364
 msgid "Open Html from System"
 msgstr "Öffne HTML Datei vom System"
 
-#: src/window.cpp:391
+#: src/window.cpp:370
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/window.cpp:392
+#: src/window.cpp:371
 msgid "Close Debugger"
 msgstr "Schliesse den Debugger"
 
-#: src/window.cpp:399
+#: src/window.cpp:378
 msgid "&Debugger"
 msgstr "&Debugger"
 
-#: src/window.cpp:402
+#: src/window.cpp:381
 msgid "Parse"
 msgstr "Analysieren"
 
-#: src/window.cpp:403
+#: src/window.cpp:382
 msgid "Parse current Document Source"
 msgstr "Analysiere den Dokumenten Quelltext"
 
-#: src/window.cpp:409
+#: src/window.cpp:388
 msgid "Format"
 msgstr "Formatiere"
 
-#: src/window.cpp:410
+#: src/window.cpp:389
 msgid "Prepare and Format Document Source"
 msgstr "Formatiere den Dokumenten Quelltext"
 
-#: src/window.cpp:416
+#: src/window.cpp:395
 msgid "&View"
 msgstr "A&nsicht"
 
-#: src/window.cpp:420
+#: src/window.cpp:399
 msgid "Zoom +"
 msgstr "Zoomen"
 
-#: src/window.cpp:428
+#: src/window.cpp:407
 msgid "Zoom -"
 msgstr "Zoomen"
 
-#: src/window.cpp:436 src/zoombar.cpp:52
+#: src/window.cpp:415 src/zoombar.cpp:52
 msgid "Original"
 msgstr "Original"
 
-#: src/window.cpp:449
+#: src/window.cpp:428
 msgid "Fullscreen"
 msgstr "Vollansicht"
 
-#: src/window.cpp:456
+#: src/window.cpp:435
 msgid "&Browser"
 msgstr "&Browser"
 
-#: src/window.cpp:459
+#: src/window.cpp:438
 msgid "Refresh"
 msgstr "Auffrischen"
 
-#: src/window.cpp:465
+#: src/window.cpp:444
 msgid "Back"
 msgstr "Zurück"
 
-#: src/window.cpp:471
+#: src/window.cpp:450
 msgid "Forward"
 msgstr "Vorwärts"
 
-#: src/window.cpp:512
+#: src/window.cpp:491
 msgid "Organize Bookmarks"
 msgstr "Lesezeichen Organisieren"
 
-#: src/window.cpp:518
+#: src/window.cpp:497
 msgid "S&ettings"
 msgstr "&Einstellungen"
 
-#: src/window.cpp:520
+#: src/window.cpp:499
 msgid "Configure Tidyrc"
 msgstr "Konfiguriere die titdyrc"
 
-#: src/window.cpp:534
+#: src/window.cpp:513
 msgid "Display"
 msgstr "Anzeige"
 
-#: src/window.cpp:557
+#: src/window.cpp:536
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/window.cpp:593
+#: src/window.cpp:572
 msgid "Toolbars"
 msgstr "Werkzeugleisten"
 
-#: src/window.cpp:603
+#: src/window.cpp:582
 msgid "Impartations"
 msgstr "Mitteilungen"
 
-#: src/window.cpp:611
+#: src/window.cpp:590
 msgid "Inspectors"
 msgstr "Kontrolleure"
 
-#: src/window.cpp:885
+#: src/window.cpp:875
 msgid "Check StyleSheet for %1"
 msgstr "Prüfe den Stylesheet für %1"
 
-#: src/window.cpp:1004
+#: src/window.cpp:998
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr "Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist \"%1\"."
 
-#: src/window.cpp:1045
+#: src/window.cpp:1039
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
@@ -2665,17 +2665,21 @@ msgstr ""
 "Ein Adressen wurde ausserhalb gesendet.\n"
 "Möchtest du diese Adresse \"%1\" laden?"
 
-#: src/window.cpp:1048
+#: src/window.cpp:1044
 msgid "Url Request from Outsite"
 msgstr "URL Anfrage von Aussen"
 
-#: src/window.cpp:1079
+#: src/window.cpp:1075
 msgid "Download Request: %1"
 msgstr "Herunterladen Anfrage: %1"
 
 #: src/xhtmldbgadaptor.cpp:80
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr "(XHTMLDBG) FTP Anfrage \"%1\" Zurückgewiesen!"
+
+#: src/xwallet.cpp:44
+msgid "Wallet"
+msgstr "Brieftasche"
 
 #: src/zoombar.cpp:40
 msgid "Zoom"
@@ -2693,3 +2697,11 @@ msgstr "Vergrößern"
 msgid "ZoomOut"
 msgstr "Verkleinern"
 
+#~ msgid "Viewer Width"
+#~ msgstr "Anzeigebreite"
+
+#~ msgid "Resize Browser to fixed width"
+#~ msgstr "Setze die Browser weite"
+
+#~ msgid "Restore"
+#~ msgstr "Zurücksetzen"

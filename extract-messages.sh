@@ -1,7 +1,7 @@
 #!/bin/sh
 
-kdesdkdir=/usr/src/packages/Heinemann/Projekte/Translation/scripts/
-base=/usr/src/packages/Heinemann/Projekte/xhtmldbg
+kdesdkdir=$HOME/hjcms/Translation/scripts/
+base=$HOME/hjcms/xhtmldbg
 
 test -d "${base}" || {
   echo "Missing Directory"

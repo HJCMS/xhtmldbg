@@ -38,7 +38,6 @@
 #include "dbmanager.h"
 #include "dominspector.h"
 #include "downloadmanager.h"
-#include "formmanager.h"
 #include "geolocation.h"
 #include "headerdock.h"
 #include "historyitem.h"
@@ -51,10 +50,7 @@
 #include "openfiledialog.h"
 #include "openurldialog.h"
 #include "pagehistory.h"
-/* Experimental */
-#ifdef _XHTMLDBG_EXPERIMENTAL
-# include "resizeportbuttons.h"
-#endif
+#include "xwallet.h"
 #include "settargetdialog.h"
 #include "sourcecache.h"
 #include "sourcewidget.h"
@@ -166,13 +162,10 @@ Window::Window ( Settings * settings )
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
 
-#ifdef _XHTMLDBG_EXPERIMENTAL
-  // Browser Fensterbreite Manipulieren
-  ResizePortButtons* m_resizePortButtons = new ResizePortButtons ( tabCornerBottomWidget );
-  // TODO Resize arbeitet im Moment nicht korrekt, deshalb nur bei mir aktiv :-/
-  m_resizePortButtons->setEnabled ( true );
-  tabCornerBottomWidgetLayout->addWidget ( m_resizePortButtons );
-#endif
+  // XWallet {
+  m_xWallet = new XWallet ( this );
+  tabCornerBottomWidgetLayout->addWidget ( m_xWallet );
+  // } XWallet
 
   // Farben Pipette Ein/Ausschalten
   ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );
@@ -206,13 +199,6 @@ Window::Window ( Settings * settings )
   // Ansicht Dokumenten Baum
   m_domInspector = new DomInspector ( m_settings, this );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
-
-#ifdef _XHTMLDBG_EXPERIMENTAL
-  // FormManager {
-  m_formManager = new FormManager ( Application::dbManager(), this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_formManager );
-  // } FormManager
-#endif
 
   // WebInspector
   // NOTE Bitte sicher stellen das eine Page vorhanden ist!!!
@@ -264,10 +250,7 @@ Window::Window ( Settings * settings )
 
   connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
             m_domInspector, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
-#ifdef _XHTMLDBG_EXPERIMENTAL
-  connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
-            m_formManager, SLOT ( setPageContent ( const QUrl &, const QWebElement & ) ) );
-#endif
+
   connect ( m_webViewer, SIGNAL ( elementsTree ( const QUrl &, const QWebElement & ) ),
             m_alternateLinkReader, SLOT ( setDomTree ( const QUrl &, const QWebElement & ) ) );
 
@@ -317,8 +300,8 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_appEvents, SLOT ( warningMessage ( const QString & ) ) );
 
-  connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QUrl &, const QMap<QString,QString> & ) ),
-            m_headerDock, SLOT ( setHeaderData ( const QUrl &, const QMap<QString,QString> & ) ) );
+  connect ( m_netManager, SIGNAL ( receivedHostHeaders ( const QUrl &, const QMap<QString, QString> & ) ),
+            m_headerDock, SLOT ( setHeaderData ( const QUrl &, const QMap<QString, QString> & ) ) );
 
   connect ( m_netManager, SIGNAL ( postedRefererData ( const QUrl &, const QStringList & ) ),
             m_headerDock, SLOT ( setPostedData ( const QUrl &, const QStringList & ) ) );
@@ -326,7 +309,7 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( urlLoadFinished ( const QUrl & ) ),
             this, SLOT ( intimateWidgets ( const QUrl & ) ) );
 
-  // NOTE postReplySource muss in der Page gesetzt werden!
+  // NOTE postReplySource muss auch in @class Page gesetzt werden!
   connect ( m_netManager, SIGNAL ( localReplySource ( const QUrl &, const QString & ) ),
             this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager
@@ -342,12 +325,6 @@ Window::Window ( Settings * settings )
   connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
   // } ColorPicker
-#ifdef _XHTMLDBG_EXPERIMENTAL
-  // ResizePortButtons {
-  connect ( m_resizePortButtons, SIGNAL ( itemClicked ( int ) ),
-            m_webViewer, SLOT ( setViewerWidth ( int ) ) );
-  // } ResizePortButtons
-#endif
 
   // xhtmldbg::Plugger {
   // jetzt die Plugins laden
@@ -613,9 +590,6 @@ void Window::createToolBars()
   QMenu* inspectorsMenu = m_viewBarsMenu->addMenu ( i18n ( "Inspectors" ) );
   inspectorsMenu->setIcon ( icon );
   inspectorsMenu->addAction ( m_domInspector->toggleViewAction() );
-#ifdef _XHTMLDBG_EXPERIMENTAL
-  inspectorsMenu->addAction ( m_formManager->toggleViewAction() );
-#endif
   inspectorsMenu->addAction ( m_headerDock->toggleViewAction() );
   inspectorsMenu->addAction ( m_downloadManager->toggleViewAction() );
   inspectorsMenu->addAction ( m_colorPicker->toggleViewAction() );
@@ -634,18 +608,19 @@ void Window::loadPageHistory()
 {
   bool ok = false;
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
+
   if ( startup.isValid() && ! startup.isEmpty() )
-  {
-    openUrl ( startup );
-    return; // Aussteigen
-  }
-  else
-  {
-    foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
     {
-      ok = openUrl ( url, ok );
+      openUrl ( startup );
+      return; // Aussteigen
     }
-  }
+  else
+    {
+      foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
+      {
+        ok = openUrl ( url, ok );
+      }
+    }
 
   // wenn ok == erstelle eine about Page
   if ( ! ok )
@@ -665,7 +640,9 @@ void Window::savePageHistory()
     return;
 
   PageHistory hist;
+
   hist.addEntries ( m_webViewer->getPageUrls() );
+
   hist.saveHistory ( m_settings->historyXml() );
 }
 
@@ -696,27 +673,31 @@ bool Window::registerPlugins()
   foreach ( xhtmldbg::Interface* plug, m_plugger->pluginsByType ( this, xhtmldbg::PluginInfo::PopUp ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
+
     if ( info )
-    {
-      plugins.push_back ( plug );
-      QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
-      ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
-      ac->setIcon ( icon );
-      ac->setStatusTip ( info->getDescription() );
-      connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
-    }
+      {
+        plugins.push_back ( plug );
+        QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
+        ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
+        ac->setIcon ( icon );
+        ac->setStatusTip ( info->getDescription() );
+        connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
+      }
   }
+
   // Dock Widgets
   foreach ( xhtmldbg::Interface* plug, m_plugger->pluginsByType ( this, xhtmldbg::PluginInfo::Dock ) )
   {
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
+
     if ( info )
-    {
-      plugins.push_back ( plug );
-      addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
-      m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
-    }
+      {
+        plugins.push_back ( plug );
+        addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
+        m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
+      }
   }
+
   return true; // Ready
 }
 
@@ -730,11 +711,12 @@ bool Window::unregisterPlugins()
 
   // Den Download Manager nicht in die Stats schreiben!
   bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
+
   if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
-  {
-    m_downloadManager->toggleViewAction()->setChecked ( false );
-    m_downloadManager->hide();
-  }
+    {
+      m_downloadManager->toggleViewAction()->setChecked ( false );
+      m_downloadManager->hide();
+    }
 
   return true;
 }
@@ -753,15 +735,17 @@ void Window::closeEvent ( QCloseEvent *event )
 
   // Plugins entladen
   unregisterDatabases ();
+
   unregisterPlugins ();
 
   // HTML 5 SQLite Datenbanken entfernen?
   if ( m_settings->value ( "RemoveHTML5Databases", false ).toBool()
-          && m_settings->value ( "OfflineStorageDatabaseEnabled", false ).toBool() )
+       && m_settings->value ( "OfflineStorageDatabaseEnabled", false ).toBool() )
     WebDatabaseHandler::removeAllDatabases();
 
   // Jetzt den Fenster Status Speichern
   m_settings->setValue ( "Window/MainWindowState", saveState() );
+
   m_settings->setValue ( "Window/MainWindowGeometry", saveGeometry() );
 
   QMainWindow::closeEvent ( event );
@@ -824,15 +808,16 @@ void Window::intimateWidgets ( const QUrl &url )
 
   // An alle Sichtbaren Plugins die Url übergeben
   for ( int i = 0; i < plugins.size(); ++i )
-  {
-    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-      plugins.at ( i )->setUrl ( url );
-    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-      plugins.at ( i )->setUrl ( url );
-  }
+    {
+      if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+        plugins.at ( i )->setUrl ( url );
+      else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+        plugins.at ( i )->setUrl ( url );
+    }
 
   // Quelltext einfügen
   QString source = m_sourceCache->getCache ( url );
+
   if ( ! source.isEmpty() )
     m_sourceWidget->setSource ( source );
 }
@@ -876,6 +861,7 @@ void Window::setJavaScriptMessage ( const QString &message )
     return;
 
   m_jsMessanger->insertMessage ( message );
+
   tabifyDockedWidgetUp ( m_jsMessanger );
 }
 
@@ -916,17 +902,18 @@ bool Window::setSource ( const QUrl &url, const QString &source )
 
   // Quelltext einfügen
   m_sourceWidget->setSource ( buffer );
+
   if ( url.isValid() )
     m_sourceCache->setCache ( url, buffer );
 
   // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
-  {
-    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-      plugins.at ( i )->setContent ( buffer );
-    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-      plugins.at ( i )->setContent ( buffer );
-  }
+    {
+      if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+        plugins.at ( i )->setContent ( buffer );
+      else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+        plugins.at ( i )->setContent ( buffer );
+    }
 
   // Ist AutoCheck oder AutoFormat aktiviert?
   if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
@@ -935,6 +922,7 @@ bool Window::setSource ( const QUrl &url, const QString &source )
     m_sourceWidget->check();
 
   buffer.clear();
+
   return true;
 }
 
@@ -953,14 +941,16 @@ void Window::openTidyConfigApplication()
 void Window::openFileDialog()
 {
   OpenFileDialog dialog ( m_settings->getRecentDirectory(), centralWidget() );
-  if ( dialog.exec() == QDialog::Accepted )
-  {
-    if ( ! dialog.getFileUrl().isValid() )
-      return;
 
-    m_settings->setRecentDirectory ( dialog.getDirectory() );
-    openUrl ( dialog.getFileUrl() );
-  }
+  if ( dialog.exec() == QDialog::Accepted )
+    {
+      if ( ! dialog.getFileUrl().isValid() )
+        return;
+
+      m_settings->setRecentDirectory ( dialog.getDirectory() );
+
+      openUrl ( dialog.getFileUrl() );
+    }
 }
 
 /**
@@ -1004,10 +994,10 @@ void Window::toggleWindowFullScreen()
 bool Window::openUrl ( const QUrl &url, bool addtab )
 {
   if ( ! url.isValid() || url.isRelative() )
-  {
-    m_statusBar->showMessage ( i18n ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
-    return false;
-  }
+    {
+      m_statusBar->showMessage ( i18n ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
+      return false;
+    }
 
   if ( ! url.scheme().contains ( URL_SCHEME_PATTERN ) )
     return false;
@@ -1030,10 +1020,10 @@ bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
     return false;
 
   if ( ! m_webViewer->setViewerTabByUrl ( oldUrl, newUrl ) )
-  {
-    m_webViewer->addViewerTab ();
-    return openUrl ( newUrl );
-  }
+    {
+      m_webViewer->addViewerTab ();
+      return openUrl ( newUrl );
+    }
   else
     return true;
 }
@@ -1048,7 +1038,9 @@ bool Window::urlRequest ( const QUrl &url )
 
   QString text = i18n ( "a Url Request from outsite.\nWould you like to load this \"%1\" Url?" )
                  .arg ( url.toString() );
+
   QMessageBox::StandardButton st;
+
   st = QMessageBox::information ( this, i18n ( "Url Request from Outsite" )
                                   , text, ( QMessageBox::Ok | QMessageBox::Cancel )
                                   , QMessageBox::Cancel );
@@ -1085,21 +1077,22 @@ void Window::downloadRequest ( const QNetworkRequest &request )
 
   // Ziel Verzeichnis auswählen und bei erfolg mit für den Download übergeben!
   SetTargetDialog dialog ( url, centralWidget() );
+
   if ( dialog.exec() )
-  {
-    // wenn nicht sichtbar dann andocken
-    if ( ! m_downloadManager->toggleViewAction()->isChecked() )
     {
-      m_downloadManager->toggleViewAction()->setChecked ( true );
-      m_downloadManager->show();
+      // wenn nicht sichtbar dann andocken
+      if ( ! m_downloadManager->toggleViewAction()->isChecked() )
+        {
+          m_downloadManager->toggleViewAction()->setChecked ( true );
+          m_downloadManager->show();
+        }
+
+      // wenn verdeckt nach vorne holen
+      tabifyDockedWidgetUp ( m_downloadManager );
+
+      // Download Starten
+      m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
     }
-
-    // wenn verdeckt nach vorne holen
-    tabifyDockedWidgetUp ( m_downloadManager );
-
-    // Download Starten
-    m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
-  }
 }
 
 /**
