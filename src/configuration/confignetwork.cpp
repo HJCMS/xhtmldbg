@@ -49,7 +49,7 @@ ConfigNetwork::ConfigNetwork ( QWidget * parent )
   sizePolicy.setHorizontalStretch ( 0 );
   sizePolicy.setVerticalStretch ( 0 );
 
-  Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
+  // Qt::Alignment labelAlign = ( Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter );
 
   QVBoxLayout* verticalLayout = new QVBoxLayout ( centralWidget );
 

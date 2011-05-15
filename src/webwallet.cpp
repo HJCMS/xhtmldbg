@@ -69,10 +69,14 @@ void WebWallet::operationComplete ( bool b )
 
 void WebWallet::triggerRequest ( QWebFrame * frame, const QUrl &url )
 {
+#ifdef DEBUG_VERBOSE
     // Keine Fragmente in Anfragen zulassen!
-    QString key = createWalletKey( url.toString ( QUrl::RemoveFragment ) );
-    QUrl request ( url.toString ( QUrl::RemoveFragment ) );
-    qDebug() << Q_FUNC_INFO << key << request;
+    QString key = createWalletKey(  frame->url().toString ( QUrl::RemoveFragment ) );
+    qDebug() << Q_FUNC_INFO << key << url;
+#else
+    Q_UNUSED (url)
+    Q_UNUSED (frame)
+#endif
 }
 
 WebWallet::~WebWallet() {}

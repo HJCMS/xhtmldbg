@@ -99,6 +99,8 @@ bool NPPLoader::supportsExtension (Extension extension) const
 {
 #ifdef DEBUG_VERBOSE
   qDebug() << Q_FUNC_INFO <<  extension;
+#else
+	Q_UNUSED (extension)
 #endif
   return false;
 }
