@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-05-12 09:44+0200\n"
+"POT-Creation-Date: 2011-05-15 09:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1819,12 +1819,16 @@ msgstr ""
 msgid "an unknown related error was detected"
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:202
+#: src/networker/networkaccessmanager.cpp:59
+msgid "the operation requested on the remote content is not permitted"
+msgstr ""
+
+#: src/networker/networkaccessmanager.cpp:230
 msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:305
+#: src/networker/networkaccessmanager.cpp:333
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -1912,11 +1916,11 @@ msgstr ""
 msgid "JavaScript Prompt: "
 msgstr ""
 
-#: src/page.cpp:336
+#: src/page.cpp:338
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr ""
 
-#: src/page.cpp:373
+#: src/page.cpp:375
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 
@@ -2539,8 +2543,8 @@ msgstr ""
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr ""
 
-#: src/xwallet.cpp:44
-msgid "Wallet"
+#: src/xwallet.cpp:45
+msgid "xhtmldbg Wallet"
 msgstr ""
 
 #: src/zoombar.cpp:40

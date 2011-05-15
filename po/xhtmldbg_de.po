@@ -1,18 +1,19 @@
 # translation of xhtmldbg_de.po to German
 # Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>, 2011.
+# Heinemann Jürgen <heinemann.juergen@hjcms.de>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-05-12 09:44+0200\n"
-"PO-Revision-Date: 2011-04-06 12:23+0200\n"
-"Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
+"POT-Creation-Date: 2011-05-15 09:21+0200\n"
+"PO-Revision-Date: 2011-05-15 09:23+0200\n"
+"Last-Translator: Heinemann Jürgen <heinemann.juergen@hjcms.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.2\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: build/src/cssvalidator/ui_cssconfiguremain.h:126
@@ -343,12 +344,12 @@ msgstr "CA Bündel Datenbank"
 #: src/configuration/certissuers/certissuers.cpp:159
 msgctxt "CA Bundle %1"
 msgid "*.crt ca-*"
-msgstr ""
+msgstr "*.crt ca-*"
 
 #: src/configuration/certissuers/certissuers.cpp:160
 msgctxt "Certificate %1"
 msgid "*.pem *.der"
-msgstr ""
+msgstr "*.pem *.der"
 
 #: src/configuration/certissuers/certissuertable.cpp:44
 #: src/networker/certdialog.cpp:89
@@ -1933,14 +1934,19 @@ msgstr ""
 msgid "an unknown related error was detected"
 msgstr "Ein Unbekannter Inhaltlicher Fehler wurde festgestellt"
 
-#: src/networker/networkaccessmanager.cpp:202
+#: src/networker/networkaccessmanager.cpp:59
+#, fuzzy
+msgid "the operation requested on the remote content is not permitted"
+msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
+
+#: src/networker/networkaccessmanager.cpp:230
 msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 "SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
 "wurde verworfen."
 
-#: src/networker/networkaccessmanager.cpp:305
+#: src/networker/networkaccessmanager.cpp:333
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -2040,11 +2046,11 @@ msgstr " Dokument: %1"
 msgid "JavaScript Prompt: "
 msgstr "JavaScript Anfrage: "
 
-#: src/page.cpp:336
+#: src/page.cpp:338
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 
-#: src/page.cpp:373
+#: src/page.cpp:375
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
@@ -2677,9 +2683,9 @@ msgstr "Herunterladen Anfrage: %1"
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr "(XHTMLDBG) FTP Anfrage \"%1\" Zurückgewiesen!"
 
-#: src/xwallet.cpp:44
-msgid "Wallet"
-msgstr "Brieftasche"
+#: src/xwallet.cpp:45
+msgid "xhtmldbg Wallet"
+msgstr "xhtmldbg Brieftasche"
 
 #: src/zoombar.cpp:40
 msgid "Zoom"
@@ -2696,6 +2702,9 @@ msgstr "Vergrößern"
 #: src/zoombar.cpp:48
 msgid "ZoomOut"
 msgstr "Verkleinern"
+
+#~ msgid "Wallet"
+#~ msgstr "Brieftasche"
 
 #~ msgid "Viewer Width"
 #~ msgstr "Anzeigebreite"
