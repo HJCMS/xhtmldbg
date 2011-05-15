@@ -157,3 +157,4 @@ class NetworkAccessManager : public QNetworkAccessManager
 };
 
 #endif
+

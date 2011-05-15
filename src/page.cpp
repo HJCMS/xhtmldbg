@@ -328,6 +328,8 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     {
         if ( mainFrame()->documentElement().findAll ( "FORM" ).count() > 0 )
             m_webWallet->triggerRequest ( mainFrame(), request.url() );
+
+        b = true;
     }
     break;
 

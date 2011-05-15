@@ -35,22 +35,24 @@
 #include <KDE/KWallet/Wallet>
 
 class XWallet : public QWidget
-  {
-      Q_OBJECT
-      Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-      Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+{
+    Q_OBJECT
+    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-    private:
-      KWallet::Wallet* m_wallet;
-      QToolButton* m_button;
-      void initWalletFolder();
+private:
+    int walletId;
+    QToolButton* m_button;
+    KWallet::Wallet* m_wallet;
+    void initWallet();
 
-    private Q_SLOTS:
-      void displayWalletIconStatus ( bool b = false );
+private Q_SLOTS:
+    void swapWalletStatus();
+    void swapIconStatus ( bool b = false );
 
-    public:
-      XWallet ( QWidget * parent = 0 );
-      virtual ~XWallet();
-  };
+public:
+    XWallet ( QWidget * parent = 0 );
+    virtual ~XWallet();
+};
 
 #endif
