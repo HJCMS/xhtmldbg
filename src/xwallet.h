@@ -34,6 +34,11 @@
 /* KDE */
 #include <KDE/KWallet/Wallet>
 
+/**
+* This Class provides a status Icon and Button for XHTMLDBG's privat Wallet
+* Why a extra "xhtmldbg" Wallet? garbage avoidances - xhtmldbg is a debugging
+* application and the actual stock of forms is irrelevant for other applications!
+*/
 class XWallet : public QWidget
 {
     Q_OBJECT

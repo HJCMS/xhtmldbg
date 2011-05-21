@@ -64,7 +64,7 @@ XWallet::XWallet ( QWidget * parent )
               this, SLOT ( swapWalletStatus() ) );
 
     // Wennn keine xhtmldbg Brieftasche vorhanden ist dann den WalletManager öffnen!
-    if ( ! KWallet::Wallet::walletList().contains( XHTMLDBG_APPS_NAME ) )
+    if ( ! KWallet::Wallet::walletList().contains( KWallet::Wallet::NetworkWallet() ) )
         initWallet();
 }
 
@@ -75,7 +75,7 @@ XWallet::XWallet ( QWidget * parent )
 */
 void XWallet::initWallet()
 {
-    m_wallet = KWallet::Wallet::openWallet ( XHTMLDBG_APPS_NAME, walletId, KWallet::Wallet::Path );
+    m_wallet = KWallet::Wallet::openWallet ( KWallet::Wallet::NetworkWallet(), walletId, KWallet::Wallet::Path );
     connect ( m_wallet, SIGNAL ( walletClosed() ),
               this, SLOT ( swapIconStatus() ) );
 
@@ -95,7 +95,7 @@ void XWallet::swapWalletStatus()
     if ( ! m_wallet )
         initWallet();
     else if ( m_wallet->isOpen() )
-        m_wallet->disconnectApplication ( XHTMLDBG_APPS_NAME, XHTMLDBG_APPS_NAME );
+        m_wallet->disconnectApplication ( KWallet::Wallet::NetworkWallet(), XHTMLDBG_APPS_NAME );
 }
 
 /** Aktuellen Wallet Status mit Icon darstellen */
@@ -110,5 +110,5 @@ void XWallet::swapIconStatus ( bool b )
 XWallet::~XWallet()
 {
     if ( m_wallet && m_wallet->isOpen() )
-        m_wallet->disconnectApplication ( XHTMLDBG_APPS_NAME, XHTMLDBG_APPS_NAME );
+        m_wallet->disconnectApplication ( KWallet::Wallet::NetworkWallet(), XHTMLDBG_APPS_NAME );
 }

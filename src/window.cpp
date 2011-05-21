@@ -162,10 +162,9 @@ Window::Window ( Settings * settings )
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
 
-  // XWallet {
-  m_xWallet = new XWallet ( this );
+  // KDE Brieftasche Initialisieren
+  m_xWallet = new XWallet ( tabCornerBottomWidget );
   tabCornerBottomWidgetLayout->addWidget ( m_xWallet );
-  // } XWallet
 
   // Farben Pipette Ein/Ausschalten
   ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );

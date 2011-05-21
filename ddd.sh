@@ -1,6 +1,12 @@
-#!/bin/bash
+#!/bin/sh
+# @modfied 2011/05/18
 
-base=$HOME/hjcms/xhtmldbg
+if test -L "$0" ; then
+  SL= `file $0 | sed -e 's/.*to..\(.*\)./\1/'`
+  base=`dirname $SL`
+else
+  base=`dirname $0`
+fi
 
 test -d ${base}/build/app || {
   base="`dirname $0`"

@@ -5,8 +5,8 @@
 # Copyright: See COPYING file that comes with this distribution
 #################################################################
 
-if test -f $HOME/hjcms/projectconfigurations.txt ; then
-. $HOME/hjcms/projectconfigurations.txt
+if test -f $HOME/hjcms/projectconfigurations.sh ; then
+source $HOME/hjcms/projectconfigurations.sh
 fi
 
 cmake -Wdev \
@@ -19,4 +19,4 @@ cmake -Wdev \
 	-DXHTMLDBG_EXPERIMENTAL:BOOL=ON \
 	-DPHONON_STL_INCLUDE_DIR:PATH=/usr/include/kde4/KDE \
 	-DAUTOMOC4_EXECUTABLE:FILEPATH=$(which automoc4) \
-	-DCPACK_PACKAGE_INSTALL_DIRECTORY:PATH="$INSTALL_DESTDIR" $@ ../
+	$CMAKE_EXTRAS $@ ../

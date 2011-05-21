@@ -55,13 +55,13 @@ const QString WebWallet::createWalletKey ( const QString &data ) const
     return crypto.result().toHex();
 }
 
-/** */
+/** Anfrage */
 void WebWallet::savePostFormDataRequest ( const QString &key, const QUrl &url )
 {
     qDebug() << Q_FUNC_INFO << key << url;
 }
 
-/** */
+/** Abgeschlossen */
 void WebWallet::operationComplete ( bool b )
 {
     qDebug() << Q_FUNC_INFO << b;
