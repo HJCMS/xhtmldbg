@@ -96,11 +96,11 @@ ConfigWebSecurity::ConfigWebSecurity ( QWidget * parent )
   gridLayout->addWidget ( new QLabel ( i18n ( "Scheme" ), groupBox ), 1, 0, 1, 1, Qt::AlignRight );
   m_scheme = new KComboBox ( groupBox );
   m_scheme->setEditable ( false );
-  m_scheme->addItem ( KIcon ( "menu-development-web" ), i18n ( "World Wide Web HTTP" ), QString::fromUtf8 ( "http" ) );
-  m_scheme->addItem ( KIcon ( "menu-development-web" ), i18n ( "World Wide Web over TLS/SSL HTTPS" ), QString::fromUtf8 ( "https" ) );
+  m_scheme->addItem ( KIcon ( "applications-development-web" ), i18n ( "World Wide Web HTTP" ), QString::fromUtf8 ( "http" ) );
+  m_scheme->addItem ( KIcon ( "applications-development-web" ), i18n ( "World Wide Web over TLS/SSL HTTPS" ), QString::fromUtf8 ( "https" ) );
   // NOTE Das FTP Protokoll wird im Moment NICHT unterstützt!
   // m_scheme->addItem ( KIcon ( "menu-development-web" ), i18n ( "File Transfer Protocol FTP" ), QString::fromUtf8 ( "ftp" ) );
-  m_scheme->addItem ( KIcon ( "menu-development-web" ), i18n ( "Local File Protocol FILE" ), QString::fromUtf8 ( "file" ) );
+  m_scheme->addItem ( KIcon ( "applications-development-web" ), i18n ( "Local File Protocol FILE" ), QString::fromUtf8 ( "file" ) );
   gridLayout->addWidget ( m_scheme, 1, 1, 1, 1, Qt::AlignLeft );
   gridLayout->addWidget ( new QLabel ( i18n ( "e.g. http://, https:// or file://" ), groupBox ), 1, 2, 1, 1, Qt::AlignLeft );
 

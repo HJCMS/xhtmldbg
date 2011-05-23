@@ -42,7 +42,7 @@ XWallet::XWallet ( QWidget * parent )
     setObjectName ( QLatin1String ( "XWallet" ) );
     setContentsMargins ( 0, 0, 0, 0 );
 
-    QString wn ( i18n ( "xhtmldbg Wallet" ));
+    QString wn ( i18n ( "xhtmldbg Wallet" ) );
     setWindowTitle ( wn );
     setToolTip ( wn );
     setStatusTip ( wn );
@@ -63,8 +63,8 @@ XWallet::XWallet ( QWidget * parent )
     connect ( m_button, SIGNAL ( clicked() ),
               this, SLOT ( swapWalletStatus() ) );
 
-    // Wennn keine xhtmldbg Brieftasche vorhanden ist dann den WalletManager öffnen!
-    if ( ! KWallet::Wallet::walletList().contains( KWallet::Wallet::NetworkWallet() ) )
+    // Wennn keine Brieftasche vorhanden ist dann den WalletManager öffnen!
+    if ( ! KWallet::Wallet::walletList().contains ( KWallet::Wallet::NetworkWallet() ) )
         initWallet();
 }
 
@@ -75,6 +75,7 @@ XWallet::XWallet ( QWidget * parent )
 */
 void XWallet::initWallet()
 {
+    // qDebug() << Q_FUNC_INFO << KWallet::Wallet::NetworkWallet();
     m_wallet = KWallet::Wallet::openWallet ( KWallet::Wallet::NetworkWallet(), walletId, KWallet::Wallet::Path );
     connect ( m_wallet, SIGNAL ( walletClosed() ),
               this, SLOT ( swapIconStatus() ) );

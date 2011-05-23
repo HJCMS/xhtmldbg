@@ -19,10 +19,13 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+/* Window */
 #ifndef XHTMLDBG_VERSION_STRING
 # include "version.h"
 #endif
 #include "window.h"
+
+/* Project */
 #include "about.h"
 #include "addresstoolbar.h"
 #include "alternatelinkreader.h"
@@ -43,6 +46,7 @@
 #include "historyitem.h"
 #include "historymanager.h"
 #include "historymenu.h"
+#include "interface.h"
 #include "jsmessanger.h"
 #include "keywordstoolbar.h"
 #include "networkaccessmanager.h"
@@ -50,7 +54,8 @@
 #include "openfiledialog.h"
 #include "openurldialog.h"
 #include "pagehistory.h"
-#include "xwallet.h"
+#include "plugger.h"
+#include "plugininfo.h"
 #include "settargetdialog.h"
 #include "sourcecache.h"
 #include "sourcewidget.h"
@@ -60,11 +65,8 @@
 #include "webinspector.h"
 #include "websettings.h"
 #include "webviewer.h"
+#include "xwallet.h"
 #include "zoombar.h"
-/* Interface */
-#include "plugger.h"
-#include "plugininfo.h"
-#include "interface.h"
 
 /* QtCore */
 #include <QtCore/QByteArray>

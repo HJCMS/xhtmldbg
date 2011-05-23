@@ -173,7 +173,7 @@ Window* xhtmldbgmain::newMainWindow()
   m_windows.prepend ( debugger );
 
   // DBUS Adaptor registrieren
-  new XHtmldbgAdaptor ( debugger );
+  (void) new XHtmldbgAdaptor ( debugger );
 
   debugger->show();
   debugger->setFocus ( Qt::ActiveWindowFocusReason );
