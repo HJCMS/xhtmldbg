@@ -23,10 +23,11 @@
 
 Name:           xhtmldbg
 Summary:        HTML/XHTML Debugger and Validator
-Version:        0.8.12.rc18
-Release:        253
+Version:        0.8.13
+Release:        263
 License:        GPLv3
 AutoReqProv:    on
+PreReq:         %{_kde4_prefix}/%{_lib}/kde4/katepart.so
 Group:          Productivity/Editors/Other
 Url:            http://xhtmldbg.hjcms.de
 Source0:        http://gitweb.hjcms.de/cgi-bin/index.cgi/%{name}/snapshot/%{name}-%{version}.tar.bz2
@@ -82,16 +83,18 @@ Author:
 
 %build
 
+PHONON_INCLUDE_DIR="`pkg-config --variable=includedir phonon`"
+export PHONON_INCLUDE_DIR
+
 pushd build
 
 cmake -Wno-dev \
   -DCMAKE_CXX_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_C_FLAGS:STRING="$RPM_OPT_FLAGS" \
   -DCMAKE_INSTALL_PREFIX:PATH=%{_kde4_prefix} \
-  -DCMAKE_BUILD_TYPE:STRING=Debug \
   -DCMAKE_SKIP_RPATH:BOOL=ON \
-  -DPHONON_INCLUDE_DIR:PATH=/usr/include/phonon \
-  -DPHONON_STL_INCLUDE_DIR:PATH=/usr/include/KDE \
+  -DPHONON_INCLUDE_DIR:PATH=${PHONON_INCLUDE_DIR} \
+  -DPHONON_STL_INCLUDE_DIR:PATH=${PHONON_INCLUDE_DIR}/KDE \
 %if %{_lib} == lib64
   -DLIB_SUFFIX:STRING=64 \
 %endif

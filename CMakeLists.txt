@@ -15,11 +15,15 @@ ENABLE_LANGUAGE (CXX)
 ##############################################################
 SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules ${CMAKE_MODULE_PATH})
 
+IF (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+  MESSAGE (FATAL_ERROR  "unsupported operation system")
+ENDIF (NOT ${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+
 ##############################################################
 ## Package
 ##############################################################
-SET (QT_MIN_VERSION 4.7.0)
-SET (KDE_MIN_VERSION 4.6.0)
+SET (QT_MIN_VERSION 4.7.2)
+SET (KDE_MIN_VERSION 4.6.2)
 FIND_PACKAGE (PkgConfig REQUIRED)
 FIND_PACKAGE (Qt4 REQUIRED)
 FIND_PACKAGE (Qt4 COMPONENTS QTWEBKIT QTNETWORK QTDBUS QTXMLPATTERNS QTSQL QTUITOOLS QTSCRIPT QTDESIGNERCOMPONENTS QTDESIGNER)
@@ -43,7 +47,7 @@ INCLUDE (KDE4Defaults)
 SET (XHTMLDBG_VERSION_MAJOR 0)
 SET (XHTMLDBG_VERSION_MINOR 8)
 SET (XHTMLDBG_VERSION_RELEASE 13)
-SET (XHTMLDBG_PATCHLEVEL ".rc1")
+SET (XHTMLDBG_PATCHLEVEL ".rc2")
 SET (XHTMLDBG_VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
 SET (XHTMLDBG_DISTRIBUTION_TEXT "compiled sources" CACHE STRING "Indicate the distribution in bug reports")
 SET (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
@@ -72,6 +76,8 @@ ENDIF (XHTMLDBG_BUILD_VERBOSE)
 
 INCLUDE (CheckCXXCompilerFlag)
 INCLUDE (MacroEnsureVersion)
+INCLUDE (CheckIncludeFile)
+INCLUDE (CheckSymbolExists)
 INCLUDE (CheckFunctionExists)
 INCLUDE (CheckIncludeFiles)
 
@@ -274,6 +280,8 @@ ENDIF (NOT ICON_THEME_PATH)
 ##############################################################
 ## Configure Versions Header
 ##############################################################
+
+check_include_file ( "limits.h" HAVE_LIMITS_H )
 
 CONFIGURE_FILE (version.h.cmake
   ${CMAKE_CURRENT_BINARY_DIR}/version.h
