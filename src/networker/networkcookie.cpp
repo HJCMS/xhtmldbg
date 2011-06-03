@@ -37,6 +37,9 @@
 /* QtWebKit */
 #include <QtWebKit/QWebSettings>
 
+/* QtNetwork */
+#include <QtNetwork/QHostInfo>
+
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KLocalizedString>
@@ -221,16 +224,21 @@ bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &ur
 
   // Ermittle "Domain" und "Top Level Domain"
   // Manche Werbebanner... setzen SubDomain mit den Hostnamen der Original Seite!
-  QStringList list = url.host().split ( "." );
-  if ( list.size() >= 2 )
+  QHostInfo info = QHostInfo::fromName ( url.host() );
+  if ( info.error() == QHostInfo::NoError )
   {
-    QString domain ( list.takeLast() ); // tld anhängen
-    domain.prepend ( "." );
-    domain.prepend ( list.takeLast() ); // host anhängen
+    QString domain = info.hostName();
+    // Nachsehen ob die Domain aus <host>.<tld> besteht! -- Wenn nicht abbruch mit true!
+    if ( ! domain.contains ( QRegExp ( "\\w+\.\\w{2,}$" ) ) )
+      return true;
 
+    domain.prepend ( "." ); // mache RFC Conform
+    // Prüfen ob der Hostname in der domain enthalten ist!
+    // Wenn ja auf false kein 3.Anbieter Cookie setzen!
     bool status = ( domain.contains ( hostname ) ? false : true );
 #ifdef XHTMLDBG_DEBUG_VERBOSE
-    qDebug() << "(XHTMLDBG) Cookie isThirdPartyDomain:" << hostname << " : " << status;
+    if ( status )
+      qDebug() << "(XHTMLDBG) Cookie isThirdParty Domain:" << domain << " Hostname: "  << hostname;
 #endif
     // Wenn hostname vorhanden sollte es kein 3. Anbieter
     return status;
@@ -299,22 +307,21 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
-  QString cookieHost = url.host().remove ( QRegExp ( "^www" ) );
+  QString cookieHost = url.host().remove ( QRegExp ( "^www[\.]?" ) );
   if ( inProgress.contains ( cookieHost ) )
     return false;
+
+  // Setze den Hostnamen dieser Url in die Bearbeitenliste!
+  inProgress << cookieHost;
 
   if ( ! m_cookieManager->isOpen() )
     return false;
 
   CookieManager::CookiesAccessItem cookieAcces = m_cookieManager->getCookieAccess ( cookieHost );
 
-  // Setze den Hostnamen dieser Url in die Bearbeitenliste!
-  inProgress << cookieHost;
-
   bool add = false;
   bool yes = false;
   bool tmp = false;
-  bool isInSecure = false;
 
   if ( cookieAcces.Access == CookieManager::BLOCKED )
   {
@@ -332,7 +339,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
-  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
+  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
 
   // Eine Kopie von "url" erstellen und bereinigen
   QUrl cookieUrl;
@@ -345,9 +352,9 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   if ( tmp || yes )
   {
+    QList<QNetworkCookie> cookies;
     foreach ( QNetworkCookie cookie, list )
     {
-      QList<QNetworkCookie> cookies;
       // @modified 2010/11/30
       // cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
       if ( cookie.domain().isEmpty() )
@@ -362,18 +369,27 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         continue;
 
       if ( url.scheme().contains ( "https" ) && ! cookie.isSecure() )
-        isInSecure = true; // Setze Warnung für diese Anfrage.
+          emit cookieNotice ( i18n ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
       // Cookies von dieser Url zusammen packen
       cookies += cookie;
-
-      // Jetzt die Cookies an QNetworkCookieJar übergeben
+    } // end foreach
+    // Jetzt die Cookies an QNetworkCookieJar übergeben
+    if ( cookies.size() >=1 )
+    {
       if ( QNetworkCookieJar::setCookiesFromUrl ( cookies, url ) )
       {
         emit cookieChanged ();
-        add = true;
+        if ( ! tmp )
+          m_autoSaver->saveIfNeccessary();
+
+#ifdef XHTMLDBG_DEBUG_VERBOSE
+        qDebug() << "(XHTMLDBG) Cookie saved for Hostname:" << cookieHost << " Url:"  << url << " Size:" << cookies.size();
+#endif
+
+        return true;
       }
-    } // end foreach
+    }
   }
   else
   {
@@ -381,9 +397,6 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     emit cookieRequest ( cookieUrl );
     return false;
   }
-
-  if ( isInSecure )
-    emit cookieNotice ( i18n ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
   // Wenn neu erzeugt dann später speichern
   if ( cookieAcces.Access == CookieManager::ALLOWED )

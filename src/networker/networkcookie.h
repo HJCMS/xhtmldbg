@@ -49,7 +49,7 @@ class NetworkCookie : public QNetworkCookieJar
     AutoSaver* m_autoSaver;
     CookieManager* m_cookieManager;
     mutable QUrl currentUrl;
-    QStringList inProgress;
+    mutable QStringList inProgress;
     const QString cookieHostnameFromUrl ( const QUrl & ) const;
     const QString cookieDomainFromUrl ( const QUrl & ) const;
     bool validateDomainAndHost ( const QString &, const QUrl &, bool rfc = true );
