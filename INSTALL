@@ -42,6 +42,7 @@ and GCC 4.0.1 to develop applications.
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr \
       -DSYSCONF_INSTALL_DIR:PATH=/etc ../
       -DCMAKE_BUILD_TYPE:STRING=Debug \
+      -DFORCE_RAPTOR2:BOOL=ON \
       -DXHTMLDBG_BUILD_VERBOSE:BOOL=ON
 
   Windows

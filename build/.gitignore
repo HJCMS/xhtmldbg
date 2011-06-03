@@ -13,3 +13,4 @@ po/
 src/
 html/
 CMakeTmp
+xhtmldbg.qdocconf

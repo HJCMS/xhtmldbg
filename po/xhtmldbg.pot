@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-05-15 09:21+0200\n"
+"POT-Creation-Date: 2011-06-03 14:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,7 +143,7 @@ msgid "1 Minute"
 msgstr ""
 
 #: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
-#: src/window.cpp:468
+#: src/window.cpp:469
 msgid "Bookmarks"
 msgstr ""
 
@@ -542,8 +542,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:510
-#: src/window.cpp:599
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:511
+#: src/window.cpp:600
 msgid "Extensions"
 msgstr ""
 
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:147
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:149
 msgid "Browser"
 msgstr ""
 
@@ -990,7 +990,8 @@ msgstr ""
 msgid "The Host have sent a Cookie request, add here the Arrangement."
 msgstr ""
 
-#: src/cookieacceptdialog.cpp:59 src/rdfparser/raptorparser.cpp:122
+#: src/cookieacceptdialog.cpp:59 src/rdfparser/raptorparser2.cpp:126
+#: src/rdfparser/raptorparser.cpp:122
 msgid "Ready"
 msgstr ""
 
@@ -1125,7 +1126,7 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:505
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:506
 msgid "Configure"
 msgstr ""
 
@@ -1141,7 +1142,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:356
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:357
 msgid "Open Url"
 msgstr ""
 
@@ -1267,7 +1268,7 @@ msgstr ""
 msgid "no visible geometry"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:525
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:526
 msgid "Actions"
 msgstr ""
 
@@ -1834,44 +1835,44 @@ msgid ""
 "Webservers are free to ignore this. (300)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:106
+#: src/networker/networkcookie.cpp:109
 msgid ""
 "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by "
 "RFC 2109."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:115
+#: src/networker/networkcookie.cpp:118
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:121
+#: src/networker/networkcookie.cpp:124
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:127
+#: src/networker/networkcookie.cpp:130
 msgid ""
 "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:156
+#: src/networker/networkcookie.cpp:159
 msgid "Different Cookie/Domain for host %1. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:297
+#: src/networker/networkcookie.cpp:305
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:322
+#: src/networker/networkcookie.cpp:329
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:328
+#: src/networker/networkcookie.cpp:335
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:386
+#: src/networker/networkcookie.cpp:372
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
@@ -1900,7 +1901,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:153
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:155
 msgid "Source"
 msgstr ""
 
@@ -2104,6 +2105,10 @@ msgstr ""
 
 #: src/rdfparser/alternatelinkreader.cpp:43
 msgid "RSS/Atom"
+msgstr ""
+
+#: src/rdfparser/raptorparser2.cpp:93 src/rdfparser/raptorparser2.cpp:112
+msgid "Abort"
 msgstr ""
 
 #: src/rdfparser/rssparserdialog.cpp:61
@@ -2389,11 +2394,11 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/webviewer.cpp:82 src/window.cpp:456
+#: src/webviewer.cpp:82 src/window.cpp:457
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:457
+#: src/webviewer.cpp:84 src/window.cpp:458
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -2401,141 +2406,141 @@ msgstr ""
 msgid "file"
 msgstr ""
 
-#: src/window.cpp:124
+#: src/window.cpp:126
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
-#: src/window.cpp:352
+#: src/window.cpp:353
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:357
+#: src/window.cpp:358
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:363
+#: src/window.cpp:364
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:364
+#: src/window.cpp:365
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:370
+#: src/window.cpp:371
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:371
+#: src/window.cpp:372
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:378
+#: src/window.cpp:379
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:381
+#: src/window.cpp:382
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:382
+#: src/window.cpp:383
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:388
+#: src/window.cpp:389
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:389
+#: src/window.cpp:390
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:395
+#: src/window.cpp:396
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:399
+#: src/window.cpp:400
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:407
+#: src/window.cpp:408
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:415 src/zoombar.cpp:52
+#: src/window.cpp:416 src/zoombar.cpp:52
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:428
+#: src/window.cpp:429
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:435
+#: src/window.cpp:436
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:438
+#: src/window.cpp:439
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:444
+#: src/window.cpp:445
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:450
+#: src/window.cpp:451
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:491
+#: src/window.cpp:492
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:497
+#: src/window.cpp:498
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:499
+#: src/window.cpp:500
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:513
+#: src/window.cpp:514
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:536
+#: src/window.cpp:537
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:572
+#: src/window.cpp:573
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:582
+#: src/window.cpp:583
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:590
+#: src/window.cpp:591
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:875
+#: src/window.cpp:876
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:998
+#: src/window.cpp:999
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1039
+#: src/window.cpp:1040
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1044
+#: src/window.cpp:1045
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1075
+#: src/window.cpp:1076
 msgid "Download Request: %1"
 msgstr ""
 

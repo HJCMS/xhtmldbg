@@ -61,6 +61,9 @@ MARK_AS_ADVANCED (XHTMLDBG_BUILD_VERBOSE)
 ## Enable experimental code fragments
 OPTION (XHTMLDBG_EXPERIMENTAL "Enable experimental features (ON/OFF)" OFF)
 MARK_AS_ADVANCED (XHTMLDBG_EXPERIMENTAL)
+## Extra Debugging Options
+OPTION (FORCE_RAPTOR2 "Enable Raptor v2 Support (ON/OFF)" OFF)
+MARK_AS_ADVANCED (FORCE_RAPTOR2)
 
 IF (NOT QT_USE_QTNETWORK)
   MESSAGE (FATAL_ERROR  "xhtmldbg: Requires Qt4 with QtNetwork support.")
@@ -242,7 +245,6 @@ SET (XHTMLDBG_KDE_LIBRARIES
 SET (XHTMLDBG_LIBRARIES
   ${XHTMLDBG_QT_LIBRARIES}
   ${XHTMLDBG_KDE_LIBRARIES}
-  ${RAPTOR2_LIBRARIES}
   ${QTIDY_LIBRARIES}
   ${GEOIP_LIBRARIES}
   ${OPENSSL_LIBRARIES}
@@ -307,7 +309,7 @@ EXECUTE_PROCESS(COMMAND ${QT_QMAKE_EXECUTABLE} -query QT_INSTALL_DOCS
 )
 
 CONFIGURE_FILE (xhtmldbg.qdocconf.cmake
-  ${CMAKE_CURRENT_BINARY_DIR}/xhtmldbg.qdocconf
+  ${CMAKE_CURRENT_SOURCE_DIR}/xhtmldbg.qdocconf
 )
 
 ##############################################################

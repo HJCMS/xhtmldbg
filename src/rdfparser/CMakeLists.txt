@@ -2,13 +2,24 @@
 
 SET (subproject_SOURCES
   alternatelinkreader.cpp
-  raptorparser.cpp
   xsdparser.cpp
   rssparserdialog.cpp
   rsstreeview.cpp
   rssviewer.cpp
   rsshighlighter.cpp
 )
+
+IF(FORCE_RAPTOR2 AND RAPTOR_FOUND)
+  SET (subproject_SOURCES
+    ${subproject_SOURCES}
+    raptorparser2.cpp
+  )
+ELSE(FORCE_RAPTOR2 AND RAPTOR_FOUND)
+  SET (subproject_SOURCES
+    ${subproject_SOURCES}
+    raptorparser.cpp
+  )
+ENDIF(FORCE_RAPTOR2 AND RAPTOR_FOUND)
 
 SET (subproject_HEADERS
   alternatelinkreader.h
@@ -21,6 +32,8 @@ SET (subproject_HEADERS
 )
 
 INCLUDE_DIRECTORIES (${XHTMLDBG_BINARY_PROJECT_INCULDE} ${RAPTOR_INCLUDE_DIR})
+
+ADD_DEFINITIONS(${RAPTOR_DEFINITIONS})
 
 KDE4_MOC_HEADERS (subproject_MOC ${subproject_HEADERS})
 
@@ -40,7 +53,7 @@ TARGET_LINK_LIBRARIES (RDFParser
   ${QT_QTGUI_LIBRARY}
   ${QT_QTXML_LIBRARY}
   ${QT_QTXMLPATTERNS_LIBRARY}
-  ${RAPTOR_LIBRARIES}
+  ${RAPTOR_LIBRARY}
   Networker
 )
 
