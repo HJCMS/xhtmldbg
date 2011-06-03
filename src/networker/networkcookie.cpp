@@ -229,7 +229,7 @@ bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &ur
   {
     QString domain = info.hostName();
     // Nachsehen ob die Domain aus <host>.<tld> besteht! -- Wenn nicht abbruch mit true!
-    if ( ! domain.contains ( QRegExp ( "\\w+\.\\w{2,}$" ) ) )
+    if ( ! domain.contains ( QRegExp ( "\\w+\\.\\w{2,}$" ) ) )
       return true;
 
     domain.prepend ( "." ); // mache RFC Conform
@@ -307,7 +307,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   }
 
   // Befindet sich der Hostname in Bearbeitung dann hier aussteigen aussteigen!
-  QString cookieHost = url.host().remove ( QRegExp ( "^www[\.]?" ) );
+  QString cookieHost = url.host().remove ( QRegExp ( "^www[\\.]?" ) );
   if ( inProgress.contains ( cookieHost ) )
     return false;
 
