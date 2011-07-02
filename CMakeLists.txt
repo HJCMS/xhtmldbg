@@ -2,12 +2,12 @@
 ##############################################################
 PROJECT (xhtmldbg)
 
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.4 FATAL_ERROR)
 
 ##############################################################
-# CMP0002: we have multiple targets with the same name for the unit tests
+# CMP0017: we have multiple targets for CheckCXXSourceCompiles with kde4
 ##############################################################
-CMAKE_POLICY (VERSION 2.8)
+CMAKE_POLICY (SET CMP0017 OLD)
 ENABLE_LANGUAGE (CXX)
 
 ##############################################################
@@ -320,6 +320,7 @@ ADD_SUBDIRECTORY (data)
 IF(GETTEXT_MSGFMT_EXECUTABLE)
   ADD_SUBDIRECTORY (po)
 ENDIF(GETTEXT_MSGFMT_EXECUTABLE)
+ADD_SUBDIRECTORY (doc)
 
 ##############################################################
 ## LGPLv2+/GPLv3 Exceptions

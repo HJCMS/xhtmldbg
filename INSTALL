@@ -100,19 +100,22 @@ INSTALL_TREE:
     |       `-- wininterface.h
     |-- lib
     |   |-- libxhtmldbg-1.0.so -> libxhtmldbg-1.0.so.0
-    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.12
-    |   |-- libxhtmldbg-1.0.so.0.8.12
+    |   |-- libxhtmldbg-1.0.so.0 -> libxhtmldbg-1.0.so.0.8.*
+    |   |-- libxhtmldbg-1.0.so.0.8.*
     |   |-- pkgconfig
     |   |   `-- xhtmldbg.pc
     |   `-- xhtmldbg
     |       |-- browser
     |       |-- designer
     |       |   `-- libXQPluginWidgets.so
+    |       |-- libApacheLogger.so
+    |       |-- libKeywordEditor.so
     |       |-- libRFCBrowser.so
     |       `-- libSelfHtmlSidebar.so
     `-- share
         |-- applications
-        |   `-- xhtmldbg.desktop
+        |   `-- kde4
+        |       `-- xhtmldbg.desktop
         |-- dbus-1
         |   |-- interfaces
         |   |   `-- de.hjcms.xhtmldbg.xml
@@ -160,7 +163,11 @@ INSTALL_TREE:
         |   `-- locale
         |       `-- de
         |           `-- LC_MESSAGES
+        |               |-- XQPluginWidgets.mo
         |               `-- xhtmldbg.mo
+        |-- man
+        |   `-- man1
+        |       `-- xhtmldbg.1
         |-- pixmaps
         |   `-- xhtmldbg.xpm
         `-- xhtmldbg
@@ -169,6 +176,7 @@ INSTALL_TREE:
             |-- ChangeLog
             |-- NEWS
             |-- README
+            |-- XQPluginWidgets.pot
             |-- designertemplate
             |   |-- template.cpp
             |   |-- template.h
@@ -197,4 +205,5 @@ INSTALL_TREE:
             |   |-- xsd.xsl
             |   `-- xslt10.dtd
             `-- xhtmldbg.pot
+
 

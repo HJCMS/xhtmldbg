@@ -339,7 +339,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
 
   // Nachsehen ob dieser Host immer erlaubt oder nur alls Session genehmigt ist.
   yes = ( cookieAcces.Access == CookieManager::ALLOWED ) ? true : false;
-  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : yes;
+  tmp = ( cookieAcces.Access == CookieManager::SESSION ) ? true : false;
 
   // Eine Kopie von "url" erstellen und bereinigen
   QUrl cookieUrl;
@@ -360,10 +360,17 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
       if ( cookie.domain().isEmpty() )
         continue;
 
+      // Session Cookie behandlung
       if ( tmp && ! cookie.isSessionCookie() )
+      {
+        // Wenn kein SessionCookie aber soll als Session erzwingen dann ...
         cookie.setExpirationDate ( QDateTime() );
-      else if ( ! cookie.isSessionCookie() && ( cookie.expirationDate() > lifeTime ) )
+      }
+      else if ( cookie.isSessionCookie() && ( cookie.expirationDate() > lifeTime ) )
+      {
+        // Wenn SessionCookie aber die Laufzeit zu hoch ist dann ...
         cookie.setExpirationDate ( lifeTime );
+      }
 
       if ( ! validateDomainAndHost ( cookie.domain(), cookieUrl, cookieAcces.RFC2109 ) )
         continue;
