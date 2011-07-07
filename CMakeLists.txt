@@ -90,6 +90,10 @@ INCLUDE (CheckIncludeFiles)
 
 IF (CMAKE_COMPILER_IS_GNUCXX)
 
+  ## Extra Debugging Options
+  OPTION (ENABLE_ASYNC_UNWIND_TABLES "enable -fasynchronous-unwind-tables if supported by target machine. (ON/OFF)" OFF)
+  MARK_AS_ADVANCED (ENABLE_ASYNC_UNWIND_TABLES)
+
   INCLUDE (CheckingGNUCXX)
 
   IF (CMAKE_BUILD_TYPE STREQUAL "MinSizeRel")
