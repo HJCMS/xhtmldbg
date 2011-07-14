@@ -45,12 +45,14 @@
 #include <KDE/KLocalizedString>
 
 NetworkCookie::NetworkCookie ( NetworkSettings * settings, QObject * parent )
-    : QNetworkCookieJar ( parent )
+    : KIO::Integration::CookieJar ( parent )
     , m_netcfg ( settings )
     , m_autoSaver ( new AutoSaver ( this ) )
     , m_cookieManager ( new CookieManager ( this ) )
     , currentUrl ( "http://localhost" )
 {
+  setDisableCookieStorage ( false );
+
   if ( ! m_netcfg )
     m_netcfg = new NetworkSettings ( this );
 
@@ -110,22 +112,22 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
                           .arg ( url.host(), domain );
   rejectMessage.append ( QLatin1String ( " " ) );
 
-  if ( rfc && ! domain.contains ( QRegExp ( "^\\." ) ) )
+  if ( rfc && ! domain.startsWith ( QLatin1String ( "." ) ) )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) RFC2109 REJECT:" << domain;
 #endif
     rejectMessage.append ( i18n ( "A Set-Cookie with Domain=%1 will be rejected because the value for Domain does not begin with a dot." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
-  else if ( domain.contains ( QRegExp ( "\\.$" ) ) )
+  else if ( domain.endsWith ( QLatin1String ( "." ) ) )
   {
     rejectMessage.append ( i18n ( "A Set-Cookie with attached dot Domain=%1, will always be rejected." ).arg ( domain ) );
     emit cookieRejected ( rejectMessage );
     return false;
   }
-  else if ( ! domain.contains ( QRegExp ( "([\\w\\d\\-]+)\\.(\\w{2,})$" ) ) )
+  else if ( ! domain.contains ( QRegExp ( "([\\S]+)\\.(\\w{2,})$" ) ) )
   {
     rejectMessage.append ( i18n ( "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected." ) );
     emit cookieRejected ( rejectMessage );
@@ -133,7 +135,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   }
   else if ( host1.compare ( domain, Qt::CaseInsensitive ) == 0 )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) Accepted:" << domain;
 #endif
     // Accepted: .host.tld == .domain.tld
@@ -141,7 +143,7 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   }
   else if ( host2.compare ( domain, Qt::CaseInsensitive ) == 0 )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) Accepted:" << domain;
 #endif
     // Accepted: host.tld == .domain.tld
@@ -149,14 +151,14 @@ bool NetworkCookie::validateDomainAndHost ( const QString &domain, const QUrl &u
   }
   else if ( ! rfc )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qDebug() << "(XHTMLDBG) Accepted NONE RFC2109:" << domain;
 #endif
     // Accepted: NONE RFC2109
     return true;
   }
 
-  emit cookieNotice ( i18n ( "Different Cookie/Domain for host %1. (Rejected)" ).arg ( url.host() ) );
+  emit cookieNotice ( i18n ( "Different Cookie/Domain %1 for host %2. (Rejected)" ).arg ( domain, url.host() ) );
   return false;
 }
 
@@ -236,7 +238,7 @@ bool NetworkCookie::isThirdPartyDomain ( const QString &hostname, const QUrl &ur
     // Prüfen ob der Hostname in der domain enthalten ist!
     // Wenn ja auf false kein 3.Anbieter Cookie setzen!
     bool status = ( domain.contains ( hostname ) ? false : true );
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     if ( status )
       qDebug() << "(XHTMLDBG) Cookie isThirdParty Domain:" << domain << " Hostname: "  << hostname;
 #endif
@@ -355,10 +357,13 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
     QList<QNetworkCookie> cookies;
     foreach ( QNetworkCookie cookie, list )
     {
-      // @modified 2010/11/30
-      // cookie.setDomain ( cookieDomainFromUrl ( cookieUrl ) );
+      // @modified 2011/07/14
       if ( cookie.domain().isEmpty() )
-        continue;
+      {
+        emit cookieNotice ( i18n ( "empty cookies domain parameter!" ) );
+        yes = false;
+        break;
+      }
 
       // Session Cookie behandlung
       if ( tmp && ! cookie.isSessionCookie() )
@@ -376,7 +381,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         continue;
 
       if ( url.scheme().contains ( "https" ) && ! cookie.isSecure() )
-          emit cookieNotice ( i18n ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
+        emit cookieNotice ( i18n ( "Missing Optional Cookie/Secure attribute for HTTPS Scheme" ) );
 
       // Cookies von dieser Url zusammen packen
       cookies += cookie;
@@ -390,7 +395,7 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
         if ( ! tmp )
           m_autoSaver->saveIfNeccessary();
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
         qDebug() << "(XHTMLDBG) Cookie saved for Hostname:" << cookieHost << " Url:"  << url << " Size:" << cookies.size();
 #endif
 

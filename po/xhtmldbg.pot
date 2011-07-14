@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-06-03 14:24+0200\n"
+"POT-Creation-Date: 2011-07-14 18:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,7 +143,7 @@ msgid "1 Minute"
 msgstr ""
 
 #: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
-#: src/window.cpp:469
+#: src/window.cpp:471
 msgid "Bookmarks"
 msgstr ""
 
@@ -542,8 +542,8 @@ msgid "Enable Border Highlight"
 msgstr ""
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:511
-#: src/window.cpp:600
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:513
+#: src/window.cpp:602
 msgid "Extensions"
 msgstr ""
 
@@ -814,7 +814,7 @@ msgstr ""
 msgid "Dom Inspector"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:149
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:151
 msgid "Browser"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgstr ""
 msgid "Dropout current request"
 msgstr ""
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:506
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:508
 msgid "Configure"
 msgstr ""
 
@@ -1142,7 +1142,7 @@ msgstr ""
 msgid "Open HTML File"
 msgstr ""
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:357
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:359
 msgid "Open Url"
 msgstr ""
 
@@ -1268,7 +1268,7 @@ msgstr ""
 msgid "no visible geometry"
 msgstr ""
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:526
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:528
 msgid "Actions"
 msgstr ""
 
@@ -1824,55 +1824,59 @@ msgstr ""
 msgid "the operation requested on the remote content is not permitted"
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:230
+#: src/networker/networkaccessmanager.cpp:228
 msgid ""
 "Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 
-#: src/networker/networkaccessmanager.cpp:333
+#: src/networker/networkaccessmanager.cpp:331
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:109
+#: src/networker/networkcookie.cpp:111
 msgid ""
 "Impermissible Cookie format for \"%1\" and Cookie Domain \"%2\" rejected by "
 "RFC 2109."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:118
+#: src/networker/networkcookie.cpp:120
 msgid ""
 "A Set-Cookie with Domain=%1 will be rejected because the value for Domain "
 "does not begin with a dot."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:124
+#: src/networker/networkcookie.cpp:126
 msgid "A Set-Cookie with attached dot Domain=%1, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:130
+#: src/networker/networkcookie.cpp:132
 msgid ""
 "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 
-#: src/networker/networkcookie.cpp:159
-msgid "Different Cookie/Domain for host %1. (Rejected)"
+#: src/networker/networkcookie.cpp:161
+msgid "Different Cookie/Domain %1 for host %2. (Rejected)"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:305
+#: src/networker/networkcookie.cpp:307
 msgid "Invalid Url for Cookie Request - rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:329
+#: src/networker/networkcookie.cpp:331
 msgid "Cookie for Host \"%1\" rejected by blocked list!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:335
+#: src/networker/networkcookie.cpp:337
 msgid "third-party vendor cookie \"%1\" for host \"%2\" rejected!"
 msgstr ""
 
-#: src/networker/networkcookie.cpp:372
+#: src/networker/networkcookie.cpp:363
+msgid "empty cookies domain parameter!"
+msgstr ""
+
+#: src/networker/networkcookie.cpp:384
 msgid "Missing Optional Cookie/Secure attribute for HTTPS Scheme"
 msgstr ""
 
@@ -1901,7 +1905,7 @@ msgid "MimeType"
 msgstr ""
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:155
+#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:157
 msgid "Source"
 msgstr ""
 
@@ -2394,11 +2398,11 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/webviewer.cpp:82 src/window.cpp:457
+#: src/webviewer.cpp:82 src/window.cpp:459
 msgid "New Page"
 msgstr ""
 
-#: src/webviewer.cpp:84 src/window.cpp:458
+#: src/webviewer.cpp:84 src/window.cpp:460
 msgid "Add a new empty Tab"
 msgstr ""
 
@@ -2410,137 +2414,137 @@ msgstr ""
 msgid "XHTML Debugger (v%1)"
 msgstr ""
 
-#: src/window.cpp:353
+#: src/window.cpp:355
 msgid "&Application"
 msgstr ""
 
-#: src/window.cpp:358
+#: src/window.cpp:360
 msgid "Load Document from Url"
 msgstr ""
 
-#: src/window.cpp:364
+#: src/window.cpp:366
 msgid "Open Html File"
 msgstr ""
 
-#: src/window.cpp:365
+#: src/window.cpp:367
 msgid "Open Html from System"
 msgstr ""
 
-#: src/window.cpp:371
+#: src/window.cpp:373
 msgid "Quit"
 msgstr ""
 
-#: src/window.cpp:372
+#: src/window.cpp:374
 msgid "Close Debugger"
 msgstr ""
 
-#: src/window.cpp:379
+#: src/window.cpp:381
 msgid "&Debugger"
 msgstr ""
 
-#: src/window.cpp:382
+#: src/window.cpp:384
 msgid "Parse"
 msgstr ""
 
-#: src/window.cpp:383
+#: src/window.cpp:385
 msgid "Parse current Document Source"
 msgstr ""
 
-#: src/window.cpp:389
+#: src/window.cpp:391
 msgid "Format"
 msgstr ""
 
-#: src/window.cpp:390
+#: src/window.cpp:392
 msgid "Prepare and Format Document Source"
 msgstr ""
 
-#: src/window.cpp:396
+#: src/window.cpp:398
 msgid "&View"
 msgstr ""
 
-#: src/window.cpp:400
+#: src/window.cpp:402
 msgid "Zoom +"
 msgstr ""
 
-#: src/window.cpp:408
+#: src/window.cpp:410
 msgid "Zoom -"
 msgstr ""
 
-#: src/window.cpp:416 src/zoombar.cpp:52
+#: src/window.cpp:418 src/zoombar.cpp:52
 msgid "Original"
 msgstr ""
 
-#: src/window.cpp:429
+#: src/window.cpp:431
 msgid "Fullscreen"
 msgstr ""
 
-#: src/window.cpp:436
+#: src/window.cpp:438
 msgid "&Browser"
 msgstr ""
 
-#: src/window.cpp:439
+#: src/window.cpp:441
 msgid "Refresh"
 msgstr ""
 
-#: src/window.cpp:445
+#: src/window.cpp:447
 msgid "Back"
 msgstr ""
 
-#: src/window.cpp:451
+#: src/window.cpp:453
 msgid "Forward"
 msgstr ""
 
-#: src/window.cpp:492
+#: src/window.cpp:494
 msgid "Organize Bookmarks"
 msgstr ""
 
-#: src/window.cpp:498
+#: src/window.cpp:500
 msgid "S&ettings"
 msgstr ""
 
-#: src/window.cpp:500
+#: src/window.cpp:502
 msgid "Configure Tidyrc"
 msgstr ""
 
-#: src/window.cpp:514
+#: src/window.cpp:516
 msgid "Display"
 msgstr ""
 
-#: src/window.cpp:537
+#: src/window.cpp:539
 msgid "Settings"
 msgstr ""
 
-#: src/window.cpp:573
+#: src/window.cpp:575
 msgid "Toolbars"
 msgstr ""
 
-#: src/window.cpp:583
+#: src/window.cpp:585
 msgid "Impartations"
 msgstr ""
 
-#: src/window.cpp:591
+#: src/window.cpp:593
 msgid "Inspectors"
 msgstr ""
 
-#: src/window.cpp:876
+#: src/window.cpp:878
 msgid "Check StyleSheet for %1"
 msgstr ""
 
-#: src/window.cpp:999
+#: src/window.cpp:1001
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr ""
 
-#: src/window.cpp:1040
+#: src/window.cpp:1042
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
 msgstr ""
 
-#: src/window.cpp:1045
+#: src/window.cpp:1047
 msgid "Url Request from Outsite"
 msgstr ""
 
-#: src/window.cpp:1076
+#: src/window.cpp:1078
 msgid "Download Request: %1"
 msgstr ""
 

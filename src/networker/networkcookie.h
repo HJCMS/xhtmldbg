@@ -34,11 +34,14 @@
 #include <QtNetwork/QNetworkCookie>
 #include <QtNetwork/QNetworkCookieJar>
 
+/* KDE */
+#include <KDE/KIO/AccessManager>
+
 class NetworkSettings;
 class AutoSaver;
 class CookieManager;
 
-class NetworkCookie : public QNetworkCookieJar
+class NetworkCookie : public KIO::Integration::CookieJar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

@@ -127,7 +127,7 @@ bool DBLocator::initDatabase ( const QSqlDatabase &driver )
     return true;
   }
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
   if ( ! db.lastError().text().isEmpty() )
     qWarning ( "(XHTMLDBG) SQL %s", qPrintable ( db.lastError().text() ) );
 #endif

@@ -392,7 +392,7 @@ void CSSValidator::errors ( QProcess::ProcessError err )
 */
 void CSSValidator::exited ( int exitCode, QProcess::ExitStatus stat )
 {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
 
   qDebug ( "(XHTMLDBG) Validator closed process with exit code: %d status: %d (%d)"
            , exitCode, stat, __LINE__ );

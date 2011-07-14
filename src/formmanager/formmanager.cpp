@@ -129,7 +129,7 @@ void FormManager::addFormTable ( const QUrl &url, const FormConstructor &form )
     m_tabWidget->insertTab ( m_tabWidget->count(), entry, KIcon ( "xhtmldbg" ), form.uniqueId() );
     return;
   }
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
   qDebug() << Q_FUNC_INFO << url << "form.elements.size() = " << form.elements.size() << form.uniqueId();
 #endif
 }

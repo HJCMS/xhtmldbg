@@ -27,7 +27,7 @@
 #endif
 
 /* QtCore */
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
 # include <QtCore/QDebug>
 #endif
 #include <QtCore/QByteArray>

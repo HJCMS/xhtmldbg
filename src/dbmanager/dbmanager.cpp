@@ -82,7 +82,7 @@ void DBManager::setError ( QueryType t, int l, const QString &m )
   QString message;
   QString line = QString::number ( l );
 
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
   qWarning ( "SQL Error Line %d (%s)", l, qPrintable ( m ) );
 #endif
 

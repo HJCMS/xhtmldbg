@@ -54,7 +54,7 @@ inline void raptorMessanger ( void* ptr, raptor_locator* locator, const char* me
   RaptorParser* p = static_cast<RaptorParser*> ( ptr );
   if ( locator )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qWarning ( "(XHTMLDBG) RDF Parser: %s", message );
 #endif
     p->setMessage ( QString::fromUtf8 ( message ) );

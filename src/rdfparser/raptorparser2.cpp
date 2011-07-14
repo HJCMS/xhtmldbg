@@ -42,7 +42,7 @@ inline void raptorMessanger ( void *ptr, raptor_log_message* message )
 {
   if ( message )
   {
-#ifdef XHTMLDBG_DEBUG_VERBOSE
+#ifdef DEBUG_VERBOSE
     qWarning ( "(XHTMLDBG) RDF Parser: %s", message->text );
 #endif
     RaptorParser* p = static_cast<RaptorParser*> ( ptr );
