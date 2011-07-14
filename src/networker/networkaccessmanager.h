@@ -45,12 +45,15 @@
 #include <QtNetwork/QSslCertificate>
 #include <QtNetwork/QSslConfiguration>
 
+/* KDE */
+#include <KDE/KIO/AccessManager>
+
 class NetworkSettings;
 class NetworkCookie;
 class ErrorsDialog;
 class NetworkCache;
 
-class NetworkAccessManager : public QNetworkAccessManager
+class NetworkAccessManager : public KIO::AccessManager
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )

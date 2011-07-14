@@ -143,6 +143,8 @@ Window::Window ( Settings * settings )
 
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
+  // WindowID von WebViewer
+  m_netManager->setWindow ( m_webViewer );
   // NOTE Wir brauchen eine gültige WebPage für den WebInspector
   m_webViewer->setAboutPage ( "welcome" );
   // Viewer einfügen
