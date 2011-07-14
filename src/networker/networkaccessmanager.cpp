@@ -72,7 +72,7 @@ protected:
 };
 
 NetworkAccessManager::NetworkAccessManager ( QObject * parent )
-        : KIO::AccessManager ( parent )
+        : KIO::Integration::AccessManager ( parent )
         , requestUrl ( QUrl ( "http://localhost" ) )
 {
     setObjectName ( "xhtmldbgnetworkaccessmanager" );

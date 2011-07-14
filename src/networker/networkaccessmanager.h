@@ -53,7 +53,7 @@ class NetworkCookie;
 class ErrorsDialog;
 class NetworkCache;
 
-class NetworkAccessManager : public KIO::AccessManager
+class NetworkAccessManager : public KIO::Integration::AccessManager
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
