@@ -413,7 +413,9 @@ bool NetworkCookie::setCookiesFromUrl ( const QList<QNetworkCookie> &list, const
   // Wenn neu erzeugt dann später speichern
   if ( cookieAcces.Access == CookieManager::ALLOWED )
     save();
-  else if ( add && ! tmp )
+  else if ( add )
+    save();
+  else
     m_autoSaver->saveIfNeccessary();
 
   return add;
