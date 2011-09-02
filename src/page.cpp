@@ -179,7 +179,11 @@ void Page::onReadyLoadPage ( bool b )
         return;
 
     QWebFrame* frame = mainFrame();
-    if ( frame->documentElement().findAll ( "FORM" ).count() > 0 )
+    QWebElement bodyElement = frame->documentElement().findFirst( "body" );
+    if ( bodyElement.isNull() )
+      return;
+
+    if ( bodyElement.findAll ( "FORM" ).count() > 0 )
     {
 #ifdef DEBUG_VERBOSE
         qDebug() << Q_FUNC_INFO << "m_wallet->fillFormData";

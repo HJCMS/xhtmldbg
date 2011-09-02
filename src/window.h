@@ -56,32 +56,33 @@
 /* XHTMLBG */
 #include "settings.h"
 
-class NetworkAccessManager;
+class AlternateLinkReader;
+class AppEvents;
+class AutoReloader;
+class AutoReloadMenu;
+class Bookmark;
+class ColorPicker;
+class CSSValidator;
+class DomInspector;
 class DownloadManager;
+class DomObserver;
+class GeoLocation;
+class HeaderDock;
 class HistoryManager;
-class AddressToolBar;
+class HistoryMenu;
+class JSMessanger;
 class KeywordsToolBar;
-class ZoomBar;
-class WebViewer;
+class NetworkAccessManager;
 class SourceCache;
 class SourceWidget;
-class AlternateLinkReader;
-class GeoLocation;
-class TidyMessanger;
-class JSMessanger;
-class AppEvents;
-class Bookmark;
-class HistoryMenu;
-class AutoReloadMenu;
 class StatusBar;
-class AutoReloader;
-class DomInspector;
+class TidyMessanger;
+class UrlToolBar;
 class WebInspector;
-class ColorPicker;
-class HeaderDock;
-class CSSValidator;
+class WebViewer;
 class xhtmldbgplugger;
 class XWallet;
+class ZoomBar;
 
 namespace xhtmldbg
 {
@@ -113,7 +114,7 @@ class Window : public KMainWindow
     // Settings ToolBar
     QToolBar* m_settingsToolBar;
     // Address ToolBar
-    AddressToolBar* m_addressToolBar;
+    UrlToolBar* m_urlToolBar;
     // SEO ToolBar
     KeywordsToolBar* m_keywordsToolBar;
     // Webviewer Zoom Bar
@@ -155,6 +156,8 @@ class Window : public KMainWindow
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
+    // DomElement Observer
+    DomObserver* m_domObserver;
     // Formular Manager
     XWallet* m_xWallet;
     // WebInspector

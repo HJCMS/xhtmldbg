@@ -24,6 +24,7 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cssvalidator
   ${CMAKE_CURRENT_SOURCE_DIR}/configuration
   ${CMAKE_CURRENT_SOURCE_DIR}/stylesheeted
+  ${CMAKE_CURRENT_SOURCE_DIR}/urltoolbar
   ${CMAKE_CURRENT_SOURCE_DIR}/dominspector
   ${CMAKE_CURRENT_SOURCE_DIR}/networker
   ${CMAKE_CURRENT_SOURCE_DIR}/downloadmanager
@@ -56,6 +57,7 @@ ADD_SUBDIRECTORY (networker)
 ADD_SUBDIRECTORY (downloadmanager)
 ADD_SUBDIRECTORY (rdfparser)
 ADD_SUBDIRECTORY (formmanager)
+ADD_SUBDIRECTORY (urltoolbar)
 ##############################
 ## Interfaces
 ##############################
@@ -82,34 +84,34 @@ ADD_SUBDIRECTORY (components)
 ## SOURCES
 ##############################
 SET (xhtmldbg_SOURCES
-	main.cpp
-	xhtmldbgmain.cpp
-	application.cpp
-	window.cpp
-	addresstoolbar.cpp
-	keywordstoolbar.cpp
-	tidymessanger.cpp
-	jsmessanger.cpp
-	webviewer.cpp
-	viewer.cpp
-	page.cpp
-	xwallet.cpp
-	webwallet.cpp
-	pagehistory.cpp
-	historymanager.cpp
-	historyitem.cpp
-	historymenu.cpp
-	statusbar.cpp
-	cookieacceptdialog.cpp
-	appevents.cpp
-	autoreloader.cpp
-	autoreloadmenu.cpp
-	useragentmenu.cpp
-	xhtmldbgadaptor.cpp
-	zoombar.cpp
-	geolocation.cpp
-	javascriptpopup.cpp
-	webinspector.cpp
+  main.cpp
+  xhtmldbgmain.cpp
+  application.cpp
+  window.cpp
+  keywordstoolbar.cpp
+  tidymessanger.cpp
+  jsmessanger.cpp
+  webviewer.cpp
+  viewer.cpp
+  page.cpp
+  xwallet.cpp
+  webwallet.cpp
+  pagehistory.cpp
+  historymanager.cpp
+  historyitem.cpp
+  historymenu.cpp
+  statusbar.cpp
+  cookieacceptdialog.cpp
+  appevents.cpp
+  autoreloader.cpp
+  autoreloadmenu.cpp
+  useragentmenu.cpp
+  xhtmldbgadaptor.cpp
+  zoombar.cpp
+  geolocation.cpp
+  javascriptpopup.cpp
+  webinspector.cpp
+  domobserver.cpp
 )
 
 ##############################
@@ -119,7 +121,6 @@ SET (xhtmldbg_HEADERS
   xhtmldbgmain.h
   application.h
   window.h
-  addresstoolbar.h
   keywordstoolbar.h
   tidymessanger.h
   jsmessanger.h
@@ -140,7 +141,7 @@ SET (xhtmldbg_HEADERS
   zoombar.h
   geolocation.h
   javascriptpopup.h
-  webinspector.h
+  domobserver.h
 )
 
 ##############################
@@ -205,27 +206,28 @@ KDE4_ADD_EXECUTABLE (xhtmldbg
 ## LINKER
 ##############################
 TARGET_LINK_LIBRARIES (xhtmldbg
+  xhtmldbginterface
   About
   Bookmark
   ColorPicker
+  Configuration
   CookiesDatabase
-  Docking
-  HostInfo
-  xhtmldbginterface
+  CSSValidator
+  DBManager
   Dialogs
+  Docking
+  DomInspector
+  DownloadManager
+  FormManager
+  HostInfo
+  Networker
+  RDFParser
+  Settings
   SourceCache
   SourceViewer
-  WebSecurity
-  Settings
-  CSSValidator
-  Configuration
   StyleSheeted
-  DomInspector
-  DBManager
-  Networker
-  DownloadManager
-  RDFParser
-  FormManager
+  UrlToolBar
+  WebSecurity
   ${OPTIONAL_LIBRARIES}
   ${XHTMLDBG_LIBRARIES}
 )

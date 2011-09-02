@@ -27,7 +27,6 @@
 
 /* Project */
 #include "about.h"
-#include "addresstoolbar.h"
 #include "alternatelinkreader.h"
 #include "appevents.h"
 #include "application.h"
@@ -40,6 +39,7 @@
 #include "cssvalidator.h"
 #include "dbmanager.h"
 #include "dominspector.h"
+#include "domobserver.h"
 #include "downloadmanager.h"
 #include "geolocation.h"
 #include "headerdock.h"
@@ -61,6 +61,7 @@
 #include "sourcewidget.h"
 #include "statusbar.h"
 #include "tidymessanger.h"
+#include "urltoolbar.h"
 #include "webdatabasehandler.h"
 #include "webinspector.h"
 #include "websettings.h"
@@ -208,6 +209,10 @@ Window::Window ( Settings * settings )
   m_webInspector = new WebInspector ( m_webViewer->startPage(), this );
   addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
 
+  // DomObserver
+  m_domObserver = new DomObserver ( m_webViewer->startPage(), this );
+  addDockWidget ( Qt::RightDockWidgetArea, m_domObserver );
+
   // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
@@ -286,6 +291,8 @@ Window::Window ( Settings * settings )
   // WebInspector {
   connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
             m_webInspector, SLOT ( setPage ( QWebPage * ) ) );
+  connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
+            m_domObserver, SLOT ( setPage ( QWebPage * ) ) );
   connect ( m_webInspector, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } WebInspector
@@ -541,21 +548,17 @@ void Window::createToolBars()
   m_settingsToolBar->addAction ( actionTidyConfig );
   m_settingsToolBar->addAction ( actionConfigDialog );
 
-  // Address Input ToolBar
-  m_addressToolBar = new AddressToolBar ( this );
-  connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),
-            m_addressToolBar, SLOT ( updateHistoryItems ( const QList<HistoryItem> & ) ) );
+  m_urlToolBar = new UrlToolBar ( this );
   connect ( m_webViewer, SIGNAL ( urlChanged ( const QUrl & ) ),
-            m_addressToolBar, SLOT ( setUrl ( const QUrl & ) ) );
+            m_urlToolBar, SLOT ( setUrl ( const QUrl & ) ) );
   // Address ToolBar
-  connect ( m_addressToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
+  connect ( m_urlToolBar, SIGNAL ( urlChanged ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
-  connect ( m_addressToolBar, SIGNAL ( reloadUrl ( const QUrl & ) ),
+  connect ( m_urlToolBar, SIGNAL ( reloadUrl ( const QUrl & ) ),
             m_webViewer, SLOT ( setUrl ( const QUrl & ) ) );
-  connect ( m_addressToolBar, SIGNAL ( sendMessage ( const QString & ) ),
+  connect ( m_urlToolBar, SIGNAL ( sendMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
-
-  addToolBar ( m_addressToolBar );
+  addToolBar ( m_urlToolBar );
 
   // SEO Input ToolBar
   m_keywordsToolBar =  new KeywordsToolBar ( this );
@@ -576,7 +579,7 @@ void Window::createToolBars()
   viewToolbarsMenu->setIcon ( icon );
   viewToolbarsMenu->addAction ( m_actionsToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_settingsToolBar->toggleViewAction() );
-  viewToolbarsMenu->addAction ( m_addressToolBar->toggleViewAction() );
+  viewToolbarsMenu->addAction ( m_urlToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_keywordsToolBar->toggleViewAction() );
   viewToolbarsMenu->addAction ( m_zoomBar->toggleViewAction() );
   viewToolbarsMenu->addSeparator ();
@@ -613,17 +616,17 @@ void Window::loadPageHistory()
   QUrl startup = m_settings->value ( QLatin1String ( "StartUpUrl" ) ).toUrl();
 
   if ( startup.isValid() && ! startup.isEmpty() )
-    {
-      openUrl ( startup );
-      return; // Aussteigen
-    }
+  {
+    openUrl ( startup );
+    return; // Aussteigen
+  }
   else
+  {
+    foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
     {
-      foreach ( QUrl url, PageHistory::history ( m_settings->historyXml() ) )
-      {
-        ok = openUrl ( url, ok );
-      }
+      ok = openUrl ( url, ok );
     }
+  }
 
   // wenn ok == erstelle eine about Page
   if ( ! ok )
@@ -678,14 +681,14 @@ bool Window::registerPlugins()
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
 
     if ( info )
-      {
-        plugins.push_back ( plug );
-        QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
-        ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
-        ac->setIcon ( icon );
-        ac->setStatusTip ( info->getDescription() );
-        connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
-      }
+    {
+      plugins.push_back ( plug );
+      QAction* ac = m_pluginMenu->addAction ( info->getGenericName() );
+      ac->setObjectName ( QString ( "plugin_action_%1" ).arg ( info->getName() ) );
+      ac->setIcon ( icon );
+      ac->setStatusTip ( info->getDescription() );
+      connect ( ac, SIGNAL ( triggered () ), plug, SLOT ( proccess () ) );
+    }
   }
 
   // Dock Widgets
@@ -694,11 +697,11 @@ bool Window::registerPlugins()
     xhtmldbg::PluginInfo* info = plug->pluginInfo();
 
     if ( info )
-      {
-        plugins.push_back ( plug );
-        addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
-        m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
-      }
+    {
+      plugins.push_back ( plug );
+      addDockWidget ( Qt::RightDockWidgetArea, plug->dockwidget() );
+      m_diplayPlugins->addAction ( plug->dockwidget()->toggleViewAction() );
+    }
   }
 
   return true; // Ready
@@ -716,10 +719,10 @@ bool Window::unregisterPlugins()
   bool hideDM = m_settings->value ( QLatin1String ( "HideDownloadManager" ), true ).toBool();
 
   if ( hideDM && m_downloadManager->toggleViewAction()->isChecked() )
-    {
-      m_downloadManager->toggleViewAction()->setChecked ( false );
-      m_downloadManager->hide();
-    }
+  {
+    m_downloadManager->toggleViewAction()->setChecked ( false );
+    m_downloadManager->hide();
+  }
 
   return true;
 }
@@ -743,7 +746,7 @@ void Window::closeEvent ( QCloseEvent *event )
 
   // HTML 5 SQLite Datenbanken entfernen?
   if ( m_settings->value ( "RemoveHTML5Databases", false ).toBool()
-       && m_settings->value ( "OfflineStorageDatabaseEnabled", false ).toBool() )
+          && m_settings->value ( "OfflineStorageDatabaseEnabled", false ).toBool() )
     WebDatabaseHandler::removeAllDatabases();
 
   // Jetzt den Fenster Status Speichern
@@ -811,12 +814,12 @@ void Window::intimateWidgets ( const QUrl &url )
 
   // An alle Sichtbaren Plugins die Url übergeben
   for ( int i = 0; i < plugins.size(); ++i )
-    {
-      if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-        plugins.at ( i )->setUrl ( url );
-      else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-        plugins.at ( i )->setUrl ( url );
-    }
+  {
+    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+      plugins.at ( i )->setUrl ( url );
+    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+      plugins.at ( i )->setUrl ( url );
+  }
 
   // Quelltext einfügen
   QString source = m_sourceCache->getCache ( url );
@@ -911,12 +914,12 @@ bool Window::setSource ( const QUrl &url, const QString &source )
 
   // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
-    {
-      if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-        plugins.at ( i )->setContent ( buffer );
-      else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-        plugins.at ( i )->setContent ( buffer );
-    }
+  {
+    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
+      plugins.at ( i )->setContent ( buffer );
+    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
+      plugins.at ( i )->setContent ( buffer );
+  }
 
   // Ist AutoCheck oder AutoFormat aktiviert?
   if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
@@ -946,14 +949,14 @@ void Window::openFileDialog()
   OpenFileDialog dialog ( m_settings->getRecentDirectory(), centralWidget() );
 
   if ( dialog.exec() == QDialog::Accepted )
-    {
-      if ( ! dialog.getFileUrl().isValid() )
-        return;
+  {
+    if ( ! dialog.getFileUrl().isValid() )
+      return;
 
-      m_settings->setRecentDirectory ( dialog.getDirectory() );
+    m_settings->setRecentDirectory ( dialog.getDirectory() );
 
-      openUrl ( dialog.getFileUrl() );
-    }
+    openUrl ( dialog.getFileUrl() );
+  }
 }
 
 /**
@@ -997,10 +1000,10 @@ void Window::toggleWindowFullScreen()
 bool Window::openUrl ( const QUrl &url, bool addtab )
 {
   if ( ! url.isValid() || url.isRelative() )
-    {
-      m_statusBar->showMessage ( i18n ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
-      return false;
-    }
+  {
+    m_statusBar->showMessage ( i18n ( "Invalid Url Rejected, required scheme is \"%1\"." ).arg ( "http[s]?://" ) );
+    return false;
+  }
 
   if ( ! url.scheme().contains ( URL_SCHEME_PATTERN ) )
     return false;
@@ -1023,10 +1026,10 @@ bool Window::setPageUrl ( const QUrl &oldUrl, const QUrl &newUrl )
     return false;
 
   if ( ! m_webViewer->setViewerTabByUrl ( oldUrl, newUrl ) )
-    {
-      m_webViewer->addViewerTab ();
-      return openUrl ( newUrl );
-    }
+  {
+    m_webViewer->addViewerTab ();
+    return openUrl ( newUrl );
+  }
   else
     return true;
 }
@@ -1082,20 +1085,20 @@ void Window::downloadRequest ( const QNetworkRequest &request )
   SetTargetDialog dialog ( url, centralWidget() );
 
   if ( dialog.exec() )
+  {
+    // wenn nicht sichtbar dann andocken
+    if ( ! m_downloadManager->toggleViewAction()->isChecked() )
     {
-      // wenn nicht sichtbar dann andocken
-      if ( ! m_downloadManager->toggleViewAction()->isChecked() )
-        {
-          m_downloadManager->toggleViewAction()->setChecked ( true );
-          m_downloadManager->show();
-        }
-
-      // wenn verdeckt nach vorne holen
-      tabifyDockedWidgetUp ( m_downloadManager );
-
-      // Download Starten
-      m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
+      m_downloadManager->toggleViewAction()->setChecked ( true );
+      m_downloadManager->show();
     }
+
+    // wenn verdeckt nach vorne holen
+    tabifyDockedWidgetUp ( m_downloadManager );
+
+    // Download Starten
+    m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
+  }
 }
 
 /**

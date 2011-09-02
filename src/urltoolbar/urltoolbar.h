@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://hjcms.de, (C) 2007-2011
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2011
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -19,63 +19,38 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef ADDRESSTOOLBAR_H
-#define ADDRESSTOOLBAR_H
+#ifndef URLTOOLBAR_H
+#define URLTOOLBAR_H
 
 /* QtCore */
+#include <QtCore/QList>
 #include <QtCore/QObject>
+#include <QtCore/QRegExp>
 #include <QtCore/QString>
+#include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
 /* QtGui */
-#include <QtGui/QAction>
-#include <QtGui/QColor>
-#include <QtGui/QLineEdit>
-#include <QtGui/QWidget>
 #include <QtGui/QToolBar>
+#include <QtGui/QWidget>
 
-class HistoryItem;
+/* KDE */
+#include <KDE/KUrl>
 
-/** @class AddressEdit */
-class AddressEdit : public QLineEdit
+class UrlLineEdit;
+
+class UrlToolBar : public QToolBar
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_ENUMS ( BGCOL )
+    Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    const QColor defColor;
-
-  public:
-    enum BGCOL { NORMAL, WARN, DANGER };
-    AddressEdit ( QToolBar * parent = 0 );
-    void updateCompliter ( const QStringList & );
-    ~AddressEdit();
-
-  public Q_SLOTS:
-    void setColor ( BGCOL );
-};
-
-/** @class AddressToolBar */
-class AddressToolBar : public QToolBar
-{
-    Q_OBJECT
-    Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
-    Q_CLASSINFO ( "URL", "http://hjcms.de" )
-
-  private:
-    const QRegExp schemePattern;
-    QAction* ac_goToIndex;
-    QAction* ac_reload;
-    AddressEdit* m_addressEdit;
-    QStringList historylist;
+    UrlLineEdit* m_urlLineEdit;
 
   private Q_SLOTS:
-    void validatePath ( const QString & );
-    void urlToHostIndex();
+    void moveUpUrl ();
     void urlReloadPage();
-    void checkInput();
 
   Q_SIGNALS:
     void urlChanged ( const QUrl & );
@@ -83,12 +58,11 @@ class AddressToolBar : public QToolBar
     void sendMessage ( const QString & );
 
   public Q_SLOTS:
-    void setUrl ( const QUrl & );
-    void updateHistoryItems ( const QList<HistoryItem> & );
+    Q_SCRIPTABLE void setUrl ( const QUrl & );
 
   public:
-    AddressToolBar ( QWidget * parent = 0 );
-    ~AddressToolBar();
+    UrlToolBar ( QWidget * parent = 0 );
+    ~UrlToolBar();
 };
 
 #endif
