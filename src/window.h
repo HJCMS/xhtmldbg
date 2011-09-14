@@ -65,7 +65,6 @@ class ColorPicker;
 class CSSValidator;
 class DomInspector;
 class DownloadManager;
-class DomObserver;
 class GeoLocation;
 class HeaderDock;
 class HistoryManager;
@@ -155,8 +154,6 @@ class Window : public KMainWindow
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
     DomInspector* m_domInspector;
-    // DomElement Observer
-    DomObserver* m_domObserver;
     // Formular Manager
     // FormManager* m_formManager;
     // WebInspector

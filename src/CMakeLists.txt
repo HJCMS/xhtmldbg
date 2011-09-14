@@ -109,7 +109,6 @@ SET (xhtmldbg_SOURCES
   geolocation.cpp
   javascriptpopup.cpp
   webinspector.cpp
-  domobserver.cpp
 )
 
 ##############################
@@ -137,7 +136,6 @@ SET (xhtmldbg_HEADERS
   zoombar.h
   geolocation.h
   javascriptpopup.h
-  domobserver.h
 )
 
 ##############################

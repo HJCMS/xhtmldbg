@@ -39,7 +39,6 @@
 #include "cssvalidator.h"
 #include "dbmanager.h"
 #include "dominspector.h"
-#include "domobserver.h"
 #include "downloadmanager.h"
 #include "geolocation.h"
 #include "headerdock.h"
@@ -204,10 +203,6 @@ Window::Window ( Settings * settings )
   m_webInspector = new WebInspector ( m_webViewer->startPage(), this );
   addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
 
-  // DomObserver
-  m_domObserver = new DomObserver ( m_webViewer->startPage(), this );
-  addDockWidget ( Qt::RightDockWidgetArea, m_domObserver );
-
   // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
@@ -289,8 +284,6 @@ Window::Window ( Settings * settings )
   // WebInspector {
   connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
             m_webInspector, SLOT ( setPage ( QWebPage * ) ) );
-  connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
-            m_domObserver, SLOT ( setPage ( QWebPage * ) ) );
   connect ( m_webInspector, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } WebInspector
@@ -821,12 +814,6 @@ void Window::intimateWidgets ( const QUrl &url )
     else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
       plugins.at ( i )->setUrl ( url );
   }
-
-  // Quelltext einfügen
-  QString source = m_sourceCache->getCache ( url );
-
-  if ( ! source.isEmpty() )
-    m_sourceWidget->setSource ( source );
 }
 
 /**
@@ -896,22 +883,17 @@ void Window::checkStyleSheet ( const QUrl &url )
 */
 bool Window::setSource ( const QUrl &url, const QString &source )
 {
-  QString buffer;
   m_tidyMessanger->clearItems();
 
-  if ( source.isEmpty() && url.isValid() )
-    buffer = m_sourceCache->getCache ( url );
-  else
-    buffer.append ( source );
-
+  QString buffer = ( source.isEmpty() ) ? m_sourceCache->getCache ( url ) : source;
   if ( buffer.isEmpty() )
     return false;
 
+  // Zwischenspeicher erneuern
+  m_sourceCache->setCache ( url, buffer );
+
   // Quelltext einfügen
   m_sourceWidget->setSource ( buffer );
-
-  if ( url.isValid() )
-    m_sourceCache->setCache ( url, buffer );
 
   // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
