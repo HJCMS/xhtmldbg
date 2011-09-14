@@ -253,21 +253,29 @@ void ConfigWebSecurity::itemRowChanged ( int r )
   m_hostname->setText ( m_table->item ( r, 0 )->data ( Qt::UserRole ).toString() );
 }
 
+/**
+* Wenn ein Schema Ausgewählt wurde die Port Adresse neu setzen.
+*/
 void ConfigWebSecurity::schemeChanged ( int index )
 {
   QList<int> po;
   po.append ( 80 ); // http://
   po.append ( 443 ); // https://
   po.append ( 0 ); // file://
-  if ( index >= 0 || index <= 3 )
-    m_port->setValue ( po[index] );
+  m_port->setValue ( po[index] );
 }
 
+/**
+* Wenn es eine Änderung bei Quota gibt ein @ref itemModified senden.
+*/
 void ConfigWebSecurity::quotaChanged ( int )
 {
   itemModified ( true );
 }
 
+/**
+* Denn Hostnamen leeren und alle anderen Eingaben zurück setzen!
+*/
 void ConfigWebSecurity::clearInput()
 {
   m_hostname->clear();
@@ -276,6 +284,9 @@ void ConfigWebSecurity::clearInput()
   m_differentPorts->setChecked ( false );
 }
 
+/**
+* Erzeugt nach der Prüfung eine Neue Eingabe
+*/
 void ConfigWebSecurity::itemSubmitted()
 {
   QString hostname = m_hostname->text();

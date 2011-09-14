@@ -38,7 +38,7 @@
 #include <QtXml/QDomNode>
 #include <QtXml/QDomProcessingInstruction>
 
-static const QString qtidy_license()
+static inline const QString qtidy_license()
 {
   return QString::fromUtf8 ( "\n\
 ********************************************************************************\n\
@@ -63,12 +63,12 @@ static const QString qtidy_license()
 ********************************************************************************\n" );
 }
 
-static const QString doctype_system()
+static inline const QString doctype_system()
 {
   return QString::fromUtf8 ( "http://pyxml.sourceforge.net/topics/dtds/xbel-1.0.dtd" );
 }
 
-static const QString doctype_public()
+static inline const QString doctype_public()
 {
   return QString::fromUtf8 ( "+//IDN python.org//DTD XML Bookmark Exchange Language 1.0//EN//XML" );
 }
@@ -138,6 +138,10 @@ void BookmarkWriter::addDomItem ( QTreeWidgetItem *item, QDomElement &node )
   }
 }
 
+/**
+* Lese von TreeWidget die TopLevel Element ein und füge
+* diese in rootChild ein.
+*/
 bool BookmarkWriter::prepareXML()
 {
   if ( ! tree )
@@ -150,6 +154,9 @@ bool BookmarkWriter::prepareXML()
   return true;
 }
 
+/**
+* Das neu erstellte Dokument speichern.
+*/
 bool BookmarkWriter::save()
 {
   QString file = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );

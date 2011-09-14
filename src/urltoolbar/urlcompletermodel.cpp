@@ -47,14 +47,19 @@ void UrlCompleterModel::initDefaults ()
 
 void UrlCompleterModel::addItem ( const QString &item )
 {
-  if ( items.contains ( item ) )
-    return;
-
   if ( ! item.contains ( "http://" ) )
     return;
 
+  QUrl url ( item );
+  if ( ! url.isValid() )
+    return;
+
+  QString val = url.toString ( QUrl::RemoveFragment );
+  if ( items.contains ( val ) )
+    return;
+
   beginInsertRows ( QModelIndex(), items.size(), items.size() );
-  items << item;
+  items << val;
   endInsertRows();
 }
 
@@ -108,6 +113,9 @@ bool UrlCompleterModel::setData ( const QModelIndex &index, const QVariant &valu
 {
   Q_UNUSED ( index );
   if ( ! value.isValid() )
+    return false;
+
+  if ( ( role != Qt::DisplayRole ) || ( role != Qt::EditRole ) )
     return false;
 
   QString data = value.toString();

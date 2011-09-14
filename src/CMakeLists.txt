@@ -44,12 +44,12 @@ ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (interface)
 ADD_SUBDIRECTORY (sourcecache)
-ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (dialogs)
 ADD_SUBDIRECTORY (websecurity)
 ADD_SUBDIRECTORY (settings)
 ADD_SUBDIRECTORY (stylesheeted)
 ## to predicate on certain conditions
+ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (dominspector)
@@ -94,8 +94,6 @@ SET (xhtmldbg_SOURCES
   webviewer.cpp
   viewer.cpp
   page.cpp
-  xwallet.cpp
-  webwallet.cpp
   pagehistory.cpp
   historymanager.cpp
   historyitem.cpp
@@ -127,8 +125,6 @@ SET (xhtmldbg_HEADERS
   webviewer.h
   viewer.h
   page.h
-  xwallet.h
-  webwallet.h
   historymanager.h
   historymenu.h
   statusbar.h

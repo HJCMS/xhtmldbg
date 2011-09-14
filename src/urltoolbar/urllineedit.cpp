@@ -24,9 +24,12 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QRegExp>
 
 /* QtGui */
 // #include <QtGui/QStringListModel>
+#include <QtGui/QAction>
+#include <QtGui/QMenu>
 
 /* KDE */
 #include <KDE/KLocale>
@@ -38,6 +41,8 @@ UrlLineEdit::UrlLineEdit ( QWidget * parent )
 {
   setObjectName ( QLatin1String ( "UrlLineEdit" ) );
   setPlaceholderText ( "http://" );
+  setFocusPolicy ( Qt::StrongFocus );
+  setContextMenuPolicy ( Qt::DefaultContextMenu );
 
   m_completerModel = new UrlCompleterModel ( this );
   QCompleter* m_completer = new QCompleter ( this );
@@ -47,7 +52,7 @@ UrlLineEdit::UrlLineEdit ( QWidget * parent )
 
   connect ( this, SIGNAL ( returnPressed() ), this, SLOT ( urlEntered() ) );
   connect ( this, SIGNAL ( textChanged ( const QString & ) ),
-            this, SLOT ( validate ( const QString & ) ) );
+            this, SLOT ( inputValidate ( const QString & ) ) );
 }
 
 /**
@@ -93,14 +98,36 @@ bool UrlLineEdit::checkInput ( const QString &inp )
 }
 
 /**
-* Ist abhängig von signal:textChanged und prüft die Eingabe
+* Ist abhängig von Signal @em textChanged und prüft
+* die Eingabe auf doppelten @ref placeholderText.
+* Wenn ja wird dieser entfernt
 */
-void UrlLineEdit::validate ( const QString &inp )
+void UrlLineEdit::inputValidate ( const QString &inp )
 {
   if ( ! checkInput ( inp ) )
     return;
 
-//   qDebug() << Q_FUNC_INFO << inp;
+  if ( inp.contains ( placeholderText() + placeholderText() ) )
+  {
+    setText ( QString ( inp ).remove ( QRegExp ( "^" + placeholderText(), Qt::CaseSensitive ) ) );
+  }
+  else if ( inp.contains ( placeholderText() + "https://" ) )
+  {
+    setText ( QString ( inp ).remove ( QRegExp ( "^" + placeholderText(), Qt::CaseSensitive ) ) );
+  }
+}
+
+/**
+* Eine @em Neueingabe starten
+* @li Bereinigt die Eingabe
+* @li Setzt den @ref placeholderText
+* @li Zum schluss den Maus Cursor mit einem @ref setFocus setzen.
+*/
+void UrlLineEdit::startAutoEdit ()
+{
+  clear();
+  setText ( placeholderText() );
+  setFocus();
 }
 
 /**
@@ -125,16 +152,36 @@ void UrlLineEdit::urlEntered ()
 
 /**
 * Wenn text() Leer ist dann bei einem onFocus den
-* @ref placeholderText() setzen und den Cursor ans Ende setzen!
+* @ref placeholderText setzen und den Cursor ans Ende setzen!
 */
 void UrlLineEdit::focusInEvent ( QFocusEvent * event )
 {
-  if ( event->gotFocus() )
+  qDebug() << Q_FUNC_INFO << event->reason();
+  if ( event->reason() == Qt::MouseFocusReason )
   {
     if ( text().isEmpty() )
       setText ( placeholderText() );
   }
   QLineEdit::focusInEvent ( event );
+}
+
+/**
+* Füge zwei neue Optionen in das Kontext Menü ein.
+* @li Komplettes Eingabefeld Leeren
+* @li Addressn Eingabe mit Hilfe von @ref startAutoEdit
+*/
+void UrlLineEdit::contextMenuEvent ( QContextMenuEvent * event )
+{
+  QMenu* m = createStandardContextMenu();
+
+  QAction* m_clearAction = m->addAction ( KIcon ( "edit-clear" ), i18n ( "Clear" ) );
+  connect ( m_clearAction, SIGNAL ( triggered () ), this, SLOT ( clear() ) );
+
+  QAction* m_editAction = m->addAction ( KIcon ( "edit-clear-locationbar-rtl" ), i18n ( "Start Edit" ) );
+  connect ( m_editAction, SIGNAL ( triggered () ), this, SLOT ( startAutoEdit() ) );
+
+  m->exec ( event->globalPos() );
+  delete m;
 }
 
 /**

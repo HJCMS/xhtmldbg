@@ -135,7 +135,7 @@ bool BookmarkTreeReader::read ( QIODevice* fp )
   xmlStream.setDevice ( fp );
   if ( xmlStream.readNextStartElement() )
   {
-    if ( xmlStream.name() == "xbel" && xmlStream.attributes().value ( "version" ) == "1.0" )
+    if ( ( xmlStream.name() == "xbel" ) && ( xmlStream.attributes().value ( "version" ) == "1.0" ) )
       rebuildBookmarkList();
     else
       xmlStream.raiseError ( i18n ( "Bookmark file is not Valid XBEL Scheme!" ) );

@@ -74,7 +74,7 @@ UrlToolBar::UrlToolBar ( QWidget * parent )
             this, SIGNAL ( urlChanged ( const QUrl & ) ) );
 
   connect ( m_clearButton, SIGNAL ( triggered() ),
-            m_urlLineEdit, SLOT ( clear() ) );
+            m_urlLineEdit, SLOT ( startAutoEdit() ) );
 
   connect ( m_startButton, SIGNAL ( triggered() ),
             m_urlLineEdit, SLOT ( urlEntered() ) );

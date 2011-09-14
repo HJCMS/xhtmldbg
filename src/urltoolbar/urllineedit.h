@@ -28,6 +28,7 @@
 
 /* QtGui */
 #include <QtGui/QCompleter>
+#include <QtGui/QContextMenuEvent>
 #include <QtGui/QFocusEvent>
 #include <QtGui/QLineEdit>
 #include <QtGui/QWidget>
@@ -51,15 +52,17 @@ class UrlLineEdit : public QLineEdit
     inline bool checkInput ( const QString &inp );
 
   private Q_SLOTS:
-    void validate ( const QString &inp );
+    void inputValidate ( const QString &inp );
 
   protected:
     void focusInEvent ( QFocusEvent * event );
+    void contextMenuEvent ( QContextMenuEvent * event );
 
   Q_SIGNALS:
     void urlChanged ( const QUrl &url );
 
   public Q_SLOTS:
+    void startAutoEdit ();
     void urlEntered ();
     void setUrl ( const KUrl &url );
 

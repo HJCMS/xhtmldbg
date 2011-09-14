@@ -21,6 +21,7 @@
 
 #include "sourcewidget.h"
 #include "contextmenu.h"
+#include "settings.h"
 
 #include <cstdio>
 
@@ -124,6 +125,7 @@ void SourceWidget::openConfig()
 /** Standard Drucken Dialog für den Dokumenten Quelltext. */
 void SourceWidget::printSource()
 {
+  QString tmpdir = Settings::tempDir();
   QString timestamp = QDateTime::currentDateTime().toString ( "yy-dd-mm-zzz" );
   QPrinter printer ( QPrinter::PrinterResolution );
   printer.setCreator ( QString ( "XHTMLDBG http://hjcms.de" ) );
@@ -131,7 +133,7 @@ void SourceWidget::printSource()
   printer.setPaperSize ( QPrinter::A4 );
   printer.setPageMargins ( 10, 10, 10, 10, QPrinter::DevicePixel );
   printer.setOutputFormat ( QPrinter::PdfFormat );
-  printer.setOutputFileName ( QString::fromUtf8 ( "/tmp/xhtmldbg/html_source_%1.pdf" ).arg ( timestamp ) );
+  printer.setOutputFileName ( QString::fromUtf8 ( "%1/html_source_%2.pdf" ).arg ( tmpdir, timestamp ) );
   printer.setPrintRange ( QPrinter::AllPages );
 #ifdef Q_WS_X11
   printer.setFontEmbeddingEnabled ( true );
@@ -225,7 +227,7 @@ void SourceWidget::format()
 /** Setzt den Quelltext auf ein Leeres HTML! */
 void SourceWidget::restore()
 {
-  setSource ( "<html>\n<head><title>Waiting</title></head>\n<body>\n</body>\n</html>\n" );
+  setSource ( "<html>\n<head><title>Waiting</title></head>attempt to get source...\n<body>\n</body>\n</html>\n" );
 }
 
 /** Nehme die Aktuelle ~/.tidyrc Konfiguration

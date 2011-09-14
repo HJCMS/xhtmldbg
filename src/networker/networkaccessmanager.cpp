@@ -312,10 +312,7 @@ void NetworkAccessManager::peekReplyProcess()
   * Wenn eine Seitengröße sehr groß ist produziert WebKit
   * zwichendurch einen unzulässigen leeren Header,
   * das wird jetzt an dieser Stelle abgefangen. */
-  if ( ! m_networkReply )
-    return;
-
-  if ( m_networkReply->size() < 1 )
+  if ( ( ! m_networkReply ) || ( m_networkReply->size() < 1 ) )
     return;
 
   QVariant contentTypeHeader = m_networkReply->header ( QNetworkRequest::ContentTypeHeader );

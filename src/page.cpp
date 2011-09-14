@@ -26,7 +26,6 @@
 #include "downloadmanager.h"
 #include "jsmessanger.h"
 #include "javascriptpopup.h"
-#include "webwallet.h"
 /* QtUiTools */
 #ifdef HAVE_QTUITOOLS
 # include "uitoolsloader.h"
@@ -86,10 +85,6 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
     action ( QWebPage::Forward )->setShortcut ( QKeySequence::Forward );
     action ( QWebPage::Copy )->setShortcut ( QKeySequence::Copy );
     action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
-
-    // KWebWallet
-    m_webWallet = new WebWallet ( this );
-    setWallet ( m_webWallet );
 
     // NOTE localReplySource muss auch in @class Window gesetzt werden!
     connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
@@ -186,9 +181,8 @@ void Page::onReadyLoadPage ( bool b )
     if ( bodyElement.findAll ( "FORM" ).count() > 0 )
     {
 #ifdef DEBUG_VERBOSE
-        qDebug() << Q_FUNC_INFO << "m_wallet->fillFormData";
+        qDebug() << Q_FUNC_INFO << "TODO  FormManager";
 #endif
-        m_webWallet->fillFormData ( frame, true );
     }
 
     if ( ! frame->securityOrigin().host().isEmpty() )
@@ -331,7 +325,7 @@ bool Page::acceptNavigationRequest ( QWebFrame * frame, const QNetworkRequest &r
     case QWebPage::NavigationTypeFormSubmitted:
     {
         if ( mainFrame()->documentElement().findAll ( "FORM" ).count() > 0 )
-            m_webWallet->triggerRequest ( mainFrame(), request.url() );
+            qDebug() << Q_FUNC_INFO << "TODO FormManager";
 
         b = true;
     }

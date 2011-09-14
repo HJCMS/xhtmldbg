@@ -33,7 +33,6 @@
 #include <QtGui/QMenu>
 #include <QtGui/QWidget>
 
-class BookmarkItem;
 class BookmarkReader;
 class BookmarkEditor;
 

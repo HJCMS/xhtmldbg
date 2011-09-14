@@ -66,7 +66,6 @@
 #include "webinspector.h"
 #include "websettings.h"
 #include "webviewer.h"
-#include "xwallet.h"
 #include "zoombar.h"
 
 /* QtCore */
@@ -166,10 +165,6 @@ Window::Window ( Settings * settings )
   QHBoxLayout* tabCornerBottomWidgetLayout = new QHBoxLayout ( tabCornerBottomWidget );
   tabCornerBottomWidgetLayout->setObjectName ( QLatin1String ( "tabcornerbottomwidgetlayout" ) );
   tabCornerBottomWidgetLayout->setContentsMargins ( 0, 0, 0, 0 );
-
-  // KDE Brieftasche Initialisieren
-  m_xWallet = new XWallet ( tabCornerBottomWidget );
-  tabCornerBottomWidgetLayout->addWidget ( m_xWallet );
 
   // Farben Pipette Ein/Ausschalten
   ColorPickerButton* m_colorPickerButton = new ColorPickerButton ( tabCornerBottomWidget );
@@ -277,6 +272,7 @@ Window::Window ( Settings * settings )
   connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
   // } WebViewer
+
   // SourceWidget {
   connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
             m_tidyMessanger, SLOT ( clearItems () ) );
@@ -284,10 +280,12 @@ Window::Window ( Settings * settings )
   connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
             m_tidyMessanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
   // } SourceWidget
+
   // DomInspector {
   connect ( m_domInspector, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } DomInspector
+
   // WebInspector {
   connect ( m_webViewer, SIGNAL ( pageEntered ( QWebPage * ) ),
             m_webInspector, SLOT ( setPage ( QWebPage * ) ) );
@@ -296,6 +294,7 @@ Window::Window ( Settings * settings )
   connect ( m_webInspector, SIGNAL ( errorMessage ( const QString & ) ),
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } WebInspector
+
   // TidyMessanger {
   connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
             m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
@@ -306,6 +305,7 @@ Window::Window ( Settings * settings )
   connect ( m_tidyMessanger, SIGNAL ( itemsChanged ( bool ) ),
             m_statusBar, SLOT ( notice ( bool ) ) );
   // } TidyMessanger
+
   // NetworkAccessManager {
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_appEvents, SLOT ( warningMessage ( const QString & ) ) );
@@ -323,6 +323,7 @@ Window::Window ( Settings * settings )
   connect ( m_netManager, SIGNAL ( localReplySource ( const QUrl &, const QString & ) ),
             this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager
+
   // AutoReload {
   connect ( m_autoReloadMenu, SIGNAL ( reloadInterval ( int ) ),
             m_autoReloader, SLOT ( setInterval ( int ) ) );
@@ -331,6 +332,7 @@ Window::Window ( Settings * settings )
   connect ( m_autoReloader, SIGNAL ( reload () ),
             m_webViewer, SLOT ( refresh() ) );
   // } AutoReload
+
   // ColorPicker {
   connect ( m_colorPickerButton, SIGNAL ( clicked ( bool ) ),
             m_colorPicker, SLOT ( tapping ( bool ) ) );
@@ -768,8 +770,7 @@ void Window::closeEvent ( QCloseEvent *event )
 */
 void Window::paintEvent ( QPaintEvent *event )
 {
-  /* WARNING Currently we can not Implementation a Secondary
-  * resizeEvent over QWebView Classes */
+  /* WARNING we can not set a Secondary resizeEvent over QWebView Classes */
   m_statusBar->displayBrowserWidth ( m_webViewer->size() );
 
   QMainWindow::paintEvent ( event );

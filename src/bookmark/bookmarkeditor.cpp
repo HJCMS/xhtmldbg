@@ -155,6 +155,12 @@ void BookmarkEditor::currentItemChanged ( QTreeWidgetItem * cur, QTreeWidgetItem
     setWindowModified ( true );
 }
 
+/**
+* Leszeichen in QDesktopServices::DataLocation suchen und öffnen.
+* Wenn nicht vorhanden nehme das qrc Object.
+* Leere das TreeWidget und befülle neu in dem die
+* Klasse @ref BookmarkTreeReader aufgerufen wird.
+*/
 void BookmarkEditor::initBookmarkTree()
 {
   QString bfile = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
@@ -174,6 +180,9 @@ void BookmarkEditor::initBookmarkTree()
     fp.close();
 }
 
+/**
+* Methode zum entfernen eines Eintrages
+*/
 void BookmarkEditor::removeItemRow()
 {
   QTreeWidgetItem* item = m_treeWidget->currentItem();
@@ -186,6 +195,9 @@ void BookmarkEditor::removeItemRow()
   delete item;
 }
 
+/**
+* Methode zum einfügen eines @b neuen Eintrages
+*/
 void BookmarkEditor::addNewItemRow()
 {
   QTreeWidgetItem* mainItem = m_treeWidget->currentItem();
@@ -227,12 +239,20 @@ void BookmarkEditor::addNewItemRow()
   }
 }
 
+/**
+* Mit @ref BookmarkWriter alles Speichern
+*/
 void BookmarkEditor::save()
 {
   BookmarkWriter writer ( this, m_treeWidget );
   setWindowModified ( ( writer.save() ) ? false : true );
 }
 
+/**
+* Nachsehen ob es Änderungen gibt und den Benutzer bei
+* bedarf Benachrichtigen.
+* Wenn keine Änderungen dann Normal beenden.
+*/
 void BookmarkEditor::quit()
 {
   QMessageBox::StandardButton status = QMessageBox::Yes;
@@ -245,6 +265,9 @@ void BookmarkEditor::quit()
     accept();
 }
 
+/**
+* Methode zum einfügen eines Lesezeichens in das Textfeld
+*/
 void BookmarkEditor::addBookmark ( const QUrl &url, const QString &title )
 {
   if ( url.isValid() )

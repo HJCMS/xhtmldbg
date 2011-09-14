@@ -81,7 +81,6 @@ class UrlToolBar;
 class WebInspector;
 class WebViewer;
 class xhtmldbgplugger;
-class XWallet;
 class ZoomBar;
 
 namespace xhtmldbg
@@ -159,7 +158,7 @@ class Window : public KMainWindow
     // DomElement Observer
     DomObserver* m_domObserver;
     // Formular Manager
-    XWallet* m_xWallet;
+    // FormManager* m_formManager;
     // WebInspector
     WebInspector* m_webInspector;
     // Source Cache

@@ -59,6 +59,9 @@ Application::Application ()
   Q_INIT_RESOURCE ( xhtmldbg );
 }
 
+/**
+* Wenn ein neues Fenster geöffnet werden soll.
+*/
 void Application::newConnection()
 {
   QLocalSocket* soc = m_server->nextPendingConnection();
@@ -85,6 +88,9 @@ QString Application::myName () const
   return name;
 }
 
+/**
+* Anwendung Starten
+*/
 bool Application::startUniqueServer()
 {
   bool b = false;
@@ -120,7 +126,6 @@ bool Application::startUniqueServer()
     QFile file ( m_server->fullServerName() );
     if ( ! file.setPermissions ( QFile::ReadUser | QFile::WriteUser ) )
       qWarning() << "(xhtmldbg) Permissions Denied:" << file.fileName() << file.errorString();
-
   }
 
   if ( ! b )
@@ -136,6 +141,9 @@ bool Application::startUniqueServer()
   return b;
 }
 
+/**
+* Sende Socket Nachricht
+*/
 bool Application::sendMessage ( const QByteArray &mess, int rwait )
 {
   bool b = false;
@@ -162,11 +170,17 @@ bool Application::sendMessage ( const QByteArray &mess, int rwait )
   return b;
 }
 
+/**
+* Ist der Socket gestartet?
+*/
 bool Application::isRunning() const
 {
   return ( 0 != m_server );
 }
 
+/**
+* Starte den SQLite Datenbank-Manager
+*/
 DBManager* Application::dbManager()
 {
   if ( ! p_dbManager )
@@ -175,6 +189,9 @@ DBManager* Application::dbManager()
   return p_dbManager;
 }
 
+/**
+* Starte den Download-Manager
+*/
 DownloadManager* Application::downloadManager()
 {
   if ( ! p_downloadManager )
@@ -183,6 +200,9 @@ DownloadManager* Application::downloadManager()
   return p_downloadManager;
 }
 
+/**
+* Starte den URL Historien-Manager
+*/
 HistoryManager* Application::historyManager()
 {
   if ( ! p_historyManager )
@@ -193,6 +213,9 @@ HistoryManager* Application::historyManager()
   return p_historyManager;
 }
 
+/**
+* Starte das Netzwerk-Management
+*/
 NetworkAccessManager* Application::networkAccessManager()
 {
   if ( ! p_networkAccessManager )
@@ -201,11 +224,18 @@ NetworkAccessManager* Application::networkAccessManager()
   return p_networkAccessManager;
 }
 
+/**
+* Starte den Keks-Manager
+*/
 NetworkCookie* Application::cookieManager()
 {
   return networkAccessManager()->cookieJar();
 }
 
+/**
+* Beim runterfahren können jene Instanzen die Statisch
+* aufgerufen wurden nur hier wieder zerstört werden.
+*/
 Application::~Application()
 {
   delete p_historyManager;

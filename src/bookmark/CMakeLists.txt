@@ -2,7 +2,6 @@
 
 SET (bookmark_SOURCES
   bookmark.cpp
-  bookmarkitem.cpp
   bookmarkeditor.cpp
   bookmarkreader.cpp
   bookmarktreereader.cpp
@@ -11,7 +10,6 @@ SET (bookmark_SOURCES
 
 SET (bookmark_HEADERS
   bookmark.h
-  bookmarkitem.h
   bookmarkeditor.h
   bookmarkreader.h
   bookmarkwriter.h

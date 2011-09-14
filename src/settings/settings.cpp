@@ -40,19 +40,32 @@
 #include <QtGui/QDesktopServices>
 #include <QtGui/QX11Info>
 
+static inline void default_file_permissions ( const QString &dir )
+{
+  QFile fd ( dir );
+  if ( fd.exists() )
+    fd.setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner ) );
+}
+
+static inline void default_directory_permissions ( const QString &dir )
+{
+  QFile fd ( dir );
+  if ( fd.exists() )
+    fd.setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
+}
+
 /**
 * @class Settings
 * Hauptklasse für alle Einstellungen ab zu fragen!
 */
 Settings::Settings ( QObject * parent )
     : QSettings ( QSettings::NativeFormat, QSettings::UserScope, XHTMLDBG_DOMAIN, XHTMLDBG_APPS_NAME, parent )
-    , DefaultDirPermissons ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) )
 {
   setObjectName ( QLatin1String ( "settings" ) );
   setDataPaths();
   setCacheDefaults();
 
-  QFile ( fileName () ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner ) );
+  default_file_permissions ( fileName () );
 }
 
 /** Standard Webspeicher Verzeichnis */
@@ -75,10 +88,12 @@ const QString Settings::tempDir ( const QString &subdir )
   QString p ( QDir::tempPath() );
   p.append ( d.separator() );
   p.append ( QLatin1String ( XHTMLDBG_APPS_NAME ) );
-  p.append ( "-" );
-  char* uid = getenv ( "USER" );
-  if ( sizeof ( uid ) > 1 )
+  QByteArray uid = qgetenv ( "USER" );
+  if ( ! uid.isEmpty() )
+  {
+    p.append ( "-" );
     p.append ( QLatin1String ( uid ) );
+  }
 
   if ( ! subdir.isEmpty() )
   {
@@ -87,10 +102,15 @@ const QString Settings::tempDir ( const QString &subdir )
   }
 
   if ( d.exists ( p ) )
+  {
+    default_directory_permissions ( p );
     return p;
+  }
 
   if ( ! d.mkpath ( p ) )
     qWarning ( "(XHTMLDBG) can not create \"%s\" directory", qPrintable ( p ) );
+  else
+    default_directory_permissions ( p );
 
   return p;
 }
@@ -123,7 +143,7 @@ void Settings::setDataPaths()
   QString path = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::HomeLocation ) );
   if ( d.mkpath ( path ) )
-    QFile ( path ).setPermissions ( DefaultDirPermissons );
+    default_directory_permissions ( path );
 }
 
 /**
@@ -146,7 +166,7 @@ const QString Settings::webDatabasePath()
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
   if ( d.mkpath ( path ) )
-    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
+    default_directory_permissions ( d.absoluteFilePath ( path ) );
 
   return path;
 }
@@ -160,7 +180,7 @@ const QString Settings::webLocalStoragePath()
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
   QString path = d.path() + d.separator() + QLatin1String ( "LocalStorage" );
   if ( d.mkpath ( path ) )
-    QFile ( d.absoluteFilePath ( path ) ).setPermissions ( ( QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner ) );
+    default_directory_permissions ( d.absoluteFilePath ( path ) );
 
   return path;
 }

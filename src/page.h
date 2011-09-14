@@ -38,13 +38,12 @@
 #include <QtWebKit/QWebPage>
 #include <QtWebKit/QWebSecurityOrigin>
 
-/* KDE */
-#include <KDE/KWebPage>
-#include <KDE/KWebWallet>
-
 /* QtNetwork */
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
+
+/* KDE */
+#include <KDE/KWebPage>
 
 class NetworkAccessManager;
 class WebWallet;
@@ -57,7 +56,6 @@ class Page : public KWebPage
 
 private:
     NetworkAccessManager* m_netManager;
-    WebWallet* m_webWallet;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * ) const;
     bool prepareContent ( QNetworkReply * );

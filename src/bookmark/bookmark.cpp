@@ -20,7 +20,6 @@
 **/
 
 #include "bookmark.h"
-#include "bookmarkitem.h"
 #include "bookmarkreader.h"
 #include "bookmarkeditor.h"
 
@@ -41,8 +40,10 @@
 #include <KDE/KLocale>
 #include <KDE/KIcon>
 
-Bookmark::Bookmark ( QMenu * parent )
-    : QMenu ( parent )
+/**
+* Lesezeichen Menü Klasse
+*/
+Bookmark::Bookmark ( QMenu * parent ) : QMenu ( parent )
     , defaultIcon ( KIcon ( QLatin1String ( "bookmarks" ) ) )
     , recent ( 5 )
 {
@@ -58,6 +59,10 @@ Bookmark::Bookmark ( QMenu * parent )
             this, SLOT ( getBookmark ( const QString & ) ) );
 }
 
+/**
+* Leszeichen in QDesktopServices::DataLocation suchen und öffnen.
+* Wenn nicht vorhanden nehme das qrc Object
+*/
 void Bookmark::loadBookmarkMenu()
 {
   QString bfile = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
@@ -75,6 +80,9 @@ void Bookmark::loadBookmarkMenu()
     fp.close();
 }
 
+/**
+* Methode zum öffnen des Lesezeichen Editors
+*/
 void Bookmark::openBookmarkEditor()
 {
   BookmarkEditor editor ( this );
@@ -82,6 +90,9 @@ void Bookmark::openBookmarkEditor()
     loadBookmarkMenu();
 }
 
+/**
+* Methode zum öffnen des Lesezeichen Editors
+*/
 void Bookmark::getBookmark ( const QString &str )
 {
   QUrl url ( str );
@@ -89,6 +100,9 @@ void Bookmark::getBookmark ( const QString &str )
     emit openBookmark ( url );
 }
 
+/**
+* Ein neues Lesezeichen einfügen in dem der Editor aufgerufen wird
+*/
 void Bookmark::addBookmark ( const QUrl &url, const QString &title )
 {
   BookmarkEditor editor ( this );
@@ -97,14 +111,20 @@ void Bookmark::addBookmark ( const QUrl &url, const QString &title )
     loadBookmarkMenu();
 }
 
+/**
+* Zuletzt verwendetes Leszeichen zurück geben
+*/
 int Bookmark::getRecent() const
 {
   return recent;
 }
 
+/**
+* Setze Zuletzt verwendetes Leszeichen
+*/
 void Bookmark::setRecent ( int i )
 {
-  recent = ( i >= 3 && i <= 30 ) ? i : 5;
+  recent = ( ( i >= 3 ) && ( i <= 30 ) ) ? i : 5;
 }
 
 Bookmark::~Bookmark()

@@ -45,9 +45,6 @@ class Settings : public QSettings
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
-  protected:
-    const QFile::Permissions DefaultDirPermissons;
-
   public Q_SLOTS:
     /**
     * set QWebsettings/QNetworkSettings default cache behavior

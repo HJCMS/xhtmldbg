@@ -36,6 +36,9 @@ BookmarkReader::BookmarkReader ( QMenu * menu )
   m_signalMapper = new QSignalMapper ( this );
 }
 
+/**
+* Menü neu schreiben
+*/
 void BookmarkReader::rebuildMenu ( const QDomElement &root, QMenu* menu )
 {
   QDomNode n = root.firstChild();
@@ -73,6 +76,9 @@ void BookmarkReader::rebuildMenu ( const QDomElement &root, QMenu* menu )
   }
 }
 
+/**
+* XBEL XML Einlesen
+*/
 bool BookmarkReader::read ( QIODevice* fp )
 {
   QString errorMsg = 0;
