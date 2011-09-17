@@ -26,6 +26,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
+#include <QtCore/QUrl>
 
 /* QtGui */
 #include <QtGui/QDockWidget>
@@ -43,6 +44,7 @@
 #include <KDE/KTextEditor/View>
 
 class ContextMenu;
+class SourceCache;
 
 class SourceWidget : public QWidget
 {
@@ -56,6 +58,7 @@ class SourceWidget : public QWidget
     KTextEditor::Document* m_document;
     KTextEditor::View* m_view;
     QTidy::QTidyParser* m_parser;
+    SourceCache* m_sourceCache;
     ContextMenu* m_menu;
 
   private Q_SLOTS:
@@ -71,7 +74,6 @@ class SourceWidget : public QWidget
     void triggered ( const QTidy::QTidyDiagnosis & );
 
   public Q_SLOTS:
-    void setSource ( const QString &source );
     void fetchBlock ( int, int );
     void check();
     void format();
@@ -81,6 +83,7 @@ class SourceWidget : public QWidget
     SourceWidget ( QWidget * parent = 0 );
     const QString getTidyrc();
     void setTidyrc ( const QString & );
+    void setSource ( const QUrl &, const QString &source );
     ~SourceWidget();
 };
 

@@ -16,7 +16,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
-  ${CMAKE_CURRENT_SOURCE_DIR}/sourcecache
   ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/websecurity
@@ -43,7 +42,6 @@ ADD_SUBDIRECTORY (cookiesdatabase)
 ADD_SUBDIRECTORY (docking)
 ADD_SUBDIRECTORY (hostinfo)
 ADD_SUBDIRECTORY (interface)
-ADD_SUBDIRECTORY (sourcecache)
 ADD_SUBDIRECTORY (dialogs)
 ADD_SUBDIRECTORY (websecurity)
 ADD_SUBDIRECTORY (settings)
@@ -217,7 +215,6 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Networker
   RDFParser
   Settings
-  SourceCache
   SourceViewer
   StyleSheeted
   UrlToolBar

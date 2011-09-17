@@ -72,7 +72,6 @@ class HistoryMenu;
 class JSMessanger;
 class KeywordsToolBar;
 class NetworkAccessManager;
-class SourceCache;
 class SourceWidget;
 class StatusBar;
 class TidyMessanger;
@@ -158,8 +157,6 @@ class Window : public KMainWindow
     // FormManager* m_formManager;
     // WebInspector
     WebInspector* m_webInspector;
-    // Source Cache
-    SourceCache* m_sourceCache;
     // Source Viewer
     SourceWidget* m_sourceWidget;
     // Read link:rev Alternate Elements

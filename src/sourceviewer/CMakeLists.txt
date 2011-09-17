@@ -3,11 +3,13 @@
 SET (sourceviewer_SOURCES
   sourcewidget.cpp
   contextmenu.cpp
+  sourcecache.cpp
 )
 
 SET (sourceviewer_HEADERS
   sourcewidget.h
   contextmenu.h
+  sourcecache.h
 )
 
 KDE4_MOC_HEADERS (sourceviewer_MOC ${sourceviewer_HEADERS})

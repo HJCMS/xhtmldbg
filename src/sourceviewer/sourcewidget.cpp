@@ -22,6 +22,7 @@
 #include "sourcewidget.h"
 #include "contextmenu.h"
 #include "settings.h"
+#include "sourcecache.h"
 
 #include <cstdio>
 
@@ -88,6 +89,9 @@ SourceWidget::SourceWidget ( QWidget * parent )
   m_parser = new QTidy::QTidyParser ( this, getTidyrc() );
 
   setLayout ( vLayout );
+
+  // Quelltext Zwischen Speicher initialisieren
+  m_sourceCache = new SourceCache ( this );
 
   // Signals
   connect ( m_menu, SIGNAL ( sscheck() ), this, SLOT ( check() ) );
@@ -190,9 +194,25 @@ void SourceWidget::switchHighlight ( const QString &m )
 }
 
 /** Quelltext einfügen */
-void SourceWidget::setSource ( const QString &source )
+void SourceWidget::setSource ( const QUrl &url, const QString &source )
 {
-  m_document->setText ( source );
+  if ( source.isEmpty() )
+  {
+    QString buf = m_sourceCache->getCache ( url );
+    if ( ! buf.isEmpty() )
+    {
+      qDebug() << Q_FUNC_INFO << "READ From Cache" << url;
+      m_document->setText ( buf );
+    }
+  }
+  else
+  {
+    // Zwischenspeicher erneuern
+    if ( m_sourceCache->setCache ( url, source ) )
+      qDebug() << Q_FUNC_INFO << "Cache written" << url;
+
+    m_document->setText ( source );
+  }
 }
 
 /** Nehme Meldung für Zeile und Spalte entgegen. */
@@ -227,7 +247,7 @@ void SourceWidget::format()
 /** Setzt den Quelltext auf ein Leeres HTML! */
 void SourceWidget::restore()
 {
-  setSource ( "<html>\n<head><title>Waiting</title></head>attempt to get source...\n<body>\n</body>\n</html>\n" );
+  m_document->setText ( "<html>\n<head><title>Waiting</title></head>attempt to get source...\n<body>\n</body>\n</html>\n" );
 }
 
 /** Nehme die Aktuelle ~/.tidyrc Konfiguration

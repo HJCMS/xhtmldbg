@@ -69,16 +69,17 @@ void SourceCache::cleanUp()
   }
 }
 
-void SourceCache::setCache ( const QUrl &url, const QString &source )
+bool SourceCache::setCache ( const QUrl &url, const QString &source )
 {
   if ( ! url.isValid() || source.isEmpty() )
-    return;
+    return false;
 
   QByteArray salt = md5sum ( url );
   QString p ( tmpPath );
   p.append ( QDir::separator() );
+  p.append ( "cache_" );
   p.append ( salt );
-  p.append ( ".tmp" );
+  p.append ( ".html" );
 
   QFile fp ( p );
   if ( fp.open ( QIODevice::WriteOnly ) )
@@ -87,16 +88,18 @@ void SourceCache::setCache ( const QUrl &url, const QString &source )
     stream << source;
     fp.close();
     cacheFiles.insert ( salt, p );
+    return true;
   }
+  return false;
 }
 
 const QString SourceCache::getCache ( const QUrl &url )
 {
+  QString buffer;
   if ( ! url.isValid() )
-    return QString::null;
+    return buffer;
 
   QByteArray salt = md5sum ( url );
-  QString buffer;
   if ( cacheFiles.contains ( salt ) )
   {
     QFile fp ( cacheFiles.value ( salt ) );

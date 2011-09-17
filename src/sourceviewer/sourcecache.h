@@ -42,7 +42,7 @@ class SourceCache : public QObject
 
   public:
     explicit SourceCache ( QObject * parent );
-    void setCache ( const QUrl &url, const QString &source );
+    bool setCache ( const QUrl &url, const QString &source );
     const QString getCache ( const QUrl &url );
     virtual ~SourceCache();
 };

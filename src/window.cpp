@@ -56,7 +56,6 @@
 #include "plugger.h"
 #include "plugininfo.h"
 #include "settargetdialog.h"
-#include "sourcecache.h"
 #include "sourcewidget.h"
 #include "statusbar.h"
 #include "tidymessanger.h"
@@ -123,9 +122,6 @@ Window::Window ( Settings * settings )
   setWindowIcon ( xhtmldbgIcon );
   setAutoSaveSettings ( "xhtmldbg", false );
   setWindowTitle ( i18n ( "XHTML Debugger (v%1)", QLatin1String ( XHTMLDBG_VERSION_STRING ) ) );
-
-  // Quelltext Zwischen Speicher initialisieren
-  m_sourceCache = new SourceCache ( this );
 
   m_netManager = Application::networkAccessManager();
 
@@ -885,23 +881,16 @@ bool Window::setSource ( const QUrl &url, const QString &source )
 {
   m_tidyMessanger->clearItems();
 
-  QString buffer = ( source.isEmpty() ) ? m_sourceCache->getCache ( url ) : source;
-  if ( buffer.isEmpty() )
-    return false;
-
-  // Zwischenspeicher erneuern
-  m_sourceCache->setCache ( url, buffer );
-
   // Quelltext einfügen
-  m_sourceWidget->setSource ( buffer );
+  m_sourceWidget->setSource ( url, source );
 
   // An alle sichtbaren Plugins den Quelltext übergeben
   for ( int i = 0; i < plugins.size(); ++i )
   {
     if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-      plugins.at ( i )->setContent ( buffer );
+      plugins.at ( i )->setContent ( source );
     else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-      plugins.at ( i )->setContent ( buffer );
+      plugins.at ( i )->setContent ( source );
   }
 
   // Ist AutoCheck oder AutoFormat aktiviert?
@@ -909,8 +898,6 @@ bool Window::setSource ( const QUrl &url, const QString &source )
     m_sourceWidget->format();
   else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
     m_sourceWidget->check();
-
-  buffer.clear();
 
   return true;
 }

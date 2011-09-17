@@ -27,6 +27,14 @@ Accept="application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,i
 size=1
 
 [Qt]
+QtWebKit\QWebInspector\resourceTrackingEnabled=true
+QtWebKit\QWebInspector\resourceTrackingEnabled.type=QString
+QtWebKit\QWebInspector\debuggerEnabled=true
+QtWebKit\QWebInspector\debuggerEnabled.type=bool
+QtWebKit\QWebInspector\profilerEnabled=true
+QtWebKit\QWebInspector\profilerEnabled.type=QString
+QtWebKit\QWebInspector\panelEnablerView=true
+QtWebKit\QWebInspector\panelEnablerView.type=bool
 QtWebKit\QWebInspector\resourceTrackingAlwaysEnabled=true
 QtWebKit\QWebInspector\resourceTrackingAlwaysEnabled.type=bool
 QtWebKit\QWebInspector\debuggerAlwaysEnabled=true
@@ -36,23 +44,21 @@ QtWebKit\QWebInspector\profilerAlwaysEnabled.type=bool
 QtWebKit\QWebInspector\auditsPanelEnabled=true
 QtWebKit\QWebInspector\auditsPanelEnabled.type=bool
 
-[Plugins]
-SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
-
 [UserAgents]
-1\name=WebKit(DE)
+1\name=XHTMLDBG(DE)
 1\agent=Mozilla/5.0
 1\tokens="(compatible; XHTMLDBG; de, de_DE; X11) AppleWebKit (KHTML, like Gecko)"
-2\name=WebKit(EN)
+2\name=XHTMLDBG(EN)
 2\agent=Mozilla/5.0
 2\tokens="(compatible; XHTMLDBG; en, en_US; X11) AppleWebKit (KHTML, like Gecko)"
 size=2
 
 [Networking]
+CachingEnabled=false
 ModifyCachingBehavior=false
 
-[Phonon::AudioOutput]
-xhtmldbg_Volume=0.69
+[WebDatabase]
+DefaultQuota=13346
 
 [HTML5SecurityOptions]
 size=1
@@ -60,5 +66,27 @@ size=1
 1\port=80
 1\scheme=http
 
-[WebDatabase]
-DefaultQuota=2048
+[Plugins]
+SelfHtmlSidebarUrl=http://de.selfhtml.org/navigation/sidebars/html.htm
+
+[ApacheLoggerPlugin]
+directories=/var/log/apache2
+scandir=/var/log/apache2
+logs=/var/log/apache2/error_log, /var/log/apache2/rewrite.log
+
+[Phonon::AudioOutput]
+xhtmldbg_Volume=0.50
+
+[Kate Document Defaults]
+Allow End of Line Detection=true
+Allow Simple Mode=true
+Show Tabs=true
+Tab Handling=2
+Tab Width=4
+Wrap Cursor=true
+
+[Kate View Defaults]
+Allow Mark Menu=true
+Folding Bar=true
+Icon Bar=true
+Line Numbers=true
