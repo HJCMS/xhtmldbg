@@ -44,6 +44,7 @@
 
 /* KDE */
 #include <KDE/KWebPage>
+#include <KDE/KIO/MetaData>
 
 class NetworkAccessManager;
 class WebWallet;
@@ -54,13 +55,13 @@ class Page : public KWebPage
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
-private:
+  private:
     NetworkAccessManager* m_netManager;
     QNetworkReply* reply;
     QTextCodec* fetchHeaderEncoding ( QNetworkReply * ) const;
     bool prepareContent ( QNetworkReply * );
 
-private Q_SLOTS:
+  private Q_SLOTS:
     void onReadyLoadPage ( bool );
     void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
@@ -69,7 +70,8 @@ private Q_SLOTS:
     void triggerSelections();
     void replyFinished();
 
-protected:
+  protected:
+    void triggerAction ( QWebPage::WebAction action, bool checked = false );
     void javaScriptConsoleMessage ( const QString &, int, const QString & );
     bool javaScriptPrompt ( QWebFrame *, const QString &, const QString &, QString * );
     void javaScriptAlert ( QWebFrame *, const QString & );
@@ -78,7 +80,10 @@ protected:
     QObject* createPlugin ( const QString &, const QUrl &, const QStringList &, const QStringList & );
 #endif
 
-public:
+  Q_SIGNALS:
+    void urlAction ( const QUrl & );
+
+  public:
     Page ( NetworkAccessManager * manager, QObject* parent = 0 );
     const QStringList keywordMetaTagItems();
     ~Page();

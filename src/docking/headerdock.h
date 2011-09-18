@@ -60,9 +60,6 @@ class HeaderDock : public Docking
   protected:
     void setTreeHeaderLabels ( const QStringList &, int index = 0 );
 
-  Q_SIGNALS:
-    void isXdebugCookie ( const QString & );
-
   public Q_SLOTS:
     void clearAll ();
     void setHeaderData ( const QUrl &, const QMap<QString,QString> & );

@@ -31,10 +31,6 @@
 #include <QtCore/QRegExp>
 #include <QtCore/QTextStream>
 
-/* QtXml */
-#include <QtXml/QDomDocument>
-#include <QtXml/QDomElement>
-
 SourceCache::SourceCache ( QObject * parent )
     : QObject ( parent )
     , tmpPath ( Settings::tempDir ( "source" ) )

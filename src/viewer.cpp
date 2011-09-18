@@ -68,7 +68,7 @@
 #include <KDE/KLocale>
 
 Viewer::Viewer ( QWidget * parent )
-    : KWebView ( parent )
+    : KWebView ( parent, false )
 {
   if ( objectName().isEmpty() )
     setObjectName ( "viewer" );
@@ -78,6 +78,8 @@ Viewer::Viewer ( QWidget * parent )
 
   NetworkAccessManager* netManager = xhtmldbgmain::instance()->networkAccessManager();
   NetworkCookie* networkCookieManager = xhtmldbgmain::instance()->cookieManager();
+
+  history()->setMaximumItemCount ( 2 );
 
   m_page = new Page ( netManager, this );
   setPage ( m_page );
@@ -104,6 +106,10 @@ Viewer::Viewer ( QWidget * parent )
   /* Title für Tab verarbeiten */
   connect ( this, SIGNAL ( titleChanged ( const QString & ) ),
             this, SLOT ( readPageTitle ( const QString & ) ) );
+
+  /* Title für Tab verarbeiten */
+  connect ( m_page, SIGNAL ( urlAction ( const QUrl & ) ),
+            this, SLOT ( openUrl ( const QUrl & ) ) );
 
   /* bei überfahren mir der maus informationen der verknüpfung ausgeben. */
   connect ( m_page, SIGNAL ( linkHovered ( const QString &, const QString &, const QString & ) ),
@@ -212,6 +218,8 @@ void Viewer::cursorFinished ( int p )
     // leider wird aber im Moment keine Möglichkeit hierfür angeboten :-/
     // Dieses Signal sendet das QWebElement an den DomInstektor
     emit loadFinished ( url(), page()->mainFrame()->documentElement () );
+    // FIXME Bei Historien Aktionen gibt QWebPage kein acceptNavigationRequest aus!
+    // emit pageChanged ( page() );
     // Erst wenn die Seite vollständig geladen ist den Cookie Speicher verarbeiten.
     openCookiesRequestDialog();
   }
@@ -474,7 +482,7 @@ void Viewer::readPageTitle ( const QString &title )
 void Viewer::fetchTabIndex ( bool b )
 {
   if ( b )
-    emit pageChanged ( url() );
+    emit pageChanged ( page() );
 }
 
 /** Nachricht weiter an IDE geben ! */

@@ -129,7 +129,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   if ( map.contains ( "Content-Type" ) )
     isHtmlContent = QString ( map["Content-Type"] ).contains ( "text/html" );
 
-  if ( isHtmlContent )
+  if ( map.contains ( "Set-Cookie" ) )
   {
     QUrl cookieUrl;
     cookieUrl.setScheme ( replyUrl.scheme() );
@@ -280,9 +280,6 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
   QString yes ( i18n ( "Yes" ) );
   QString no ( i18n ( "No" ) );
   QString values = unserialize ( cookie.value() );
-
-  if ( cookie.name() == QString::fromUtf8 ( "XDEBUG_SESSION" ) && ! values.isEmpty() )
-    emit isXdebugCookie ( values );
 
   // Name
   QTreeWidgetItem* root = new QTreeWidgetItem ( parent );

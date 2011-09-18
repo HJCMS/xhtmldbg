@@ -276,6 +276,10 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   connect ( view, SIGNAL ( loadStarted () ),
             this, SIGNAL ( loadStarted () ) );
 
+// FIXME Doppelt gemoppelt :-/
+//   connect ( view, SIGNAL ( pageChanged ( QWebPage * ) ),
+//             this, SIGNAL ( pageEntered ( QWebPage * ) ) );
+
   QUrl uri ( view->url() );
   if ( uri.isValid() && move )
   {
@@ -343,12 +347,14 @@ void WebViewer::refresh ()
 
 void WebViewer::back ()
 {
-  activeView()->back();
+  if ( activeView()->history()->canGoBack() )
+    activeView()->back();
 }
 
 void WebViewer::forward ()
 {
-  activeView()->forward();
+  if ( activeView()->history()->canGoForward() )
+    activeView()->forward();
 }
 
 /**

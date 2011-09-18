@@ -42,10 +42,7 @@ class WebInspector : public QDockWidget
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
 
   private:
-    QWebInspector* inspector;
-
-  private Q_SLOTS:
-    void contextMenuRequested ( const QPoint & );
+    QWebInspector* m_inspector;
 
   Q_SIGNALS:
     void errorMessage ( const QString & );

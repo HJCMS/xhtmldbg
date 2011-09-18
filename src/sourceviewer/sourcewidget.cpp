@@ -46,6 +46,12 @@
 /* QTidy */
 #include <QTidy/QTidySettings>
 
+/* QtXml */
+#include <QtXml/QDomDocumentType>
+#include <QtXml/QDomDocument>
+#include <QtXml/QDomElement>
+#include <QtXml/QDomImplementation>
+
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KTextEditor/Cursor>
@@ -196,21 +202,19 @@ void SourceWidget::switchHighlight ( const QString &m )
 /** Quelltext einfügen */
 void SourceWidget::setSource ( const QUrl &url, const QString &source )
 {
+  // qDebug() << Q_FUNC_INFO << url << source.isEmpty();
   if ( source.isEmpty() )
   {
     QString buf = m_sourceCache->getCache ( url );
     if ( ! buf.isEmpty() )
     {
-      qDebug() << Q_FUNC_INFO << "READ From Cache" << url;
       m_document->setText ( buf );
     }
   }
   else
   {
     // Zwischenspeicher erneuern
-    if ( m_sourceCache->setCache ( url, source ) )
-      qDebug() << Q_FUNC_INFO << "Cache written" << url;
-
+    m_sourceCache->setCache ( url, source );
     m_document->setText ( source );
   }
 }
@@ -247,7 +251,33 @@ void SourceWidget::format()
 /** Setzt den Quelltext auf ein Leeres HTML! */
 void SourceWidget::restore()
 {
-  m_document->setText ( "<html>\n<head><title>Waiting</title></head>attempt to get source...\n<body>\n</body>\n</html>\n" );
+  QDomDocument dom;
+  dom.appendChild ( dom.createProcessingInstruction ( "xml", "version=\"1.0\" encoding=\"utf-8\"" ) );
+
+  QDomDocumentType doctype = QDomImplementation ( dom.implementation() ).createDocumentType ( "html", "-//W3C//DTD XHTML 1.0 Strict//EN", "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" );
+  dom.appendChild ( doctype );
+
+  QDomElement html = dom.createElementNS ( "http://www.w3.org/1999/xhtml", "html" );
+  html.setAttribute ( "xml:lang", "en" );
+  dom.appendChild ( html );
+
+  QDomElement head = dom.createElement ( "head" );
+  html.appendChild ( head );
+  QDomElement title = dom.createElement ( "title" );
+  title.appendChild ( dom.createTextNode ( i18n ( "dummy page" ) ) );
+  head.appendChild ( title );
+
+  QDomElement body = dom.createElement ( "body" );
+  html.appendChild ( body );
+
+  QDomElement p = dom.createElement ( "p" );
+  body.appendChild ( p );
+
+  QString info;
+  info.append ( i18n ( "xhtmldbg attempts to get source from current request ..." ) );
+  p.appendChild ( dom.createTextNode ( info ) );
+
+  m_document->setText ( dom.toString ( 1 ) );
 }
 
 /** Nehme die Aktuelle ~/.tidyrc Konfiguration

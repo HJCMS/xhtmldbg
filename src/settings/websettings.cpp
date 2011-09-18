@@ -117,23 +117,26 @@ WebSettings::WebSettings ( QObject * parent )
 /** Dieser Pfad wird von QWebInspector benutzt! */
 void WebSettings::setWebinspectorConfig ( bool b )
 {
+  QString bString ( ( (b) ? "true" : "false" ) );
   static const QString p ( "Qt/QtWebKit/QWebInspector/" );
   // Debugger
-  setValue ( p + "debuggerEnabled", b );
+  setValue ( p + "debuggerEnabled", bString );
   setValue ( p + "debuggerEnabled.type", "bool" );
-  setValue ( p + "debuggerAlwaysEnabled", b );
+  setValue ( p + "debuggerAlwaysEnabled", bString );
   setValue ( p + "debuggerAlwaysEnabled.type", "bool" );
   // Resource Tracking
-  setValue ( p + "resourceTrackingEnabled", b );
+  setValue ( p + "resourceTrackingEnabled", bString );
   setValue ( p + "resourceTrackingEnabled.type", "bool" );
+  setValue ( p + "resourceTrackingAlwaysEnabled", bString );
+  setValue ( p + "resourceTrackingAlwaysEnabled.type", "bool" );
   // Profiler
-  setValue ( p + "profilerEnabled", b );
+  setValue ( p + "profilerEnabled", bString );
   setValue ( p + "profilerEnabled.type", "bool" );
   // Panel
-  setValue ( p + "panelEnablerView", b );
+  setValue ( p + "panelEnablerView", bString );
   setValue ( p + "panelEnablerView.type", "bool" );
   // Audits
-  setValue ( p + "auditsPanelEnabled", b );
+  setValue ( p + "auditsPanelEnabled", bString );
   setValue ( p + "auditsPanelEnabled.type", "bool" );
 }
 

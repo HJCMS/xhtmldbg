@@ -91,7 +91,7 @@ class Viewer : public KWebView
     void hitTestResult ( const QWebElement & );
     void linkTriggered ( const QUrl &, const QString &, const QString & );
     void titleChanged ( const QUrl &, const QString & );
-    void pageChanged ( const QUrl & );
+    void pageChanged ( QWebPage * );
 
   public Q_SLOTS:
     void findKeyword ( const QString & );
