@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-09-02 15:30+0200\n"
-"PO-Revision-Date: 2011-09-02 15:31+0200\n"
+"POT-Creation-Date: 2011-09-18 06:13+0200\n"
+"PO-Revision-Date: 2011-09-18 06:15+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: \n"
@@ -15,26 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:126
-msgid "Configure CSS Validation"
-msgstr "Konfiguriere die CSS Überprüfung"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:127
-msgid "The CSS profile used for the validation."
-msgstr "Das zu verwendende CSS Profil"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:128
-msgid "The language used for the response."
-msgstr "Landessprache für die Ausgabe"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:129
-msgid "The warning level."
-msgstr "Warnstufe"
-
-#: build/src/cssvalidator/ui_cssconfiguremain.h:130
-msgid "The medium used for the validation."
-msgstr "Name des Mediums für die Validierung"
 
 #: src/about/aboutdata.cpp:44
 msgid "developer"
@@ -106,7 +86,7 @@ msgstr "Absteigend"
 #: src/cssvalidator/validatormenu.cpp:61 src/docking/docktreewidget.cpp:98
 #: src/jsmessanger.cpp:84 src/keywordstoolbar.cpp:61
 #: src/plugins/apachelogger/listmessages.cpp:42 src/tidymessanger.cpp:100
-#: src/urltoolbar/urltoolbar.cpp:61
+#: src/urltoolbar/urllineedit.cpp:177 src/urltoolbar/urltoolbar.cpp:61
 msgid "Clear"
 msgstr "Leeren"
 
@@ -142,8 +122,8 @@ msgstr "50 Sekunden"
 msgid "1 Minute"
 msgstr "1 Minute"
 
-#: src/bookmark/bookmark.cpp:51 src/formmanager/formbookmarks.cpp:40
-#: src/window.cpp:478
+#: src/bookmark/bookmark.cpp:52 src/formmanager/formbookmarks.cpp:40
+#: src/window.cpp:469
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
@@ -185,11 +165,11 @@ msgstr "Wenn diese Zeile Leer ist wird ein Verzeichnis erstellt."
 msgid "Add Item to Selected Main Item"
 msgstr "Füge Eintrag in den Ausgwählten Bereich ein"
 
-#: src/bookmark/bookmarkeditor.cpp:197
+#: src/bookmark/bookmarkeditor.cpp:209
 msgid "Warning"
 msgstr "Warnung"
 
-#: src/bookmark/bookmarkeditor.cpp:198
+#: src/bookmark/bookmarkeditor.cpp:210
 msgid ""
 "I didn't add Bookmark in to other Bookmark :-)\n"
 "Please select a Folder."
@@ -197,11 +177,11 @@ msgstr ""
 "Ich füge keine Lesezeichen in andere Lesezeichen ein :)\n"
 "Bitte wähle einen Ordner aus."
 
-#: src/bookmark/bookmarkeditor.cpp:240 src/configuration/configuration.cpp:174
+#: src/bookmark/bookmarkeditor.cpp:260 src/configuration/configuration.cpp:174
 msgid "Unsaved Changes"
 msgstr "Offene Änderungen"
 
-#: src/bookmark/bookmarkeditor.cpp:241
+#: src/bookmark/bookmarkeditor.cpp:261
 msgid ""
 "Bookmark Manager found unsaved Changes.\n"
 "Do you realy wan to exit?"
@@ -213,7 +193,7 @@ msgstr ""
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:178
 #: src/downloadmanager/downloadstablemodel.cpp:267
 #: src/formmanager/formtablemodel.cpp:83
-#: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:287
+#: src/plugins/keywordeditor/keywordstablemodel.cpp:79 src/webviewer.cpp:291
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -564,8 +544,8 @@ msgid "Enable Border Highlight"
 msgstr "Aktiviere die Rahmen Hervorhebung"
 
 #: src/configuration/configextras.cpp:41
-#: src/configuration/configurationmenu.cpp:57 src/window.cpp:520
-#: src/window.cpp:605
+#: src/configuration/configurationmenu.cpp:57 src/window.cpp:511
+#: src/window.cpp:596
 msgid "Extensions"
 msgstr "Erweiterungen"
 
@@ -870,7 +850,7 @@ msgstr "Tidy"
 msgid "Dom Inspector"
 msgstr "DOM Kontrolleur"
 
-#: src/configuration/configurationmenu.cpp:50 src/window.cpp:152
+#: src/configuration/configurationmenu.cpp:50 src/window.cpp:146
 msgid "Browser"
 msgstr "Browser"
 
@@ -1039,7 +1019,7 @@ msgid "Move Selected row Down"
 msgstr "Verschiebe die ausgewählte Zeile nach Unten"
 
 #: src/configuration/useragenteditor/useragentstablemodel.cpp:169
-#: src/formmanager/formentry.cpp:49 src/viewer.cpp:258
+#: src/formmanager/formentry.cpp:49 src/viewer.cpp:266
 msgid "Bookmark"
 msgstr "Lesezeichen"
 
@@ -1077,7 +1057,7 @@ msgid "Enabled"
 msgstr "Aktiviert"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:70
-#: src/docking/headerdock.cpp:298
+#: src/docking/headerdock.cpp:295
 msgid "Domain"
 msgstr "Domäne"
 
@@ -1194,7 +1174,7 @@ msgstr "Abbrechen"
 msgid "Dropout current request"
 msgstr "Aktuelle Anfrage abbrechen"
 
-#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:515
+#: src/cssvalidator/validatormenu.cpp:57 src/window.cpp:506
 msgid "Configure"
 msgstr "Konfigurieren"
 
@@ -1210,7 +1190,7 @@ msgstr "SQL Fehler beim öffnen der Datenbank: %1 %2"
 msgid "Open HTML File"
 msgstr "Öffne HTML Datei"
 
-#: src/dialogs/openurldialog.cpp:41 src/window.cpp:366
+#: src/dialogs/openurldialog.cpp:41 src/window.cpp:357
 msgid "Open Url"
 msgstr "Öffne Url"
 
@@ -1254,7 +1234,7 @@ msgid "Header"
 msgstr "Datenkopf"
 
 #: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
-#: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:312
+#: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:309
 #: src/formmanager/formtablemodel.cpp:80 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr "Wert"
@@ -1287,31 +1267,31 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nein"
 
-#: src/docking/headerdock.cpp:292
+#: src/docking/headerdock.cpp:289
 msgid "Cookie"
 msgstr "Keks"
 
-#: src/docking/headerdock.cpp:305
+#: src/docking/headerdock.cpp:302
 msgid "Path"
 msgstr "Pfad"
 
-#: src/docking/headerdock.cpp:319
+#: src/docking/headerdock.cpp:316
 msgid "Session Cookie"
 msgstr "Sitzungs Keks"
 
-#: src/docking/headerdock.cpp:326
+#: src/docking/headerdock.cpp:323
 msgid "Only for HTTP?"
 msgstr "Nur HTTP?"
 
-#: src/docking/headerdock.cpp:333
+#: src/docking/headerdock.cpp:330
 msgid "Expiration"
 msgstr "Verfällt"
 
-#: src/docking/headerdock.cpp:340
+#: src/docking/headerdock.cpp:337
 msgid "Secure"
 msgstr "Sicher"
 
-#: src/docking/headerdock.cpp:373
+#: src/docking/headerdock.cpp:370
 msgid "Cookie Hostname"
 msgstr "Cookie Hostname"
 
@@ -1336,7 +1316,7 @@ msgstr "Größe"
 msgid "no visible geometry"
 msgstr "keine Sichtbare Geometrie"
 
-#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:535
+#: src/dominspector/domtoolbar.cpp:40 src/window.cpp:526
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -1381,7 +1361,7 @@ msgstr "Hervorhebung abwählen"
 msgid "unhighlighted current document content"
 msgstr "Aktuelle Dokument Hervorhebung entfernen"
 
-#: src/dominspector/domtree.cpp:74 src/viewer.cpp:265
+#: src/dominspector/domtree.cpp:74 src/viewer.cpp:273
 msgid "StyleSheet"
 msgstr "StyleSheet"
 
@@ -1469,10 +1449,6 @@ msgstr "Üblicherweise wird von 1:1 nach 21:1 geschrieben"
 #: src/dominspector/luminancedialog.cpp:101
 msgid "Contrast Ratio %p%"
 msgstr "Kontrastverhältnis %p%"
-
-#: src/domobserver.cpp:48
-msgid "Observer"
-msgstr "Beobachter"
 
 #: src/downloadmanager/downloadmanager.cpp:50
 msgid "Downloads"
@@ -1926,7 +1902,7 @@ msgstr ""
 "SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
 "wurde verworfen."
 
-#: src/networker/networkaccessmanager.cpp:331
+#: src/networker/networkaccessmanager.cpp:328
 msgid ""
 "Multiple Content-Location header from POST Request received. Note - Many "
 "Webservers are free to ignore this. (300)"
@@ -2013,27 +1989,27 @@ msgid "MimeType"
 msgstr "Datentype"
 
 #: src/npploader/npploader.cpp:68 src/rdfparser/rssparserdialog.cpp:84
-#: src/sourceviewer/sourcewidget.cpp:63 src/viewer.cpp:273 src/window.cpp:158
+#: src/sourceviewer/sourcewidget.cpp:71 src/viewer.cpp:281 src/window.cpp:152
 msgid "Source"
 msgstr "Quelle"
 
-#: src/page.cpp:163
+#: src/page.cpp:160
 msgid " Line: %1"
 msgstr " Zeile: %1"
 
-#: src/page.cpp:166
+#: src/page.cpp:163
 msgid " Document: %1"
 msgstr " Dokument: %1"
 
-#: src/page.cpp:222
+#: src/page.cpp:259
 msgid "JavaScript Prompt: "
 msgstr "JavaScript Anfrage: "
 
-#: src/page.cpp:342
+#: src/page.cpp:379
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 
-#: src/page.cpp:379
+#: src/page.cpp:416
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
@@ -2327,6 +2303,14 @@ msgstr "Konfigurieren"
 msgid "Show the editor's configuration dialog"
 msgstr "Zeige den Editor Konfigurations Dialog"
 
+#: src/sourceviewer/sourcewidget.cpp:267
+msgid "dummy page"
+msgstr "Stellvertreter Seite"
+
+#: src/sourceviewer/sourcewidget.cpp:277
+msgid "xhtmldbg attempts to get source from current request ..."
+msgstr "xhtmldbg Versucht den Quelltext dieser Anfrage zu lesen ..."
+
 #: src/statusbar.cpp:50
 msgid "Reload Status"
 msgstr "Aktualisieren Status"
@@ -2444,68 +2428,72 @@ msgstr "Fehler bei der Element Initialisierung."
 msgid "(XHTMLDBG) Invalid value for property: %1"
 msgstr "(XHTMLDBG) Ungültiger Wert oder Parameter: %1"
 
+#: src/urltoolbar/urllineedit.cpp:180
+msgid "Start Edit"
+msgstr "Starte Bearbeiten"
+
 #: src/urltoolbar/urltoolbar.cpp:51
 msgid "Reload"
 msgstr "Auffrischen"
 
-#: src/viewer.cpp:268
+#: src/viewer.cpp:276
 msgid "Start CSS Validation for this Site."
 msgstr "Starte CSS Validierung für diese Seite."
 
-#: src/viewer.cpp:276
+#: src/viewer.cpp:284
 msgid "Show Document Source"
 msgstr "Zeige Dokumenten Quelltext"
 
-#: src/viewer.cpp:281
+#: src/viewer.cpp:289
 msgid "Screenshot"
 msgstr "Bildschirmfoto"
 
-#: src/viewer.cpp:284
+#: src/viewer.cpp:292
 msgid "Screenshot from current Page."
 msgstr "Bildschirmfoto von aktueller Seite."
 
-#: src/viewer.cpp:288 src/viewer.cpp:506
+#: src/viewer.cpp:296 src/viewer.cpp:514
 msgid "Plugins"
 msgstr "Erweiterungen"
 
-#: src/viewer.cpp:291
+#: src/viewer.cpp:299
 msgid "Display initialed Browser-Plugins."
 msgstr "Zeige Initialisierte Browser Erweiterungen."
 
-#: src/viewer.cpp:385
+#: src/viewer.cpp:393
 msgid "SEO Result for \"%1\" Url: "
 msgstr "SEO Ergebnis für \"%1\" Url: "
 
-#: src/viewer.cpp:393
+#: src/viewer.cpp:401
 msgid "Word boundary: "
 msgstr "An Wortgrenzen: "
 
-#: src/viewer.cpp:398
+#: src/viewer.cpp:406
 msgid "Case Sensitive: "
 msgstr "Groß- Kleinschreibung: "
 
-#: src/viewer.cpp:408
+#: src/viewer.cpp:416
 msgid "Meta Keywords: "
 msgstr "Meta Schlüsselwörter: "
 
-#: src/viewer.cpp:414
+#: src/viewer.cpp:422
 msgid "Meta Description: "
 msgstr "Meta Beschreibung: "
 
-#: src/viewer.cpp:421
+#: src/viewer.cpp:429
 msgid "Page Title: "
 msgstr "Seiten Titel: "
 
-#: src/viewer.cpp:426
+#: src/viewer.cpp:434
 msgid "Summary: "
 msgstr "Zusammen: "
 
-#: src/viewer.cpp:523
+#: src/viewer.cpp:531
 msgid "Screenshot saved to %1"
 msgstr "Bildschirmfoto gespeichert unter %1"
 
-#: src/webinspector.cpp:41
-msgid "Inspector"
+#: src/webinspector.cpp:44
+msgid "WebInspector"
 msgstr "Kontrolleur"
 
 #: src/websecurity/websecuritytable.cpp:55
@@ -2516,143 +2504,143 @@ msgstr "Eintrag Entfernen"
 msgid "Host"
 msgstr "Hostname"
 
-#: src/webviewer.cpp:82 src/window.cpp:466
+#: src/webviewer.cpp:82 src/window.cpp:457
 msgid "New Page"
 msgstr "Neue Seite"
 
-#: src/webviewer.cpp:84 src/window.cpp:467
+#: src/webviewer.cpp:84 src/window.cpp:458
 msgid "Add a new empty Tab"
 msgstr "Eine Neue leere Seite erstellen"
 
-#: src/webviewer.cpp:282
+#: src/webviewer.cpp:286
 msgid "file"
 msgstr "Datei"
 
-#: src/window.cpp:127
+#: src/window.cpp:124
 msgid "XHTML Debugger (v%1)"
 msgstr "XHTML Debugger (v%1)"
 
-#: src/window.cpp:362
+#: src/window.cpp:353
 msgid "&Application"
 msgstr "&Anwendung"
 
-#: src/window.cpp:367
+#: src/window.cpp:358
 msgid "Load Document from Url"
 msgstr "Lade Dokument von Url"
 
-#: src/window.cpp:373
+#: src/window.cpp:364
 msgid "Open Html File"
 msgstr "Öffne HTML Datei"
 
-#: src/window.cpp:374
+#: src/window.cpp:365
 msgid "Open Html from System"
 msgstr "Öffne HTML Datei vom System"
 
-#: src/window.cpp:380
+#: src/window.cpp:371
 msgid "Quit"
 msgstr "Beenden"
 
-#: src/window.cpp:381
+#: src/window.cpp:372
 msgid "Close Debugger"
 msgstr "Schliesse den Debugger"
 
-#: src/window.cpp:388
+#: src/window.cpp:379
 msgid "&Debugger"
 msgstr "&Debugger"
 
-#: src/window.cpp:391
+#: src/window.cpp:382
 msgid "Parse"
 msgstr "Analysieren"
 
-#: src/window.cpp:392
+#: src/window.cpp:383
 msgid "Parse current Document Source"
 msgstr "Analysiere den Dokumenten Quelltext"
 
-#: src/window.cpp:398
+#: src/window.cpp:389
 msgid "Format"
 msgstr "Formatiere"
 
-#: src/window.cpp:399
+#: src/window.cpp:390
 msgid "Prepare and Format Document Source"
 msgstr "Formatiere den Dokumenten Quelltext"
 
-#: src/window.cpp:405
+#: src/window.cpp:396
 msgid "&View"
 msgstr "A&nsicht"
 
-#: src/window.cpp:409
+#: src/window.cpp:400
 msgid "Zoom +"
 msgstr "Zoomen"
 
-#: src/window.cpp:417
+#: src/window.cpp:408
 msgid "Zoom -"
 msgstr "Zoomen"
 
-#: src/window.cpp:425 src/zoombar.cpp:52
+#: src/window.cpp:416 src/zoombar.cpp:52
 msgid "Original"
 msgstr "Original"
 
-#: src/window.cpp:438
+#: src/window.cpp:429
 msgid "Fullscreen"
 msgstr "Vollansicht"
 
-#: src/window.cpp:445
+#: src/window.cpp:436
 msgid "&Browser"
 msgstr "&Browser"
 
-#: src/window.cpp:448
+#: src/window.cpp:439
 msgid "Refresh"
 msgstr "Auffrischen"
 
-#: src/window.cpp:454
+#: src/window.cpp:445
 msgid "Back"
 msgstr "Zurück"
 
-#: src/window.cpp:460
+#: src/window.cpp:451
 msgid "Forward"
 msgstr "Vorwärts"
 
-#: src/window.cpp:501
+#: src/window.cpp:492
 msgid "Organize Bookmarks"
 msgstr "Lesezeichen Organisieren"
 
-#: src/window.cpp:507
+#: src/window.cpp:498
 msgid "S&ettings"
 msgstr "&Einstellungen"
 
-#: src/window.cpp:509
+#: src/window.cpp:500
 msgid "Configure Tidyrc"
 msgstr "Konfiguriere die titdyrc"
 
-#: src/window.cpp:523
+#: src/window.cpp:514
 msgid "Display"
 msgstr "Anzeige"
 
-#: src/window.cpp:546
+#: src/window.cpp:537
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/window.cpp:578
+#: src/window.cpp:569
 msgid "Toolbars"
 msgstr "Werkzeugleisten"
 
-#: src/window.cpp:588
+#: src/window.cpp:579
 msgid "Impartations"
 msgstr "Mitteilungen"
 
-#: src/window.cpp:596
+#: src/window.cpp:587
 msgid "Inspectors"
 msgstr "Kontrolleure"
 
-#: src/window.cpp:881
+#: src/window.cpp:865
 msgid "Check StyleSheet for %1"
 msgstr "Prüfe den Stylesheet für %1"
 
-#: src/window.cpp:1004
+#: src/window.cpp:974
 msgid "Invalid Url Rejected, required scheme is \"%1\"."
 msgstr "Eine Ungültige Url wurde zurückgewiesen, erlaubtes Schema ist \"%1\"."
 
-#: src/window.cpp:1045
+#: src/window.cpp:1015
 msgid ""
 "a Url Request from outsite.\n"
 "Would you like to load this \"%1\" Url?"
@@ -2660,21 +2648,17 @@ msgstr ""
 "Ein Adressen wurde ausserhalb gesendet.\n"
 "Möchtest du diese Adresse \"%1\" laden?"
 
-#: src/window.cpp:1050
+#: src/window.cpp:1020
 msgid "Url Request from Outsite"
 msgstr "URL Anfrage von Aussen"
 
-#: src/window.cpp:1081
+#: src/window.cpp:1051
 msgid "Download Request: %1"
 msgstr "Herunterladen Anfrage: %1"
 
 #: src/xhtmldbgadaptor.cpp:80
 msgid "(XHTMLDBG) Reject \"%1\" FTP request!"
 msgstr "(XHTMLDBG) FTP Anfrage \"%1\" Zurückgewiesen!"
-
-#: src/xwallet.cpp:45
-msgid "xhtmldbg Wallet"
-msgstr "xhtmldbg Brieftasche"
 
 #: src/zoombar.cpp:40
 msgid "Zoom"
