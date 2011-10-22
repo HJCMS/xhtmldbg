@@ -101,6 +101,7 @@ const QString DBLocator::databasePath ( const QString &dbName )
 */
 bool DBLocator::initDatabase ( const QSqlDatabase &driver )
 {
+  // qDebug() << Q_FUNC_INFO << driver.connectionName();
   QSqlDatabase db = driver.database ( driver.connectionName(), false );
 
   if ( db.isOpen() )

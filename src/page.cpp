@@ -154,7 +154,7 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
     return;
 
   QString message ( m.trimmed() );
-  message.remove ( QRegExp ( "[\r\n]+" ) );
+  message.replace ( QRegExp ( "[\r\n]+" ), QString(" ") );
 
   if ( l > 0 )
     message.append ( i18n ( " Line: %1" ).arg ( QString::number ( l ) ) );
@@ -167,7 +167,7 @@ void Page::javaScriptConsoleMessage ( const QString &m, int l, const QString &id
 
 /**
 * Wenn die Seite fertig geladen ist...
-* \li Suche nach Formularen für KWebWallet und starte KWebWallet::fillFormData
+* \li Suche nach Formularen für Formular Manager
 * \li Suche \b Testweise nach HTML5 Datenbank restriktionen
 */
 void Page::onReadyLoadPage ( bool b )
@@ -183,17 +183,7 @@ void Page::onReadyLoadPage ( bool b )
   if ( bodyElement.findAll ( "FORM" ).count() > 0 )
   {
 #ifdef DEBUG_VERBOSE
-    qDebug() << Q_FUNC_INFO << "TODO  FormManager";
-#endif
-  }
-
-  if ( ! frame->securityOrigin().host().isEmpty() )
-  {
-#ifdef DEBUG_VERBOSE
-    foreach ( QWebDatabase db, frame->securityOrigin().databases () )
-    {
-      qDebug() << Q_FUNC_INFO << db.displayName() << db.fileName();
-    }
+    qDebug() << Q_FUNC_INFO << "TODO  FormManager" << bodyElement.findAll ( "FORM" ).count();
 #endif
   }
 }
@@ -206,7 +196,6 @@ void Page::onReadyLoadPage ( bool b )
 */
 void Page::triggerAction ( QWebPage::WebAction action, bool checked )
 {
-  Q_UNUSED ( checked );
   QWebHistoryItem hist = history()->currentItem();
   switch ( action )
   {

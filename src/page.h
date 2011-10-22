@@ -47,7 +47,6 @@
 #include <KDE/KIO/MetaData>
 
 class NetworkAccessManager;
-class WebWallet;
 
 class Page : public KWebPage
 {
