@@ -30,10 +30,6 @@
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
 
-/* QtDBus */
-#include <QtDBus/QDBusConnection>
-#include <QtDBus/QDBusConnectionInterface>
-
 /* KDE */
 #include <KDE/KAboutData>
 #include <KDE/KAboutPerson>
