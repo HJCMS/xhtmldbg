@@ -30,7 +30,7 @@ BuildRequires:  cmake pkg-config %{devdepend} bind-utils libraptor-devel
 BuildRequires:  update-desktop-files brp-check-suse desktop-file-utils qtidyrc >= 0.8.2
 BuildRequires:  oxygen-icon-theme >= 4.4.3 oxygen-icon-theme-scalable >= 4.4.3 desktop-data-openSUSE
 %if 0%{?suse_version} > 1200
-BuildRequires:  libraptor-devel >= 2.0.0
+BuildRequires:  libraptor-devel >= 2.0.0  kate-devel >= 4.7.1
 %else
 BuildRequires:  libraptor-devel >= 1.4.20
 %endif
@@ -70,6 +70,11 @@ License:     LGPLv3
 Group:       Development/Languages/C and C++
 AutoReqProv: on
 Requires:    libxhtmldbg%{lt_version} = %{version}-%{release} %{devdepend}
+%if 0%{?suse_version} > 1200
+Requires:    libraptor-devel >= 2.0.0  kate-devel >= 4.7.1
+%else
+Requires:    libraptor-devel >= 1.4.20
+%endif
 
 %description -n libxhtmldbg-devel
 This Library is used by xhtmldbg for load Plugins
