@@ -2,7 +2,7 @@
 ##############################################################
 PROJECT (xhtmldbg)
 
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8.4 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0 FATAL_ERROR)
 
 ##############################################################
 # CMP0017: we have multiple targets for CheckCXXSourceCompiles with kde4
