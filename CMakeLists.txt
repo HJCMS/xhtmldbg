@@ -2,7 +2,7 @@
 ##############################################################
 PROJECT (xhtmldbg)
 
-CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0 FATAL_ERROR)
+CMAKE_MINIMUM_REQUIRED (VERSION 2.8.3 FATAL_ERROR)
 
 ##############################################################
 # CMP0017: we have multiple targets for CheckCXXSourceCompiles with kde4
@@ -46,8 +46,8 @@ INCLUDE (KDE4Defaults)
 
 SET (XHTMLDBG_VERSION_MAJOR 0)
 SET (XHTMLDBG_VERSION_MINOR 8)
-SET (XHTMLDBG_VERSION_RELEASE 14)
-SET (XHTMLDBG_PATCHLEVEL "")
+SET (XHTMLDBG_VERSION_RELEASE 13)
+SET (XHTMLDBG_PATCHLEVEL "rc20")
 SET (XHTMLDBG_VERSION "${XHTMLDBG_VERSION_MAJOR}.${XHTMLDBG_VERSION_MINOR}.${XHTMLDBG_VERSION_RELEASE}${XHTMLDBG_PATCHLEVEL}")
 SET (XHTMLDBG_DISTRIBUTION_TEXT "compiled sources" CACHE STRING "Indicate the distribution in bug reports")
 SET (LIB_SUFFIX "" CACHE STRING "Define suffix of directory name (32/64)")
