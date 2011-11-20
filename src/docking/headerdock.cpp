@@ -71,9 +71,6 @@ HeaderDock::HeaderDock ( QWidget * parent )
   setColumnCount ( 2, 2 );
   setTreeHeaderLabels ( labels, 2 );
   labels.clear();
-
-  // get CookieJar
-  m_networkCookie = xhtmldbgmain::instance()->cookieManager();
 }
 
 /**
@@ -120,6 +117,7 @@ void HeaderDock::clearAll ()
 */
 void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QString> &map )
 {
+  qDebug() << Q_FUNC_INFO << replyUrl;
   int widgetIndex = 0;
   bool isHtmlContent = false;
   QString host = ( replyUrl.scheme().contains ( "http" ) ? replyUrl.host() : i18n ( "System File" ) );
@@ -129,7 +127,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   if ( map.contains ( "Content-Type" ) )
     isHtmlContent = QString ( map["Content-Type"] ).contains ( "text/html" );
 
-  if ( map.contains ( "Set-Cookie" ) )
+  if ( ! replyUrl.host().isEmpty() )
   {
     QUrl cookieUrl;
     cookieUrl.setScheme ( replyUrl.scheme() );
@@ -347,6 +345,9 @@ void HeaderDock::setCookieData ( const QNetworkCookie &cookie, QTreeWidgetItem* 
 void HeaderDock::setCookieData ( const QUrl &url )
 {
   int widgetIndex = 2;
+
+  // get CookieJar
+  m_networkCookie = xhtmldbgmain::instance()->cookieManager();
   if ( ! m_networkCookie )
     return;
 
