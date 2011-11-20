@@ -38,8 +38,6 @@
 
 #include "docking.h"
 
-class NetworkCookie;
-
 class HeaderDock : public Docking
 {
     Q_OBJECT
@@ -49,7 +47,6 @@ class HeaderDock : public Docking
   private:
     DockTreeWidget* m_treePostVars;
     DockTreeWidget* m_treeCookies;
-    NetworkCookie* m_networkCookie;
     inline void unscramble ( const QString &, DockTreeWidget*, QTreeWidgetItem * ) const;
     void setCookieData ( const QNetworkCookie &, QTreeWidgetItem* );
     QString unserialize ( const QByteArray & ) const;

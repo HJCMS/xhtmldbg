@@ -37,6 +37,9 @@
 #include <QtGui/QTreeWidgetItem>
 #include <QtGui/QTreeWidgetItemIterator>
 
+/* QtNetwork */
+#include <QtNetwork/QNetworkCookie>
+
 HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
 {
@@ -117,7 +120,7 @@ void HeaderDock::clearAll ()
 */
 void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QString> &map )
 {
-  qDebug() << Q_FUNC_INFO << replyUrl;
+  // qDebug() << Q_FUNC_INFO << replyUrl;
   int widgetIndex = 0;
   bool isHtmlContent = false;
   QString host = ( replyUrl.scheme().contains ( "http" ) ? replyUrl.host() : i18n ( "System File" ) );
@@ -127,6 +130,7 @@ void HeaderDock::setHeaderData ( const QUrl &replyUrl, const QMap<QString,QStrin
   if ( map.contains ( "Content-Type" ) )
     isHtmlContent = QString ( map["Content-Type"] ).contains ( "text/html" );
 
+  // Nur wenn ein Hostname vorhanden, dann eine Cookie abfrage starten!
   if ( ! replyUrl.host().isEmpty() )
   {
     QUrl cookieUrl;
@@ -347,7 +351,7 @@ void HeaderDock::setCookieData ( const QUrl &url )
   int widgetIndex = 2;
 
   // get CookieJar
-  m_networkCookie = xhtmldbgmain::instance()->cookieManager();
+  NetworkCookie* m_networkCookie = xhtmldbgmain::instance()->cookieManager();
   if ( ! m_networkCookie )
     return;
 
