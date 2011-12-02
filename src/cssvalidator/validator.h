@@ -54,13 +54,13 @@ class Validator : public QProcess
     void criticalError ( const QString & );
 
   public Q_SLOTS:
-    void validate ();
+    Q_SCRIPTABLE void validate ();
 
   public:
     Validator ( QObject * parent = 0 );
     bool isRunning();
     const QString getValidation ();
-    bool setValidation ( const QString &url );
+    Q_SCRIPTABLE bool setValidation ( const QString &url );
     void setEnviromentVariable ( Settings * );
     const QString errorsLogFile();
     virtual ~Validator();

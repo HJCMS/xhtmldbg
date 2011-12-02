@@ -89,8 +89,8 @@ class CSSValidator : public QDockWidget
     void itemsChanged();
 
   public Q_SLOTS:
-    void addForValidation ( const QUrl & );
-    void forceValidation ( const QUrl & );
+    Q_SCRIPTABLE void addForValidation ( const QUrl & );
+    Q_SCRIPTABLE void forceValidation ( const QUrl & );
     void clearItems();
 
   public:

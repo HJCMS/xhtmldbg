@@ -41,9 +41,6 @@
 #include <QtGui/QTabBar>
 #include <QtGui/QToolButton>
 
-/* QtDBus */
-#include <QtDBus/QDBusConnection>
-
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
 
@@ -62,10 +59,6 @@ WebViewer::WebViewer ( QWidget * parent )
   m_viewer = new Viewer ( this );
   m_viewer->setObjectName ( "webviewer_startpage" );
   addViewerTab ( m_viewer );
-
-  // D-Bus Registrierung
-  QDBusConnection dbus = QDBusConnection::sessionBus();
-  dbus.registerObject ( "/WebViewer", this, QDBusConnection::ExportScriptableContents );
 
   connect ( this, SIGNAL ( currentChanged ( int ) ),
             this, SLOT ( pretended ( int ) ) );

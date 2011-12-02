@@ -45,10 +45,10 @@ class WebInspector : public QDockWidget
     QWebInspector* m_inspector;
 
   Q_SIGNALS:
-    void errorMessage ( const QString & );
+    Q_SCRIPTABLE void errorMessage ( const QString & );
 
   public Q_SLOTS:
-    void setPage ( QWebPage * page );
+    Q_SCRIPTABLE void setPage ( QWebPage * page );
 
   public:
     WebInspector ( QWebPage * startPage, QWidget * parent = 0 );

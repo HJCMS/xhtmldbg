@@ -46,10 +46,10 @@ class StatusBar : public KStatusBar
     QLabel* m_viewPortInfo;
 
   public Q_SLOTS:
-    void timerStatus ( int, int );
-    void notice ( bool notice = false );
-    void displayBrowserWidth ( const QSize & );
-    void setLoadedPageSize ( qint64 );
+    Q_SCRIPTABLE void timerStatus ( int, int );
+    Q_SCRIPTABLE void notice ( bool notice = false );
+    Q_SCRIPTABLE void displayBrowserWidth ( const QSize & );
+    Q_SCRIPTABLE void setLoadedPageSize ( qint64 );
 
   public:
     StatusBar ( KStatusBar * parent = 0 );

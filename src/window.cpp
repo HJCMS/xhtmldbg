@@ -123,6 +123,8 @@ Window::Window ( Settings * settings )
   setAutoSaveSettings ( "xhtmldbg", false );
   setWindowTitle ( i18n ( "XHTML Debugger (v%1)", QLatin1String ( XHTMLDBG_VERSION_STRING ) ) );
 
+  QDBusConnection p_dbus = QDBusConnection::sessionBus();
+
   m_netManager = Application::networkAccessManager();
 
   /* Das lesen aller Web Einstellungen muss vor dem ersten erstellen eines tabs erfolgen. */
@@ -138,6 +140,8 @@ Window::Window ( Settings * settings )
 
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
+  p_dbus.registerObject ( "/WebViewer" , m_webViewer, QDBusConnection::ExportScriptableContents );
+
   // WindowID von WebViewer
   m_netManager->setWindow ( m_webViewer );
   // NOTE Wir brauchen eine gültige WebPage für den WebInspector
@@ -149,6 +153,8 @@ Window::Window ( Settings * settings )
 
   // Quelltext Anzeige
   m_sourceWidget = new SourceWidget ( m_centralWidget );
+  p_dbus.registerObject ( "/Inspect/Source" , m_sourceWidget, QDBusConnection::ExportScriptableContents );
+
   m_centralWidget->insertTab ( 1, m_sourceWidget, i18n ( "Source" ) );
   m_centralWidget->setTabIcon ( 1, xhtmldbgIcon );
 
@@ -171,6 +177,7 @@ Window::Window ( Settings * settings )
 
   // RSS/ATOM/RDF Validierer
   m_alternateLinkReader = new AlternateLinkReader ( tabCornerBottomWidget );
+  p_dbus.registerObject ( "/Inspect/RSS" , m_alternateLinkReader, QDBusConnection::ExportScriptableContents );
   tabCornerBottomWidgetLayout->addWidget ( m_alternateLinkReader );
 
   tabCornerBottomWidget->setLayout ( tabCornerBottomWidgetLayout );
@@ -179,10 +186,12 @@ Window::Window ( Settings * settings )
 
   // StatusBar
   m_statusBar = new StatusBar ( statusBar() );
+  p_dbus.registerObject ( "/xhtmldbg/Window/StatusBar" , m_statusBar, QDBusConnection::ExportScriptableContents );
   setStatusBar ( m_statusBar );
 
   // Automatische Seiten Aktualisierung
   m_autoReloader = new AutoReloader ( this );
+  p_dbus.registerObject ( "/xhtmldbg/Window/AutoReloader" , m_autoReloader, QDBusConnection::ExportScriptableContents );
 
   // DownloadManager {
   m_downloadManager = new DownloadManager ( this, m_settings );
@@ -192,27 +201,33 @@ Window::Window ( Settings * settings )
   // DockWidgets {
   // Ansicht Dokumenten Baum
   m_domInspector = new DomInspector ( m_settings, this );
+  p_dbus.registerObject ( "/Inspect/DOM" , m_domInspector, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::RightDockWidgetArea, m_domInspector );
 
   // WebInspector
   // NOTE Bitte sicher stellen das eine Page vorhanden ist!!!
   m_webInspector = new WebInspector ( m_webViewer->startPage(), this );
+  p_dbus.registerObject ( "/Inspect/Code", m_webInspector, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
 
   // QTidy Nachrichtenfenster
   m_tidyMessanger = new TidyMessanger ( this );
+  p_dbus.registerObject ( "/Impartions/HTML", m_tidyMessanger, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
 
   // Programm Nachrichtenfenster für interne Nachrichten
   m_appEvents = new AppEvents ( this );
+  p_dbus.registerObject ( "/Impartions/Application" , m_appEvents, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::BottomDockWidgetArea, m_appEvents, Qt::Horizontal );
 
   // JavaScript Nachrichtenfenster
   m_jsMessanger = new JSMessanger ( this );
+  p_dbus.registerObject ( "/Impartions/JavaScript" , m_jsMessanger, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::BottomDockWidgetArea, m_jsMessanger, Qt::Horizontal );
 
   // CSS Validierer Prozess
   m_cssValidator = new CSSValidator ( this, m_settings );
+  p_dbus.registerObject ( "/Inspect/CSS" , m_cssValidator, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::BottomDockWidgetArea, m_cssValidator, Qt::Horizontal );
 
   // ColorPicker
@@ -221,6 +236,7 @@ Window::Window ( Settings * settings )
 
   // Zeige Datenköpfe für CGI GET/POST und HTTP Header an.
   m_headerDock = new HeaderDock ( this );
+  p_dbus.registerObject ( "/Inspect/Header" , m_headerDock, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::RightDockWidgetArea, m_headerDock );
   // } DockWidgets
 
@@ -328,7 +344,6 @@ Window::Window ( Settings * settings )
   // } ColorPicker
 
   // xhtmldbg::Plugger {
-  // jetzt die Plugins laden
   registerPlugins();
   // } xhtmldbg::Plugger
 

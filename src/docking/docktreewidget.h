@@ -55,7 +55,7 @@ class DockTreeWidget : public QTreeWidget
     virtual void contextMenuEvent ( QContextMenuEvent * );
 
   public Q_SLOTS:
-    void restore ();
+    Q_SCRIPTABLE void restore ();
 
   public:
     DockTreeWidget ( QWidget * parent = 0 );

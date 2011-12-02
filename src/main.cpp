@@ -59,24 +59,21 @@ int main ( int argc, char *argv[] )
 {
   setPluginPaths();
 
+  QCoreApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
+  QCoreApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
+  QCoreApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
+
   KLocale::setMainCatalog ( "xhtmldbg" );
 
   AboutData about;
-
-  // Initialize command line args
   KCmdLineArgs::init ( argc, argv, &about, KCmdLineArgs::CmdLineArgsMask );
 
-  // Define the command line options
   KCmdLineOptions options;
   options.add ( "o <url>" );
-  options.add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
+  options.add ( "open <url>", ki18n ( "Open File from Path or URL" ) );
   KCmdLineArgs::addCmdLineOptions ( options );
 
-  KUniqueApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  KUniqueApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
-  KUniqueApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
   KUniqueApplication::addCmdLineOptions();
-
   if ( ! KUniqueApplication::start() )
   {
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();

@@ -54,7 +54,7 @@ class JSMessanger : public QDockWidget
     void itemsChanged();
 
   public Q_SLOTS:
-    void insertMessage ( const QString & );
+    Q_SCRIPTABLE void insertMessage ( const QString & );
     void clearItems();
 
   public:

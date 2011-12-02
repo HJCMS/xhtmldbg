@@ -63,7 +63,7 @@ class TidyMessanger : public QDockWidget
 
   public Q_SLOTS:
     void messages ( const QTidy::QTidyDiagnosis & );
-    void messages ( int, const QString & );
+    Q_SCRIPTABLE void messages ( int, const QString & );
     void clearItems();
 
   public:

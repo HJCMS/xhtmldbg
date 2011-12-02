@@ -70,20 +70,20 @@ class SourceWidget : public QWidget
     void switchHighlight ( const QString & );
 
   Q_SIGNALS:
-    void clearMessages ();
+    Q_SCRIPTABLE void clearMessages ();
     void triggered ( const QTidy::QTidyDiagnosis & );
 
   public Q_SLOTS:
-    void fetchBlock ( int, int );
-    void check();
-    void format();
-    void restore();
+    Q_SCRIPTABLE void fetchBlock ( int, int );
+    Q_SCRIPTABLE void check();
+    Q_SCRIPTABLE void format();
+    Q_SCRIPTABLE void restore();
 
   public:
     SourceWidget ( QWidget * parent = 0 );
     const QString getTidyrc();
     void setTidyrc ( const QString & );
-    void setSource ( const QUrl &, const QString &source );
+    Q_SCRIPTABLE void setSource ( const QUrl &, const QString &source );
     ~SourceWidget();
 };
 

@@ -51,8 +51,6 @@ TidyMessanger::TidyMessanger ( QWidget * parent )
   setWindowTitle ( i18n ( "HTML/XHTML Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
 
-  QDBusConnection::sessionBus().registerObject( "/HtmlMessages", this );
-
   m_listWidget = new QListWidget ( this );
   m_listWidget->setSortingEnabled ( true );
   m_listWidget->sortItems ( Qt::AscendingOrder );

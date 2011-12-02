@@ -55,8 +55,8 @@ class AppEvents : public QDockWidget
     void itemsChanged();
 
   public Q_SLOTS:
-    void statusMessage ( const QString & );
-    void warningMessage ( const QString & );
+    Q_SCRIPTABLE void statusMessage ( const QString & );
+    Q_SCRIPTABLE void warningMessage ( const QString & );
     void clearItems();
 
   public:

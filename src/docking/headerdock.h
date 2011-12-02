@@ -58,9 +58,9 @@ class HeaderDock : public Docking
     void setTreeHeaderLabels ( const QStringList &, int index = 0 );
 
   public Q_SLOTS:
-    void clearAll ();
-    void setHeaderData ( const QUrl &, const QMap<QString,QString> & );
-    void setPostedData ( const QUrl &, const QStringList & );
+    Q_SCRIPTABLE void clearAll ();
+    Q_SCRIPTABLE void setHeaderData ( const QUrl &, const QMap<QString,QString> & );
+    Q_SCRIPTABLE void setPostedData ( const QUrl &, const QStringList & );
 
   public:
     HeaderDock ( QWidget * parent = 0 );

@@ -73,8 +73,8 @@ class DomInspector : public QDockWidget
     void errorMessage ( const QString & );
 
   public Q_SLOTS:
-    void setDomTree ( const QUrl &, const QWebElement & );
-    void findItem ( const QWebElement & );
+    Q_SCRIPTABLE void setDomTree ( const QUrl &, const QWebElement & );
+    Q_SCRIPTABLE void findItem ( const QWebElement & );
 
   public:
     DomInspector ( Settings * settings, QWidget * parent = 0 );
