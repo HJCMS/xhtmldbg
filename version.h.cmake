@@ -1,7 +1,7 @@
 /**
 * This file is part of the QTidy project
 *
-* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2011
+* Copyright (C) Juergen Heinemann http://qtidy.hjcms.de, (C) 2007-2012
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public

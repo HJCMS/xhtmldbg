@@ -15,8 +15,6 @@ SET (docking_HEADERS
 SET (docking_STATIC_HEADERS
 )
 
-
-
 KDE4_MOC_HEADERS (docking_MOC ${docking_HEADERS})
 
 INCLUDE_DIRECTORIES (

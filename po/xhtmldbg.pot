@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-09-18 06:13+0200\n"
+"POT-Creation-Date: 2011-12-02 09:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,26 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:126
+msgid "Configure CSS Validation"
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:127
+msgid "The CSS profile used for the validation."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:128
+msgid "The language used for the response."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:129
+msgid "The warning level."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:130
+msgid "The medium used for the validation."
+msgstr ""
 
 #: src/about/aboutdata.cpp:44
 msgid "developer"
@@ -26,7 +46,7 @@ msgid "Juergen Heinemann (Undefined)"
 msgstr ""
 
 #: src/about/aboutdata.cpp:83
-msgid "Copyright (C) 2007-2011, Juergen Heinemann (Undefined)"
+msgid "Copyright (C) 2007-2012, Juergen Heinemann (Undefined)"
 msgstr ""
 
 #: src/about/aboutdata.cpp:88
@@ -472,7 +492,7 @@ msgid "Create a new Cookie provision"
 msgstr ""
 
 #: src/configuration/configcookies.cpp:97
-#: src/configuration/configwebsecurity.cpp:91 src/docking/headerdock.cpp:151
+#: src/configuration/configwebsecurity.cpp:91 src/docking/headerdock.cpp:153
 msgid "Hostname"
 msgstr ""
 
@@ -534,7 +554,7 @@ msgid ""
 msgstr ""
 
 #: src/configuration/configheaderdefinitions.cpp:57
-#: src/docking/headerdock.cpp:60
+#: src/docking/headerdock.cpp:63
 msgid "Parameter"
 msgstr ""
 
@@ -786,7 +806,7 @@ msgstr ""
 msgid "Network"
 msgstr ""
 
-#: src/configuration/configurationmenu.cpp:52 src/docking/headerdock.cpp:68
+#: src/configuration/configurationmenu.cpp:52 src/docking/headerdock.cpp:71
 msgid "Cookies"
 msgstr ""
 
@@ -976,7 +996,7 @@ msgid "Enabled"
 msgstr ""
 
 #: src/cookiesdatabase/cookieseditortable.cpp:70
-#: src/docking/headerdock.cpp:295
+#: src/docking/headerdock.cpp:297
 msgid "Domain"
 msgstr ""
 
@@ -1141,73 +1161,73 @@ msgstr ""
 msgid "Collapse All"
 msgstr ""
 
-#: src/docking/headerdock.cpp:44
+#: src/docking/headerdock.cpp:47
 msgid "Headers"
 msgstr ""
 
-#: src/docking/headerdock.cpp:47
+#: src/docking/headerdock.cpp:50
 msgid "Header"
 msgstr ""
 
-#: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
-#: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:309
+#: src/docking/headerdock.cpp:50 src/docking/headerdock.cpp:63
+#: src/docking/headerdock.cpp:73 src/docking/headerdock.cpp:311
 #: src/formmanager/formtablemodel.cpp:80 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr ""
 
-#: src/docking/headerdock.cpp:57
+#: src/docking/headerdock.cpp:60
 msgid "POST Variables"
 msgstr ""
 
-#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:74
+#: src/docking/headerdock.cpp:73 src/formmanager/formtablemodel.cpp:74
 msgid "Name"
 msgstr ""
 
-#: src/docking/headerdock.cpp:125
+#: src/docking/headerdock.cpp:126
 msgid "System File"
 msgstr ""
 
-#: src/docking/headerdock.cpp:160
+#: src/docking/headerdock.cpp:162
 msgid "Item"
 msgstr ""
 
-#: src/docking/headerdock.cpp:212
+#: src/docking/headerdock.cpp:214
 msgid "Anchor"
 msgstr ""
 
-#: src/docking/headerdock.cpp:280
+#: src/docking/headerdock.cpp:282
 msgid "Yes"
 msgstr ""
 
-#: src/docking/headerdock.cpp:281
+#: src/docking/headerdock.cpp:283
 msgid "No"
 msgstr ""
 
-#: src/docking/headerdock.cpp:289
+#: src/docking/headerdock.cpp:291
 msgid "Cookie"
 msgstr ""
 
-#: src/docking/headerdock.cpp:302
+#: src/docking/headerdock.cpp:304
 msgid "Path"
 msgstr ""
 
-#: src/docking/headerdock.cpp:316
+#: src/docking/headerdock.cpp:318
 msgid "Session Cookie"
 msgstr ""
 
-#: src/docking/headerdock.cpp:323
+#: src/docking/headerdock.cpp:325
 msgid "Only for HTTP?"
 msgstr ""
 
-#: src/docking/headerdock.cpp:330
+#: src/docking/headerdock.cpp:332
 msgid "Expiration"
 msgstr ""
 
-#: src/docking/headerdock.cpp:337
+#: src/docking/headerdock.cpp:339
 msgid "Secure"
 msgstr ""
 
-#: src/docking/headerdock.cpp:370
+#: src/docking/headerdock.cpp:375
 msgid "Cookie Hostname"
 msgstr ""
 
@@ -1493,11 +1513,11 @@ msgstr ""
 msgid "Search Engine Optimisation (SEO)"
 msgstr ""
 
-#: src/main.cpp:72
+#: src/main.cpp:68
 msgid "Open File from Path or URL"
 msgstr ""
 
-#: src/main.cpp:73
+#: src/main.cpp:69
 msgid "Disable Plugins and loading the Default Url"
 msgstr ""
 
@@ -1882,15 +1902,15 @@ msgstr ""
 msgid " Document: %1"
 msgstr ""
 
-#: src/page.cpp:259
+#: src/page.cpp:248
 msgid "JavaScript Prompt: "
 msgstr ""
 
-#: src/page.cpp:379
+#: src/page.cpp:368
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr ""
 
-#: src/page.cpp:416
+#: src/page.cpp:405
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr ""
 

@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2011
+* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2012
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -23,8 +23,8 @@
 # include "version.h"
 #endif
 #include "xhtmldbgmain.h"
+#include "observer.h"
 #include "dbmanager.h"
-#include "xhtmldbgadaptor.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -42,9 +42,6 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
 
-/* QtDBus */
-#include <QtDBus/QDBusConnection>
-
 /* KDE */
 #include <KDE/KCmdLineArgs>
 
@@ -58,6 +55,9 @@ xhtmldbgmain::xhtmldbgmain ( bool failsafe )
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( "xhtmldbgmain" );
   setGraphicsSystem ( "raster" );
+
+  Observer* obs = new Observer ( this );
+  obs->addWatchedService ( "de.hjcms.xhtmldbg" );
 
   // Settings
   m_settings = new Settings ( this );
@@ -171,9 +171,6 @@ Window* xhtmldbgmain::newMainWindow()
 {
   Window *debugger = new Window ( m_settings );
   m_windows.prepend ( debugger );
-
-  // DBUS Adaptor registrieren
-  (void) new XHtmldbgAdaptor ( debugger );
 
   debugger->show();
   debugger->setFocus ( Qt::ActiveWindowFocusReason );

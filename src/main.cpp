@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2011
+* Copyright (C) Juergen Heinemann http://xhtmldbg.hjcms.de, (C) 2007-2012
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -29,6 +29,9 @@
 #include <QtCore/QString>
 #include <QtCore/QStringList>
 #include <QtCore/QUrl>
+
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
 
 /* KDE */
 #include <KDE/KAboutData>
@@ -77,6 +80,9 @@ int main ( int argc, char *argv[] )
         return EXIT_SUCCESS;
 
     KGlobal::locale()->insertCatalog ( XHTMLDBG_APPS_NAME );
+
+    QDBusConnection dbus = QDBusConnection::sessionBus();
+    dbus.registerService ( "de.hjcms.xhtmldbg" );
 
     Window* win = app.newMainWindow();
     if ( win && ( argc > 2 ) )

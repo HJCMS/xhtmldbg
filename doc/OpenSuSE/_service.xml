@@ -1,0 +1,7 @@
+<services>
+  <service name="download_url">
+   <param name="protocol">ftp</param>
+   <param name="host">hjcms.de</param>
+   <param name="path">/xhtmldbg/0.8.13/xhtmldbg-0.8.13.rc20.tar.bz2</param>
+  </service>
+</services>

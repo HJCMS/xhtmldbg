@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xhtmldbg_de\n"
 "Report-Msgid-Bugs-To: heinemann.juergen@hjcms.de\n"
-"POT-Creation-Date: 2011-09-18 06:13+0200\n"
+"POT-Creation-Date: 2011-12-02 09:02+0100\n"
 "PO-Revision-Date: 2011-09-18 06:15+0200\n"
 "Last-Translator: Juergen Heinemann(Undefined)  <nospam (AT) hjcms (DOT) de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -16,6 +16,28 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
+#: build/src/cssvalidator/ui_cssconfiguremain.h:126
+#, fuzzy
+msgid "Configure CSS Validation"
+msgstr "CSS Prüfung"
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:127
+msgid "The CSS profile used for the validation."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:128
+msgid "The language used for the response."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:129
+msgid "The warning level."
+msgstr ""
+
+#: build/src/cssvalidator/ui_cssconfiguremain.h:130
+#, fuzzy
+msgid "The medium used for the validation."
+msgstr "Name der Organisation (O)"
+
 #: src/about/aboutdata.cpp:44
 msgid "developer"
 msgstr "Entwickler"
@@ -25,8 +47,8 @@ msgid "Juergen Heinemann (Undefined)"
 msgstr "Jürgen Heinemann (Undefined)"
 
 #: src/about/aboutdata.cpp:83
-msgid "Copyright (C) 2007-2011, Juergen Heinemann (Undefined)"
-msgstr "Copyright (C) 2007-2011, Jürgen Heinemann (Undefined)"
+msgid "Copyright (C) 2007-2012, Juergen Heinemann (Undefined)"
+msgstr "Copyright (C) 2007-2012, Jürgen Heinemann (Undefined)"
 
 #: src/about/aboutdata.cpp:88
 msgid "A XHTML/HTML Debugger and CSS Validator for Webdevelopers"
@@ -382,7 +404,8 @@ msgid "Allow HTTP pipelining with requests."
 msgstr "Erlaube HTTP Parallelverarbeitung bei den Anfragen."
 
 #: src/configuration/configbrowser.cpp:92
-msgid "Indicates whether the HTTP Pipelining was used for receiving data Requests."
+msgid ""
+"Indicates whether the HTTP Pipelining was used for receiving data Requests."
 msgstr "Erkennen ob Parallelverarbeitung mit HTTP Anfragen verwendet wird."
 
 #: src/configuration/configbrowser.cpp:96
@@ -418,7 +441,8 @@ msgid "JavaScript programs can read or write to the clipboard."
 msgstr "Erlaube JavaScript Programmen den zugriff auf das Clipboard."
 
 #: src/configuration/configbrowser.cpp:128
-msgid "The background color and images are also drawn when the page is printed."
+msgid ""
+"The background color and images are also drawn when the page is printed."
 msgstr "Beim Drucken von Seiten den Hintergund mit übertragen."
 
 #: src/configuration/configbrowser.cpp:132
@@ -510,7 +534,7 @@ msgid "Create a new Cookie provision"
 msgstr "Erstelle eine neue Cookie Regelung"
 
 #: src/configuration/configcookies.cpp:97
-#: src/configuration/configwebsecurity.cpp:91 src/docking/headerdock.cpp:151
+#: src/configuration/configwebsecurity.cpp:91 src/docking/headerdock.cpp:153
 msgid "Hostname"
 msgstr "Hostname"
 
@@ -574,7 +598,7 @@ msgstr ""
 "Für mehr Informationen siehe <a href=\"%1\">rfc2616</a>"
 
 #: src/configuration/configheaderdefinitions.cpp:57
-#: src/docking/headerdock.cpp:60
+#: src/docking/headerdock.cpp:63
 msgid "Parameter"
 msgstr "Parameter"
 
@@ -697,7 +721,8 @@ msgstr ""
 
 #: src/configuration/confignetwork.cpp:67
 msgid "Controls if the data obtained should be saved to cache for future uses."
-msgstr "Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
+msgstr ""
+"Kontrolliert ob die entnommenen Daten in den Speicher eingefügt werden."
 
 #: src/configuration/confignetwork.cpp:69
 msgid ""
@@ -712,7 +737,8 @@ msgid "Indicates whether incoming data was obtained from cache or not."
 msgstr "Erkenne ob die Daten aus dem Zwichenspeicher entnommenen wurden."
 
 #: src/configuration/confignetwork.cpp:75
-msgid "If the box is not checked, incoming data will not be automatically checked."
+msgid ""
+"If the box is not checked, incoming data will not be automatically checked."
 msgstr ""
 "Wenn die Auswahl nicht aktiviert ist, werden nicht geprüft ob die Daten aus "
 "dem Zwichenspeicher entnommen wurden."
@@ -734,7 +760,8 @@ msgstr ""
 "Netzwerkanfrage)"
 
 #: src/configuration/confignetwork.cpp:85
-msgid "Prefer Cache (load from cache if available, otherwise load from network)"
+msgid ""
+"Prefer Cache (load from cache if available, otherwise load from network)"
 msgstr ""
 "Speicher vorziehen (Lade Adresse vom Speicher. Es wird keine Aktualisierung "
 "geprüft)"
@@ -858,7 +885,7 @@ msgstr "Browser"
 msgid "Network"
 msgstr "Netzwerk"
 
-#: src/configuration/configurationmenu.cpp:52 src/docking/headerdock.cpp:68
+#: src/configuration/configurationmenu.cpp:52 src/docking/headerdock.cpp:71
 msgid "Cookies"
 msgstr "Keks"
 
@@ -1057,7 +1084,7 @@ msgid "Enabled"
 msgstr "Aktiviert"
 
 #: src/cookiesdatabase/cookieseditortable.cpp:70
-#: src/docking/headerdock.cpp:295
+#: src/docking/headerdock.cpp:297
 msgid "Domain"
 msgstr "Domäne"
 
@@ -1225,73 +1252,73 @@ msgstr "Komplett Einblenden"
 msgid "Collapse All"
 msgstr "Komplett Ausblenden"
 
-#: src/docking/headerdock.cpp:44
+#: src/docking/headerdock.cpp:47
 msgid "Headers"
 msgstr "Datenköpfe"
 
-#: src/docking/headerdock.cpp:47
+#: src/docking/headerdock.cpp:50
 msgid "Header"
 msgstr "Datenkopf"
 
-#: src/docking/headerdock.cpp:47 src/docking/headerdock.cpp:60
-#: src/docking/headerdock.cpp:70 src/docking/headerdock.cpp:309
+#: src/docking/headerdock.cpp:50 src/docking/headerdock.cpp:63
+#: src/docking/headerdock.cpp:73 src/docking/headerdock.cpp:311
 #: src/formmanager/formtablemodel.cpp:80 src/rdfparser/rsstreeview.cpp:50
 msgid "Value"
 msgstr "Wert"
 
-#: src/docking/headerdock.cpp:57
+#: src/docking/headerdock.cpp:60
 msgid "POST Variables"
 msgstr "POST Variablen"
 
-#: src/docking/headerdock.cpp:70 src/formmanager/formtablemodel.cpp:74
+#: src/docking/headerdock.cpp:73 src/formmanager/formtablemodel.cpp:74
 msgid "Name"
 msgstr "Name"
 
-#: src/docking/headerdock.cpp:125
+#: src/docking/headerdock.cpp:126
 msgid "System File"
 msgstr "System Datei"
 
-#: src/docking/headerdock.cpp:160
+#: src/docking/headerdock.cpp:162
 msgid "Item"
 msgstr "Eintrag"
 
-#: src/docking/headerdock.cpp:212
+#: src/docking/headerdock.cpp:214
 msgid "Anchor"
 msgstr "Anker"
 
-#: src/docking/headerdock.cpp:280
+#: src/docking/headerdock.cpp:282
 msgid "Yes"
 msgstr "Ja"
 
-#: src/docking/headerdock.cpp:281
+#: src/docking/headerdock.cpp:283
 msgid "No"
 msgstr "Nein"
 
-#: src/docking/headerdock.cpp:289
+#: src/docking/headerdock.cpp:291
 msgid "Cookie"
 msgstr "Keks"
 
-#: src/docking/headerdock.cpp:302
+#: src/docking/headerdock.cpp:304
 msgid "Path"
 msgstr "Pfad"
 
-#: src/docking/headerdock.cpp:316
+#: src/docking/headerdock.cpp:318
 msgid "Session Cookie"
 msgstr "Sitzungs Keks"
 
-#: src/docking/headerdock.cpp:323
+#: src/docking/headerdock.cpp:325
 msgid "Only for HTTP?"
 msgstr "Nur HTTP?"
 
-#: src/docking/headerdock.cpp:330
+#: src/docking/headerdock.cpp:332
 msgid "Expiration"
 msgstr "Verfällt"
 
-#: src/docking/headerdock.cpp:337
+#: src/docking/headerdock.cpp:339
 msgid "Secure"
 msgstr "Sicher"
 
-#: src/docking/headerdock.cpp:370
+#: src/docking/headerdock.cpp:375
 msgid "Cookie Hostname"
 msgstr "Cookie Hostname"
 
@@ -1577,11 +1604,11 @@ msgstr "SEO:"
 msgid "Search Engine Optimisation (SEO)"
 msgstr "Suchmaschinen Optimierung (SEO)"
 
-#: src/main.cpp:72
+#: src/main.cpp:68
 msgid "Open File from Path or URL"
 msgstr "Öffne Datei Lokal oder mit Url"
 
-#: src/main.cpp:73
+#: src/main.cpp:69
 msgid "Disable Plugins and loading the Default Url"
 msgstr "Deaktiviere Plugins und starte mit der Standard Adresse"
 
@@ -1739,7 +1766,8 @@ msgstr "Zeitüberschreitung bei der Anfrage (408)"
 
 #: src/networker/errorsdialog.cpp:116
 msgid "the connection to the remote server \"%1\" timed out"
-msgstr "Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
+msgstr ""
+"Die Verbindung zum Server \"%1\" wurde wegen Zeitüberschreitung geschlossen."
 
 #: src/networker/errorsdialog.cpp:128
 msgid ""
@@ -1813,7 +1841,8 @@ msgstr "Nich Autorisiert (401)"
 msgid ""
 "the access to the remote \"%1\" content was denied (similar to HTTP error "
 "401)"
-msgstr "Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
+msgstr ""
+"Die Verbindung zur Gegenstelle \"%1\" wurde Verweigert (HTTP Status 401)"
 
 #: src/networker/errorsdialog.cpp:185
 msgid "the operation requested on the remote \"%1\" content is not permitted"
@@ -1823,7 +1852,8 @@ msgstr "Diese Operation wird von der Gegenstelle \"%1\" nicht akzeptiert."
 msgid ""
 "the remote content \"%1\" was not found at the server (similar to HTTP error "
 "404)"
-msgstr "Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
+msgstr ""
+"Der angefragte Inhalt \"%1\" konnte nicht gefunden werden. (HTTP Status 404)"
 
 #: src/networker/errorsdialog.cpp:197
 msgid "Authentication Required Error"
@@ -1897,7 +1927,8 @@ msgid "the operation requested on the remote content is not permitted"
 msgstr "Diese Operation wird von der Gegenstelle nicht akzeptiert."
 
 #: src/networker/networkaccessmanager.cpp:228
-msgid "Broken SSL/TLS URL connection, handshake failed and could not be established."
+msgid ""
+"Broken SSL/TLS URL connection, handshake failed and could not be established."
 msgstr ""
 "SSL/TLS - Fehlerhafte Url Verbindung. Das Aushandeln ist fehlgeschlagen und "
 "wurde verworfen."
@@ -1933,7 +1964,8 @@ msgstr ""
 "zurück gewiesen."
 
 #: src/networker/networkcookie.cpp:132
-msgid "A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
+msgid ""
+"A Set-Cookie with missing Hostname Domain=.tld, will always be rejected."
 msgstr ""
 "Das setzen eines Cookies ohne einem Hostnamen Domäne=.tld, wird immer zurück "
 "gewiesen."
@@ -2001,15 +2033,15 @@ msgstr " Zeile: %1"
 msgid " Document: %1"
 msgstr " Dokument: %1"
 
-#: src/page.cpp:259
+#: src/page.cpp:248
 msgid "JavaScript Prompt: "
 msgstr "JavaScript Anfrage: "
 
-#: src/page.cpp:379
+#: src/page.cpp:368
 msgid "Action rejected: HTML form was submitted a second time."
 msgstr "Aktion verweigert: Das HTML Formulare wurde bereits versendet!"
 
-#: src/page.cpp:416
+#: src/page.cpp:405
 msgid "(x-qt-plugin) ClassID: %1 %2"
 msgstr "(x-qt-plugin) ClassID: %1 %2"
 
@@ -2094,7 +2126,8 @@ msgid "Meta Description"
 msgstr "Meta Beschreibung"
 
 #: src/plugins/keywordeditor/firstpagewidget.cpp:73
-msgid "Open existing keyword file or click next to create a new keyword listing:"
+msgid ""
+"Open existing keyword file or click next to create a new keyword listing:"
 msgstr ""
 "Öffne eine existierende Schlüsselwortdatei oder zum erstellen einer neuen "
 "Liste klicke auf weiter:"
@@ -2181,7 +2214,8 @@ msgstr "SELFHTML"
 
 #: src/plugins/selfhtmlsidebar/selfhtmlsidebarplugin.cpp:71
 msgid "Sidebars for HTML, CSS, JavaScript/DOM, XSLT/XPath, Perl and SELFHTML."
-msgstr "Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
+msgstr ""
+"Seitenbalken für HTML, CSS, Javascript/DOM,XSLT/XPath,Perl und SELFHTML."
 
 #: src/plugins/template/helloworldplugin.cpp:76
 msgid "Information for this Plugin"
@@ -2675,4 +2709,3 @@ msgstr "Vergrößern"
 #: src/zoombar.cpp:48
 msgid "ZoomOut"
 msgstr "Verkleinern"
-
