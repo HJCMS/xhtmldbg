@@ -23,7 +23,7 @@
 # include "version.h"
 #endif
 #include "xhtmldbgmain.h"
-#include "observer.h"
+#include "busobserver.h"
 #include "dbmanager.h"
 
 #include <iostream>
@@ -42,22 +42,26 @@
 #include <QtCore/QTranslator>
 #include <QtCore/QUrl>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 /* KDE */
 #include <KDE/KCmdLineArgs>
+
+// QDBusConnection::sessionBus()
+// static const QDBusConnection createBusConnection()
+// {
+//   QDBusConnection* b = new QDBusConnection( "xhtmldbg" )
+// }
+
 
 /* construct */
 xhtmldbgmain::xhtmldbgmain ( bool failsafe )
     : Application ()
     , activeWindow ( 0 )
 {
-  setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  setApplicationName ( XHTMLDBG_APPS_NAME );
-  setOrganizationDomain ( XHTMLDBG_DOMAIN );
-  setObjectName ( "xhtmldbgmain" );
+  setObjectName ( "xhtmldbg" );
   setGraphicsSystem ( "raster" );
-
-  BusObserver* obs = new BusObserver ( this );
-  obs->addWatchedService ( "de.hjcms.xhtmldbg" );
 
   // Settings
   m_settings = new Settings ( this );
@@ -167,16 +171,6 @@ void xhtmldbgmain::sMessageReceived ( QLocalSocket* socket )
   return;
 }
 
-Window* xhtmldbgmain::newMainWindow()
-{
-  Window *debugger = new Window ( m_settings );
-  m_windows.prepend ( debugger );
-
-  debugger->show();
-  debugger->setFocus ( Qt::ActiveWindowFocusReason );
-  return debugger;
-}
-
 Window* xhtmldbgmain::mainWindow()
 {
   cleanWindows();
@@ -193,6 +187,19 @@ Window* xhtmldbgmain::mainWindow()
   }
 
   return activeWindow;
+}
+
+Window* xhtmldbgmain::newMainWindow()
+{
+  Window *debugger = new Window ( m_settings );
+  m_windows.prepend ( debugger );
+
+  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), debugger );
+  m_obs->watchService ( "org.kde.kded" );
+
+  debugger->show();
+  debugger->setFocus ( Qt::ActiveWindowFocusReason );
+  return debugger;
 }
 
 xhtmldbgmain::~xhtmldbgmain()

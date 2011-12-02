@@ -43,17 +43,23 @@
 /* QtGui */
 #include <QtGui/QX11Info>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 HistoryManager* Application::p_historyManager = 0;
 NetworkAccessManager* Application::p_networkAccessManager = 0;
 DownloadManager* Application::p_downloadManager = 0;
 DBManager* Application::p_dbManager = 0;
 
-// KUniqueApplication ( true, true )
 Application::Application ()
     : KUniqueApplication ( true, true )
     , m_server ( 0 )
 {
+  setApplicationVersion ( XHTMLDBG_VERSION_STRING );
+  setApplicationName ( XHTMLDBG_APPS_NAME );
+  setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( "application" );
+
   // NOTE Wir verwenden nicht den KSessionManager
   disableSessionManagement();
   Q_INIT_RESOURCE ( xhtmldbg );

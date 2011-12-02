@@ -23,34 +23,158 @@
 
 /* QtCore */
 #include <QtCore/QDebug>
+#include <QtCore/QFileInfo>
+#include <QtCore/QGenericReturnArgument>
+#include <QtCore/QRegExp>
+#include <QtCore/QMetaObject>
+#include <QtCore/QUrl>
 
 /* QtDBus */
-#include <QtDBus/QDBusConnection>
+// #include <QtDBus/QDBusConnection>
+// #include <QtDBus/QDBusAbstractAdaptor>
+// // #include <QtDBus/QDBusError>
+// // #include <QtDBus/QDBusInterface>
+// // #include <QtDBus/QDBusMessage>
 
 /* KDE */
 #include <KDE/KLocale>
 
-static const QString _dbus_service()
+BusObserver::BusObserver ( const QDBusConnection dbus, QObject * parent )
+    : QDBusAbstractAdaptor ( parent )
+    , serv ( QLatin1String ( "de.hjcms.xhtmldbg" ) )
 {
-  return QString::fromUtf8 ( "de.hjcms.xhtmldbg" );
+  setAutoRelaySignals ( false );
+  m_watcher = new QDBusServiceWatcher ( serv, dbus, QDBusServiceWatcher::WatchForOwnerChange, this );
+  if ( ! m_watcher->watchedServices().contains ( serv ) )
+    m_watcher->addWatchedService ( serv );
 }
 
-BusObserver::BusObserver ( QObject * parent )
-    : QDBusServiceWatcher ( _dbus_service(), QDBusConnection::sessionBus(),
-                            QDBusServiceWatcher::WatchForOwnerChange, parent )
+const QDBusConnection BusObserver::connection()
 {
-  setObjectName ( QLatin1String ( "BusObserver" ) );
-  connection().registerObject ( "/BusObserver", this );
-  connect ( this, SIGNAL ( serviceOwnerChanged ( const QString &, const QString &, const QString & ) ),
-            this, SLOT ( ownerModifications ( const QString &, const QString &, const QString & ) ) );
+  return m_watcher->connection();
 }
 
-void BusObserver::ownerModifications ( const QString &a, const QString &b, const QString &c )
+/**
+* Den Aktuellen D-Bus Service zurück geben!
+*/
+const QString BusObserver::busService()
 {
-  qDebug() << Q_FUNC_INFO << a << b << c;
+  return serv;
+}
+
+/**
+* Nachrichten übermittlung
+*/
+void BusObserver::message ( const QString &mess )
+{
+  QMetaObject::invokeMethod ( parent(), "setApplicationMessage",
+                              Q_ARG ( QString, mess ), Q_ARG ( bool, false ) );
+}
+
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode Importiert.
+* Diese Methode öffnet sendet einen Dialog an die IDE und fragt zuerst!
+*/
+bool BusObserver::open ( const QString &url )
+{
+  bool b = false;
+  QUrl u ( url, QUrl::StrictMode );
+  if ( u.isValid() && u.scheme().contains ( "http" ) )
+  {
+    QMetaObject::invokeMethod ( parent(), "urlRequest", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    return b;
+  }
+  else if ( u.isValid() && u.scheme().contains ( "file" ) )
+  {
+    return setFile ( u.toString ( QUrl::RemoveScheme ) );
+  }
+  else if ( u.isValid() && u.scheme().contains ( "ftp" ) )
+  {
+    message ( i18n ( "(XHTMLDBG) Reject \"%1\" FTP request!" ).arg ( u.toString() ) );
+    return false;
+  }
+  return false;
+}
+
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode
+* Importiert, dann weiter an die IDE (Wenn der import nicht
+* fehlgeschlagen ist.) geleitet.
+* Diese Methode öffnet eine NeueSeite wenn die alte URL nicht Vorhanden ist!
+*/
+bool BusObserver::setUrl ( const QString &oldUrl, const QString &newUrl )
+{
+  bool b = false;
+  QUrl info ( newUrl, QUrl::StrictMode );
+  if ( info.isValid() && info.scheme().contains ( "http" ) )
+  {
+    QUrl old ( oldUrl );
+    QMetaObject::invokeMethod ( parent(), "setPageUrl", Q_RETURN_ARG ( bool, b ),
+                                Q_ARG ( QUrl, old ), Q_ARG ( QUrl, info ) );
+    return b;
+  }
+  else if ( info.isValid() && info.scheme().contains ( "file" ) )
+  {
+    return setFile ( info.toString ( QUrl::RemoveScheme ) );
+  }
+  return false;
+}
+
+/**
+* Ein Datei öffnen in dem auf die existenz geprüft wird.
+* Das file:// Scheme wird immer eingefügt!
+*/
+bool BusObserver::setFile ( const QString &url )
+{
+  bool b = false;
+  QString buffer ( url );
+  QFileInfo file ( buffer.remove ( "file://" ) );
+  if ( file.exists() && ! file.isExecutable() )
+  {
+    QUrl u ( file.absoluteFilePath() );
+    bool addtab = true;
+    u.setScheme ( "file" );
+    QMetaObject::invokeMethod ( parent(), "openUrl", Q_RETURN_ARG ( bool, b )
+                                , Q_ARG ( QUrl, u ), Q_ARG ( bool, addtab ) );
+    return b;
+  }
+  return false;
+}
+
+/**
+* XHMLT/HTML Quelltext an die Ansicht übergeben.
+*/
+bool BusObserver::setSource ( const QString &url, const QString &xhtml )
+{
+  bool b = false;
+  QUrl sendUrl ( url, QUrl::StrictMode );
+  QMetaObject::invokeMethod ( parent(), "setSource", Q_RETURN_ARG ( bool, b ),
+                              Q_ARG ( QUrl, sendUrl ), Q_ARG ( QString, xhtml ) );
+  return b;
+}
+
+bool BusObserver::checkStyleSheet ( const QString &url )
+{
+  QUrl sendUrl ( url, QUrl::StrictMode );
+  if ( sendUrl.isValid() )
+  {
+    QMetaObject::invokeMethod ( parent(), "checkStyleSheet", Q_ARG ( QUrl, sendUrl ) );
+    return true;
+  }
+  return false;
+}
+
+/**
+* Eine Service zum Überwachen hinzufügen
+*/
+void BusObserver::watchService ( const QString &service )
+{
+  m_watcher->addWatchedService ( service );
+  QString mess ( i18n ( "Listening on DBus service:" ) );
+  mess.append ( " " );
+  mess.append ( service );
+  QMetaObject::invokeMethod ( parent(), "setApplicationMessage", Q_ARG ( QString, mess ), Q_ARG ( bool, false ) );
 }
 
 BusObserver::~BusObserver()
-{
-  connection().unregisterObject ( "/BusObserver", QDBusConnection::UnregisterTree );
-}
+{}

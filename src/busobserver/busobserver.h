@@ -25,25 +25,43 @@
 /* QtCore */
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QVariant>
+#include <QtCore/QObject>
 
 /* QtDBus */
-// #include <QtDBus/QDBusError>
-// #include <QtDBus/QDBusInterface>
-// #include <QtDBus/QDBusMessage>
+#include <QtDBus/QDBusConnection>
+#include <QtDBus/QDBusAbstractAdaptor>
 #include <QtDBus/QDBusServiceWatcher>
 
-class BusObserver : public QDBusServiceWatcher
+class BusObserver : public QDBusAbstractAdaptor
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://www.hjcms.de" )
+    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
-  protected Q_SLOTS:
-    void ownerModifications ( const QString &, const QString &, const QString & );
+  private:
+    const QString serv;
+    QDBusServiceWatcher* m_watcher;
+
+  public Q_SLOTS:
+    Q_NOREPLY void message ( const QString &mess );
+    /** \return true if URL accepted otherwise false */
+    bool open ( const QString &url );
+    /** \return true if URL accepted otherwise false */
+    bool setUrl ( const QString &oldUrl, const QString &newUrl );
+    /** \return true if URL accepted otherwise false */
+    bool setFile ( const QString &url );
+    /** \return true if URL accepted otherwise false */
+    bool setSource ( const QString &url, const QString &xhtml );
+    /** \return true if URL accepted otherwise false */
+    bool checkStyleSheet ( const QString &url );
+    /** \return true if URL accepted otherwise false */
+    Q_NOREPLY void watchService ( const QString &service );
 
   public:
-    BusObserver ( QObject * parent = 0 );
+    BusObserver ( const QDBusConnection dbus, QObject * parent = 0 );
+    const QDBusConnection connection();
+    const QString busService();
     virtual ~BusObserver();
 };
 

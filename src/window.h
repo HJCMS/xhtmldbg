@@ -92,7 +92,6 @@ class Window : public KMainWindow
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
   private:
     Settings* m_settings;

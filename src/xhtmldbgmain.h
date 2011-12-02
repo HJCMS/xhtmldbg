@@ -28,9 +28,6 @@
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 
-/* KDE */
-#include <KDE/KApplication>
-
 /* QtNetwork */
 #include <QtNetwork/QLocalServer>
 #include <QtNetwork/QLocalSocket>
@@ -63,6 +60,7 @@ class xhtmldbgmain : public Application
 
   public Q_SLOTS:
     Window* newMainWindow();
+
 };
 
 #endif

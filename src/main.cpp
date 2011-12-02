@@ -38,7 +38,6 @@
 #include <KDE/KAboutPerson>
 #include <KDE/KCmdLineArgs>
 #include <KDE/KCmdLineOptions>
-#include <KDE/KGlobal>
 #include <KDE/KLocale>
 
 #ifndef XHTMLDBG_VERSION_STRING
@@ -49,47 +48,47 @@
 
 inline static void setPluginPaths()
 {
-    /* Overwrite QTWEBKIT_PLUGIN_PATH to XHTMLDBG PLUGIN Directory
-    * This must forced to hide other plugins in global plugin-directories
-    * !!! QtWebkit produces major fuckups with invalid plugins !!!
-    */
-    setenv ( "MOZ_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
-    setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+  /* Overwrite QTWEBKIT_PLUGIN_PATH to XHTMLDBG PLUGIN Directory
+  * This must forced to hide other plugins in global plugin-directories
+  * !!! QtWebkit produces major fuckups with invalid plugins !!! */
+  setenv ( "MOZ_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
+  setenv ( "QTWEBKIT_PLUGIN_PATH", XHTMLDBG_NPP_PLUGIN_PATH, 1 );
 }
 
 int main ( int argc, char *argv[] )
 {
-    setPluginPaths();
+  setPluginPaths();
 
-    AboutData about;
+  KLocale::setMainCatalog ( "xhtmldbg" );
 
-    // Initialize command line args
-    KCmdLineArgs::init ( argc, argv, &about );
+  AboutData about;
 
-    // Define the command line options
-    KCmdLineOptions options;
-    options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
-    options.add ( "f" ).add ( "failsafe", ki18n ( "Disable Plugins and loading the Default Url" ) );
+  // Initialize command line args
+  KCmdLineArgs::init ( argc, argv, &about );
 
-    // Register the supported options
-    KCmdLineArgs::addCmdLineOptions ( options );
+  // Define the command line options
+  KCmdLineOptions options;
+  options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
+  options.add ( "f" ).add ( "failsafe", ki18n ( "Disable Plugins and loading the Default Url" ) );
 
-    // start application
-    xhtmldbgmain app;
-    if ( ! app.isRunning() )
-        return EXIT_SUCCESS;
+  // Register the supported options
+  KCmdLineArgs::addCmdLineOptions ( options );
 
-    KGlobal::locale()->insertCatalog ( XHTMLDBG_APPS_NAME );
+  // start application
+  xhtmldbgmain app;
+  if ( ! app.start() )
+  {
+    QDBusConnection bus = QDBusConnection::connectToBus ( QDBusConnection::SessionBus, "de.hjcms.xhtmldbg" );
+    qDebug() << Q_FUNC_INFO << argc;
+    return EXIT_SUCCESS;
+  }
 
-    QDBusConnection dbus = QDBusConnection::sessionBus();
-    dbus.registerService ( "de.hjcms.xhtmldbg" );
-
-    Window* win = app.newMainWindow();
-    if ( win && ( argc > 2 ) )
-    {
-        QUrl url ( KCmdLineArgs::allArguments().last(), QUrl::StrictMode );
-        if ( url.isValid() )
-            win->openUrl ( url, false );
-    }
-    return app.exec();
+  Window* win = app.newMainWindow();
+  if ( win && ( argc > 2 ) )
+  {
+    QUrl url ( KCmdLineArgs::allArguments().last(), QUrl::StrictMode );
+    if ( url.isValid() )
+      win->openUrl ( url, false );
+  }
+  return app.exec();
 }
