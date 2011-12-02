@@ -28,10 +28,6 @@
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 
-/* QtNetwork */
-#include <QtNetwork/QLocalServer>
-#include <QtNetwork/QLocalSocket>
-
 #include "settings.h"
 #include "application.h"
 #include "window.h"
@@ -49,18 +45,15 @@ class xhtmldbgmain : public Application
     void setWindowFocus();
     void cleanWindows();
 
-  private Q_SLOTS:
-    void sMessageReceived ( QLocalSocket* socket );
+  protected:
+    Window* newWindow();
 
   public:
-    xhtmldbgmain ( bool failsafe = false );
+    xhtmldbgmain ();
     static xhtmldbgmain* instance();
     Window* mainWindow();
+    virtual int newInstance();
     virtual ~xhtmldbgmain();
-
-  public Q_SLOTS:
-    Window* newMainWindow();
-
 };
 
 #endif

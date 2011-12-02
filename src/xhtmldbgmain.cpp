@@ -48,27 +48,15 @@
 /* KDE */
 #include <KDE/KCmdLineArgs>
 
-// QDBusConnection::sessionBus()
-// static const QDBusConnection createBusConnection()
-// {
-//   QDBusConnection* b = new QDBusConnection( "xhtmldbg" )
-// }
-
-
 /* construct */
-xhtmldbgmain::xhtmldbgmain ( bool failsafe )
+xhtmldbgmain::xhtmldbgmain ()
     : Application ()
     , activeWindow ( 0 )
 {
   setObjectName ( "xhtmldbg" );
-  setGraphicsSystem ( "raster" );
 
   // Settings
   m_settings = new Settings ( this );
-
-  if ( failsafe )
-    m_settings->setSaveMode();
-
   m_settings->setDataPaths();
   m_settings->setIconTheme();
 
@@ -76,22 +64,6 @@ xhtmldbgmain::xhtmldbgmain ( bool failsafe )
   * werden und vor NetworkAccessManager aufgerufen sein!
   * WARNING Die Klasse NetworkCookie braucht diesen Pointer! */
   dbManager();
-
-  connect ( this, SIGNAL ( sMessageReceived ( QLocalSocket * ) ),
-            this, SLOT ( sMessageReceived ( QLocalSocket * ) ) );
-
-  QString message = QString ( QLatin1String ( "xhtmldbg://getwinid" ) );
-  if ( sendMessage ( message.toUtf8(), 500 ) )
-    return;
-
-  if ( ! startUniqueServer() )
-    return;
-
-#if defined(Q_WS_MAC)
-  QApplication::setQuitOnLastWindowClosed ( false );
-#else
-  QApplication::setQuitOnLastWindowClosed ( true );
-#endif
 }
 
 void xhtmldbgmain::setWindowFocus()
@@ -124,60 +96,39 @@ void xhtmldbgmain::cleanWindows()
   }
 }
 
-xhtmldbgmain* xhtmldbgmain::instance()
+Window* xhtmldbgmain::newWindow()
 {
-  return ( static_cast<xhtmldbgmain*> ( QCoreApplication::instance() ) );
+  Window *debugger = new Window ( m_settings );
+  debugger->show();
+  debugger->setFocus ( Qt::ActiveWindowFocusReason );
+
+  KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+  if ( args->allArguments().size() >= 1 )
+  {
+    QUrl uri ( args->getOption ( "o" ) );
+    if ( uri.isValid() )
+      debugger->openUrl ( uri );
+  }
+  args->clear();
+
+  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), debugger );
+  m_obs->watchService ( "org.kde.kded" );
+
+  m_windows.prepend ( debugger );
+  return debugger;
 }
 
-void xhtmldbgmain::sMessageReceived ( QLocalSocket* socket )
+xhtmldbgmain* xhtmldbgmain::instance()
 {
-  QString message;
-  QTextStream stream ( socket );
-  stream >> message;
-  if ( message.isEmpty() )
-    return;
-
-  // TODO Regexp Überprüfen!
-  if ( message.contains ( QRegExp ( "^(http[s]?|file):[\\/]{2,3}[\\w]+" ) ) )
-  {
-    QUrl url ( message.toUtf8() );
-    if ( url.isValid() )
-    {
-      setWindowFocus();
-      mainWindow()->openUrl ( url );
-      socket->write ( message.toUtf8() );
-      socket->waitForBytesWritten();
-      return;
-    }
-  }
-  else if ( message.startsWith ( QLatin1String ( "xhtmldbg://getwinid" ) ) )
-  {
-    QString winid;
-#ifdef Q_OS_WIN
-    winid = QString ( QLatin1String ( "%1" ) ).arg ( ( qlonglong ) mainWindow()->winId() );
-#endif
-    setWindowFocus();
-    message = QLatin1String ( "xhtmldbg://winid/" ) + winid;
-    socket->write ( message.toUtf8() );
-    socket->waitForBytesWritten();
-    return;
-  }
-
-  if ( message.startsWith ( QLatin1String ( "xhtmldbg://winid" ) ) )
-  {
-    QString winid = message.mid ( 21 );
-    return;
-  }
-  return;
+  return ( static_cast<xhtmldbgmain*> ( Application::instance() ) );
 }
 
 Window* xhtmldbgmain::mainWindow()
 {
   cleanWindows();
-
   if ( m_windows.isEmpty() )
   {
-    activeWindow = newMainWindow();
+    activeWindow = newWindow();
   }
   else
   {
@@ -185,21 +136,17 @@ Window* xhtmldbgmain::mainWindow()
     if ( !activeWindow )
       activeWindow = m_windows[0];
   }
-
   return activeWindow;
 }
 
-Window* xhtmldbgmain::newMainWindow()
+int xhtmldbgmain::newInstance()
 {
-  Window *debugger = new Window ( m_settings );
-  m_windows.prepend ( debugger );
+  if ( m_windows.isEmpty() )
+    mainWindow();
+  else
+    setWindowFocus();
 
-  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), debugger );
-  m_obs->watchService ( "org.kde.kded" );
-
-  debugger->show();
-  debugger->setFocus ( Qt::ActiveWindowFocusReason );
-  return debugger;
+  return EXIT_SUCCESS;
 }
 
 xhtmldbgmain::~xhtmldbgmain()

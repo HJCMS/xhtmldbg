@@ -69,7 +69,6 @@ class Application : public KUniqueApplication
     Application ();
     bool startUniqueServer();
     bool sendMessage ( const QByteArray &mess, int rwait = 0 );
-    bool isRunning() const;
     static DBManager* dbManager();
     static DownloadManager* downloadManager();
     static HistoryManager* historyManager();

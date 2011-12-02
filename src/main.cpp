@@ -31,14 +31,14 @@
 #include <QtCore/QUrl>
 
 /* QtDBus */
-#include <QtDBus/QDBusConnection>
+#include <QtDBus/QDBusInterface>
 
 /* KDE */
-#include <KDE/KAboutData>
-#include <KDE/KAboutPerson>
 #include <KDE/KCmdLineArgs>
 #include <KDE/KCmdLineOptions>
 #include <KDE/KLocale>
+#include <KDE/KUniqueApplication>
+#include <KDE/KUrl>
 
 #ifndef XHTMLDBG_VERSION_STRING
 # include "version.h"
@@ -64,31 +64,32 @@ int main ( int argc, char *argv[] )
   AboutData about;
 
   // Initialize command line args
-  KCmdLineArgs::init ( argc, argv, &about );
+  KCmdLineArgs::init ( argc, argv, &about, KCmdLineArgs::CmdLineArgsMask );
 
   // Define the command line options
   KCmdLineOptions options;
-  options.add ( "o <url>" ).add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
-  options.add ( "f" ).add ( "failsafe", ki18n ( "Disable Plugins and loading the Default Url" ) );
-
-  // Register the supported options
+  options.add ( "o <url>" );
+  options.add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
   KCmdLineArgs::addCmdLineOptions ( options );
 
-  // start application
-  xhtmldbgmain app;
-  if ( ! app.start() )
+  KUniqueApplication::addCmdLineOptions();
+
+  if ( ! KUniqueApplication::start() )
   {
-    QDBusConnection bus = QDBusConnection::connectToBus ( QDBusConnection::SessionBus, "de.hjcms.xhtmldbg" );
-    qDebug() << Q_FUNC_INFO << argc;
+    KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
+    if ( args->allArguments().size() >= 1 )
+    {
+      QString uri = args->getOption ( "o" );
+      if ( ! uri.contains ( "://" ) )
+      {
+        QDBusInterface iface ( "de.hjcms.xhtmldbg","/xhtmldbg/Window","de.hjcms.xhtmldbg" );
+        iface.call ( "open", uri );
+      }
+    }
+    args->clear();
     return EXIT_SUCCESS;
   }
 
-  Window* win = app.newMainWindow();
-  if ( win && ( argc > 2 ) )
-  {
-    QUrl url ( KCmdLineArgs::allArguments().last(), QUrl::StrictMode );
-    if ( url.isValid() )
-      win->openUrl ( url, false );
-  }
+  xhtmldbgmain app;
   return app.exec();
 }

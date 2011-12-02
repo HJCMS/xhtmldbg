@@ -177,14 +177,6 @@ bool Application::sendMessage ( const QByteArray &mess, int rwait )
 }
 
 /**
-* Ist der Socket gestartet?
-*/
-bool Application::isRunning() const
-{
-  return ( 0 != m_server );
-}
-
-/**
 * Starte den SQLite Datenbank-Manager
 */
 DBManager* Application::dbManager()

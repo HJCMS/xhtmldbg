@@ -28,6 +28,7 @@
 
 /* KDE */
 #include <KDE/KAboutData>
+#include <KDE/KAboutPerson>
 #include <KDE/KLocalizedString>
 
 class AboutData : public KAboutData
