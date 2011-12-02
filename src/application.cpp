@@ -55,9 +55,6 @@ Application::Application ()
     : KUniqueApplication ( true, true )
     , m_server ( 0 )
 {
-  setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  setApplicationName ( XHTMLDBG_APPS_NAME );
-  setOrganizationDomain ( XHTMLDBG_DOMAIN );
   setObjectName ( "application" );
 
   // NOTE Wir verwenden nicht den KSessionManager

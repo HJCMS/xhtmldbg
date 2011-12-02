@@ -33,6 +33,10 @@
 #include <QtGui/QListWidgetItem>
 #include <QtGui/QMenu>
 
+
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 /* KDE */
 #include <KDE/KLocale>
 #include <KDE/KIcon>
@@ -46,6 +50,8 @@ TidyMessanger::TidyMessanger ( QWidget * parent )
   setObjectName ( "tidymessanger" );
   setWindowTitle ( i18n ( "HTML/XHTML Impartations" ) );
   setFeatures ( ( features() & ~QDockWidget::DockWidgetFloatable ) );
+
+  QDBusConnection::sessionBus().registerObject( "/HtmlMessages", this );
 
   m_listWidget = new QListWidget ( this );
   m_listWidget->setSortingEnabled ( true );

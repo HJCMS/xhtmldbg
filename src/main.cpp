@@ -72,6 +72,9 @@ int main ( int argc, char *argv[] )
   options.add ( "open <url>", ki18n ( "Open File from Path or URL" ), QByteArray ( "http://localhost" ) );
   KCmdLineArgs::addCmdLineOptions ( options );
 
+  KUniqueApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
+  KUniqueApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
+  KUniqueApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
   KUniqueApplication::addCmdLineOptions();
 
   if ( ! KUniqueApplication::start() )
