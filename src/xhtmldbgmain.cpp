@@ -56,7 +56,7 @@ xhtmldbgmain::xhtmldbgmain ( bool failsafe )
   setObjectName ( "xhtmldbgmain" );
   setGraphicsSystem ( "raster" );
 
-  Observer* obs = new Observer ( this );
+  BusObserver* obs = new BusObserver ( this );
   obs->addWatchedService ( "de.hjcms.xhtmldbg" );
 
   // Settings

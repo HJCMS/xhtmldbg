@@ -19,7 +19,7 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#include "observer.h"
+#include "busobserver.h"
 
 /* QtCore */
 #include <QtCore/QDebug>
@@ -35,22 +35,22 @@ static const QString _dbus_service()
   return QString::fromUtf8 ( "de.hjcms.xhtmldbg" );
 }
 
-Observer::Observer ( QObject * parent )
+BusObserver::BusObserver ( QObject * parent )
     : QDBusServiceWatcher ( _dbus_service(), QDBusConnection::sessionBus(),
                             QDBusServiceWatcher::WatchForOwnerChange, parent )
 {
-  setObjectName ( QLatin1String ( "Observer" ) );
-  connection().registerObject ( "/Observer", this );
+  setObjectName ( QLatin1String ( "BusObserver" ) );
+  connection().registerObject ( "/BusObserver", this );
   connect ( this, SIGNAL ( serviceOwnerChanged ( const QString &, const QString &, const QString & ) ),
             this, SLOT ( ownerModifications ( const QString &, const QString &, const QString & ) ) );
 }
 
-void Observer::ownerModifications ( const QString &a, const QString &b, const QString &c )
+void BusObserver::ownerModifications ( const QString &a, const QString &b, const QString &c )
 {
   qDebug() << Q_FUNC_INFO << a << b << c;
 }
 
-Observer::~Observer()
+BusObserver::~BusObserver()
 {
-  connection().unregisterObject ( "/Observer", QDBusConnection::UnregisterTree );
+  connection().unregisterObject ( "/BusObserver", QDBusConnection::UnregisterTree );
 }

@@ -1,17 +1,15 @@
 ## CMakeLists.txt
 #########################################################
 
-SET (subproject "Observer")
-
-SET (subproject_SOURCES
-  observer.cpp
+SET (BusObserver_SOURCES
+  busobserver.cpp
 )
 
-SET (subproject_HEADERS
-  observer.h
+SET (BusObserver_HEADERS
+  busobserver.h
 )
 
-KDE4_MOC_HEADERS (subproject_MOCS ${subproject_HEADERS})
+KDE4_MOC_HEADERS (BusObserver_MOCS ${BusObserver_HEADERS})
 
 INCLUDE_DIRECTORIES (
   ${CMAKE_CURRENT_BINARY_DIR}
@@ -19,13 +17,13 @@ INCLUDE_DIRECTORIES (
   ${MAIN_PROJECT_INCLUDES}
 )
 
-KDE4_ADD_LIBRARY (subproject STATIC
-  ${subproject_MOCS}
-  ${subproject_HEADERS}
-  ${subproject_SOURCES}
+KDE4_ADD_LIBRARY (BusObserver STATIC
+  ${BusObserver_MOCS}
+  ${BusObserver_HEADERS}
+  ${BusObserver_SOURCES}
 )
 
-TARGET_LINK_LIBRARIES (subproject
+TARGET_LINK_LIBRARIES (BusObserver
   ${QT_QTCORE_LIBRARY}
   ${QT_QTGUI_LIBRARY}
   ${QT_QTDBUS_LIBRARY}
@@ -33,8 +31,7 @@ TARGET_LINK_LIBRARIES (subproject
   ${KDE4_KDEUI_LIBRARY}
 )
 
-SET_TARGET_PROPERTIES (subproject PROPERTIES
-  OUTPUT_NAME ${subproject}
+SET_TARGET_PROPERTIES (BusObserver PROPERTIES
   LINKER_LANGUAGE CXX
   COMPILE_FLAGS "${LIB_FPIC_CXXFLAGS} ${APP_PIE_CXXFLAGS}"
   LINK_FLAGS "${LIB_FPIC_CXXFLAGS} ${APP_PIE_LDFLAGS}"

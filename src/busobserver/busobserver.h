@@ -19,8 +19,8 @@
 * Boston, MA 02110-1301, USA.
 **/
 
-#ifndef OBSERVER_H
-#define OBSERVER_H
+#ifndef BUSOBSERVER_H
+#define BUSOBSERVER_H
 
 /* QtCore */
 #include <QtCore/QObject>
@@ -33,7 +33,7 @@
 // #include <QtDBus/QDBusMessage>
 #include <QtDBus/QDBusServiceWatcher>
 
-class Observer : public QDBusServiceWatcher
+class BusObserver : public QDBusServiceWatcher
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -43,8 +43,8 @@ class Observer : public QDBusServiceWatcher
     void ownerModifications ( const QString &, const QString &, const QString & );
 
   public:
-    Observer ( QObject * parent = 0 );
-    virtual ~Observer();
+    BusObserver ( QObject * parent = 0 );
+    virtual ~BusObserver();
 };
 
 #endif
