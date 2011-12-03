@@ -10,7 +10,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_BINARY_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/about
   ${CMAKE_CURRENT_SOURCE_DIR}/autosaver
-  ${CMAKE_CURRENT_SOURCE_DIR}/busobserver
   ${CMAKE_CURRENT_SOURCE_DIR}/bookmark
   ${CMAKE_CURRENT_SOURCE_DIR}/colorpicker
   ${CMAKE_CURRENT_SOURCE_DIR}/dbmanager
@@ -36,7 +35,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
 ADD_SUBDIRECTORY (html)
 ADD_SUBDIRECTORY (about)
 ADD_SUBDIRECTORY (autosaver)
-ADD_SUBDIRECTORY (busobserver)
 ADD_SUBDIRECTORY (bookmark)
 ADD_SUBDIRECTORY (colorpicker)
 ADD_SUBDIRECTORY (dbmanager)
@@ -198,7 +196,6 @@ KDE4_ADD_EXECUTABLE (xhtmldbg
 TARGET_LINK_LIBRARIES (xhtmldbg
   xhtmldbginterface
   About
-  BusObserver
   Bookmark
   ColorPicker
   Configuration

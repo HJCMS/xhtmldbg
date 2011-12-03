@@ -52,7 +52,7 @@ const QByteArray AboutData::version()
 
 const QByteArray AboutData::eMail()
 {
-  QByteArray m ( "xhtmldbg" );
+  QByteArray m ( XHTMLDBG_APPS_NAME );
   m.append ( "@" );
   m.append ( "hjcms.de" );
   return m;
@@ -71,6 +71,11 @@ const QByteArray AboutData::appsname()
 const QByteArray AboutData::ocsUserName()
 {
   return QByteArray ( "undefined" );
+}
+
+const QByteArray AboutData::service()
+{
+  return QByteArray ( "de.hjcms.xhtmldbg" );
 }
 
 const KLocalizedString AboutData::maintainer()

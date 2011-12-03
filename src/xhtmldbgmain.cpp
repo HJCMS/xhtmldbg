@@ -24,7 +24,6 @@
 #endif
 
 #include "xhtmldbgmain.h"
-#include "busobserver.h"
 #include "dbmanager.h"
 #include "historymanager.h"
 #include "networkaccessmanager.h"
@@ -39,9 +38,11 @@
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QFile>
+#include <QtCore/QGenericReturnArgument>
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLibraryInfo>
 #include <QtCore/QLocale>
+#include <QtCore/QMetaObject>
 #include <QtCore/QRegExp>
 #include <QtCore/QString>
 #include <QtCore/QTextStream>
@@ -59,21 +60,16 @@ NetworkAccessManager* xhtmldbgmain::p_networkAccessManager = 0;
 DownloadManager* xhtmldbgmain::p_downloadManager = 0;
 DBManager* xhtmldbgmain::p_dbManager = 0;
 
-#ifdef MAINTAINER_REPOSITORY
-static bool set_unique = false;
-#else
-static bool set_unique = true;
-#endif
-
 /* construct */
-xhtmldbgmain::xhtmldbgmain ()
-    : KUniqueApplication ( true, set_unique )
-    , window ( 0 )
+xhtmldbgmain::xhtmldbgmain () : KUniqueApplication ( true, true )
 {
   setObjectName ( "xhtmldbg" );
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( XHTMLDBG_APPS_NAME );
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
+  setStartupId ( QByteArray( "xhtmldbg" ) );
+  Q_INIT_RESOURCE ( xhtmldbg );
+
   // Settings
   m_settings = new Settings ( this );
   m_settings->setDataPaths();
@@ -83,17 +79,12 @@ xhtmldbgmain::xhtmldbgmain ()
   * werden und vor NetworkAccessManager aufgerufen sein!
   * WARNING Die Klasse NetworkCookie braucht diesen Pointer! */
   dbManager ( this );
-
-  // NOTE Wir verwenden nicht den KSessionManager
-  disableSessionManagement();
 }
 
 void xhtmldbgmain::setWindowFocus()
 {
   if ( ! mainWindow() )
     return;
-
-#ifndef Q_OS_WIN
 
   Window* win = mainWindow();
   if ( ! win->isVisible() )
@@ -105,8 +96,6 @@ void xhtmldbgmain::setWindowFocus()
     win->activateWindow();
     alert ( win );
   }
-
-#endif
 }
 
 /**
@@ -118,6 +107,9 @@ Window* xhtmldbgmain::newWindow()
   window->show();
   window->setFocus ( Qt::ActiveWindowFocusReason );
 
+  QDBusConnection bus = QDBusConnection::sessionBus();
+  bus.registerObject ( "/xhtmldbg" , this, QDBusConnection::ExportScriptableContents );
+
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
   if ( args->allArguments().size() >= 1 )
   {
@@ -127,15 +119,7 @@ Window* xhtmldbgmain::newWindow()
   }
   args->clear();
 
-  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), window );
-  m_obs->watchService ( "org.kde.kded" );
-
   return window;
-}
-
-xhtmldbgmain* xhtmldbgmain::instance()
-{
-  return ( static_cast<xhtmldbgmain*> ( QCoreApplication::instance() ) );
 }
 
 /**
@@ -147,6 +131,28 @@ Window* xhtmldbgmain::mainWindow()
     window = newWindow();
 
   return window;
+}
+
+/**
+* Virtuelle Methode zum erstellen einer neuen Instanze.
+* @see http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html
+*/
+int xhtmldbgmain::newInstance()
+{
+  if ( ! window )
+    mainWindow();
+  else
+    setWindowFocus();
+
+  return EXIT_SUCCESS;
+}
+
+xhtmldbgmain* xhtmldbgmain::instance()
+{
+#ifdef MAINTAINER_REPOSITORY
+  qDebug() << Q_FUNC_INFO << __LINE__;
+#endif
+  return ( qobject_cast<xhtmldbgmain*> ( QCoreApplication::instance() ) );
 }
 
 /**
@@ -204,21 +210,114 @@ NetworkCookie* xhtmldbgmain::cookieManager()
 }
 
 /**
-* Virtuelle Methode zum erstellen einer neuen Instanze.
-* @see http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html
+* Nachrichten übermittlung
 */
-int xhtmldbgmain::newInstance()
+void xhtmldbgmain::message ( const QString &mess )
 {
-  if ( ! window )
-    mainWindow();
-  else
-    setWindowFocus();
+  QMetaObject::invokeMethod ( mainWindow(), "setApplicationMessage",
+                              Q_ARG ( QString, mess ), Q_ARG ( bool, false ) );
+}
 
-  return EXIT_SUCCESS;
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode Importiert.
+* Diese Methode öffnet sendet einen Dialog an die IDE und fragt zuerst!
+*/
+bool xhtmldbgmain::open ( const QString &url )
+{
+  bool b = false;
+  QUrl u ( url, QUrl::StrictMode );
+  if ( u.isValid() && u.scheme().contains ( "http" ) )
+  {
+    QMetaObject::invokeMethod ( mainWindow(), "urlRequest", Q_RETURN_ARG ( bool, b ), Q_ARG ( QUrl, u ) );
+    return b;
+  }
+  else if ( u.isValid() && u.scheme().contains ( "file" ) )
+  {
+    return setFile ( u.toString ( QUrl::RemoveScheme ) );
+  }
+  else if ( u.isValid() && u.scheme().contains ( "ftp" ) )
+  {
+    message ( i18n ( "(XHTMLDBG) Reject \"%1\" FTP request!" ).arg ( u.toString() ) );
+    return false;
+  }
+  return false;
+}
+
+/**
+* Die übergebene Zeichenketten URL wird mit QUrl::StrictMode
+* Importiert, dann weiter an die IDE (Wenn der import nicht
+* fehlgeschlagen ist.) geleitet.
+* Diese Methode öffnet eine NeueSeite wenn die alte URL nicht Vorhanden ist!
+*/
+bool xhtmldbgmain::setUrl ( const QString &oldUrl, const QString &newUrl )
+{
+  bool b = false;
+  QUrl info ( newUrl, QUrl::StrictMode );
+  if ( info.isValid() && info.scheme().contains ( "http" ) )
+  {
+    QUrl old ( oldUrl );
+    QMetaObject::invokeMethod ( mainWindow(), "setPageUrl", Q_RETURN_ARG ( bool, b ),
+                                Q_ARG ( QUrl, old ), Q_ARG ( QUrl, info ) );
+    return b;
+  }
+  else if ( info.isValid() && info.scheme().contains ( "file" ) )
+  {
+    return setFile ( info.toString ( QUrl::RemoveScheme ) );
+  }
+  return false;
+}
+
+/**
+* Ein Datei öffnen in dem auf die existenz geprüft wird.
+* Das file:// Scheme wird immer eingefügt!
+*/
+bool xhtmldbgmain::setFile ( const QString &url )
+{
+  bool b = false;
+  QString buffer ( url );
+  QFileInfo file ( buffer.remove ( "file://" ) );
+  if ( file.exists() && ! file.isExecutable() )
+  {
+    QUrl u ( file.absoluteFilePath() );
+    bool addtab = true;
+    u.setScheme ( "file" );
+    QMetaObject::invokeMethod ( mainWindow(), "openUrl", Q_RETURN_ARG ( bool, b )
+                                , Q_ARG ( QUrl, u ), Q_ARG ( bool, addtab ) );
+    return b;
+  }
+  return false;
+}
+
+/**
+* XHMLT/HTML Quelltext an die Ansicht übergeben.
+*/
+bool xhtmldbgmain::setSource ( const QString &url, const QString &xhtml )
+{
+  bool b = false;
+  QUrl sendUrl ( url, QUrl::StrictMode );
+  QMetaObject::invokeMethod ( mainWindow(), "setSource", Q_RETURN_ARG ( bool, b ),
+                              Q_ARG ( QUrl, sendUrl ), Q_ARG ( QString, xhtml ) );
+  return b;
+}
+
+bool xhtmldbgmain::checkStyleSheet ( const QString &url )
+{
+  QUrl sendUrl ( url, QUrl::StrictMode );
+  if ( sendUrl.isValid() )
+  {
+    QMetaObject::invokeMethod ( mainWindow(), "checkStyleSheet", Q_ARG ( QUrl, sendUrl ) );
+    return true;
+  }
+  return false;
 }
 
 xhtmldbgmain::~xhtmldbgmain()
 {
+  if ( window )
+  {
+    window->close();
+    window->deleteLater();
+  }
   delete p_historyManager;
   delete p_networkAccessManager;
   delete p_downloadManager;

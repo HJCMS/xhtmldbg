@@ -23,6 +23,7 @@
 #include <cstdlib>
 
 /* QtCore */
+#include <QtCore/QDebug>
 #include <QtCore/QCoreApplication>
 #include <QtCore/QGlobalStatic>
 #include <QtCore/QLocale>
@@ -59,16 +60,12 @@ int main ( int argc, char *argv[] )
 {
   setPluginPaths();
 
-  Q_INIT_RESOURCE ( xhtmldbg );
-  KUniqueApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  KUniqueApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
-  KUniqueApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
-  QDBusConnection::connectToBus ( QDBusConnection::SessionBus, QLatin1String( "de.hjcms.xhtmldbg" ) );
+  /* WARNING This class is used to store required programm information.
+  * It is important to send out properties to KUniqueApplication */
+  AboutData* about = new AboutData();
 
   KLocale::setMainCatalog ( "xhtmldbg" );
-
-  AboutData about;
-  KCmdLineArgs::init ( argc, argv, &about, KCmdLineArgs::CmdLineArgsMask );
+  KCmdLineArgs::init ( argc, argv, about, KCmdLineArgs::CmdLineArgKDE );
 
   KCmdLineOptions options;
   options.add ( "o <url>" );
@@ -81,10 +78,17 @@ int main ( int argc, char *argv[] )
     KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
     if ( args->allArguments().size() >= 1 )
     {
+      QString srv ( "de.hjcms.xhtmldbg" );
       QString uri = args->getOption ( "o" );
-      if ( ! uri.contains ( "://" ) )
+      if ( uri.contains ( "://" ) )
       {
-        QDBusInterface iface ( "de.hjcms.xhtmldbg","/xhtmldbg/Window","de.hjcms.xhtmldbg" );
+        QDBusInterface iface ( srv, "/xhtmldbg", srv );
+        iface.call ( "open", uri );
+      }
+      uri = args->getOption ( "open" );
+      if ( uri.contains ( "://" ) )
+      {
+        QDBusInterface iface ( srv, "/xhtmldbg", srv );
         iface.call ( "open", uri );
       }
     }
@@ -92,6 +96,6 @@ int main ( int argc, char *argv[] )
     return EXIT_SUCCESS;
   }
 
-  xhtmldbgmain app;
-  return app.exec();
+  xhtmldbgmain* app = new xhtmldbgmain();
+  return app->exec();
 }

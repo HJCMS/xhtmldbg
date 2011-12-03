@@ -760,7 +760,7 @@ void Window::closeEvent ( QCloseEvent *event )
 
   m_settings->setValue ( "Window/MainWindowGeometry", saveGeometry() );
 
-  QMainWindow::closeEvent ( event );
+  KMainWindow::closeEvent ( event );
 }
 
 /**

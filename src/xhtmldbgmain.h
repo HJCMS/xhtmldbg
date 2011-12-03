@@ -44,6 +44,7 @@ class xhtmldbgmain : public KUniqueApplication
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
+    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
   private:
     QPointer<Window> window;
@@ -59,15 +60,24 @@ class xhtmldbgmain : public KUniqueApplication
 
   public:
     xhtmldbgmain ();
-    static DBManager* dbManager( QObject * parent = 0 );
+    Window* mainWindow();
+    int newInstance();
+    static xhtmldbgmain* instance();
+    static DBManager* dbManager ( QObject * parent = 0 );
     static DownloadManager* downloadManager();
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();
     static NetworkCookie* cookieManager();
-    static xhtmldbgmain* instance();
-    Window* mainWindow();
-    virtual int newInstance();
     virtual ~xhtmldbgmain();
+
+  public Q_SLOTS:
+    Q_SCRIPTABLE void message ( const QString &mess );
+    Q_SCRIPTABLE bool open ( const QString &url );
+    Q_SCRIPTABLE bool setUrl ( const QString &oldUrl, const QString &newUrl );
+    Q_SCRIPTABLE bool setFile ( const QString &url );
+    Q_SCRIPTABLE bool setSource ( const QString &url, const QString &xhtml );
+    Q_SCRIPTABLE bool checkStyleSheet ( const QString &url );
+
 };
 
 #endif

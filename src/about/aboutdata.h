@@ -40,6 +40,7 @@ class AboutData : public KAboutData
     static const QByteArray homepage();
     static const QByteArray appsname();
     static const QByteArray ocsUserName();
+    static const QByteArray service();
     static const KLocalizedString maintainer();
     static const KLocalizedString copyright();
     static const KLocalizedString smallDescription();
