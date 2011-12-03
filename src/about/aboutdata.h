@@ -37,6 +37,7 @@ class AboutData : public KAboutData
     AboutData();
     static const QByteArray version();
     static const QByteArray eMail();
+    static const QByteArray pagedomain();
     static const QByteArray homepage();
     static const QByteArray appsname();
     static const QByteArray ocsUserName();

@@ -71,14 +71,16 @@ Settings::Settings ( QObject * parent )
 /** Standard Webspeicher Verzeichnis */
 const QString Settings::cacheLocation()
 {
-  return QDesktopServices::storageLocation ( QDesktopServices::CacheLocation );
+  QFileInfo p ( QDesktopServices::storageLocation ( QDesktopServices::CacheLocation ) );
+  // qDebug() << Q_FUNC_INFO << p.absoluteFilePath ();
+  return p.absoluteFilePath ();
 }
 
 /** Default Data Location */
 const QString Settings::dataLocation()
 {
   QFileInfo p ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
-  return p.absoluteFilePath ();
+  return p.absoluteFilePath();
 }
 
 /** Temporäres Verzeichnis für die LogDateien */
@@ -140,7 +142,7 @@ void Settings::setIconTheme()
 */
 void Settings::setDataPaths()
 {
-  QString path = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  QString path = dataLocation();
   QDir d ( QDesktopServices::storageLocation ( QDesktopServices::HomeLocation ) );
   if ( d.mkpath ( path ) )
     default_directory_permissions ( path );
@@ -163,7 +165,7 @@ void Settings::setSaveMode()
 */
 const QString Settings::webDatabasePath()
 {
-  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
+  QDir d ( dataLocation() );
   QString path = d.path() + d.separator() + QLatin1String ( "Databases" );
   if ( d.mkpath ( path ) )
     default_directory_permissions ( d.absoluteFilePath ( path ) );
@@ -177,7 +179,7 @@ const QString Settings::webDatabasePath()
 */
 const QString Settings::webLocalStoragePath()
 {
-  QDir d ( QDesktopServices::storageLocation ( QDesktopServices::DataLocation ) );
+  QDir d ( dataLocation() );
   QString path = d.path() + d.separator() + QLatin1String ( "LocalStorage" );
   if ( d.mkpath ( path ) )
     default_directory_permissions ( d.absoluteFilePath ( path ) );
@@ -193,7 +195,7 @@ const QUrl Settings::historyXml()
   QUrl u;
   u.setScheme ( "file" );
 
-  QString p = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  QString p = dataLocation();
   p.append ( QDir::separator() );
   p.append ( "history.xml" );
   u.setPath ( p );
@@ -209,7 +211,7 @@ const QUrl Settings::bookmarkXbel()
   QUrl u;
   u.setScheme ( "file" );
 
-  QString p = QDesktopServices::storageLocation ( QDesktopServices::DataLocation );
+  QString p = dataLocation();
   p.append ( QDir::separator() );
   p.append ( "bookmarks.xbel" );
   u.setPath ( p );
