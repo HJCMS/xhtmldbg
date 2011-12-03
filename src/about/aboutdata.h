@@ -34,7 +34,6 @@
 class AboutData : public KAboutData
 {
   public:
-    AboutData();
     static const QByteArray version();
     static const QByteArray eMail();
     static const QByteArray pagedomain();
@@ -46,6 +45,7 @@ class AboutData : public KAboutData
     static const KLocalizedString copyright();
     static const KLocalizedString smallDescription();
     static const KLocalizedString description();
+    AboutData();
 };
 
 #endif
