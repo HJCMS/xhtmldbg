@@ -19,19 +19,18 @@
 * Boston, MA 02110-1301, USA.
 **/
 
+#ifndef XHTMLDBG_VERSION_STRING
+# include "version.h"
+#endif
 #include <iostream>
 #include <cstdlib>
 
 /* QtCore */
-#include <QtCore/QDebug>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QGlobalStatic>
-#include <QtCore/QLocale>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QUrl>
 
 /* QtDBus */
+#include <QtDBus/QDBusConnection>
 #include <QtDBus/QDBusInterface>
 
 /* KDE */
@@ -39,11 +38,8 @@
 #include <KDE/KCmdLineOptions>
 #include <KDE/KLocale>
 #include <KDE/KUniqueApplication>
-#include <KDE/KUrl>
 
-#ifndef XHTMLDBG_VERSION_STRING
-# include "version.h"
-#endif
+/* project */
 #include "aboutdata.h"
 #include "xhtmldbgmain.h"
 

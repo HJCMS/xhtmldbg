@@ -34,7 +34,6 @@
 #include <cstdlib>
 
 /* QtCore */
-#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
 #include <QtCore/QFile>

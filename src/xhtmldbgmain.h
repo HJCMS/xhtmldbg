@@ -23,6 +23,7 @@
 #define XHTMLDBGMAIN_H
 
 /* QtCore */
+#include <QtCore/QCoreApplication>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
@@ -44,7 +45,6 @@ class xhtmldbgmain : public KUniqueApplication
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
-    Q_CLASSINFO ( "D-Bus Interface", "de.hjcms.xhtmldbg" )
 
   private:
     QPointer<Window> window;
