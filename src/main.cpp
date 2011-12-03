@@ -59,9 +59,11 @@ int main ( int argc, char *argv[] )
 {
   setPluginPaths();
 
-  QCoreApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
-  QCoreApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
-  QCoreApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
+  Q_INIT_RESOURCE ( xhtmldbg );
+  KUniqueApplication::setApplicationVersion ( XHTMLDBG_VERSION_STRING );
+  KUniqueApplication::setApplicationName ( XHTMLDBG_APPS_NAME );
+  KUniqueApplication::setOrganizationDomain ( XHTMLDBG_DOMAIN );
+  QDBusConnection::connectToBus ( QDBusConnection::SessionBus, QLatin1String( "de.hjcms.xhtmldbg" ) );
 
   KLocale::setMainCatalog ( "xhtmldbg" );
 

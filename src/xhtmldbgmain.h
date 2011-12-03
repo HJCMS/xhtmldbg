@@ -23,12 +23,11 @@
 #define XHTMLDBGMAIN_H
 
 /* QtCore */
-#include <QtCore/QByteArray>
-#include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 
+/* KDE */
 #include <KDE/KUniqueApplication>
 
 #include "settings.h"
@@ -47,11 +46,9 @@ class xhtmldbgmain : public KUniqueApplication
     Q_CLASSINFO ( "URL", "http://hjcms.de" )
 
   private:
-    Window* activeWindow;
+    QPointer<Window> window;
     Settings* m_settings;
-    QList<QPointer<Window> > m_windows;
     void setWindowFocus();
-    void cleanWindows();
     static HistoryManager* p_historyManager;
     static NetworkAccessManager* p_networkAccessManager;
     static DownloadManager* p_downloadManager;
@@ -62,7 +59,7 @@ class xhtmldbgmain : public KUniqueApplication
 
   public:
     xhtmldbgmain ();
-    static DBManager* dbManager();
+    static DBManager* dbManager( QObject * parent = 0 );
     static DownloadManager* downloadManager();
     static HistoryManager* historyManager();
     static NetworkAccessManager* networkAccessManager();

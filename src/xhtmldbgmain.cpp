@@ -59,21 +59,21 @@ NetworkAccessManager* xhtmldbgmain::p_networkAccessManager = 0;
 DownloadManager* xhtmldbgmain::p_downloadManager = 0;
 DBManager* xhtmldbgmain::p_dbManager = 0;
 
+#ifdef MAINTAINER_REPOSITORY
+static bool set_unique = false;
+#else
+static bool set_unique = true;
+#endif
+
 /* construct */
 xhtmldbgmain::xhtmldbgmain ()
-    : KUniqueApplication ( true, true )
-    , activeWindow ( 0 )
+    : KUniqueApplication ( true, set_unique )
+    , window ( 0 )
 {
   setObjectName ( "xhtmldbg" );
   setApplicationVersion ( XHTMLDBG_VERSION_STRING );
   setApplicationName ( XHTMLDBG_APPS_NAME );
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
-  Q_INIT_RESOURCE ( xhtmldbg );
-
-
-  // NOTE Wir verwenden nicht den KSessionManager
-  disableSessionManagement();
-
   // Settings
   m_settings = new Settings ( this );
   m_settings->setDataPaths();
@@ -82,7 +82,10 @@ xhtmldbgmain::xhtmldbgmain ()
   /* NOTE init Database Manager muss nach Settings::setDataPaths Initialisiert
   * werden und vor NetworkAccessManager aufgerufen sein!
   * WARNING Die Klasse NetworkCookie braucht diesen Pointer! */
-  dbManager();
+  dbManager ( this );
+
+  // NOTE Wir verwenden nicht den KSessionManager
+  disableSessionManagement();
 }
 
 void xhtmldbgmain::setWindowFocus()
@@ -107,45 +110,32 @@ void xhtmldbgmain::setWindowFocus()
 }
 
 /**
-* Liste der Fenster leeren
-*/
-void xhtmldbgmain::cleanWindows()
-{
-  for ( int i = m_windows.count() - 1; i >= 0; --i )
-  {
-    if ( m_windows.at ( i ).isNull() )
-      m_windows.removeAt ( i );
-  }
-}
-
-/**
 * Ein neues Fenster erstellen!
 */
 Window* xhtmldbgmain::newWindow()
 {
-  Window* win = new Window ( m_settings );
-  win->show();
-  win->setFocus ( Qt::ActiveWindowFocusReason );
+  window = new Window ( m_settings );
+  window->show();
+  window->setFocus ( Qt::ActiveWindowFocusReason );
 
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
   if ( args->allArguments().size() >= 1 )
   {
     QUrl uri ( args->getOption ( "o" ) );
     if ( uri.isValid() )
-      win->openUrl ( uri );
+      window->openUrl ( uri );
   }
   args->clear();
 
-  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), win );
+  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), window );
   m_obs->watchService ( "org.kde.kded" );
 
-  m_windows.prepend ( win );
-  return win;
+  return window;
 }
 
 xhtmldbgmain* xhtmldbgmain::instance()
 {
-  return ( static_cast<xhtmldbgmain*> ( KUniqueApplication::instance() ) );
+  return ( static_cast<xhtmldbgmain*> ( QCoreApplication::instance() ) );
 }
 
 /**
@@ -153,29 +143,20 @@ xhtmldbgmain* xhtmldbgmain::instance()
 */
 Window* xhtmldbgmain::mainWindow()
 {
-  cleanWindows();
-  if ( m_windows.isEmpty() )
-  {
-    activeWindow = newWindow();
-  }
-  else
-  {
-    activeWindow = qobject_cast<Window*> ( KUniqueApplication::activeWindow() );
-    if ( !activeWindow )
-      activeWindow = m_windows[0];
-  }
-  return activeWindow;
+  if ( ! window )
+    window = newWindow();
+
+  return window;
 }
 
 /**
 * Starte den SQLite Datenbank-Manager
 */
-DBManager* xhtmldbgmain::dbManager()
+DBManager* xhtmldbgmain::dbManager ( QObject * parent )
 {
   if ( ! p_dbManager )
-  {
-    p_dbManager = DBManager::createConnection ( applicationName() );
-  }
+    p_dbManager = DBManager::createConnection ( XHTMLDBG_APPS_NAME, parent );
+
   return p_dbManager;
 }
 
@@ -228,7 +209,7 @@ NetworkCookie* xhtmldbgmain::cookieManager()
 */
 int xhtmldbgmain::newInstance()
 {
-  if ( m_windows.isEmpty() )
+  if ( ! window )
     mainWindow();
   else
     setWindowFocus();
@@ -238,7 +219,6 @@ int xhtmldbgmain::newInstance()
 
 xhtmldbgmain::~xhtmldbgmain()
 {
-  qDeleteAll ( m_windows );
   delete p_historyManager;
   delete p_networkAccessManager;
   delete p_downloadManager;
