@@ -70,13 +70,14 @@ xhtmldbgmain::xhtmldbgmain ()
   setOrganizationDomain ( XHTMLDBG_DOMAIN );
   Q_INIT_RESOURCE ( xhtmldbg );
 
+
+  // NOTE Wir verwenden nicht den KSessionManager
+  disableSessionManagement();
+
   // Settings
   m_settings = new Settings ( this );
   m_settings->setDataPaths();
   m_settings->setIconTheme();
-
-  // NOTE Wir verwenden nicht den KSessionManager
-  disableSessionManagement();
 
   /* NOTE init Database Manager muss nach Settings::setDataPaths Initialisiert
   * werden und vor NetworkAccessManager aufgerufen sein!
@@ -105,6 +106,9 @@ void xhtmldbgmain::setWindowFocus()
 #endif
 }
 
+/**
+* Liste der Fenster leeren
+*/
 void xhtmldbgmain::cleanWindows()
 {
   for ( int i = m_windows.count() - 1; i >= 0; --i )
@@ -115,7 +119,7 @@ void xhtmldbgmain::cleanWindows()
 }
 
 /**
-* Ein neues Fendetr erstellen!
+* Ein neues Fenster erstellen!
 */
 Window* xhtmldbgmain::newWindow()
 {
@@ -144,6 +148,9 @@ xhtmldbgmain* xhtmldbgmain::instance()
   return ( static_cast<xhtmldbgmain*> ( KUniqueApplication::instance() ) );
 }
 
+/**
+* Suche nach Hauptfenster, wenn nicht vorhanden dann erstellen!
+*/
 Window* xhtmldbgmain::mainWindow()
 {
   cleanWindows();
@@ -215,6 +222,10 @@ NetworkCookie* xhtmldbgmain::cookieManager()
   return networkAccessManager()->cookieJar();
 }
 
+/**
+* Virtuelle Methode zum erstellen einer neuen Instanze.
+* @see http://api.kde.org/4.x-api/kdelibs-apidocs/kdeui/html/classKUniqueApplication.html
+*/
 int xhtmldbgmain::newInstance()
 {
   if ( m_windows.isEmpty() )
