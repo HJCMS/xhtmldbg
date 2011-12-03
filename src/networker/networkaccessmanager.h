@@ -132,6 +132,9 @@ class NetworkAccessManager : public KIO::Integration::AccessManager
     /** set Current Requested URL */
     void setUrl ( const QUrl & );
 
+    /** get cached Source for URL */
+    void triggerCache ( const QUrl &url );
+
   public:
     NetworkAccessManager ( QObject *parent = 0 );
 
@@ -152,9 +155,6 @@ class NetworkAccessManager : public KIO::Integration::AccessManager
 
     /** sends an HTTP GET request  */
     QNetworkReply* get ( const QNetworkRequest &req );
-
-    /** get cached Source for URL */
-    void triggerCache ( const QUrl &url );
 
     virtual ~NetworkAccessManager();
 };

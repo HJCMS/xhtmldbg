@@ -86,7 +86,6 @@ ADD_SUBDIRECTORY (components)
 SET (xhtmldbg_SOURCES
   main.cpp
   xhtmldbgmain.cpp
-  application.cpp
   window.cpp
   keywordstoolbar.cpp
   tidymessanger.cpp
@@ -115,7 +114,6 @@ SET (xhtmldbg_SOURCES
 ##############################
 SET (xhtmldbg_HEADERS
   xhtmldbgmain.h
-  application.h
   window.h
   keywordstoolbar.h
   tidymessanger.h

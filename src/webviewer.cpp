@@ -41,6 +41,9 @@
 #include <QtGui/QTabBar>
 #include <QtGui/QToolButton>
 
+/* QtDBus */
+#include <QtDBus/QDBusConnection>
+
 /* QtWebKit */
 #include <QtWebKit/QWebFrame>
 
@@ -242,6 +245,9 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   if ( ! view )
     return;
 
+  // Tab Index
+  int index = 0;
+
   connect ( view, SIGNAL ( titleChanged ( const QUrl &, const QString & ) ),
             this, SLOT ( updateTab ( const QUrl &, const QString & ) ) );
 
@@ -269,19 +275,20 @@ void WebViewer::addViewerTab ( Viewer *view, bool move )
   connect ( view, SIGNAL ( loadStarted () ),
             this, SIGNAL ( loadStarted () ) );
 
-// FIXME Doppelt gemoppelt :-/
-//   connect ( view, SIGNAL ( pageChanged ( QWebPage * ) ),
-//             this, SIGNAL ( pageEntered ( QWebPage * ) ) );
-
   QUrl uri ( view->url() );
   if ( uri.isValid() && move )
   {
     QString title = uri.host().isEmpty() ? i18n ( "file" ) : uri.host();
-    int index = addTab ( view, title );
+    index = addTab ( view, title );
     setCurrentIndex ( index );
   }
   else
-    addTab ( view, tabIcon, i18n ( "Unknown" ) );
+    index = addTab ( view, tabIcon, i18n ( "Unknown" ) );
+
+  QDBusConnection p_dbus = QDBusConnection::sessionBus();
+  QString p ( "/WebKit/View/" );
+  p.append ( QString::number ( index ) );
+  p_dbus.registerObject ( p, this, QDBusConnection::ExportScriptableSlots );
 }
 
 /**

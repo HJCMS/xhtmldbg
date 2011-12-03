@@ -40,6 +40,9 @@
 /* QtNetwork */
 #include <QtNetwork/QNetworkCookie>
 
+/* KDE */
+#include <KDE/KLocale>
+
 HeaderDock::HeaderDock ( QWidget * parent )
     : Docking ( parent )
 {

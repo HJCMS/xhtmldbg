@@ -23,16 +23,24 @@
 #define XHTMLDBGMAIN_H
 
 /* QtCore */
+#include <QtCore/QByteArray>
 #include <QtCore/QList>
 #include <QtCore/QObject>
 #include <QtCore/QPointer>
 #include <QtCore/QString>
 
+#include <KDE/KUniqueApplication>
+
 #include "settings.h"
-#include "application.h"
 #include "window.h"
 
-class xhtmldbgmain : public Application
+class DownloadManager;
+class HistoryManager;
+class NetworkCookie;
+class NetworkAccessManager;
+class DBManager;
+
+class xhtmldbgmain : public KUniqueApplication
 {
     Q_OBJECT
     Q_CLASSINFO ( "Author", "Jürgen Heinemann (Undefined)" )
@@ -44,12 +52,21 @@ class xhtmldbgmain : public Application
     QList<QPointer<Window> > m_windows;
     void setWindowFocus();
     void cleanWindows();
+    static HistoryManager* p_historyManager;
+    static NetworkAccessManager* p_networkAccessManager;
+    static DownloadManager* p_downloadManager;
+    static DBManager* p_dbManager;
 
   protected:
     Window* newWindow();
 
   public:
     xhtmldbgmain ();
+    static DBManager* dbManager();
+    static DownloadManager* downloadManager();
+    static HistoryManager* historyManager();
+    static NetworkAccessManager* networkAccessManager();
+    static NetworkCookie* cookieManager();
     static xhtmldbgmain* instance();
     Window* mainWindow();
     virtual int newInstance();

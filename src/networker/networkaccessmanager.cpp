@@ -44,7 +44,6 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
-
 /* Create Network Error Reply */
 class NetworkErrorReply : public QNetworkReply
 {
@@ -78,6 +77,7 @@ NetworkAccessManager::NetworkAccessManager ( QObject * parent )
     , requestUrl ( QUrl ( "http://localhost" ) )
 {
   setObjectName ( "NetworkAccessManager" );
+
   m_networkSettings = new  NetworkSettings ( this );
   m_networkCookie = new NetworkCookie ( m_networkSettings, this );
   m_errorsDialog = new ErrorsDialog;

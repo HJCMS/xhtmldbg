@@ -49,6 +49,9 @@
 #include <QtXml/QDomNode>
 #include <QtXml/QDomElement>
 
+/* KDE */
+#include <KDE/KLocale>
+
 /** @class RSSParserDialog */
 RSSParserDialog::RSSParserDialog ( const QUrl &url, const QString &type, QWidget * parent )
     : QDialog ( parent )

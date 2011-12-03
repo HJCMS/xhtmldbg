@@ -29,7 +29,6 @@
 #include "about.h"
 #include "alternatelinkreader.h"
 #include "appevents.h"
-#include "application.h"
 #include "autoreloader.h"
 #include "autoreloadmenu.h"
 #include "bookmark.h"
@@ -64,6 +63,7 @@
 #include "webinspector.h"
 #include "websettings.h"
 #include "webviewer.h"
+#include "xhtmldbgmain.h"
 #include "zoombar.h"
 
 /* QtCore */
@@ -125,7 +125,7 @@ Window::Window ( Settings * settings )
 
   QDBusConnection p_dbus = QDBusConnection::sessionBus();
 
-  m_netManager = Application::networkAccessManager();
+  m_netManager = xhtmldbgmain::networkAccessManager();
 
   /* Das lesen aller Web Einstellungen muss vor dem ersten erstellen eines tabs erfolgen. */
   WebSettings websettings ( this );
@@ -140,7 +140,7 @@ Window::Window ( Settings * settings )
 
   // Browser Anzeige
   m_webViewer = new WebViewer ( m_centralWidget );
-  p_dbus.registerObject ( "/WebViewer" , m_webViewer, QDBusConnection::ExportScriptableContents );
+  p_dbus.registerObject ( "/WebKit" , m_webViewer, QDBusConnection::ExportScriptableContents );
 
   // WindowID von WebViewer
   m_netManager->setWindow ( m_webViewer );
@@ -494,7 +494,7 @@ void Window::createMenus()
             m_bookmarkMenu, SLOT ( addBookmark ( const QUrl &, const QString & ) ) );
 
   // History Menu
-  m_historyManager = Application::historyManager();
+  m_historyManager = xhtmldbgmain::historyManager();
   m_historyMenu = new HistoryMenu ( m_bookmarkerMenu );
   m_bookmarkerMenu->addMenu ( m_historyMenu );
   connect ( m_historyManager, SIGNAL ( updateHistoryMenu ( const QList<HistoryItem> & ) ),

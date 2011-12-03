@@ -55,13 +55,12 @@ class BusObserver : public QDBusAbstractAdaptor
     bool setSource ( const QString &url, const QString &xhtml );
     /** \return true if URL accepted otherwise false */
     bool checkStyleSheet ( const QString &url );
-    /** \return true if URL accepted otherwise false */
-    Q_NOREPLY void watchService ( const QString &service );
 
   public:
     BusObserver ( const QDBusConnection dbus, QObject * parent = 0 );
     const QDBusConnection connection();
     const QString busService();
+    void watchService ( const QString &service );
     virtual ~BusObserver();
 };
 

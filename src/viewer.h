@@ -94,12 +94,12 @@ class Viewer : public KWebView
     void pageChanged ( QWebPage * );
 
   public Q_SLOTS:
-    void findKeyword ( const QString & );
-    void openUrl ( const QUrl & );
+    Q_SCRIPTABLE void findKeyword ( const QString & );
+    Q_SCRIPTABLE void openUrl ( const QUrl & );
 
   public:
     Viewer ( QWidget * parent = 0 );
-    const QString bodyContent();
+    Q_SCRIPTABLE const QString bodyContent();
     ~Viewer();
 };
 

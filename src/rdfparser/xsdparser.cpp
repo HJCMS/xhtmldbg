@@ -35,6 +35,9 @@
 /* QtXmlPatterns */
 #include <QtXmlPatterns/QXmlSchemaValidator>
 
+/* KDE */
+#include <KDE/KLocale>
+
 /** @class XsdParserMessageHandler */
 XsdParserMessageHandler::XsdParserMessageHandler ( QObject * parent )
     : QAbstractMessageHandler ( parent )

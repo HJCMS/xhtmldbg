@@ -22,13 +22,19 @@
 #ifndef XHTMLDBG_VERSION_STRING
 # include "version.h"
 #endif
+
 #include "xhtmldbgmain.h"
 #include "busobserver.h"
 #include "dbmanager.h"
+#include "historymanager.h"
+#include "networkaccessmanager.h"
+#include "networkcookie.h"
+#include "downloadmanager.h"
 
 #include <iostream>
 #include <cstdlib>
 
+/* QtCore */
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
@@ -48,17 +54,29 @@
 /* KDE */
 #include <KDE/KCmdLineArgs>
 
+HistoryManager* xhtmldbgmain::p_historyManager = 0;
+NetworkAccessManager* xhtmldbgmain::p_networkAccessManager = 0;
+DownloadManager* xhtmldbgmain::p_downloadManager = 0;
+DBManager* xhtmldbgmain::p_dbManager = 0;
+
 /* construct */
 xhtmldbgmain::xhtmldbgmain ()
-    : Application ()
+    : KUniqueApplication ( true, true )
     , activeWindow ( 0 )
 {
   setObjectName ( "xhtmldbg" );
+  setApplicationVersion ( XHTMLDBG_VERSION_STRING );
+  setApplicationName ( XHTMLDBG_APPS_NAME );
+  setOrganizationDomain ( XHTMLDBG_DOMAIN );
+  Q_INIT_RESOURCE ( xhtmldbg );
 
   // Settings
   m_settings = new Settings ( this );
   m_settings->setDataPaths();
   m_settings->setIconTheme();
+
+  // NOTE Wir verwenden nicht den KSessionManager
+  disableSessionManagement();
 
   /* NOTE init Database Manager muss nach Settings::setDataPaths Initialisiert
   * werden und vor NetworkAccessManager aufgerufen sein!
@@ -96,31 +114,34 @@ void xhtmldbgmain::cleanWindows()
   }
 }
 
+/**
+* Ein neues Fendetr erstellen!
+*/
 Window* xhtmldbgmain::newWindow()
 {
-  Window *debugger = new Window ( m_settings );
-  debugger->show();
-  debugger->setFocus ( Qt::ActiveWindowFocusReason );
+  Window* win = new Window ( m_settings );
+  win->show();
+  win->setFocus ( Qt::ActiveWindowFocusReason );
 
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
   if ( args->allArguments().size() >= 1 )
   {
     QUrl uri ( args->getOption ( "o" ) );
     if ( uri.isValid() )
-      debugger->openUrl ( uri );
+      win->openUrl ( uri );
   }
   args->clear();
 
-  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), debugger );
+  BusObserver* m_obs = new BusObserver ( QDBusConnection::sessionBus(), win );
   m_obs->watchService ( "org.kde.kded" );
 
-  m_windows.prepend ( debugger );
-  return debugger;
+  m_windows.prepend ( win );
+  return win;
 }
 
 xhtmldbgmain* xhtmldbgmain::instance()
 {
-  return ( static_cast<xhtmldbgmain*> ( Application::instance() ) );
+  return ( static_cast<xhtmldbgmain*> ( KUniqueApplication::instance() ) );
 }
 
 Window* xhtmldbgmain::mainWindow()
@@ -132,11 +153,66 @@ Window* xhtmldbgmain::mainWindow()
   }
   else
   {
-    activeWindow = qobject_cast<Window*> ( QApplication::activeWindow() );
+    activeWindow = qobject_cast<Window*> ( KUniqueApplication::activeWindow() );
     if ( !activeWindow )
       activeWindow = m_windows[0];
   }
   return activeWindow;
+}
+
+/**
+* Starte den SQLite Datenbank-Manager
+*/
+DBManager* xhtmldbgmain::dbManager()
+{
+  if ( ! p_dbManager )
+  {
+    p_dbManager = DBManager::createConnection ( applicationName() );
+  }
+  return p_dbManager;
+}
+
+/**
+* Starte den Download-Manager
+*/
+DownloadManager* xhtmldbgmain::downloadManager()
+{
+  if ( ! p_downloadManager )
+    p_downloadManager = new DownloadManager ();
+
+  return p_downloadManager;
+}
+
+/**
+* Starte den URL Historien-Manager
+*/
+HistoryManager* xhtmldbgmain::historyManager()
+{
+  if ( ! p_historyManager )
+  {
+    p_historyManager = new HistoryManager();
+    QWebHistoryInterface::setDefaultInterface ( p_historyManager );
+  }
+  return p_historyManager;
+}
+
+/**
+* Starte das Netzwerk-Management
+*/
+NetworkAccessManager* xhtmldbgmain::networkAccessManager()
+{
+  if ( ! p_networkAccessManager )
+    p_networkAccessManager = new NetworkAccessManager ();
+
+  return p_networkAccessManager;
+}
+
+/**
+* Starte den Keks-Manager
+*/
+NetworkCookie* xhtmldbgmain::cookieManager()
+{
+  return networkAccessManager()->cookieJar();
 }
 
 int xhtmldbgmain::newInstance()
@@ -152,4 +228,8 @@ int xhtmldbgmain::newInstance()
 xhtmldbgmain::~xhtmldbgmain()
 {
   qDeleteAll ( m_windows );
+  delete p_historyManager;
+  delete p_networkAccessManager;
+  delete p_downloadManager;
+  delete p_dbManager;
 }
