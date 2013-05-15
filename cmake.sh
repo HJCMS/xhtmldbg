@@ -1,6 +1,6 @@
 #!/bin/sh
 #################################################################
-# Author: Juergen Heinemann http://www.hjcms.de, (C) 2007-2012
+# Author: Juergen Heinemann http://www.hjcms.de, (C) 2007-2013
 #
 # Copyright: See COPYING file that comes with this distribution
 #################################################################

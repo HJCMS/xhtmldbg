@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2012
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2013
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -121,7 +121,7 @@ const KLocalizedString AboutData::maintainer()
 */
 const KLocalizedString AboutData::copyright()
 {
-  return ki18n ( "Copyright (C) 2007-2012, Juergen Heinemann (Undefined)" );
+  return ki18n ( "Copyright (C) 2007-2013, Juergen Heinemann (Undefined)" );
 }
 
 /**

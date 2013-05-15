@@ -1,7 +1,7 @@
 /**
 * This file is part of the xhtmldbg project
 *
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2012
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2013
 *
 * This library is free software; you can redistribute it and/or
 * modify it under the terms of the GNU Library General Public
@@ -44,7 +44,7 @@ static inline const QString qtidy_license()
 ********************************************************************************\n\
 * This file is part of the xhtmldbg project\n\
 *\n\
-* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2012\n\
+* Copyright (C) Juergen Heinemann http://www.hjcms.de, (C) 2007-2013\n\
 *\n\
 * This library is free software; you can redistribute it and/or\n\
 * modify it under the terms of the GNU Library General Public\n\

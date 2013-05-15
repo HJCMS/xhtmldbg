@@ -47,8 +47,8 @@ msgid "Juergen Heinemann (Undefined)"
 msgstr "Jürgen Heinemann (Undefined)"
 
 #: src/about/aboutdata.cpp:83
-msgid "Copyright (C) 2007-2012, Juergen Heinemann (Undefined)"
-msgstr "Copyright (C) 2007-2012, Jürgen Heinemann (Undefined)"
+msgid "Copyright (C) 2007-2013, Juergen Heinemann (Undefined)"
+msgstr "Copyright (C) 2007-2013, Jürgen Heinemann (Undefined)"
 
 #: src/about/aboutdata.cpp:88
 msgid "A XHTML/HTML Debugger and CSS Validator for Webdevelopers"

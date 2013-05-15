@@ -46,7 +46,7 @@ msgid "Juergen Heinemann (Undefined)"
 msgstr ""
 
 #: src/about/aboutdata.cpp:83
-msgid "Copyright (C) 2007-2012, Juergen Heinemann (Undefined)"
+msgid "Copyright (C) 2007-2013, Juergen Heinemann (Undefined)"
 msgstr ""
 
 #: src/about/aboutdata.cpp:88

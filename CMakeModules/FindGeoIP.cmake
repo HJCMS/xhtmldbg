@@ -11,7 +11,7 @@
 # correspond to the ./configure --prefix=$GEOIPDIR
 # used in building GeoIP.
 #
-# (c) 2007-2012 Juergen Heinemann (Undefined) http://www.hjcms.de
+# (c) 2007-2013 Juergen Heinemann (Undefined) http://www.hjcms.de
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
