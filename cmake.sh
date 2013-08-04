@@ -15,6 +15,12 @@ else
   CMAKE_EXTRAS="$CMAKE_EXTRAS -DFORCE_RAPTOR2:BOOL=OFF"
 fi
 
+mkdir -p /tmp/xhtmldbg
+
+target="`pwd`"
+
+pushd /tmp/xhtmldbg
+
 cmake -Wdev \
   -DCMAKE_CXX_FLAGS:STRING="${CFLAGS:-"-O2"}" \
   -DCMAKE_INSTALL_PREFIX:PATH=/usr \
@@ -25,4 +31,6 @@ cmake -Wdev \
   -DXHTMLDBG_EXPERIMENTAL:BOOL=ON \
   -DPHONON_STL_INCLUDE_DIR:PATH=/usr/include/kde4/KDE \
   -DAUTOMOC4_EXECUTABLE:FILEPATH=$(which automoc4) \
-  $CMAKE_EXTRAS $@ ../
+  $CMAKE_EXTRAS $@ ${target}
+
+popd
