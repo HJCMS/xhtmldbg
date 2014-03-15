@@ -21,3 +21,4 @@ xhtmldbg.qdocconf
 *.kdev4
 .kdev_include_paths
 
+build
