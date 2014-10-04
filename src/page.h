@@ -62,7 +62,6 @@ class Page : public KWebPage
 
   private Q_SLOTS:
     void onReadyLoadPage ( bool );
-    void readPostResponse ( const QUrl &, const QString & );
     void unsupportedContentRequest ( QNetworkReply * );
     void downloadContentRequest ( const QNetworkRequest & );
     void internalMessanger ( const QString & );

@@ -35,7 +35,6 @@
 
 /* Configuration */
 #include "configide.h"
-#include "configtidy.h"
 #include "configdomtree.h"
 #include "configbrowser.h"
 #include "confignetwork.h"
@@ -55,7 +54,6 @@ class StackedWidget : public QStackedWidget
   private:
     Settings* cfg;
     ConfigIDE* m_configIDE;
-    ConfigTidy* m_configTidy;
     ConfigDomTree* m_configDomTree;
     ConfigBrowser* m_configBrowser;
     ConfigNetwork* m_configNetwork;
@@ -68,7 +66,7 @@ class StackedWidget : public QStackedWidget
     enum PageIndex
     {
       ITEM_CONFIG_IDE = 0,
-      ITEM_CONFIG_TIDY =  1,
+      ITEM_CONFIG_TIDY =  1, // DEPRECATED and removed in the feature
       ITEM_CONFIG_DOMTREE =  2,
       ITEM_CONFIG_BROWSER =  3,
       ITEM_CONFIG_NETWORK =  4,

@@ -89,9 +89,6 @@ Page::Page ( NetworkAccessManager * manager, QObject * parent )
   action ( QWebPage::Copy )->setIcon ( QIcon::fromTheme ( "edit-copy" ) );
 
   // NOTE localReplySource muss auch in @class Window gesetzt werden!
-  connect ( m_netManager, SIGNAL ( postReplySource ( const QUrl &, const QString & ) ),
-            this, SLOT ( readPostResponse ( const QUrl &, const QString & ) ) );
-
   connect ( this, SIGNAL ( selectionChanged() ), this, SLOT ( triggerSelections() ) );
 
   connect ( this, SIGNAL ( unsupportedContent ( QNetworkReply * ) ),
@@ -142,8 +139,11 @@ bool Page::prepareContent ( QNetworkReply * dev )
   if ( data.isEmpty() )
     return false;
 
+#ifdef DEBUG_VERBOSE
   QTextCodec* codec = QTextCodec::codecForHtml ( data, fetchHeaderEncoding ( dev ) );
-  xhtmldbgmain::instance()->mainWindow()->setSource ( currentFrame()->url(), codec->toUnicode ( data ) );
+  qDebug() << "\n" << codec->toUnicode ( data ) << "\n";
+#endif
+
   return true;
 }
 
@@ -266,14 +266,6 @@ void Page::javaScriptAlert ( QWebFrame * frame, const QString &message )
   QString path = frame->requestedUrl().path();
   javaScriptConsoleMessage ( message, 0, path );
   QMessageBox::warning ( view(), path, Qt::escape ( message ) );
-}
-
-/**
-* Hier werden die Post Daten an die QuellText Ansicht weiter gegeben!
-*/
-void Page::readPostResponse ( const QUrl &url, const QString &source )
-{
-  xhtmldbgmain::instance()->mainWindow()->setSource ( url, source );
 }
 
 /**

@@ -247,8 +247,6 @@ void Viewer::keyPressEvent ( QKeyEvent * e )
     bookmark();
   else if ( e->matches ( QKeySequence::Italic ) )
     checkingStyleSheet();
-  else if ( e->matches ( QKeySequence::Underline ) )
-    showPageSource();
 
   QWebView::keyPressEvent ( e );
 }
@@ -276,14 +274,6 @@ void Viewer::contextMenuEvent ( QContextMenuEvent * e )
   style->setToolTip ( i18n ( "Start CSS Validation for this Site." ) );
   style->setShortcut ( QKeySequence::Italic );
   connect ( style, SIGNAL ( triggered() ), this, SLOT ( checkingStyleSheet() ) );
-
-  // Zur Quelltext Ansicht wechseln
-  QAction* source = menu->addAction ( i18n ( "Source" ) );
-  source->setObjectName ( QLatin1String ( "ac_context_source" ) );
-  source->setIcon ( KIcon ( QLatin1String ( "text-html" ) ) );
-  source->setToolTip ( i18n ( "Show Document Source" ) );
-  source->setShortcut ( QKeySequence::Underline );
-  connect ( source, SIGNAL ( triggered() ), this, SLOT ( showPageSource() ) );
 
   // Einen Screenshot erstellen
   QAction* screenshot = menu->addAction ( i18n ( "Screenshot" ) );
@@ -357,14 +347,6 @@ void Viewer::cookiesRequest ( const QUrl &url )
   // Wenn nocht nicht vorhanden in die Liste einfügen.
   if ( ! pendingCookieRequests.contains ( cookieUrl ) )
     pendingCookieRequests << cookieUrl;
-}
-
-/**
-* Zeige den Quelltext an
-*/
-void Viewer::showPageSource()
-{
-  xhtmldbgmain::instance()->mainWindow()->setCentralTabWidget ( QLatin1String ( "source" ) );
 }
 
 /**

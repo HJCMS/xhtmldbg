@@ -45,7 +45,6 @@ ConfigurationMenu::ConfigurationMenu ( QWidget * parent, Settings * settings )
 
   int c = 0;
   insertItem ( c++, i18n ( "Defaults" ), icon.fromTheme ( QLatin1String ( "preferences-system-windows" ) ) );
-  insertItem ( c++, i18n ( "Tidy" ), icon.fromTheme ( QLatin1String ( "applications-development-web" ) ) );
   insertItem ( c++, i18n ( "Dom Inspector" ), icon.fromTheme ( QLatin1String ( "view-web-browser-dom-tree" ) ) );
   insertItem ( c++, i18n ( "Browser" ), icon.fromTheme ( QLatin1String ( "internet-web-browser" ) ) );
   insertItem ( c++, i18n ( "Network" ), icon.fromTheme ( QLatin1String ( "preferences-system-network" ) ) );

@@ -69,7 +69,6 @@ class Viewer : public KWebView
     void cursorFinished ( int );
     void bookmark();
     void cookiesRequest ( const QUrl & );
-    void showPageSource();
     void checkingStyleSheet();
     void linkInfos ( const QString &, const QString &, const QString & );
     void readPageTitle ( const QString & );

@@ -72,9 +72,7 @@ class HistoryMenu;
 class JSMessanger;
 class KeywordsToolBar;
 class NetworkAccessManager;
-class SourceWidget;
 class StatusBar;
-class TidyMessanger;
 class UrlToolBar;
 class WebInspector;
 class WebViewer;
@@ -121,10 +119,6 @@ class Window : public KMainWindow
     QAction* actionOpenUrl;
     QAction* actionOpenHtml;
     QAction* actionQuit;
-    // Debugger Menu
-    QMenu* m_debuggerMenu;
-    QAction* actionParse;
-    QAction* actionClean;
     // Window View Menu
     QMenu* m_mainViewMenu;
     // WebViewer Menu
@@ -143,12 +137,9 @@ class Window : public KMainWindow
     AutoReloader* m_autoReloader;
     // Configuration Menu
     QMenu* m_configurationMenu;
-    QAction* actionTidyConfig;
     QAction* actionConfigDialog;
     // Enable/Disable ToolBars etc.
     QMenu* m_viewBarsMenu;
-    // Central Widget
-    KTabWidget* m_centralWidget;
     // Browser Widget
     WebViewer* m_webViewer;
     // HTML Document Dom Tree Viewer
@@ -157,14 +148,10 @@ class Window : public KMainWindow
     // FormManager* m_formManager;
     // WebInspector
     WebInspector* m_webInspector;
-    // Source Viewer
-    SourceWidget* m_sourceWidget;
     // Read link:rev Alternate Elements
     AlternateLinkReader* m_alternateLinkReader;
     // Find Country by Hostname
     GeoLocation* m_geoLocation;
-    // Tidy Messages
-    TidyMessanger* m_tidyMessanger;
     // JavaScript Messages
     JSMessanger* m_jsMessanger;
     // Display Infromation from XHTMLDBG
@@ -201,7 +188,6 @@ class Window : public KMainWindow
   private Q_SLOTS:
     void intimateWidgets ( const QUrl &url );
     void tabChanged ( int );
-    void openTidyConfigApplication();
     void openFileDialog();
     void openUrlDialog();
     void openConfigDialog();
@@ -217,8 +203,6 @@ class Window : public KMainWindow
     // supported by DBus Adaptor and Service Interface
     void setApplicationMessage ( const QString &, bool warning = false );
     // supported by DBus Adaptor and Service Interface
-    bool setSource ( const QUrl &, const QString & );
-    // supported by DBus Adaptor and Service Interface
     void checkStyleSheet ( const QUrl & );
     // supported by DBus Adaptor and Service Interface
     bool openUrl ( const QUrl &, bool addtab = false );
@@ -227,11 +211,8 @@ class Window : public KMainWindow
     // supported by DBus Adaptor and Service Interface
     bool urlRequest ( const QUrl & );
 
-    void visibleSourceChanged();
     // used by QWebPage ...
     void downloadRequest ( const QNetworkRequest & );
-    // switch to Tab (source|webview)
-    void setCentralTabWidget ( const QString &index = QString::fromUtf8 ( "webview" ) );
 
   public:
     Window ( Settings * settings = 0 );

@@ -55,9 +55,7 @@
 #include "plugger.h"
 #include "plugininfo.h"
 #include "settargetdialog.h"
-#include "sourcewidget.h"
 #include "statusbar.h"
-#include "tidymessanger.h"
 #include "urltoolbar.h"
 #include "webdatabasehandler.h"
 #include "webinspector.h"
@@ -100,9 +98,6 @@
 #include <QtWebKit/QWebElement>
 #include <QtWebKit/QWebPage>
 
-/* QTidy */
-#include <QTidy/QTidy>
-
 /* QtSql */
 #include <QtSql/QSqlDatabase>
 
@@ -131,35 +126,17 @@ Window::Window ( Settings * settings )
   WebSettings websettings ( this );
   websettings.setDefaults();
 
-  // Zentrales TabWidget für Quelltext und Browser
-  // TabWidgets {
-  m_centralWidget = new KTabWidget ( this );
-  m_centralWidget->setObjectName ( QLatin1String ( "centralwidget" ) );
-  m_centralWidget->setTabPosition ( QTabWidget::South );
-  m_centralWidget->setTabsClosable ( false );
-
-  // Browser Anzeige
-  m_webViewer = new WebViewer ( m_centralWidget );
+  // Zentrale Browser Anzeige
+  m_webViewer = new WebViewer ( this );
   p_dbus.registerObject ( "/WebKit" , m_webViewer, QDBusConnection::ExportScriptableContents );
 
   // WindowID von WebViewer
   m_netManager->setWindow ( m_webViewer );
   // NOTE Wir brauchen eine gültige WebPage für den WebInspector
   m_webViewer->setAboutPage ( "welcome" );
-  // Viewer einfügen
-  m_centralWidget->insertTab ( 0, m_webViewer, i18n ( "Browser" ) );
-  m_centralWidget->setTabIcon ( 0, xhtmldbgIcon );
-  m_centralWidget->setCurrentIndex ( 0 );
-
-  // Quelltext Anzeige
-  m_sourceWidget = new SourceWidget ( m_centralWidget );
-  p_dbus.registerObject ( "/Inspect/Source" , m_sourceWidget, QDBusConnection::ExportScriptableContents );
-
-  m_centralWidget->insertTab ( 1, m_sourceWidget, i18n ( "Source" ) );
-  m_centralWidget->setTabIcon ( 1, xhtmldbgIcon );
 
   // Tabulatur unten Rechts
-  QWidget* tabCornerBottomWidget = new QWidget ( m_centralWidget );
+  QWidget* tabCornerBottomWidget = new QWidget ( m_webViewer );
   tabCornerBottomWidget->setObjectName ( QLatin1String ( "tabcornerbottomwidget" ) );
   tabCornerBottomWidget->setContentsMargins ( 0, 0, 0, 0 );
 
@@ -181,7 +158,7 @@ Window::Window ( Settings * settings )
   tabCornerBottomWidgetLayout->addWidget ( m_alternateLinkReader );
 
   tabCornerBottomWidget->setLayout ( tabCornerBottomWidgetLayout );
-  m_centralWidget->setCornerWidget ( tabCornerBottomWidget, Qt::BottomRightCorner );
+  m_webViewer->setCornerWidget ( tabCornerBottomWidget, Qt::BottomRightCorner );
   // } TabWidgets
 
   // StatusBar
@@ -209,11 +186,6 @@ Window::Window ( Settings * settings )
   m_webInspector = new WebInspector ( m_webViewer->startPage(), this );
   p_dbus.registerObject ( "/Inspect/Code", m_webInspector, QDBusConnection::ExportScriptableContents );
   addDockWidget ( Qt::RightDockWidgetArea, m_webInspector );
-
-  // QTidy Nachrichtenfenster
-  m_tidyMessanger = new TidyMessanger ( this );
-  p_dbus.registerObject ( "/Impartions/HTML", m_tidyMessanger, QDBusConnection::ExportScriptableContents );
-  addDockWidget ( Qt::BottomDockWidgetArea, m_tidyMessanger, Qt::Horizontal );
 
   // Programm Nachrichtenfenster für interne Nachrichten
   m_appEvents = new AppEvents ( this );
@@ -252,7 +224,7 @@ Window::Window ( Settings * settings )
   createToolBars();
 
   // Design abschliessen
-  setCentralWidget ( m_centralWidget );
+  setCentralWidget ( m_webViewer );
 
   // WebViewer {
   connect ( m_webViewer, SIGNAL ( currentChanged ( int ) ),
@@ -273,20 +245,9 @@ Window::Window ( Settings * settings )
   connect ( m_webViewer, SIGNAL ( loadStarted () ),
             m_headerDock, SLOT ( clearAll() ) );
 
-  connect ( m_webViewer, SIGNAL ( loadStarted () ),
-            m_sourceWidget, SLOT ( restore() ) );
-
   connect ( m_webViewer, SIGNAL ( bytesLoaded ( qint64 ) ),
             m_statusBar, SLOT ( setLoadedPageSize ( qint64 ) ) );
   // } WebViewer
-
-  // SourceWidget {
-  connect ( m_sourceWidget, SIGNAL ( clearMessages () ),
-            m_tidyMessanger, SLOT ( clearItems () ) );
-
-  connect ( m_sourceWidget, SIGNAL ( triggered ( const QTidy::QTidyDiagnosis & ) ),
-            m_tidyMessanger, SLOT ( messages ( const QTidy::QTidyDiagnosis & ) ) );
-  // } SourceWidget
 
   // DomInspector {
   connect ( m_domInspector, SIGNAL ( errorMessage ( const QString & ) ),
@@ -300,17 +261,6 @@ Window::Window ( Settings * settings )
             this, SLOT ( setApplicationMessage ( const QString & ) ) );
   // } WebInspector
 
-  // TidyMessanger {
-  connect ( m_tidyMessanger, SIGNAL ( marking ( int, int ) ),
-            m_sourceWidget, SLOT ( fetchBlock ( int, int ) ) );
-
-  connect ( m_tidyMessanger, SIGNAL ( itemSelected () ),
-            this, SLOT ( visibleSourceChanged () ) );
-
-  connect ( m_tidyMessanger, SIGNAL ( itemsChanged ( bool ) ),
-            m_statusBar, SLOT ( notice ( bool ) ) );
-  // } TidyMessanger
-
   // NetworkAccessManager {
   connect ( m_netManager, SIGNAL ( netNotify ( const QString & ) ),
             m_appEvents, SLOT ( warningMessage ( const QString & ) ) );
@@ -323,10 +273,6 @@ Window::Window ( Settings * settings )
 
   connect ( m_netManager, SIGNAL ( urlLoadFinished ( const QUrl & ) ),
             this, SLOT ( intimateWidgets ( const QUrl & ) ) );
-
-  // NOTE postReplySource muss auch in @class Page gesetzt werden!
-  connect ( m_netManager, SIGNAL ( localReplySource ( const QUrl &, const QString & ) ),
-            this, SLOT ( setSource ( const QUrl &, const QString & ) ) );
   // } NetworkAccessManager
 
   // AutoReload {
@@ -389,23 +335,6 @@ void Window::createMenus()
   actionQuit->setMenuRole ( QAction::QuitRole );
   actionQuit->setIcon ( KIcon ( "application-exit" ) );
   connect ( actionQuit, SIGNAL ( triggered() ), this, SLOT ( close() ) );
-
-  // Debugger Menu
-  m_debuggerMenu = m_menuBar->addMenu ( i18n ( "&Debugger" ) );
-
-  // Action Parse Document Source
-  actionParse = m_debuggerMenu->addAction ( i18n ( "Parse" ) );
-  actionParse->setStatusTip ( i18n ( "Parse current Document Source" ) );
-  actionParse->setShortcut ( Qt::ALT + Qt::Key_C );
-  actionParse->setIcon ( KIcon ( "document-edit-verify" ) );
-  connect ( actionParse, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( check() ) );
-
-  // Action Prepare and Format Document Source
-  actionClean = m_debuggerMenu->addAction ( i18n ( "Format" ) );
-  actionClean->setStatusTip ( i18n ( "Prepare and Format Document Source" ) );
-  actionClean->setShortcut ( Qt::ALT + Qt::Key_F );
-  actionClean->setIcon ( KIcon ( "format-list-ordered" ) );
-  connect ( actionClean, SIGNAL ( triggered() ), m_sourceWidget, SLOT ( format() ) );
 
   // Ansicht Menu
   m_mainViewMenu = m_menuBar->addMenu ( i18n ( "&View" ) );
@@ -511,11 +440,6 @@ void Window::createMenus()
 
   // Configuration Menu
   m_configurationMenu = m_menuBar->addMenu ( i18n ( "S&ettings" ) );
-  // Action Open qtidyrc
-  actionTidyConfig = m_configurationMenu->addAction ( i18n ( "Configure Tidyrc" ) );
-  actionTidyConfig->setIcon ( KIcon ( "configure-toolbars" ) );
-  connect ( actionTidyConfig, SIGNAL ( triggered() ),
-            this, SLOT ( openTidyConfigApplication() ) );
 
   // Action open Configuration Dialog
   actionConfigDialog = m_configurationMenu->addAction ( i18n ( "Configure" ) );
@@ -544,14 +468,10 @@ void Window::createToolBars()
   m_actionsToolBar->addAction ( actionOpenHtml );
   m_actionsToolBar->addSeparator();
   m_actionsToolBar->addAction ( actionNewEmptyPage );
-  m_actionsToolBar->addSeparator();
-  m_actionsToolBar->addAction ( actionParse );
-  m_actionsToolBar->addAction ( actionClean );
 
   // Settings ToolBar
   m_settingsToolBar = addToolBar ( i18n ( "Settings" ) );
   m_settingsToolBar->setObjectName ( QLatin1String ( "settingstoolbar" ) );
-  m_settingsToolBar->addAction ( actionTidyConfig );
   m_settingsToolBar->addAction ( actionConfigDialog );
 
   m_urlToolBar = new UrlToolBar ( this );
@@ -593,7 +513,6 @@ void Window::createToolBars()
   // Add TOP|BOTTOM QDockWidget View Actions to Display Menu
   QMenu* impartationsMenu = m_viewBarsMenu->addMenu ( i18n ( "Impartations" ) );
   impartationsMenu->setIcon ( icon );
-  impartationsMenu->addAction ( m_tidyMessanger->toggleViewAction() );
   impartationsMenu->addAction ( m_jsMessanger->toggleViewAction() );
   impartationsMenu->addAction ( m_appEvents->toggleViewAction() );
   impartationsMenu->addAction ( m_cssValidator->toggleViewAction() );
@@ -882,50 +801,6 @@ void Window::checkStyleSheet ( const QUrl &url )
 }
 
 /**
-* Hier wird der Quelltext an @ref SourceView übergeben.
-* @li Zuerst wird @ref TidyMessanger::clearItems aufgerufen.
-* @li Im zweiten Schritt wird nachgesehen ob der Quelltext nicht leer ist!
-* @li Wenn nicht Leer ihn in den Quelltextspeicher speichern.
-* @li Jetzt den Quelltext in @ref SourceView setzen.
-* @li Danach wird der Quelltext an die geladenen Plugins übergeben.
-* @li Wenn der überreichte Quelltext nicht leer ist wird in den
-*  Einstellungen nachgesehen ob @em AutoFormat oder @em AutoCheck
-*  aktiviert sind und entsprechend ausgeführt.
-*/
-bool Window::setSource ( const QUrl &url, const QString &source )
-{
-  m_tidyMessanger->clearItems();
-
-  // Quelltext einfügen
-  m_sourceWidget->setSource ( url, source );
-
-  // An alle sichtbaren Plugins den Quelltext übergeben
-  for ( int i = 0; i < plugins.size(); ++i )
-  {
-    if ( plugins.at ( i )->type() == xhtmldbg::PluginInfo::PopUp )
-      plugins.at ( i )->setContent ( source );
-    else if ( plugins.at ( i )->dockwidget()->toggleViewAction()->isChecked() )
-      plugins.at ( i )->setContent ( source );
-  }
-
-  // Ist AutoCheck oder AutoFormat aktiviert?
-  if ( m_settings->value ( QLatin1String ( "AutoFormat" ), false ).toBool() )
-    m_sourceWidget->format();
-  else if ( m_settings->value ( QLatin1String ( "AutoCheck" ), true ).toBool() )
-    m_sourceWidget->check();
-
-  return true;
-}
-
-/**
-* Standard SLOT für den Prozessaufruf vom \e qtidyrc Programm.
-*/
-void Window::openTidyConfigApplication()
-{
-  QProcess::startDetached ( QLatin1String ( "qtidyrc" ) );
-}
-
-/**
 * Standard Dialog für das öffnen einer HTML Datei.
 * Nach dem Dialog wird @ref openUrl aufgerufen.
 */
@@ -1043,16 +918,6 @@ bool Window::urlRequest ( const QUrl &url )
 }
 
 /**
-* Methode zum prüfen ob das Quelltext Fenster sichtbar ist.
-* Wenn nicht wird es nach vorne geholt.
-*/
-void Window::visibleSourceChanged()
-{
-  if ( m_centralWidget->currentIndex() != 1 )
-    m_centralWidget->setCurrentIndex ( 1 );
-}
-
-/**
 * In dieser Methode werden die Downloads entgegen genommen.
 * Grund hierfür ist, weil der @ref DownloadManager über @ref Page nur
 * Statisch abgerufen werden kann würde dies unweigerlich beim beenden
@@ -1084,17 +949,6 @@ void Window::downloadRequest ( const QNetworkRequest &request )
     // Download Starten
     m_downloadManager->download ( m_netManager->get ( request ), dialog.destination() );
   }
-}
-
-/**
-* Zwischen den Zentralen Fenstern wechseln
-**/
-void Window::setCentralTabWidget ( const QString &index )
-{
-  if ( index.contains ( "source", Qt::CaseSensitive ) )
-    m_centralWidget->setCurrentWidget ( m_sourceWidget );
-  else
-    m_centralWidget->setCurrentWidget ( m_webViewer );
 }
 
 Window::~Window()

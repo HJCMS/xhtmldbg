@@ -16,7 +16,6 @@ SET (XHTMLDBG_BINARY_PROJECT_INCULDE
   ${CMAKE_CURRENT_SOURCE_DIR}/cookiesdatabase
   ${CMAKE_CURRENT_SOURCE_DIR}/docking
   ${CMAKE_CURRENT_SOURCE_DIR}/hostinfo
-  ${CMAKE_CURRENT_SOURCE_DIR}/sourceviewer
   ${CMAKE_CURRENT_SOURCE_DIR}/dialogs
   ${CMAKE_CURRENT_SOURCE_DIR}/websecurity
   ${CMAKE_CURRENT_SOURCE_DIR}/settings
@@ -47,7 +46,6 @@ ADD_SUBDIRECTORY (websecurity)
 ADD_SUBDIRECTORY (settings)
 ADD_SUBDIRECTORY (stylesheeted)
 ## to predicate on certain conditions
-ADD_SUBDIRECTORY (sourceviewer)
 ADD_SUBDIRECTORY (cssvalidator)
 ADD_SUBDIRECTORY (configuration)
 ADD_SUBDIRECTORY (dominspector)
@@ -86,7 +84,6 @@ SET (xhtmldbg_SOURCES
   xhtmldbgmain.cpp
   window.cpp
   keywordstoolbar.cpp
-  tidymessanger.cpp
   jsmessanger.cpp
   webviewer.cpp
   viewer.cpp
@@ -114,7 +111,6 @@ SET (xhtmldbg_HEADERS
   xhtmldbgmain.h
   window.h
   keywordstoolbar.h
-  tidymessanger.h
   jsmessanger.h
   webviewer.h
   viewer.h
@@ -211,7 +207,6 @@ TARGET_LINK_LIBRARIES (xhtmldbg
   Networker
   RDFParser
   Settings
-  SourceViewer
   StyleSheeted
   UrlToolBar
   WebSecurity

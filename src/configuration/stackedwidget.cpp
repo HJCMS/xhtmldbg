@@ -37,9 +37,6 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   m_configIDE = new  ConfigIDE ( this );
   insertWidget ( ITEM_CONFIG_IDE, m_configIDE );
 
-  m_configTidy = new ConfigTidy ( this );
-  insertWidget ( ITEM_CONFIG_TIDY, m_configTidy );
-
   m_configDomTree = new ConfigDomTree ( this );
   insertWidget ( ITEM_CONFIG_DOMTREE, m_configDomTree );
 
@@ -71,9 +68,6 @@ StackedWidget::StackedWidget ( QWidget * parent, Settings * settings )
   loadWidgetSettings ( ITEM_CONFIG_IDE );
 
   connect ( m_configIDE, SIGNAL ( modified ( bool ) ),
-            this, SIGNAL ( settingsChanged ( bool ) ) );
-
-  connect ( m_configTidy, SIGNAL ( modified ( bool ) ),
             this, SIGNAL ( settingsChanged ( bool ) ) );
 
   connect ( m_configDomTree, SIGNAL ( modified ( bool ) ),
@@ -121,13 +115,6 @@ void StackedWidget::loadWidgetSettings ( int index )
     {
       if ( ! m_configIDE->isSighted () )
         m_configIDE->load ( cfg );
-    }
-    break;
-
-    case ITEM_CONFIG_TIDY:
-    {
-      if ( ! m_configTidy->isSighted () )
-        m_configTidy->load ( cfg );
     }
     break;
 
@@ -209,7 +196,6 @@ void StackedWidget::loadSettings()
 {
   blockSignals ( true );
   m_configIDE->load ( cfg );
-  m_configTidy->load ( cfg );
   m_configDomTree->load ( cfg );
   m_configBrowser->load ( cfg );
   m_configNetwork->load ( cfg );
@@ -231,9 +217,6 @@ void StackedWidget::saveSettings()
 
   if ( m_configIDE->isModified () )
     m_configIDE->save ( cfg );
-
-  if ( m_configTidy->isModified () )
-    m_configTidy->save ( cfg );
 
   if ( m_configDomTree->isModified () )
     m_configDomTree->save ( cfg );

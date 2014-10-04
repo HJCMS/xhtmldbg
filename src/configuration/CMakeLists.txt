@@ -12,7 +12,6 @@ SET (configuration_SOURCES
   featurebox.cpp
   pagewidget.cpp
   configide.cpp
-  configtidy.cpp
   configdomtree.cpp
   configbrowser.cpp
   confignetwork.cpp
@@ -35,7 +34,6 @@ SET (configuration_HEADERS
   featurebox.h
   pagewidget.h
   configide.h
-  configtidy.h
   configdomtree.h
   configbrowser.h
   confignetwork.h
@@ -84,7 +82,6 @@ SET_TARGET_PROPERTIES (Configuration PROPERTIES
 
 TARGET_LINK_LIBRARIES (Configuration
   ${XHTMLDBG_QT_LIBRARIES}
-  ${QTIDY_LIBRARIES}
   ${XHTMLDBG_KDE_LIBRARIES}
   DBManager
   CookiesDatabase
