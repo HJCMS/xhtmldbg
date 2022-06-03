@@ -24,7 +24,7 @@
 
 /** XHTMLDBG Interface Version */
 #ifndef XHTMLDBG_VERSION
-# define XHTMLDBG_VERSION    "0.8.13rc21"
+# define XHTMLDBG_VERSION    "0.8.16rc01"
 #endif
 
 /* QtCore */
@@ -51,7 +51,7 @@ namespace xhtmldbg
   {
       Q_OBJECT
       Q_CLASSINFO ( "Description", "XHTMLDBG Interface" )
-      Q_CLASSINFO ( "Version", "0.8.13rc21" )
+      Q_CLASSINFO ( "Version", "0.8.16rc01" )
       Q_CLASSINFO ( "Url", "http://xhtmldbg.hjcms.de" )
       Q_CLASSINFO ( "Interface", "de.hjcms.xhtmldbg.interface" )
 

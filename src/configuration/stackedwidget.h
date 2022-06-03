@@ -66,7 +66,7 @@ class StackedWidget : public QStackedWidget
     enum PageIndex
     {
       ITEM_CONFIG_IDE = 0,
-      ITEM_CONFIG_TIDY =  1, // DEPRECATED and removed in the feature
+      // ITEM_CONFIG_TIDY =  , DEPRECATED and removed
       ITEM_CONFIG_DOMTREE =  2,
       ITEM_CONFIG_BROWSER =  3,
       ITEM_CONFIG_NETWORK =  4,
